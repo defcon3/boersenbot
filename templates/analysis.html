@@ -3,505 +3,479 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaggle Data Analysis - Börsenbot</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Kaggle Data Explorer — Börsenbot</title>
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #0d0d1a;
             color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             min-height: 100vh;
             padding: 20px;
         }
 
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1600px; margin: 0 auto; }
 
         header {
-            margin-bottom: 30px;
             border-bottom: 2px solid #00d4ff;
-            padding-bottom: 15px;
-        }
-
-        h1 {
-            color: #00d4ff;
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        .controls {
-            background: rgba(30, 30, 50, 0.9);
-            border: 1px solid #00d4ff;
-            border-radius: 8px;
-            padding: 20px;
+            padding-bottom: 14px;
             margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
         }
+        header h1 { color: #00d4ff; font-size: 26px; }
+        header p  { color: #888; font-size: 13px; margin-top: 3px; }
 
-        .control-group {
+        /* ── Controls ── */
+        .controls {
+            background: rgba(20,20,40,0.95);
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            font-size: 12px;
-            color: #00d4ff;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        select, input {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #00d4ff;
-            color: #e0e0e0;
-            padding: 10px 12px;
-            border-radius: 5px;
-            font-size: 13px;
-            transition: all 0.3s;
-        }
-
-        select:hover, input:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #00ffff;
-        }
-
-        select:focus, input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #00ffff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-        }
-
-        .checkbox-group {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #00d4ff;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 16px;
             align-items: flex-end;
         }
-
-        button {
-            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            border: none;
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button.secondary {
-            background: rgba(100, 100, 120, 0.5);
-            color: #00d4ff;
-            border: 1px solid #00d4ff;
-        }
-
-        button.secondary:hover {
-            background: rgba(100, 100, 120, 0.7);
-        }
-
-        .tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #333;
-        }
-
-        .tab-button {
-            background: rgba(30, 30, 50, 0.8);
-            border: 1px solid #333;
-            border-bottom: none;
-            color: #999;
-            padding: 12px 20px;
-            cursor: pointer;
-            border-radius: 5px 5px 0 0;
-            transition: all 0.3s;
-        }
-
-        .tab-button.active {
-            background: rgba(0, 212, 255, 0.2);
-            color: #00d4ff;
-            border-color: #00d4ff;
-        }
-
-        .tab-content {
-            display: none;
-            background: rgba(30, 30, 50, 0.9);
-            border: 1px solid #00d4ff;
-            border-radius: 0 8px 8px 8px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        #chart {
-            width: 100%;
-            height: 700px;
-            background: rgba(10, 10, 30, 0.5);
-            border-radius: 5px;
-        }
-
-        #table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-
-        #table thead {
-            background: rgba(0, 212, 255, 0.2);
-            border-bottom: 2px solid #00d4ff;
-        }
-
-        #table th {
-            padding: 12px;
-            text-align: left;
-            color: #00d4ff;
-            font-weight: 600;
-        }
-
-        #table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #333;
-        }
-
-        #table tbody tr:hover {
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid #00d4ff;
-            border-radius: 5px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .stat-label {
+        .ctrl { display: flex; flex-direction: column; gap: 6px; }
+        .ctrl label {
             font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 20px;
             color: #00d4ff;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+        select, input[type="date"], input[type="number"] {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid #1e3a5f;
+            color: #e0e0e0;
+            padding: 8px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            min-width: 130px;
+        }
+        select:focus, input:focus { outline: none; border-color: #00d4ff; }
+
+        .checkboxes { display: flex; gap: 14px; align-items: center; padding-bottom: 2px; }
+        .cb { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
+        input[type="checkbox"] { width: 16px; height: 16px; accent-color: #00d4ff; cursor: pointer; }
+
+        .btns { display: flex; gap: 8px; }
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            cursor: pointer;
+            transition: opacity .2s;
+        }
+        button:hover { opacity: .85; }
+        .btn-primary { background: linear-gradient(135deg, #00d4ff, #0088bb); color: #000; }
+        .btn-secondary { background: transparent; border: 1px solid #00d4ff; color: #00d4ff; }
+
+        /* ── Stats bar ── */
+        .stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: rgba(0,212,255,0.07);
+            border: 1px solid #1e3a5f;
+            border-radius: 5px;
+            padding: 10px 16px;
+            min-width: 140px;
+        }
+        .stat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: .6px; }
+        .stat-value { font-size: 18px; color: #00d4ff; font-weight: 700; margin-top: 3px; }
+
+        /* ── Error ── */
+        .error {
+            display: none;
+            background: rgba(239,83,80,.15);
+            border: 1px solid #ef5350;
+            border-radius: 5px;
+            padding: 12px 16px;
+            color: #ff8a80;
+            margin-bottom: 14px;
         }
 
+        /* ── Loading ── */
         .loading {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 30px;
             color: #00d4ff;
-            font-size: 16px;
         }
-
         .spinner {
-            border: 3px solid rgba(0, 212, 255, 0.2);
-            border-top: 3px solid #00d4ff;
+            width: 36px; height: 36px;
+            border: 3px solid rgba(0,212,255,.2);
+            border-top-color: #00d4ff;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+            animation: spin .9s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Tabs ── */
+        .tabs { display: flex; gap: 4px; margin-bottom: 0; border-bottom: 1px solid #1e3a5f; }
+        .tab-btn {
+            background: transparent;
+            border: 1px solid #1e3a5f;
+            border-bottom: none;
+            color: #888;
+            padding: 10px 18px;
+            border-radius: 5px 5px 0 0;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .tab-btn.active { background: rgba(0,212,255,.12); color: #00d4ff; border-color: #00d4ff; }
+
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* ── Chart panes ── */
+        .chart-wrap {
+            background: #0a0a1e;
+            border: 1px solid #1e3a5f;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 12px;
+        }
+        .pane { position: relative; width: 100%; }
+        .pane + .pane { margin-top: 2px; border-top: 1px solid rgba(255,255,255,.05); }
+        .pane-label {
+            position: absolute;
+            top: 6px; left: 10px;
+            font-size: 10px;
+            color: rgba(255,255,255,.35);
+            z-index: 10;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: .5px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* ── Table ── */
+        .table-wrap {
+            background: #0a0a1e;
+            border: 1px solid #1e3a5f;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            overflow: auto;
+            max-height: 540px;
         }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        thead { position: sticky; top: 0; background: rgba(0,212,255,.12); }
+        th { padding: 10px 12px; text-align: left; color: #00d4ff; font-weight: 600; white-space: nowrap; }
+        td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,.05); }
+        tbody tr:hover { background: rgba(0,212,255,.06); }
 
-        .error {
-            background: rgba(255, 100, 100, 0.2);
-            border: 1px solid #ff6464;
-            border-radius: 5px;
-            padding: 15px;
-            color: #ff9999;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        @media (max-width: 900px) {
-            .controls {
-                grid-template-columns: 1fr;
-            }
-
-            #chart {
-                height: 500px;
-            }
+        @media (max-width: 800px) {
+            .controls { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📊 Kaggle Data Explorer</h1>
-            <p class="subtitle">Interaktive Analyse von 1-Minuten-Handelsdaten</p>
-        </header>
+<div class="container">
 
-        <div class="error" id="error"></div>
+    <header>
+        <h1>📊 Kaggle Data Explorer</h1>
+        <p>Interaktive Analyse von 1-Minuten-Handelsdaten</p>
+    </header>
 
-        <div class="controls">
-            <div class="control-group">
-                <label>Symbol</label>
-                <select id="symbol">
-                    {% for symbol in symbols %}
-                    <option value="{{ symbol }}">{{ symbol }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label>Start Datum</label>
-                <input type="date" id="startDate" value="{{ min_date }}">
-            </div>
-
-            <div class="control-group">
-                <label>End Datum</label>
-                <input type="date" id="endDate" value="{{ max_date }}">
-            </div>
-
-            <div class="control-group">
-                <label>Limit (Tabelle)</label>
-                <input type="number" id="limit" value="100" min="10" max="1000">
-            </div>
-
-            <div class="control-group">
-                <label>Indikatoren</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="showRSI" checked>
-                        <label for="showRSI">RSI</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="showMACD" checked>
-                        <label for="showMACD">MACD</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="showBB" checked>
-                        <label for="showBB">BB</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="button-group">
-                <button onclick="loadChart()">📈 Chart Laden</button>
-                <button class="secondary" onclick="resetFilters()">⟲ Zurücksetzen</button>
+    <div class="controls">
+        <div class="ctrl">
+            <label>Symbol</label>
+            <select id="symbol">
+                {% for s in symbols %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="ctrl">
+            <label>Von</label>
+            <input type="date" id="startDate" value="{{ min_date }}">
+        </div>
+        <div class="ctrl">
+            <label>Bis</label>
+            <input type="date" id="endDate" value="{{ max_date }}">
+        </div>
+        <div class="ctrl">
+            <label>Limit (Tabelle)</label>
+            <input type="number" id="limit" value="200" min="10" max="2000">
+        </div>
+        <div class="ctrl">
+            <label>Indikatoren</label>
+            <div class="checkboxes">
+                <label class="cb"><input type="checkbox" id="showRSI"  checked> RSI</label>
+                <label class="cb"><input type="checkbox" id="showMACD" checked> MACD</label>
+                <label class="cb"><input type="checkbox" id="showBB"   checked> BB</label>
             </div>
         </div>
-
-        <div class="stats" id="stats"></div>
-
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            Daten laden...
+        <div class="btns">
+            <button class="btn-primary"   onclick="loadChart()">📈 Laden</button>
+            <button class="btn-secondary" onclick="resetFilters()">↺ Reset</button>
         </div>
+    </div>
 
-        <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('chart')">📊 Chart</button>
-            <button class="tab-button" onclick="switchTab('table')">📋 Daten</button>
-        </div>
+    <div class="error"   id="error"></div>
+    <div class="loading" id="loading"><div class="spinner"></div>Daten laden…</div>
 
-        <div class="tab-content active" id="chart"></div>
-        <div class="tab-content" id="table">
-            <div style="overflow-x: auto; max-height: 600px;">
-                <table id="dataTable">
-                    <thead>
-                        <tr id="tableHeader"></tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="tab-chart" onclick="switchTab('chart', this)">📊 Chart</button>
+        <button class="tab-btn"        id="tab-table" onclick="switchTab('table', this)">📋 Daten</button>
+    </div>
+
+    <!-- Chart tab -->
+    <div class="tab-pane active" id="pane-chart">
+        <div class="chart-wrap" id="chartWrap">
+            <div class="pane" id="paneMain">
+                <span class="pane-label" id="labelMain">OHLC</span>
+            </div>
+            <div class="pane" id="paneVol">
+                <span class="pane-label">Volume</span>
+            </div>
+            <div class="pane" id="paneRSI"  style="display:none">
+                <span class="pane-label">RSI (14)</span>
+            </div>
+            <div class="pane" id="paneMACD" style="display:none">
+                <span class="pane-label">MACD</span>
             </div>
         </div>
     </div>
 
-    <script>
-        function showLoading(show = true) {
-            document.getElementById('loading').style.display = show ? 'block' : 'none';
-        }
+    <!-- Data tab -->
+    <div class="tab-pane" id="pane-table">
+        <div class="table-wrap">
+            <table>
+                <thead><tr id="tHead"></tr></thead>
+                <tbody id="tBody"></tbody>
+            </table>
+        </div>
+    </div>
 
-        function showError(message) {
-            const errorEl = document.getElementById('error');
-            if (message) {
-                errorEl.textContent = '❌ ' + message;
-                errorEl.style.display = 'block';
-            } else {
-                errorEl.style.display = 'none';
-            }
-        }
+</div>
+<script>
+const DARK = {
+    background: { color: '#0a0a1e' },
+    textColor: '#9aabb8',
+};
+const GRID = {
+    vertLines: { color: 'rgba(255,255,255,0.04)' },
+    horzLines: { color: 'rgba(255,255,255,0.04)' },
+};
+const TIME_SCALE = { timeVisible: true, secondsVisible: false, borderColor: '#1e3a5f' };
 
-        function loadChart() {
-            showLoading(true);
-            showError('');
+let charts = [];
+let activeSymbol = '';
 
-            const data = {
-                symbol: document.getElementById('symbol').value,
-                start_date: document.getElementById('startDate').value,
-                end_date: document.getElementById('endDate').value,
-                show_rsi: document.getElementById('showRSI').checked,
-                show_macd: document.getElementById('showMACD').checked,
-                show_bb: document.getElementById('showBB').checked
-            };
+function makeChart(el, height, opts = {}) {
+    const c = LightweightCharts.createChart(el, {
+        width:  el.clientWidth,
+        height,
+        layout: DARK,
+        grid: GRID,
+        crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+        timeScale: TIME_SCALE,
+        rightPriceScale: { borderColor: '#1e3a5f' },
+        ...opts
+    });
+    new ResizeObserver(() => c.applyOptions({ width: el.clientWidth })).observe(el);
+    return c;
+}
 
-            fetch('/analysis/api/chart', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.error) {
-                    showError(result.error);
-                    showLoading(false);
-                    return;
-                }
+function syncCharts(list) {
+    list.forEach(a => {
+        a.timeScale().subscribeVisibleLogicalRangeChange(range => {
+            if (range === null) return;
+            list.filter(b => b !== a).forEach(b => b.timeScale().setVisibleLogicalRange(range));
+        });
+    });
+}
 
-                const chartDiv = document.getElementById('chart');
-                Plotly.newPlot(chartDiv, JSON.parse(result.chart).data, JSON.parse(result.chart).layout, {responsive: true});
+function showLoading(v) {
+    document.getElementById('loading').style.display = v ? 'block' : 'none';
+}
+function showError(msg) {
+    const el = document.getElementById('error');
+    el.textContent = msg ? '❌ ' + msg : '';
+    el.style.display = msg ? 'block' : 'none';
+}
 
-                // Update stats
-                const statsDiv = document.getElementById('stats');
-                const stats = result.stats;
-                statsDiv.innerHTML = `
-                    <div class="stat-card">
-                        <div class="stat-label">Records</div>
-                        <div class="stat-value">${stats.records.toLocaleString()}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Datum Range</div>
-                        <div class="stat-value" style="font-size: 13px;">${stats.date_range}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Ø Volume</div>
-                        <div class="stat-value">${stats.avg_volume.toLocaleString()}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Vol. MA</div>
-                        <div class="stat-value">${stats.volume_ma.toLocaleString()}</div>
-                    </div>
-                `;
+function loadChart() {
+    showLoading(true);
+    showError('');
 
-                loadTable();
-                showLoading(false);
-            })
-            .catch(err => {
-                showError(err.message);
-                showLoading(false);
-            });
-        }
+    const payload = {
+        symbol:     document.getElementById('symbol').value,
+        start_date: document.getElementById('startDate').value,
+        end_date:   document.getElementById('endDate').value,
+        show_rsi:   document.getElementById('showRSI').checked,
+        show_macd:  document.getElementById('showMACD').checked,
+        show_bb:    document.getElementById('showBB').checked,
+    };
 
-        function loadTable() {
-            const data = {
-                symbol: document.getElementById('symbol').value,
-                start_date: document.getElementById('startDate').value,
-                end_date: document.getElementById('endDate').value,
-                limit: parseInt(document.getElementById('limit').value)
-            };
+    fetch('/analysis/api/chart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.error) { showError(data.error); return; }
+        renderCharts(data, payload);
+        renderStats(data.stats, payload.symbol);
+        loadTable();
+    })
+    .catch(e => showError(e.message))
+    .finally(() => showLoading(false));
+}
 
-            fetch('/analysis/api/table', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.error) {
-                    showError(result.error);
-                    return;
-                }
+function renderCharts(data, opts) {
+    // Destroy old charts
+    charts.forEach(c => c.remove());
+    charts = [];
 
-                // Header
-                const header = document.getElementById('tableHeader');
-                header.innerHTML = result.columns.map(col => `<th>${col}</th>`).join('');
+    const showRSI  = opts.show_rsi  && data.rsi;
+    const showMACD = opts.show_macd && data.macd;
 
-                // Body
-                const body = document.getElementById('tableBody');
-                body.innerHTML = result.data.map(row =>
-                    `<tr>${result.columns.map(col => `<td>${row[col]}</td>`).join('')}</tr>`
-                ).join('');
-            });
-        }
+    document.getElementById('paneRSI').style.display  = showRSI  ? 'block' : 'none';
+    document.getElementById('paneMACD').style.display = showMACD ? 'block' : 'none';
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+    // ── Main chart ──────────────────────────────────────────
+    const elMain = document.getElementById('paneMain');
+    elMain.style.height = '460px';
+    const cMain = makeChart(elMain, 460);
+    charts.push(cMain);
 
-            document.getElementById(tab).classList.add('active');
-            event.target.classList.add('active');
-        }
+    document.getElementById('labelMain').textContent =
+        opts.symbol + (opts.show_bb ? ' + Bollinger Bands' : '');
 
-        function resetFilters() {
-            document.getElementById('startDate').value = '{{ min_date }}';
-            document.getElementById('endDate').value = '{{ max_date }}';
-            document.getElementById('symbol').value = 'AAPL';
-            document.getElementById('showRSI').checked = true;
-            document.getElementById('showMACD').checked = true;
-            document.getElementById('showBB').checked = true;
-            loadChart();
-        }
+    const candle = cMain.addCandlestickSeries({
+        upColor:        '#26a69a',
+        downColor:      '#ef5350',
+        borderUpColor:  '#26a69a',
+        borderDownColor:'#ef5350',
+        wickUpColor:    '#26a69a',
+        wickDownColor:  '#ef5350',
+    });
+    candle.setData(data.ohlcv);
 
-        // Load initial chart
-        window.addEventListener('load', () => loadChart());
-    </script>
+    if (opts.show_bb && data.bb_upper) {
+        const bbU = cMain.addLineSeries({ color: 'rgba(255,120,120,0.5)', lineWidth: 1, lastValueVisible: false, priceLineVisible: false });
+        const bbL = cMain.addLineSeries({ color: 'rgba(100,140,255,0.5)', lineWidth: 1, lastValueVisible: false, priceLineVisible: false });
+        const bbM = cMain.addLineSeries({ color: 'rgba(200,200,200,0.25)', lineWidth: 1, lineStyle: 2, lastValueVisible: false, priceLineVisible: false });
+        bbU.setData(data.bb_upper);
+        bbL.setData(data.bb_lower);
+        bbM.setData(data.bb_middle);
+    }
+
+    // ── Volume ──────────────────────────────────────────────
+    const elVol = document.getElementById('paneVol');
+    elVol.style.height = '100px';
+    const cVol = makeChart(elVol, 100, { timeScale: { ...TIME_SCALE, visible: !showRSI && !showMACD } });
+    charts.push(cVol);
+
+    const volSeries = cVol.addHistogramSeries({
+        priceFormat: { type: 'volume' },
+        priceScaleId: '',
+    });
+    cVol.priceScale('').applyOptions({ scaleMargins: { top: 0.1, bottom: 0 } });
+    volSeries.setData(data.volume);
+
+    // ── RSI ─────────────────────────────────────────────────
+    if (showRSI) {
+        const elRSI = document.getElementById('paneRSI');
+        elRSI.style.height = '140px';
+        const cRSI = makeChart(elRSI, 140, { timeScale: { ...TIME_SCALE, visible: !showMACD } });
+        charts.push(cRSI);
+
+        const rsiLine = cRSI.addLineSeries({ color: '#ff9800', lineWidth: 2, priceLineVisible: false });
+        rsiLine.setData(data.rsi);
+
+        // overbought / oversold reference lines
+        const ref70 = cRSI.addLineSeries({ color: 'rgba(239,83,80,.5)', lineWidth: 1, lineStyle: 2, lastValueVisible: false, priceLineVisible: false });
+        const ref30 = cRSI.addLineSeries({ color: 'rgba(38,166,154,.5)', lineWidth: 1, lineStyle: 2, lastValueVisible: false, priceLineVisible: false });
+        const ts = data.rsi.map(d => d.time);
+        ref70.setData(ts.map(t => ({ time: t, value: 70 })));
+        ref30.setData(ts.map(t => ({ time: t, value: 30 })));
+    }
+
+    // ── MACD ────────────────────────────────────────────────
+    if (showMACD) {
+        const elMACD = document.getElementById('paneMACD');
+        elMACD.style.height = '140px';
+        const cMACD = makeChart(elMACD, 140);
+        charts.push(cMACD);
+
+        const histSeries = cMACD.addHistogramSeries({ priceLineVisible: false, lastValueVisible: false });
+        histSeries.setData(data.macd_hist);
+
+        const macdLine = cMACD.addLineSeries({ color: '#2196f3', lineWidth: 2, priceLineVisible: false });
+        macdLine.setData(data.macd);
+
+        const sigLine = cMACD.addLineSeries({ color: '#f44336', lineWidth: 1, priceLineVisible: false });
+        sigLine.setData(data.signal);
+    }
+
+    syncCharts(charts);
+    cMain.timeScale().fitContent();
+}
+
+function renderStats(s, symbol) {
+    document.getElementById('stats').innerHTML = `
+        <div class="stat"><div class="stat-label">Symbol</div><div class="stat-value">${symbol}</div></div>
+        <div class="stat"><div class="stat-label">Kerzen</div><div class="stat-value">${s.records.toLocaleString()}</div></div>
+        <div class="stat"><div class="stat-label">Von</div><div class="stat-value" style="font-size:13px">${s.from}</div></div>
+        <div class="stat"><div class="stat-label">Bis</div><div class="stat-value" style="font-size:13px">${s.to}</div></div>
+        <div class="stat"><div class="stat-label">Ø Volume</div><div class="stat-value">${s.avg_vol.toLocaleString()}</div></div>
+    `;
+}
+
+function loadTable() {
+    const payload = {
+        symbol:     document.getElementById('symbol').value,
+        start_date: document.getElementById('startDate').value,
+        end_date:   document.getElementById('endDate').value,
+        limit:      parseInt(document.getElementById('limit').value),
+    };
+    fetch('/analysis/api/table', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.error) return;
+        document.getElementById('tHead').innerHTML = data.columns.map(c => `<th>${c}</th>`).join('');
+        document.getElementById('tBody').innerHTML = data.data.map(row =>
+            `<tr>${data.columns.map(c => `<td>${row[c] ?? ''}</td>`).join('')}</tr>`
+        ).join('');
+    });
+}
+
+function switchTab(name, btn) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('pane-' + name).classList.add('active');
+    btn.classList.add('active');
+}
+
+function resetFilters() {
+    document.getElementById('startDate').value = '{{ min_date }}';
+    document.getElementById('endDate').value   = '{{ max_date }}';
+    document.getElementById('showRSI').checked  = true;
+    document.getElementById('showMACD').checked = true;
+    document.getElementById('showBB').checked   = true;
+    loadChart();
+}
+
+window.addEventListener('load', loadChart);
+</script>
 </body>
 </html>
