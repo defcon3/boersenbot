@@ -1,481 +1,536 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaggle Data Explorer — Börsenbot</title>
-    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaggle Data Explorer — Börsenbot</title>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:20px}
+.container{max-width:1700px;margin:0 auto}
 
-        body {
-            background: #0d0d1a;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', sans-serif;
-            min-height: 100vh;
-            padding: 20px;
-        }
+header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:18px}
+header h1{color:#00d4ff;font-size:24px}
+header p{color:#888;font-size:12px;margin-top:2px}
 
-        .container { max-width: 1600px; margin: 0 auto; }
+/* controls */
+.controls{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:14px 18px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.ctrl{display:flex;flex-direction:column;gap:5px}
+.ctrl label,.ctrl-label{font-size:10px;color:#00d4ff;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+select,input[type="date"],input[type="number"]{
+  background:rgba(255,255,255,.07);border:1px solid #1e3a5f;color:#e0e0e0;
+  padding:7px 10px;border-radius:5px;font-size:13px;min-width:120px}
+select:focus,input:focus{outline:none;border-color:#00d4ff}
+.btns{display:flex;gap:8px}
+button.btn-primary{background:linear-gradient(135deg,#00d4ff,#0077aa);color:#000;
+  padding:8px 16px;border:none;border-radius:5px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.8px;cursor:pointer}
+button.btn-secondary{background:transparent;border:1px solid #00d4ff;color:#00d4ff;
+  padding:8px 14px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer}
+button:hover{opacity:.85}
 
-        header {
-            border-bottom: 2px solid #00d4ff;
-            padding-bottom: 14px;
-            margin-bottom: 20px;
-        }
-        header h1 { color: #00d4ff; font-size: 26px; }
-        header p  { color: #888; font-size: 13px; margin-top: 3px; }
+/* indicator bar */
+.ind-bar{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:10px 14px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  position:relative}
+.ind-bar .ctrl-label{margin-right:4px;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.12);
+  border:1px solid #00d4ff;border-radius:20px;padding:4px 10px;font-size:12px;color:#e0e0e0}
+.chip .chip-x{cursor:pointer;color:#00d4ff;font-size:14px;line-height:1}
+.chip .chip-x:hover{color:#fff}
+.chip-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
-        /* ── Controls ── */
-        .controls {
-            background: rgba(20,20,40,0.95);
-            border: 1px solid #1e3a5f;
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            align-items: flex-end;
-        }
-        .ctrl { display: flex; flex-direction: column; gap: 6px; }
-        .ctrl label {
-            font-size: 11px;
-            color: #00d4ff;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .8px;
-        }
-        select, input[type="date"], input[type="number"] {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid #1e3a5f;
-            color: #e0e0e0;
-            padding: 8px 10px;
-            border-radius: 5px;
-            font-size: 13px;
-            min-width: 130px;
-        }
-        select:focus, input:focus { outline: none; border-color: #00d4ff; }
+button.btn-add{background:rgba(0,212,255,.15);border:1px dashed #00d4ff;color:#00d4ff;
+  padding:4px 12px;border-radius:20px;font-size:12px;cursor:pointer;white-space:nowrap}
+button.btn-add:hover{background:rgba(0,212,255,.25)}
 
-        .checkboxes { display: flex; gap: 14px; align-items: center; padding-bottom: 2px; }
-        .cb { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
-        input[type="checkbox"] { width: 16px; height: 16px; accent-color: #00d4ff; cursor: pointer; }
+/* indicator picker dropdown */
+.picker{display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:100;
+  background:#0f0f23;border:1px solid #1e3a5f;border-radius:8px;
+  padding:14px;min-width:340px;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+.picker.open{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.picker-group{margin-bottom:10px}
+.picker-group-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #1e3a5f}
+.picker-row{display:flex;align-items:center;gap:6px;padding:3px 0}
+.picker-row span{font-size:12px;flex:1;white-space:nowrap}
+.picker-row input{width:52px;min-width:unset;padding:4px 6px;font-size:12px}
+.picker-row button{padding:3px 8px;font-size:11px;background:rgba(0,212,255,.15);
+  border:1px solid #00d4ff;color:#00d4ff;border-radius:4px;cursor:pointer;white-space:nowrap}
+.picker-row button:hover{background:rgba(0,212,255,.3)}
 
-        .btns { display: flex; gap: 8px; }
-        button {
-            padding: 9px 18px;
-            border: none;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .8px;
-            cursor: pointer;
-            transition: opacity .2s;
-        }
-        button:hover { opacity: .85; }
-        .btn-primary { background: linear-gradient(135deg, #00d4ff, #0088bb); color: #000; }
-        .btn-secondary { background: transparent; border: 1px solid #00d4ff; color: #00d4ff; }
+/* stats */
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.stat{background:rgba(0,212,255,.06);border:1px solid #1e3a5f;border-radius:5px;
+  padding:8px 14px;min-width:130px}
+.stat-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px}
+.stat-value{font-size:16px;color:#00d4ff;font-weight:700;margin-top:2px}
 
-        /* ── Stats bar ── */
-        .stats {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-        }
-        .stat {
-            background: rgba(0,212,255,0.07);
-            border: 1px solid #1e3a5f;
-            border-radius: 5px;
-            padding: 10px 16px;
-            min-width: 140px;
-        }
-        .stat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: .6px; }
-        .stat-value { font-size: 18px; color: #00d4ff; font-weight: 700; margin-top: 3px; }
+.error{display:none;background:rgba(239,83,80,.15);border:1px solid #ef5350;
+  border-radius:5px;padding:10px 14px;color:#ff8a80;margin-bottom:10px}
+.loading{display:none;text-align:center;padding:28px;color:#00d4ff}
+.spinner{width:34px;height:34px;border:3px solid rgba(0,212,255,.2);border-top-color:#00d4ff;
+  border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-        /* ── Error ── */
-        .error {
-            display: none;
-            background: rgba(239,83,80,.15);
-            border: 1px solid #ef5350;
-            border-radius: 5px;
-            padding: 12px 16px;
-            color: #ff8a80;
-            margin-bottom: 14px;
-        }
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid #1e3a5f}
+.tab-btn{background:transparent;border:1px solid #1e3a5f;border-bottom:none;color:#888;
+  padding:9px 16px;border-radius:5px 5px 0 0;font-size:11px;text-transform:uppercase;cursor:pointer}
+.tab-btn.active{background:rgba(0,212,255,.1);color:#00d4ff;border-color:#00d4ff}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
 
-        /* ── Loading ── */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            color: #00d4ff;
-        }
-        .spinner {
-            width: 36px; height: 36px;
-            border: 3px solid rgba(0,212,255,.2);
-            border-top-color: #00d4ff;
-            border-radius: 50%;
-            animation: spin .9s linear infinite;
-            margin: 0 auto 12px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
+/* chart panes */
+.chart-wrap{background:#090915;border:1px solid #1e3a5f;border-top:none;
+  border-radius:0 0 8px 8px;padding:10px 8px}
+.pane{position:relative;width:100%}
+.pane+.pane{margin-top:1px;border-top:1px solid rgba(255,255,255,.04)}
+.pane-label{position:absolute;top:5px;left:9px;font-size:10px;color:rgba(255,255,255,.3);
+  z-index:10;pointer-events:none;text-transform:uppercase;letter-spacing:.4px}
 
-        /* ── Tabs ── */
-        .tabs { display: flex; gap: 4px; margin-bottom: 0; border-bottom: 1px solid #1e3a5f; }
-        .tab-btn {
-            background: transparent;
-            border: 1px solid #1e3a5f;
-            border-bottom: none;
-            color: #888;
-            padding: 10px 18px;
-            border-radius: 5px 5px 0 0;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-        .tab-btn.active { background: rgba(0,212,255,.12); color: #00d4ff; border-color: #00d4ff; }
-
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
-
-        /* ── Chart panes ── */
-        .chart-wrap {
-            background: #0a0a1e;
-            border: 1px solid #1e3a5f;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            padding: 12px;
-        }
-        .pane { position: relative; width: 100%; }
-        .pane + .pane { margin-top: 2px; border-top: 1px solid rgba(255,255,255,.05); }
-        .pane-label {
-            position: absolute;
-            top: 6px; left: 10px;
-            font-size: 10px;
-            color: rgba(255,255,255,.35);
-            z-index: 10;
-            pointer-events: none;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-
-        /* ── Table ── */
-        .table-wrap {
-            background: #0a0a1e;
-            border: 1px solid #1e3a5f;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            overflow: auto;
-            max-height: 540px;
-        }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        thead { position: sticky; top: 0; background: rgba(0,212,255,.12); }
-        th { padding: 10px 12px; text-align: left; color: #00d4ff; font-weight: 600; white-space: nowrap; }
-        td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,.05); }
-        tbody tr:hover { background: rgba(0,212,255,.06); }
-
-        @media (max-width: 800px) {
-            .controls { flex-direction: column; }
-        }
-    </style>
+/* table */
+.table-wrap{background:#090915;border:1px solid #1e3a5f;border-top:none;
+  border-radius:0 0 8px 8px;overflow:auto;max-height:520px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead{position:sticky;top:0;background:rgba(0,212,255,.1)}
+th{padding:9px 11px;text-align:left;color:#00d4ff;font-weight:600;white-space:nowrap}
+td{padding:7px 11px;border-bottom:1px solid rgba(255,255,255,.04)}
+tbody tr:hover{background:rgba(0,212,255,.05)}
+</style>
 </head>
 <body>
 <div class="container">
 
-    <header>
-        <h1>📊 Kaggle Data Explorer</h1>
-        <p>Interaktive Analyse von 1-Minuten-Handelsdaten</p>
-    </header>
+<header>
+  <h1>📊 Kaggle Data Explorer</h1>
+  <p>Interaktive Analyse von 1-Minuten-Handelsdaten</p>
+</header>
 
-    <div class="controls">
-        <div class="ctrl">
-            <label>Symbol</label>
-            <select id="symbol">
-                {% for s in symbols %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
-            </select>
-        </div>
-        <div class="ctrl">
-            <label>Von</label>
-            <input type="date" id="startDate" value="{{ min_date }}">
-        </div>
-        <div class="ctrl">
-            <label>Bis</label>
-            <input type="date" id="endDate" value="{{ max_date }}">
-        </div>
-        <div class="ctrl">
-            <label>Limit (Tabelle)</label>
-            <input type="number" id="limit" value="200" min="10" max="2000">
-        </div>
-        <div class="ctrl">
-            <label>Indikatoren</label>
-            <div class="checkboxes">
-                <label class="cb"><input type="checkbox" id="showRSI"  checked> RSI</label>
-                <label class="cb"><input type="checkbox" id="showMACD" checked> MACD</label>
-                <label class="cb"><input type="checkbox" id="showBB"   checked> BB</label>
-            </div>
-        </div>
-        <div class="btns">
-            <button class="btn-primary"   onclick="loadChart()">📈 Laden</button>
-            <button class="btn-secondary" onclick="resetFilters()">↺ Reset</button>
-        </div>
-    </div>
-
-    <div class="error"   id="error"></div>
-    <div class="loading" id="loading"><div class="spinner"></div>Daten laden…</div>
-
-    <div class="stats" id="stats"></div>
-
-    <div class="tabs">
-        <button class="tab-btn active" id="tab-chart" onclick="switchTab('chart', this)">📊 Chart</button>
-        <button class="tab-btn"        id="tab-table" onclick="switchTab('table', this)">📋 Daten</button>
-    </div>
-
-    <!-- Chart tab -->
-    <div class="tab-pane active" id="pane-chart">
-        <div class="chart-wrap" id="chartWrap">
-            <div class="pane" id="paneMain">
-                <span class="pane-label" id="labelMain">OHLC</span>
-            </div>
-            <div class="pane" id="paneVol">
-                <span class="pane-label">Volume</span>
-            </div>
-            <div class="pane" id="paneRSI"  style="display:none">
-                <span class="pane-label">RSI (14)</span>
-            </div>
-            <div class="pane" id="paneMACD" style="display:none">
-                <span class="pane-label">MACD</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Data tab -->
-    <div class="tab-pane" id="pane-table">
-        <div class="table-wrap">
-            <table>
-                <thead><tr id="tHead"></tr></thead>
-                <tbody id="tBody"></tbody>
-            </table>
-        </div>
-    </div>
-
+<!-- Controls -->
+<div class="controls">
+  <div class="ctrl">
+    <label>Symbol</label>
+    <select id="symbol">{% for s in symbols %}<option>{{ s }}</option>{% endfor %}</select>
+  </div>
+  <div class="ctrl">
+    <label>Von</label>
+    <input type="date" id="startDate" value="{{ min_date }}">
+  </div>
+  <div class="ctrl">
+    <label>Bis</label>
+    <input type="date" id="endDate" value="{{ max_date }}">
+  </div>
+  <div class="ctrl">
+    <label>Limit Tabelle</label>
+    <input type="number" id="limit" value="200" min="10" max="5000">
+  </div>
+  <div class="btns">
+    <button class="btn-primary"   onclick="loadChart()">📈 Laden</button>
+    <button class="btn-secondary" onclick="resetAll()">↺ Reset</button>
+  </div>
 </div>
+
+<!-- Indicator bar -->
+<div class="ind-bar" id="indBar">
+  <span class="ctrl-label">Indikatoren:</span>
+  <div id="chips"></div>
+  <button class="btn-add" id="btnAdd" onclick="togglePicker(event)">+ Indikator</button>
+
+  <div class="picker" id="picker">
+    <div class="picker-group">
+      <div class="picker-group-label">Overlays</div>
+      <div class="picker-row"><span>SMA</span><input id="p_SMA" type="number" value="20" min="2" max="500"><button onclick="addInd('SMA',+document.getElementById('p_SMA').value)">+</button></div>
+      <div class="picker-row"><span>EMA</span><input id="p_EMA" type="number" value="20" min="2" max="500"><button onclick="addInd('EMA',+document.getElementById('p_EMA').value)">+</button></div>
+      <div class="picker-row"><span>VWAP</span><button onclick="addInd('VWAP')">+</button></div>
+      <div class="picker-row"><span>Bollinger Bands</span><button onclick="addInd('BB')">+</button></div>
+      <div class="picker-row"><span>Parabolic SAR</span><button onclick="addInd('PSAR')">+</button></div>
+    </div>
+    <div class="picker-group">
+      <div class="picker-group-label">Oszillatoren</div>
+      <div class="picker-row"><span>RSI</span><button onclick="addInd('RSI')">+</button></div>
+      <div class="picker-row"><span>MACD</span><button onclick="addInd('MACD')">+</button></div>
+      <div class="picker-row"><span>Stochastic</span><button onclick="addInd('STOCH')">+</button></div>
+      <div class="picker-row"><span>ATR</span><button onclick="addInd('ATR')">+</button></div>
+      <div class="picker-row"><span>CCI</span><button onclick="addInd('CCI')">+</button></div>
+      <div class="picker-row"><span>Williams %R</span><button onclick="addInd('WILLR')">+</button></div>
+      <div class="picker-row"><span>OBV</span><button onclick="addInd('OBV')">+</button></div>
+      <div class="picker-row"><span>ADX + DI</span><button onclick="addInd('ADX')">+</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="error"   id="error"></div>
+<div class="loading" id="loading"><div class="spinner"></div>Daten laden…</div>
+<div class="stats"   id="stats"></div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('chart',this)">📊 Chart</button>
+  <button class="tab-btn"        onclick="switchTab('table',this)">📋 Daten</button>
+</div>
+
+<div class="tab-pane active" id="pane-chart">
+  <div class="chart-wrap"><div id="panesContainer"></div></div>
+</div>
+<div class="tab-pane" id="pane-table">
+  <div class="table-wrap">
+    <table><thead><tr id="tHead"></tr></thead><tbody id="tBody"></tbody></table>
+  </div>
+</div>
+
+</div><!-- /container -->
 <script>
-const DARK = {
-    background: { color: '#0a0a1e' },
-    textColor: '#9aabb8',
+// ─── Constants ────────────────────────────────────────────────────────────────
+const PALETTE = ['#FF6B6B','#4ECDC4','#45B7D1','#96CEB4','#FFEAA7','#DDA0DD',
+                 '#FFB347','#87CEEB','#F0A500','#C8A2C8','#77DD77','#FF6961'];
+const OVERLAY_TYPES  = new Set(['SMA','EMA','VWAP','BB','PSAR']);
+const IND_LABELS = {
+  SMA:'SMA',EMA:'EMA',VWAP:'VWAP',BB:'Bollinger Bands',PSAR:'Parabolic SAR',
+  RSI:'RSI',MACD:'MACD',STOCH:'Stochastic',ATR:'ATR',CCI:'CCI',
+  WILLR:'Williams %R',OBV:'OBV',ADX:'ADX+DI'
 };
-const GRID = {
-    vertLines: { color: 'rgba(255,255,255,0.04)' },
-    horzLines: { color: 'rgba(255,255,255,0.04)' },
-};
-const TIME_SCALE = { timeVisible: true, secondsVisible: false, borderColor: '#1e3a5f' };
 
-let charts = [];
-let activeSymbol = '';
+const DARK   = { background:{ color:'#090915' }, textColor:'#8a9bb0' };
+const GRID   = { vertLines:{ color:'rgba(255,255,255,.03)' }, horzLines:{ color:'rgba(255,255,255,.03)' } };
+const TS_VIS = { timeVisible:true, secondsVisible:false, borderColor:'#1e3a5f' };
+const TS_HID = { ...TS_VIS, visible:false };
 
-function makeChart(el, height, opts = {}) {
-    const c = LightweightCharts.createChart(el, {
-        width:  el.clientWidth,
-        height,
-        layout: DARK,
-        grid: GRID,
-        crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
-        timeScale: TIME_SCALE,
-        rightPriceScale: { borderColor: '#1e3a5f' },
-        ...opts
-    });
-    new ResizeObserver(() => c.applyOptions({ width: el.clientWidth })).observe(el);
-    return c;
+// ─── State ────────────────────────────────────────────────────────────────────
+let RAW       = null;
+let ACTIVE    = [];   // [{id, type, param, color}]
+let ALL_CHARTS= [];
+let colorIdx  = 0;
+let idCounter = 0;
+
+// defaults
+ACTIVE = [
+  { id:'ind_rsi',  type:'RSI',  param:null, color:'#ff9800' },
+  { id:'ind_macd', type:'MACD', param:null, color:'#2196f3' },
+  { id:'ind_bb',   type:'BB',   param:null, color:'rgba(255,120,120,0.6)' },
+];
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function nextColor() { return PALETTE[(colorIdx++) % PALETTE.length]; }
+
+function makeChart(el, h, tsOpts=TS_VIS) {
+  const c = LightweightCharts.createChart(el, {
+    width:el.clientWidth, height:h,
+    layout:DARK, grid:GRID,
+    crosshair:{ mode:LightweightCharts.CrosshairMode.Normal },
+    timeScale:tsOpts,
+    rightPriceScale:{ borderColor:'#1e3a5f' },
+  });
+  new ResizeObserver(()=>c.applyOptions({width:el.clientWidth})).observe(el);
+  return c;
+}
+
+function paneDiv(id, h, label) {
+  const d = document.createElement('div');
+  d.className='pane'; d.id=id; d.style.height=h+'px';
+  const lbl=document.createElement('span');
+  lbl.className='pane-label'; lbl.textContent=label;
+  d.appendChild(lbl);
+  return d;
+}
+
+function refLine(chart, dataSrc, val, color) {
+  if (!dataSrc || !dataSrc.length) return;
+  const s = chart.addLineSeries({color, lineWidth:1, lineStyle:2,
+    lastValueVisible:false, priceLineVisible:false});
+  s.setData(dataSrc.map(d=>({time:d.time, value:val})));
 }
 
 function syncCharts(list) {
-    list.forEach(a => {
-        a.timeScale().subscribeVisibleLogicalRangeChange(range => {
-            if (range === null) return;
-            list.filter(b => b !== a).forEach(b => b.timeScale().setVisibleLogicalRange(range));
-        });
+  list.forEach(a => {
+    a.timeScale().subscribeVisibleLogicalRangeChange(range => {
+      if (!range) return;
+      list.filter(b=>b!==a).forEach(b=>b.timeScale().setVisibleLogicalRange(range));
     });
+  });
 }
 
-function showLoading(v) {
-    document.getElementById('loading').style.display = v ? 'block' : 'none';
+// ─── Client-side SMA/EMA ─────────────────────────────────────────────────────
+function calcSMA(period) {
+  const d=RAW.ohlcv, n=d.length, res=[];
+  for(let i=period-1;i<n;i++){
+    let s=0; for(let j=i-period+1;j<=i;j++) s+=d[j].close;
+    res.push({time:d[i].time, value:Math.round(s/period*10000)/10000});
+  }
+  return res;
 }
-function showError(msg) {
-    const el = document.getElementById('error');
-    el.textContent = msg ? '❌ ' + msg : '';
-    el.style.display = msg ? 'block' : 'none';
+function calcEMA(period) {
+  const d=RAW.ohlcv, k=2/(period+1), res=[];
+  let ema=d[0].close;
+  for(let i=0;i<d.length;i++){
+    ema=d[i].close*k+ema*(1-k);
+    if(i>=period-1) res.push({time:d[i].time, value:Math.round(ema*10000)/10000});
+  }
+  return res;
 }
 
+// ─── Render overlay on main chart ────────────────────────────────────────────
+function renderOverlay(chart, ind) {
+  const I = RAW.indicators;
+  switch(ind.type) {
+    case 'SMA': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:1,priceLineVisible:false,lastValueVisible:false});
+      s.setData(calcSMA(ind.param||20)); break;
+    }
+    case 'EMA': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:1,priceLineVisible:false,lastValueVisible:false});
+      s.setData(calcEMA(ind.param||20)); break;
+    }
+    case 'BB': {
+      const u=chart.addLineSeries({color:'rgba(255,110,110,0.55)',lineWidth:1,priceLineVisible:false,lastValueVisible:false});
+      const l=chart.addLineSeries({color:'rgba(90,130,255,0.55)', lineWidth:1,priceLineVisible:false,lastValueVisible:false});
+      const m=chart.addLineSeries({color:'rgba(200,200,200,0.25)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false});
+      u.setData(I.bb_upper); l.setData(I.bb_lower); m.setData(I.bb_middle); break;
+    }
+    case 'VWAP': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:1.5,priceLineVisible:false});
+      s.setData(I.vwap); break;
+    }
+    case 'PSAR': {
+      if(I.psar_up.length) {
+        const u=chart.addLineSeries({color:'#26a69a',lineWidth:0,priceLineVisible:false,lastValueVisible:false,
+          crosshairMarkerVisible:true,crosshairMarkerRadius:3});
+        u.setData(I.psar_up);
+      }
+      if(I.psar_down.length) {
+        const d=chart.addLineSeries({color:'#ef5350',lineWidth:0,priceLineVisible:false,lastValueVisible:false,
+          crosshairMarkerVisible:true,crosshairMarkerRadius:3});
+        d.setData(I.psar_down);
+      }
+      break;
+    }
+  }
+}
+
+// ─── Render oscillator pane ───────────────────────────────────────────────────
+function renderOscillator(chart, ind) {
+  const I = RAW.indicators;
+  switch(ind.type) {
+    case 'RSI': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      s.setData(I.rsi);
+      refLine(chart,I.rsi,70,'rgba(239,83,80,.45)');
+      refLine(chart,I.rsi,30,'rgba(38,166,154,.45)'); break;
+    }
+    case 'MACD': {
+      const h=chart.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
+      h.setData(I.macd_hist);
+      const ml=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      ml.setData(I.macd);
+      const sl=chart.addLineSeries({color:'#f44336',lineWidth:1,priceLineVisible:false});
+      sl.setData(I.macd_sig); break;
+    }
+    case 'STOCH': {
+      const k=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      k.setData(I.stoch_k);
+      const d=chart.addLineSeries({color:'#f44336',lineWidth:1,priceLineVisible:false});
+      d.setData(I.stoch_d);
+      refLine(chart,I.stoch_k,80,'rgba(239,83,80,.45)');
+      refLine(chart,I.stoch_k,20,'rgba(38,166,154,.45)'); break;
+    }
+    case 'ATR': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      s.setData(I.atr); break;
+    }
+    case 'CCI': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      s.setData(I.cci);
+      refLine(chart,I.cci, 100,'rgba(239,83,80,.45)');
+      refLine(chart,I.cci,-100,'rgba(38,166,154,.45)'); break;
+    }
+    case 'WILLR': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      s.setData(I.willr);
+      refLine(chart,I.willr,-20,'rgba(239,83,80,.45)');
+      refLine(chart,I.willr,-80,'rgba(38,166,154,.45)'); break;
+    }
+    case 'OBV': {
+      const s=chart.addLineSeries({color:ind.color,lineWidth:2,priceLineVisible:false});
+      s.setData(I.obv); break;
+    }
+    case 'ADX': {
+      const a=chart.addLineSeries({color:'#ffd700',lineWidth:2,priceLineVisible:false});
+      a.setData(I.adx);
+      const dp=chart.addLineSeries({color:'#26a69a',lineWidth:1,priceLineVisible:false});
+      dp.setData(I.di_plus);
+      const dm=chart.addLineSeries({color:'#ef5350',lineWidth:1,priceLineVisible:false});
+      dm.setData(I.di_minus);
+      refLine(chart,I.adx,25,'rgba(255,215,0,.3)'); break;
+    }
+  }
+}
+
+// ─── Main render ─────────────────────────────────────────────────────────────
+function renderAll() {
+  if(!RAW) return;
+
+  ALL_CHARTS.forEach(c=>c.remove());
+  ALL_CHARTS=[];
+  const wrap=document.getElementById('panesContainer');
+  wrap.innerHTML='';
+
+  const symbol=document.getElementById('symbol').value;
+  const overlays=ACTIVE.filter(i=>OVERLAY_TYPES.has(i.type));
+  const oscs=ACTIVE.filter(i=>!OVERLAY_TYPES.has(i.type));
+
+  // ── Main chart ──
+  const dMain=paneDiv('pMain',460,symbol);
+  wrap.appendChild(dMain);
+  const cMain=makeChart(dMain,460,TS_HID);
+  ALL_CHARTS.push(cMain);
+
+  cMain.addCandlestickSeries({
+    upColor:'#26a69a',downColor:'#ef5350',
+    borderUpColor:'#26a69a',borderDownColor:'#ef5350',
+    wickUpColor:'#26a69a',wickDownColor:'#ef5350',
+  }).setData(RAW.ohlcv);
+
+  overlays.forEach(ind=>renderOverlay(cMain,ind));
+
+  // ── Volume ──
+  const dVol=paneDiv('pVol',90,'Volume');
+  wrap.appendChild(dVol);
+  const lastTs=!oscs.length;
+  const cVol=makeChart(dVol,90,lastTs?TS_VIS:TS_HID);
+  ALL_CHARTS.push(cVol);
+  const volS=cVol.addHistogramSeries({priceFormat:{type:'volume'},priceScaleId:''});
+  cVol.priceScale('').applyOptions({scaleMargins:{top:0.1,bottom:0}});
+  volS.setData(RAW.volume);
+
+  // ── Oscillator panes ──
+  oscs.forEach((ind,idx)=>{
+    const isLast=idx===oscs.length-1;
+    const d=paneDiv('p_'+ind.id,140,IND_LABELS[ind.type]+(ind.param?' ('+ind.param+')':''));
+    wrap.appendChild(d);
+    const c=makeChart(d,140,isLast?TS_VIS:TS_HID);
+    ALL_CHARTS.push(c);
+    renderOscillator(c,ind);
+  });
+
+  syncCharts(ALL_CHARTS);
+  ALL_CHARTS[0].timeScale().fitContent();
+  renderChips();
+}
+
+// ─── Chips ───────────────────────────────────────────────────────────────────
+function renderChips() {
+  const el=document.getElementById('chips');
+  el.innerHTML=ACTIVE.map(i=>`
+    <span class="chip">
+      <span class="chip-dot" style="background:${i.color}"></span>
+      ${IND_LABELS[i.type]}${i.param?' '+i.param:''}
+      <span class="chip-x" onclick="removeInd('${i.id}')">×</span>
+    </span>`).join('');
+}
+
+// ─── Add / Remove indicator ───────────────────────────────────────────────────
+function addInd(type, param) {
+  const color=nextColor();
+  ACTIVE.push({id:'ind_'+(++idCounter), type, param:param||null, color});
+  document.getElementById('picker').classList.remove('open');
+  renderAll();
+}
+
+function removeInd(id) {
+  ACTIVE=ACTIVE.filter(i=>i.id!==id);
+  renderAll();
+}
+
+// ─── Picker toggle ────────────────────────────────────────────────────────────
+function togglePicker(e) {
+  e.stopPropagation();
+  document.getElementById('picker').classList.toggle('open');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#indBar')) document.getElementById('picker').classList.remove('open');
+});
+
+// ─── Load data ────────────────────────────────────────────────────────────────
 function loadChart() {
-    showLoading(true);
-    showError('');
+  document.getElementById('loading').style.display='block';
+  document.getElementById('error').style.display='none';
 
-    const payload = {
-        symbol:     document.getElementById('symbol').value,
-        start_date: document.getElementById('startDate').value,
-        end_date:   document.getElementById('endDate').value,
-        show_rsi:   document.getElementById('showRSI').checked,
-        show_macd:  document.getElementById('showMACD').checked,
-        show_bb:    document.getElementById('showBB').checked,
-    };
-
-    fetch('/analysis/api/chart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+  fetch('/analysis/api/chart',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      symbol:    document.getElementById('symbol').value,
+      start_date:document.getElementById('startDate').value,
+      end_date:  document.getElementById('endDate').value,
     })
-    .then(r => r.json())
-    .then(data => {
-        if (data.error) { showError(data.error); return; }
-        renderCharts(data, payload);
-        renderStats(data.stats, payload.symbol);
-        loadTable();
-    })
-    .catch(e => showError(e.message))
-    .finally(() => showLoading(false));
-}
-
-function renderCharts(data, opts) {
-    // Destroy old charts
-    charts.forEach(c => c.remove());
-    charts = [];
-
-    const showRSI  = opts.show_rsi  && data.rsi;
-    const showMACD = opts.show_macd && data.macd;
-
-    document.getElementById('paneRSI').style.display  = showRSI  ? 'block' : 'none';
-    document.getElementById('paneMACD').style.display = showMACD ? 'block' : 'none';
-
-    // ── Main chart ──────────────────────────────────────────
-    const elMain = document.getElementById('paneMain');
-    elMain.style.height = '460px';
-    const cMain = makeChart(elMain, 460);
-    charts.push(cMain);
-
-    document.getElementById('labelMain').textContent =
-        opts.symbol + (opts.show_bb ? ' + Bollinger Bands' : '');
-
-    const candle = cMain.addCandlestickSeries({
-        upColor:        '#26a69a',
-        downColor:      '#ef5350',
-        borderUpColor:  '#26a69a',
-        borderDownColor:'#ef5350',
-        wickUpColor:    '#26a69a',
-        wickDownColor:  '#ef5350',
-    });
-    candle.setData(data.ohlcv);
-
-    if (opts.show_bb && data.bb_upper) {
-        const bbU = cMain.addLineSeries({ color: 'rgba(255,120,120,0.5)', lineWidth: 1, lastValueVisible: false, priceLineVisible: false });
-        const bbL = cMain.addLineSeries({ color: 'rgba(100,140,255,0.5)', lineWidth: 1, lastValueVisible: false, priceLineVisible: false });
-        const bbM = cMain.addLineSeries({ color: 'rgba(200,200,200,0.25)', lineWidth: 1, lineStyle: 2, lastValueVisible: false, priceLineVisible: false });
-        bbU.setData(data.bb_upper);
-        bbL.setData(data.bb_lower);
-        bbM.setData(data.bb_middle);
-    }
-
-    // ── Volume ──────────────────────────────────────────────
-    const elVol = document.getElementById('paneVol');
-    elVol.style.height = '100px';
-    const cVol = makeChart(elVol, 100, { timeScale: { ...TIME_SCALE, visible: !showRSI && !showMACD } });
-    charts.push(cVol);
-
-    const volSeries = cVol.addHistogramSeries({
-        priceFormat: { type: 'volume' },
-        priceScaleId: '',
-    });
-    cVol.priceScale('').applyOptions({ scaleMargins: { top: 0.1, bottom: 0 } });
-    volSeries.setData(data.volume);
-
-    // ── RSI ─────────────────────────────────────────────────
-    if (showRSI) {
-        const elRSI = document.getElementById('paneRSI');
-        elRSI.style.height = '140px';
-        const cRSI = makeChart(elRSI, 140, { timeScale: { ...TIME_SCALE, visible: !showMACD } });
-        charts.push(cRSI);
-
-        const rsiLine = cRSI.addLineSeries({ color: '#ff9800', lineWidth: 2, priceLineVisible: false });
-        rsiLine.setData(data.rsi);
-
-        // overbought / oversold reference lines
-        const ref70 = cRSI.addLineSeries({ color: 'rgba(239,83,80,.5)', lineWidth: 1, lineStyle: 2, lastValueVisible: false, priceLineVisible: false });
-        const ref30 = cRSI.addLineSeries({ color: 'rgba(38,166,154,.5)', lineWidth: 1, lineStyle: 2, lastValueVisible: false, priceLineVisible: false });
-        const ts = data.rsi.map(d => d.time);
-        ref70.setData(ts.map(t => ({ time: t, value: 70 })));
-        ref30.setData(ts.map(t => ({ time: t, value: 30 })));
-    }
-
-    // ── MACD ────────────────────────────────────────────────
-    if (showMACD) {
-        const elMACD = document.getElementById('paneMACD');
-        elMACD.style.height = '140px';
-        const cMACD = makeChart(elMACD, 140);
-        charts.push(cMACD);
-
-        const histSeries = cMACD.addHistogramSeries({ priceLineVisible: false, lastValueVisible: false });
-        histSeries.setData(data.macd_hist);
-
-        const macdLine = cMACD.addLineSeries({ color: '#2196f3', lineWidth: 2, priceLineVisible: false });
-        macdLine.setData(data.macd);
-
-        const sigLine = cMACD.addLineSeries({ color: '#f44336', lineWidth: 1, priceLineVisible: false });
-        sigLine.setData(data.signal);
-    }
-
-    syncCharts(charts);
-    cMain.timeScale().fitContent();
-}
-
-function renderStats(s, symbol) {
-    document.getElementById('stats').innerHTML = `
-        <div class="stat"><div class="stat-label">Symbol</div><div class="stat-value">${symbol}</div></div>
-        <div class="stat"><div class="stat-label">Kerzen</div><div class="stat-value">${s.records.toLocaleString()}</div></div>
-        <div class="stat"><div class="stat-label">Von</div><div class="stat-value" style="font-size:13px">${s.from}</div></div>
-        <div class="stat"><div class="stat-label">Bis</div><div class="stat-value" style="font-size:13px">${s.to}</div></div>
-        <div class="stat"><div class="stat-label">Ø Volume</div><div class="stat-value">${s.avg_vol.toLocaleString()}</div></div>
-    `;
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.error){showError(data.error);return}
+    RAW=data;
+    renderAll();
+    renderStats(data.stats);
+    loadTable();
+  })
+  .catch(e=>showError(e.message))
+  .finally(()=>document.getElementById('loading').style.display='none');
 }
 
 function loadTable() {
-    const payload = {
-        symbol:     document.getElementById('symbol').value,
-        start_date: document.getElementById('startDate').value,
-        end_date:   document.getElementById('endDate').value,
-        limit:      parseInt(document.getElementById('limit').value),
-    };
-    fetch('/analysis/api/table', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+  fetch('/analysis/api/table',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      symbol:    document.getElementById('symbol').value,
+      start_date:document.getElementById('startDate').value,
+      end_date:  document.getElementById('endDate').value,
+      limit:     +document.getElementById('limit').value,
     })
-    .then(r => r.json())
-    .then(data => {
-        if (data.error) return;
-        document.getElementById('tHead').innerHTML = data.columns.map(c => `<th>${c}</th>`).join('');
-        document.getElementById('tBody').innerHTML = data.data.map(row =>
-            `<tr>${data.columns.map(c => `<td>${row[c] ?? ''}</td>`).join('')}</tr>`
-        ).join('');
-    });
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.error) return;
+    document.getElementById('tHead').innerHTML=d.columns.map(c=>`<th>${c}</th>`).join('');
+    document.getElementById('tBody').innerHTML=d.data.map(row=>
+      `<tr>${d.columns.map(c=>`<td>${row[c]??''}</td>`).join('')}</tr>`
+    ).join('');
+  });
 }
 
-function switchTab(name, btn) {
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('pane-' + name).classList.add('active');
-    btn.classList.add('active');
+function renderStats(s) {
+  document.getElementById('stats').innerHTML=`
+    <div class="stat"><div class="stat-label">Symbol</div><div class="stat-value">${document.getElementById('symbol').value}</div></div>
+    <div class="stat"><div class="stat-label">Kerzen</div><div class="stat-value">${s.records.toLocaleString()}</div></div>
+    <div class="stat"><div class="stat-label">Von</div><div class="stat-value" style="font-size:12px">${s.from}</div></div>
+    <div class="stat"><div class="stat-label">Bis</div><div class="stat-value" style="font-size:12px">${s.to}</div></div>
+    <div class="stat"><div class="stat-label">Ø Volume</div><div class="stat-value">${s.avg_vol.toLocaleString()}</div></div>`;
 }
 
-function resetFilters() {
-    document.getElementById('startDate').value = '{{ min_date }}';
-    document.getElementById('endDate').value   = '{{ max_date }}';
-    document.getElementById('showRSI').checked  = true;
-    document.getElementById('showMACD').checked = true;
-    document.getElementById('showBB').checked   = true;
-    loadChart();
+function showError(msg) {
+  const e=document.getElementById('error');
+  e.textContent='❌ '+msg; e.style.display='block';
 }
 
-window.addEventListener('load', loadChart);
+function switchTab(name,btn) {
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function resetAll() {
+  document.getElementById('startDate').value='{{ min_date }}';
+  document.getElementById('endDate').value='{{ max_date }}';
+  ACTIVE=[
+    {id:'ind_rsi', type:'RSI', param:null,color:'#ff9800'},
+    {id:'ind_macd',type:'MACD',param:null,color:'#2196f3'},
+    {id:'ind_bb',  type:'BB', param:null,color:'rgba(255,120,120,0.6)'},
+  ];
+  loadChart();
+}
+
+window.addEventListener('load',loadChart);
 </script>
 </body>
 </html>
