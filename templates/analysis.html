@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaggle Data Analysis - Börsenbot</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            color: #00d4ff;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .controls {
+            background: rgba(30, 30, 50, 0.9);
+            border: 1px solid #00d4ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 12px;
+            color: #00d4ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        select, input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #00d4ff;
+            color: #e0e0e0;
+            padding: 10px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        select:hover, input:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00ffff;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #00d4ff;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        button {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            border: none;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.secondary {
+            background: rgba(100, 100, 120, 0.5);
+            color: #00d4ff;
+            border: 1px solid #00d4ff;
+        }
+
+        button.secondary:hover {
+            background: rgba(100, 100, 120, 0.7);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab-button {
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid #333;
+            border-bottom: none;
+            color: #999;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border-color: #00d4ff;
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(30, 30, 50, 0.9);
+            border: 1px solid #00d4ff;
+            border-radius: 0 8px 8px 8px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        #chart {
+            width: 100%;
+            height: 700px;
+            background: rgba(10, 10, 30, 0.5);
+            border-radius: 5px;
+        }
+
+        #table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        #table thead {
+            background: rgba(0, 212, 255, 0.2);
+            border-bottom: 2px solid #00d4ff;
+        }
+
+        #table th {
+            padding: 12px;
+            text-align: left;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        #table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #333;
+        }
+
+        #table tbody tr:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: #00d4ff;
+            font-size: 16px;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top: 3px solid #00d4ff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: rgba(255, 100, 100, 0.2);
+            border: 1px solid #ff6464;
+            border-radius: 5px;
+            padding: 15px;
+            color: #ff9999;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .controls {
+                grid-template-columns: 1fr;
+            }
+
+            #chart {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Kaggle Data Explorer</h1>
+            <p class="subtitle">Interaktive Analyse von 1-Minuten-Handelsdaten</p>
+        </header>
+
+        <div class="error" id="error"></div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Symbol</label>
+                <select id="symbol">
+                    {% for symbol in symbols %}
+                    <option value="{{ symbol }}">{{ symbol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Start Datum</label>
+                <input type="date" id="startDate" value="{{ min_date }}">
+            </div>
+
+            <div class="control-group">
+                <label>End Datum</label>
+                <input type="date" id="endDate" value="{{ max_date }}">
+            </div>
+
+            <div class="control-group">
+                <label>Limit (Tabelle)</label>
+                <input type="number" id="limit" value="100" min="10" max="1000">
+            </div>
+
+            <div class="control-group">
+                <label>Indikatoren</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="showRSI" checked>
+                        <label for="showRSI">RSI</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="showMACD" checked>
+                        <label for="showMACD">MACD</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="showBB" checked>
+                        <label for="showBB">BB</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="loadChart()">📈 Chart Laden</button>
+                <button class="secondary" onclick="resetFilters()">⟲ Zurücksetzen</button>
+            </div>
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Daten laden...
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('chart')">📊 Chart</button>
+            <button class="tab-button" onclick="switchTab('table')">📋 Daten</button>
+        </div>
+
+        <div class="tab-content active" id="chart"></div>
+        <div class="tab-content" id="table">
+            <div style="overflow-x: auto; max-height: 600px;">
+                <table id="dataTable">
+                    <thead>
+                        <tr id="tableHeader"></tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLoading(show = true) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            const errorEl = document.getElementById('error');
+            if (message) {
+                errorEl.textContent = '❌ ' + message;
+                errorEl.style.display = 'block';
+            } else {
+                errorEl.style.display = 'none';
+            }
+        }
+
+        function loadChart() {
+            showLoading(true);
+            showError('');
+
+            const data = {
+                symbol: document.getElementById('symbol').value,
+                start_date: document.getElementById('startDate').value,
+                end_date: document.getElementById('endDate').value,
+                show_rsi: document.getElementById('showRSI').checked,
+                show_macd: document.getElementById('showMACD').checked,
+                show_bb: document.getElementById('showBB').checked
+            };
+
+            fetch('/analysis/api/chart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.error) {
+                    showError(result.error);
+                    showLoading(false);
+                    return;
+                }
+
+                const chartDiv = document.getElementById('chart');
+                Plotly.newPlot(chartDiv, JSON.parse(result.chart).data, JSON.parse(result.chart).layout, {responsive: true});
+
+                // Update stats
+                const statsDiv = document.getElementById('stats');
+                const stats = result.stats;
+                statsDiv.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-label">Records</div>
+                        <div class="stat-value">${stats.records.toLocaleString()}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Datum Range</div>
+                        <div class="stat-value" style="font-size: 13px;">${stats.date_range}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Ø Volume</div>
+                        <div class="stat-value">${stats.avg_volume.toLocaleString()}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Vol. MA</div>
+                        <div class="stat-value">${stats.volume_ma.toLocaleString()}</div>
+                    </div>
+                `;
+
+                loadTable();
+                showLoading(false);
+            })
+            .catch(err => {
+                showError(err.message);
+                showLoading(false);
+            });
+        }
+
+        function loadTable() {
+            const data = {
+                symbol: document.getElementById('symbol').value,
+                start_date: document.getElementById('startDate').value,
+                end_date: document.getElementById('endDate').value,
+                limit: parseInt(document.getElementById('limit').value)
+            };
+
+            fetch('/analysis/api/table', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.error) {
+                    showError(result.error);
+                    return;
+                }
+
+                // Header
+                const header = document.getElementById('tableHeader');
+                header.innerHTML = result.columns.map(col => `<th>${col}</th>`).join('');
+
+                // Body
+                const body = document.getElementById('tableBody');
+                body.innerHTML = result.data.map(row =>
+                    `<tr>${result.columns.map(col => `<td>${row[col]}</td>`).join('')}</tr>`
+                ).join('');
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function resetFilters() {
+            document.getElementById('startDate').value = '{{ min_date }}';
+            document.getElementById('endDate').value = '{{ max_date }}';
+            document.getElementById('symbol').value = 'AAPL';
+            document.getElementById('showRSI').checked = true;
+            document.getElementById('showMACD').checked = true;
+            document.getElementById('showBB').checked = true;
+            loadChart();
+        }
+
+        // Load initial chart
+        window.addEventListener('load', () => loadChart());
+    </script>
+</body>
+</html>

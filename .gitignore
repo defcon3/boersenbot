@@ -1,0 +1,7 @@
+.ssh/
+SESSION_*.md
+__pycache__/
+*.pyc
+venv/
+.env
+data/

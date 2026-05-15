@@ -1,0 +1,16 @@
+[Unit]
+Description=Börsenbot Analysis Dashboard (Plotly)
+After=network.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+Environment="PATH=/home/veit/boersenbot/venv/bin"
+ExecStart=/home/veit/boersenbot/venv/bin/gunicorn \
+  --workers 2 --bind 127.0.0.1:5001 --timeout 120 analysis_app:app
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
