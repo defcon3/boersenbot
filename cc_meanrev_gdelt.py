@@ -83,6 +83,14 @@ tn["date"] = pd.to_datetime(tn["date"], format="%Y%m%d")
 tn = tn.sort_values("date").set_index("date")
 print(f"GDELT-Tone-Historie: {len(tn)} Tage "
       f"{tn.index.min().date()}..{tn.index.max().date()}", flush=True)
+# GUARD: Auf unvollstaendiger CSV entartet das Regime (ffill-Schwanz ->
+# pct kuenstlich 1.0). Lieber laut abbrechen als still Unsinn rechnen.
+_stale = (pd.Timestamp("today").normalize() - tn.index.max()).days
+if _stale > 5:
+    raise SystemExit(
+        f"ABBRUCH: Tone-CSV endet {tn.index.max().date()} ({_stale} Tage "
+        f"alt). ETL noch nicht fertig/aktuell -> erst gdelt_market_tone_"
+        f"etl.py durchlaufen lassen (Backtest auf Teil-Historie = Müll).")
 
 def pit_pct(s):
     return s.rolling(252, min_periods=60).apply(
