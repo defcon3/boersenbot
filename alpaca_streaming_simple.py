@@ -1,7 +1,7 @@
 import json
 import pymssql
 from config import DB_CONFIG, ALPACA_CONFIG
-from datetime import datetime
+import timeutil
 import logging
 import time
 import threading
@@ -49,7 +49,7 @@ def on_message(ws, message):
             if t == 'b':  # bar message
                 ts_str = item.get('t')
                 if ts_str:
-                    ts = datetime.strptime(ts_str[:19], '%Y-%m-%dT%H:%M:%S')
+                    ts = timeutil.parse_alpaca_ts(ts_str)
                     insert_bar(
                         item.get('S'), ts,
                         item.get('o'), item.get('h'),

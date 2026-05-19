@@ -9,8 +9,9 @@ import pymssql
 import subprocess
 import os
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 import sys
+import timeutil
 
 app = Flask(__name__)
 
@@ -40,10 +41,10 @@ def _freshness(latest_dt, max_age_days, static=False, tz_utc=False):
     if not isinstance(latest_dt, datetime):
         latest_dt = datetime(latest_dt.year, latest_dt.month, latest_dt.day)
     if tz_utc:
-        now = datetime.now(timezone.utc).replace(tzinfo=None)
+        # Streaming-Timestamps sind naive UTC -> zentraler Zeit-Vertrag
+        age_sec = timeutil.age_seconds(latest_dt)
     else:
-        now = datetime.now()
-    age_sec = max(0.0, (now - latest_dt).total_seconds())
+        age_sec = max(0.0, (datetime.now() - latest_dt).total_seconds())
     age_days = age_sec / 86400.0
     if static:
         return {'age_days': round(age_days, 1), 'fresh': True, 'static': True,
@@ -166,9 +167,7 @@ def get_streaming_status():
         # Datenfluss = Zeile in den letzten 15 Minuten
         data_flowing = False
         if last_data is not None:
-            # last_data ist naive UTC (Alpaca-Bars) -> now ebenfalls UTC
-            now_utc = datetime.now(timezone.utc).replace(tzinfo=None)
-            data_flowing = (now_utc - last_data).total_seconds() < 900
+            data_flowing = timeutil.age_seconds(last_data) < 900
 
         if proc_up and data_flowing:
             cls, text = 'running', '🟢 Aktiv (Daten fließen)'
@@ -182,8 +181,7 @@ def get_streaming_status():
             'data_flowing': data_flowing,
             'status': text,
             'status_class': cls,
-            # last_data ist naive UTC -> in lokale Zeit (CEST) wandeln
-            'last_data': (last_data.replace(tzinfo=timezone.utc).astimezone().strftime('%Y-%m-%d %H:%M') if last_data else 'nie'),
+            'last_data': timeutil.to_local_str(last_data),
             'pid': pid
         }
     except Exception as e:
