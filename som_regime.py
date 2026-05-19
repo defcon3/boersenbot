@@ -362,9 +362,14 @@ def build_all(force=True):
     iprof = node_profiles(imap, INDEX_FEATURES)
     sprof = node_profiles(smap, SYMDAY_FEATURES)
     edge = streak_edge_by_regime(smap)
+    # Schlanker Cache: NUR Anzeige-Daten. Die SOM-Objekte und die 767k-
+    # Zeilen-DataFrames bleiben im Build-Prozess und werden NICHT gepickelt
+    # (sonst 87 MB pro /som-Request zu entpickeln).
     payload = {
-        "index_map": imap,
-        "symday_map": smap,
+        "index_map": {"grid": imap["grid"], "qe": imap["qe"],
+                      "split_date": imap["split_date"]},
+        "symday_map": {"grid": smap["grid"], "qe": smap["qe"],
+                       "split_date": smap["split_date"]},
         "index_profiles": iprof,
         "symday_profiles": sprof,
         "edge": edge,
@@ -381,8 +386,6 @@ def build_all(force=True):
             "symday_rows": int(len(sym)),
         },
     }
-    # SOM-Objekte sind nicht JSON-fähig, aber picklebar — fürs Cache ok,
-    # die Flask-Route nutzt nur df/profiles/edge.
     with open(CACHE_PATH, "wb") as f:
         pickle.dump(payload, f)
     return payload
