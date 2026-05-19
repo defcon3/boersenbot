@@ -458,5 +458,34 @@ def api_optimize():
                    'Theta/Vega/Knock-out, ein Symbol/Zeitraum.')
     })
 
+@app.route('/som')
+def som_view():
+    """SOM-Marktregime: Index- + Symbol-Tag-Karte als Chernoff-Faces,
+    plus OOS-Edge-Test je Regime-Knoten. EXPLORATIV, kein Prädiktor."""
+    import som_regime, pickle, os
+    if not os.path.exists(som_regime.CACHE_PATH):
+        return render_template('som.html', ready=False)
+    with open(som_regime.CACHE_PATH, 'rb') as f:
+        p = pickle.load(f)
+    return render_template(
+        'som.html', ready=True,
+        meta=p['meta'], split_date=p['split_date'],
+        index_faces=p['index_faces'], symday_faces=p['symday_faces'],
+        edge=p['edge'], trajectory=p['trajectory'],
+        index_qe=round(p['index_map']['qe'], 3),
+        symday_qe=round(p['symday_map']['qe'], 3))
+
+
+@app.route('/som/rebuild', methods=['POST'])
+def som_rebuild():
+    """Cache neu bauen (~35 s, lädt bb_StockPrices komplett)."""
+    import som_regime
+    try:
+        som_regime.build_all(force=True)
+        return jsonify({'ok': True})
+    except Exception as e:
+        return jsonify({'ok': False, 'error': str(e)}), 500
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=False)

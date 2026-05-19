@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOM-Marktregime — Börsenbot</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:20px}
+.container{max-width:1700px;margin:0 auto}
+header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:14px}
+header h1{color:#00d4ff;font-size:24px}
+header p{color:#888;font-size:12px;margin-top:2px}
+a{color:#00d4ff}
+.caveat{background:rgba(255,170,0,.10);border:1px solid #ffaa00;border-radius:8px;
+  padding:12px 16px;margin-bottom:14px;font-size:13px;color:#ffd27f;line-height:1.5}
+.caveat b{color:#ffaa00}
+.meta{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:10px 16px;margin-bottom:14px;font-size:12px;color:#9fb3c8;display:flex;
+  flex-wrap:wrap;gap:18px}
+.meta span b{color:#00d4ff}
+h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;padding-left:10px}
+.sub{color:#888;font-size:12px;margin:0 0 12px 13px}
+.grid-wrap{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;padding:16px;overflow:auto}
+.facegrid{display:grid;gap:3px}
+.tile{position:relative;border-radius:6px;background:rgba(255,255,255,.03);
+  border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;
+  aspect-ratio:1;min-width:62px}
+.tile.empty{background:transparent;border:1px dashed #1a2a3a}
+.tile svg{width:100%;height:100%}
+.tile .n{position:absolute;bottom:1px;right:3px;font-size:9px;color:#5a6b80}
+.tile.sig{border-color:#00ff9c;box-shadow:0 0 8px rgba(0,255,156,.4)}
+.tile.neg{border-color:#ff5577}
+.tip{display:none;position:fixed;z-index:200;background:#0a0a18;border:1px solid #00d4ff;
+  border-radius:6px;padding:10px 12px;font-size:11px;color:#d8e6f2;max-width:280px;
+  box-shadow:0 8px 28px rgba(0,0,0,.7);line-height:1.5;pointer-events:none}
+.tip b{color:#00d4ff}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid #1e3a5f}
+th{color:#00d4ff;text-transform:uppercase;font-size:10px;letter-spacing:.6px}
+td:first-child,th:first-child{text-align:left}
+tr.hot td{color:#00ff9c;font-weight:600}
+.pos{color:#00ff9c}.negv{color:#ff5577}
+button{background:linear-gradient(135deg,#00d4ff,#0077aa);color:#000;padding:8px 16px;
+  border:none;border-radius:5px;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.8px;cursor:pointer}
+button:hover{opacity:.85}
+.legend{font-size:11px;color:#8aa;margin:6px 0 0 13px;line-height:1.6}
+.legend code{color:#00d4ff}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>SOM-Marktregime</h1>
+  <p>Kohonen-Karten auf der Daily-S&amp;P-Historie (<code>bb_StockPrices</code>) ·
+     <a href="/analysis">← zurück zum Explorer</a></p>
+</header>
+
+<div class="caveat">
+  <b>Ehrlich:</b> Eine Self-Organizing Map ist <b>explorativ/beschreibend — kein
+  Prädiktor und kein Edge.</b> Sie clustert ähnliche Marktzustände räumlich; die
+  Chernoff-Gesichter sind Explorationshilfe + Deko. Aussagekraft hat nur der
+  nachgelagerte Edge-Test (Streak-Mean-Reversion bedingt auf Regime, <b>strikt
+  Out-of-Sample</b>) — und der ist bei vielen Knoten ein Mehrfachtest, also mit
+  Vorsicht zu lesen.
+</div>
+
+{% if not ready %}
+  <div class="grid-wrap">
+    <p style="color:#ffaa00">Noch kein Cache. Build anstoßen (lädt
+    <code>bb_StockPrices</code> komplett, ~35&nbsp;s):</p>
+    <p style="margin-top:12px"><button onclick="rebuild(this)">Cache bauen</button></p>
+  </div>
+{% else %}
+<div class="meta">
+  <span><b>{{ meta.symbols }}</b> Symbole</span>
+  <span><b>{{ '{:,}'.format(meta.rows) }}</b> Bars</span>
+  <span>{{ meta.date_min }} … {{ meta.date_max }}</span>
+  <span>Train/OOS-Split: <b>{{ split_date }}</b></span>
+  <span>Index-Tage: <b>{{ meta.index_days }}</b> · QE {{ index_qe }}</span>
+  <span>Symbol-Tag: <b>{{ '{:,}'.format(meta.symday_rows) }}</b> · QE {{ symday_qe }}</span>
+  <span style="margin-left:auto"><button onclick="rebuild(this)">Neu bauen</button></span>
+</div>
+
+<h2>Index-Regime — ein Gesicht je Marktzustand</h2>
+<p class="sub">{{ index_faces.grid }}×{{ index_faces.grid }}-Gitter, ein
+  marktbreit aggregierter Vektor je Handelstag. Benachbarte Zellen = ähnliche
+  Regime.</p>
+<div class="grid-wrap">
+  <div class="facegrid" id="ig" style="grid-template-columns:repeat({{ index_faces.grid }},1fr)"></div>
+</div>
+<p class="legend">
+  <b>Gesichtszüge:</b> <code>Mund</code> Lächeln↑ = positives Return-Regime ·
+  <code>Breite</code> = Volatilität · <code>Brauen</code> zornig = hohe Dispersion/Stress ·
+  <code>Farbe</code> grün = hohe Marktbreite · <code>Augen</code> groß = hoher RSI ·
+  <code>Nase</code> lang = starker Trend (ADX). Über ein Gesicht fahren zeigt die Rohwerte.
+</p>
+
+<h2>Symbol-Tag — Einzelwert-Zustände</h2>
+<p class="sub">{{ symday_faces.grid }}×{{ symday_faces.grid }}-Gitter, ein Vektor
+  je (Symbol, Tag). Grün umrandet = Edge-Test p&lt;0,05 (OOS, <i>unkorrigiert</i>).</p>
+<div class="grid-wrap">
+  <div class="facegrid" id="sg" style="grid-template-columns:repeat({{ symday_faces.grid }},1fr)"></div>
+</div>
+
+<h2>Edge-Test (Out-of-Sample): {{ edge.streak_len }} Abwärtstage → Folgetag positiv?</h2>
+<p class="sub">Bekannter Edge (Streak-Mean-Reversion) bedingt auf den
+  Symbol-Tag-Regime-Knoten des Signaltags. Basisrate OOS =
+  <b>{{ edge.base_rate }}</b> (n={{ '{:,}'.format(edge.base_n) }} Signale).
+  Nur Knoten mit n≥20.</p>
+<div class="grid-wrap">
+<table>
+  <thead><tr><th>Knoten</th><th>r,c</th><th>n</th><th>Trefferquote</th>
+  <th>Edge vs. Basis</th><th>p-Wert</th></tr></thead>
+  <tbody>
+  {% for r in edge.nodes %}
+    <tr class="{{ 'hot' if r.p_value < 0.05 else '' }}">
+      <td>{{ r.node }}</td><td>{{ r.row }},{{ r.col }}</td><td>{{ r.n }}</td>
+      <td>{{ r.hit_rate }}</td>
+      <td class="{{ 'pos' if r.edge_vs_base>0 else 'negv' }}">{{ '%+.4f'|format(r.edge_vs_base) }}</td>
+      <td>{{ r.p_value }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<div class="caveat" style="margin-top:14px">
+  Bei vielen belegten Knoten erwartet man rein zufällig ~5&nbsp;% mit
+  p&lt;0,05. Treffer hier sind <b>deskriptive Hypothesen, kein bestätigter
+  Edge</b> — Bestätigung bräuchte Mehrfachtest-Korrektur und einen frischen,
+  unberührten Validierungszeitraum.
+</div>
+
+<script id="idata" type="application/json">{{ index_faces|tojson }}</script>
+<script id="sdata" type="application/json">{{ symday_faces|tojson }}</script>
+<div class="tip" id="tip"></div>
+<script>
+function renderGrid(elId, data){
+  const el=document.getElementById(elId), g=data.grid;
+  const map={};
+  data.tiles.forEach(t=>map[t.row*g+t.col]=t);
+  for(let i=0;i<g*g;i++){
+    const t=map[i], d=document.createElement('div');
+    if(!t){d.className='tile empty';el.appendChild(d);continue;}
+    d.className='tile';
+    if(t.edge){ if(t.edge.p_value<0.05) d.className+= t.edge.edge_vs_base>0?' sig':' neg'; }
+    d.innerHTML=t.svg+'<span class="n">'+t.n+'</span>';
+    d.addEventListener('mousemove',e=>showTip(e,t,data.features));
+    d.addEventListener('mouseleave',()=>tip.style.display='none');
+    el.appendChild(d);
+  }
+}
+const tip=document.getElementById('tip');
+function showTip(e,t,feats){
+  let h='<b>Knoten '+t.node+'</b> (r'+t.row+',c'+t.col+') · n='+t.n+'<br>';
+  feats.forEach(f=>h+=f+': <b>'+t.raw[f]+'</b><br>');
+  if(t.edge) h+='<br><b>Edge OOS:</b> Treffer '+t.edge.hit_rate+
+    ' (n='+t.edge.n+'), Δ '+t.edge.edge_vs_base+', p='+t.edge.p_value;
+  tip.innerHTML=h; tip.style.display='block';
+  let x=e.clientX+16, y=e.clientY+16;
+  if(x+290>innerWidth) x=e.clientX-290;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
+}
+renderGrid('ig', JSON.parse(document.getElementById('idata').textContent));
+renderGrid('sg', JSON.parse(document.getElementById('sdata').textContent));
+</script>
+{% endif %}
+
+<script>
+function rebuild(btn){
+  btn.disabled=true; btn.textContent='Baue… (~35 s)';
+  fetch('/analysis/som/rebuild',{method:'POST'}).then(r=>r.json()).then(j=>{
+    if(j.ok) location.reload();
+    else {btn.disabled=false; btn.textContent='Fehler — nochmal';
+      alert('Build-Fehler: '+j.error);}
+  }).catch(e=>{btn.disabled=false;btn.textContent='Fehler — nochmal';alert(e);});
+}
+</script>
+</div>
+</body>
+</html>

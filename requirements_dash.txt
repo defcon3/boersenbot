@@ -1,3 +1,6 @@
 Flask==2.3.3
 pymssql==2.2.8
 gunicorn==21.2.0
+minisom>=2.3.6
+scipy>=1.10
+scikit-learn>=1.3

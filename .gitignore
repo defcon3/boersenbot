@@ -5,3 +5,5 @@ __pycache__/
 venv/
 .env
 data/
+som_cache.pkl
+som_test.log
