@@ -9,7 +9,7 @@ import pymssql
 import subprocess
 import os
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import sys
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def get_db():
     """Get database connection"""
     return pymssql.connect(**DB_CONFIG, autocommit=True)
 
-def _freshness(latest_dt, max_age_days, static=False):
+def _freshness(latest_dt, max_age_days, static=False, tz_utc=False):
     """Bewertet, wie aktuell ein Datenstand ist.
 
     Gibt age_days, fresh-Flag und einen menschenlesbaren Hinweis zurück.
@@ -39,8 +39,11 @@ def _freshness(latest_dt, max_age_days, static=False):
     # bb_StockPrices.[Date] kommt als date, die 1min-Tabellen als datetime
     if not isinstance(latest_dt, datetime):
         latest_dt = datetime(latest_dt.year, latest_dt.month, latest_dt.day)
-    now = datetime.now()
-    age_sec = (now - latest_dt).total_seconds()
+    if tz_utc:
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
+    else:
+        now = datetime.now()
+    age_sec = max(0.0, (now - latest_dt).total_seconds())
     age_days = age_sec / 86400.0
     if static:
         return {'age_days': round(age_days, 1), 'fresh': True, 'static': True,
@@ -112,7 +115,7 @@ def get_data_stats():
             'rows': alpaca['count'] or 0,
             'latest': alpaca['latest_dt'].strftime('%Y-%m-%d %H:%M') if alpaca['latest_dt'] else 'N/A',
             'source': 'Alpaca WebSocket',
-            'freshness': _freshness(alpaca['latest_dt'], max_age_days=1)
+            'freshness': _freshness(alpaca['latest_dt'], max_age_days=1, tz_utc=True)
         }
 
         # Latest prices per symbol
