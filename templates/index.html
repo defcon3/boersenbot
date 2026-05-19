@@ -109,10 +109,19 @@
             color: #fff;
         }
 
-        .status.unknown {
+        .status.unknown, .status.idle {
             background: #f59e0b;
             color: #fff;
         }
+
+        .freshness {
+            margin-top: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .freshness.ok    { color: #10b981; }
+        .freshness.stale { color: #ef4444; }
+        .freshness.static{ color: #9ca3af; }
 
         .control-buttons {
             display: flex;
@@ -291,6 +300,14 @@
 
         function renderStats(element, data) {
             if (!element) return;
+            let freshHtml = '';
+            const f = data.freshness;
+            if (f) {
+                let cls = 'static';
+                if (!f.static) cls = f.fresh ? 'ok' : 'stale';
+                const icon = f.static ? '📦' : (f.fresh ? '✅' : '⚠️');
+                freshHtml = `<div class="freshness ${cls}">${icon} ${f.note}</div>`;
+            }
             const html = `
                 <div class="stat">
                     <div class="stat-label">Rows</div>
@@ -300,6 +317,7 @@
                     <div class="stat-label">Latest Update</div>
                     <div class="stat-value">${data.latest}</div>
                     <div class="stat-source">${data.source}</div>
+                    ${freshHtml}
                 </div>
             `;
             element.innerHTML = html;
@@ -347,8 +365,8 @@
                 const data = await response.json();
 
                 const element = document.getElementById('streaming-status');
-                const statusClass = data.running ? 'running' : 'stopped';
-                const statusText = data.running ? '🟢 Running' : '🔴 Stopped';
+                const statusClass = data.status_class || (data.running ? 'running' : 'stopped');
+                const statusText = data.status || (data.running ? '🟢 Running' : '🔴 Stopped');
 
                 element.innerHTML = `
                     <div class="stat">
@@ -356,7 +374,7 @@
                         <div class="stat-value">
                             <span class="status ${statusClass}">${statusText}</span>
                         </div>
-                        ${data.pid ? `<div class="stat-source">PID: ${data.pid}</div>` : ''}
+                        <div class="stat-source">Letzte Daten: ${data.last_data || 'nie'}${data.pid ? ' · PID ' + data.pid : ''}</div>
                     </div>
                 `;
                 element.classList.remove('loading');

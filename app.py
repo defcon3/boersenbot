@@ -27,6 +27,34 @@ def get_db():
     """Get database connection"""
     return pymssql.connect(**DB_CONFIG, autocommit=True)
 
+def _freshness(latest_dt, max_age_days, static=False):
+    """Bewertet, wie aktuell ein Datenstand ist.
+
+    Gibt age_days, fresh-Flag und einen menschenlesbaren Hinweis zurück.
+    static=True => bewusst historischer Datensatz (kein Veraltet-Alarm).
+    """
+    if latest_dt is None:
+        return {'age_days': None, 'fresh': False, 'static': static,
+                'note': 'keine Daten'}
+    # bb_StockPrices.[Date] kommt als date, die 1min-Tabellen als datetime
+    if not isinstance(latest_dt, datetime):
+        latest_dt = datetime(latest_dt.year, latest_dt.month, latest_dt.day)
+    now = datetime.now()
+    age_sec = (now - latest_dt).total_seconds()
+    age_days = age_sec / 86400.0
+    if static:
+        return {'age_days': round(age_days, 1), 'fresh': True, 'static': True,
+                'note': 'historischer Datensatz (fix)'}
+    fresh = age_days <= max_age_days
+    if age_sec < 3600:
+        human = f'vor {int(age_sec // 60)} Min'
+    elif age_days < 1:
+        human = f'vor {int(age_sec // 3600)} Std'
+    else:
+        human = f'vor {int(round(age_days))} Tag(en)'
+    return {'age_days': round(age_days, 1), 'fresh': fresh, 'static': False,
+            'note': ('aktuell, ' if fresh else 'VERALTET, ') + human}
+
 def get_data_stats():
     """Get data collection statistics from database"""
     try:
@@ -44,7 +72,8 @@ def get_data_stats():
         stats['daily'] = {
             'rows': daily['count'] or 0,
             'latest': daily['latest_date'].strftime('%Y-%m-%d') if daily['latest_date'] else 'N/A',
-            'source': 'Yahoo Finance'
+            'source': 'Yahoo Finance',
+            'freshness': _freshness(daily['latest_date'], max_age_days=4)
         }
 
         # 1-min Kaggle data
@@ -56,7 +85,8 @@ def get_data_stats():
         stats['kaggle'] = {
             'rows': kaggle['count'] or 0,
             'latest': kaggle['latest_dt'].strftime('%Y-%m-%d %H:%M') if kaggle['latest_dt'] else 'N/A',
-            'source': 'Kaggle (May 2023)'
+            'source': 'Kaggle (May 2023)',
+            'freshness': _freshness(kaggle['latest_dt'], max_age_days=0, static=True)
         }
 
         # 1-min yfinance data
@@ -68,7 +98,8 @@ def get_data_stats():
         stats['yfinance'] = {
             'rows': yfinance['count'] or 0,
             'latest': yfinance['latest_dt'].strftime('%Y-%m-%d %H:%M') if yfinance['latest_dt'] else 'N/A',
-            'source': 'yfinance (Polling)'
+            'source': 'yfinance (Polling)',
+            'freshness': _freshness(yfinance['latest_dt'], max_age_days=4)
         }
 
         # 1-min Alpaca Streaming data
@@ -80,7 +111,8 @@ def get_data_stats():
         stats['alpaca'] = {
             'rows': alpaca['count'] or 0,
             'latest': alpaca['latest_dt'].strftime('%Y-%m-%d %H:%M') if alpaca['latest_dt'] else 'N/A',
-            'source': 'Alpaca WebSocket'
+            'source': 'Alpaca WebSocket',
+            'freshness': _freshness(alpaca['latest_dt'], max_age_days=1)
         }
 
         # Latest prices per symbol
@@ -101,22 +133,57 @@ def get_data_stats():
         return {'error': str(e)}
 
 def get_streaming_status():
-    """Check if Alpaca streaming process is running"""
+    """Echter Streaming-Status: Prozess UND tatsächlicher Datenfluss.
+
+    Wichtig: Ein laufender Prozess heißt NICHT, dass Daten ankommen
+    (Alpaca lieferte wegen 401 Unauthorized nie Daten, der Prozess
+    lebte aber). Der Status berücksichtigt daher die letzte
+    tatsächlich geschriebene Zeile in der Streaming-Tabelle.
+    """
     try:
         result = subprocess.run(
             ['pgrep', '-f', 'alpaca_streaming'],
-            capture_output=True,
-            text=True,
-            timeout=5
+            capture_output=True, text=True, timeout=5
         )
-        is_running = result.returncode == 0
+        proc_up = result.returncode == 0
+        pid = result.stdout.strip() if proc_up else None
+
+        last_data = None
+        try:
+            conn = get_db()
+            cur = conn.cursor()
+            cur.execute("SELECT MAX([Timestamp]) AS m FROM bb_StockPrices_1min_Streaming")
+            row = cur.fetchone()
+            last_data = row['m'] if row else None
+            cur.close()
+            conn.close()
+        except Exception:
+            pass
+
+        # Datenfluss = Zeile in den letzten 15 Minuten
+        data_flowing = False
+        if last_data is not None:
+            data_flowing = (datetime.now() - last_data).total_seconds() < 900
+
+        if proc_up and data_flowing:
+            cls, text = 'running', '🟢 Aktiv (Daten fließen)'
+        elif proc_up and not data_flowing:
+            cls, text = 'idle', '🟠 Prozess läuft, aber KEINE Daten'
+        else:
+            cls, text = 'stopped', '🔴 Gestoppt'
+
         return {
-            'running': is_running,
-            'status': 'Running' if is_running else 'Stopped',
-            'pid': result.stdout.strip() if is_running else None
+            'running': proc_up,
+            'data_flowing': data_flowing,
+            'status': text,
+            'status_class': cls,
+            'last_data': last_data.strftime('%Y-%m-%d %H:%M') if last_data else 'nie',
+            'pid': pid
         }
     except Exception as e:
-        return {'running': False, 'status': 'Unknown', 'error': str(e)}
+        return {'running': False, 'data_flowing': False,
+                'status': '⚪ Unbekannt', 'status_class': 'stopped',
+                'last_data': 'nie', 'error': str(e)}
 
 def control_streaming(action):
     """Control streaming: start, stop, restart"""
