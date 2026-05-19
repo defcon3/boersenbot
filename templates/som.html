@@ -47,6 +47,21 @@ button{background:linear-gradient(135deg,#00d4ff,#0077aa);color:#000;padding:8px
 button:hover{opacity:.85}
 .legend{font-size:11px;color:#8aa;margin:6px 0 0 13px;line-height:1.6}
 .legend code{color:#00d4ff}
+.traj{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+.traj svg{background:#0a0a18;border:1px solid #1e3a5f;border-radius:8px}
+.tpanel{min-width:240px;flex:1}
+.tctrl{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.tctrl button{padding:7px 14px}
+.tctrl input[type=range]{flex:1;min-width:180px;accent-color:#00d4ff}
+.readout{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:12px 16px;font-size:13px;line-height:1.8}
+.readout .d{color:#00d4ff;font-size:16px;font-weight:700}
+.readout .kv{color:#9fb3c8}.readout .kv b{color:#e0e0e0}
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;
+  text-transform:uppercase;letter-spacing:.6px;margin-left:6px}
+.badge.oos{background:rgba(0,255,156,.15);border:1px solid #00ff9c;color:#00ff9c}
+.badge.train{background:rgba(0,212,255,.12);border:1px solid #00d4ff;color:#00d4ff}
+.spd{font-size:11px;color:#8aa}
 </style>
 </head>
 <body>
@@ -97,6 +112,34 @@ button:hover{opacity:.85}
   <code>Nase</code> lang = starker Trend (ADX). Über ein Gesicht fahren zeigt die Rohwerte.
 </p>
 
+<h2>Markt-Trajektorie — wie der Markt über die Regime-Karte wandert</h2>
+<p class="sub">Die letzten <b id="tjN">90</b> Handelstage als animierter Pfad
+  über das 8×8-Index-Gitter. Zellen rot = Abwärts-Regime, grün = Aufwärts
+  (nach Median-Tagesreturn des Knotens). Beschreibend, kein Signal.</p>
+<div class="grid-wrap">
+  <div class="traj">
+    <svg id="tjsvg" viewBox="0 0 520 520" width="520" height="520"></svg>
+    <div class="tpanel">
+      <div class="tctrl">
+        <button id="tjPlay" onclick="tjToggle()">▶ Abspielen</button>
+        <button class="" onclick="tjReset()"
+          style="background:transparent;border:1px solid #00d4ff;color:#00d4ff">⟲ Start</button>
+        <span class="spd">Tempo</span>
+        <input type="range" id="tjSpeed" min="1" max="20" value="8"
+          style="max-width:90px;min-width:90px">
+      </div>
+      <input type="range" id="tjScrub" min="0" max="89" value="0"
+        style="width:100%;margin-bottom:14px">
+      <div class="readout" id="tjOut">…</div>
+      <p class="legend" style="margin-left:0">
+        Der Marker ist <b>heute</b>; die Spur verblasst nach hinten. Springt
+        der Pfad weit über die Karte, hat sich das Marktregime abrupt
+        geändert (z. B. ruhiger Aufwärtstrend → Stress-Cluster).
+      </p>
+    </div>
+  </div>
+</div>
+
 <h2>Symbol-Tag — Einzelwert-Zustände</h2>
 <p class="sub">{{ symday_faces.grid }}×{{ symday_faces.grid }}-Gitter, ein Vektor
   je (Symbol, Tag). Grün umrandet = Edge-Test p&lt;0,05 (OOS, <i>unkorrigiert</i>).</p>
@@ -134,6 +177,7 @@ button:hover{opacity:.85}
 
 <script id="idata" type="application/json">{{ index_faces|tojson }}</script>
 <script id="sdata" type="application/json">{{ symday_faces|tojson }}</script>
+<script id="trajdata" type="application/json">{{ trajectory|tojson }}</script>
 <div class="tip" id="tip"></div>
 <script>
 function renderGrid(elId, data){
@@ -164,6 +208,105 @@ function showTip(e,t,feats){
 }
 renderGrid('ig', JSON.parse(document.getElementById('idata').textContent));
 renderGrid('sg', JSON.parse(document.getElementById('sdata').textContent));
+
+// ── Markt-Trajektorie: animierter Pfad über das Index-Gitter ──────────────
+(function(){
+  const traj = JSON.parse(document.getElementById('trajdata').textContent);
+  const idata = JSON.parse(document.getElementById('idata').textContent);
+  const G = idata.grid, CELL = 520/G, svg = document.getElementById('tjsvg');
+  const NS = 'http://www.w3.org/2000/svg';
+  document.getElementById('tjN').textContent = traj.length;
+
+  // Knoten-Median-Return für die divergierende Zellfarbe
+  const mr = {};
+  idata.tiles.forEach(t => mr[t.row*G+t.col] = t.raw.med_ret);
+  let mmax = 1e-9;
+  Object.values(mr).forEach(v => mmax = Math.max(mmax, Math.abs(v)));
+  const C0=[26,34,51], CR=[200,55,70], CG=[40,190,110];
+  function mix(a,b,f){return Math.round(a+(b-a)*f);}
+  function cellColor(node){
+    if(!(node in mr)) return '#10182a';
+    let t = Math.max(-1, Math.min(1, mr[node]/mmax)), c;
+    if(t<0) c=[mix(C0[0],CR[0],-t),mix(C0[1],CR[1],-t),mix(C0[2],CR[2],-t)];
+    else    c=[mix(C0[0],CG[0], t),mix(C0[1],CG[1], t),mix(C0[2],CG[2], t)];
+    return 'rgb('+c[0]+','+c[1]+','+c[2]+')';
+  }
+  // Zellen zeichnen
+  for(let r=0;r<G;r++) for(let c=0;c<G;c++){
+    const rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('x',c*CELL+1); rect.setAttribute('y',r*CELL+1);
+    rect.setAttribute('width',CELL-2); rect.setAttribute('height',CELL-2);
+    rect.setAttribute('rx',4);
+    rect.setAttribute('fill',cellColor(r*G+c));
+    rect.setAttribute('stroke','#1e3a5f'); rect.setAttribute('stroke-width','.5');
+    svg.appendChild(rect);
+  }
+  // Pixel-Punkte mit deterministischem Jitter (sonst liegen Tage im selben
+  // Regime exakt übereinander und der Pfad ist unsichtbar)
+  function jit(i){ const s=Math.sin(i*12.9898)*43758.5453; return (s-Math.floor(s)-.5); }
+  const P = traj.map((p,i)=>({
+    x: p.col*CELL + CELL/2 + jit(i)*CELL*0.5,
+    y: p.row*CELL + CELL/2 + jit(i+99)*CELL*0.5
+  }));
+  // blasser Gesamtpfad als Orientierung
+  const full=document.createElementNS(NS,'polyline');
+  full.setAttribute('points', P.map(q=>q.x+','+q.y).join(' '));
+  full.setAttribute('fill','none'); full.setAttribute('stroke','#2a3a55');
+  full.setAttribute('stroke-width','1'); svg.appendChild(full);
+  const gTrail=document.createElementNS(NS,'g'); svg.appendChild(gTrail);
+  const dot=document.createElementNS(NS,'circle');
+  dot.setAttribute('r',9); dot.setAttribute('fill','#00ffea');
+  dot.setAttribute('stroke','#fff'); dot.setAttribute('stroke-width','2');
+  dot.style.filter='drop-shadow(0 0 6px #00ffea)';
+  const dot2=document.createElementNS(NS,'circle');
+  dot2.setAttribute('r',3); dot2.setAttribute('fill','#06121a');
+
+  const out=document.getElementById('tjOut');
+  const scrub=document.getElementById('tjScrub'), spd=document.getElementById('tjSpeed');
+  const btn=document.getElementById('tjPlay');
+  scrub.max = traj.length-1;
+  let k=0, playing=false, timer=null;
+
+  function draw(){
+    while(gTrail.firstChild) gTrail.removeChild(gTrail.firstChild);
+    for(let i=Math.max(1,k-24);i<=k;i++){
+      const ln=document.createElementNS(NS,'line');
+      ln.setAttribute('x1',P[i-1].x); ln.setAttribute('y1',P[i-1].y);
+      ln.setAttribute('x2',P[i].x);   ln.setAttribute('y2',P[i].y);
+      ln.setAttribute('stroke','#00d4ff'); ln.setAttribute('stroke-width','3');
+      ln.setAttribute('stroke-linecap','round');
+      ln.setAttribute('opacity', Math.max(.08, 1-(k-i)/26).toFixed(2));
+      gTrail.appendChild(ln);
+    }
+    dot.setAttribute('cx',P[k].x); dot.setAttribute('cy',P[k].y);
+    dot2.setAttribute('cx',P[k].x); dot2.setAttribute('cy',P[k].y);
+    gTrail.appendChild(dot); gTrail.appendChild(dot2);
+    const p=traj[k], bd = p.split==='oos'
+      ? '<span class="badge oos">OOS</span>' : '<span class="badge train">Train</span>';
+    out.innerHTML =
+      '<span class="d">'+p.date+'</span>'+bd+'<br>'+
+      '<span class="kv">Tag '+(k+1)+' / '+traj.length+
+      ' · Regime-Knoten <b>'+p.node+'</b> (r'+p.row+',c'+p.col+')</span><br>'+
+      '<span class="kv">Median-Return: <b>'+(p.med_ret*100).toFixed(2)+
+      ' %</b> · Markt-Vol₂₀: <b>'+(p.mkt_vol20*100).toFixed(2)+
+      ' %</b> · Breadth: <b>'+(p.breadth*100).toFixed(0)+' %</b></span>';
+    scrub.value=k;
+  }
+  function step(){
+    if(k>=traj.length-1){ stop(); btn.textContent='⟲ Nochmal'; return; }
+    k++; draw();
+  }
+  function tick(){ step(); if(playing) timer=setTimeout(tick, 1100/spd.value); }
+  function stop(){ playing=false; clearTimeout(timer); btn.textContent='▶ Abspielen'; }
+  window.tjToggle=function(){
+    if(playing){ stop(); return; }
+    if(k>=traj.length-1){ k=0; }
+    playing=true; btn.textContent='⏸ Pause'; tick();
+  };
+  window.tjReset=function(){ stop(); k=0; draw(); };
+  scrub.addEventListener('input',()=>{ stop(); k=+scrub.value; draw(); });
+  draw();
+})();
 </script>
 {% endif %}
 

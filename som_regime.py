@@ -183,10 +183,20 @@ def build_index_map(idx):
     res["col"] = coords[:, 1]
     res["split"] = np.where(np.arange(n) < split, "train", "oos")
     qe = float(som.quantization_error(Xtr))
+    tail = res.tail(90)
+    traj = [{
+        "date": str(d.date()),
+        "row": int(r["row"]), "col": int(r["col"]),
+        "node": int(r["node"]),
+        "split": str(r["split"]),
+        "med_ret": round(float(r["med_ret"]), 5),
+        "mkt_vol20": round(float(r["mkt_vol20"]), 5),
+        "breadth": round(float(r["breadth"]), 4),
+    } for d, r in tail.iterrows()]
     return {"som": som, "df": res, "mu": mu, "sd": sd,
             "split_date": str(idx.index[split].date()),
             "grid": INDEX_GRID, "qe": qe,
-            "trajectory": res[["row", "col"]].tail(60).values.tolist()}
+            "trajectory": traj}
 
 
 def build_symday_map(sym):
