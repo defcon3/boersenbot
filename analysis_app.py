@@ -177,6 +177,25 @@ def series(df, col):
     return [{'time': to_lw(t), 'value': round(float(v), 4)}
             for t, v in zip(df.loc[mask,'Timestamp'], df.loc[mask, col])]
 
+def compute_signals(df):
+    """Buy/Sell aus MACD-Kreuzung (MACD schneidet seine Signallinie),
+    gefiltert per RSI gegen Whipsaw an den Extremen.
+
+    BUY  : MACD_Hist wechselt von <=0 auf >0  und  RSI < 70
+    SELL : MACD_Hist wechselt von >=0 auf <0  und  RSI > 30
+    """
+    h, rsi = df['MACD_Hist'], df['RSI']
+    prev = h.shift(1)
+    buy  = (prev <= 0) & (h > 0) & (rsi < 70)
+    sell = (prev >= 0) & (h < 0) & (rsi > 30)
+    out = []
+    for t, b, s in zip(df['Timestamp'], buy, sell):
+        if b:
+            out.append({'time': to_lw(t), 'side': 'buy'})
+        elif s:
+            out.append({'time': to_lw(t), 'side': 'sell'})
+    return out
+
 def build_payload(df):
     up   = 'rgba(38,166,154,0.8)'
     down = 'rgba(239,83,80,0.8)'
@@ -229,6 +248,7 @@ def build_payload(df):
             'vwap':       series(df, 'VWAP'),
             'psar_up':    psar_up,
             'psar_down':  psar_down,
+            'signals':    compute_signals(df),
         }
     }
 

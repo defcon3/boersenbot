@@ -148,6 +148,7 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
       <div class="picker-row"><span>VWAP</span><button onclick="addInd('VWAP')">+</button></div>
       <div class="picker-row"><span>Bollinger Bands</span><button onclick="addInd('BB')">+</button></div>
       <div class="picker-row"><span>Parabolic SAR</span><button onclick="addInd('PSAR')">+</button></div>
+      <div class="picker-row"><span>Buy/Sell-Signale</span><button onclick="addInd('SIG')">+</button></div>
     </div>
     <div class="picker-group">
       <div class="picker-group-label">Oszillatoren</div>
@@ -186,9 +187,9 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
 // ─── Constants ────────────────────────────────────────────────────────────────
 const PALETTE = ['#FF6B6B','#4ECDC4','#45B7D1','#96CEB4','#FFEAA7','#DDA0DD',
                  '#FFB347','#87CEEB','#F0A500','#C8A2C8','#77DD77','#FF6961'];
-const OVERLAY_TYPES  = new Set(['SMA','EMA','VWAP','BB','PSAR']);
+const OVERLAY_TYPES  = new Set(['SMA','EMA','VWAP','BB','PSAR','SIG']);
 const IND_LABELS = {
-  SMA:'SMA',EMA:'EMA',VWAP:'VWAP',BB:'Bollinger Bands',PSAR:'Parabolic SAR',
+  SMA:'SMA',EMA:'EMA',VWAP:'VWAP',BB:'Bollinger Bands',PSAR:'Parabolic SAR',SIG:'Buy/Sell-Signale',
   RSI:'RSI',MACD:'MACD',STOCH:'Stochastic',ATR:'ATR',CCI:'CCI',
   WILLR:'Williams %R',OBV:'OBV',ADX:'ADX+DI'
 };
@@ -207,6 +208,7 @@ let idCounter = 0;
 
 // defaults
 ACTIVE = [
+  { id:'ind_sig',  type:'SIG',  param:null, color:'#26a69a' },
   { id:'ind_rsi',  type:'RSI',  param:null, color:'#ff9800' },
   { id:'ind_macd', type:'MACD', param:null, color:'#2196f3' },
   { id:'ind_bb',   type:'BB',   param:null, color:'rgba(255,120,120,0.6)' },
@@ -293,6 +295,7 @@ function renderOverlay(chart, ind) {
       const s=chart.addLineSeries({color:ind.color,lineWidth:1.5,priceLineVisible:false});
       s.setData(I.vwap); break;
     }
+    case 'SIG': break;  // Marker werden in renderAll auf der Candle-Serie gesetzt
     case 'PSAR': {
       if(I.psar_up.length) {
         const u=chart.addLineSeries({color:'#26a69a',lineWidth:0,priceLineVisible:false,lastValueVisible:false,
@@ -386,13 +389,21 @@ function renderAll() {
   const cMain=makeChart(dMain,460,TS_HID);
   ALL_CHARTS.push(cMain);
 
-  cMain.addCandlestickSeries({
+  const candleSeries=cMain.addCandlestickSeries({
     upColor:'#26a69a',downColor:'#ef5350',
     borderUpColor:'#26a69a',borderDownColor:'#ef5350',
     wickUpColor:'#26a69a',wickDownColor:'#ef5350',
-  }).setData(RAW.ohlcv);
+  });
+  candleSeries.setData(RAW.ohlcv);
 
   overlays.forEach(ind=>renderOverlay(cMain,ind));
+
+  // Buy/Sell-Marker direkt auf den Kerzen (▲ Buy / ▼ Sell)
+  if(ACTIVE.some(i=>i.type==='SIG') && RAW.indicators.signals) {
+    candleSeries.setMarkers(RAW.indicators.signals.map(g=>g.side==='buy'
+      ? {time:g.time,position:'belowBar',color:'#26a69a',shape:'arrowUp',  text:'BUY'}
+      : {time:g.time,position:'aboveBar',color:'#ef5350',shape:'arrowDown',text:'SELL'}));
+  }
 
   // ── Volume ──
   const dVol=paneDiv('pVol',90,'Volume');
@@ -524,6 +535,7 @@ function resetAll() {
   document.getElementById('startDate').value='{{ min_date }}';
   document.getElementById('endDate').value='{{ max_date }}';
   ACTIVE=[
+    {id:'ind_sig', type:'SIG', param:null,color:'#26a69a'},
     {id:'ind_rsi', type:'RSI', param:null,color:'#ff9800'},
     {id:'ind_macd',type:'MACD',param:null,color:'#2196f3'},
     {id:'ind_bb',  type:'BB', param:null,color:'rgba(255,120,120,0.6)'},
