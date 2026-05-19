@@ -166,7 +166,9 @@ def get_streaming_status():
         # Datenfluss = Zeile in den letzten 15 Minuten
         data_flowing = False
         if last_data is not None:
-            data_flowing = (datetime.now() - last_data).total_seconds() < 900
+            # last_data ist naive UTC (Alpaca-Bars) -> now ebenfalls UTC
+            now_utc = datetime.now(timezone.utc).replace(tzinfo=None)
+            data_flowing = (now_utc - last_data).total_seconds() < 900
 
         if proc_up and data_flowing:
             cls, text = 'running', '🟢 Aktiv (Daten fließen)'
