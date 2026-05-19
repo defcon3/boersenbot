@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify, request
 import pymssql
 import pandas as pd
 import numpy as np
+from scipy.optimize import linprog
 
 app = Flask(__name__)
 
@@ -177,24 +178,92 @@ def series(df, col):
     return [{'time': to_lw(t), 'value': round(float(v), 4)}
             for t, v in zip(df.loc[mask,'Timestamp'], df.loc[mask, col])]
 
-def compute_signals(df):
-    """Buy/Sell aus MACD-Kreuzung (MACD schneidet seine Signallinie),
-    gefiltert per RSI gegen Whipsaw an den Extremen.
+def signal_rule(df, rsi_buy=70, rsi_sell=30, min_gap=0, zero_line=False,
+                macd_fast=12, macd_slow=26, macd_sig=9):
+    """Parametrierte Buy/Sell-Regel — EINE Quelle der Wahrheit.
 
-    BUY  : MACD_Hist wechselt von <=0 auf >0  und  RSI < 70
-    SELL : MACD_Hist wechselt von >=0 auf <0  und  RSI > 30
+    BUY  : MACD_Hist wechselt <=0 -> >0  und  RSI < rsi_buy
+    SELL : MACD_Hist wechselt >=0 -> <0  und  RSI > rsi_sell
+    zero_line : zusätzlich BUY nur wenn MACD>0, SELL nur wenn MACD<0
+                (echte Trendwechsel statt Mini-Wackler)
+    min_gap   : Entprellung — Mindestabstand in Bars zwischen Signalen
+    macd_*    : MACD-Perioden (live justierbar, MACD wird hier neu gerechnet)
     """
-    h, rsi = df['MACD_Hist'], df['RSI']
-    prev = h.shift(1)
-    buy  = (prev <= 0) & (h > 0) & (rsi < 70)
-    sell = (prev >= 0) & (h < 0) & (rsi > 30)
-    out = []
-    for t, b, s in zip(df['Timestamp'], buy, sell):
-        if b:
-            out.append({'time': to_lw(t), 'side': 'buy'})
-        elif s:
-            out.append({'time': to_lw(t), 'side': 'sell'})
+    c = df['ClosePrice']
+    macd, _sig, hist = compute_macd(c, macd_fast, macd_slow, macd_sig)
+    rsi  = df['RSI']
+    prev = hist.shift(1)
+    buy  = (prev <= 0) & (hist > 0) & (rsi < rsi_buy)
+    sell = (prev >= 0) & (hist < 0) & (rsi > rsi_sell)
+    if zero_line:
+        buy  = buy  & (macd > 0)
+        sell = sell & (macd < 0)
+    ts = df['Timestamp']
+    out, last_i = [], -10**9
+    for i, (b, s) in enumerate(zip(buy.values, sell.values)):
+        if not (b or s):
+            continue
+        if i - last_i < min_gap:
+            continue
+        out.append({'time': to_lw(ts.iloc[i]), 'side': 'buy' if b else 'sell'})
+        last_i = i
     return out
+
+def compute_signals(df):
+    """Rückwärtskompatibler Default (für Ad-hoc-Backtest-Skripte)."""
+    return signal_rule(df)
+
+def _price_index(df):
+    pbt = {to_lw(t): float(c) for t, c in zip(df['Timestamp'], df['ClosePrice'])}
+    return pbt, float(df['ClosePrice'].iloc[-1]), float(df['ClosePrice'].iloc[0])
+
+def backtest_flip(signals, pbt, last_close, start=1000.0, lev=3.0, cost_rt=0.0):
+    """Flip-Strategie: BUY->Call 3x, SELL->Put 3x, erste Position beim 1. BUY,
+    offene Position am letzten Kurs glattgestellt. cost_rt = Kosten je Wechsel.
+    """
+    eq, pos, entry, trades = start, None, None, []
+    for sg in signals:
+        p = pbt.get(sg['time'])
+        if p is None:
+            continue
+        side = sg['side']
+        if pos == 'call' and side == 'sell':
+            r = (p - entry) / entry
+            eq *= (1 + lev * r) * (1 - cost_rt); trades.append(lev * r); pos = entry = None
+        elif pos == 'put' and side == 'buy':
+            r = (p - entry) / entry
+            eq *= (1 + lev * (-r)) * (1 - cost_rt); trades.append(lev * (-r)); pos = entry = None
+        if pos is None:
+            if side == 'buy':
+                pos, entry = 'call', p
+            elif side == 'sell' and trades:
+                pos, entry = 'put', p
+    if pos == 'call':
+        r = (last_close - entry) / entry
+        eq *= (1 + lev * r) * (1 - cost_rt); trades.append(lev * r)
+    elif pos == 'put':
+        r = (last_close - entry) / entry
+        eq *= (1 + lev * (-r)) * (1 - cost_rt); trades.append(lev * (-r))
+    w = sum(1 for x in trades if x > 0)
+    return {'eur': round(eq, 2), 'n': len(trades),
+            'hit': round(100 * w / len(trades), 1) if trades else 0.0}
+
+def _params(d):
+    """Signal-Parameter aus Request lesen + sinnvoll klemmen."""
+    def clamp(v, lo, hi, dv):
+        try:
+            return max(lo, min(hi, type(dv)(v)))
+        except (TypeError, ValueError):
+            return dv
+    return dict(
+        rsi_buy=clamp(d.get('rsi_buy'), 50, 95, 70),
+        rsi_sell=clamp(d.get('rsi_sell'), 5, 50, 30),
+        min_gap=clamp(d.get('min_gap'), 0, 60, 0),
+        zero_line=bool(d.get('zero_line', False)),
+        macd_fast=clamp(d.get('macd_fast'), 2, 30, 12),
+        macd_slow=clamp(d.get('macd_slow'), 5, 60, 26),
+        macd_sig=clamp(d.get('macd_sig'), 2, 20, 9),
+    )
 
 def build_payload(df):
     up   = 'rgba(38,166,154,0.8)'
@@ -248,7 +317,6 @@ def build_payload(df):
             'vwap':       series(df, 'VWAP'),
             'psar_up':    psar_up,
             'psar_down':  psar_down,
-            'signals':    compute_signals(df),
         }
     }
 
@@ -278,6 +346,107 @@ def api_table():
     df2 = df[cols].tail(data.get('limit',200)).copy()
     df2['Timestamp'] = df2['Timestamp'].astype(str)
     return jsonify({'columns': cols, 'data': df2.round(4).to_dict('records')})
+
+@app.route('/api/signals', methods=['POST'])
+def api_signals():
+    """Live-Signale + Flip-3x-Backtest für die aktuellen Slider-Parameter."""
+    d = request.json or {}
+    df = load_data(d.get('symbol', 'AAPL'), d.get('start_date'), d.get('end_date'))
+    if df is None:
+        return jsonify({'error': 'Keine Daten verfügbar'}), 400
+    p = _params(d)
+    sig = signal_rule(df, **p)
+    pbt, lc, fc = _price_index(df)
+    return jsonify({
+        'signals': sig,
+        'params': p,
+        'stats': {
+            'n':      len(sig),
+            'hit':    backtest_flip(sig, pbt, lc)['hit'],
+            'eur_0':  backtest_flip(sig, pbt, lc, cost_rt=0.0)['eur'],
+            'eur_05': backtest_flip(sig, pbt, lc, cost_rt=0.005)['eur'],
+            'eur_1':  backtest_flip(sig, pbt, lc, cost_rt=0.01)['eur'],
+            'bh':     round((lc - fc) / fc * 100, 2),
+        }
+    })
+
+@app.route('/api/optimize', methods=['POST'])
+def api_optimize():
+    """Grid-Search über RSI-Schwellen mit In-Sample/Out-of-Sample-Split
+    (gegen Curve-Fitting) + Simplex-LP-Nostalgie (Kapitalaufteilung)."""
+    d = request.json or {}
+    sym = d.get('symbol', 'AAPL')
+    df = load_data(sym, d.get('start_date'), d.get('end_date'))
+    if df is None:
+        return jsonify({'error': 'Keine Daten verfügbar'}), 400
+    base = _params(d)
+    cut = int(len(df) * 0.65)
+    is_df, oos_df = df.iloc[:cut].copy(), df.iloc[cut:].copy()
+    is_pbt,  is_lc,  _  = _price_index(is_df)
+    oos_pbt, oos_lc, _  = _price_index(oos_df)
+
+    def score(sub_df, pbt, lc, rb, rs):
+        pr = dict(base); pr['rsi_buy'] = rb; pr['rsi_sell'] = rs
+        s = signal_rule(sub_df, **pr)
+        bt = backtest_flip(s, pbt, lc, cost_rt=0.005)   # realistischer Spread
+        return bt['eur'], bt['hit'], bt['n']
+
+    buys  = list(range(55, 86, 5))     # 7
+    sells = list(range(15, 46, 5))     # 7  -> 49 Kombis
+    grid, best = [], None
+    for rs in sells:
+        for rb in buys:
+            ie, ih, ino = score(is_df,  is_pbt,  is_lc,  rb, rs)
+            oe, oh, ono = score(oos_df, oos_pbt, oos_lc, rb, rs)
+            cell = {'rsi_buy': rb, 'rsi_sell': rs,
+                    'is_eur': ie, 'is_hit': ih,
+                    'oos_eur': oe, 'oos_hit': oh}
+            grid.append(cell)
+            if best is None or ie > best['is_eur']:
+                best = cell
+
+    # ── Simplex-LP-Nostalgie: Kapitalaufteilung über die Symbole ──────────
+    # Ehrlich: optimiert NUR die Aufteilung gegebener Strategien, NICHT die
+    # Signalregel (die ist nicht-konvex -> Grid oben). Klassisches LP:
+    #   max  Σ netᵢ·xᵢ   s.t.  Σ xᵢ = 1000,  0 ≤ xᵢ ≤ 400
+    syms = get_available_symbols()
+    nets, rows = [], []
+    for s in syms:
+        sdf = load_data(s, d.get('start_date'), d.get('end_date'))
+        if sdf is None or sdf.empty:
+            continue
+        spbt, slc, _ = _price_index(sdf)
+        bt = backtest_flip(signal_rule(sdf, **base), spbt, slc, cost_rt=0.005)
+        net = bt['eur'] / 1000.0 - 1.0
+        nets.append(net); rows.append({'symbol': s, 'net_pct': round(net * 100, 2)})
+    lp = None
+    if nets:
+        n = len(nets)
+        res = linprog(c=[-x for x in nets],                 # max -> min(-)
+                      A_eq=[[1.0] * n], b_eq=[1000.0],
+                      bounds=[(0.0, 400.0)] * n,
+                      method='highs-ds')                     # HiGHS Dual-Simplex
+        if res.success:
+            for r, x in zip(rows, res.x):
+                r['alloc_eur'] = round(float(x), 2)
+            lp = {
+                'method': 'HiGHS Dual-Simplex (scipy.optimize.linprog)',
+                'objective': 'max Σ netᵢ·xᵢ  |  Σxᵢ=1000 €,  0≤xᵢ≤400 €',
+                'rows': rows,
+                'profit_eur': round(float(-res.fun), 2),
+                'note': ('Nostalgie/Demo: LP optimiert die KAPITALAUFTEILUNG '
+                         'gegebener Strategien — NICHT die Signalregel. '
+                         'Ein fixer 6-Tage-Datensatz hat keine Aussagekraft.')
+            }
+
+    return jsonify({
+        'grid': grid, 'buys': buys, 'sells': sells, 'best_is': best,
+        'split': {'is_bars': cut, 'oos_bars': len(df) - cut},
+        'lp': lp,
+        'caveat': ('In-Sample optimiert, Out-of-Sample gemessen. Großer '
+                   'IS→OOS-Abfall = Curve-Fitting. 3x-Modell ohne '
+                   'Theta/Vega/Knock-out, ein Symbol/Zeitraum.')
+    })
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=False)

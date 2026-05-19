@@ -100,6 +100,30 @@ thead{position:sticky;top:0;background:rgba(0,212,255,.1)}
 th{padding:9px 11px;text-align:left;color:#00d4ff;font-weight:600;white-space:nowrap}
 td{padding:7px 11px;border-bottom:1px solid rgba(255,255,255,.04)}
 tbody tr:hover{background:rgba(0,212,255,.05)}
+
+/* signal control */
+.sig-ctl{display:none;background:rgba(15,15,35,.95);border:1px solid #1e3a5f;
+  border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.sig-row{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-bottom:8px}
+.sig-row label{font-size:11px;color:#8a9bb0;display:flex;align-items:center;gap:6px}
+.sig-row label b{color:#00d4ff;min-width:18px;text-align:right}
+.sig-row input[type=range]{width:130px;accent-color:#00d4ff;min-width:unset}
+.sig-row label.chk{color:#e0e0e0}
+.sig-stat{font-size:12px;color:#cfe8f5;background:rgba(0,212,255,.06);
+  border:1px solid #1e3a5f;border-radius:5px;padding:7px 10px;margin-top:4px}
+.sig-stat b{color:#00d4ff}
+.opt-box{margin-top:10px}
+.opt-box table.heat{width:auto;border-collapse:collapse;font-size:11px;margin:6px 0}
+.opt-box table.heat th{padding:4px 7px;color:#8a9bb0;font-weight:600}
+.opt-box table.heat td{padding:5px 8px;text-align:center;color:#08121f;
+  font-weight:700;border:1px solid #0d0d1a;min-width:46px}
+.opt-best{font-size:12px;color:#e0e0e0;background:rgba(0,212,255,.08);
+  border:1px solid #00d4ff;border-radius:5px;padding:8px 11px;margin:6px 0}
+.opt-best b{color:#ffd54f}
+.opt-lp{font-size:12px;color:#cfe8f5;border:1px solid #1e3a5f;border-radius:5px;
+  padding:8px 11px;margin:6px 0}
+.opt-lp code{color:#ffd54f;font-size:11px}
+.opt-cav{font-size:11px;color:#ff8a80;margin:5px 0}
 </style>
 </head>
 <body>
@@ -164,6 +188,29 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
   </div>
 </div>
 
+<div class="sig-ctl" id="sigCtl">
+  <div class="sig-row">
+    <label>RSI&nbsp;Buy&nbsp;&lt;&nbsp;<b id="lab_rsi_buy">70</b>
+      <input type="range" data-k="rsi_buy" min="50" max="95" step="1" value="70" oninput="onSig('rsi_buy',this.value,true)"></label>
+    <label>RSI&nbsp;Sell&nbsp;&gt;&nbsp;<b id="lab_rsi_sell">30</b>
+      <input type="range" data-k="rsi_sell" min="5" max="50" step="1" value="30" oninput="onSig('rsi_sell',this.value,true)"></label>
+    <label>Entprellung&nbsp;<b id="lab_min_gap">0</b>&nbsp;Bars
+      <input type="range" data-k="min_gap" min="0" max="60" step="1" value="0" oninput="onSig('min_gap',this.value,true)"></label>
+    <label class="chk"><input type="checkbox" onchange="onSig('zero_line',this.checked,false)">&nbsp;nur MACD-Nulllinien-Kreuz</label>
+  </div>
+  <div class="sig-row">
+    <label>MACD&nbsp;fast&nbsp;<b id="lab_macd_fast">12</b>
+      <input type="range" data-k="macd_fast" min="2" max="30" step="1" value="12" oninput="onSig('macd_fast',this.value,true)"></label>
+    <label>slow&nbsp;<b id="lab_macd_slow">26</b>
+      <input type="range" data-k="macd_slow" min="5" max="60" step="1" value="26" oninput="onSig('macd_slow',this.value,true)"></label>
+    <label>signal&nbsp;<b id="lab_macd_sig">9</b>
+      <input type="range" data-k="macd_sig" min="2" max="20" step="1" value="9" oninput="onSig('macd_sig',this.value,true)"></label>
+    <button class="btn-secondary" onclick="runOptimize()">⚙ Optimieren (Grid + Simplex)</button>
+  </div>
+  <div class="sig-stat" id="sigStat">Signal-Parameter justieren — Auswertung erscheint hier.</div>
+  <div class="opt-box" id="optBox"></div>
+</div>
+
 <div class="error"   id="error"></div>
 <div class="loading" id="loading"><div class="spinner"></div>Daten laden…</div>
 <div class="stats"   id="stats"></div>
@@ -205,6 +252,13 @@ let ACTIVE    = [];   // [{id, type, param, color}]
 let ALL_CHARTS= [];
 let colorIdx  = 0;
 let idCounter = 0;
+
+// Live-Signal-Parameter (serverseitige Regel = eine Quelle der Wahrheit)
+let SIGP = { rsi_buy:70, rsi_sell:30, min_gap:0, zero_line:false,
+             macd_fast:12, macd_slow:26, macd_sig:9 };
+let LIVE_SIGNALS = [];
+let CANDLE       = null;
+let sigTimer     = null;
 
 // defaults
 ACTIVE = [
@@ -398,12 +452,9 @@ function renderAll() {
 
   overlays.forEach(ind=>renderOverlay(cMain,ind));
 
-  // Buy/Sell-Marker direkt auf den Kerzen (▲ Buy / ▼ Sell)
-  if(ACTIVE.some(i=>i.type==='SIG') && RAW.indicators.signals) {
-    candleSeries.setMarkers(RAW.indicators.signals.map(g=>g.side==='buy'
-      ? {time:g.time,position:'belowBar',color:'#26a69a',shape:'arrowUp',  text:'BUY'}
-      : {time:g.time,position:'aboveBar',color:'#ef5350',shape:'arrowDown',text:'SELL'}));
-  }
+  // Buy/Sell-Marker: serverseitig berechnet (LIVE_SIGNALS), via CANDLE
+  CANDLE=candleSeries;
+  applyMarkers();
 
   // ── Volume ──
   const dVol=paneDiv('pVol',90,'Volume');
@@ -447,11 +498,110 @@ function addInd(type, param) {
   ACTIVE.push({id:'ind_'+(++idCounter), type, param:param||null, color});
   document.getElementById('picker').classList.remove('open');
   renderAll();
+  updateSigCtl(); fetchSignals();
 }
 
 function removeInd(id) {
   ACTIVE=ACTIVE.filter(i=>i.id!==id);
   renderAll();
+  updateSigCtl(); fetchSignals();
+}
+
+// ─── Buy/Sell-Signal: Live-Parameter & Optimizer ─────────────────────────────
+function sigActive(){ return ACTIVE.some(i=>i.type==='SIG'); }
+
+function updateSigCtl(){
+  document.getElementById('sigCtl').style.display = sigActive() ? 'block' : 'none';
+}
+
+function applyMarkers(){
+  if(!CANDLE) return;
+  CANDLE.setMarkers(sigActive() ? LIVE_SIGNALS.map(g=>g.side==='buy'
+    ? {time:g.time,position:'belowBar',color:'#26a69a',shape:'arrowUp',  text:'BUY'}
+    : {time:g.time,position:'aboveBar',color:'#ef5350',shape:'arrowDown',text:'SELL'}) : []);
+}
+
+function sigBody(extra){
+  return JSON.stringify(Object.assign({
+    symbol:    document.getElementById('symbol').value,
+    start_date:document.getElementById('startDate').value,
+    end_date:  document.getElementById('endDate').value,
+  }, SIGP, extra||{}));
+}
+
+function fetchSignals(){
+  if(!RAW) return;
+  if(!sigActive()){ LIVE_SIGNALS=[]; applyMarkers(); return; }
+  fetch('/analysis/api/signals',{method:'POST',
+    headers:{'Content-Type':'application/json'}, body:sigBody()})
+  .then(r=>r.json()).then(d=>{
+    if(d.error) return;
+    LIVE_SIGNALS=d.signals||[]; applyMarkers();
+    const s=d.stats;
+    document.getElementById('sigStat').innerHTML=
+      `<b>${s.n}</b> Signale · Trefferquote <b>${s.hit}%</b> · `+
+      `1.000€ → <b>${s.eur_0}</b> / <b>${s.eur_05}</b> / <b>${s.eur_1}</b> € `+
+      `(Kosten 0 / 0,5 / 1 % je Wechsel) · Underlying B&H `+
+      `${s.bh>=0?'+':''}${s.bh}%`;
+  }).catch(()=>{});
+}
+function fetchSignalsDebounced(){ clearTimeout(sigTimer); sigTimer=setTimeout(fetchSignals,150); }
+
+function onSig(key,val,isNum){
+  SIGP[key]= isNum ? +val : val;
+  const lab=document.getElementById('lab_'+key);
+  if(lab) lab.textContent=val;
+  fetchSignalsDebounced();
+}
+
+function runOptimize(){
+  const box=document.getElementById('optBox');
+  box.innerHTML='<div style="color:#00d4ff;padding:8px 0">⚙ Grid-Search + Simplex läuft…</div>';
+  fetch('/analysis/api/optimize',{method:'POST',
+    headers:{'Content-Type':'application/json'}, body:sigBody()})
+  .then(r=>r.json()).then(d=>{ if(d.error){box.innerHTML='';return} renderOpt(d); })
+  .catch(()=>{ box.innerHTML='<div class="opt-cav">Optimierung fehlgeschlagen.</div>'; });
+}
+
+function renderOpt(d){
+  const cells={}; let mn=1e18,mx=-1e18;
+  d.grid.forEach(c=>{ cells[c.rsi_buy+'_'+c.rsi_sell]=c;
+    mn=Math.min(mn,c.oos_eur); mx=Math.max(mx,c.oos_eur); });
+  const col=v=>{ const t=mx>mn?(v-mn)/(mx-mn):0.5;
+    return `rgb(${Math.round(239+(38-239)*t)},${Math.round(83+(166-83)*t)},${Math.round(80+(154-80)*t)})`; };
+  let h='<table class="heat"><tr><th>Sell&gt; \\ Buy&lt;</th>'+
+        d.buys.map(b=>`<th>${b}</th>`).join('')+'</tr>';
+  d.sells.slice().reverse().forEach(s=>{
+    h+=`<tr><th>${s}</th>`+d.buys.map(b=>{ const c=cells[b+'_'+s];
+      return `<td title="IS ${c.is_eur}€ (Hit ${c.is_hit}%) · OOS ${c.oos_eur}€ (Hit ${c.oos_hit}%)" `+
+             `style="background:${col(c.oos_eur)}">${c.oos_eur}</td>`; }).join('')+'</tr>';
+  });
+  h+='</table><div style="font-size:10px;color:#8a9bb0">Zellwert = Out-of-Sample-Endkapital € @0,5 % Kosten (Hover: IS/OOS-Details)</div>';
+  const b=d.best_is;
+  h+=`<div class="opt-best">Bestes <u>In-Sample</u>: RSI-Buy&lt;${b.rsi_buy}, RSI-Sell&gt;${b.rsi_sell} `+
+     `→ IS ${b.is_eur}€ (Hit ${b.is_hit}%) · <b>Out-of-Sample dann ${b.oos_eur}€ (Hit ${b.oos_hit}%)</b> `+
+     `&nbsp;<button class="btn-secondary" onclick="applyBest(${b.rsi_buy},${b.rsi_sell})">Übernehmen</button></div>`;
+  h+=`<div class="opt-cav">⚠ ${d.caveat} (Split: ${d.split.is_bars} IS / ${d.split.oos_bars} OOS Bars)</div>`;
+  if(d.lp){
+    h+=`<div class="opt-lp"><b>🧮 Simplex-Nostalgie</b> — ${d.lp.method}<br>`+
+       `<code>${d.lp.objective}</code>`+
+       `<table class="heat" style="margin-top:6px"><tr><th>Symbol</th><th>Netto&nbsp;%</th><th>LP-Allokation&nbsp;€</th></tr>`+
+       d.lp.rows.map(r=>`<tr><td style="background:#0f0f23;color:#cfe8f5">${r.symbol}</td>`+
+         `<td style="background:#0f0f23;color:#cfe8f5">${r.net_pct}</td>`+
+         `<td style="background:#0f0f23;color:#ffd54f">${r.alloc_eur??'–'}</td></tr>`).join('')+
+       `</table><div style="margin-top:4px">Erwarteter LP-Gewinn: <b style="color:#ffd54f">${d.lp.profit_eur} €</b></div>`+
+       `<div class="opt-cav">${d.lp.note}</div></div>`;
+  }
+  document.getElementById('optBox').innerHTML=h;
+}
+
+function applyBest(rb,rs){
+  SIGP.rsi_buy=rb; SIGP.rsi_sell=rs;
+  [['rsi_buy',rb],['rsi_sell',rs]].forEach(([k,v])=>{
+    const i=document.querySelector(`#sigCtl input[data-k="${k}"]`); if(i) i.value=v;
+    const l=document.getElementById('lab_'+k); if(l) l.textContent=v;
+  });
+  fetchSignals();
 }
 
 // ─── Picker toggle ────────────────────────────────────────────────────────────
@@ -482,6 +632,7 @@ function loadChart() {
     if(data.error){showError(data.error);return}
     RAW=data;
     renderAll();
+    updateSigCtl(); fetchSignals();
     renderStats(data.stats);
     loadTable();
   })
