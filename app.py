@@ -182,7 +182,8 @@ def get_streaming_status():
             'data_flowing': data_flowing,
             'status': text,
             'status_class': cls,
-            'last_data': last_data.strftime('%Y-%m-%d %H:%M') if last_data else 'nie',
+            # last_data ist naive UTC -> in lokale Zeit (CEST) wandeln
+            'last_data': (last_data.replace(tzinfo=timezone.utc).astimezone().strftime('%Y-%m-%d %H:%M') if last_data else 'nie'),
             'pid': pid
         }
     except Exception as e:
