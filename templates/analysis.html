@@ -195,7 +195,7 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
     <label>RSI&nbsp;Sell&nbsp;&gt;&nbsp;<b id="lab_rsi_sell">30</b>
       <input type="range" data-k="rsi_sell" min="5" max="50" step="1" value="30" oninput="onSig('rsi_sell',this.value,true)"></label>
     <label>Entprellung&nbsp;<b id="lab_min_gap">0</b>&nbsp;Bars
-      <input type="range" data-k="min_gap" min="0" max="60" step="1" value="0" oninput="onSig('min_gap',this.value,true)"></label>
+      <input type="range" data-k="min_gap" min="0" max="400" step="5" value="0" oninput="onSig('min_gap',this.value,true)"></label>
     <label class="chk"><input type="checkbox" onchange="onSig('zero_line',this.checked,false)">&nbsp;nur MACD-Nulllinien-Kreuz</label>
   </div>
   <div class="sig-row">
@@ -205,15 +205,15 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
       <input type="range" data-k="macd_slow" min="5" max="60" step="1" value="26" oninput="onSig('macd_slow',this.value,true)"></label>
     <label>signal&nbsp;<b id="lab_macd_sig">9</b>
       <input type="range" data-k="macd_sig" min="2" max="20" step="1" value="9" oninput="onSig('macd_sig',this.value,true)"></label>
+    <label>max&nbsp;Signale&nbsp;<b id="lab_max_sig">alle</b>
+      <input type="range" data-k="max_sig" min="0" max="40" step="1" value="0" oninput="onSig('max_sig',this.value,true)"></label>
     <button class="btn-secondary" onclick="runOptimize()">⚙ Optimieren (Grid + Simplex)</button>
   </div>
   <div class="sig-stat" id="sigStat">Signal-Parameter justieren — Auswertung erscheint hier.</div>
-  <div class="opt-box" id="optBox"></div>
 </div>
 
 <div class="error"   id="error"></div>
 <div class="loading" id="loading"><div class="spinner"></div>Daten laden…</div>
-<div class="stats"   id="stats"></div>
 
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('chart',this)">📊 Chart</button>
@@ -228,6 +228,9 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
     <table><thead><tr id="tHead"></tr></thead><tbody id="tBody"></tbody></table>
   </div>
 </div>
+
+<div class="stats"   id="stats"></div>
+<div class="opt-box" id="optBox"></div>
 
 </div><!-- /container -->
 <script>
@@ -255,7 +258,7 @@ let idCounter = 0;
 
 // Live-Signal-Parameter (serverseitige Regel = eine Quelle der Wahrheit)
 let SIGP = { rsi_buy:70, rsi_sell:30, min_gap:0, zero_line:false,
-             macd_fast:12, macd_slow:26, macd_sig:9 };
+             macd_fast:12, macd_slow:26, macd_sig:9, max_sig:0 };
 let LIVE_SIGNALS = [];
 let CANDLE       = null;
 let sigTimer     = null;
@@ -550,7 +553,7 @@ function fetchSignalsDebounced(){ clearTimeout(sigTimer); sigTimer=setTimeout(fe
 function onSig(key,val,isNum){
   SIGP[key]= isNum ? +val : val;
   const lab=document.getElementById('lab_'+key);
-  if(lab) lab.textContent=val;
+  if(lab) lab.textContent=(key==='max_sig' && +val===0) ? 'alle' : val;
   fetchSignalsDebounced();
 }
 

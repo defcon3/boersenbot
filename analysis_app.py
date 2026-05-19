@@ -179,7 +179,7 @@ def series(df, col):
             for t, v in zip(df.loc[mask,'Timestamp'], df.loc[mask, col])]
 
 def signal_rule(df, rsi_buy=70, rsi_sell=30, min_gap=0, zero_line=False,
-                macd_fast=12, macd_slow=26, macd_sig=9):
+                macd_fast=12, macd_slow=26, macd_sig=9, max_sig=0):
     """Parametrierte Buy/Sell-Regel — EINE Quelle der Wahrheit.
 
     BUY  : MACD_Hist wechselt <=0 -> >0  und  RSI < rsi_buy
@@ -188,6 +188,8 @@ def signal_rule(df, rsi_buy=70, rsi_sell=30, min_gap=0, zero_line=False,
                 (echte Trendwechsel statt Mini-Wackler)
     min_gap   : Entprellung — Mindestabstand in Bars zwischen Signalen
     macd_*    : MACD-Perioden (live justierbar, MACD wird hier neu gerechnet)
+    max_sig   : 0 = alle; sonst nur die N STÄRKSTEN Signale (größtes
+                |MACD_Hist| am Kreuzungs-Bar), Zeitreihenfolge bleibt
     """
     c = df['ClosePrice']
     macd, _sig, hist = compute_macd(c, macd_fast, macd_slow, macd_sig)
@@ -199,14 +201,21 @@ def signal_rule(df, rsi_buy=70, rsi_sell=30, min_gap=0, zero_line=False,
         buy  = buy  & (macd > 0)
         sell = sell & (macd < 0)
     ts = df['Timestamp']
+    hv = hist.values
     out, last_i = [], -10**9
     for i, (b, s) in enumerate(zip(buy.values, sell.values)):
         if not (b or s):
             continue
         if i - last_i < min_gap:
             continue
-        out.append({'time': to_lw(ts.iloc[i]), 'side': 'buy' if b else 'sell'})
+        out.append({'time': to_lw(ts.iloc[i]), 'side': 'buy' if b else 'sell',
+                    '_str': abs(float(hv[i]))})
         last_i = i
+    if max_sig and len(out) > max_sig:
+        keep = sorted(sorted(range(len(out)), key=lambda k: -out[k]['_str'])[:max_sig])
+        out = [out[k] for k in keep]
+    for o in out:
+        o.pop('_str', None)
     return out
 
 def compute_signals(df):
@@ -258,11 +267,12 @@ def _params(d):
     return dict(
         rsi_buy=clamp(d.get('rsi_buy'), 50, 95, 70),
         rsi_sell=clamp(d.get('rsi_sell'), 5, 50, 30),
-        min_gap=clamp(d.get('min_gap'), 0, 60, 0),
+        min_gap=clamp(d.get('min_gap'), 0, 600, 0),
         zero_line=bool(d.get('zero_line', False)),
         macd_fast=clamp(d.get('macd_fast'), 2, 30, 12),
         macd_slow=clamp(d.get('macd_slow'), 5, 60, 26),
         macd_sig=clamp(d.get('macd_sig'), 2, 20, 9),
+        max_sig=clamp(d.get('max_sig'), 0, 50, 0),
     )
 
 def build_payload(df):
