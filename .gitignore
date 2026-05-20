@@ -5,5 +5,19 @@ __pycache__/
 venv/
 .env
 data/
+
+# Logs
+*.log
+
+# Lokale Caches / generierte Daten (reproduzierbar via die jeweiligen *.py)
 som_cache.pkl
-som_test.log
+crossover_universe.pkl
+slippage_universe.pkl
+crossover_grid.json
+crossover_events.json
+crossover_aggregate.json
+slippage_sample.json
+slippage_sample2.json
+
+# Wegwerf-Tests (Schritt-1-Probe Alpaca)
+test_alpaca_quotes*.py
