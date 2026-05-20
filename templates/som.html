@@ -8,10 +8,16 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:20px}
 .container{max-width:1700px;margin:0 auto}
-header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:14px}
+header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:10px}
 header h1{color:#00d4ff;font-size:24px}
 header p{color:#888;font-size:12px;margin-top:2px}
 a{color:#00d4ff}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.topnav a{color:#9aa5b1;text-decoration:none;font-size:12px;font-weight:600;
+  letter-spacing:.5px;padding:6px 14px;border:1px solid transparent;border-radius:14px;
+  transition:color .15s,border-color .15s,background .15s}
+.topnav a:hover{color:#00d4ff;border-color:#1e3a5f}
+.topnav a.active{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.08)}
 .caveat{background:rgba(255,170,0,.10);border:1px solid #ffaa00;border-radius:8px;
   padding:12px 16px;margin-bottom:14px;font-size:13px;color:#ffd27f;line-height:1.5}
 .caveat b{color:#ffaa00}
@@ -82,9 +88,13 @@ button:hover{opacity:.85}
 <div class="container">
 <header>
   <h1>SOM-Marktregime</h1>
-  <p>Kohonen-Karten auf der Daily-S&amp;P-Historie (<code>bb_StockPrices</code>) ·
-     <a href="/analysis">← zurück zum Explorer</a></p>
+  <p>Kohonen-Karten auf der Daily-S&amp;P-Historie (<code>bb_StockPrices</code>)</p>
 </header>
+<nav class="topnav">
+  <a href="/">📊 Dashboard</a>
+  <a href="/analysis">🔬 Kaggle Explorer</a>
+  <a href="/analysis/som" class="active">🗺️ SOM-Marktregime</a>
+</nav>
 
 <div class="caveat">
   <b>Ehrlich:</b> Eine Self-Organizing Map ist <b>explorativ/beschreibend — kein

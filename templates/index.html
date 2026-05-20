@@ -30,6 +30,32 @@
             opacity: 0.9;
         }
 
+        .topnav {
+            background: #0a0d12;
+            border-bottom: 1px solid #2a2e37;
+            padding: 8px 20px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .topnav a {
+            color: #9aa5b1;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            padding: 6px 14px;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            transition: color .15s, border-color .15s, background .15s;
+        }
+        .topnav a:hover { color: #00d4ff; border-color: #1e3a5f; }
+        .topnav a.active {
+            color: #00d4ff;
+            border-color: #00d4ff;
+            background: rgba(0,212,255,.08);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -236,6 +262,11 @@
         <h1>📊 Börsenbot Dashboard</h1>
         <p>Real-time data collection monitoring & trading control</p>
     </header>
+    <nav class="topnav">
+        <a href="/" class="active">📊 Dashboard</a>
+        <a href="/analysis">🔬 Kaggle Explorer</a>
+        <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+    </nav>
 
     <div class="container">
         <div id="error-container"></div>
