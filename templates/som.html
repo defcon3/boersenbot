@@ -94,6 +94,7 @@ button:hover{opacity:.85}
   <a href="/">📊 Dashboard</a>
   <a href="/analysis">🔬 Kaggle Explorer</a>
   <a href="/analysis/som" class="active">🗺️ SOM-Marktregime</a>
+  <a href="/analysis/crossover">📈 MA-Crossover</a>
 </nav>
 
 <div class="caveat">
@@ -122,10 +123,85 @@ button:hover{opacity:.85}
   <span style="margin-left:auto"><button onclick="rebuild(this)">Neu bauen</button></span>
 </div>
 
+<h2>Lesebeispiel &mdash; wie liest du diese Karte?</h2>
+<p class="sub">Damit klar wird, was die Visualisierung sagt &mdash; und was sie <i>nicht</i> sagt.</p>
+<div class="examples">
+  <div class="ex">
+    <span class="tag">1. Was ist eine SOM?</span>
+    <p class="sub">Self-Organizing Map (Kohonen-Karte).</p>
+    <div class="takeaway">
+      Ein 2D-Gitter, auf dem jeder Knoten <b>einen Markt-Zustand</b> repräsentiert.
+      Das Lernverfahren ordnet die Knoten so an, dass <b>benachbarte Zellen ähnliche
+      Tage</b> abbilden. Ein Tag mit moderater Vola und positivem Markt landet z.&nbsp;B.
+      konstant im selben Eck der Karte. Sprünge in entfernte Ecken bedeuten:
+      das Marktregime hat sich abrupt geändert.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">2. Chernoff-Gesichter</span>
+    <p class="sub">Warum diese seltsamen Faces?</p>
+    <div class="takeaway">
+      Jeder Knoten besteht aus 6 Kennzahlen (Median-Return, Vola, Breadth, RSI, ADX,
+      Dispersion). Das menschliche Auge erkennt <b>Gesichter</b> deutlich besser als
+      Zahlenreihen. Daher wird jeder Knoten als kleines Gesicht gezeichnet:
+      <code>Mund</code> Lächeln&uarr; = positives Return, <code>Breite</code> = Vola,
+      <code>Brauen</code> zornig = hohe Dispersion/Stress, <code>Farbe</code> grün = breite
+      Marktbeteiligung, <code>Augen</code> groß = hoher RSI, <code>Nase</code> lang =
+      starker Trend. Über jedes Gesicht fahren zeigt die Rohwerte.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">3. Zwei Karten, zwei Sichten</span>
+    <p class="sub">Index-Regime vs Symbol-Tag.</p>
+    <div class="takeaway">
+      <b>Index-Regime</b> (oben): ein Vektor pro Handelstag &mdash; aggregiert den
+      <i>gesamten Markt</i>. Daraus wird die Trajektorie.<br>
+      <b>Symbol-Tag</b> (unten): ein Vektor pro (Aktie, Tag) &mdash; ein viel größerer
+      Datensatz, in dem auch <i>einzelne Aktien-Anomalien</i> auftauchen. Hier wird der
+      Edge-Test ausgeführt: gibt es Knoten, in denen Streak-Mean-Reversion besonders gut
+      funktioniert?
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">4. Markt-Trajektorie</span>
+    <p class="sub">Wo war der Markt zuletzt unterwegs?</p>
+    <div class="takeaway">
+      Die letzten ~90 Handelstage werden als <b>animierter Pfad</b> über das Index-Gitter
+      gezeichnet. Zellen <b style="color:#28be6e">grün</b> = Aufwärts-Regime-Knoten,
+      <b style="color:#c83746">rot</b> = Abwärts-Regime. Bleibt der Punkt lange in
+      einer Ecke, herrscht ein ruhiges Regime. Springt der Pfad weit über die Karte,
+      hat sich das Regime abrupt geändert (typisch: ruhiger Aufwärtstrend &rarr;
+      Stress-Cluster bei Sell-off).
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">5. Edge-Test</span>
+    <p class="sub">Macht das Regime einen Unterschied?</p>
+    <div class="takeaway">
+      Wir kennen einen Edge: nach mehreren Abwärtstagen in Folge steigt die nächste
+      Tagesrendite überzufällig (Mean-Reversion). Frage: gilt der überall &mdash; oder
+      nur in bestimmten Regime-Knoten? Die Tabelle zeigt je Knoten: <b>Trefferquote</b>
+      vs <b>Basisrate</b>. Grüne Zeile = p&lt;0,05 (Edge), aber Vorsicht beim Mehrfachtest:
+      bei ~30 Knoten ist 1–2 mit p&lt;0,05 zufällig zu erwarten.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">6. Was hier <i>nicht</i> steht</span>
+    <p class="sub">Wichtige Vorbehalte.</p>
+    <div class="takeaway">
+      Die SOM ist <b>beschreibend, kein Prädiktor</b>. Sie clustert Vergangenheit &mdash;
+      sie sagt nichts über morgen vorher. Auch der Edge-Test ist nicht „handelbar":
+      Mehrfachtest-Korrektur, Kosten und ein <i>unberührter</i> Validierungszeitraum
+      würden ihn vermutlich erheblich relativieren. Die Karte ist ein Werkzeug zum
+      <b>Verstehen</b> der Markt-Regime, nicht zum Vorhersagen.
+    </div>
+  </div>
+</div>
+
 {% if examples %}
-<h2>Lesebeispiele &mdash; was steht in einer Zelle?</h2>
-<p class="sub">Vier Knoten aus den aktuellen Daten, damit klar wird, was
-  Median-Return / Vol / Breadth pro Cluster konkret bedeuten. Tooltip
+<h2>Lesebeispiele aus deinen aktuellen Daten</h2>
+<p class="sub">Vier konkrete Knoten aus dem Cache, damit klar wird, was
+  Median-Return / Vol / Breadth pro Cluster <i>tatsächlich</i> bedeuten. Tooltip
   auf jeder Kachel im Gitter unten zeigt dieselben Rohwerte.</p>
 <div class="examples">
   {% for ex in examples %}

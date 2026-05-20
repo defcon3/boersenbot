@@ -621,5 +621,28 @@ def som_rebuild():
         return jsonify({'ok': False, 'error': str(e)}), 500
 
 
+@app.route('/crossover')
+def crossover_view():
+    """MA50/MA200-Crossover Explorer. Liest crossover_grid.json (auf VPS
+    durch crossover_grid.py vorberechnet)."""
+    import json, os
+    grid_path = '/home/veit/boersenbot/crossover_grid.json'
+    if not os.path.exists(grid_path):
+        return render_template(
+            'crossover.html',
+            stk_start='—',
+            data_json=json.dumps({
+                'params': {'fasts': [50], 'slows': [200], 'horizons': [5]},
+                'baseline': {},
+                'grid': {},
+            }))
+    with open(grid_path, 'r') as f:
+        data = json.load(f)
+    return render_template(
+        'crossover.html',
+        stk_start=data['params'].get('stk_start', '2014-01-01'),
+        data_json=json.dumps(data))
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=False)

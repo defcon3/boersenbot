@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MA-Crossover Explorer — Börsenbot</title>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:20px}
+.container{max-width:1700px;margin:0 auto}
+header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:10px}
+header h1{color:#00d4ff;font-size:24px}
+header p{color:#888;font-size:12px;margin-top:2px}
+a{color:#00d4ff}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.topnav a{color:#9aa5b1;text-decoration:none;font-size:12px;font-weight:600;
+  letter-spacing:.5px;padding:6px 14px;border:1px solid transparent;border-radius:14px;
+  transition:color .15s,border-color .15s,background .15s}
+.topnav a:hover{color:#00d4ff;border-color:#1e3a5f}
+.topnav a.active{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.08)}
+.caveat{background:rgba(255,170,0,.10);border:1px solid #ffaa00;border-radius:8px;
+  padding:12px 16px;margin-bottom:14px;font-size:13px;color:#ffd27f;line-height:1.5}
+.caveat b{color:#ffaa00}
+h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;padding-left:10px}
+.sub{color:#888;font-size:12px;margin:0 0 12px 13px}
+.panel{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:16px;margin-bottom:14px}
+.ctrls{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ctrl label{display:block;color:#9fb3c8;font-size:11px;letter-spacing:.6px;
+  text-transform:uppercase;margin-bottom:6px}
+.ctrl select{width:100%;background:#0a0a18;color:#e0e0e0;border:1px solid #1e3a5f;
+  border-radius:6px;padding:8px 10px;font-size:14px}
+.ctrl select:focus{outline:none;border-color:#00d4ff}
+.layout{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;
+  margin-top:12px}
+.stat{background:rgba(10,10,24,.7);border:1px solid #1e3a5f;border-radius:6px;
+  padding:10px 12px}
+.stat .lbl{color:#8aa;font-size:10px;text-transform:uppercase;letter-spacing:.6px}
+.stat .val{color:#e0e0e0;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;
+  margin-top:2px}
+.stat .delta{font-size:11px;margin-top:1px}
+.pos{color:#00ff9c}.negv{color:#ff5577}.neut{color:#8aa}
+.legend{font-size:11px;color:#8aa;line-height:1.6}
+@media (max-width:900px){.layout{grid-template-columns:1fr}.ctrls{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>MA-Crossover Explorer</h1>
+  <p>Was passiert N Handelstage nachdem die schnelle MA die langsame kreuzt? (S&amp;P-500, {{ stk_start }}–heute)</p>
+</header>
+
+<nav class="topnav">
+  <a href="/">📊 Dashboard</a>
+  <a href="/analysis">🔬 Kaggle Explorer</a>
+  <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+  <a href="/analysis/crossover" class="active">📈 MA-Crossover</a>
+</nav>
+
+<div class="caveat">
+  <b>Ehrlich:</b> Eine Visualisierung des Folk-Wisdom-Signals. Golden Cross (fast MA
+  schneidet slow MA von unten) wird Tradern als bullish verkauft, Death Cross umgekehrt
+  als bearish. Hier sehen Sie die <b>tatsächliche Verteilung der N-Tages-Renditen</b> je
+  Event im Vergleich zur unbedingten Basisrate. <b>Kein Edge-Test, kein OOS-Split, keine
+  Kosten</b> — nur eine ehrliche deskriptive Statistik über alle S&amp;P-500-Einzelaktien.
+</div>
+
+<h2>Lesebeispiel — so liest du diese Seite</h2>
+<p class="sub">Damit klar wird, was die Visualisierung sagt — und was sie <i>nicht</i> sagt.</p>
+<div class="examples">
+  <div class="ex">
+    <span class="tag">1. Die Frage</span>
+    <p class="sub">Hat ein MA-Crossover Vorhersagekraft für die nächsten N Tage?</p>
+    <div class="takeaway">
+      Wenn die <b>schnelle</b> Mittelwertlinie (z.&nbsp;B. 50-Tage-SMA) die <b>langsame</b>
+      (z.&nbsp;B. 200-Tage-SMA) <b>von unten nach oben</b> kreuzt, nennt man das einen
+      <b>Golden Cross</b> — Tradition sagt: bullish.
+      Kreuzt sie umgekehrt von oben nach unten: <b>Death Cross</b> — Tradition sagt: bearish.
+      Wir prüfen jeden solchen Punkt in der S&amp;P-500-Historie und schauen, was N Handelstage
+      später wirklich passiert ist.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">2. Das Histogramm</span>
+    <p class="sub">Verteilung der N-Tages-Renditen je Event.</p>
+    <div class="takeaway">
+      <b style="color:#00ff9c">Grün</b> = alle Golden-Cross-Events, <b style="color:#ff5577">rot</b> = alle Death-Cross-Events.
+      Im Hintergrund liegt <b style="color:#bbb">grau</b> die <b>unbedingte Basisrate</b>:
+      die Renditeverteilung über <i>alle</i> Aktie-Tage. Das ist der Marktdrift, dem jedes
+      Signal entgehen muss. Verschieben sich die farbigen Kurven gegenüber dem Grau,
+      hat das Signal etwas zu sagen — bleiben sie deckungsgleich, ist es Rauschen.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">3. Die Hit-Quoten</span>
+    <p class="sub">Wie oft trifft das Signal die erwartete Richtung?</p>
+    <div class="takeaway">
+      Bei Horizont 5 Tagen <b>steigt</b> eine zufällige Aktie an einem zufälligen Tag in
+      <b>54,7 %</b> der Fälle — das ist die unbedingte Basisrate (gilt für Long).
+      Sie <b>fällt</b> in <b>45,3 %</b> der Fälle (gilt für Put). Die Δ-pp-Anzeige in den
+      Kacheln zeigt <i>genau diese Differenz</i>: positive ppp = Edge, negative ppp = Anti-Edge.
+      Beim klassischen <b>50/200</b> ist die Differenz in jedem Horizont negativ — die Tradition
+      ist hier statistisch nicht haltbar.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">4. Die Heatmaps rechts</span>
+    <p class="sub">Welche (fast, slow)-Kombination trägt überhaupt?</p>
+    <div class="takeaway">
+      Eine Matrix-Sicht: alle möglichen MA-Kombinationen bei gewähltem Horizont.
+      <b style="color:#00ff9c">Grün</b> = positive Edge in erwarteter Richtung,
+      <b style="color:#ff5577">rot</b> = invertierter Edge (Signal sagt das Gegenteil von dem,
+      was passiert). Cyan-Kreis markiert deine aktuelle Auswahl. Schnell sichtbar: nicht alle
+      MA-Paare verhalten sich gleich — kurze schnelle MAs (5–20) mit mittellangen slow (50–150)
+      und 10–20-Tage-Horizont zeigen einen kleinen, aber konsistenten Long-Edge.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">5. Was hier <i>nicht</i> steht</span>
+    <p class="sub">Wichtige Vorbehalte vor jedem Trading-Schluss.</p>
+    <div class="takeaway">
+      Kein OOS-Split (alles 2014–2026 zusammen — Survivorship-Bias mit aktueller Indexliste).
+      Keine Kosten (Spread + Slippage + Auktionskosten fressen jeden 1–2-pp-Edge).
+      Kein Volatilitäts-Faktor (manche Crossover passieren in ruhigen, andere in turbulenten
+      Phasen). Kein Sektor-Filter. Eine Δ von +2 pp Hit-Quote ist <b>deskriptiv interessant</b>,
+      kein <b>handelbarer Alpha</b>.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">6. Quick-Picks</span>
+    <p class="sub">Direkt zu den extremen Zellen springen.</p>
+    <div class="takeaway">
+      Mit den Buttons über dem Diagramm springst du direkt zu:
+      <b style="color:#00ff9c">„Beste Long-Variante"</b> (Golden Cross mit höchstem Hit-Edge — Call/Long-Position),
+      <b style="color:#ff5577">„Beste Put-Variante"</b> (Death Cross mit höchstem Edge —
+      Put-Optionsschein-Strategie),
+      <b>„Klassisches 50/200"</b> (Default zum Vergleich) und
+      <b>„Schlechteste Long"</b> (wo Folk-Wisdom besonders kläglich versagt).
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+    <button onclick="pickPreset('best_long')"
+      style="background:linear-gradient(135deg,#00ff9c,#007a4a)">▲ Beste Long-Variante</button>
+    <button onclick="pickPreset('best_short')"
+      style="background:linear-gradient(135deg,#ff5577,#992233)">▼ Beste Put-Variante</button>
+    <button onclick="pickPreset('classic')"
+      style="background:transparent;border:1px solid #00d4ff;color:#00d4ff">📜 Klassisches 50/200</button>
+    <button onclick="pickPreset('worst_long')"
+      style="background:transparent;border:1px solid #888;color:#bbb">🪦 Schlechteste Long</button>
+  </div>
+  <div class="ctrls">
+    <div class="ctrl">
+      <label>Schnelle MA (Tage)</label>
+      <select id="fast"></select>
+    </div>
+    <div class="ctrl">
+      <label>Langsame MA (Tage)</label>
+      <select id="slow"></select>
+    </div>
+    <div class="ctrl">
+      <label>Forward-Horizont (Handelstage)</label>
+      <select id="horizon"></select>
+    </div>
+  </div>
+  <div id="preset_info" style="margin-top:12px;font-size:12px;color:#9fb3c8;line-height:1.6;
+       display:none;background:rgba(0,212,255,.06);border:1px solid #1e3a5f;
+       border-radius:6px;padding:10px 14px"></div>
+</div>
+
+<div class="layout">
+  <div>
+    <h2>Verteilung der Forward-Renditen</h2>
+    <p class="sub">Histogramm der Renditen <span id="hz_lbl">5</span>&nbsp;Handelstage nach jedem
+      Crossover-Event. Graue Fläche = unbedingte Basisrate (alle Aktie-Tage, +<span id="hz_lbl2">5</span>&nbsp;TT).</p>
+    <div class="panel" style="margin-top:8px"><div id="hist" style="height:440px"></div></div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="lbl">Golden Cross</div>
+        <div class="val" id="g_n">—</div>
+        <div class="delta neut">Events</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Golden Hit% (steigend)</div>
+        <div class="val" id="g_hit">—</div>
+        <div class="delta" id="g_hit_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Golden Median</div>
+        <div class="val" id="g_med">—</div>
+        <div class="delta" id="g_med_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Death Cross</div>
+        <div class="val" id="d_n">—</div>
+        <div class="delta neut">Events</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Death Hit% (fallend)</div>
+        <div class="val" id="d_hit">—</div>
+        <div class="delta" id="d_hit_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Death Median</div>
+        <div class="val" id="d_med">—</div>
+        <div class="delta" id="d_med_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Basis-Drift Median</div>
+        <div class="val" id="b_med">—</div>
+        <div class="delta neut" id="b_pos">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Basis n (Aktie-Tage)</div>
+        <div class="val" id="b_n">—</div>
+        <div class="delta neut">unbedingt</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Heatmap: Hit-Diff Golden vs Basis</h2>
+    <p class="sub">Trefferquote Golden Cross (% Events mit r &gt; 0) minus
+      unbedingte Basisrate (%&gt;0) bei aktuellem Horizont, je (fast, slow). Punkt = aktuelle Auswahl.</p>
+    <div class="panel" style="margin-top:8px"><div id="heat_g" style="height:230px"></div></div>
+
+    <h2>Heatmap: Hit-Diff Death vs Basis</h2>
+    <p class="sub">Analog für Death Cross: % Events mit r &lt; 0 minus (100% − Basis%&gt;0).</p>
+    <div class="panel" style="margin-top:8px"><div id="heat_d" style="height:230px"></div></div>
+  </div>
+</div>
+
+<p class="legend" style="margin-top:14px">
+  Grün = Edge in erwarteter Richtung, rot = Anti-Edge (Signal gegen das, was es verspricht).
+  Die unbedingte Basisrate misst, wie oft eine zufällige Aktie an einem zufälligen Tag
+  in N&nbsp;Tagen steigt — diesem Marktbeta muss jedes Signal mindestens entgehen, um echte
+  Information zu enthalten.
+</p>
+
+<script>
+const DATA = {{ data_json|safe }};
+
+function setupDropdowns() {
+  const fastSel = document.getElementById('fast');
+  const slowSel = document.getElementById('slow');
+  const hzSel   = document.getElementById('horizon');
+  DATA.params.fasts.forEach(f => fastSel.add(new Option(f, f)));
+  DATA.params.slows.forEach(s => slowSel.add(new Option(s, s)));
+  DATA.params.horizons.forEach(h => hzSel.add(new Option(h, h)));
+  fastSel.value = 50; slowSel.value = 200; hzSel.value = 5;
+  [fastSel, slowSel, hzSel].forEach(el => el.addEventListener('change', render));
+}
+
+function fmtPct(v, dec=2) {
+  if (v === null || v === undefined || isNaN(v)) return '—';
+  const sign = v > 0 ? '+' : '';
+  return sign + v.toFixed(dec) + '%';
+}
+function diffClass(v) { return v > 0.1 ? 'pos' : v < -0.1 ? 'negv' : 'neut'; }
+
+function render() {
+  const f = parseInt(document.getElementById('fast').value);
+  const s = parseInt(document.getElementById('slow').value);
+  const h = parseInt(document.getElementById('horizon').value);
+  const key = `${f}_${s}_${h}`;
+  const cell = DATA.grid[key];
+  const base = DATA.baseline[h];
+
+  document.getElementById('hz_lbl').textContent  = h;
+  document.getElementById('hz_lbl2').textContent = h;
+
+  if (!cell || (!cell.golden.hist && !cell.death.hist)) {
+    Plotly.purge('hist');
+    document.getElementById('hist').innerHTML =
+      '<p style="color:#ffaa00;padding:20px">Keine Daten für f='+f+', s='+s+
+      ' (z.B. weil slow ≤ fast).</p>';
+    ['g_n','g_hit','g_med','d_n','d_hit','d_med'].forEach(id =>
+      document.getElementById(id).textContent = '—');
+  } else {
+    renderHist(cell, base);
+    renderStats(cell, base);
+  }
+  renderHeatmaps(h, f, s);
+}
+
+function midpoints(edges) {
+  const m = [];
+  for (let i = 0; i < edges.length - 1; i++) m.push((edges[i] + edges[i+1]) / 2);
+  return m;
+}
+function normalize(counts) {
+  const tot = counts.reduce((a, b) => a + b, 0);
+  return tot > 0 ? counts.map(c => c / tot) : counts;
+}
+
+function renderHist(cell, base) {
+  const traces = [];
+  const baseMid = midpoints(base.hist.edges);
+  traces.push({
+    type:'bar', x: baseMid, y: normalize(base.hist.counts),
+    name: 'Unbedingte Basis (alle Aktie-Tage)',
+    marker: {color: 'rgba(150,150,170,0.35)'},
+    hovertemplate: 'Basis · r=%{x:.2f}% · Dichte %{y:.3f}<extra></extra>',
+  });
+  if (cell.golden.hist) {
+    const m = midpoints(cell.golden.hist.edges);
+    traces.push({
+      type:'scatter', mode:'lines', x: m,
+      y: normalize(cell.golden.hist.counts),
+      name: 'Golden Cross',
+      line: {color:'#00ff9c', width:2.5, shape:'spline'},
+      fill: 'tozeroy', fillcolor: 'rgba(0,255,156,0.12)',
+      hovertemplate: 'Golden · r=%{x:.2f}% · Dichte %{y:.3f}<extra></extra>',
+    });
+  }
+  if (cell.death.hist) {
+    const m = midpoints(cell.death.hist.edges);
+    traces.push({
+      type:'scatter', mode:'lines', x: m,
+      y: normalize(cell.death.hist.counts),
+      name: 'Death Cross',
+      line: {color:'#ff5577', width:2.5, shape:'spline'},
+      fill: 'tozeroy', fillcolor: 'rgba(255,85,119,0.12)',
+      hovertemplate: 'Death · r=%{x:.2f}% · Dichte %{y:.3f}<extra></extra>',
+    });
+  }
+  Plotly.newPlot('hist', traces, {
+    paper_bgcolor: '#0d0d1a', plot_bgcolor: '#0d0d1a',
+    font: {color:'#cfd9e3', size:11},
+    margin: {l:50, r:14, t:10, b:46},
+    xaxis: {title:'Forward-Rendite (%)', gridcolor:'#1e3a5f',
+            zerolinecolor:'#00d4ff', zerolinewidth:1.2,
+            range:[-15, 18]},
+    yaxis: {title:'Dichte', gridcolor:'#1e3a5f'},
+    barmode:'overlay',
+    legend: {orientation:'h', x:0.5, xanchor:'center', y:1.08},
+    shapes: [{type:'line', x0:base.stats.median, x1:base.stats.median,
+              y0:0, y1:1, yref:'paper',
+              line:{color:'#aaa', dash:'dot', width:1}}],
+  }, {responsive:true, displayModeBar:false});
+}
+
+function renderStats(cell, base) {
+  const setStat = (id, v, dec=2, suffix='%') => {
+    document.getElementById(id).textContent =
+      (v===null||v===undefined||isNaN(v)) ? '—' : ((v>0?'+':'')+v.toFixed(dec)+suffix);
+  };
+  const setDiff = (id, v, label) => {
+    const el = document.getElementById(id);
+    if (v===null||v===undefined||isNaN(v)) { el.textContent='—'; el.className='delta neut'; return; }
+    const cls = diffClass(v);
+    el.className = 'delta ' + cls;
+    el.textContent = label + ' ' + (v>0?'+':'') + v.toFixed(2) + 'pp';
+  };
+  const setVal = (id, v, suffix='') => {
+    document.getElementById(id).textContent = v + suffix;
+  };
+
+  setVal('g_n', cell.golden.n.toLocaleString('de-DE'));
+  if (cell.golden.n > 0) {
+    setStat('g_hit', cell.golden.hit_pct, 1, '%');
+    setStat('g_med', cell.golden.median);
+    setDiff('g_hit_diff', cell.golden.hit_pct - base.stats.pct_positive, 'vs Basis');
+    setDiff('g_med_diff', cell.golden.median   - base.stats.median,      'vs Basis');
+  } else {
+    ['g_hit','g_med','g_hit_diff','g_med_diff'].forEach(id =>
+      document.getElementById(id).textContent='—');
+  }
+  setVal('d_n', cell.death.n.toLocaleString('de-DE'));
+  if (cell.death.n > 0) {
+    setStat('d_hit', cell.death.hit_pct, 1, '%');
+    setStat('d_med', cell.death.median);
+    setDiff('d_hit_diff', cell.death.hit_pct - (100 - base.stats.pct_positive), 'vs Basis');
+    setDiff('d_med_diff', cell.death.median  - base.stats.median,               'vs Basis');
+  } else {
+    ['d_hit','d_med','d_hit_diff','d_med_diff'].forEach(id =>
+      document.getElementById(id).textContent='—');
+  }
+  setStat('b_med', base.stats.median);
+  setVal('b_pos', '%>0: ' + base.stats.pct_positive.toFixed(1) + '%');
+  setVal('b_n', base.stats.n.toLocaleString('de-DE'));
+}
+
+function renderHeatmaps(h, curF, curS) {
+  const fasts = DATA.params.fasts;
+  const slows = DATA.params.slows;
+  const basePos = DATA.baseline[h].stats.pct_positive;
+  const z_g = []; const z_d = []; const txt_g = []; const txt_d = [];
+  fasts.forEach(f => {
+    const rowG = []; const rowD = []; const tG = []; const tD = [];
+    slows.forEach(s => {
+      const cell = DATA.grid[`${f}_${s}_${h}`];
+      if (!cell || s <= f) {
+        rowG.push(null); rowD.push(null); tG.push(''); tD.push('');
+      } else {
+        const dg = cell.golden.n > 50 ? (cell.golden.hit_pct - basePos) : null;
+        const dd = cell.death.n  > 50 ? (cell.death.hit_pct  - (100 - basePos)) : null;
+        rowG.push(dg); rowD.push(dd);
+        tG.push(dg===null ? '' : `f${f}/s${s}<br>n=${cell.golden.n}<br>Hit ${cell.golden.hit_pct.toFixed(1)}%<br>Δ ${dg>0?'+':''}${dg.toFixed(1)} pp`);
+        tD.push(dd===null ? '' : `f${f}/s${s}<br>n=${cell.death.n}<br>Hit ${cell.death.hit_pct.toFixed(1)}%<br>Δ ${dd>0?'+':''}${dd.toFixed(1)} pp`);
+      }
+    });
+    z_g.push(rowG); z_d.push(rowD); txt_g.push(tG); txt_d.push(tD);
+  });
+
+  const common = (z, txt, title) => ({
+    type:'heatmap', z, x: slows.map(String), y: fasts.map(String),
+    text: txt, hovertemplate: '%{text}<extra></extra>',
+    colorscale: [[0,'#ff5577'],[0.5,'#1e3a5f'],[1,'#00ff9c']],
+    zmid: 0, colorbar: {title:'Δ pp', tickfont:{size:10}, len:0.9},
+  });
+  const layout = (curF, curS) => ({
+    paper_bgcolor:'#0d0d1a', plot_bgcolor:'#0d0d1a',
+    font:{color:'#cfd9e3', size:10},
+    margin:{l:42, r:50, t:10, b:34},
+    xaxis:{title:'slow', side:'bottom', tickfont:{size:10}},
+    yaxis:{title:'fast', autorange:'reversed', tickfont:{size:10}},
+    shapes:[{type:'circle',
+             x0:slows.indexOf(curS)-0.35, x1:slows.indexOf(curS)+0.35,
+             y0:fasts.indexOf(curF)-0.35, y1:fasts.indexOf(curF)+0.35,
+             line:{color:'#00d4ff', width:2}}],
+  });
+  Plotly.newPlot('heat_g', [common(z_g, txt_g, 'Golden')], layout(curF, curS),
+    {responsive:true, displayModeBar:false});
+  Plotly.newPlot('heat_d', [common(z_d, txt_d, 'Death')], layout(curF, curS),
+    {responsive:true, displayModeBar:false});
+}
+
+// ── Quick-Picks: beste/schlechteste Zellen aus dem Grid suchen ─────────────
+const MIN_N = 200;   // Mindestanzahl Events damit eine Zelle qualifiziert
+
+function findBest(scoreFn, minNFn) {
+  let bestKey = null, bestScore = -Infinity, bestCell = null;
+  for (const [key, cell] of Object.entries(DATA.grid)) {
+    if (minNFn(cell) < MIN_N) continue;
+    const base = DATA.baseline[cell.horizon];
+    if (!base) continue;
+    const s = scoreFn(cell, base);
+    if (s !== null && s > bestScore) {
+      bestScore = s; bestKey = key; bestCell = cell;
+    }
+  }
+  return {key: bestKey, cell: bestCell, score: bestScore};
+}
+
+function pickPreset(name) {
+  let target = null, info = '';
+  if (name === 'best_long') {
+    const r = findBest(
+      (c, b) => c.golden.n >= MIN_N ? (c.golden.hit_pct - b.stats.pct_positive) : null,
+      c => c.golden.n);
+    target = r.cell;
+    const base = DATA.baseline[r.cell.horizon].stats;
+    info = `<b style="color:#00ff9c">▲ Beste Long-Variante:</b> ` +
+      `fast=${r.cell.fast}, slow=${r.cell.slow}, Horizont=${r.cell.horizon} Tage. ` +
+      `Golden Cross trifft in ${r.cell.golden.hit_pct.toFixed(1)}&nbsp;% der Fälle die ` +
+      `erwartete Richtung (Basis: ${base.pct_positive.toFixed(1)}&nbsp;%) → ` +
+      `<b>Δ ${(r.score>0?'+':'')}${r.score.toFixed(2)} pp</b>. Median-Rendite ` +
+      `${(r.cell.golden.median>0?'+':'')}${r.cell.golden.median.toFixed(2)}&nbsp;% vs ` +
+      `Basis-Median ${(base.median>0?'+':'')}${base.median.toFixed(2)}&nbsp;%. ` +
+      `Heißt: nach diesem Crossover ist Long/Call statistisch attraktiver als ` +
+      `„einfach immer halten" — aber Edge ist klein, Kosten nicht abgezogen.`;
+  }
+  else if (name === 'best_short') {
+    const r = findBest(
+      (c, b) => c.death.n >= MIN_N ? (c.death.hit_pct - (100 - b.stats.pct_positive)) : null,
+      c => c.death.n);
+    target = r.cell;
+    const base = DATA.baseline[r.cell.horizon].stats;
+    info = `<b style="color:#ff5577">▼ Beste Put-Variante:</b> ` +
+      `fast=${r.cell.fast}, slow=${r.cell.slow}, Horizont=${r.cell.horizon} Tage. ` +
+      `Death Cross trifft die erwartete Fallrichtung in ${r.cell.death.hit_pct.toFixed(1)}&nbsp;% ` +
+      `der Fälle (Basis-Fallrate: ${(100-base.pct_positive).toFixed(1)}&nbsp;%) → ` +
+      `<b>Δ ${(r.score>0?'+':'')}${r.score.toFixed(2)} pp</b>. ` +
+      `<b style="color:#ffaa00">Achtung:</b> der Median-Return ist trotzdem ` +
+      `${(r.cell.death.median>0?'+':'')}${r.cell.death.median.toFixed(2)}&nbsp;% (also positiv) — ` +
+      `der Edge liegt in <i>erhöhter Wahrscheinlichkeit</i> eines Verlusts, nicht im ` +
+      `Mittelwert. Für Put-Optionsscheine mit Hebel ist die Hit-Quote bei begrenztem ` +
+      `Risiko (Premium) trotzdem die entscheidende Größe.`;
+  }
+  else if (name === 'classic') {
+    target = DATA.grid['50_200_5'];
+    info = `<b>📜 Klassisches 50/200:</b> das, was Trader meinen wenn sie ` +
+      `„Golden Cross" sagen. In <b>jedem</b> Horizont 1–60 Tage <i>schlechter</i> als ` +
+      `die unbedingte Basisrate — Folk-Wisdom hält der Statistik nicht stand.`;
+  }
+  else if (name === 'worst_long') {
+    const r = findBest(
+      (c, b) => c.golden.n >= MIN_N ? -(c.golden.hit_pct - b.stats.pct_positive) : null,
+      c => c.golden.n);
+    target = r.cell;
+    info = `<b>🪦 Schlechteste Long-Variante:</b> fast=${r.cell.fast}, slow=${r.cell.slow}, ` +
+      `Horizont=${r.cell.horizon} Tage. Golden Cross trifft hier ` +
+      `<b>${(-r.score).toFixed(2)} pp unter</b> der Basisrate — d.h. nach diesem ` +
+      `Crossover ist Long sogar schlechter als blindes Kaufen. Anti-Edge.`;
+  }
+  if (target) {
+    document.getElementById('fast').value    = target.fast;
+    document.getElementById('slow').value    = target.slow;
+    document.getElementById('horizon').value = target.horizon;
+    const box = document.getElementById('preset_info');
+    box.innerHTML = info; box.style.display = 'block';
+    render();
+  }
+}
+
+setupDropdowns();
+render();
+</script>
+</body>
+</html>
