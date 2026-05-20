@@ -458,6 +458,138 @@ def api_optimize():
                    'Theta/Vega/Knock-out, ein Symbol/Zeitraum.')
     })
 
+def _pick_som_examples(p):
+    """Picked vier Lesebeispiele aus dem SOM-Cache:
+    Schoenwetter (Index-Knoten max med_ret), Sturm (min med_ret),
+    Heutiges Regime (letzter Trajektorien-Punkt), Bestes Edge-Beispiel.
+    Jede Pick = dict mit title, subtitle, kv-Liste, takeaway."""
+    tiles = p['index_faces']['tiles']
+    eligible = [t for t in tiles if t['n'] >= 20]
+    if not eligible:
+        return None
+
+    def pct_signed(x, dec=2):
+        return f"{x*100:+.{dec}f} %"
+
+    def pct_abs(x, dec=2):
+        return f"{x*100:.{dec}f} %"
+
+    def fmt_tile(tile, title, takeaway):
+        r = tile['raw']
+        return {
+            'title': title,
+            'subtitle': f"Knoten {tile['node']} (r{tile['row']},c{tile['col']}) "
+                        f"&middot; {tile['n']} Tage im Cluster",
+            'kv': [
+                ('Median-Tagesrendite', pct_signed(r.get('med_ret', 0))),
+                ('Markt-Vol (20T)', pct_abs(r.get('mkt_vol20', 0))),
+                ('Breadth (&Uuml;ber SMA50)', f"{r.get('breadth',0)*100:.0f} %"),
+                ('Dispersion', pct_abs(r.get('disp', 0))),
+            ],
+            'takeaway': takeaway,
+        }
+
+    # Mediane fuer "ruhig vs stuermisch"-Filter
+    med_vol = sorted(t['raw'].get('mkt_vol20', 0) for t in eligible)[len(eligible)//2]
+    med_brd = sorted(t['raw'].get('breadth', 0)  for t in eligible)[len(eligible)//2]
+
+    # Schoenwetter = Aufwaerts-Median + breite Beteiligung + Ruhe.
+    # Pick max med_ret unter den Knoten, die ALLE drei Bedingungen erfuellen.
+    # Fallback: Knoten mit hoechster Breadth und med_ret>0.
+    sun_cands = [t for t in eligible
+                 if t['raw'].get('med_ret', 0) > 0
+                 and t['raw'].get('breadth', 0) >= med_brd
+                 and t['raw'].get('mkt_vol20', 0) <= med_vol]
+    if sun_cands:
+        sun = max(sun_cands, key=lambda t: t['raw'].get('med_ret', 0))
+    else:
+        pos = [t for t in eligible if t['raw'].get('med_ret', 0) > 0]
+        sun = max(pos or eligible, key=lambda t: t['raw'].get('breadth', 0))
+
+    # Sturm = Abwaerts-Median + schmale Beteiligung + hohe Vol.
+    storm_cands = [t for t in eligible
+                   if t['raw'].get('med_ret', 0) < 0
+                   and t['raw'].get('breadth', 0) <= med_brd
+                   and t['raw'].get('mkt_vol20', 0) >= med_vol]
+    if storm_cands:
+        storm = min(storm_cands, key=lambda t: t['raw'].get('med_ret', 0))
+    else:
+        storm = min(eligible, key=lambda t: t['raw'].get('med_ret', 0))
+
+    picks = []
+    picks.append(fmt_tile(
+        sun, "Sch&ouml;nwetter-Regime",
+        "Tage in diesem Cluster sind im Median klar positiv, Vola "
+        "niedrig, viele Aktien &uuml;ber ihrer 50-Tage-Linie &mdash; "
+        "klassische ruhige Aufw&auml;rtsphase."))
+    picks.append(fmt_tile(
+        storm, "Sturm-Regime",
+        "Im Median klar negativer Tag, hohe 20-Tage-Vola, wenige "
+        "Aktien &uuml;ber ihrer 50-Tage-Linie &mdash; typisches Sell-off-"
+        "/Stress-Cluster."))
+
+    # Heutiges Regime = letzter Punkt der Trajektorie + dessen Tile
+    traj = p.get('trajectory') or []
+    if traj:
+        last = traj[-1]
+        tile_today = next((t for t in tiles if t['node'] == last['node']), None)
+        if tile_today is not None:
+            picks.append({
+                'title': 'Heutiges Regime',
+                'subtitle': f"Stand {last['date']} &middot; "
+                            f"Knoten {last['node']} (r{last['row']},c{last['col']}) "
+                            f"&middot; Cluster mit {tile_today['n']} Tagen historisch",
+                'kv': [
+                    ('Tag-Median im Cluster', pct_signed(tile_today['raw'].get('med_ret', 0))),
+                    ('Markt-Vol (20T) heute', pct_abs(last.get('mkt_vol20', 0))),
+                    ('Breadth heute', f"{last.get('breadth',0)*100:.0f} %"),
+                    ('Train/OOS-Bucket', last.get('split', '?').upper()),
+                ],
+                'takeaway': "Der animierte Pfad endet hier &mdash; das ist "
+                            "der Markt-Zustand, in dem der j&uuml;ngste "
+                            "Handelstag gelandet ist. Beschreibend, kein Signal.",
+            })
+
+    # Edge: Knoten mit niedrigstem p, sofern <0.05 — sonst groesster |edge_vs_base| mit n>=30
+    edge_nodes = (p.get('edge') or {}).get('nodes', [])
+    base_rate = (p.get('edge') or {}).get('base_rate')
+    if edge_nodes:
+        sig = [n for n in edge_nodes if n.get('p_value') is not None
+               and float(n['p_value']) < 0.05]
+        if sig:
+            best = min(sig, key=lambda n: float(n['p_value']))
+            head = "Auff&auml;lligster Edge-Knoten (p&lt;0,05)"
+        else:
+            cands = [n for n in edge_nodes if n.get('n', 0) >= 30]
+            if cands:
+                best = max(cands, key=lambda n: abs(float(n.get('edge_vs_base', 0))))
+                head = "St&auml;rkster Edge-Knoten (deskriptiv, p&ge;0,05)"
+            else:
+                best = None
+        if best is not None:
+            ev = float(best.get('edge_vs_base', 0))
+            picks.append({
+                'title': head,
+                'subtitle': f"Knoten {best['node']} (r{best['row']},c{best['col']}) "
+                            f"&middot; {best['n']} OOS-Signaltage",
+                'kv': [
+                    ('Trefferquote im Knoten', f"{float(best['hit_rate'])*100:.1f} %"),
+                    ('OOS-Basisrate (alle Signale)',
+                     f"{float(base_rate)*100:.1f} %" if base_rate else "&mdash;"),
+                    ('&Delta; gegen Basis', f"{ev*100:+.2f}&nbsp;%-Punkte"),
+                    ('p-Wert (unkorrigiert)', f"{float(best['p_value']):.3f}"),
+                ],
+                'takeaway': ("Bei vielen belegten Knoten taucht zuf&auml;llig "
+                             "~5&nbsp;% mit p&lt;0,05 auf &mdash; ein "
+                             "einzelner Treffer ist <b>Hypothese</b>, "
+                             "kein best&auml;tigter Edge. Validierung "
+                             "br&auml;uchte Mehrfachtest-Korrektur und "
+                             "ein neues, unber&uuml;hrtes Test-Fenster."),
+            })
+
+    return picks
+
+
 @app.route('/som')
 def som_view():
     """SOM-Marktregime: Index- + Symbol-Tag-Karte als Chernoff-Faces,
@@ -467,11 +599,13 @@ def som_view():
         return render_template('som.html', ready=False)
     with open(som_regime.CACHE_PATH, 'rb') as f:
         p = pickle.load(f)
+    examples = _pick_som_examples(p)
     return render_template(
         'som.html', ready=True,
         meta=p['meta'], split_date=p['split_date'],
         index_faces=p['index_faces'], symday_faces=p['symday_faces'],
         edge=p['edge'], trajectory=p['trajectory'],
+        examples=examples,
         index_qe=round(p['index_map']['qe'], 3),
         symday_qe=round(p['symday_map']['qe'], 3))
 

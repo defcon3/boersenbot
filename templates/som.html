@@ -62,6 +62,20 @@ button:hover{opacity:.85}
 .badge.oos{background:rgba(0,255,156,.15);border:1px solid #00ff9c;color:#00ff9c}
 .badge.train{background:rgba(0,212,255,.12);border:1px solid #00d4ff;color:#00d4ff}
 .spd{font-size:11px;color:#8aa}
+.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:14px;margin-top:8px}
+.ex{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.ex .tag{display:inline-block;font-size:10px;color:#00d4ff;letter-spacing:.8px;
+  text-transform:uppercase;border:1px solid #00d4ff;border-radius:10px;
+  padding:2px 9px;align-self:flex-start}
+.ex .sub{color:#9fb3c8;font-size:12px;margin:0}
+.ex dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;
+  font-size:12px;margin-top:2px}
+.ex dt{color:#8aa}
+.ex dd{color:#e0e0e0;text-align:right;font-variant-numeric:tabular-nums}
+.ex .takeaway{font-size:12px;color:#cfd9e3;line-height:1.55;
+  border-top:1px dashed #1e3a5f;padding-top:8px;margin-top:auto}
 </style>
 </head>
 <body>
@@ -97,6 +111,27 @@ button:hover{opacity:.85}
   <span>Symbol-Tag: <b>{{ '{:,}'.format(meta.symday_rows) }}</b> · QE {{ symday_qe }}</span>
   <span style="margin-left:auto"><button onclick="rebuild(this)">Neu bauen</button></span>
 </div>
+
+{% if examples %}
+<h2>Lesebeispiele &mdash; was steht in einer Zelle?</h2>
+<p class="sub">Vier Knoten aus den aktuellen Daten, damit klar wird, was
+  Median-Return / Vol / Breadth pro Cluster konkret bedeuten. Tooltip
+  auf jeder Kachel im Gitter unten zeigt dieselben Rohwerte.</p>
+<div class="examples">
+  {% for ex in examples %}
+  <div class="ex">
+    <span class="tag">{{ ex.title|safe }}</span>
+    <p class="sub">{{ ex.subtitle|safe }}</p>
+    <dl>
+      {% for k, v in ex.kv %}
+      <dt>{{ k|safe }}</dt><dd>{{ v|safe }}</dd>
+      {% endfor %}
+    </dl>
+    <div class="takeaway">{{ ex.takeaway|safe }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
 
 <h2>Index-Regime — ein Gesicht je Marktzustand</h2>
 <p class="sub">{{ index_faces.grid }}×{{ index_faces.grid }}-Gitter, ein
