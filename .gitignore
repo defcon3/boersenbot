@@ -6,6 +6,10 @@ venv/
 .env
 data/
 
+# FRED API
+.fred_key
+.fred_cache/
+
 # Logs
 *.log
 
