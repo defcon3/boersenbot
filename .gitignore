@@ -25,3 +25,9 @@ slippage_sample2.json
 
 # Wegwerf-Tests (Schritt-1-Probe Alpaca)
 test_alpaca_quotes*.py
+
+# Runtime-State (tagesaktuell von den Calculators/Bots erzeugt)
+today_signal.json
+hyg_today_signal.json
+.last_report_state.json
+*.bak

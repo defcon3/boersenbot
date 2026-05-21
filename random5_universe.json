@@ -1,0 +1,13 @@
+{
+  "picked_at": "2026-05-21T17:53:13.007595+00:00",
+  "universe": "SP500",
+  "symbols": [
+    "EVRG",
+    "RCL",
+    "CLX",
+    "KEY",
+    "DXCM"
+  ],
+  "position_size_usd": 500,
+  "leverage": 2
+}
