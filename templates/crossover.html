@@ -64,8 +64,20 @@ h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;
   <b>Ehrlich:</b> Eine Visualisierung des Folk-Wisdom-Signals. Golden Cross (fast MA
   schneidet slow MA von unten) wird Tradern als bullish verkauft, Death Cross umgekehrt
   als bearish. Hier sehen Sie die <b>tatsächliche Verteilung der N-Tages-Renditen</b> je
-  Event im Vergleich zur unbedingten Basisrate. <b>Kein Edge-Test, kein OOS-Split, keine
-  Kosten</b> — nur eine ehrliche deskriptive Statistik über alle S&amp;P-500-Einzelaktien.
+  Event im Vergleich zur unbedingten Basisrate. Alle Histogramm- und Heatmap-Zahlen sind
+  <b>deskriptiv</b> über den ganzen Zeitraum 2014–heute — kein OOS-Split, keine Kosten.
+</div>
+
+<div class="caveat" style="background:rgba(255,85,119,.12);border-color:#ff5577;color:#ffb7c5">
+  <b style="color:#ff5577">Update 2026-05-21 — OOS-Falsifikation des „Beste-Long"-Quick-Picks:</b>
+  Der Sweet-Spot <b>f=20, s=50, h=10</b> (im Grid +1,82 pp Hit-Edge) wurde mit einem
+  separaten Strategie-Test (Excess vs SPY pro Einstiegstag, Train ≤ 2021-12-31,
+  Test ≥ 2022-01-01, Kosten {3,5,10} bps round-trip) <b>out-of-sample widerlegt</b>:
+  IS exc&nbsp;Ø&nbsp;+0,252&nbsp;% (t&nbsp;=&nbsp;+3,02) — <b>OOS exc&nbsp;Ø&nbsp;−0,177&nbsp;%
+  (t&nbsp;=&nbsp;−1,45)</b>, netto@5bps OOS t&nbsp;=&nbsp;−1,86. Vier von fünf
+  Pre-Reg-Gates FAIL — Vorzeichen dreht. Details siehe Block <i>„OOS-Strategie-Test"</i>
+  unten. Lehre: Wer 12 Jahre 5×6×6-Grid rückblickend probiert, findet immer eine
+  „passende" Zelle (Multiple-Testing). Der OOS-Split ist der Filter, der das aussortiert.
 </div>
 
 <h2>Lesebeispiel — so liest du diese Seite</h2>
@@ -122,11 +134,12 @@ h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;
     <span class="tag">5. Was hier <i>nicht</i> steht</span>
     <p class="sub">Wichtige Vorbehalte vor jedem Trading-Schluss.</p>
     <div class="takeaway">
-      Kein OOS-Split (alles 2014–2026 zusammen — Survivorship-Bias mit aktueller Indexliste).
-      Keine Kosten (Spread + Slippage + Auktionskosten fressen jeden 1–2-pp-Edge).
-      Kein Volatilitäts-Faktor (manche Crossover passieren in ruhigen, andere in turbulenten
-      Phasen). Kein Sektor-Filter. Eine Δ von +2 pp Hit-Quote ist <b>deskriptiv interessant</b>,
-      kein <b>handelbarer Alpha</b>.
+      In den Histogrammen/Heatmaps: kein OOS-Split (alles 2014–2026 zusammen),
+      Survivorship-Bias mit aktueller Indexliste, keine Kosten, kein Volatilitäts-Faktor,
+      kein Sektor-Filter. Eine Δ von +2 pp Hit-Quote ist <b>deskriptiv interessant</b>,
+      kein <b>handelbarer Alpha</b>. <b style="color:#ff5577">Inzwischen geprüft</b>
+      für die „Beste Long"-Zelle (f20/s50/h10): siehe roten Banner oben und Block
+      <i>„OOS-Strategie-Test"</i> unten — Edge dreht out-of-sample.
     </div>
   </div>
   <div class="ex">
@@ -171,6 +184,83 @@ h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;
   <div id="preset_info" style="margin-top:12px;font-size:12px;color:#9fb3c8;line-height:1.6;
        display:none;background:rgba(0,212,255,.06);border:1px solid #1e3a5f;
        border-radius:6px;padding:10px 14px"></div>
+</div>
+
+<h2 style="color:#ff5577;border-left-color:#ff5577">OOS-Strategie-Test (2026-05-21) — f=20, s=50, h=10</h2>
+<p class="sub">Pre-registriertes Erfolgskriterium VOR dem Lauf fixiert, dann gerechnet.
+Ergebnis: 2 von 5 Gates passieren — Edge nicht handelbar.</p>
+<div class="panel">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;font-size:13px;line-height:1.55">
+    <div>
+      <p style="margin-bottom:8px"><b style="color:#9fb3c8">Setup:</b> 502 S&amp;P-500-Ticker, Tages-OHLC 2014-01 – 2026-05.
+        Signal = Golden Cross MA20/MA50. Long Close[t] → Close[t+10TT].
+        Excess pro Trade gegen SPY über denselben 10-TT-Zeitraum, Aggregation pro Einstiegstag
+        (ehrliches n&nbsp;= Tage, nicht Trades). Tages-Portfolio zusätzlich täglich rebalanciert
+        über alle offenen Positionen — echter MaxDD.
+        Train ≤ 2021-12-31, Test ≥ 2022-01-01. COVID-Ausnahme 2020-02-15 .. 04-30.</p>
+      <p><b style="color:#9fb3c8">Skript:</b>
+        <code style="color:#00d4ff;background:rgba(0,212,255,.08);padding:2px 6px;border-radius:3px">crossover_strategy_test.py</code>
+        (boersenbot, Commit 9d7e996f).</p>
+    </div>
+    <div>
+      <table style="width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums">
+        <thead><tr style="border-bottom:1px solid #1e3a5f">
+          <th style="text-align:left;padding:6px 4px;color:#8aa;font-size:11px;font-weight:600;letter-spacing:.4px">Segment</th>
+          <th style="text-align:right;padding:6px 4px;color:#8aa;font-size:11px;font-weight:600;letter-spacing:.4px">Tage</th>
+          <th style="text-align:right;padding:6px 4px;color:#8aa;font-size:11px;font-weight:600;letter-spacing:.4px">exc&nbsp;Ø</th>
+          <th style="text-align:right;padding:6px 4px;color:#8aa;font-size:11px;font-weight:600;letter-spacing:.4px">t</th>
+          <th style="text-align:right;padding:6px 4px;color:#8aa;font-size:11px;font-weight:600;letter-spacing:.4px">net@5&nbsp;t</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:6px 4px">IS 2014-2021</td><td style="text-align:right">1787</td>
+              <td style="text-align:right;color:#00ff9c">+0,252&nbsp;%</td>
+              <td style="text-align:right;color:#00ff9c">+3,02</td>
+              <td style="text-align:right;color:#00ff9c">+2,42</td></tr>
+          <tr><td style="padding:6px 4px">OOS 2022-2026</td><td style="text-align:right">976</td>
+              <td style="text-align:right;color:#ff5577"><b>−0,177&nbsp;%</b></td>
+              <td style="text-align:right;color:#ff5577"><b>−1,45</b></td>
+              <td style="text-align:right;color:#ff5577"><b>−1,86</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px">
+    <div class="stat" style="border-color:#00ff9c">
+      <div class="lbl">G1 IS exc&nbsp;&gt;&nbsp;0, t&nbsp;&gt;&nbsp;+2,0</div>
+      <div class="val pos">PASS</div>
+      <div class="delta neut">Ø&nbsp;+0,252&nbsp;%, t&nbsp;=&nbsp;+3,02</div>
+    </div>
+    <div class="stat" style="border-color:#ff5577">
+      <div class="lbl">G2 OOS exc&nbsp;&gt;&nbsp;0, t&nbsp;&gt;&nbsp;+1,5</div>
+      <div class="val negv">FAIL</div>
+      <div class="delta neut">Ø&nbsp;−0,177&nbsp;%, t&nbsp;=&nbsp;−1,45</div>
+    </div>
+    <div class="stat" style="border-color:#ff5577">
+      <div class="lbl">G3 OOS netto@5&nbsp;bps</div>
+      <div class="val negv">FAIL</div>
+      <div class="delta neut">Ø&nbsp;−0,227&nbsp;%, t&nbsp;=&nbsp;−1,86</div>
+    </div>
+    <div class="stat" style="border-color:#ff5577">
+      <div class="lbl">G4 OOS COVID-exkl</div>
+      <div class="val negv">FAIL</div>
+      <div class="delta neut">Ø&nbsp;−0,177&nbsp;%</div>
+    </div>
+    <div class="stat" style="border-color:#00ff9c">
+      <div class="lbl">G5 Median offene Pos.</div>
+      <div class="val pos">PASS</div>
+      <div class="delta neut">MedOffen&nbsp;=&nbsp;42</div>
+    </div>
+  </div>
+
+  <p style="margin-top:12px;font-size:12px;color:#9fb3c8;line-height:1.55">
+    <b style="color:#ff5577">Interpretation:</b> Per-Einstiegstag-Excess gegen SPY dreht OOS klar
+    negativ — der Signal-Filter selbst hat verloren. Das tägliche Portfolio (B-Variante) zeigt
+    OOS noch +11&nbsp;% p.a. roh (t&nbsp;=&nbsp;+1,27), aber das ist SPY-Beta, nicht Alpha:
+    der Roh-Sanity-Check „Trade-Return minus unbedingte&nbsp;Basis" (rawMB) liegt OOS bei
+    <b>−0,28&nbsp;%</b>. Konsequenz: Faden ehrlich geschlossen, keine EMA-/Sektor-/Vola-Variante
+    nachgefrickelt ohne separate, neue Pre-Reg-Studie.
+  </p>
 </div>
 
 <div class="layout">
@@ -457,15 +547,18 @@ function pickPreset(name) {
       c => c.golden.n);
     target = r.cell;
     const base = DATA.baseline[r.cell.horizon].stats;
-    info = `<b style="color:#00ff9c">▲ Beste Long-Variante:</b> ` +
+    info = `<b style="color:#00ff9c">▲ Beste Long-Variante (Grid-IS-Aggregat):</b> ` +
       `fast=${r.cell.fast}, slow=${r.cell.slow}, Horizont=${r.cell.horizon} Tage. ` +
       `Golden Cross trifft in ${r.cell.golden.hit_pct.toFixed(1)}&nbsp;% der Fälle die ` +
       `erwartete Richtung (Basis: ${base.pct_positive.toFixed(1)}&nbsp;%) → ` +
       `<b>Δ ${(r.score>0?'+':'')}${r.score.toFixed(2)} pp</b>. Median-Rendite ` +
       `${(r.cell.golden.median>0?'+':'')}${r.cell.golden.median.toFixed(2)}&nbsp;% vs ` +
       `Basis-Median ${(base.median>0?'+':'')}${base.median.toFixed(2)}&nbsp;%. ` +
-      `Heißt: nach diesem Crossover ist Long/Call statistisch attraktiver als ` +
-      `„einfach immer halten" — aber Edge ist klein, Kosten nicht abgezogen.`;
+      `<b style="color:#ff5577">Achtung:</b> Strategie-Test 2026-05-21 hat genau diese ` +
+      `Zelle (f20/s50/h10) OOS widerlegt — IS exc&nbsp;+0,25&nbsp;% (t&nbsp;=&nbsp;+3,02), ` +
+      `<b>OOS exc&nbsp;−0,18&nbsp;% (t&nbsp;=&nbsp;−1,45)</b>, netto@5bps OOS ` +
+      `t&nbsp;=&nbsp;−1,86. Roher Hit-Edge in 2014–2026 ist IS-Lookback-Artefakt, kein ` +
+      `handelbarer Alpha. Details im Block <i>OOS-Strategie-Test</i> unten.`;
   }
   else if (name === 'best_short') {
     const r = findBest(
