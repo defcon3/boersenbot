@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Streak-Mean-Reversion Explorer — Börsenbot</title>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:20px}
+.container{max-width:1700px;margin:0 auto}
+header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:10px}
+header h1{color:#00d4ff;font-size:24px}
+header p{color:#888;font-size:12px;margin-top:2px}
+a{color:#00d4ff}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.topnav a{color:#9aa5b1;text-decoration:none;font-size:12px;font-weight:600;
+  letter-spacing:.5px;padding:6px 14px;border:1px solid transparent;border-radius:14px;
+  transition:color .15s,border-color .15s,background .15s}
+.topnav a:hover{color:#00d4ff;border-color:#1e3a5f}
+.topnav a.active{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.08)}
+.caveat{background:rgba(255,170,0,.10);border:1px solid #ffaa00;border-radius:8px;
+  padding:12px 16px;margin-bottom:14px;font-size:13px;color:#ffd27f;line-height:1.5}
+.caveat b{color:#ffaa00}
+h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;padding-left:10px}
+.sub{color:#888;font-size:12px;margin:0 0 12px 13px}
+.panel{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:16px;margin-bottom:14px}
+.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.ex{background:rgba(10,10,24,.7);border:1px solid #1e3a5f;border-radius:6px;padding:12px}
+.ex .tag{display:inline-block;color:#00d4ff;font-size:10px;letter-spacing:.7px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.ex .takeaway{color:#cfd9e3;font-size:12.5px;line-height:1.55;margin-top:6px}
+.ctrls{display:grid;grid-template-columns:1fr;gap:12px;max-width:300px}
+.ctrl label{display:block;color:#9fb3c8;font-size:11px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px}
+.ctrl select{width:100%;background:#0a0a18;color:#e0e0e0;border:1px solid #1e3a5f;
+  border-radius:6px;padding:8px 10px;font-size:14px}
+.ctrl select:focus{outline:none;border-color:#00d4ff}
+.layout{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.stat{background:rgba(10,10,24,.7);border:1px solid #1e3a5f;border-radius:6px;padding:10px 12px}
+.stat .lbl{color:#8aa;font-size:10px;text-transform:uppercase;letter-spacing:.6px}
+.stat .val{color:#e0e0e0;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.stat .delta{font-size:11px;margin-top:1px}
+.pos{color:#00ff9c}.negv{color:#ff5577}.neut{color:#8aa}
+button{cursor:pointer;color:#fff;font-weight:600;font-size:12px;padding:8px 14px;border-radius:6px;border:none;letter-spacing:.4px}
+.legend{font-size:11px;color:#8aa;line-height:1.6}
+table.oos{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:12.5px}
+table.oos th,table.oos td{padding:6px 6px;text-align:right}
+table.oos th{color:#8aa;font-size:11px;font-weight:600;letter-spacing:.4px;border-bottom:1px solid #1e3a5f}
+table.oos td.lbl{text-align:left;color:#cfd9e3}
+table.oos tr.hilite td{background:rgba(0,212,255,.05)}
+@media (max-width:900px){.layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Streak-Mean-Reversion Explorer</h1>
+  <p>Was passiert am Folgetag nach N aufeinanderfolgenden Abwärtstagen? (S&amp;P-500, {{ stk_start }}–heute)</p>
+</header>
+
+<nav class="topnav">
+  <a href="/">📊 Dashboard</a>
+  <a href="/analysis">🔬 Kaggle Explorer</a>
+  <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+  <a href="/analysis/crossover">📈 MA-Crossover</a>
+  <a href="/analysis/streak" class="active">🔻 Streak-Mean-Rev</a>
+</nav>
+
+<div class="caveat">
+  <b>Ehrlich:</b> Diese Seite zeigt ein <b>statistisch reales</b> Mean-Reversion-Muster
+  über alle S&amp;P-500-Aktien: nach N aufeinanderfolgenden Tagen mit Close-to-Close&nbsp;&lt;&nbsp;0
+  steigt der Folgetag <i>überdurchschnittlich oft</i>. Bei N=6: Hit-Quote 56,5&nbsp;%
+  vs. Basisrate 52,3&nbsp;% (Δ&nbsp;+4,2&nbsp;pp, n&nbsp;≈&nbsp;7,9k Fälle). Das ist die
+  <b>deskriptive Statistik</b>. Was das für Handeln bedeutet, steht in den
+  <i>OOS-Strategie-Tests</i> unten — Spoiler: nicht das, was man hofft.
+</div>
+
+<div class="caveat" style="background:rgba(255,85,119,.12);border-color:#ff5577;color:#ffb7c5">
+  <b style="color:#ff5577">Befund auf einen Blick (2026-05-18, zwei Strategie-Tests):</b>
+  Sowohl die Close-to-Close-Variante (long Close[t] → Close[t+h], Excess vs SPY,
+  <code>cc_meanrev_excess.py</code>) als auch die intraday-Open→Close-Variante
+  (long Open[t+1] → Close[t+1], <code>open_close_validate.py</code>) sind <b>OOS
+  (Train ≤ 2021-12-31, Test ≥ 2022-01-01) nicht-signifikant</b>: jeder OOS-t auf
+  Tages-Portfolio-Ebene&nbsp;≤&nbsp;+1,6, netto bei realistischen Kosten ≈&nbsp;0 oder
+  negativ. Auf Aktie-Tag-Ebene sieht der Effekt dramatisch aus (t bis +11,5) — das
+  ist aber die <b>Clustering-Illusion</b>: Crash-Tage triggern parallel hunderte
+  Aktien, die Korrelation bläht n auf. Ehrliche Lesart: <b>Statistisches Muster
+  real, handelbares Alpha widerlegt</b>. Details in den Blöcken unten.
+</div>
+
+<h2>Lesebeispiel — so liest du diese Seite</h2>
+<p class="sub">Sechs kurze Karten, was die Visualisierung sagt und was nicht.</p>
+<div class="examples">
+  <div class="ex">
+    <span class="tag">1. Die Frage</span>
+    <div class="takeaway">
+      Wenn eine Aktie N Tage in Folge gefallen ist (Close-to-Close&nbsp;&lt;&nbsp;0),
+      steigt der Folgetag dann häufiger als sonst? Mean-Reversion sagt: ja, irgendwann
+      „prallt" eine überverkaufte Aktie zurück. Wir prüfen das auf <b>allen</b>
+      S&amp;P-500-Aktien-Tagen seit 2014 — keine Hoffnung, nur Zählung.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">2. Das Histogramm</span>
+    <div class="takeaway">
+      Verteilung der <b>nächsttägigen</b> Close-to-Close-Renditen nach einer
+      N-Abwärts-Streak. Im Hintergrund <b style="color:#bbb">grau</b> die
+      unbedingte Basis (alle Aktie-Tage). Wenn die <b style="color:#00ff9c">grüne</b>
+      Streak-Verteilung gegenüber der grauen <i>nach rechts</i> verschoben ist,
+      hat der Streak-Filter etwas zu sagen — bei N=6+ ist das sichtbar.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">3. Hit-Quote vs N</span>
+    <div class="takeaway">
+      Bar-Chart rechts zeigt, wie die Hit-Quote (% Fälle mit positivem Folgetag)
+      mit zunehmender Streak-Tiefe steigt. Bei N=1 fast Basis (~53&nbsp;%), bei N=6
+      schon 56,5&nbsp;%, bei N=9 sogar 60&nbsp;%. <b>Monotones Muster</b> — was den
+      Befund ökonomisch plausibler macht als zufällige Cherry-Picks.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">4. Die Basisrate</span>
+    <div class="takeaway">
+      Ein zufälliger Aktien-Tag im S&amp;P-500 schließt am Folgetag in <b>52,3&nbsp;%</b>
+      der Fälle positiv (Marktdrift). Diesem Bias muss jedes Signal mindestens
+      entgehen. Die <b>Δ&nbsp;pp</b>-Anzeige in den Kacheln zeigt genau diese
+      Differenz: positiv = Edge gegenüber „immer halten".
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">5. Vorbehalte</span>
+    <div class="takeaway">
+      Survivorship-Bias (aktuelle Indexliste — Bankrotte fehlen, das spielt
+      <i>für</i> die Long-Strategie). Keine Kosten in den Hit-Quoten.
+      Vor allem: <b>Aktie-Tage sind stark korreliert</b> (Crash-Tage triggern
+      hunderte Aktien gleichzeitig). Naive Stock-Day-Statistik überschätzt
+      Signifikanz dramatisch — Tagesportfolio ist das ehrliche n.
+    </div>
+  </div>
+  <div class="ex">
+    <span class="tag">6. Quick-Picks</span>
+    <div class="takeaway">
+      Buttons über dem Diagramm springen direkt zu den interessanten Zellen:
+      <b style="color:#00ff9c">N=6</b> (Sweet-Spot mit gutem n),
+      <b>N=9</b> (höchster Hit-Edge, aber kleineres n),
+      <b>N=1</b> (Naive Basis), <b>N≥10</b> (Extrem-Tail).
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+    <button onclick="pickN(6)"
+      style="background:linear-gradient(135deg,#00ff9c,#007a4a)">▲ N=6 Sweet-Spot</button>
+    <button onclick="pickN(9)"
+      style="background:linear-gradient(135deg,#00d4ff,#00558a)">★ N=9 max&nbsp;Hit-Edge</button>
+    <button onclick="pickN(1)"
+      style="background:transparent;border:1px solid #00d4ff;color:#00d4ff">— N=1 Naive Basis</button>
+    <button onclick="pickN(10)"
+      style="background:transparent;border:1px solid #888;color:#bbb">⛰ N≥10 Extrem</button>
+  </div>
+  <div class="ctrls">
+    <div class="ctrl">
+      <label>Streak-Länge N (Abwärtstage in Folge)</label>
+      <select id="nsel"></select>
+    </div>
+  </div>
+  <div id="preset_info" style="margin-top:12px;font-size:12px;color:#9fb3c8;line-height:1.6;
+       display:none;background:rgba(0,212,255,.06);border:1px solid #1e3a5f;
+       border-radius:6px;padding:10px 14px"></div>
+</div>
+
+<div class="layout">
+  <div>
+    <h2>Verteilung der Folgetag-Renditen</h2>
+    <p class="sub">Histogramm der Close-to-Close-Renditen am Tag <i>nach</i> einer
+      N-Abwärts-Streak. Graue Fläche = unbedingte Basis (alle Aktie-Tage).</p>
+    <div class="panel" style="margin-top:8px"><div id="hist" style="height:420px"></div></div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="lbl">Fälle (Streak-Tage)</div>
+        <div class="val" id="s_n">—</div>
+        <div class="delta neut">n</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Hit% (Folgetag&nbsp;&gt;&nbsp;0)</div>
+        <div class="val" id="s_hit">—</div>
+        <div class="delta" id="s_hit_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Mean Folgetag</div>
+        <div class="val" id="s_mean">—</div>
+        <div class="delta" id="s_mean_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Median Folgetag</div>
+        <div class="val" id="s_med">—</div>
+        <div class="delta" id="s_med_diff">—</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Basis Hit%</div>
+        <div class="val" id="b_hit">—</div>
+        <div class="delta neut">alle Aktie-Tage</div>
+      </div>
+      <div class="stat">
+        <div class="lbl">Basis Mean</div>
+        <div class="val" id="b_mean">—</div>
+        <div class="delta neut">unbedingt</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Hit-Edge vs Streak-Länge</h2>
+    <p class="sub">Δ&nbsp;pp (Hit-Quote minus unbedingte Basis) je N. Punkt = aktuelle Auswahl.</p>
+    <div class="panel" style="margin-top:8px"><div id="barhit" style="height:230px"></div></div>
+
+    <h2>Mean-Edge vs Streak-Länge</h2>
+    <p class="sub">Δ&nbsp;% (Mean Folgetag minus unbedingte Basis) je N.</p>
+    <div class="panel" style="margin-top:8px"><div id="barmean" style="height:230px"></div></div>
+  </div>
+</div>
+
+<h2 style="color:#ff5577;border-left-color:#ff5577">OOS-Strategie-Test A — Close-to-Close vs SPY</h2>
+<p class="sub">Long Close[t] → Close[t+h], Excess gegen SPY über denselben h-TT-Zeitraum,
+aggregiert pro Einstiegstag (ehrliches n = Tage). Skript: <code style="color:#00d4ff;background:rgba(0,212,255,.08);padding:2px 6px;border-radius:3px">cc_meanrev_excess.py</code>,
+Lauf 2026-05-18. Auszug Korb&nbsp;≥&nbsp;8 (handelbare Diversifikation):</p>
+<div class="panel">
+  <table class="oos">
+    <thead><tr>
+      <th class="lbl" style="text-align:left">Signal</th>
+      <th>OOS Tage</th>
+      <th>OOS exc Ø</th>
+      <th>OOS t</th>
+      <th>netto@10 OOS t</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">N≥4, h=2 (Korb≥8)</td><td>720</td><td>+0,016&nbsp;%</td><td>+0,35</td><td class="negv">−1,89</td></tr>
+      <tr><td class="lbl">N≥4, h=3 (Korb≥8)</td><td>719</td><td>+0,007&nbsp;%</td><td>+0,12</td><td class="negv">−1,69</td></tr>
+      <tr><td class="lbl">N≥4, h=5 (Korb≥8)</td><td>717</td><td>−0,002&nbsp;%</td><td>−0,03</td><td class="negv">−1,47</td></tr>
+      <tr class="hilite"><td class="lbl">N≥6, h=3 (Korb≥8) — bestes</td><td>225</td><td><b>+0,157&nbsp;%</b></td><td><b>+1,60</b></td><td>+0,58</td></tr>
+      <tr><td class="lbl">N≥6, h=5 (Korb≥8)</td><td>225</td><td>+0,141&nbsp;%</td><td>+1,21</td><td>+0,35</td></tr>
+      <tr><td class="lbl">N≥7, h=3 (Korb≥8)</td><td>92</td><td>+0,192&nbsp;%</td><td>+1,29</td><td>+0,62</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px;font-size:12px;color:#9fb3c8;line-height:1.5">
+    Höchster OOS-t bei brutto = +1,60 (N=6, h=3, Korb≥8). Pre-Reg-Schwelle wäre &gt;+2,0
+    für „signifikant" — knapp insignifikant, nach 10&nbsp;bps round-trip Kosten ≈&nbsp;0.
+    Best-Case-OOS auch nur 225&nbsp;Tage (vom 2022-01-01 bis 2026-05) — n ist klein.
+  </p>
+</div>
+
+<h2 style="color:#ff5577;border-left-color:#ff5577">OOS-Strategie-Test B — Intraday Open[t+1] → Close[t+1]</h2>
+<p class="sub">Streak-Trigger bis Close[t], Long am Open[t+1], Exit am Close[t+1] —
+Overnight-Risiko ausgeschlossen. Tages-Portfolio (clustering-fest). Skript:
+<code style="color:#00d4ff;background:rgba(0,212,255,.08);padding:2px 6px;border-radius:3px">open_close_validate.py</code>,
+Lauf 2026-05-18.</p>
+<div class="panel">
+  <table class="oos">
+    <thead><tr>
+      <th class="lbl" style="text-align:left">Signal</th>
+      <th>OOS Tage</th>
+      <th>OOS Ø brutto</th>
+      <th>OOS t brutto</th>
+      <th>netto@5 OOS Ø</th>
+      <th>netto@5 OOS t</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">2+ down</td><td>1094</td><td>+2,33&nbsp;bps</td><td>+0,73</td><td>−2,67&nbsp;bps</td><td class="negv">−0,83</td></tr>
+      <tr><td class="lbl">4+ down</td><td>1034</td><td>−0,17&nbsp;bps</td><td>−0,04</td><td>−5,17&nbsp;bps</td><td class="negv">−1,26</td></tr>
+      <tr><td class="lbl">5+ down</td><td>933</td><td>+0,26&nbsp;bps</td><td>+0,06</td><td>−4,74&nbsp;bps</td><td class="negv">−1,04</td></tr>
+      <tr class="hilite"><td class="lbl">6+ down — Sweet-Spot</td><td>771</td><td><b>−5,70&nbsp;bps</b></td><td class="negv"><b>−1,01</b></td><td>−10,70&nbsp;bps</td><td class="negv">−1,90</td></tr>
+      <tr><td class="lbl">GAP &lt; −2&nbsp;%</td><td>1047</td><td>+5,94&nbsp;bps</td><td>+0,88</td><td>+0,94&nbsp;bps</td><td>+0,14</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px;font-size:12px;color:#9fb3c8;line-height:1.5">
+    <b style="color:#ff5577">Wichtig:</b> Auf Aktie-Tag-Ebene (n = Aktien-Tage,
+    nicht im Auszug oben) sehen dieselben Daten dramatisch aus —
+    z.&nbsp;B. 4+down OOS t=+11,55 — weil hunderte Aktien dieselben Crash-Tage
+    durchlaufen und korrelierte n hochzählen. Sobald man auf <b>Tages-Portfolio</b>
+    aggregiert (echte n&nbsp;=&nbsp;Anzahl Handelstage, Korb gleichverteilt),
+    schmilzt der Edge zusammen. Das ist die Clustering-Illusion in einer Tabelle.
+  </p>
+</div>
+
+<h2>Was bleibt</h2>
+<div class="panel" style="font-size:13px;line-height:1.55;color:#cfd9e3">
+  <p>Der Streak-Befund ist <b style="color:#00ff9c">deskriptiv real</b>: bei 6+ Down-Tagen
+  liegt die Folgetag-Hit-Quote tatsächlich 4,2&nbsp;pp über der Basisrate, monoton wachsend
+  bis N=9 (+7,9&nbsp;pp). Das Muster lässt sich auf S&amp;P-500-breit reproduzieren, ist
+  also nicht Cherry-Pick aus 6 Tech-Werten.</p>
+  <p style="margin-top:8px">Als <b style="color:#ff5577">handelbares Long-Alpha</b>
+  wurde der Befund 2026-05-18 auf zwei Wegen geprüft und in beiden <b>OOS+nachKosten
+  widerlegt</b>: Close-to-Close vs SPY und intraday Open→Close. Der Edge lebt entweder
+  nur in winzigen, undiversifizierbaren Körben oder verschwindet, sobald Korrelation
+  zwischen Signal-Tagen ehrlich gerechnet wird (Tages-Portfolio statt Aktie-Tag).</p>
+  <p style="margin-top:8px"><b>Konsequenz:</b> Das Muster ist gut zu wissen
+  (z.&nbsp;B. zum Timing eines geplanten Long-Einstiegs: <i>nicht</i> direkt nach 1-2
+  roten Tagen, sondern eher nach 5-6). Als eigenständige Trading-Strategie nicht
+  greenlight. Kein Nachfrisieren mit Vola/Sektor/News-Conditionern ohne separate
+  Pre-Reg-Studie — diese drei Wege wurden ebenfalls ohne Erfolg geprüft (siehe
+  <code>cc_meanrev_vix.py</code>, <code>cc_meanrev_gdelt.py</code>).</p>
+</div>
+
+<script>
+const DATA = {{ data_json|safe }};
+
+function setupDropdown() {
+  const sel = document.getElementById('nsel');
+  for (const k of Object.keys(DATA.grid).sort((a,b) => +a - +b)) {
+    const e = DATA.grid[k];
+    if (!e.stats) continue;
+    sel.add(new Option(`N = ${e.label}  (n = ${e.stats.n.toLocaleString('de-DE')})`, k));
+  }
+  sel.value = '6';
+  sel.addEventListener('change', render);
+}
+
+function midpoints(edges) {
+  const m = [];
+  for (let i = 0; i < edges.length - 1; i++) m.push((edges[i] + edges[i+1]) / 2);
+  return m;
+}
+function normalize(counts) {
+  const tot = counts.reduce((a, b) => a + b, 0);
+  return tot > 0 ? counts.map(c => c / tot) : counts;
+}
+function diffClass(v) { return v > 0.05 ? 'pos' : v < -0.05 ? 'negv' : 'neut'; }
+function fmtPct(v, d=2) {
+  if (v===null||v===undefined||isNaN(v)) return '—';
+  return (v>0?'+':'') + v.toFixed(d) + '%';
+}
+
+function render() {
+  const N = document.getElementById('nsel').value;
+  const cell = DATA.grid[N];
+  const base = DATA.baseline;
+  renderHist(cell, base);
+  renderStats(cell, base);
+  renderBars(N);
+}
+
+function renderHist(cell, base) {
+  const baseMid = midpoints(base.hist.edges);
+  const traces = [{
+    type:'bar', x: baseMid, y: normalize(base.hist.counts),
+    name:'Unbedingte Basis', marker:{color:'rgba(150,150,170,0.35)'},
+    hovertemplate:'Basis · r=%{x:.2f}% · Dichte %{y:.3f}<extra></extra>',
+  }];
+  const m = midpoints(cell.hist.edges);
+  traces.push({
+    type:'scatter', mode:'lines', x:m, y:normalize(cell.hist.counts),
+    name:`Streak N=${cell.label}`, line:{color:'#00ff9c',width:2.5,shape:'spline'},
+    fill:'tozeroy', fillcolor:'rgba(0,255,156,0.12)',
+    hovertemplate:'Streak · r=%{x:.2f}% · Dichte %{y:.3f}<extra></extra>',
+  });
+  Plotly.newPlot('hist', traces, {
+    paper_bgcolor:'#0d0d1a', plot_bgcolor:'#0d0d1a',
+    font:{color:'#cfd9e3',size:11},
+    margin:{l:50,r:14,t:10,b:46},
+    xaxis:{title:'Folgetag-Rendite (%)',gridcolor:'#1e3a5f',
+           zerolinecolor:'#00d4ff',zerolinewidth:1.2,range:[-10,12]},
+    yaxis:{title:'Dichte',gridcolor:'#1e3a5f'},
+    barmode:'overlay',
+    legend:{orientation:'h',x:0.5,xanchor:'center',y:1.08},
+    shapes:[{type:'line', x0:base.stats.median, x1:base.stats.median,
+             y0:0, y1:1, yref:'paper',
+             line:{color:'#aaa',dash:'dot',width:1}}],
+  }, {responsive:true, displayModeBar:false});
+}
+
+function renderStats(cell, base) {
+  const set = (id, v, suffix='') => {
+    document.getElementById(id).textContent =
+      (v===null||v===undefined||isNaN(v)) ? '—' :
+        ((typeof v==='number') ? ((v>0?'+':'')+v.toFixed(2)+suffix) : v);
+  };
+  const setDiff = (id, v, label) => {
+    const el = document.getElementById(id);
+    if (v===null||v===undefined||isNaN(v)) { el.textContent='—'; el.className='delta neut'; return; }
+    el.className = 'delta ' + diffClass(v);
+    el.textContent = label + ' ' + (v>0?'+':'') + v.toFixed(2);
+  };
+  document.getElementById('s_n').textContent = cell.stats.n.toLocaleString('de-DE');
+  set('s_hit',  cell.stats.hit_pct, '%');
+  set('s_mean', cell.stats.mean,    '%');
+  set('s_med',  cell.stats.median,  '%');
+  setDiff('s_hit_diff',  cell.stats.hit_pct - base.stats.hit_pct, 'vs Basis pp');
+  setDiff('s_mean_diff', cell.stats.mean    - base.stats.mean,    'vs Basis pp');
+  setDiff('s_med_diff',  cell.stats.median  - base.stats.median,  'vs Basis pp');
+  set('b_hit',  base.stats.hit_pct, '%');
+  set('b_mean', base.stats.mean,    '%');
+}
+
+function renderBars(curN) {
+  const xs = []; const yhit = []; const ymean = []; const colors = [];
+  for (const k of Object.keys(DATA.grid).sort((a,b) => +a - +b)) {
+    const e = DATA.grid[k];
+    if (!e.stats) continue;
+    xs.push(e.label);
+    yhit.push(e.edge_hit_pp);
+    ymean.push(e.edge_mean_pp);
+    colors.push(k === curN ? '#00d4ff' : (e.edge_hit_pp > 0 ? '#00ff9c' : '#ff5577'));
+  }
+  Plotly.newPlot('barhit', [{
+    type:'bar', x:xs, y:yhit, marker:{color:colors},
+    text:yhit.map(v => (v>0?'+':'')+v.toFixed(2)+' pp'),
+    textposition:'outside', textfont:{size:10,color:'#cfd9e3'},
+    hovertemplate:'N=%{x} · Δ Hit %{y:+.2f} pp<extra></extra>',
+  }], {
+    paper_bgcolor:'#0d0d1a',plot_bgcolor:'#0d0d1a',
+    font:{color:'#cfd9e3',size:11},margin:{l:42,r:14,t:18,b:36},
+    xaxis:{title:'Streak-Länge N',gridcolor:'#1e3a5f'},
+    yaxis:{title:'Δ Hit pp vs Basis',gridcolor:'#1e3a5f',zerolinecolor:'#aaa'},
+  }, {responsive:true, displayModeBar:false});
+  Plotly.newPlot('barmean', [{
+    type:'bar', x:xs, y:ymean, marker:{color:colors},
+    text:ymean.map(v => (v>0?'+':'')+v.toFixed(2)+' %'),
+    textposition:'outside', textfont:{size:10,color:'#cfd9e3'},
+    hovertemplate:'N=%{x} · Δ Mean %{y:+.3f} %<extra></extra>',
+  }], {
+    paper_bgcolor:'#0d0d1a',plot_bgcolor:'#0d0d1a',
+    font:{color:'#cfd9e3',size:11},margin:{l:42,r:14,t:18,b:36},
+    xaxis:{title:'Streak-Länge N',gridcolor:'#1e3a5f'},
+    yaxis:{title:'Δ Mean % vs Basis',gridcolor:'#1e3a5f',zerolinecolor:'#aaa'},
+  }, {responsive:true, displayModeBar:false});
+}
+
+function pickN(n) {
+  document.getElementById('nsel').value = String(n);
+  let info = '';
+  if (n === 6) info = '<b style="color:#00ff9c">▲ N=6 Sweet-Spot:</b> P(Folgetag&nbsp;&gt;&nbsp;0) = 56,5&nbsp;% vs Basis 52,3&nbsp;% (+4,2&nbsp;pp), Mean +0,389&nbsp;% vs Basis +0,068&nbsp;%. Gutes n (~7,9k Fälle). <b style="color:#ff5577">Aber:</b> OOS-Strategie-Tests (Tabellen unten) zeigen, dass das nicht in handelbares Alpha umsetzbar war.';
+  else if (n === 9) info = '<b style="color:#00d4ff">★ N=9 max Hit-Edge:</b> 60,2&nbsp;% Hit vs Basis 52,3&nbsp;% (+7,9&nbsp;pp), Mean +0,401&nbsp;%. Höchster Edge — aber nur n=630 Fälle, also seltenes Signal. Für Backtest-Statistik zu dünn (siehe OOS-Tabelle: Korb&nbsp;≥&nbsp;8 in dem Bereich nur ~90&nbsp;Tage).';
+  else if (n === 1) info = '<b>— N=1 Naive Basis:</b> Schon ein einziger Abwärtstag liefert leichtes Mean-Reversion (53,0&nbsp;% Hit, +0,75&nbsp;pp). Das Muster startet früh und wächst monoton — das ist genau der Hinweis, dass es kein Cherry-Pick ist.';
+  else if (n === 10) info = '<b>⛰ N≥10 Extrem:</b> 57,1&nbsp;% Hit (+4,9&nbsp;pp), Mean +0,470&nbsp;%. Wieder ein Reversion-Edge im Tail, aber nur n=429 — Schwanz der Verteilung, statistisch wackelig.';
+  const box = document.getElementById('preset_info');
+  box.innerHTML = info; box.style.display = 'block';
+  render();
+}
+
+setupDropdown();
+render();
+</script>
+</body>
+</html>

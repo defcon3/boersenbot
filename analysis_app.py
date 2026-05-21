@@ -644,5 +644,25 @@ def crossover_view():
         data_json=json.dumps(data))
 
 
+@app.route('/streak')
+def streak_view():
+    """Streak-Mean-Reversion Explorer. Liest streak_grid.json (durch
+    streak_grid.py vorberechnet). Zeigt zusaetzlich die OOS-Strategie-
+    Test-Ergebnisse aus cc_meanrev_excess + open_close_validate als
+    statische Tabellen (im Template eingebettet)."""
+    import json, os
+    grid_path = '/home/veit/boersenbot/streak_grid.json'
+    if not os.path.exists(grid_path):
+        return render_template(
+            'streak.html', stk_start='—',
+            data_json=json.dumps({'params': {}, 'baseline': {}, 'grid': {}}))
+    with open(grid_path, 'r') as f:
+        data = json.load(f)
+    return render_template(
+        'streak.html',
+        stk_start=data['params'].get('stk_start', '2014-01-01'),
+        data_json=json.dumps(data))
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=False)
