@@ -221,6 +221,41 @@
         }
         .tag.failed { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
 
+        /* Grabstein-Easter-Egg */
+        .tag.grave {
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tag.grave:hover {
+            transform: translateY(-3px) rotate(-2deg);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #2c3e50, #4a5568);
+        }
+        .tag.grave::after {
+            content: "✝ " attr(data-date) " — " attr(data-cause);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-style: italic;
+            z-index: 10;
+            max-width: 350px;
+            white-space: normal;
+            text-align: center;
+            min-width: 200px;
+        }
+        .tag.grave:hover::after { opacity: 1; }
+
         footer {
             text-align: center;
             color: white;
@@ -415,23 +450,113 @@
                 bekannte/verlockende Signale haben unter dieser Disziplin <strong>nicht überlebt</strong>:
             </p>
 
-            <div class="tag-list">
-                <span class="tag failed">MA50/MA200 Crossover</span>
-                <span class="tag failed">Mean-Reversion Brute-Force (120 Params)</span>
-                <span class="tag failed">Streak Mean-Reversion N=6</span>
-                <span class="tag failed">VIX-Kapitulation</span>
-                <span class="tag failed">Yield-Curve Inversion (T10Y2Y)</span>
-                <span class="tag failed">High-Yield Credit-Spread (Q75)</span>
-                <span class="tag failed">Jobless Claims Acceleration</span>
-                <span class="tag failed">GDELT News-Sentiment</span>
-                <span class="tag failed">Earnings-Surprise</span>
-                <span class="tag failed">NFCI Stress-Index</span>
-                <span class="tag failed">STLFSI4 auf SPY</span>
-                <span class="tag failed">XGBoost ML Classifier</span>
-                <span class="tag failed">SOM Marktregime-Kohonen</span>
-                <span class="tag failed">Gap-Korb-Reanimation</span>
-                <span class="tag failed">Minuten-Momentum naiv</span>
-                <span class="tag failed">RSI+MACD Backtest</span>
+            <p style="font-style: italic; color: #7f8c8d; margin-bottom: 10px;">
+                🕯️ Hover über die Grabsteine für letzte Worte. Klick für Beerdigungs-Details.
+            </p>
+            <div class="tag-list" id="graveyard">
+                <span class="tag failed grave" data-date="2026-05-12"
+                      data-cause="Vermeintlicher OOS-Edge entpuppte sich als IS-Lookback-Artefakt"
+                      data-stat="f20/s50/h10: zerfaellt bei sauberem Walk-Forward">
+                    🪦 MA50/MA200 Crossover
+                </span>
+                <span class="tag failed grave" data-date="2026-05-19"
+                      data-cause="120 Parameter-Kombinationen brute-forced"
+                      data-stat="Max |t|=1.93 vs Bonferroni-Threshold 4.2">
+                    🪦 Mean-Reversion Brute-Force
+                </span>
+                <span class="tag failed grave" data-date="2026-05-19"
+                      data-cause="Descriptive Pattern war real, als Trading-Edge zweimal OOS widerlegt"
+                      data-stat="N=6: 56-58% Hit-Rate vs 52% Random → kein handelbarer Edge">
+                    🪦 Streak Mean-Reversion N=6
+                </span>
+                <span class="tag failed grave" data-date="2026-05-20"
+                      data-cause="VIX-Spikes triggern keinen reproduzierbaren Bounce"
+                      data-stat="Naive Strategy SCHLECHTER als Buy-and-Hold">
+                    🪦 VIX-Kapitulation
+                </span>
+                <span class="tag failed grave" data-date="2026-05-21"
+                      data-cause="Direction-Flip im Markt-Regime"
+                      data-stat="Pre-2019 bearish (t=-2.58), 2019-2025 BULLISH (t=+4.56)">
+                    🪦 Yield-Curve Inversion (T10Y2Y)
+                </span>
+                <span class="tag failed grave" data-date="2026-05-21"
+                      data-cause="Klassische Theorie umgekehrt"
+                      data-stat="HY-Spread hoch → SPY-Returns OOS +6.33σ HÖHER (opposite!)">
+                    🪦 High-Yield Credit-Spread (auf SPY)
+                </span>
+                <span class="tag failed grave" data-date="2026-05-21"
+                      data-cause="IS-Effekt nahezu Null - Snooping-Risiko"
+                      data-stat="IS Diff +0.05% → Test war reines Glück, IWM widerspricht">
+                    🪦 Jobless Claims Acceleration
+                </span>
+                <span class="tag failed grave" data-date="2026-05-20"
+                      data-cause="News-Sentiment ist im Markt eingepreist"
+                      data-stat="GDELT Market-Tone: kein Edge über Bonferroni">
+                    🪦 GDELT News-Sentiment
+                </span>
+                <span class="tag failed grave" data-date="2026-05-20"
+                      data-cause="yfinance earnings_dates leer, Naive-Proxy zu schwach"
+                      data-stat="IEX Cloud nicht erreichbar (Datenzugang kostenpflichtig)">
+                    🪦 Earnings-Surprise
+                </span>
+                <span class="tag failed grave" data-date="2026-05-21"
+                      data-cause="Direction-Flip wie Yield-Inversion"
+                      data-stat="Test t=+0.49 bis +2.17 in falscher Richtung">
+                    🪦 NFCI Stress-Index
+                </span>
+                <span class="tag failed grave" data-date="2026-05-21"
+                      data-cause="Funktioniert auf HY-Bonds, NICHT auf SPY"
+                      data-stat="Cross-Asset-Inkonsistenz: SPY/QQQ/IWM uneinheitlich">
+                    🪦 STLFSI4 auf SPY
+                </span>
+                <span class="tag failed grave" data-date="2026-05-21"
+                      data-cause="Klassisches Overfit"
+                      data-stat="IS Accuracy 95.98% / OOS 62.11% / t=+1.44 (unter 1.5)">
+                    🪦 XGBoost ML Classifier
+                </span>
+                <span class="tag failed grave" data-date="2026-05-19"
+                      data-cause="1/30 Test-Schwankung im Erwartungsbereich von Zufall"
+                      data-stat="Kohonen-Karten visuell schön, aber kein Edge messbar">
+                    🪦 SOM Marktregime
+                </span>
+                <span class="tag failed grave" data-date="2026-05-20"
+                      data-cause="Open-Close-Bounce verschwindet OOS"
+                      data-stat="Korb von 2-3% Gaps: keine reproduzierbare Mean-Reversion">
+                    🪦 Gap-Korb-Reanimation
+                </span>
+                <span class="tag failed grave" data-date="2026-05-18"
+                      data-cause="Münzwurf-Performance"
+                      data-stat="Naive 1-Minuten-Continuation: ~50% Hit-Rate, zu dünne Daten">
+                    🪦 Minuten-Momentum naiv
+                </span>
+                <span class="tag failed grave" data-date="2026-05-15"
+                      data-cause="-253€ über 2020-2024 ohne Stop-Loss"
+                      data-stat="2023 isoliert +830€, aber kein robuster Edge">
+                    🪦 RSI+MACD Backtest
+                </span>
+            </div>
+
+            <!-- Modal für Beerdigungs-Details -->
+            <div id="graveModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+                <div style="background:white; padding:40px; border-radius:16px; max-width:500px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <div style="font-size:4em;">🪦</div>
+                        <h3 id="modalTitle" style="color:#2c3e50; margin-top:10px;"></h3>
+                        <p style="color:#7f8c8d; font-style:italic;" id="modalDate"></p>
+                    </div>
+                    <div style="border-top:2px solid #ecf0f1; padding-top:20px;">
+                        <p style="margin-bottom:10px;"><strong>Todesursache:</strong></p>
+                        <p id="modalCause" style="color:#34495e; margin-bottom:15px;"></p>
+                        <p style="margin-bottom:10px;"><strong>Forensik:</strong></p>
+                        <p id="modalStat" style="color:#34495e; font-family:monospace; background:#f8f9fa; padding:10px; border-radius:6px;"></p>
+                    </div>
+                    <div style="text-align:center; margin-top:25px;">
+                        <button onclick="document.getElementById('graveModal').style.display='none'"
+                                style="padding:10px 30px; background:#667eea; color:white; border:none; border-radius:8px; cursor:pointer; font-size:1em;">
+                            Möge sie in Frieden ruhen 🕯️
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="info-box info">
@@ -614,6 +739,22 @@ SONST:
     </div>
 
     <script>
+        // Grabstein-Modal
+        document.querySelectorAll('.tag.grave').forEach(grave => {
+            grave.addEventListener('click', () => {
+                document.getElementById('modalTitle').textContent = grave.textContent.trim();
+                document.getElementById('modalDate').textContent = "Falsifiziert am " + grave.dataset.date;
+                document.getElementById('modalCause').textContent = grave.dataset.cause;
+                document.getElementById('modalStat').textContent = grave.dataset.stat;
+                document.getElementById('graveModal').style.display = 'flex';
+            });
+        });
+        document.getElementById('graveModal').addEventListener('click', (e) => {
+            if (e.target.id === 'graveModal') {
+                e.target.style.display = 'none';
+            }
+        });
+
         // Sharpe-Chart
         new Chart(document.getElementById('sharpeChart'), {
             type: 'bar',
