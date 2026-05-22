@@ -158,6 +158,44 @@
   }
   details summary { cursor: pointer; color: var(--accent); font-size: 12px; }
   details p { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
+
+  /* --- Finder --- */
+  .finder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .finder-grid .full { grid-column: 1 / -1; }
+  .fld { display: flex; flex-direction: column; gap: 2px; position: relative; }
+  .fld label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .fld input, .fld select {
+    padding: 6px 8px; border: 1px solid var(--line); border-radius: 5px;
+    font-size: 12px; background: #fff; width: 100%;
+  }
+  .ac-list {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 20;
+    background: #fff; border: 1px solid var(--line); border-top: none;
+    border-radius: 0 0 5px 5px; max-height: 180px; overflow-y: auto;
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  }
+  .ac-list div { padding: 6px 8px; cursor: pointer; font-size: 12px; }
+  .ac-list div:hover, .ac-list div.sel { background: #eef2ff; }
+  .finder-go {
+    width: 100%; margin-top: 8px; padding: 7px; border: none;
+    background: var(--accent); color: #fff; border-radius: 5px; cursor: pointer; font-weight: 500;
+  }
+  .finder-go:disabled { background: #94a3b8; cursor: wait; }
+  .results { margin-top: 8px; max-height: 320px; overflow-y: auto; }
+  .res-row {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px;
+    padding: 5px 0; border-bottom: 1px solid #f1f1ee;
+  }
+  .res-row:last-child { border-bottom: none; }
+  .res-row .meta { min-width: 0; }
+  .res-row .meta .l1 { font-weight: 600; font-size: 12px; }
+  .res-row .meta .l2 { color: var(--muted); font-size: 11px; }
+  .res-row button {
+    border: 1px solid var(--accent); background: #fff; color: var(--accent);
+    border-radius: 4px; padding: 3px 8px; cursor: pointer; font-size: 11px; white-space: nowrap;
+  }
+  .res-row button:hover { background: var(--accent); color: #fff; }
+  .res-row button:disabled { border-color: #cbd5e1; color: #cbd5e1; cursor: default; }
 </style>
 </head>
 <body>
@@ -170,6 +208,40 @@
   <!-- LEFT -->
   <section>
     <div class="panel">
+      <h2>Optionsschein-Finder</h2>
+      <div class="finder-grid">
+        <div class="fld full">
+          <label>Basiswert (Name, ISIN oder WKN)</label>
+          <input id="fUnderlying" placeholder="z. B. Nvidia, DAX, BMW" autocomplete="off">
+          <div id="fAc" class="ac-list" style="display:none"></div>
+        </div>
+        <div class="fld">
+          <label>Typ</label>
+          <select id="fType">
+            <option value="CALL">Call</option>
+            <option value="PUT">Put</option>
+            <option value="">Alle</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label>Marktpreis max (€)</label>
+          <input id="fPriceMax" inputmode="decimal" placeholder="z. B. 5">
+        </div>
+        <div class="fld">
+          <label>Strike von</label>
+          <input id="fStrikeFrom" inputmode="decimal" placeholder="z. B. 100">
+        </div>
+        <div class="fld">
+          <label>Strike bis</label>
+          <input id="fStrikeTo" inputmode="decimal" placeholder="z. B. 150">
+        </div>
+      </div>
+      <button class="finder-go" id="fGo">Scheine suchen</button>
+      <div class="status" id="fStatus"></div>
+      <div class="results" id="fResults"></div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
       <h2>WKNs (max 8)</h2>
       <div id="wknList"></div>
       <div class="wkn-add">
@@ -603,6 +675,103 @@ $("btnUseIV").addEventListener("click", () => {
   refresh();
 });
 window.addEventListener("resize", refresh);
+
+// =========================================================================
+//  Optionsschein-Finder
+// =========================================================================
+const apiBase = () => window.location.pathname.replace(/\/+$/, "");
+let fSelectedId = "";          // gewählte ID_NOTATION des Basiswerts
+let fAcTimer = null;
+
+function setFStatus(msg) { $("fStatus").textContent = msg || ""; }
+
+async function fAutocomplete() {
+  const q = $("fUnderlying").value.trim();
+  fSelectedId = "";                       // Tippen verwirft frühere Auswahl
+  if (q.length < 3) { $("fAc").style.display = "none"; return; }
+  try {
+    const res = await fetch(`${apiBase()}/api/underlyings?q=${encodeURIComponent(q)}`);
+    const json = await res.json();
+    const list = $("fAc");
+    if (!json.ok || !json.results.length) { list.style.display = "none"; return; }
+    list.innerHTML = json.results.map(r =>
+      `<div data-id="${r.id_notation}" data-name="${r.name.replace(/"/g,'&quot;')}">${r.name}</div>`
+    ).join("");
+    list.style.display = "block";
+    list.querySelectorAll("div").forEach(el => el.addEventListener("click", () => {
+      $("fUnderlying").value = el.dataset.name;
+      fSelectedId = el.dataset.id;
+      list.style.display = "none";
+    }));
+  } catch (e) { $("fAc").style.display = "none"; }
+}
+
+async function fSearch() {
+  const underlying = $("fUnderlying").value.trim();
+  if (!underlying) { setFStatus("Bitte Basiswert eingeben."); return; }
+  $("fAc").style.display = "none";
+  const p = new URLSearchParams({
+    underlying,
+    id_notation: fSelectedId,
+    type: $("fType").value,
+    strike_from: $("fStrikeFrom").value.trim(),
+    strike_to: $("fStrikeTo").value.trim(),
+    price_max: $("fPriceMax").value.trim(),
+    limit: "50",
+  });
+  $("fGo").disabled = true;
+  setFStatus("Suche bei comdirect …");
+  $("fResults").innerHTML = "";
+  try {
+    const res = await fetch(`${apiBase()}/api/search?${p.toString()}`);
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || "Fehler");
+    renderResults(json);
+  } catch (e) {
+    setFStatus("Fehler: " + e.message);
+  } finally {
+    $("fGo").disabled = false;
+  }
+}
+
+function renderResults(json) {
+  const uname = json.underlying ? json.underlying.name : "";
+  if (!json.warrants.length) {
+    setFStatus(`Keine Treffer für ${uname} mit diesen Filtern.`);
+    $("fResults").innerHTML = "";
+    return;
+  }
+  setFStatus(`${json.count} Treffer für ${uname} – „vergleichen" lädt den Schein links rein.`);
+  $("fResults").innerHTML = json.warrants.map(w => {
+    const id = w.isin || w.wkn;   // ISIN ist exakt – WKN->ISIN-Prüfziffer ist nicht immer 0
+    const brief = w.ask != null ? w.ask.toFixed(2).replace(".", ",") + " €" : "–";
+    const strike = w.strike != null ? w.strike.toLocaleString("de-DE") : "–";
+    const already = warrants.some(x => x.data?.isin === w.isin || x.data?.wkn === w.wkn || x.wkn === id);
+    return `
+      <div class="res-row">
+        <div class="meta">
+          <div class="l1">${id} · K ${strike}</div>
+          <div class="l2">Brief ${brief} · BV ${w.ratio_str || "–"} · ${w.expiry_str || "–"} · ${w.issuer || ""}</div>
+        </div>
+        <button data-load="${id}" ${already ? "disabled" : ""}>${already ? "geladen" : "+ vergleichen"}</button>
+      </div>`;
+  }).join("");
+  $("fResults").querySelectorAll("button[data-load]").forEach(btn =>
+    btn.addEventListener("click", () => loadWarrant(btn.dataset.load)));
+}
+
+$("fUnderlying").addEventListener("input", () => {
+  clearTimeout(fAcTimer); fAcTimer = setTimeout(fAutocomplete, 350);
+});
+$("fUnderlying").addEventListener("keydown", e => {
+  if (e.key === "Enter") { $("fAc").style.display = "none"; fSearch(); }
+});
+["fStrikeFrom","fStrikeTo","fPriceMax"].forEach(id =>
+  $(id).addEventListener("keydown", e => { if (e.key === "Enter") fSearch(); }));
+$("fGo").addEventListener("click", fSearch);
+document.addEventListener("click", e => {
+  if (!e.target.closest("#fUnderlying") && !e.target.closest("#fAc")) $("fAc").style.display = "none";
+});
 
 // Initial render
 refresh();

@@ -14,12 +14,28 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
 CACHE_TTL_SEC = 15 * 60
 
 
+def _isin_check_digit(body11: str) -> str:
+    """ISIN-Prüfziffer (Luhn über Buchstaben->Ziffern-Expansion) für die ersten 11 Zeichen."""
+    digits = "".join(str(ord(c) - 55) if c.isalpha() else c for c in body11)
+    total, dbl = 0, True  # von rechts: erste Ziffer wird verdoppelt
+    for ch in reversed(digits):
+        d = int(ch)
+        if dbl:
+            d *= 2
+            if d > 9:
+                d -= 9
+        total += d
+        dbl = not dbl
+    return str((10 - total % 10) % 10)
+
+
 def _to_isin(wkn_or_isin: str) -> str:
     s = wkn_or_isin.strip().upper()
-    if len(s) == 12 and s.startswith("DE"):
+    if len(s) == 12 and s[:2].isalpha():
         return s
     if len(s) == 6:
-        return f"DE000{s}0"
+        body = f"DE000{s}"
+        return body + _isin_check_digit(body)
     return s
 
 
@@ -41,9 +57,11 @@ def _parse_ratio(s: str):
         return None
     num = _to_num(m.group(1))
     den = _to_num(m.group(2))
-    if num is None or den in (None, 0):
+    if num in (None, 0) or den is None:
         return None
-    return num / den
+    # Bezugsverhältnis als Multiplikator: "10 : 1" -> 0,1 (10 Scheine je Aktie),
+    # "1 : 1" -> 1. Optionswert je Aktie * ratio = Wert je Schein.
+    return den / num
 
 
 def _parse_expiry(s: str):
