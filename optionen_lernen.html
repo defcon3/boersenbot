@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Optionen verstehen – Spielplatz</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --panel: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e3e3e0;
+    --accent: #2563eb;
+    --call: #16a34a;
+    --put: #dc2626;
+    --grid: #ececec;
+    --pay: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  header {
+    padding: 18px 24px 8px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); max-width: 900px; }
+  main {
+    display: grid;
+    grid-template-columns: 280px 1fr 360px;
+    gap: 16px;
+    padding: 16px;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .panel h2 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .slider-row { margin-bottom: 14px; }
+  .slider-row:last-child { margin-bottom: 0; }
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .slider-label .val { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .toggle-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .toggle-row button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .toggle-row button.active.call { background: var(--call); color: white; border-color: var(--call); }
+  .toggle-row button.active.put  { background: var(--put);  color: white; border-color: var(--put); }
+
+  .greeks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .greek {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 12px;
+    background: #fcfcfb;
+  }
+  .greek .name {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+  .greek .greek-symbol { font-family: serif; font-style: italic; font-size: 14px; color: var(--accent); }
+  .greek .value {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 4px 0 2px;
+  }
+  .greek .hint {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+  .price-big {
+    grid-column: span 2;
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+  .price-big .name { color: rgba(255,255,255,0.7); }
+  .price-big .value { font-size: 32px; }
+  .price-big .hint { color: rgba(255,255,255,0.6); }
+
+  canvas { display: block; width: 100%; height: 100%; }
+  .chart-box { position: relative; height: 260px; }
+  .chart-box + .chart-box { margin-top: 14px; }
+
+  details {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  details summary { cursor: pointer; color: var(--accent); }
+  details p { margin: 6px 0 0; }
+
+  .footer {
+    grid-column: 1 / -1;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 0 8px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Optionen verstehen – ein Spielplatz für die Griechen</h1>
+  <p>Dreh an den Reglern links und beobachte die <em>Griechen</em> in der Mitte und die Kurven rechts. Die Definitionen sind erst dann wirklich verständlich, wenn du siehst, <strong>wie</strong> sich der Optionspreis bewegt, wenn du <strong>was</strong> änderst.</p>
+</header>
+
+<main>
+  <!-- LEFT: SLIDERS -->
+  <section class="panel">
+    <h2>Eingaben</h2>
+    <div class="toggle-row">
+      <button id="btnCall" class="call active">Call</button>
+      <button id="btnPut"  class="put">Put</button>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-label"><span>Aktienkurs S</span><span class="val" id="vS">100,00 €</span></div>
+      <input type="range" id="S" min="20" max="200" value="100" step="0.5">
+    </div>
+    <div class="slider-row">
+      <div class="slider-label"><span>Basispreis K (Strike)</span><span class="val" id="vK">100,00 €</span></div>
+      <input type="range" id="K" min="20" max="200" value="100" step="1">
+    </div>
+    <div class="slider-row">
+      <div class="slider-label"><span>Restlaufzeit T</span><span class="val" id="vT">90 Tage</span></div>
+      <input type="range" id="T" min="1" max="730" value="90" step="1">
+    </div>
+    <div class="slider-row">
+      <div class="slider-label"><span>Volatilität σ</span><span class="val" id="vSig">25,0 %</span></div>
+      <input type="range" id="sig" min="2" max="120" value="25" step="0.5">
+    </div>
+    <div class="slider-row">
+      <div class="slider-label"><span>Zinssatz r</span><span class="val" id="vR">3,0 %</span></div>
+      <input type="range" id="r" min="0" max="10" value="3" step="0.1">
+    </div>
+
+    <details>
+      <summary>Was bedeuten die Eingaben?</summary>
+      <p><strong>S</strong> = aktueller Kurs des Basiswerts (z.B. SAP-Aktie).<br>
+         <strong>K</strong> = der Preis, zu dem du bei Fälligkeit kaufen (Call) oder verkaufen (Put) darfst.<br>
+         <strong>T</strong> = wie lange die Option noch läuft.<br>
+         <strong>σ</strong> = wie nervös der Markt den Kurs einschätzt (annualisiert).<br>
+         <strong>r</strong> = risikoloser Zins.</p>
+    </details>
+  </section>
+
+  <!-- MIDDLE: GREEKS + EXPLANATIONS -->
+  <section>
+    <div class="panel">
+      <h2>Live-Werte</h2>
+      <div class="greeks">
+        <div class="greek price-big">
+          <div class="name"><span>Fairer Optionspreis</span><span class="greek-symbol">V</span></div>
+          <div class="value" id="gPrice">–</div>
+          <div class="hint" id="gPriceHint">Black-Scholes-Wert pro Option</div>
+        </div>
+
+        <div class="greek">
+          <div class="name"><span>Delta</span><span class="greek-symbol">Δ</span></div>
+          <div class="value" id="gDelta">–</div>
+          <div class="hint" id="gDeltaHint">Wenn die Aktie 1 € steigt, ändert sich die Option um diesen Betrag.</div>
+        </div>
+
+        <div class="greek">
+          <div class="name"><span>Gamma</span><span class="greek-symbol">Γ</span></div>
+          <div class="value" id="gGamma">–</div>
+          <div class="hint">Wie stark sich Delta ändert, wenn die Aktie 1 € steigt. Groß = Delta zackt, klein = Delta stabil.</div>
+        </div>
+
+        <div class="greek">
+          <div class="name"><span>Theta (pro Tag)</span><span class="greek-symbol">Θ</span></div>
+          <div class="value" id="gTheta">–</div>
+          <div class="hint">Wertverlust pro Tag durch Zeitablauf – fast immer negativ. Optionen "schmelzen".</div>
+        </div>
+
+        <div class="greek">
+          <div class="name"><span>Vega (pro +1 % σ)</span><span class="greek-symbol">𝜈</span></div>
+          <div class="value" id="gVega">–</div>
+          <div class="hint">Wertänderung, wenn die Volatilität um 1 Prozentpunkt steigt. Long-Optionen profitieren von Vola.</div>
+        </div>
+
+        <div class="greek">
+          <div class="name"><span>Rho (pro +1 % r)</span><span class="greek-symbol">ρ</span></div>
+          <div class="value" id="gRho">–</div>
+          <div class="hint">Wertänderung bei +1 Prozentpunkt Zins. In der Praxis meist klein – außer bei langen Laufzeiten.</div>
+        </div>
+      </div>
+
+      <details>
+        <summary>So liest du das (Klick zum Aufklappen)</summary>
+        <p><strong>Delta</strong> ist die <em>Steigung</em> der blauen Kurve rechts am Punkt S. Wenn Delta = 0,50, bewegt sich die Option mit halber Wucht der Aktie.<br>
+        <strong>Gamma</strong> ist die <em>Krümmung</em> dieser Kurve. Am Strike maximal, weit weg vom Strike fast null.<br>
+        <strong>Theta</strong> siehst du im unteren Diagramm: je näher die Fälligkeit, desto steiler fällt der Wert.<br>
+        <strong>Vega</strong> wird größer mit Restlaufzeit und am Geld (S ≈ K).</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- RIGHT: CHARTS -->
+  <section class="panel">
+    <h2>Visualisierung</h2>
+    <div class="chart-box"><canvas id="chartPayoff"></canvas></div>
+    <div class="chart-box"><canvas id="chartDecay"></canvas></div>
+    <details>
+      <summary>Was zeigen die Diagramme?</summary>
+      <p><strong>Oben:</strong> Grau gestrichelt = Payoff bei Fälligkeit (klassischer Hockey-Stick). Blau = aktueller Wert je nach Aktienkurs. Roter senkrechter Strich = aktuelles S. Die Steigung der blauen Kurve dort ist <em>Delta</em>.<br>
+      <strong>Unten:</strong> Wert der Option in Abhängigkeit von der Restlaufzeit. Je weiter rechts, desto näher Fälligkeit. Der Knick ganz rechts zeigt: <em>am letzten Tag schmilzt der Zeitwert komplett weg</em> – das ist Theta in Aktion.</p>
+    </details>
+  </section>
+
+  <div class="footer">
+    Modell: Black-Scholes-Merton (europäische Option, keine Dividenden). Für deutsche Optionsscheine kommt später noch Bezugsverhältnis, Hebel und Omega obendrauf.
+  </div>
+</main>
+
+<script>
+// --- Black-Scholes-Mathematik ----------------------------------------------
+function erf(x) {
+  const a1 =  0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+  const a4 = -1.453152027, a5 = 1.061405429, p  = 0.3275911;
+  const sign = x < 0 ? -1 : 1;
+  x = Math.abs(x);
+  const t = 1.0 / (1.0 + p * x);
+  const y = 1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1) * t * Math.exp(-x*x);
+  return sign * y;
+}
+const N  = x => 0.5 * (1 + erf(x / Math.SQRT2));
+const Np = x => Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+
+function bsm(S, K, T, sig, r, isCall) {
+  if (T <= 0 || sig <= 0) {
+    const intrinsic = isCall ? Math.max(S - K, 0) : Math.max(K - S, 0);
+    return { price: intrinsic, delta: (isCall ? (S>K?1:0) : (S<K?-1:0)),
+             gamma: 0, theta: 0, vega: 0, rho: 0, d1: 0, d2: 0 };
+  }
+  const sqrtT = Math.sqrt(T);
+  const d1 = (Math.log(S/K) + (r + 0.5*sig*sig)*T) / (sig*sqrtT);
+  const d2 = d1 - sig*sqrtT;
+  const disc = Math.exp(-r*T);
+
+  let price, delta, theta, rho;
+  if (isCall) {
+    price = S*N(d1) - K*disc*N(d2);
+    delta = N(d1);
+    theta = -S*Np(d1)*sig/(2*sqrtT) - r*K*disc*N(d2);
+    rho   =  K*T*disc*N(d2);
+  } else {
+    price = K*disc*N(-d2) - S*N(-d1);
+    delta = N(d1) - 1;
+    theta = -S*Np(d1)*sig/(2*sqrtT) + r*K*disc*N(-d2);
+    rho   = -K*T*disc*N(-d2);
+  }
+  const gamma = Np(d1) / (S*sig*sqrtT);
+  const vega  = S*Np(d1)*sqrtT;
+  return { price, delta, gamma, theta, vega, rho, d1, d2 };
+}
+
+// --- State ------------------------------------------------------------------
+const state = { S:100, K:100, Tdays:90, sigPct:25, rPct:3, isCall:true };
+
+const fmtEur = v => v.toFixed(2).replace('.', ',') + ' €';
+const fmtPct = v => v.toFixed(1).replace('.', ',') + ' %';
+const fmtNum = (v, d=4) => v.toFixed(d).replace('.', ',');
+
+// --- Bind sliders -----------------------------------------------------------
+const $ = id => document.getElementById(id);
+
+function bindSlider(id, key, fmtFn, transform = x => x) {
+  const el = $(id), out = $('v' + id.charAt(0).toUpperCase() + id.slice(1).replace('ig','ig'));
+}
+// Simpler: hand-bind each:
+const slS   = $('S'),   vS   = $('vS');
+const slK   = $('K'),   vK   = $('vK');
+const slT   = $('T'),   vT   = $('vT');
+const slSig = $('sig'), vSig = $('vSig');
+const slR   = $('r'),   vR   = $('vR');
+const btnCall = $('btnCall'), btnPut = $('btnPut');
+
+function readInputs() {
+  state.S      = parseFloat(slS.value);
+  state.K      = parseFloat(slK.value);
+  state.Tdays  = parseFloat(slT.value);
+  state.sigPct = parseFloat(slSig.value);
+  state.rPct   = parseFloat(slR.value);
+
+  vS.textContent   = fmtEur(state.S);
+  vK.textContent   = fmtEur(state.K);
+  vT.textContent   = state.Tdays + ' Tage' + (state.Tdays > 60 ? '  (~' + (state.Tdays/30).toFixed(1).replace('.',',') + ' Mon)' : '');
+  vSig.textContent = fmtPct(state.sigPct);
+  vR.textContent   = fmtPct(state.rPct);
+}
+
+[slS, slK, slT, slSig, slR].forEach(el => el.addEventListener('input', refresh));
+btnCall.addEventListener('click', () => { state.isCall = true;  btnCall.classList.add('active'); btnPut.classList.remove('active'); refresh(); });
+btnPut .addEventListener('click', () => { state.isCall = false; btnPut.classList.add('active');  btnCall.classList.remove('active'); refresh(); });
+
+// --- Compute + render -------------------------------------------------------
+function compute() {
+  const T   = state.Tdays / 365;
+  const sig = state.sigPct / 100;
+  const r   = state.rPct / 100;
+  return bsm(state.S, state.K, T, sig, r, state.isCall);
+}
+
+function renderGreeks(g) {
+  const dSign = state.isCall ? '+' : '−';
+  $('gPrice').textContent  = fmtEur(g.price);
+  $('gDelta').textContent  = fmtNum(g.delta, 4);
+  $('gGamma').textContent  = fmtNum(g.gamma, 4);
+  $('gTheta').textContent  = (g.theta / 365).toFixed(4).replace('.', ',') + ' €';
+  $('gVega' ).textContent  = (g.vega  / 100).toFixed(4).replace('.', ',') + ' €';
+  $('gRho'  ).textContent  = (g.rho   / 100).toFixed(4).replace('.', ',') + ' €';
+
+  const absD = Math.abs(g.delta);
+  $('gDeltaHint').textContent =
+    'Wenn die Aktie 1 € ' + (state.isCall ? 'steigt' : 'steigt') +
+    ', ändert sich die Option um ' + (state.isCall ? '+' : '−') + absD.toFixed(2).replace('.', ',') + ' €.';
+}
+
+// --- Canvases ---------------------------------------------------------------
+function fitCanvas(c) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = c.clientWidth, h = c.clientHeight;
+  if (c.width !== w*dpr || c.height !== h*dpr) {
+    c.width = w*dpr; c.height = h*dpr;
+  }
+  const ctx = c.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, w, h };
+}
+
+function axes(ctx, w, h, padL, padR, padT, padB, xMin, xMax, yMin, yMax, xLabel, yLabel) {
+  ctx.strokeStyle = '#cfcfcc';
+  ctx.fillStyle   = '#6b6b6b';
+  ctx.font        = '11px -apple-system, "Segoe UI", sans-serif';
+  ctx.lineWidth   = 1;
+
+  // grid + ticks
+  ctx.beginPath();
+  for (let i = 0; i <= 5; i++) {
+    const yPx = padT + (h - padT - padB) * i / 5;
+    ctx.moveTo(padL, yPx); ctx.lineTo(w - padR, yPx);
+  }
+  for (let i = 0; i <= 5; i++) {
+    const xPx = padL + (w - padL - padR) * i / 5;
+    ctx.moveTo(xPx, padT); ctx.lineTo(xPx, h - padB);
+  }
+  ctx.strokeStyle = '#ececec';
+  ctx.stroke();
+
+  // labels
+  ctx.fillText(xLabel, w - padR - ctx.measureText(xLabel).width, h - 4);
+  ctx.save(); ctx.translate(10, padT + 4); ctx.fillText(yLabel, 0, 0); ctx.restore();
+
+  for (let i = 0; i <= 5; i++) {
+    const xVal = xMin + (xMax - xMin) * i / 5;
+    const xPx  = padL + (w - padL - padR) * i / 5;
+    ctx.fillText(xVal.toFixed(0), xPx - 8, h - padB + 12);
+  }
+  for (let i = 0; i <= 5; i++) {
+    const yVal = yMax - (yMax - yMin) * i / 5;
+    const yPx  = padT + (h - padT - padB) * i / 5;
+    ctx.fillText(yVal.toFixed(yMax < 5 ? 2 : 1), 4, yPx + 3);
+  }
+}
+
+function drawPayoff() {
+  const c = $('chartPayoff');
+  const { ctx, w, h } = fitCanvas(c);
+  ctx.clearRect(0, 0, w, h);
+
+  const padL = 36, padR = 12, padT = 16, padB = 22;
+  const Smin = Math.max(1, state.K * 0.4);
+  const Smax = state.K * 1.8;
+  const T   = state.Tdays / 365;
+  const sig = state.sigPct / 100;
+  const r   = state.rPct / 100;
+
+  // sample current curve + payoff
+  const N_SAMPLES = 140;
+  let valMax = 0;
+  const pts = [];
+  for (let i = 0; i <= N_SAMPLES; i++) {
+    const S = Smin + (Smax - Smin) * i / N_SAMPLES;
+    const v = bsm(S, state.K, T, sig, r, state.isCall).price;
+    const p = state.isCall ? Math.max(S - state.K, 0) : Math.max(state.K - S, 0);
+    pts.push({ S, v, p });
+    if (v > valMax) valMax = v;
+    if (p > valMax) valMax = p;
+  }
+  const yMax = Math.max(valMax * 1.08, 1);
+
+  axes(ctx, w, h, padL, padR, padT, padB, Smin, Smax, 0, yMax, 'S (Aktienkurs €)', 'Optionswert €');
+
+  const x = S => padL + (w - padL - padR) * (S - Smin) / (Smax - Smin);
+  const y = V => padT + (h - padT - padB) * (1 - V / yMax);
+
+  // payoff dashed
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = 'var(--pay)';
+  ctx.strokeStyle = '#94a3b8';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  pts.forEach((pt, i) => { (i ? ctx.lineTo : ctx.moveTo).call(ctx, x(pt.S), y(pt.p)); });
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // current value solid
+  ctx.strokeStyle = '#2563eb';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  pts.forEach((pt, i) => { (i ? ctx.lineTo : ctx.moveTo).call(ctx, x(pt.S), y(pt.v)); });
+  ctx.stroke();
+
+  // vertical line at current S
+  const curS = state.S;
+  const curV = bsm(curS, state.K, T, sig, r, state.isCall).price;
+  ctx.strokeStyle = '#dc2626';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(x(curS), padT);
+  ctx.lineTo(x(curS), h - padB);
+  ctx.stroke();
+
+  // dot at (S, V)
+  ctx.fillStyle = '#dc2626';
+  ctx.beginPath(); ctx.arc(x(curS), y(curV), 4, 0, Math.PI*2); ctx.fill();
+
+  // tangent (Delta visualization)
+  const g = bsm(curS, state.K, T, sig, r, state.isCall);
+  const dS = (Smax - Smin) * 0.15;
+  const Sl = curS - dS, Sr = curS + dS;
+  const Vl = curV - g.delta * dS;
+  const Vr = curV + g.delta * dS;
+  ctx.strokeStyle = 'rgba(220,38,38,0.55)';
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(x(Sl), y(Math.max(0, Vl)));
+  ctx.lineTo(x(Sr), y(Math.max(0, Vr)));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // legend
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = '12px -apple-system, "Segoe UI", sans-serif';
+  ctx.fillText('— aktueller Wert     - - Payoff bei Fälligkeit     | aktuelles S (Tangente = Delta)',
+               padL, padT - 4);
+}
+
+function drawDecay() {
+  const c = $('chartDecay');
+  const { ctx, w, h } = fitCanvas(c);
+  ctx.clearRect(0, 0, w, h);
+
+  const padL = 36, padR = 12, padT = 16, padB = 22;
+  const sig = state.sigPct / 100;
+  const r   = state.rPct / 100;
+  const Tmax = Math.max(state.Tdays * 1.4, 365);
+
+  const pts = [];
+  let vmax = 0;
+  const N_SAMPLES = 120;
+  for (let i = 0; i <= N_SAMPLES; i++) {
+    const Td = Tmax * i / N_SAMPLES;
+    const T  = Td / 365;
+    const v  = bsm(state.S, state.K, T, sig, r, state.isCall).price;
+    pts.push({ Td, v });
+    if (v > vmax) vmax = v;
+  }
+  const yMax = Math.max(vmax * 1.08, 1);
+  axes(ctx, w, h, padL, padR, padT, padB, 0, Tmax, 0, yMax, 'Restlaufzeit (Tage)', 'Optionswert €');
+
+  const x = Td => padL + (w - padL - padR) * Td / Tmax;
+  const y = V  => padT + (h - padT - padB) * (1 - V / yMax);
+
+  // curve – note: x = restlaufzeit, so MORE days = MORE value
+  ctx.strokeStyle = '#2563eb';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  pts.forEach((pt, i) => { (i ? ctx.lineTo : ctx.moveTo).call(ctx, x(pt.Td), y(pt.v)); });
+  ctx.stroke();
+
+  // current T marker
+  const Td = state.Tdays;
+  const Vd = bsm(state.S, state.K, Td/365, sig, r, state.isCall).price;
+  ctx.strokeStyle = '#dc2626';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(x(Td), padT); ctx.lineTo(x(Td), h - padB); ctx.stroke();
+  ctx.fillStyle = '#dc2626';
+  ctx.beginPath(); ctx.arc(x(Td), y(Vd), 4, 0, Math.PI*2); ctx.fill();
+
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = '12px -apple-system, "Segoe UI", sans-serif';
+  ctx.fillText('Zeitwert über Restlaufzeit (links = Fälligkeit, rechts = noch lange Zeit)', padL, padT - 4);
+}
+
+// --- Loop -------------------------------------------------------------------
+function refresh() {
+  readInputs();
+  const g = compute();
+  renderGreeks(g);
+  drawPayoff();
+  drawDecay();
+}
+
+window.addEventListener('resize', refresh);
+refresh();
+</script>
+</body>
+</html>

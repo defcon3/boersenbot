@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Optionsscheine vergleichen</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --panel: #fff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e3e3e0;
+    --accent: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  header {
+    padding: 14px 22px 10px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0 0 2px; font-size: 18px; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); font-size: 12px; }
+
+  main {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .panel h2 {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  /* --- WKN-Liste --- */
+  .wkn-row {
+    display: grid;
+    grid-template-columns: 14px 1fr 22px;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 0;
+    border-bottom: 1px solid #f1f1ee;
+  }
+  .wkn-row:last-child { border-bottom: none; }
+  .wkn-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    cursor: pointer;
+  }
+  .wkn-info {
+    min-width: 0;
+  }
+  .wkn-info .top {
+    font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  .wkn-info .sub {
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .wkn-info .sub .pill {
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+    font-size: 10px;
+    background: #f3f3f0;
+  }
+  .wkn-info .sub .pill.call { background: #dcfce7; color: #15803d; }
+  .wkn-info .sub .pill.put  { background: #fee2e2; color: #b91c1c; }
+  .wkn-row button {
+    border: none; background: transparent;
+    color: var(--muted); cursor: pointer; font-size: 14px;
+    padding: 0;
+  }
+  .wkn-row button:hover { color: #dc2626; }
+
+  .wkn-add {
+    display: flex; gap: 6px; padding-top: 8px;
+  }
+  .wkn-add input {
+    flex: 1; padding: 6px 8px;
+    border: 1px solid var(--line); border-radius: 5px;
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    text-transform: uppercase;
+  }
+  .wkn-add button {
+    padding: 6px 14px; border: none; background: var(--accent);
+    color: white; border-radius: 5px; cursor: pointer; font-weight: 500;
+  }
+  .wkn-add button:disabled { background: #94a3b8; cursor: wait; }
+
+  /* --- Slider --- */
+  .slider-row { margin-bottom: 12px; }
+  .slider-row:last-child { margin-bottom: 0; }
+  .slider-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; margin-bottom: 3px;
+  }
+  .slider-label .val {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-weight: 600;
+  }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+
+  /* --- Charts --- */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .chart-box { position: relative; height: 320px; }
+  canvas { display: block; width: 100%; height: 100%; }
+
+  /* --- Tabelle --- */
+  table {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+  }
+  table th, table td {
+    padding: 5px 8px; text-align: right;
+    border-bottom: 1px solid #f1f1ee;
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  table th { background: #fafaf8; color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 10px; }
+  table td:first-child, table th:first-child { text-align: left; }
+  table td.col-color { width: 16px; padding-right: 0; }
+  table td.col-color .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .diff-pos { color: #16a34a; }
+  .diff-neg { color: #dc2626; }
+  .muted { color: var(--muted); }
+
+  .status {
+    font-size: 11px; color: var(--muted); padding: 4px 0;
+  }
+  .empty {
+    color: var(--muted); padding: 20px 0; text-align: center; font-style: italic;
+  }
+  details summary { cursor: pointer; color: var(--accent); font-size: 12px; }
+  details p { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Optionsscheine vergleichen – gleicher Basiswert, viele Strikes</h1>
+  <p>Lade bis zu 8 WKNs. Sliders gelten für alle Scheine gleichzeitig (gleiches Underlying). Die Diagramme zeigen warum ein Emittent für ein und dieselbe Aktie ein halbes Dutzend Produkte auflegt.</p>
+</header>
+
+<main>
+  <!-- LEFT -->
+  <section>
+    <div class="panel">
+      <h2>WKNs (max 8)</h2>
+      <div id="wknList"></div>
+      <div class="wkn-add">
+        <input id="wknInput" maxlength="12" placeholder="WKN oder ISIN" autocomplete="off">
+        <button id="wknAddBtn">+ laden</button>
+      </div>
+      <div class="status" id="status">Tipp: WKN MG721A (Lufthansa Call 19.06.26 K=8)</div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <h2>Slider (für alle WKNs)</h2>
+
+      <div class="slider-row">
+        <div class="slider-label"><span>Aktienkurs S</span><span class="val" id="vS">7,81 €</span></div>
+        <input type="range" id="slS" min="1" max="30" step="0.05" value="7.81">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label"><span>Volatilität σ <span class="muted" id="vSigSrc"></span></span><span class="val" id="vSig">25,0 %</span></div>
+        <input type="range" id="slSig" min="2" max="120" step="0.5" value="25">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label"><span>Zinssatz r</span><span class="val" id="vR">3,0 %</span></div>
+        <input type="range" id="slR" min="0" max="10" step="0.1" value="3">
+      </div>
+
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <button id="btnResetS"  style="flex:1;padding:6px;border:1px solid var(--line);background:#fff;border-radius:5px;cursor:pointer;font-size:11px">S auf Marktkurs</button>
+        <button id="btnUseIV"   style="flex:1;padding:6px;border:1px solid var(--line);background:#fff;border-radius:5px;cursor:pointer;font-size:11px">σ = Ø impl. Vola</button>
+      </div>
+
+      <details style="margin-top:10px">
+        <summary>Was bedeutet was?</summary>
+        <p><strong>S</strong> dreht alle Scheine gleichzeitig — du siehst sofort welcher Schein bei +/-10% Lufthansa wie reagiert.<br>
+        <strong>σ</strong> ist deine "wenn Vola jetzt X wäre…"-Annahme. Bei "σ = Ø impl. Vola" nimmst du den Marktkonsens als Annahme.<br>
+        <strong>Hebel-Chart</strong>: weit-OTM-Scheine haben brutalen Hebel — aber genau dort kippt der Wert am schnellsten in Richtung null.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- RIGHT -->
+  <section>
+    <div class="chart-grid">
+      <div class="panel">
+        <h2>Optionsschein-Wert vs. Aktienkurs</h2>
+        <div class="chart-box"><canvas id="chartValue"></canvas></div>
+      </div>
+      <div class="panel">
+        <h2>Hebel vs. Aktienkurs</h2>
+        <div class="chart-box"><canvas id="chartLeverage"></canvas></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Kennzahlen je Schein</h2>
+      <div id="tableWrap">
+        <div class="empty">Noch keine WKN geladen. Beispiel-WKN unten rechts eintragen.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// =========================================================================
+//  BSM
+// =========================================================================
+function erf(x) {
+  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  const sign=x<0?-1:1; x=Math.abs(x);
+  const t=1.0/(1.0+p*x);
+  const y=1.0-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);
+  return sign*y;
+}
+const N  = x => 0.5*(1+erf(x/Math.SQRT2));
+const Np = x => Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI);
+
+function bsm(S, K, T, sig, r, isCall) {
+  if (T<=0 || sig<=0 || S<=0) {
+    const intrinsic = isCall ? Math.max(S-K,0) : Math.max(K-S,0);
+    return { price: intrinsic, delta: (isCall?(S>K?1:0):(S<K?-1:0)) };
+  }
+  const sqrtT = Math.sqrt(T);
+  const d1 = (Math.log(S/K) + (r + 0.5*sig*sig)*T) / (sig*sqrtT);
+  const d2 = d1 - sig*sqrtT;
+  const disc = Math.exp(-r*T);
+  let price, delta;
+  if (isCall) {
+    price = S*N(d1) - K*disc*N(d2);
+    delta = N(d1);
+  } else {
+    price = K*disc*N(-d2) - S*N(-d1);
+    delta = N(d1) - 1;
+  }
+  return { price, delta };
+}
+
+// =========================================================================
+//  State
+// =========================================================================
+const COLORS = ["#2563eb","#dc2626","#16a34a","#ea580c","#9333ea","#0891b2","#ca8a04","#db2777"];
+const warrants = [];                  // [{ wkn, color, data }]
+const state = { sigPct: 25, rPct: 3, S: 7.81 };
+
+// =========================================================================
+//  Helpers
+// =========================================================================
+const $ = id => document.getElementById(id);
+const fmtEur = (v, d=2) => (v==null||isNaN(v)) ? "–" : v.toFixed(d).replace(".",",")+" €";
+const fmtPct = (v, d=1) => (v==null||isNaN(v)) ? "–" : v.toFixed(d).replace(".",",")+" %";
+const fmtNum = (v, d=2) => (v==null||isNaN(v)) ? "–" : v.toFixed(d).replace(".",",");
+
+function nextColor() {
+  const used = new Set(warrants.map(w => w.color));
+  for (const c of COLORS) if (!used.has(c)) return c;
+  return COLORS[warrants.length % COLORS.length];
+}
+
+// =========================================================================
+//  Fetch + State
+// =========================================================================
+async function loadWarrant(wknRaw) {
+  const wkn = wknRaw.trim().toUpperCase();
+  if (!wkn) return;
+  if (warrants.some(w => w.wkn === wkn || w.data?.wkn === wkn || w.data?.isin === wkn)) {
+    setStatus(`WKN ${wkn} ist schon geladen.`);
+    return;
+  }
+  if (warrants.length >= 8) {
+    setStatus("Maximal 8 WKNs gleichzeitig.");
+    return;
+  }
+  setStatus(`Lade ${wkn} … (Playwright-Run ca. 8 s)`);
+  $("wknAddBtn").disabled = true;
+  try {
+    const base = window.location.pathname.replace(/\/+$/, "");
+    const res = await fetch(`${base}/api/warrant/${wkn}`);
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || "Fehler");
+    const d = json.data;
+    if (d.strike == null || d.days_to_expiry == null) {
+      setStatus(`${wkn} geladen, aber Strike/Restlaufzeit fehlen – evtl. KO oder andere Produktart.`);
+    } else {
+      setStatus(`${wkn} geladen (Cache: ${d._cache_age_sec}s alt).`);
+    }
+    warrants.push({ wkn, color: nextColor(), data: d });
+
+    // S auf reale underlying_price setzen, falls erster Schein
+    if (warrants.length === 1 && d.underlying_price) {
+      state.S = d.underlying_price;
+      $("slS").max  = Math.max(30, d.underlying_price * 3).toFixed(0);
+      $("slS").min  = Math.max(0.5, d.underlying_price * 0.3).toFixed(2);
+      $("slS").step = Math.max(0.01, d.underlying_price * 0.005).toFixed(2);
+      $("slS").value = d.underlying_price;
+    }
+    refresh();
+  } catch (e) {
+    setStatus(`Fehler beim Laden von ${wkn}: ${e.message}`);
+  } finally {
+    $("wknAddBtn").disabled = false;
+    $("wknInput").value = "";
+    $("wknInput").focus();
+  }
+}
+
+function removeWarrant(wkn) {
+  const i = warrants.findIndex(w => w.wkn === wkn);
+  if (i >= 0) warrants.splice(i, 1);
+  refresh();
+}
+
+function setStatus(msg) { $("status").textContent = msg; }
+
+// =========================================================================
+//  Render — WKN-Liste
+// =========================================================================
+function renderWknList() {
+  const list = $("wknList");
+  if (warrants.length === 0) {
+    list.innerHTML = '<div class="empty" style="padding:8px 0">Noch keine WKN geladen.</div>';
+    return;
+  }
+  list.innerHTML = warrants.map(w => {
+    const d = w.data;
+    const typePill = d.is_call ? '<span class="pill call">CALL</span>' : '<span class="pill put">PUT</span>';
+    const k = d.strike != null ? fmtEur(d.strike, 2) : "–";
+    const days = d.days_to_expiry != null ? d.days_to_expiry + "d" : "–";
+    const ask = d.ask != null ? fmtEur(d.ask, 3) : "–";
+    return `
+      <div class="wkn-row">
+        <div class="wkn-dot" style="background:${w.color}"></div>
+        <div class="wkn-info">
+          <div class="top">${w.wkn} · ${d.issuer || ""}</div>
+          <div class="sub">${typePill} K=${k} · ${days} · Brief ${ask}</div>
+        </div>
+        <button onclick="removeWarrant('${w.wkn}')" title="Entfernen">×</button>
+      </div>`;
+  }).join("");
+}
+
+// =========================================================================
+//  Render — Tabelle
+// =========================================================================
+function computeBsmFor(w, S, sigPct, rPct, sigOverride) {
+  const d = w.data;
+  if (d.strike == null || d.days_to_expiry == null) return null;
+  const T = Math.max(d.days_to_expiry, 0) / 365;
+  const sig = (sigOverride != null ? sigOverride : sigPct) / 100;
+  const r = rPct / 100;
+  const ratio = d.ratio || 1;
+  const res = bsm(S, d.strike, T, sig, r, !!d.is_call);
+  const warrantPrice = res.price * ratio;
+  const hebel = warrantPrice > 0 ? Math.abs(res.delta) * S * ratio / warrantPrice : 0;
+  return { warrantPrice, hebel, delta: res.delta, ratio };
+}
+
+function renderTable() {
+  const wrap = $("tableWrap");
+  if (warrants.length === 0) {
+    wrap.innerHTML = '<div class="empty">Noch keine WKN geladen.</div>';
+    return;
+  }
+  const rows = warrants.map(w => {
+    const d = w.data;
+    const computed = computeBsmFor(w, state.S, state.sigPct, state.rPct);
+    const computedIV = computeBsmFor(w, d.underlying_price || state.S, state.sigPct, state.rPct, d.implied_vol_pct);
+    const marketAsk = d.ask;
+    const bsmShared = computed ? computed.warrantPrice : null;
+    const diff = (marketAsk != null && bsmShared != null) ? (bsmShared - marketAsk) : null;
+    const diffClass = diff == null ? "" : (diff > 0.005 ? "diff-pos" : diff < -0.005 ? "diff-neg" : "");
+    const hebel = computed ? computed.hebel : null;
+    return `
+      <tr>
+        <td class="col-color"><span class="dot" style="background:${w.color}"></span></td>
+        <td>${w.wkn}</td>
+        <td>${d.is_call ? "Call" : "Put"}</td>
+        <td>${fmtEur(d.strike,2)}</td>
+        <td>${d.days_to_expiry != null ? d.days_to_expiry+"d" : "–"}</td>
+        <td>${d.ratio_str || (d.ratio || "–")}</td>
+        <td>${fmtEur(marketAsk,3)}</td>
+        <td>${fmtEur(bsmShared,3)} <span class="${diffClass}">${diff!=null?(diff>=0?"+":"")+diff.toFixed(3).replace(".",","):""}</span></td>
+        <td>${fmtPct(d.implied_vol_pct,1)}</td>
+        <td>${fmtNum(d.delta,3)}</td>
+        <td>${fmtNum(hebel,1)}</td>
+        <td>${fmtNum(d.omega,1)}</td>
+        <td>${fmtPct(d.aufgeld_pct,1)}</td>
+      </tr>`;
+  }).join("");
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>
+        <th></th><th>WKN</th><th>Typ</th><th>Strike</th><th>T</th><th>BV</th>
+        <th>Markt Brief</th><th>BSM (slider σ)</th>
+        <th>impl. σ</th><th>Δ</th><th>Hebel</th><th>Ω</th><th>Aufgeld</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+// =========================================================================
+//  Render — Charts
+// =========================================================================
+function fit(c) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = c.clientWidth, h = c.clientHeight;
+  if (c.width !== w*dpr || c.height !== h*dpr) { c.width = w*dpr; c.height = h*dpr; }
+  const ctx = c.getContext("2d");
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return { ctx, w, h };
+}
+
+function gridAxes(ctx, w, h, padL, padR, padT, padB, xMin, xMax, yMin, yMax, xLabel, yLabel) {
+  ctx.strokeStyle = "#ececec"; ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let i=0;i<=5;i++) {
+    const yPx = padT + (h-padT-padB)*i/5;
+    ctx.moveTo(padL, yPx); ctx.lineTo(w-padR, yPx);
+    const xPx = padL + (w-padL-padR)*i/5;
+    ctx.moveTo(xPx, padT); ctx.lineTo(xPx, h-padB);
+  }
+  ctx.stroke();
+  ctx.fillStyle = "#6b6b6b"; ctx.font = '10px -apple-system,"Segoe UI",sans-serif';
+  for (let i=0;i<=5;i++) {
+    const xVal = xMin + (xMax-xMin)*i/5;
+    const xPx  = padL + (w-padL-padR)*i/5;
+    ctx.fillText(xVal.toFixed(xMax<10?2:1), xPx-10, h-padB+11);
+    const yVal = yMax - (yMax-yMin)*i/5;
+    const yPx  = padT + (h-padT-padB)*i/5;
+    ctx.fillText(yVal.toFixed(yMax<2?2:(yMax<10?2:1)), 4, yPx+3);
+  }
+  ctx.fillText(xLabel, w-padR-ctx.measureText(xLabel).width, h-2);
+  ctx.fillText(yLabel, padL, padT-4);
+}
+
+function getSrange() {
+  const slS = $("slS");
+  return { sMin: parseFloat(slS.min), sMax: parseFloat(slS.max) };
+}
+
+function drawValueChart() {
+  const c = $("chartValue");
+  const { ctx, w, h } = fit(c);
+  ctx.clearRect(0,0,w,h);
+  if (warrants.length === 0) {
+    ctx.fillStyle = "#aaa"; ctx.font = '13px -apple-system,sans-serif';
+    ctx.fillText("Noch keine WKN geladen", 20, 30);
+    return;
+  }
+  const padL=36, padR=12, padT=14, padB=22;
+  const { sMin, sMax } = getSrange();
+  const NS = 140;
+
+  // sample alle WKNs
+  const series = warrants.map(w => {
+    const pts = [];
+    let yMax = 0;
+    for (let i=0;i<=NS;i++) {
+      const S = sMin + (sMax-sMin)*i/NS;
+      const c = computeBsmFor(w, S, state.sigPct, state.rPct);
+      const v = c ? c.warrantPrice : 0;
+      pts.push({ S, v });
+      if (v>yMax) yMax = v;
+    }
+    return { w, pts, yMax };
+  });
+  let globalYMax = Math.max(...series.map(s => s.yMax), 0.01) * 1.1;
+
+  gridAxes(ctx, w, h, padL, padR, padT, padB, sMin, sMax, 0, globalYMax, "S (Aktienkurs €)", "Schein €");
+  const x = S => padL + (w-padL-padR) * (S-sMin)/(sMax-sMin);
+  const y = V => padT + (h-padT-padB) * (1-V/globalYMax);
+
+  series.forEach(s => {
+    ctx.strokeStyle = s.w.color; ctx.lineWidth = 2;
+    ctx.beginPath();
+    s.pts.forEach((p,i) => (i?ctx.lineTo:ctx.moveTo).call(ctx, x(p.S), y(p.v)));
+    ctx.stroke();
+  });
+
+  // vertikale Linien: aktueller S + Marktkurs Underlying
+  ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(x(state.S), padT); ctx.lineTo(x(state.S), h-padB); ctx.stroke();
+  // Marktkurs (grau gestrichelt) falls vorhanden
+  const underlyingMkt = warrants[0]?.data?.underlying_price;
+  if (underlyingMkt && Math.abs(underlyingMkt - state.S) > 0.001) {
+    ctx.setLineDash([3,3]); ctx.strokeStyle = "#94a3b8"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x(underlyingMkt), padT); ctx.lineTo(x(underlyingMkt), h-padB); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // strikes als kleine vertikale Marker oben
+  warrants.forEach(w => {
+    if (w.data.strike == null) return;
+    ctx.strokeStyle = w.color; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x(w.data.strike), padT); ctx.lineTo(x(w.data.strike), padT+8); ctx.stroke();
+  });
+}
+
+function drawLeverageChart() {
+  const c = $("chartLeverage");
+  const { ctx, w, h } = fit(c);
+  ctx.clearRect(0,0,w,h);
+  if (warrants.length === 0) {
+    ctx.fillStyle = "#aaa"; ctx.font = '13px -apple-system,sans-serif';
+    ctx.fillText("Noch keine WKN geladen", 20, 30);
+    return;
+  }
+  const padL=36, padR=12, padT=14, padB=22;
+  const { sMin, sMax } = getSrange();
+  const NS = 140;
+  const series = warrants.map(w => {
+    const pts = [];
+    let yMax = 0;
+    for (let i=0;i<=NS;i++) {
+      const S = sMin + (sMax-sMin)*i/NS;
+      const c = computeBsmFor(w, S, state.sigPct, state.rPct);
+      const lev = c ? Math.min(c.hebel, 200) : 0;
+      pts.push({ S, lev });
+      if (lev>yMax) yMax = lev;
+    }
+    return { w, pts, yMax };
+  });
+  const globalYMax = Math.min(Math.max(...series.map(s => s.yMax), 1) * 1.1, 200);
+  gridAxes(ctx, w, h, padL, padR, padT, padB, sMin, sMax, 0, globalYMax, "S (Aktienkurs €)", "Hebel");
+  const x = S => padL + (w-padL-padR) * (S-sMin)/(sMax-sMin);
+  const y = L => padT + (h-padT-padB) * (1-L/globalYMax);
+
+  series.forEach(s => {
+    ctx.strokeStyle = s.w.color; ctx.lineWidth = 2;
+    ctx.beginPath();
+    s.pts.forEach((p,i) => (i?ctx.lineTo:ctx.moveTo).call(ctx, x(p.S), y(p.lev)));
+    ctx.stroke();
+  });
+
+  // aktueller S
+  ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(x(state.S), padT); ctx.lineTo(x(state.S), h-padB); ctx.stroke();
+}
+
+// =========================================================================
+//  Slider-Bindings
+// =========================================================================
+function readSliders() {
+  state.S = parseFloat($("slS").value);
+  state.sigPct = parseFloat($("slSig").value);
+  state.rPct = parseFloat($("slR").value);
+  $("vS").textContent   = fmtEur(state.S, 2);
+  $("vSig").textContent = fmtPct(state.sigPct, 1);
+  $("vR").textContent   = fmtPct(state.rPct, 1);
+}
+
+function refresh() {
+  readSliders();
+  renderWknList();
+  renderTable();
+  drawValueChart();
+  drawLeverageChart();
+}
+
+["slS","slSig","slR"].forEach(id => $(id).addEventListener("input", refresh));
+$("wknAddBtn").addEventListener("click", () => loadWarrant($("wknInput").value));
+$("wknInput").addEventListener("keydown", e => { if (e.key === "Enter") loadWarrant($("wknInput").value); });
+$("btnResetS").addEventListener("click", () => {
+  const u = warrants[0]?.data?.underlying_price;
+  if (u != null) { $("slS").value = u; refresh(); }
+});
+$("btnUseIV").addEventListener("click", () => {
+  const ivs = warrants.map(w => w.data.implied_vol_pct).filter(v => v != null);
+  if (ivs.length === 0) return;
+  const avg = ivs.reduce((a,b)=>a+b,0)/ivs.length;
+  $("slSig").max = Math.max(120, Math.ceil(Math.max(...ivs)*1.2));
+  $("slSig").value = avg;
+  refresh();
+});
+window.addEventListener("resize", refresh);
+
+// Initial render
+refresh();
+</script>
+</body>
+</html>
