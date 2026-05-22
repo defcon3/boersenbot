@@ -80,6 +80,39 @@ def resolve_underlying(name: str, max_results: int = 8):
     return out
 
 
+def _quote_to_float(s):
+    """Kurs-String robust zu float — erkennt US- (1,234.56) UND deutsche (1.234,56) Notation."""
+    s = (s or "").strip()
+    if "," in s and "." in s:
+        if s.rfind(",") > s.rfind("."):           # deutsch: 1.234,56
+            s = s.replace(".", "").replace(",", ".")
+        else:                                      # US: 1,234.56
+            s = s.replace(",", "")
+    elif "," in s:                                 # nur Komma
+        s = s.replace(",", ".") if re.match(r"^\d+,\d{1,2}$", s) else s.replace(",", "")
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def _parse_underlying_quote(html: str):
+    """Underlying-Kurs aus dem Trefferlisten-Kopf: 'Aktuell: 215.45 USD | 22.05.26 21:15'."""
+    i = html.find("Aktuell:")
+    if i < 0:
+        return None
+    window = unescape(re.sub(r"<[^>]+>", " ", html[i:i + 140]))
+    m = re.search(
+        r"Aktuell:\s*([\d.,]+)\s*([A-Za-z€$]{1,4})(?:\s*\|\s*([\d.]{6,12}\s+[\d:]+))?",
+        window)
+    if not m:
+        return None
+    return {"price_str": m.group(1).strip(),
+            "price": _quote_to_float(m.group(1)),
+            "currency": m.group(2).strip(),
+            "as_of": (m.group(3) or "").strip()}
+
+
 # ---- Trefferlisten-Parser -------------------------------------------------
 
 def _cell(row_html: str, label: str):
@@ -174,6 +207,7 @@ def search_warrants(underlying, opt_type="CALL", strike_from=None, strike_to=Non
     # NACH Preisfilter zusammen sind oder die letzte Seite erreicht ist.
     s = _get_session()
     collected, seen = [], set()
+    underlying_quote = None
     for page in range(max(1, max_pages)):
         page_params = dict(params)
         if page > 0:
@@ -182,6 +216,8 @@ def search_warrants(underlying, opt_type="CALL", strike_from=None, strike_to=Non
             r = s.get(TREFFER_URL, params=page_params, timeout=25)
         except requests.RequestException:
             break
+        if page == 0:
+            underlying_quote = _parse_underlying_quote(r.text)
         page_rows = _parse_trefferliste(r.text)
         if not page_rows:
             break
@@ -199,7 +235,8 @@ def search_warrants(underlying, opt_type="CALL", strike_from=None, strike_to=Non
         time.sleep(0.3)  # comdirect nicht hämmern
 
     collected = collected[:limit]
-    return {"underlying": underlying, "count": len(collected), "warrants": collected}
+    return {"underlying": underlying, "underlying_quote": underlying_quote,
+            "count": len(collected), "warrants": collected}
 
 
 if __name__ == "__main__":

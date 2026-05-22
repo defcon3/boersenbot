@@ -196,6 +196,8 @@
   }
   .res-row button:hover { background: var(--accent); color: #fff; }
   .res-row button:disabled { border-color: #cbd5e1; color: #cbd5e1; cursor: default; }
+  th[title], label[title] { cursor: help; }
+  table thead th[title] { text-decoration: underline dotted rgba(0,0,0,.35); text-underline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -226,29 +228,33 @@
       <h2>Optionsschein-Finder</h2>
       <div class="finder-grid">
         <div class="fld full">
-          <label>Basiswert (Name, ISIN oder WKN)</label>
-          <input id="fUnderlying" placeholder="z. B. Nvidia, DAX, BMW" autocomplete="off">
+          <label title="Name, ISIN oder WKN des Basiswerts (Aktie oder Index), auf den sich der Schein bezieht.">Basiswert (Name, ISIN oder WKN)</label>
+          <input id="fUnderlying" placeholder="z. B. Nvidia, DAX, BMW" autocomplete="off"
+                 title="Name, ISIN oder WKN des Basiswerts (Aktie oder Index), auf den sich der Schein bezieht.">
           <div id="fAc" class="ac-list" style="display:none"></div>
         </div>
         <div class="fld">
-          <label>Typ</label>
-          <select id="fType">
+          <label title="Call profitiert von steigendem Basiswert, Put von fallendem.">Typ</label>
+          <select id="fType" title="Call profitiert von steigendem Basiswert, Put von fallendem.">
             <option value="CALL">Call</option>
             <option value="PUT">Put</option>
             <option value="">Alle</option>
           </select>
         </div>
         <div class="fld">
-          <label>Marktpreis max (€)</label>
-          <input id="fPriceMax" inputmode="decimal" placeholder="z. B. 5">
+          <label title="Maximaler Briefkurs (Verkaufspreis) des OPTIONSSCHEINS selbst — nicht der Kurs des Basiswerts. Filtert teure Scheine heraus.">Marktpreis Schein max (€)</label>
+          <input id="fPriceMax" inputmode="decimal" placeholder="z. B. 5"
+                 title="Maximaler Briefkurs (Verkaufspreis) des OPTIONSSCHEINS selbst — nicht der Kurs des Basiswerts. Filtert teure Scheine heraus.">
         </div>
         <div class="fld">
-          <label>Strike von</label>
-          <input id="fStrikeFrom" inputmode="decimal" placeholder="z. B. 100">
+          <label title="Untergrenze des Basispreises (Strike) — Kurs, zu dem der Basiswert bezogen/verkauft werden kann.">Strike von</label>
+          <input id="fStrikeFrom" inputmode="decimal" placeholder="z. B. 100"
+                 title="Untergrenze des Basispreises (Strike) — Kurs, zu dem der Basiswert bezogen/verkauft werden kann.">
         </div>
         <div class="fld">
-          <label>Strike bis</label>
-          <input id="fStrikeTo" inputmode="decimal" placeholder="z. B. 150">
+          <label title="Obergrenze des Basispreises (Strike) — Kurs, zu dem der Basiswert bezogen/verkauft werden kann.">Strike bis</label>
+          <input id="fStrikeTo" inputmode="decimal" placeholder="z. B. 150"
+                 title="Obergrenze des Basispreises (Strike) — Kurs, zu dem der Basiswert bezogen/verkauft werden kann.">
         </div>
       </div>
       <button class="finder-go" id="fGo">Scheine suchen</button>
@@ -508,9 +514,19 @@ function renderTable() {
   wrap.innerHTML = `
     <table>
       <thead><tr>
-        <th></th><th>WKN</th><th>Typ</th><th>Strike</th><th>T</th><th>BV</th>
-        <th>Markt Brief</th><th>BSM (slider σ)</th>
-        <th>impl. σ</th><th>Δ</th><th>Hebel</th><th>Ω</th><th>Aufgeld</th>
+        <th></th>
+        <th title="Wertpapierkennnummer des Optionsscheins">WKN</th>
+        <th title="Call steigt mit dem Basiswert, Put fällt mit dem Basiswert">Typ</th>
+        <th title="Basispreis — Kurs des Basiswerts, ab dem der Schein inneren Wert hat">Strike</th>
+        <th title="Restlaufzeit bis Fälligkeit, in Tagen">T</th>
+        <th title="Bezugsverhältnis — wie viele Scheine einem Stück Basiswert entsprechen (z. B. 10:1 → 0,1)">BV</th>
+        <th title="Aktueller Briefkurs (Verkaufspreis) des Scheins an der Börse">Markt Brief</th>
+        <th title="Theoretischer Black-Scholes-Wert mit der eingestellten Slider-Volatilität σ. Die farbige Zahl dahinter = Über-/Unterbewertung gegenüber dem Marktpreis.">BSM (slider σ)</th>
+        <th title="Implizite Volatilität — die im Marktpreis 'eingepreiste' erwartete Schwankung des Basiswerts">impl. σ</th>
+        <th title="Delta — um wie viel sich der Scheinwert ändert, wenn der Basiswert um 1 Einheit steigt (vor Bezugsverhältnis). Call 0…1, Put −1…0.">Δ</th>
+        <th title="Einfacher Hebel — Kurs Basiswert ÷ (Scheinpreis ÷ Bezugsverhältnis). Grober 'Wumms' pro Euro.">Hebel</th>
+        <th title="Omega / effektiver Hebel = Delta × einfacher Hebel — die realistische Hebelwirkung auf den Scheinpreis">Ω</th>
+        <th title="Aufgeld — wie viel % sich der Basiswert noch bewegen muss, damit der Schein bei Fälligkeit seinen heutigen Preis rechtfertigt">Aufgeld</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>
@@ -700,7 +716,12 @@ const apiBase = () => window.location.pathname.replace(/\/+$/, "");
 let fSelectedId = "";          // gewählte ID_NOTATION des Basiswerts
 let fAcTimer = null;
 
-function setFStatus(msg) { $("fStatus").textContent = msg || ""; }
+function setFStatus(msg, isHtml) {
+  const el = $("fStatus");
+  if (isHtml) el.innerHTML = msg || ""; else el.textContent = msg || "";
+}
+const escHtml = s => String(s).replace(/[&<>"]/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
 
 async function fAutocomplete() {
   const q = $("fUnderlying").value.trim();
@@ -752,13 +773,20 @@ async function fSearch() {
 }
 
 function renderResults(json) {
-  const uname = json.underlying ? json.underlying.name : "";
+  const uname = escHtml(json.underlying ? json.underlying.name : "");
+  const q = json.underlying_quote;
+  const priceTxt = q ? ((q.price != null)
+    ? q.price.toLocaleString("de-DE", {maximumFractionDigits: 2})
+    : q.price_str) : "";
+  const quoteStr = q
+    ? ` · <b>Basiswert aktuell: ${escHtml(priceTxt)} ${escHtml(q.currency)}</b>${q.as_of ? ` (Stand ${escHtml(q.as_of)})` : ""}`
+    : "";
   if (!json.warrants.length) {
-    setFStatus(`Keine Treffer für ${uname} mit diesen Filtern.`);
+    setFStatus(`Keine Treffer für ${uname} mit diesen Filtern.${quoteStr}`, true);
     $("fResults").innerHTML = "";
     return;
   }
-  setFStatus(`${json.count} Treffer für ${uname} – „vergleichen" lädt den Schein links rein.`);
+  setFStatus(`${json.count} Treffer für ${uname}${quoteStr} – „vergleichen" lädt den Schein links rein.`, true);
   $("fResults").innerHTML = json.warrants.map(w => {
     const id = w.isin || w.wkn;   // ISIN ist exakt – WKN->ISIN-Prüfziffer ist nicht immer 0
     const brief = w.ask != null ? w.ask.toFixed(2).replace(".", ",") + " €" : "–";
