@@ -1,120 +1,92 @@
 #!/usr/bin/env python3
 """
-HYBRID SYSTEM MONITOR
+HYBRID SYSTEM MONITOR (NAS-nativ)
 
-Watch NAS hybrid.log für:
-- Tägliche Executions (mindestens 1x täglich)
-- Errors/Exceptions (traceback, ValueError, etc)
-- Slippage vs Backtest (wenn verfügbar)
-
-Alerts via Email (SMTP)
+Laeuft per Cron AUF der NAS (23:00 UTC, nach Hybrid-Calc 22:00 / HYG-Calc 22:05).
+Liest hybrid.log + hyg.log direkt lokal (kein SSH/paramiko noetig) und prueft:
+  - taegliche Ausfuehrung (heutiger Datums-String im Log vorhanden?)
+  - Fehlerzeilen (Traceback / Error / Exception / Fail)
+Bei Problemen: Alert per GMX-SMTP (gleicher Pfad wie email_report / signal_to_orders).
 """
-import paramiko
-import time
-from datetime import datetime, timedelta
+import os
 import smtplib
+from datetime import datetime, timezone
 from email.mime.text import MIMEText
 
-# Credentials
-NAS_HOST = "192.168.178.32"
-NAS_USER = "benutzername"
-NAS_PW = "f/hGT5%4$fh"
-NAS_LOG = "/var/services/homes/benutzername/boersenbot/hybrid.log"
+BASE_DIR = "/var/services/homes/benutzername/boersenbot"
+LOGS = {
+    "hybrid": os.path.join(BASE_DIR, "hybrid.log"),
+    "hyg": os.path.join(BASE_DIR, "hyg.log"),
+}
 
-# Email config
-EMAIL_FROM = "claude-code-monitor@localhost"
-EMAIL_TO = "veit.luther@gmx.de"
-SMTP_SERVER = "localhost"
-SMTP_PORT = 25
+# SMTP wie email_report / signal_to_orders (GMX)
+MAIL_HOST, MAIL_PORT = "mail.gmx.net", 587
+MAIL_USER = "veit.luther@gmx.de"
+MAIL_PASS = "Extaler00!"
+MAIL_TO = "veit.luther@gmx.de"
 
-def fetch_log(client, lines=50):
-    """Fetch last N lines from NAS log."""
+
+def tail(path, n=120):
     try:
-        stdin, stdout, stderr = client.exec_command(f"tail -{lines} {NAS_LOG}")
-        return stdout.read().decode()
-    except Exception as e:
-        return f"ERROR: {e}"
+        with open(path, "r", encoding="utf-8", errors="replace") as f:
+            return f.readlines()[-n:]
+    except FileNotFoundError:
+        return None
 
-def check_errors(log_content):
-    """Check for errors in log."""
-    errors = []
-    keywords = ["Traceback", "Error", "Exception", "FAIL", "WARNING"]
 
-    for line in log_content.split('\n'):
-        for kw in keywords:
-            if kw.lower() in line.lower():
-                errors.append(line.strip())
+def check_errors(lines):
+    kws = ("traceback", "error", "exception", "fail")
+    return [l.strip() for l in lines if any(k in l.lower() for k in kws)]
 
-    return errors
-
-def check_execution(log_content):
-    """Check if ran today."""
-    today = datetime.now().date()
-    today_str = today.isoformat()
-
-    if today_str in log_content:
-        return True, f"Executed today ({today})"
-    else:
-        return False, f"NOT executed today (last log might be from {today - timedelta(days=1)})"
 
 def send_alert(subject, body):
-    """Send email alert."""
+    msg = MIMEText(body, "plain", "utf-8")
+    msg["Subject"] = f"[HYBRID-MONITOR] {subject}"
+    msg["From"] = MAIL_USER
+    msg["To"] = MAIL_TO
     try:
-        msg = MIMEText(body)
-        msg["Subject"] = f"[HYBRID-MONITOR] {subject}"
-        msg["From"] = EMAIL_FROM
-        msg["To"] = EMAIL_TO
-
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.sendmail(EMAIL_FROM, [EMAIL_TO], msg.as_string())
-
-        print(f"  Alert sent: {subject}")
+        with smtplib.SMTP(MAIL_HOST, MAIL_PORT, timeout=30) as s:
+            s.ehlo()
+            s.starttls()
+            s.login(MAIL_USER, MAIL_PASS)
+            s.send_message(msg)
+        print(f"  Alert versendet: {subject}")
     except Exception as e:
-        print(f"  ERROR sending email: {e}")
+        print(f"  WARN: Alert-Mail fehlgeschlagen: {e}")
 
-print("="*80)
-print("HYBRID SYSTEM MONITOR")
-print("="*80)
-print(f"Connecting to {NAS_HOST} ...\n")
 
-try:
-    client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(NAS_HOST, username=NAS_USER, password=NAS_PW, timeout=10)
+def main():
+    now = datetime.now(timezone.utc)
+    today = now.date().isoformat()
+    print("=" * 60)
+    print(f"HYBRID MONITOR  {now.isoformat()}")
+    print("=" * 60)
 
-    # Fetch log
-    print("[1/3] Fetching hybrid.log ...", flush=True)
-    log_content = fetch_log(client, lines=100)
-    print(f"  Fetched {len(log_content)} bytes\n")
+    problems = []
+    for name, path in LOGS.items():
+        lines = tail(path)
+        if lines is None:
+            problems.append(f"{name}.log fehlt ({path})")
+            print(f"[{name}] LOG FEHLT")
+            continue
+        content = "".join(lines)
+        ran = today in content
+        errs = check_errors(lines)
+        print(f"[{name}] heute ausgefuehrt: {ran} | Fehlerzeilen: {len(errs)}")
+        if not ran:
+            problems.append(f"{name}: kein Log-Eintrag fuer heute ({today})")
+        if errs:
+            problems.append(f"{name}: {len(errs)} Fehlerzeile(n), z.B. '{errs[0][:120]}'")
 
-    # Check execution
-    print("[2/3] Checking daily execution ...", flush=True)
-    executed, msg = check_execution(log_content)
-    print(f"  {msg}")
-
-    if not executed:
-        send_alert("HYBRID NOT EXECUTED TODAY", f"Last log:\n{log_content[-500:]}")
-
-    # Check errors
-    print("\n[3/3] Checking for errors ...", flush=True)
-    errors = check_errors(log_content)
-
-    if errors:
-        print(f"  Found {len(errors)} error-like lines:")
-        for err in errors[:5]:  # Show first 5
-            print(f"    - {err}")
-
-        send_alert("HYBRID ERRORS DETECTED", f"Errors:\n" + "\n".join(errors[:10]))
+    if problems:
+        body = ("Hybrid-Monitor hat Probleme erkannt:\n\n"
+                + "\n".join("- " + p for p in problems)
+                + f"\n\nStand: {now.isoformat()}")
+        send_alert("Probleme erkannt", body)
+        print(f"PROBLEME: {len(problems)}")
     else:
-        print(f"  No errors detected")
+        print("Alles OK - keine Alerts.")
 
-    client.close()
 
-    print("\n" + "="*80)
-    print(f"Monitor check completed at {datetime.now().isoformat()}")
-    print("="*80)
-
-except Exception as e:
-    print(f"\nERROR: {e}")
-    send_alert("MONITOR CONNECTION FAILED", f"Could not connect to NAS: {e}")
-
+if __name__ == "__main__":
+    main()
