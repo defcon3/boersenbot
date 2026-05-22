@@ -130,7 +130,7 @@ def _parse_trefferliste(html: str):
 
 def search_warrants(underlying, opt_type="CALL", strike_from=None, strike_to=None,
                     maturity_from="Range_NOW", maturity_to="Range_ENDLESS",
-                    price_max=None, price_min=None, limit=50):
+                    price_max=None, price_min=None, limit=50, max_pages=8):
     """
     underlying: dict {name,id_notation} ODER Name-String (wird aufgelöst, 1. Treffer).
     opt_type:  'CALL' | 'PUT' | '' (alle)
@@ -162,18 +162,44 @@ def search_warrants(underlying, opt_type="CALL", strike_from=None, strike_to=Non
     if strike_to is not None:
         params["STRIKE_ABS_TO"] = str(strike_to).replace(".", ",")
 
+    def _passes(w):
+        if price_max is not None and (w["ask"] is None or w["ask"] > price_max):
+            return False
+        if price_min is not None and (w["ask"] is None or w["ask"] < price_min):
+            return False
+        return True
+
+    # Über mehrere Trefferlisten-Seiten paginieren. comdirect liefert ~23 Zeilen/Seite;
+    # Folgeseiten via &OFFSET=<seite-1> (OFFSET=1 -> Seite 2). Sammeln bis genug Zeilen
+    # NACH Preisfilter zusammen sind oder die letzte Seite erreicht ist.
     s = _get_session()
-    r = s.get(TREFFER_URL, params=params, timeout=25)
-    warrants = _parse_trefferliste(r.text)
+    collected, seen = [], set()
+    for page in range(max(1, max_pages)):
+        page_params = dict(params)
+        if page > 0:
+            page_params["OFFSET"] = str(page)
+        try:
+            r = s.get(TREFFER_URL, params=page_params, timeout=25)
+        except requests.RequestException:
+            break
+        page_rows = _parse_trefferliste(r.text)
+        if not page_rows:
+            break
+        new = 0
+        for w in page_rows:
+            key = w["isin"] or w["wkn"]
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            new += 1
+            if _passes(w):
+                collected.append(w)
+        if new == 0 or len(collected) >= limit or len(page_rows) < 20:
+            break
+        time.sleep(0.3)  # comdirect nicht hämmern
 
-    # clientseitiger Marktpreis-Filter (Brief)
-    if price_max is not None:
-        warrants = [w for w in warrants if w["ask"] is not None and w["ask"] <= price_max]
-    if price_min is not None:
-        warrants = [w for w in warrants if w["ask"] is not None and w["ask"] >= price_min]
-
-    warrants = warrants[:limit]
-    return {"underlying": underlying, "count": len(warrants), "warrants": warrants}
+    collected = collected[:limit]
+    return {"underlying": underlying, "count": len(collected), "warrants": collected}
 
 
 if __name__ == "__main__":

@@ -199,6 +199,21 @@
 </style>
 </head>
 <body>
+<style>
+  .topnav{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px;background:#11151c;border-bottom:1px solid #1e3a5f;margin:0}
+  .topnav a{color:#9aa5b1;text-decoration:none;font-size:12px;font-weight:600;padding:6px 11px;border:1px solid #2a2e37;border-radius:6px}
+  .topnav a:hover{color:#00d4ff;border-color:#1e3a5f}
+  .topnav a.active{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.08)}
+</style>
+<nav class="topnav">
+  <a href="/">📊 Dashboard</a>
+  <a href="/analysis">🔬 Kaggle Explorer</a>
+  <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+  <a href="/analysis/crossover">📈 MA-Crossover</a>
+  <a href="/analysis/streak">🔻 Streak-Mean-Rev</a>
+  <a href="/fazit">📋 Fazit</a>
+  <a href="/optionen" class="active">⚖️ Optionsscheine</a>
+</nav>
 <header>
   <h1>Optionsscheine vergleichen – gleicher Basiswert, viele Strikes</h1>
   <p>Lade bis zu 8 WKNs. Sliders gelten für alle Scheine gleichzeitig (gleiches Underlying). Die Diagramme zeigen warum ein Emittent für ein und dieselbe Aktie ein halbes Dutzend Produkte auflegt.</p>
@@ -363,14 +378,14 @@ function nextColor() {
 // =========================================================================
 async function loadWarrant(wknRaw) {
   const wkn = wknRaw.trim().toUpperCase();
-  if (!wkn) return;
+  if (!wkn) return false;
   if (warrants.some(w => w.wkn === wkn || w.data?.wkn === wkn || w.data?.isin === wkn)) {
     setStatus(`WKN ${wkn} ist schon geladen.`);
-    return;
+    return true;
   }
   if (warrants.length >= 8) {
     setStatus("Maximal 8 WKNs gleichzeitig.");
-    return;
+    return false;
   }
   setStatus(`Lade ${wkn} … (Playwright-Run ca. 8 s)`);
   $("wknAddBtn").disabled = true;
@@ -396,8 +411,10 @@ async function loadWarrant(wknRaw) {
       $("slS").value = d.underlying_price;
     }
     refresh();
+    return true;
   } catch (e) {
     setStatus(`Fehler beim Laden von ${wkn}: ${e.message}`);
+    return false;
   } finally {
     $("wknAddBtn").disabled = false;
     $("wknInput").value = "";
@@ -757,7 +774,12 @@ function renderResults(json) {
       </div>`;
   }).join("");
   $("fResults").querySelectorAll("button[data-load]").forEach(btn =>
-    btn.addEventListener("click", () => loadWarrant(btn.dataset.load)));
+    btn.addEventListener("click", async () => {
+      if (await loadWarrant(btn.dataset.load)) {
+        btn.disabled = true;
+        btn.textContent = "geladen";
+      }
+    }));
 }
 
 $("fUnderlying").addEventListener("input", () => {
