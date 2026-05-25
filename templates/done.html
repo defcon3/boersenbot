@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚰️ Börsenbot — Done (falsifizierte Hypothesen)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a5568 100%);
+            min-height: 100vh;
+            line-height: 1.65;
+            color: #2c3e50;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        .hero {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+        }
+        .hero h1 { font-size: 2.4em; margin-bottom: 10px; }
+        .hero .subtitle { font-size: 1.15em; opacity: 0.92; }
+        .hero .date { margin-top: 16px; font-size: 0.88em; opacity: 0.75; }
+
+        section {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 14px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #e74c3c;
+        }
+        h3 {
+            color: #34495e;
+            margin: 18px 0 8px 0;
+            font-size: 1.1em;
+        }
+        h4 {
+            color: #5d6d7e;
+            margin: 12px 0 6px 0;
+            font-size: 0.98em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        p { margin-bottom: 12px; color: #34495e; }
+        ul, ol { margin: 8px 0 12px 24px; color: #34495e; }
+        li { margin-bottom: 4px; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 3px 4px 3px 0;
+        }
+        .badge.red { background: #e74c3c; color: white; }
+        .badge.yellow { background: #f39c12; color: white; }
+        .badge.gray { background: #7f8c8d; color: white; }
+        .badge.dim { background: #ecf0f1; color: #5d6d7e; }
+
+        .info-box {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 14px 0;
+            border-left: 5px solid;
+            font-size: 0.96em;
+        }
+        .info-box.danger { background: #fdecea; border-color: #e74c3c; }
+        .info-box.warn   { background: #fff8e1; border-color: #f39c12; }
+        .info-box.info   { background: #e3f2fd; border-color: #4facfe; }
+        .info-box.gray   { background: #f4f4f4; border-color: #7f8c8d; }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.92em;
+            color: #c0392b;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.92em;
+        }
+        th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #ecf0f1; }
+        th { background: #34495e; color: white; font-weight: 600; }
+        tr:hover { background: #f8f9fa; }
+        .num { text-align: right; font-family: 'Courier New', monospace; }
+        .ok  { color: #11998e; font-weight: 600; }
+        .bad { color: #e74c3c; font-weight: 600; }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 18px 22px;
+            border-radius: 10px;
+            border-left: 5px solid #34495e;
+            margin-bottom: 20px;
+        }
+        .toc h3 { margin-top: 0; }
+        .toc ol { margin: 6px 0 0 22px; }
+        .toc a { color: #2c3e50; text-decoration: none; border-bottom: 1px dotted #2c3e50; }
+        .toc a:hover { color: #e74c3c; border-color: #e74c3c; }
+
+        .hyp-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 12px 0;
+        }
+        .meta-cell {
+            background: #f8f9fa;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border-left: 4px solid #34495e;
+            font-size: 0.92em;
+        }
+        .meta-cell strong { display: block; margin-bottom: 4px; color: #2c3e50; font-size: 0.85em; text-transform: uppercase; }
+
+        @media (max-width: 720px) {
+            .hyp-meta { grid-template-columns: 1fr; }
+            section { padding: 20px; }
+            .hero h1 { font-size: 1.7em; }
+        }
+
+        /* topnav (shared style) */
+        .topnav { display:flex; gap:6px; flex-wrap:wrap; padding:10px 16px; background:#11151c; border-bottom:1px solid #1e3a5f; margin:0; }
+        .topnav a { color:#9aa5b1; text-decoration:none; font-size:12px; font-weight:600; padding:6px 11px; border:1px solid #2a2e37; border-radius:6px; }
+        .topnav a:hover { color:#00d4ff; border-color:#1e3a5f; }
+        .topnav a.active { color:#00d4ff; border-color:#00d4ff; background:rgba(0,212,255,.08); }
+
+        .chart-box { margin: 18px 0; }
+        .chart-box .caption {
+            font-size: 0.86em;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin: 14px 0;
+        }
+        .stat-tile {
+            background: #f8f9fa;
+            border-left: 4px solid #34495e;
+            padding: 12px 14px;
+            border-radius: 8px;
+        }
+        .stat-tile .label { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.5px; color: #7f8c8d; margin-bottom: 4px; }
+        .stat-tile .value { font-size: 1.25em; font-weight: 700; font-family: 'Courier New', monospace; color: #2c3e50; }
+        .stat-tile.warn .value { color: #e67e22; }
+        .stat-tile.bad .value  { color: #e74c3c; }
+        .stat-tile.good .value { color: #11998e; }
+
+        .power-pill {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.78em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .power-pill.high   { background: #d4efdf; color: #196f3d; }
+        .power-pill.medium { background: #fef5e7; color: #b9770e; }
+        .power-pill.low    { background: #fadbd8; color: #922b21; }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <nav class="topnav">
+      <a href="/">📊 Dashboard</a>
+      <a href="/analysis">🔬 Kaggle Explorer</a>
+      <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+      <a href="/analysis/crossover">📈 MA-Crossover</a>
+      <a href="/analysis/streak">🔻 Streak-Mean-Rev</a>
+      <a href="/fazit">📋 Fazit</a>
+      <a href="/done" class="active">⚰️ Done</a>
+      <a href="/optionen">⚖️ Optionsscheine</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>⚰️ Done — falsifizierte Hypothesen</h1>
+            <p class="subtitle">Vollständige Dokumentation aller getesteten und widerlegten Edge-Hypothesen</p>
+            <p class="date">Stand: 24. Mai 2026 · Geschrieben für externe Zweitmeinung (Grok/ChatGPT)</p>
+        </div>
+
+        <!-- LESEHINWEIS -->
+        <section>
+            <h2>Lesehinweis & Methodische Grundlagen</h2>
+            <p>
+                Diese Seite dokumentiert <strong>alle Hypothesen, die ich im Rahmen des
+                Börsenbot-Projekts untersucht und gemäß vor-registrierten Kriterien
+                widerlegt habe</strong>. Ziel ist, dass eine zweite KI (Grok, ChatGPT) oder
+                ein menschlicher Reviewer jeden Schritt nachvollziehen, prüfen und
+                gegebenenfalls korrigieren kann.
+            </p>
+            <p>Für jede Hypothese sind folgende Punkte ausgeführt:</p>
+            <ul>
+                <li><strong>Hypothese</strong> — präzise formuliert, einschließlich Richtung des erwarteten Effekts</li>
+                <li><strong>Mechanismus / Überlegung</strong> — wirtschaftlich-statistische Begründung, warum der Effekt existieren sollte</li>
+                <li><strong>Voraussetzungen</strong> — implizite Annahmen, die für den Test erfüllt sein müssen</li>
+                <li><strong>Daten</strong> — Quelle, Zeitraum, Stichprobengröße, eventuelle Limitationen</li>
+                <li><strong>Statistische Tests</strong> — verwendete Schätzer, Verteilungsannahmen, Schwellenwerte</li>
+                <li><strong>Pre-Registrierte Gates</strong> — vor dem Lauf festgelegte Bedingungen für Edge-Annahme</li>
+                <li><strong>Ergebnis</strong> — Zahlenwerte und Verdict</li>
+                <li><strong>Interpretation / Lehre</strong> — warum die Hypothese gekippt ist</li>
+                <li><strong>Code-Referenz</strong> — Datei im Repo, damit alles reproduzierbar ist</li>
+            </ul>
+
+            <div class="info-box info">
+                <strong>Wiederkehrende Methodik:</strong>
+                <ul>
+                    <li><strong>Welch-t-Test</strong> (ungepaart, ungleiche Varianzen) für Mittelwertvergleiche zwischen Signal-Tagen und Kontroll-Tagen</li>
+                    <li><strong>Train/Test-Split</strong> (typisch 2014–2020 vs. 2021–2026) zur Vermeidung von In-Sample-Overfit</li>
+                    <li><strong>COVID-Exclusion</strong> (15.02.2020 – 30.04.2020) als Robustheits-Check</li>
+                    <li><strong>Bonferroni-Korrektur</strong>: bei <em>K</em> getesteten Zellen wird die kritische t-Schwelle so erhöht, dass die familienweise Fehlerquote ≤ 5 % bleibt. Konkret: <code>t_crit = z(1 - 0.025/K)</code> (zweiseitig). Beispiel: K=48 → t_crit ≈ 3.0; K=12 → t_crit ≈ 2.7.</li>
+                    <li><strong>Pre-Registrierte Gates</strong> (G1, G2, …): vor dem Lauf fixiert, nicht ex post angepasst. Wenn eine Hypothese die Gates nicht besteht, gilt sie als widerlegt — kein Nachfrisieren der Parameter.</li>
+                    <li><strong>Excess vs. SPY</strong>: bei Long-Strategien auf US-Aktien wird das Alpha gegen einen Buy-and-Hold-Benchmark gemessen, nicht gegen Null. Andernfalls würde jede aufwärts driftende Strategie automatisch „signifikant" aussehen.</li>
+                    <li><strong>Mindestkorbgröße</strong> (typisch ≥ 8 Namen pro Tag): vermeidet die „Cluster-Illusion", bei der ein einzelner Crash-Tag dutzende korrelierte Aktientage gleichzeitig triggert und n künstlich aufbläht.</li>
+                </ul>
+            </div>
+
+            <div class="info-box warn">
+                <strong>Was diese Seite NICHT ist:</strong> eine vollständige akademische Replikation. Code-Snippets und CSV-Outputs liegen im
+                Repo <code>github.com/defcon3/boersenbot</code>. Wer mathematische Schritte penibel
+                nachvollziehen will, sollte dort einsteigen.
+            </div>
+        </section>
+
+        <!-- INHALT -->
+        <section class="toc">
+            <h3>Inhalt</h3>
+            <ol>
+                <li><a href="#h1">Yen-Carry-Stress als Risk-Off-Detektor</a> <span class="badge red">RED</span></li>
+                <li><a href="#h2">Streak-Mean-Reversion: Sektor-Differenzierung</a> <span class="badge red">RED</span></li>
+                <li><a href="#h3">FRED-Macro: Yield-Inversion, HY-Spread, Jobless-Claims</a> <span class="badge red">RED</span></li>
+                <li><a href="#h4">MA-Crossover: 50/200 Golden/Death Cross</a> <span class="badge red">RED</span></li>
+                <li><a href="#h5">SOM-Marktregime als Predictor</a> <span class="badge red">RED</span></li>
+                <li><a href="#h6">Close-to-Close Streak-MR auf breitem Korb (Excess vs. SPY)</a> <span class="badge red">RED</span></li>
+                <li><a href="#h7">VIX-Fear-Conditioning der Streak-MR</a> <span class="badge red">RED</span></li>
+                <li><a href="#h8">GDELT-News-Sentiment-Conditioning</a> <span class="badge red">RED</span></li>
+                <li><a href="#h9">Minuten-Momentum (Intraday-Continuation)</a> <span class="badge red">RED</span></li>
+                <li><a href="#h10">Open→Close Down-Streak Harvest</a> <span class="badge red">RED</span></li>
+            </ol>
+            <p style="margin-top: 12px;">📬 <a href="#power"><strong>Iteration 2: Power-Analyse</strong></a> nach Reviewer-Feedback <span class="badge dim">v2 · 2026-05-25</span> (unten)</p>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H1: YEN-CARRY-STRESS                                                  -->
+        <!-- ================================================================== -->
+        <section id="h1">
+            <h2>1. Yen-Carry-Stress als Risk-Off-Detektor</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-24</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                An Tagen mit einer USD/JPY-Tagesänderung kleiner als −<em>X</em>·σ
+                (Yen stärkt sich abrupt = klassisches Carry-Unwind-Signal) sind die
+                <strong>nachfolgenden Forward-Returns</strong> für US-Risk-Assets (SPY,
+                QQQ, IWM, HYG) über N Handelstage <strong>signifikant negativer</strong>
+                als an Nicht-Stress-Tagen.
+            </p>
+
+            <h3>Mechanismus / Überlegung</h3>
+            <p>
+                Der Yen-Carry-Trade läuft seit Jahrzehnten so: institutionelle Investoren
+                leihen sich Yen zu ~0 % Zinsen, tauschen in USD/EUR/EM-Währungen, und
+                investieren in höher rentierende Assets (US-Treasuries, Tech-Aktien,
+                EM-Bonds). Wenn der Yen plötzlich aufwertet (z. B. wegen BoJ-Zinsschritt,
+                Risk-Off-Stimmung, Carry-Unwind-Kaskade), müssen Carry-Trader die
+                Yen-Schulden zurückzahlen — sie verkaufen ihre Risk-Assets, um Yen zu
+                kaufen. Das verstärkt den Yen-Anstieg, was weitere Liquidationen
+                triggert. Klassisch: 2. August 2024, S&P 500 −7 %, Nikkei −12 % in zwei
+                Handelstagen.
+            </p>
+
+            <h3>Voraussetzungen für die Hypothese</h3>
+            <ul>
+                <li>Yen-Carry-Position ist groß genug, dass ihre Auflösung den Markt bewegt</li>
+                <li>Tages-Spike (statt Multi-Day-Trend) ist ein geeigneter Indikator</li>
+                <li>Mechanismus ist über Train (2000–2018) und Test (2019–2025) stabil</li>
+                <li>Effekt ist über mehrere Risk-Assets konsistent</li>
+            </ul>
+
+            <h3>Daten</h3>
+            <div class="hyp-meta">
+                <div class="meta-cell"><strong>Wechselkurs</strong>USD/JPY täglich, Yahoo Finance (Ticker <code>JPY=X</code>), 2000-01-03 bis 2026-05-22, n = 6 851 Tage</div>
+                <div class="meta-cell"><strong>Risk-Assets</strong>SPY (n = 6 637), QQQ (6 637), IWM (6 536), HYG (4 811 ab 2007), via yfinance, auto_adjust=True</div>
+                <div class="meta-cell"><strong>σ-Berechnung</strong>Rolling 60-Tage-Std der USD/JPY-Tagesreturns, lag-1 (kein Lookahead)</div>
+                <div class="meta-cell"><strong>Train/Test</strong>Train: 2000-01-03 — 2018-12-31; Test: 2019-01-01 — 2026-05-22; COVID-Excl 2020-02-15 — 2020-04-30</div>
+            </div>
+
+            <h3>Statistische Tests</h3>
+            <p>Welch-t-Test der Differenz <code>mean(forward_return | stress_day) − mean(forward_return | non_stress_day)</code> für alle Kombinationen aus:</p>
+            <ul>
+                <li>Sigma-Cutoffs: −1.0, −1.5, −2.0 (3 Stufen)</li>
+                <li>Forward-Windows N: 1, 2, 5, 10 Handelstage (4 Stufen, kumulative Returns)</li>
+                <li>Risk-Assets: SPY, QQQ, IWM, HYG (4 Stufen)</li>
+                <li>Gesamt: <strong>3 × 4 × 4 = 48 Tests</strong></li>
+            </ul>
+            <p>Bonferroni-Schwelle: <code>|t_crit| = 3.0</code> für familienweises α = 0.05.</p>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li><strong>G1 Train-Plausibilität</strong>: <code>diff_train &lt; 0</code> (Mechanismus stimmt schon im Train)</li>
+                <li><strong>G2 Test-Signifikanz</strong>: <code>|t_test| &gt; 3.0</code> (Bonferroni)</li>
+                <li><strong>G3 Stichprobengröße</strong>: <code>n_test_signal ≥ 30</code></li>
+                <li><strong>G4 Cross-Asset-Konsistenz</strong>: mind. 2 von 4 Assets <code>t_test &lt; −2</code> in mind. einem Window</li>
+                <li><strong>G5 COVID-Robust</strong>: Befund hält auch ohne COVID-Periode</li>
+                <li><strong>G6 Naiver Floor</strong> (informativ): <code>t_test &lt; −1.96</code></li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Gate</th><th>Bestanden</th></tr></thead>
+                <tbody>
+                    <tr><td>G1 Train-Direction negativ</td><td class="num bad">1 / 48</td></tr>
+                    <tr><td>G2 Test |t| &gt; 3.0 (Bonferroni)</td><td class="num bad">0 / 48</td></tr>
+                    <tr><td>G3 n_test ≥ 30</td><td class="num ok">48 / 48</td></tr>
+                    <tr><td>G6 Test t &lt; −1.96 (Naiv)</td><td class="num bad">0 / 48</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Verdict: RED.</strong> Sogar das genaue Gegenteil: 47 von 48 Tests zeigen einen <em>positiven</em> Train-Diff, einige nominal signifikant in die <em>falsche</em> Richtung (z. B. SPY/5d-Forward bei −1.0σ: <code>t_train = +3.16</code>).</p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Ein einzelner Tages-Yen-Spike markiert in der Praxis oft das <em>Ende</em>
+                einer Risk-Off-Welle, nicht den Anfang. Der Spike-Tag ist selbst schon der
+                Liquidations-Tag — der Markt fällt am selben Tag, nicht am nächsten. In den
+                Folgetagen folgt häufig ein V-förmiges Rebound, was den positiven Forward-
+                Return erklärt. Der Indikator misst die Reaktion, nicht die Vorhersage.
+            </p>
+            <p>
+                Mögliche Erweiterung (würde eine <em>neue</em> Pre-Reg erfordern, kein
+                Nachfrisieren): kumulierter Multi-Day-Yen-Trend (z. B. 5d/10d-Z-Score),
+                der das schrittweise Aufbauen einer Carry-Position abbildet, statt nur des
+                Liquidations-Tags. Diese Variante ist nicht getestet.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/yen_stress_test.py
+Log:     yen_stress_test.log
+CSV:     yen_stress_results.csv (alle 48 Zellen, IS+OOS-t, n, diff)</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H2: STREAK-MR SEKTOR                                                  -->
+        <!-- ================================================================== -->
+        <section id="h2">
+            <h2>2. Streak-Mean-Reversion: Sektor-Differenzierung</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-24</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Der bekannte Streak-Mean-Reversion-Effekt (nach <em>N</em> aufeinander­
+                folgenden Down-Days steigt der Folgetag überdurchschnittlich oft) ist
+                <strong>nicht uniform über alle GICS-Sektoren verteilt</strong>, sondern in einer
+                bestimmten Sektor-Klasse konzentriert. Drei Sub-Hypothesen:
+            </p>
+            <ol>
+                <li>MR ist in <strong>zyklischen</strong> Werten stärker (höhere Volatilität → mehr Übertreibung)</li>
+                <li>MR ist in <strong>defensiven</strong> Werten stärker (weniger News-Driver → mehr Random-Walk-Reversion)</li>
+                <li>MR ist in <strong>Tech</strong> stärker (sektor-spezifische Sentiment-Pattern)</li>
+            </ol>
+
+            <h3>Mechanismus / Überlegung</h3>
+            <p>
+                Der ursprüngliche Streak-Befund (siehe Streak-Seite) war auf 503
+                S&P-500-Aktien gemessen — als undifferenzierter Aggregat-Korb. Es ist
+                plausibel, dass verschiedene Sektoren grundverschiedene Reversion-Charakteristika
+                haben: defensive Werte (Versorger, Staples) haben weniger spekulative
+                Übertreibung, zyklische (Industrie, Bauzulieferer) reagieren auf News mit
+                fundamentalen Bewegungen statt Sentiment-Schwankungen, Tech-Aktien
+                schwanken oft sentiment- und retail-getrieben.
+            </p>
+
+            <h3>Voraussetzungen</h3>
+            <ul>
+                <li>GICS-Sektoren sind stabil über den Testzeitraum (Unternehmen werden nicht ständig umkategorisiert)</li>
+                <li>Mindestens 20 Aktien pro Sektor-Klasse mit OHLC-Daten</li>
+                <li>Mindestkorbgröße 8 pro Tag (vermeidet 2–3-Namen-Illusion)</li>
+            </ul>
+
+            <h3>Daten</h3>
+            <div class="hyp-meta">
+                <div class="meta-cell"><strong>Universum</strong>S&P 500 (503 Aktien, aktuelle Liste), GICS-Sektor aus Wikipedia, OHLC via yfinance 2015–2026</div>
+                <div class="meta-cell"><strong>Sektor-Klassen</strong>ZYKLISCH (Industrials, Materials, Consumer Disc., Financials, Energy: 250 Aktien) · DEFENSIV (Staples, Health Care, Utilities, Real Estate: 157) · TECH (IT, Comm Services: 96)</div>
+                <div class="meta-cell"><strong>Train/Test</strong>Train: 2015-01-01 — 2020-12-31; Test: 2021-01-01 — 2026-05-22; COVID-Excl</div>
+                <div class="meta-cell"><strong>Strategie</strong>Long-only, gleichgewichtet, Holding = 1 Handelstag (t+1 Close-to-Close), Excess vs. SPY</div>
+            </div>
+
+            <h3>Statistische Tests</h3>
+            <p>
+                Für jede Kombination (Sektor-Klasse × N) wird ein
+                <strong>Tages-Portfolio</strong> gebildet: an jedem Tag enthält das Portfolio alle Sektor-Aktien,
+                die <code>streak ≥ N</code> aufweisen. Excess-Return = Korb-Mittel −
+                SPY-Tagesreturn. Welch-t-Test des Excess gegen Null, n = Anzahl
+                Handelstage mit Korbgröße ≥ 8.
+            </p>
+            <ul>
+                <li>Streak-Längen: N ∈ {4, 5, 6, 7}</li>
+                <li>3 Sektor-Klassen × 4 N = <strong>12 Tests</strong></li>
+                <li>Bonferroni: <code>t_crit = 2.7</code> für familienweises α = 0.05</li>
+            </ul>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li><strong>G1</strong>: <code>diff_train &gt; 0</code> (Excess vs. SPY positiv im Train)</li>
+                <li><strong>G2</strong>: <code>t_test &gt; 2.7</code> (Bonferroni)</li>
+                <li><strong>G3</strong>: <code>n_test_days ≥ 30</code></li>
+                <li><strong>G4</strong>: <code>mean(daily_basket_size) ≥ 8</code> in Test</li>
+                <li><strong>G5</strong>: COVID-Robustheit</li>
+                <li><strong>G6</strong>: <code>t_test &gt; 1.96</code> nominal (informativ)</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Klasse</th><th class="num">N=4</th><th class="num">N=5</th><th class="num">N=6</th><th class="num">N=7</th></tr></thead>
+                <tbody>
+                    <tr><td>ZYKLISCH (Test-t)</td><td class="num">+1.73</td><td class="num">−0.17</td><td class="num">+0.36</td><td class="num">+0.85</td></tr>
+                    <tr><td>DEFENSIV (Test-t)</td><td class="num bad">−0.44</td><td class="num bad">−0.93</td><td class="num bad">−0.26</td><td class="num bad">−0.26</td></tr>
+                    <tr><td>TECH (Test-t)</td><td class="num">+1.01</td><td class="num">+1.37</td><td class="num"><strong>+1.92</strong></td><td class="num">+1.27</td></tr>
+                </tbody>
+            </table>
+            <p>
+                <strong>Aggregat-Gates:</strong> G1: 10 / 12, G2 (Bonferroni): <span class="bad">0 / 12</span>,
+                G3: 9 / 12, G4: 12 / 12, G6 (Naiv): <span class="bad">0 / 12</span>.
+                <strong>Verdict: RED.</strong>
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Drei lehrreiche Beobachtungen:
+            </p>
+            <ol>
+                <li><strong>Defensive haben das Gegenteil eines MR-Edge</strong> — alle vier N-Werte zeigen negative Test-Excess-Returns. Plausibel: weniger spekulative Übertreibung → weniger zu revertieren.</li>
+                <li><strong>Tech zeigt den stärksten (aber nicht-signifikanten) Hinweis.</strong> Test-t bei N=6 ist +1.92, knapp unter dem naiven 1.96-Floor. Aber nur 21 Test-Tage → fragile Statistik.</li>
+                <li><strong>Der ursprüngliche „6-Tech-Werte-Befund" war Sektor-Bias.</strong> Das anfängliche Streak-Pattern (78 % bei 6 Tech-Werten) war demnach ein doppelter Bias: zu kleine Stichprobe UND einseitige Sektor-Auswahl. Auf breitem Universum verwässert TECH (Edge-Hint) mit ZYKLISCH (≈0) und DEFENSIV (Gegenrichtung) zu insgesamt Null.</li>
+            </ol>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/streak_sector_test.py
+Log:     streak_sector_test.log
+CSV:     streak_sector_results.csv
+Cache:   sp500_sectors.csv, sp500_ohlc_2015_2026.pkl</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H3: FRED-MACRO                                                        -->
+        <!-- ================================================================== -->
+        <section id="h3">
+            <h2>3. FRED-Macro: Yield-Inversion, HY-Spread, Jobless-Claims</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-21</span>
+
+            <h3>Hypothesen (drei klassische Makro-Heuristiken)</h3>
+            <ul>
+                <li><strong>H1 Yield-Inversion</strong>: T10Y2Y &lt; 0 (kurze Zinsen über langen) → SPY in den nächsten 5–60 Tagen unterdurchschnittlich (klassischer Rezessionsindikator)</li>
+                <li><strong>H2 HY-Credit-Spread</strong>: BAMLH0A0HYM2 &gt; 75. Perzentil (Train) → SPY runter (Kreditstress signalisiert Risk-Off)</li>
+                <li><strong>H3 Jobless-Claims-MA-Change</strong>: 4-Wochen-MA-Change &gt; 75. Perzentil (Train) → SPY runter (Arbeitsmarkt-Verschlechterung)</li>
+            </ul>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Alle drei sind Standard-Lehrbuch-Indikatoren der Makro-Ökonomie:
+                Yield-Inversion war historisch ein verlässlicher Rezessionsvorbote
+                (1970er–2008). HY-Credit-Spreads weiten sich in Krisen aus, weil Investoren
+                Risikoprämien für junk bonds fordern. Jobless-Claims sind ein zeitnaher
+                Indikator für Arbeitsmarkt-Verschlechterung, die typischerweise vor
+                Konsumeinbrüchen kommt.
+            </p>
+
+            <h3>Voraussetzungen</h3>
+            <ul>
+                <li>Mechanismen sind über mehrere Konjunkturzyklen stabil (Train 2000–2018, Test 2019–2025)</li>
+                <li>Cross-Asset-Konsistenz: Effekt zeigt sich in SPY, QQQ, IWM gleichermaßen</li>
+                <li>Volle Historie verfügbar (FRED API mit Key)</li>
+            </ul>
+
+            <h3>Daten</h3>
+            <div class="hyp-meta">
+                <div class="meta-cell"><strong>FRED-Serien</strong>T10Y2Y (Yield-Spread), BAMLH0A0HYM2 (HY-OAS), ICSA (Initial Claims), via FRED-API mit eigenem Key</div>
+                <div class="meta-cell"><strong>Aktien</strong>SPY, QQQ, IWM via yfinance, 2000–2026</div>
+                <div class="meta-cell"><strong>Forward-Windows</strong>5, 10, 20, 60 Handelstage</div>
+                <div class="meta-cell"><strong>Test-Anzahl</strong>3 Hypothesen × 4 Windows × 3 Assets = 36 Tests</div>
+            </div>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li>G1 Train-Konsistenz: Effekt-Richtung im Train wie erwartet (negativ)</li>
+                <li>G2 Test |t| &gt; 3.0 (Bonferroni, 36 Tests)</li>
+                <li>G3 n_test_signal ≥ 100</li>
+                <li>G4 Cross-Asset-Konsistenz: mind. 2 von 3 Assets gleiche Richtung</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Hypothese</th><th>OOS-Befund</th><th>Verdict</th></tr></thead>
+                <tbody>
+                    <tr><td>H1 Yield-Inversion</td><td>Train: −0.74 %, t=−2.58 ✓; Test: <strong>+1.43 %, t=+4.56</strong> — Direction FLIP</td><td class="bad">FAIL</td></tr>
+                    <tr><td>H2 HY-Spread</td><td>FRED hat Serie ab April 2026 auf 3 J. Historie limitiert — nicht testbar</td><td class="bad">N/A</td></tr>
+                    <tr><td>H3 Claims-MA-Change</td><td>Train: t=−3 bis −7 ✓; Test: SPY-20d t=−2.37 (nominal), QQQ t=−3.11 (1 Bonferroni-PASS von 36); IWM t=+0.98 (inkonsistent)</td><td class="bad">FAIL</td></tr>
+                </tbody>
+            </table>
+            <p>
+                <strong>Aggregat: 1 / 36 Bonferroni-PASS</strong> = exakt im Zufallsbereich
+                (Erwartungswert bei α=0.05 und Bonferroni: ~1 zufälliger Hit pro 20
+                Tests, korrigiert auf 1 echter / 36 Tests).
+                <strong>Verdict: RED.</strong>
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                <strong>H1 Direction-Flip</strong>: Die Yield-Inversion 2022/23 wurde nicht
+                von einer Rezession gefolgt. Stattdessen rallye-te der Markt. Der historische
+                Mechanismus (Inversion → Rezession → Aktienmarkt-Crash) brach durch den
+                Strukturwandel der Fed-Politik (massive Fiscal-Support, kein klassischer
+                Konjunkturzyklus).
+            </p>
+            <p>
+                <strong>H3 Cross-Asset-Inkonsistenz</strong>: SPY und QQQ zeigen schwache
+                Effekte, IWM (Small Caps) sogar Gegenrichtung. Wenn ein vermeintlicher
+                Makro-Mechanismus drei breite US-Indices unterschiedlich treffen würde,
+                ist es kein universeller Mechanismus, sondern Datenfischen.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/fred_macro_tests_v3.py
+Helper:  fred_helper.py (mit .fred_key)
+Log:     im Repo, plus Memory [[fred-macro-falsified]]</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H4: MA-CROSSOVER                                                       -->
+        <!-- ================================================================== -->
+        <section id="h4">
+            <h2>4. MA-Crossover: 50/200 Golden/Death Cross</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-21</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                <strong>Klassisch:</strong> Wenn der 50-Tage-MA den 200-Tage-MA von unten kreuzt
+                („Golden Cross"), steigt die Aktie in den Folgewochen überdurchschnittlich.
+                Umgekehrt für Death Cross.
+            </p>
+            <p>
+                <strong>Erweitert:</strong> Über ein Grid von 5 fast × 6 slow × 6 horizon = 150
+                Parameter-Kombinationen finden wir die Zelle mit dem besten In-Sample-Edge
+                (f=20, s=50, h=10) — und testen sie OOS.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Klassische Trend-Following-Heuristik aus der Technischen Analyse: ein
+                Aufwärts-Kreuzungssignal indiziert Momentum, das sich fortsetzt. Death Cross
+                indiziert Abwärtstrend.
+            </p>
+
+            <h3>Voraussetzungen</h3>
+            <ul>
+                <li>Trend-Persistenz ist über Zeit stabil</li>
+                <li>Grid-Suche findet einen echten Edge, kein Lookback-Artefakt</li>
+                <li>Pre-Reg-OOS-Test ist nicht durch Datenfischen kontaminiert (Strategie wurde vor der Pre-Reg fixiert)</li>
+            </ul>
+
+            <h3>Daten</h3>
+            <div class="hyp-meta">
+                <div class="meta-cell"><strong>Universum</strong>502 S&P-500-Aktien</div>
+                <div class="meta-cell"><strong>Daten</strong>Tages-OHLC 2014–2026 via yfinance</div>
+                <div class="meta-cell"><strong>Grid</strong>fast ∈ {5,10,20,50,100}, slow ∈ {20,50,100,150,200,250}, horizon ∈ {1,3,5,10,20,60}</div>
+                <div class="meta-cell"><strong>OOS-Split</strong>IS 2014–2021, OOS 2022–2026</div>
+            </div>
+
+            <h3>Statistische Tests</h3>
+            <p>
+                Pro Parameter-Zelle: Welch-t-Test des Strategie-Excess-Returns vs. SPY-Buy-Hold,
+                über alle 502 Aktien aggregiert. Pre-Registrierte OOS-Strategie-Test mit
+                Gates G1–G5 (siehe unten).
+            </p>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li>G1 IS-Effekt: <code>exc &gt; 0 %, t &gt; +2</code> bei f=20/s=50/h=10</li>
+                <li>G2 OOS-Effekt: <code>exc &gt; 0 %, t &gt; +2</code></li>
+                <li>G3 Kosten-Robustheit: bei 5 bps OOS-t &gt; +1.5</li>
+                <li>G4 COVID-Robustheit: ohne COVID-Periode bleibt G2 erhalten</li>
+                <li>G5 Cross-Asset (Survivorship): aktuelle SP500-Liste — Akzeptiert mit Caveat</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Phase</th><th>Excess vs. SPY</th><th>t-Stat</th><th>Gate</th></tr></thead>
+                <tbody>
+                    <tr><td>IS 2014–2021</td><td class="num ok">+0.252 %</td><td class="num ok">+3.02</td><td class="ok">G1 PASS</td></tr>
+                    <tr><td>OOS 2022–2026</td><td class="num bad">−0.177 %</td><td class="num bad">−1.45</td><td class="bad">G2 FAIL</td></tr>
+                    <tr><td>OOS netto@5bps</td><td class="num bad">−0.227 %</td><td class="num bad">−1.86</td><td class="bad">G3 FAIL</td></tr>
+                    <tr><td>OOS ohne COVID</td><td class="num bad">−0.177 %</td><td class="num bad">≈ Original</td><td class="bad">G4 FAIL</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Edge ist OOS verschwunden und hat das Vorzeichen gedreht.</strong> Auch die rohe Mean-Differenz (rawMB) ist OOS = −0.28 %, also nicht nur SPY-relativ, sondern absolut.</p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Wer 12 Jahre rückblickend ein 5×6×6-Grid durchprobiert (150 Zellen),
+                findet mit hoher Wahrscheinlichkeit irgendeine Zelle, die im IS
+                „signifikant" aussieht — auch bei reinem Rauschen. Mit α=0.05 und 150 Zellen
+                erwartet man ~7.5 zufällige IS-Treffer. Selbst nominal t=4-5 in 150 Zellen
+                ist nicht aussagekräftig (Bonferroni: kritisches t müsste bei ~+3.5
+                liegen). OOS-Split mit Pre-Reg ist deshalb nicht Bürokratie, sondern der
+                Filter, der IS-Artefakte von echten Edges trennt.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/crossover_grid.py     (IS-Grid)
+github.com/defcon3/boersenbot/crossover_strategy_test.py  (OOS Pre-Reg)
+Web:    https://veitluther.de/analysis/crossover</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H5: SOM                                                                -->
+        <!-- ================================================================== -->
+        <section id="h5">
+            <h2>5. SOM-Marktregime als Predictor</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-19</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Eine <strong>Self-Organizing Map (Kohonen-Map)</strong> kann die Marktstruktur in
+                diskrete Regime-Cluster zerlegen. Wenn dem so ist, sollte der bekannte
+                Streak-MR-Edge (N=6 Down-Days → next-day-up) <strong>conditional auf
+                bestimmte Regime-Knoten</strong> signifikant stärker sein als unkonditional.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Märkte haben verschiedene „Regime" (Trend, Range, Krise, Euphorie). Ein
+                Edge, der nur in einem Regime funktioniert, würde unkonditional verwässert
+                erscheinen. Ein guter Regime-Classifier sollte diese versteckten Edges
+                aufdecken.
+            </p>
+
+            <h3>Daten & Setup</h3>
+            <ul>
+                <li>504 S&P-500-Aktien, 2020-01-02 — 2026-05-18, ~797 000 Aktie-Tage</li>
+                <li>Zwei Kohonen-Maps: Index-Regime (8×8 Tages-Vektor) + Symbol-Tag (12×12)</li>
+                <li>Features Index: med_ret, dispersion, mkt_vol20, breadth, med_rsi, med_adx, updown_vol</li>
+                <li>Features Symbol: ret, vol20, rsi14, adx14, dist_sma50, vol_z</li>
+                <li>Train/OOS strikt chronologisch (TRAIN_FRAC=0.70, OOS ab ~2024-06)</li>
+                <li>Library: <code>minisom</code> + <code>scikit-learn</code> Scaler</li>
+            </ul>
+
+            <h3>Statistischer Test</h3>
+            <p>
+                Pro Regime-Knoten (8×8 = 64 Index-Knoten): Binomialtest des bekannten
+                Streak-MR-Edges (STREAK_LEN=6). Nullhypothese: Streak-Folgetagswahrscheinlichkeit
+                = OOS-Basisrate (0.5416). H1: höher.
+            </p>
+
+            <h3>Pre-Registriertes Gate</h3>
+            <ul>
+                <li>Auf belegten Knoten (n ≥ 30 OOS-Beobachtungen): wie viele Knoten haben <strong>p &lt; 0.05 unkorrigiert</strong>?</li>
+                <li>Erwartung bei reinem Zufall: 5 % der getesteten Knoten falsch-positiv</li>
+                <li>Echter Edge → deutlich mehr als 5 % der belegten Knoten</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <p>
+                <strong>1 von 30 belegten Knoten</strong> hat p &lt; 0.05 unkorrigiert = <strong>3.3 %</strong>.
+                Das ist <em>unter</em> der erwarteten Zufallsfalse-Positive-Rate von 5 %.
+                Selbst ohne Multiple-Testing-Korrektur kein bestätigter Regime-Edge.
+                <strong>Verdict: RED.</strong>
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                SOM ist explorativ/beschreibend, aber kein Prädiktor. Die UI auf
+                <code>/analysis/som</code> visualisiert Cluster mit Chernoff-Faces und einer
+                Trajektorie der letzten 90 Tage — als deskriptive Hilfe zum Markt-Verstehen.
+                Sie ist nicht als Signal-Generator gedacht. Ein Caveat-Banner auf der Seite
+                stellt das klar.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/som_regime.py
+Web:    https://veitluther.de/analysis/som</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H6: CC-MR EXCESS                                                       -->
+        <!-- ================================================================== -->
+        <section id="h6">
+            <h2>6. Close-to-Close Streak-MR auf breitem Korb (Excess vs. SPY)</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-18</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Der breite Streak-MR-Effekt (nach N=3..7 Down-Days steigt der Folgetag
+                überdurchschnittlich oft, basierend auf 503 S&P-500-Aktien) ist
+                <strong>auch handelbar als marktrelatives Alpha</strong>, nicht nur deskriptiv:
+                Long-Korb der Streak-Aktien vs. SPY produziert signifikant positive
+                Excess-Returns.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Wenn Mean-Reversion in vielen Aktien gleichzeitig auftritt, kann man einen
+                diversifizierten Long-Korb bauen. Die SPY-Komponente filtert das allgemeine
+                Marktrisiko, übrig bleibt das idiosynkratische MR-Alpha.
+            </p>
+
+            <h3>Daten & Setup</h3>
+            <ul>
+                <li>503 S&P-500-Aktien, Tages-OHLC 2014–2026 (DB <code>bb_StockPrices</code> + yfinance)</li>
+                <li>Streak-Längen N ∈ {3, 4, 5, 6, 7}</li>
+                <li>Holding h ∈ {1, 2, 3, 5} Tage</li>
+                <li>Tages-Portfolio: gleichgewichtet alle Aktien mit Streak ≥ N am Vortag</li>
+                <li>Mindestkorbgröße (Variante): 2, 5, 8</li>
+                <li>OOS-Split: ≤2021 Train, ≥2022 Test</li>
+            </ul>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li>G1 IS-Effekt: Excess vs. SPY positiv, t &gt; +2</li>
+                <li>G2 OOS-Effekt: Excess vs. SPY positiv, t &gt; +2 (bei minKorb≥8)</li>
+                <li>G3 Kosten-Robustheit: netto@10 bps t &gt; +1.5</li>
+                <li>G4 Realer MaxDD: berechnet auf echtem Overlap-Portfolio (nicht Aktie-Tag-Ebene)</li>
+                <li>G5 COVID-Robustheit</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Korbgröße</th><th>OOS-t (Excess)</th><th>OOS netto@10 bps</th><th>Verdict</th></tr></thead>
+                <tbody>
+                    <tr><td>minKorb ≥ 2 (winzig, 2–3 Namen)</td><td class="num">positiv aber t&lt;1.4</td><td class="num bad">negativ</td><td class="bad">undiversifiziert</td></tr>
+                    <tr><td>minKorb ≥ 5</td><td class="num">t ≈ +1</td><td class="num bad">≈ 0</td><td class="bad">nicht signifikant</td></tr>
+                    <tr><td>minKorb ≥ 8 (handelbar)</td><td class="num bad">alle t &lt; +1.6</td><td class="num bad">≈ 0 bis negativ</td><td class="bad">RED</td></tr>
+                </tbody>
+            </table>
+            <p>
+                Klassisches IS-OOS-Decay-Muster: IS überall stark/signifikant (Effekt war
+                im Train robust), OOS bei handelbarer Korbgröße nirgends signifikant.
+                Positiver OOS-Rest nur in winzigen 2–3-Namen-Körben (undiversifizierbar,
+                t &lt; 1.4, netto negativ). Realer MaxDD bestätigt: frühere
+                −50…−93 % MaxDDs waren Kompounding-Artefakt, real ~−20…−35 %.
+                <strong>Verdict: RED.</strong>
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Der bekannte Streak-MR-Effekt ist gegen die <em>bedingte Basisrate</em>
+                (0.518 P[Folgetag↑]) real, in diesem Sinne ein deskriptiv messbarer
+                statistischer Effekt. Aber er ist <strong>kein handelbares marktrelatives
+                Alpha</strong>: gegen SPY-Buy-Hold gemessen verschwindet er bei handelbarer
+                Korbgröße. Die ehrliche Interpretation: „Aktien, die n Tage gefallen sind,
+                steigen am nächsten Tag häufiger als der Schnitt — aber nicht mehr als
+                der breite Markt am selben Tag." Damit kein verwertbarer Edge gegen
+                Buy-Hold.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/cc_meanrev_excess.py
+Log:    cc_meanrev_excess.log
+Web:    https://veitluther.de/analysis/streak (mit OOS-Tabelle)</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H7: VIX                                                                 -->
+        <!-- ================================================================== -->
+        <section id="h7">
+            <h2>7. VIX-Fear-Conditioning der Streak-MR</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-18</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Der Streak-MR-Edge funktioniert nicht im Durchschnitt, aber
+                <strong>conditional auf hohe Marktangst</strong> (VIX-Perzentil &gt; X, oder
+                VIX-Backwardation, oder VIX-Spike): Long-Down-Streak-Aktien in
+                Angst-Phasen sollte signifikante Excess-Returns produzieren.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                In Angst-Phasen überreagieren Marktteilnehmer (Panik-Verkäufe), Aktien
+                fallen unter ihren Fair Value. Mean-Reversion sollte in diesen Phasen
+                stärker greifen als in ruhigen Phasen. Drei Sub-Signale:
+            </p>
+            <ul>
+                <li>VIX-Perzentil-FEAR: VIX im Tagesperzentil &gt; 0.8 (Train-only)</li>
+                <li>VIX-SPIKE: VIX-Tagesänderung &gt; +30 %</li>
+                <li>VIX-Backwardation: VIX1M &lt; VIX (vorderer Future höher → Stress)</li>
+            </ul>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li>G1 IS: Conditional-Excess signifikant positiv</li>
+                <li>G2 OOS: Conditional-Excess t &gt; +2 bei minKorb ≥ 8</li>
+                <li>G3 Robust gegen Anzahl-Monate (nicht nur ~20 Crash-Monate)</li>
+                <li>G4 Kosten-Robustheit @10 bps</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Conditioner</th><th>IS-Effekt</th><th>OOS bei minKorb≥8</th><th>Verdict</th></tr></thead>
+                <tbody>
+                    <tr><td>FEAR</td><td class="num ok">exØ +0.5…+1.2 %, t=2–3</td><td class="num bad">t nie ≥ +1.9, netto@10 ≈ 0/neg.</td><td class="bad">FAIL</td></tr>
+                    <tr><td>SPIKE</td><td>moderater IS-Effekt</td><td class="num bad">netto ≈ 0/negativ</td><td class="bad">FAIL</td></tr>
+                    <tr><td>BACKWARDATION</td><td class="num ok">stark IS</td><td class="num bad">netto ≈ 0/negativ</td><td class="bad">FAIL</td></tr>
+                </tbody>
+            </table>
+            <p>
+                Klassische IS-Falle: eine Demo hätte „bewiesen" gemeldet (IS-t=2–3 ist
+                visuell überzeugend). OOS am ehrlichen Gate (minKorb≥8): kollabiert.
+                Plus: Anzahl Monate mit aktivem Signal schrumpft auf 13–25 → „Edge nur in
+                ~20 Crash-Monaten" = vor-registrierte Disqualifikation.
+                <strong>Verdict: RED.</strong>
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                VIX-basierte Sentiment-Conditioner sind <em>backtest-bar</em>, das ist ihr
+                Vorteil gegenüber News-Sentiment-Approaches. Aber sie liefern OOS keinen
+                Edge. Die Erklärung: die VIX-FEAR-Phasen sind ohnehin schon
+                Crash-Monate, in denen <em>alles</em> volatil ist — der Conditioner pickt
+                kein zusätzliches Signal heraus, er erzeugt nur eine kleinere und stark
+                korrelierte Stichprobe, in der Rauschen leichter signifikant aussieht.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/cc_meanrev_vix.py
+Log:    cc_meanrev_vix.log</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H8: GDELT                                                               -->
+        <!-- ================================================================== -->
+        <section id="h8">
+            <h2>8. GDELT-News-Sentiment-Conditioning</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-19</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Wie H7, aber mit <strong>GDELT-News-Sentiment</strong> statt VIX als
+                Conditioner. NEG-Tone oder DROP-Tone (Tagesänderung) sollte den
+                Streak-MR-Edge stark machen.
+            </p>
+
+            <h3>Daten</h3>
+            <ul>
+                <li>GDELT-ETL: markt-weite News-Tagesstimmung 2015-02-19 — 2026-05-17, 4 087 Tage</li>
+                <li>Zwei Feeds: <code>all</code> (alle News) und <code>econ</code> (wirtschaftsrelevante)</li>
+                <li>1-Tages-Lag → kein Look-Ahead (Heute-News conditioned Morgen-Trade)</li>
+                <li>98 % Signal-Abdeckung über S&P-500-Universum</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <p>
+                Exakt gleiche Versagensart wie VIX-Conditioner. In <strong>winzigen 2-Namen-Körben</strong>
+                spektakuläre OOS-Ergebnisse: NEG/DROP, N≥7/h3: +41 bps, t=3.13. Aber das
+                vor-registrierte handelbare Gate (minKorb≥8, MedKorb 12–21) zeigt:
+                bestes NEG-Setup (N≥4/h5) t=+1.89 &lt; 2.0; bei N≥7/h3 kippt es
+                <strong>signifikant negativ</strong> (−0.349 %, t=−2.28). Starke DROP-Treffer
+                ruhen auf 3–4 OOS-Tagen / 3–4 Monaten = vor-registrierter Disqualifikator.
+            </p>
+            <p>
+                <strong>Verdict: RED.</strong> Backtest-bare Gratis-Sentiment-Quellen
+                (VIX-Familie + GDELT) damit erschöpft.
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Hätte ich vor der Pre-Reg „+41 bps, t=3.13!" als Befund verkauft, hätte das
+                überzeugend ausgesehen. Aber die Stichprobe waren 2-Namen-Körbe, drei
+                OOS-Treffer in 3 Monaten — das ist nicht handelbar, sondern Datenfischen.
+                Die vor-registrierten Disqualifikatoren (mindKorb, MedKorb, n_months) sind
+                genau dafür da: sie verhindern Demos.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/cc_meanrev_gdelt.py
+ETL:     gdelt_market_tone_etl.py
+Logs:    cc_meanrev_gdelt.log, gdelt_market_tone_etl.log</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H9: MINUTEN-MOMENTUM                                                    -->
+        <!-- ================================================================== -->
+        <section id="h9">
+            <h2>9. Minuten-Momentum (Intraday-Continuation)</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-18</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Nach <em>N</em> aufeinanderfolgenden Minuten in dieselbe Richtung
+                <strong>läuft die Bewegung weiter</strong> (Continuation, klassisches Momentum auf
+                Minuten-Ebene). Handelbar als Long-Continuation-Strategie auf Minute t+k.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Order-Flow-Persistenz: institutionelle Iceberg-Orders, die über mehrere
+                Minuten ausgeführt werden, sollten kurzfristiges Momentum erzeugen. Plus
+                Retail-Herdenverhalten in Reaktion auf Kursbewegungen.
+            </p>
+
+            <h3>Daten & Setup</h3>
+            <ul>
+                <li>503 S&P-500-Aktien, 1-Minuten-Daten, 7 Handelstage (DB <code>bb_StockPrices</code> intraday)</li>
+                <li>Gitter (N, k): N ∈ {1, 2, 3, 5}, k ∈ {1, 2, 3, 5, 10}</li>
+                <li>~1.19 Mio. Beobachtungen pro k</li>
+                <li>Naive Tests: LDA, SVM, XGBoost auf next-minute-up/down</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead><tr><th>Schritt</th><th>Befund</th></tr></thead>
+                <tbody>
+                    <tr><td>Naive Klassifikation (LDA/SVM/XGB)</td><td class="num">Acc 0.500, AUC ≈ 0.50, Edge 0.08–0.17 bps vs. Ø-Move 3.85 bps</td></tr>
+                    <tr><td>(N, k)-Gitter raw</td><td class="num">P(Continuation) hochsignifikant <strong>UNTER</strong> Basis → schwache <em>Reversion</em>, nicht Continuation</td></tr>
+                    <tr><td>Excess vs. SPY (Mkt-Kontext)</td><td class="num">Reversion-Magnitude kollabiert → Roh-Reversion war v. a. Markt-MR + Bid-Ask-Bounce</td></tr>
+                    <tr><td>Lockerer Trend (X von W Min)</td><td class="num">Spannweite ≈ 0.8 bps &lt; Kosten</td></tr>
+                </tbody>
+            </table>
+            <p>
+                <strong>Vier Null-Befunde</strong>: naive ML-Klassifikation Münzwurf;
+                (N,k)-Gitter zeigt Reversion (nicht Continuation); Markt-Conditioning frisst
+                den Effekt; X-von-W-Trend unter Kosten. <strong>Verdict: RED.</strong>
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Auf Minuten-Ebene gilt — wenn überhaupt — schwache Reversion, nicht
+                Continuation. Aber die Magnitude (~0.8 bps) liegt deutlich unter den
+                Bid-Ask-Spreads und Kosten. Das deckt sich richtungskonsistent mit dem
+                Tages-MR-Befund: Mean-Reversion ist ein realer Effekt auf Tagesebene,
+                aber auf Minuten-Ebene zu klein für Handel. Faktor-Modell auf dieses
+                Rauschen wäre Overfit auf Bid-Ask-Bounce.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/intraday_streak.py
+github.com/defcon3/boersenbot/intraday_streak_mkt.py
+github.com/defcon3/boersenbot/trend_next.py</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- H10: OPEN-CLOSE                                                         -->
+        <!-- ================================================================== -->
+        <section id="h10">
+            <h2>10. Open→Close Down-Streak Harvest</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-18</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Statt Close-to-Close-Trades (mit Overnight-Risiko): kaufe am Morgen-Open,
+                verkaufe am Abend-Close, <strong>nur an Tagen nach Down-Streaks</strong>. Vereint
+                den validierten Tages-MR-Edge mit einer No-Overnight-Regel.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Wenn der MR-Edge schon Open-to-Open / Close-to-Close gilt, sollte der
+                Großteil des Effekts im Intraday-Move stecken — Overnight-Returns sind
+                strukturell flach/leicht negativ in den USA. Open→Close vermeidet
+                Overnight-Risiko (Gap-Down).
+            </p>
+
+            <h3>Daten & Setup</h3>
+            <ul>
+                <li>503 S&P-500-Aktien, Tages-OHLC 2015–2026, 1.39 Mio. Aktie-Tage</li>
+                <li>Streak-Längen: N ∈ {2, 3, 4, 5, 6, ≥9}</li>
+                <li>Holding: Open→Close eines Handelstages</li>
+                <li>Mindestkorbgröße ≥ 8</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <p>
+                Auf <strong>Aktie-Tag-Ebene</strong> hochsignifikant (t bis +11.55, alle ***).
+                <em>Aber das ist die Cluster-Illusion</em>: an Crash-Tagen triggern dutzende
+                korrelierte Aktien gleichzeitig, n korreliert aufgebläht.
+                Auf <strong>Tages-Portfolio-Ebene</strong> (ehrliches n = Anzahl Handelstage,
+                gleichgewichteter Korb):
+            </p>
+            <table>
+                <thead><tr><th>Streak-Länge</th><th>OOS-t (Tages-Portfolio)</th><th>OOS netto@5bps</th></tr></thead>
+                <tbody>
+                    <tr><td>2+ down</td><td class="num">+0.73</td><td class="num bad">−0.83</td></tr>
+                    <tr><td>4+ down</td><td class="num">−0.04</td><td class="num bad">−1.26</td></tr>
+                    <tr><td>5+ down</td><td class="num">+0.06</td><td class="num bad">−1.04</td></tr>
+                    <tr><td>6+ down</td><td class="num bad">−1.01</td><td class="num bad">−1.90</td></tr>
+                    <tr><td>GAP &lt; −2 %</td><td class="num">+0.88</td><td class="num">+0.14</td></tr>
+                </tbody>
+            </table>
+            <p>
+                <strong>Tages-Portfolio bricht zusammen.</strong> Nur GAP&lt;−2 % zeigt einen schwachen
+                in-sample-Rest. Der spätere Gap-Korb-Nachfass-Test (<code>gap_bounce_study.py</code>)
+                identifizierte einen schwachen idiosynkratischen Rest (gelb, kein Live-Status).
+                <strong>Verdict: RED</strong> für den Down-Streak-O→C-Harvest.
+            </p>
+
+            <h3>Interpretation / Lehre</h3>
+            <p>
+                Die Aktie-Tag-Ebene täuscht durch Clustering. Bei sauberem Tages-Portfolio
+                mit Mindestkorbgröße verschwindet der Effekt. Methodisch: bei Hypothesen
+                über breite Aktien-Körbe muss n IMMER die Anzahl der unkorrelierten
+                Zeitachsen-Einheiten sein, nicht die Anzahl der Aktien-Tag-Beobachtungen.
+            </p>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/open_close_study.py
+github.com/defcon3/boersenbot/open_close_validate.py
+github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- SCHLUSSBETRACHTUNG                                                       -->
+        <!-- ================================================================== -->
+        <section>
+            <h2>Schlussbetrachtung</h2>
+
+            <h3>Was alle Falsifikationen gemeinsam haben</h3>
+            <p>
+                Drei wiederkehrende Versagensmuster:
+            </p>
+            <ol>
+                <li><strong>IS-OOS-Decay</strong> (Crossover, CC-MR Excess, VIX-Conditioner, GDELT): Effekt stark im Train, weg oder umgekehrt im Test. Klassisches Overfitting.</li>
+                <li><strong>Cluster-Illusion</strong> (Open→Close, naive Streak): Aktie-Tag-Ebene zeigt astronomische t-Werte, weil korrelierte Crash-Tage n aufblähen. Tages-Portfolio-Ebene entlarvt das.</li>
+                <li><strong>Strukturelle Brüche</strong> (FRED Yield-Inversion): historische Mechanismen brechen durch Regime-Wechsel (Fed-Politik, Fiscal-Support). Macro-Heuristiken aus den 1970–2000ern gelten 2020+ nicht mehr.</li>
+            </ol>
+
+            <h3>Was übrig bleibt (separat dokumentiert)</h3>
+            <p>
+                Aktuell laufen drei Strategien <em>live</em>, die aus der Falsifikationen-Logik
+                entstanden sind und ehrlich validiert wurden:
+            </p>
+            <ul>
+                <li><strong>Hybrid-Strategie</strong> — Multi-Signal-Komposit, live auf Alpaca Paper</li>
+                <li><strong>HYG Stress-Buy</strong> — Credit-Spread-Mean-Reversion auf HY-Bonds, cross-validated mit JNK</li>
+                <li><strong>Random5 MA-Crossover</strong> — 5 fixe S&P-500-Aktien, MA20/MA50 Long/Short-Flip</li>
+            </ul>
+            <p>
+                Details auf der <a href="/fazit"><strong>Fazit-Seite</strong></a>.
+            </p>
+
+            <h3>Hinweise an externe Reviewer (Grok / ChatGPT)</h3>
+            <div class="info-box info">
+                <p><strong>Was ich an Zweitmeinung suche:</strong></p>
+                <ul>
+                    <li>Methodische Fehler in den Pre-Reg-Definitionen (Sind die Gates fair? Zu lasch oder zu strikt?)</li>
+                    <li>Statistische Schwächen (Cluster-Korrektur, Bonferroni-Konservativismus, Sample-Selection)</li>
+                    <li>Hypothesen, die ich übersehen habe (was ist mit X, Y, Z?)</li>
+                    <li>Fehlinterpretation der RED-Verdikte (welche Befunde wären eigentlich gelb/grün, wenn man die Gates anders setzt?)</li>
+                </ul>
+                <p><strong>Was ich NICHT suche:</strong> reines Lob, generische ML-Vorschläge ohne klare Hypothese, oder Strategien, die nur in Bull-Märkten funktionieren.</p>
+            </div>
+
+            <h3>Reproduzierbarkeit</h3>
+            <p>
+                Sämtlicher Code ist im öffentlichen Repo:
+                <code>github.com/defcon3/boersenbot</code>. Jede falsifizierte Hypothese
+                hat ein eigenes Python-Skript, das aus yfinance / FRED / GDELT die Daten
+                holt und die hier dokumentierten Zahlen reproduziert. Cache-Dateien
+                (<code>*.pkl</code>) sind aus Größengründen nicht im Git, werden aber beim ersten
+                Lauf automatisch erzeugt.
+            </p>
+        </section>
+
+        <!-- ================================================================== -->
+        <!-- ITERATION 2: POWER-ANALYSE (v2 - 2026-05-25, ausgebaut)               -->
+        <!-- ================================================================== -->
+        <section id="power">
+            <h2>📬 Iteration 2 — Statistical Power: was „nicht signifikant" wirklich heißt</h2>
+            <span class="badge dim">Reviewer-Feedback 2026-05-24</span>
+            <span class="badge dim">v2 · ausgebaut 2026-05-25</span>
+
+            <h3>Warum diese Sektion existiert</h3>
+            <p>
+                Ein RED-Verdict bei einer Hypothese heißt im strengen Sinn nur: <em>die
+                Pre-Reg-Gates wurden nicht bestanden</em>. Es heißt <strong>nicht</strong>
+                automatisch „der Effekt existiert nicht". Wenn die Stichprobe klein ist und der
+                wahre Effekt mittelgroß, kann der Test diesen Effekt schlicht <em>nicht
+                erkennen</em> — die Studie ist <strong>underpowered</strong>. Die Power-Analyse
+                trennt diese beiden Fälle: „echtes Null" gegen „nicht messbar".
+            </p>
+            <p>
+                Reviewer (Grok / ChatGPT) hat darauf hingewiesen, dass mehrere Tests
+                <em>knapp</em> unter der Bonferroni- oder Naive-Schwelle scheitern. Genau diese
+                Fälle verdienen einen Power-Check, sonst überdehnt man die Aussage „RED" zu
+                „Effekt definitiv null".
+            </p>
+
+            <div class="info-box info">
+                <strong>Zwei Kernaussagen, die hier verteidigt werden:</strong>
+                <ul style="margin-top:6px;">
+                    <li><strong>Hohe Power + RED</strong> → starker Hinweis, dass der Effekt
+                        real nicht (oder höchstens minimal) existiert.</li>
+                    <li><strong>Niedrige Power + RED</strong> → unentschieden
+                        („we don't know"). RED ist formal korrekt, aber methodisch
+                        nicht endgültig.</li>
+                </ul>
+            </div>
+
+            <h3>Kernbegriffe in zwei Minuten</h3>
+            <div class="stat-grid">
+                <div class="stat-tile">
+                    <div class="label">Power (1 − β)</div>
+                    <div class="value">P(reject H₀ | H₁)</div>
+                    <div style="font-size:0.85em; color:#5d6d7e; margin-top:6px;">
+                        Wahrscheinlichkeit, einen echten Effekt zu finden, wenn er da ist. Standard 80 %.
+                    </div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">MDE</div>
+                    <div class="value">(z_α + z_β)·σ/√n</div>
+                    <div style="font-size:0.85em; color:#5d6d7e; margin-top:6px;">
+                        Minimum Detectable Effect — kleinster Effekt, den der Test bei gegebenem n mit 80 % Power finden würde.
+                    </div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Sample Size für 80 %</div>
+                    <div class="value">((z_α+z_β)·σ/μ)²</div>
+                    <div style="font-size:0.85em; color:#5d6d7e; margin-top:6px;">
+                        Anzahl Beobachtungen, die nötig wäre, um den beobachteten Effekt μ mit 80 % Power zu detektieren.
+                    </div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Cohen's d</div>
+                    <div class="value">|μ| / σ</div>
+                    <div style="font-size:0.85em; color:#5d6d7e; margin-top:6px;">
+                        Standardisierte Effektgröße. Konvention: 0.2 klein · 0.5 mittel · 0.8 groß.
+                    </div>
+                </div>
+            </div>
+            <p style="font-size:0.92em; color:#5d6d7e;">
+                Test-Typ: einseitiger One-sample t-Test gegen 0 (gerichtete Hypothesen),
+                α = 0.05, z_α = 1.6449, z_β = 0.8416. σ wird aus dem beobachteten t-Wert
+                rekonstruiert: <code>σ = μ·√n / t</code>.
+            </p>
+
+            <h3>Drei untersuchte Fälle — Übersicht</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fall</th>
+                        <th class="num">n</th>
+                        <th class="num">beob. μ</th>
+                        <th class="num">beob. t</th>
+                        <th class="num">σ (impl.)</th>
+                        <th class="num">Power(beob.)</th>
+                        <th class="num">MDE @80%</th>
+                        <th class="num">n für 80%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A) TECH N=6 (Sektor)</td>
+                        <td class="num">21</td>
+                        <td class="num">+0.302 %</td>
+                        <td class="num">+1.92</td>
+                        <td class="num">0.721 %</td>
+                        <td class="num bad">60.8 %</td>
+                        <td class="num">±0.391 %</td>
+                        <td class="num">36</td>
+                    </tr>
+                    <tr>
+                        <td>B) FRED H3 SPY-20d</td>
+                        <td class="num">70</td>
+                        <td class="num">−0.710 %</td>
+                        <td class="num">−2.37</td>
+                        <td class="num">2.506 %</td>
+                        <td class="num">76.6 %</td>
+                        <td class="num">±0.745 %</td>
+                        <td class="num">78</td>
+                    </tr>
+                    <tr>
+                        <td>C) CC-MR Excess (minKorb≥8)</td>
+                        <td class="num">300</td>
+                        <td class="num">+0.080 %</td>
+                        <td class="num">+1.40</td>
+                        <td class="num">0.990 %</td>
+                        <td class="num bad">40.3 %</td>
+                        <td class="num">±0.142 %</td>
+                        <td class="num">947</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- ============================== FALL A ============================== -->
+            <h3 style="margin-top: 24px;">Fall A — TECH N=6 (Streak-MR Sektor-Differenzierung)</h3>
+
+            <p>
+                Kontext: Im Streak-MR-Sektor-Test hatte die TECH-Untergruppe mit N=6
+                consecutive down-days einen t-Wert von <strong>+1.92</strong> bei nur
+                <strong>n = 21 Signaltagen</strong>. Naive-Schwelle (t = 1.96) knapp verfehlt,
+                Bonferroni-Schwelle (t = 2.7 bei K=12) deutlich. Das wirft die Frage auf:
+                ist der Effekt nicht da — oder war die Stichprobe zu klein?
+            </p>
+
+            <div class="stat-grid">
+                <div class="stat-tile">
+                    <div class="label">Beobachteter Effekt μ</div>
+                    <div class="value">+0.302 %</div>
+                </div>
+                <div class="stat-tile warn">
+                    <div class="label">Power bei n = 21</div>
+                    <div class="value">60.8 %</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Cohen's d</div>
+                    <div class="value">0.419</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">klein–mittel</div>
+                </div>
+                <div class="stat-tile good">
+                    <div class="label">n für 80 % Power</div>
+                    <div class="value">36</div>
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <div id="powerCurveA" style="width:100%; height:430px;"></div>
+                <div class="caption">
+                    Abb. A1 — Power als Funktion der Stichprobengröße bei drei
+                    hypothetischen Effekt-Größen. Vertikale Linien markieren das
+                    tatsächliche n = 21 (beobachtet) und n = 36 (80 %-Ziel bei μ = 0.302 %).
+                </div>
+            </div>
+
+            <div class="info-box warn">
+                <strong>Lesart:</strong> Wenn der wahre Effekt 0.302 % ist (Punktschätzer aus
+                den 21 Tagen), hätten 36 Test-Tage gereicht, um ihn mit 80 % Power
+                signifikant zu finden. Bei nur 21 Tagen war die Wahrscheinlichkeit, ihn
+                <em>überhaupt</em> zu finden, 60.8 %. Die Studie ist underpowered für diesen
+                Effekt-Bereich.
+                <br><br>
+                <strong>Konsequenz:</strong> RED-Verdict bleibt formal korrekt (Pre-Reg-Gates
+                nicht bestanden), aber die ehrliche Aussage ist „Studie zu klein, nicht
+                entscheidbar", nicht „Effekt definitiv null". → Re-Test mit längerer Historie
+                ist methodisch vertretbar, siehe Ausblick unten.
+            </div>
+
+            <!-- ============================== FALL B ============================== -->
+            <h3 style="margin-top: 24px;">Fall B — FRED H3 SPY-20d (Jobless-Claims-MA-Change)</h3>
+
+            <p>
+                Klassischer Recession-Indikator: steigende Jobless-Claims sollten 20 Tage
+                später SPY-Returns drücken. Test über 70 Signaltage, beobachteter Effekt
+                −0.71 %, t = −2.37. Bonferroni-Schwelle (|t| = 3.0 bei K = 5 H3-Varianten)
+                deutlich verfehlt.
+            </p>
+
+            <div class="stat-grid">
+                <div class="stat-tile">
+                    <div class="label">Beobachteter Effekt μ</div>
+                    <div class="value">−0.710 %</div>
+                </div>
+                <div class="stat-tile good">
+                    <div class="label">Power bei n = 70</div>
+                    <div class="value">76.6 %</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Cohen's d</div>
+                    <div class="value">0.283</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">klein</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Annualisierter Excess</div>
+                    <div class="value">−8.95 %</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">(−0.71 % je 20d-Fenster × 252/20)</div>
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <div id="cohenBarB" style="width:100%; height:320px;"></div>
+                <div class="caption">
+                    Abb. B1 — Cohen's d im Vergleich der drei Fälle. B hat die kleinste
+                    standardisierte Effektgröße — der Test hat ihn trotzdem mit 76.6 % Power
+                    untersucht, weil n vergleichsweise groß war.
+                </div>
+            </div>
+
+            <div class="info-box info">
+                <strong>Lesart:</strong> Power 76.6 % ist knapp unter 80 %, aber im Rahmen.
+                Beobachteter Effekt (−0.71 %) liegt fast exakt auf der MDE (±0.745 %), die
+                Studie war für genau diese Größenordnung dimensioniert. Bonferroni-Versagen
+                ist hier nicht durch Stichproben-Mangel erklärbar.
+                <br><br>
+                <strong>Konsequenz:</strong> Der eigentliche Falsifikationsgrund ist die
+                <em>Cross-Asset-Inkonsistenz</em> (IWM t = +0.98 in falscher Richtung) und der
+                Train-Test-Direction-Flip (Train −0.74 %, Test +1.43 %). Power ist hier kein
+                Problem — RED ist methodisch ehrlich. Annualisiert wären −8.95 % zwar
+                wirtschaftlich relevant, aber der Effekt ist eben nicht reproduzierbar
+                quer-asset.
+            </div>
+
+            <!-- ============================== FALL C ============================== -->
+            <h3 style="margin-top: 24px;">Fall C — Close-to-Close MR Excess (breiter Korb, minKorb≥8)</h3>
+
+            <p>
+                Vergleich Korb-Excess-Return vs. SPY-B&amp;H an Signal-Tagen.
+                Repräsentative Test-Zelle: n = 300, μ = +0.08 %, t = +1.40 — also schon
+                deskriptiv winzig. Anders als bei A und B ist die spannende Frage hier nicht
+                „ist der Effekt da", sondern: <em>würde er überhaupt etwas bedeuten, wenn er
+                da wäre?</em>
+            </p>
+
+            <div class="stat-grid">
+                <div class="stat-tile">
+                    <div class="label">Beobachteter Effekt μ</div>
+                    <div class="value">+0.080 %</div>
+                </div>
+                <div class="stat-tile bad">
+                    <div class="label">Power bei n = 300</div>
+                    <div class="value">40.3 %</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">MDE @ n = 300</div>
+                    <div class="value">±0.142 %</div>
+                </div>
+                <div class="stat-tile warn">
+                    <div class="label">n für 80 % Power</div>
+                    <div class="value">947</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">~4 Jahre Daily</div>
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <div id="mdeBarC" style="width:100%; height:340px;"></div>
+                <div class="caption">
+                    Abb. C1 — Beobachteter Effekt (+0.08 %) gegen Minimum Detectable Effect
+                    (±0.142 %). Der beobachtete Effekt ist nur 56 % der MDE — bei
+                    dieser Stichprobengröße statistisch nicht von Null trennbar.
+                </div>
+            </div>
+
+            <div class="info-box warn">
+                <strong>Lesart:</strong> Die Studie kann den beobachteten Effekt nicht
+                signifikant nachweisen, weil er kleiner als die MDE ist. Selbst wenn der
+                wahre Effekt +0.08 % wäre, bräuchte man n ≈ 950 Tage (4 Jahre täglich),
+                um ihn auf 80 % Power zu bringen.
+                <br><br>
+                <strong>Doppel-Konsequenz:</strong>
+                (1) RED steht — die Statistik kann den Effekt nicht von Null trennen.
+                (2) Selbst falls der Effekt real wäre: nach Handelskosten (typisch 5–10 bps
+                Spread + Slippage je Trade) wäre praktisch nichts mehr übrig.
+                <em>Practical Significance</em> ist hier wichtiger als
+                <em>Statistical Significance</em> — und sie fehlt ebenfalls.
+            </div>
+
+            <!-- ====================== TABELLE ALLE 10 ============================ -->
+            <h3 style="margin-top: 28px;">Power-Level + Verdict-Type für alle 10 RED-Hypothesen</h3>
+            <p>
+                Klassifikation aller bisher dokumentierten RED-Verdikte nach dem Schema oben.
+                <strong>Power Level</strong> = Einschätzung der Aussagekraft (High = großes n
+                und/oder klar messbarer Effekt; Medium = im Rahmen, aber nicht voll 80 %;
+                Low = underpowered für die gemessene Effekt-Größe).
+                <strong>Verdict Type</strong> = Art des RED:
+                <em>Strukturell</em> heißt OOS-Kollaps, Direction-Flip, Cross-Asset-Inkonsistenz
+                oder Cluster-Artefakt — die Hypothese ist <strong>endgültig</strong> falsifiziert.
+                <em>Inconclusive</em> heißt RED formal, aber Power zu niedrig — Re-Test mit
+                längerer Historie wäre legitim.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Hypothese</th>
+                        <th class="num">n (ca.)</th>
+                        <th>Power Level</th>
+                        <th>Verdict Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Yen-Carry-Stress (Risk-Off-Detektor)</td>
+                        <td class="num">~6500</td>
+                        <td><span class="power-pill high">High</span></td>
+                        <td>Strukturell — 47/48 OPPOSITE-Richtung</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Streak-MR Sektor (TECH N=6)</td>
+                        <td class="num">21</td>
+                        <td><span class="power-pill low">Low</span></td>
+                        <td>Inconclusive — Power 60.8 %</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>FRED Macro Trio (Yield/HY/Claims)</td>
+                        <td class="num">70 – 4500</td>
+                        <td><span class="power-pill medium">Medium</span></td>
+                        <td>Strukturell — Direction-Flip, Cross-Asset-Inkonsistenz</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>MA-Crossover 50/200 (S&amp;P-500)</td>
+                        <td class="num">~7500</td>
+                        <td><span class="power-pill high">High</span></td>
+                        <td>Strukturell — IS-Lookback-Artefakt, OOS-Kollaps</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>SOM-Marktregime als Predictor</td>
+                        <td class="num">~5000</td>
+                        <td><span class="power-pill high">High</span></td>
+                        <td>Strukturell — 1/30 = Zufallsrate</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Close-to-Close MR Excess (breiter Korb)</td>
+                        <td class="num">300</td>
+                        <td><span class="power-pill low">Low</span></td>
+                        <td>Inconclusive + Practical Negligibility</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>VIX-Conditioner für Streak-MR</td>
+                        <td class="num">~5000</td>
+                        <td><span class="power-pill medium">Medium</span></td>
+                        <td>Strukturell — IS-OOS-Divergenz</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>GDELT-News-Sentiment-Conditioning</td>
+                        <td class="num">~2000</td>
+                        <td><span class="power-pill medium">Medium</span></td>
+                        <td>Strukturell — 2-Namen-Korb-Cluster-Illusion</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Minuten-Momentum (Intraday-Continuation)</td>
+                        <td class="num">dünn</td>
+                        <td><span class="power-pill low">Low</span></td>
+                        <td>Inconclusive — 4 Null-Befunde, Mechanismus implausibel</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Open→Close Down-Streak Harvest</td>
+                        <td class="num">~5000</td>
+                        <td><span class="power-pill medium">Medium</span></td>
+                        <td>Strukturell — Cluster-Illusion</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="font-size:0.88em; color:#7f8c8d;">
+                n-Werte sind teilweise Schätzungen aus den jeweiligen Backtest-Logs
+                (Daily-Universe-Tests vs. Signal-Tag-Tests vs. Sektor-Untergruppen).
+                Quelle: siehe Hypothesen-Sektionen oben sowie Code-Logs im Repo.
+            </p>
+
+            <!-- ====================== ZUSAMMENFASSUNG ============================ -->
+            <h3 style="margin-top: 24px;">Zusammenfassung — was die Power-Analyse über die 10 RED-Verdikte aussagt</h3>
+            <div class="info-box gray">
+                <ul>
+                    <li><strong>4 von 10</strong> (Yen-Carry, MA-Crossover, SOM, Open→Close-Korrektur):
+                        <em>High Power, strukturelles RED</em> — Effekt ist nicht nur „nicht gefunden",
+                        sondern aktiv widerlegt durch Direction-Flips, OOS-Kollaps oder Zufallsrate.</li>
+                    <li><strong>3 von 10</strong> (FRED Trio, VIX-Conditioner, GDELT):
+                        <em>Medium Power, strukturelles RED</em> — Sample reicht, Falsifikationsgrund
+                        ist methodisch (Cross-Asset, IS-OOS-Bruch, Cluster-Artefakt),
+                        nicht statistische Schwäche.</li>
+                    <li><strong>3 von 10</strong> (Streak-TECH-N=6, CC-MR Excess, Minuten-Momentum):
+                        <em>Low Power, Inconclusive</em> — RED bleibt formal, aber Re-Test
+                        mit größerem n wäre methodisch legitim. Speziell bei CC-MR ist die
+                        Practical Significance ohnehin nicht da (Effekt zu klein für Kosten).</li>
+                </ul>
+                <p style="margin-top: 8px;">
+                    <strong>Praktische Lehre:</strong> Power-Analyse schwächt 3 der 10 Verdikte
+                    von „endgültig falsifiziert" auf „nicht entscheidbar". Sie hebt keines der
+                    Verdikte auf — aber sie qualifiziert die Sprache und zeigt, wo ein
+                    sauberes Re-Pre-Reg sinnvoll wäre.
+                </p>
+            </div>
+
+            <!-- ====================== AUSBLICK =================================== -->
+            <h3 style="margin-top: 24px;">Ausblick — nächste Schritte</h3>
+            <div class="info-box info">
+                <p>
+                    <strong>Re-Test TECH N=6 als neue Pre-Registered Hypothese.</strong>
+                    Fall A (n=21, Power 60.8 %) ist der naheliegendste Kandidat. Skizze:
+                </p>
+                <ul style="margin-top:6px;">
+                    <li><strong>Pre-Reg-Periode:</strong> Test-Window auf 2014–2020 (Train) vs.
+                        2021–2026 (Test) ausweiten — voraussichtlich n ≈ 50–80 Signaltage im
+                        Test-Block, statt 21.</li>
+                    <li><strong>Gate G1:</strong> Train-Direction positiv und |t| &gt; 2.0.</li>
+                    <li><strong>Gate G2:</strong> Test |t| &gt; 2.0 (einseitig, ohne
+                        Bonferroni, weil es <em>diesmal</em> nur eine Hypothese ist —
+                        keine 12-Zellen-Suche).</li>
+                    <li><strong>Gate G3:</strong> Power-Check vor dem Lauf: n soll für
+                        beobachteten Effekt 0.30 % mindestens 75 % Power liefern (n ≥ 32).</li>
+                    <li><strong>Falsifikations-Bedingung:</strong> ein einziger Lauf
+                        entscheidet. Kein Parameter-Tuning post-hoc. Kein Subset-Slicing.</li>
+                </ul>
+                <p style="margin-top:6px;">
+                    Wenn dieser Test besteht, ist TECH N=6 ein <em>Edge-Kandidat</em>
+                    (nicht „bewiesener Edge" — dafür bräuchte es OOS-Holdout und Forward-Test).
+                    Wenn er scheitert, ist die Hypothese auch bei größerer Power tot. Beides
+                    sind belastbare Aussagen — anders als das aktuelle „nicht entscheidbar".
+                </p>
+                <p style="margin-top:6px;">
+                    Fall C (CC-MR Excess) und Fall 9 (Minuten-Momentum) bekommen <strong>keine</strong>
+                    Re-Tests: der Effekt ist bei C zu klein für Kosten, bei Minuten-Momentum
+                    fehlen schlicht freie Daten in ausreichender Dichte.
+                </p>
+            </div>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/power_analysis.py
+Log:    power_analysis.log
+Charts: Plotly inline (siehe Quelltext dieser Seite)</pre>
+        </section>
+
+        <!-- ====================== PLOTLY-CHARTS ============================== -->
+        <script>
+        (function() {
+            // ---------- Fall A: Power-Kurve ----------
+            var ns = [5, 10, 15, 21, 25, 30, 36, 40, 50, 60, 75, 100, 150, 200];
+            var pow_02  = [15.3, 22.1, 28.4, 35.4, 39.8, 45.0, 50.8, 54.4, 62.4, 69.3, 77.6, 87.1, 96.0, 98.9];
+            var pow_03  = [23.9, 37.4, 49.1, 60.8, 67.3, 74.2, 80.7, 84.2, 90.6, 94.5, 97.6, 99.5, 100.0, 100.0];
+            var pow_05  = [46.2, 70.8, 85.1, 93.7, 96.6, 98.4, 99.4, 99.7, 99.9, 100.0, 100.0, 100.0, 100.0, 100.0];
+
+            var traceA1 = {
+                x: ns, y: pow_02, mode: 'lines+markers', name: 'μ = 0.2 % (pessimistisch)',
+                line: {color: '#e74c3c', width: 2}, marker: {size: 6},
+                hovertemplate: 'n=%{x}<br>Power=%{y:.1f}%<extra>μ=0.2%</extra>'
+            };
+            var traceA2 = {
+                x: ns, y: pow_03, mode: 'lines+markers', name: 'μ = 0.302 % (beobachtet)',
+                line: {color: '#2c3e50', width: 3}, marker: {size: 7},
+                hovertemplate: 'n=%{x}<br>Power=%{y:.1f}%<extra>μ=0.302%</extra>'
+            };
+            var traceA3 = {
+                x: ns, y: pow_05, mode: 'lines+markers', name: 'μ = 0.5 % (optimistisch)',
+                line: {color: '#11998e', width: 2}, marker: {size: 6},
+                hovertemplate: 'n=%{x}<br>Power=%{y:.1f}%<extra>μ=0.5%</extra>'
+            };
+
+            var layoutA = {
+                title: {text: 'Power als Funktion der Stichprobengröße (Fall A: TECH N=6)', font: {size: 14}},
+                xaxis: {title: 'Sample Size n', range: [0, 210], gridcolor: '#ecf0f1'},
+                yaxis: {title: 'Statistical Power (%)', range: [0, 105], gridcolor: '#ecf0f1'},
+                shapes: [
+                    {type: 'line', x0: 0, x1: 210, y0: 80, y1: 80,
+                     line: {color: '#7f8c8d', width: 1, dash: 'dash'}},
+                    {type: 'line', x0: 21, x1: 21, y0: 0, y1: 105,
+                     line: {color: '#e67e22', width: 1, dash: 'dot'}},
+                    {type: 'line', x0: 36, x1: 36, y0: 0, y1: 105,
+                     line: {color: '#11998e', width: 1, dash: 'dot'}}
+                ],
+                annotations: [
+                    {x: 200, y: 82, text: '80 %-Power-Ziel', showarrow: false,
+                     font: {size: 10, color: '#7f8c8d'}, xanchor: 'right'},
+                    {x: 21, y: 102, text: 'n=21<br>(beobachtet)', showarrow: false,
+                     font: {size: 10, color: '#e67e22'}, xanchor: 'left'},
+                    {x: 36, y: 102, text: 'n=36<br>(80 %-Ziel)', showarrow: false,
+                     font: {size: 10, color: '#11998e'}, xanchor: 'left'}
+                ],
+                legend: {x: 0.5, y: -0.15, xanchor: 'center', orientation: 'h'},
+                margin: {l: 60, r: 30, t: 50, b: 80},
+                plot_bgcolor: '#fff', paper_bgcolor: '#fff'
+            };
+            Plotly.newPlot('powerCurveA', [traceA1, traceA2, traceA3], layoutA,
+                           {displayModeBar: false, responsive: true});
+
+            // ---------- Fall B: Cohen's d Vergleich ----------
+            var traceB = {
+                x: ['A) TECH N=6', 'B) FRED H3 SPY-20d', 'C) CC-MR Excess'],
+                y: [0.419, 0.283, 0.081],
+                type: 'bar',
+                marker: {color: ['#e67e22', '#4facfe', '#e74c3c']},
+                text: ['0.419<br>klein–mittel', '0.283<br>klein', '0.081<br>vernachlässigbar'],
+                textposition: 'outside',
+                hovertemplate: '%{x}<br>Cohen\'s d = %{y:.3f}<extra></extra>'
+            };
+            var layoutB = {
+                title: {text: 'Cohen\'s d — standardisierte Effektgröße der drei Fälle', font: {size: 14}},
+                yaxis: {title: 'Cohen\'s d (|μ| / σ)', range: [0, 0.6], gridcolor: '#ecf0f1'},
+                shapes: [
+                    {type: 'line', x0: -0.5, x1: 2.5, y0: 0.2, y1: 0.2,
+                     line: {color: '#7f8c8d', width: 1, dash: 'dash'}},
+                    {type: 'line', x0: -0.5, x1: 2.5, y0: 0.5, y1: 0.5,
+                     line: {color: '#7f8c8d', width: 1, dash: 'dash'}}
+                ],
+                annotations: [
+                    {x: 2.4, y: 0.21, text: 'd = 0.2 (klein)', showarrow: false,
+                     font: {size: 9, color: '#7f8c8d'}, xanchor: 'right'},
+                    {x: 2.4, y: 0.51, text: 'd = 0.5 (mittel)', showarrow: false,
+                     font: {size: 9, color: '#7f8c8d'}, xanchor: 'right'}
+                ],
+                margin: {l: 60, r: 30, t: 50, b: 50},
+                plot_bgcolor: '#fff', paper_bgcolor: '#fff'
+            };
+            Plotly.newPlot('cohenBarB', [traceB], layoutB,
+                           {displayModeBar: false, responsive: true});
+
+            // ---------- Fall C: Observed vs MDE ----------
+            var traceC = {
+                x: ['Beobachteter Effekt', 'MDE @ 80 % Power'],
+                y: [0.080, 0.142],
+                type: 'bar',
+                marker: {color: ['#e74c3c', '#7f8c8d']},
+                text: ['+0.080 %<br>(messbar?)', '±0.142 %<br>(Schwelle)'],
+                textposition: 'outside',
+                width: [0.5, 0.5],
+                hovertemplate: '%{x}<br>Wert: %{y:.3f}%<extra></extra>'
+            };
+            var layoutC = {
+                title: {text: 'Fall C — beobachteter Effekt vs. Minimum Detectable Effect (n = 300)', font: {size: 14}},
+                yaxis: {title: 'Effekt-Größe (%)', range: [0, 0.20], gridcolor: '#ecf0f1'},
+                margin: {l: 60, r: 30, t: 50, b: 50},
+                plot_bgcolor: '#fff', paper_bgcolor: '#fff',
+                showlegend: false
+            };
+            Plotly.newPlot('mdeBarC', [traceC], layoutC,
+                           {displayModeBar: false, responsive: true});
+        })();
+        </script>
+    </div>
+</body>
+</html>
