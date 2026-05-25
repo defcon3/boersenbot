@@ -272,8 +272,9 @@
                 <li><a href="#h8">GDELT-News-Sentiment-Conditioning</a> <span class="badge red">RED</span></li>
                 <li><a href="#h9">Minuten-Momentum (Intraday-Continuation)</a> <span class="badge red">RED</span></li>
                 <li><a href="#h10">Open→Close Down-Streak Harvest</a> <span class="badge red">RED</span></li>
+                <li><a href="#h11">Dividend Capture DE (DAX-40 + MDAX-50)</a> <span class="badge red">RED</span> <span class="badge dim">neu · 2026-05-25</span></li>
             </ol>
-            <p style="margin-top: 12px;">📬 <a href="#power"><strong>Iteration 2: Power-Analyse</strong></a> nach Reviewer-Feedback <span class="badge dim">v2 · 2026-05-25</span> (unten)</p>
+            <p style="margin-top: 12px;">📬 <a href="#power"><strong>Iteration 2: Power-Analyse</strong></a> nach Reviewer-Feedback <span class="badge dim">v3 · 2026-05-25</span> (unten)</p>
         </section>
 
         <!-- ================================================================== -->
@@ -1042,6 +1043,151 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
         </section>
 
         <!-- ================================================================== -->
+        <!-- H11: DIVIDEND CAPTURE DE                                              -->
+        <!-- ================================================================== -->
+        <section id="h11">
+            <h2>11. Dividend Capture DE (DAX-40 + MDAX-50)</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-25</span>
+            <span class="badge dim">Pre-registered</span>
+
+            <h3>Hypothese</h3>
+            <p>
+                Kauf einer deutschen Aktie am letzten Cum-Day (Tag T−1 vor dem
+                Ex-Dividenden-Tag), Verkauf an Tag T+N mit N ∈ {1, 3, 5, 10, 20}.
+                Erwartung: Brutto-Drop am Ex-Tag ist kleiner als die Brutto-Dividende
+                (akademisch dokumentiertes „Drop-Ratio &lt; 1"), und die Lücke ist groß
+                genug, um nach Kapitalertragsteuer (26.375 % auf Brutto-Div) noch einen
+                positiven Excess-Return gegenüber einem DAX-Buy-and-Hold zu erzielen.
+            </p>
+
+            <h3>Mechanismus</h3>
+            <p>
+                Mögliche Ursachen für eine Drop-Ratio &lt; 1: steuerheterogene Investor-Klassen
+                (steuerbefreite Pensions-/Stiftungs-Investoren treiben den Preis nach Ex),
+                Mikrostruktur-Effekte am Stichtag, Verhaltens-Effekte. Deutsche Aktien zahlen
+                typisch 1× jährlich aus → große Einzeldividenden statt US-Quartalstrippel,
+                ungewöhnliches Volumen-Profil.
+            </p>
+
+            <h3>Daten & Setup</h3>
+            <ul>
+                <li>Universum: DAX-40 + MDAX-50, Stand 2026 (fixe Liste, 84 von 90 Tickern mit Daten)</li>
+                <li>Quelle: yfinance (OHLC + <code>.dividends</code>)</li>
+                <li>Zeitraum: 2010-01-01 bis 2025-12-31</li>
+                <li>Train 2010–2018, Test 2019–2025, COVID-Exclusion 2020-02-15 bis 2020-04-30</li>
+                <li>Benchmark: <code>^GDAXI</code> (DAX Performance-Index)</li>
+                <li>Steuer-Faktor: 0.73625 (KapESt 25 % + Soli 5.5 %, ohne Kirchensteuer, ohne Sparerpauschbetrag)</li>
+                <li>n = 602 Train-Events × 5 Hold-Windows, 493 Test-Events × 5 Hold-Windows</li>
+            </ul>
+
+            <h3>Pre-Registrierte Gates</h3>
+            <ul>
+                <li><strong>G1</strong> (Train-Direction): mean(Train-Excess) &gt; 0 und Train-t &gt; +2.0</li>
+                <li><strong>G2</strong> (Test-Bonferroni K=5): Test-t &gt; +2.58</li>
+                <li><strong>G3</strong> (Median-Konsistenz): Median(Test) &gt; 0 und Wilcoxon-p &lt; 0.05</li>
+                <li><strong>G4</strong> (Practical Significance): Mean(Test) &gt; +0.3 %/Trade</li>
+            </ul>
+
+            <h3>Ergebnis</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="num">N</th>
+                        <th class="num">n_test</th>
+                        <th class="num">Mean Train (%)</th>
+                        <th class="num">t Train</th>
+                        <th class="num">Mean Test (%)</th>
+                        <th class="num">t Test</th>
+                        <th class="num">Median Test (%)</th>
+                        <th>Gates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td class="num">493</td>
+                        <td class="num bad">−0.299</td>
+                        <td class="num bad">−4.64</td>
+                        <td class="num bad">−0.306</td>
+                        <td class="num bad">−3.44</td>
+                        <td class="num bad">−0.269</td>
+                        <td>0/4 ❌</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td class="num">493</td>
+                        <td class="num bad">−0.328</td>
+                        <td class="num bad">−3.50</td>
+                        <td class="num bad">−0.471</td>
+                        <td class="num bad">−3.83</td>
+                        <td class="num bad">−0.420</td>
+                        <td>0/4 ❌</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td class="num">493</td>
+                        <td class="num bad">−0.308</td>
+                        <td class="num bad">−2.48</td>
+                        <td class="num bad">−0.423</td>
+                        <td class="num bad">−2.57</td>
+                        <td class="num bad">−0.348</td>
+                        <td>0/4 ❌</td>
+                    </tr>
+                    <tr>
+                        <td class="num">10</td>
+                        <td class="num">493</td>
+                        <td class="num bad">−0.299</td>
+                        <td class="num bad">−1.85</td>
+                        <td class="num bad">−0.824</td>
+                        <td class="num bad">−3.64</td>
+                        <td class="num bad">−0.773</td>
+                        <td>0/4 ❌</td>
+                    </tr>
+                    <tr>
+                        <td class="num">20</td>
+                        <td class="num">493</td>
+                        <td class="num">+0.040</td>
+                        <td class="num">+0.17</td>
+                        <td class="num bad">−1.016</td>
+                        <td class="num bad">−2.99</td>
+                        <td class="num bad">−1.354</td>
+                        <td>0/4 ❌</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box danger">
+                <strong>Verdict: RED — strukturell falsifiziert, sogar negativer Edge.</strong>
+                Kein einziges Hold-Window besteht G1. Excess-Return ist in <em>Train und Test</em>
+                signifikant <em>negativ</em>, in allen 5 Hold-Windows. Je länger gehalten,
+                desto größer der Verlust (N=20 → mean = −1.02 %).
+            </div>
+
+            <h3>Interpretation / Lehre</h3>
+            <ol>
+                <li><strong>Drop-Ratio ≥ 1 im untersuchten Sample.</strong> Der Ex-Day-Drop ist
+                    im Mittel mindestens so groß wie die Brutto-Dividende — der akademische
+                    Drop-Ratio-&lt;-1-Effekt taucht hier nicht handelbar auf.</li>
+                <li><strong>Steuer-Mechanik schlägt voll durch.</strong> Verlust ~0.3 %/Trade
+                    bei N=1 = Größenordnung des Brutto-Steuerabzugs auf typische Dividenden-Yields.</li>
+                <li><strong>Längeres Halten verstärkt den Verlust.</strong> Vermutlich Mean Reversion
+                    der Einzelaktien gegen den DAX-Index — deutsche Single-Names underperformen
+                    den Index strukturell im Test-Zeitraum, ungeachtet der Dividende.</li>
+                <li><strong>Survivor-Bias zugunsten der Strategie war eingebaut</strong>
+                    (aktuelle DAX-40-Komposition statt Point-in-Time). Strategie ist trotzdem RED —
+                    der Befund ist nach unten robust.</li>
+                <li><strong>Pre-Reg-Disziplin bewahrt:</strong> ein Lauf, klares RED, kein Tuning
+                    nach Sektor/Yield. Differenzierte Varianten wären eine <strong>neue</strong>
+                    Pre-Reg, kein Patch.</li>
+            </ol>
+
+            <h3>Code-Referenz</h3>
+            <pre>github.com/defcon3/boersenbot/dividend_capture_test.py
+preregs/dividend_capture_de_2026_05_25.md
+Pre-Reg-Commit: 871bac1b · Result-Commit: 9c4f5fb2</pre>
+        </section>
+
+        <!-- ================================================================== -->
         <!-- SCHLUSSBETRACHTUNG                                                       -->
         <!-- ================================================================== -->
         <section>
@@ -1419,7 +1565,7 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
             </div>
 
             <!-- ====================== TABELLE ALLE 10 ============================ -->
-            <h3 style="margin-top: 28px;">Power-Level + Verdict-Type für alle 10 RED-Hypothesen</h3>
+            <h3 style="margin-top: 28px;">Power-Level + Verdict-Type für alle 11 RED-Hypothesen</h3>
             <p>
                 Klassifikation aller bisher dokumentierten RED-Verdikte nach dem Schema oben.
                 <strong>Power Level</strong> = Einschätzung der Aussagekraft (High = großes n
@@ -1535,6 +1681,15 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
                         <td>Sauber falsifiziert</td>
                         <td>Down-Streak-Tag-Cluster, kein echter Excess</td>
                     </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Dividend Capture DE (DAX-40 + MDAX-50)</td>
+                        <td class="num">493</td>
+                        <td class="num">−0.31 % bis −1.02 %</td>
+                        <td><span class="power-pill high">High</span></td>
+                        <td>Sauber falsifiziert</td>
+                        <td>Negativer Edge: Drop-Ratio ≥ 1, Steuer 26.375 % schlägt voll durch</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -1545,18 +1700,19 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
             </p>
 
             <!-- ====================== ZUSAMMENFASSUNG ============================ -->
-            <h3 style="margin-top: 24px;">Zusammenfassung — was die Power-Analyse über die 10 RED-Verdikte aussagt</h3>
+            <h3 style="margin-top: 24px;">Zusammenfassung — was die Power-Analyse über die 11 RED-Verdikte aussagt</h3>
             <div class="info-box gray">
                 <ul>
-                    <li><strong>7 von 10 — Sauber falsifiziert</strong>
-                        (Yen-Carry, FRED Trio, MA-Crossover, SOM, VIX-Conditioner, GDELT, Open→Close):
+                    <li><strong>8 von 11 — Sauber falsifiziert</strong>
+                        (Yen-Carry, FRED Trio, MA-Crossover, SOM, VIX-Conditioner, GDELT, Open→Close,
+                        Dividend Capture DE):
                         Power reicht aus, Falsifikationsgrund ist methodisch (Direction-Flip, OOS-Kollaps,
-                        Cross-Asset-Inkonsistenz, Zufallsrate, Cluster-Artefakt) — nicht statistische Schwäche.
-                        Diese Hypothesen sind endgültig tot.</li>
-                    <li><strong>2 von 10 — Underpowered</strong> (Streak-TECH-N=6, Minuten-Momentum):
+                        Cross-Asset-Inkonsistenz, Zufallsrate, Cluster-Artefakt, struktureller Verlust) —
+                        nicht statistische Schwäche. Diese Hypothesen sind endgültig tot.</li>
+                    <li><strong>2 von 11 — Underpowered</strong> (Streak-TECH-N=6, Minuten-Momentum):
                         Stichprobe zu klein für die beobachtete Effekt-Größe. RED formal korrekt, aber
                         Re-Pre-Reg mit längerer Historie wäre methodisch legitim.</li>
-                    <li><strong>1 von 10 — Praktisch irrelevant</strong> (Close-to-Close MR Excess):
+                    <li><strong>1 von 11 — Praktisch irrelevant</strong> (Close-to-Close MR Excess):
                         Effekt selbst zu klein für Handelskosten. Selbst falls statistisch nachweisbar
                         wäre, ökonomisch wertlos.</li>
                 </ul>
