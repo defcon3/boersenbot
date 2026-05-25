@@ -273,6 +273,7 @@
                 <li><a href="#h9">Minuten-Momentum (Intraday-Continuation)</a> <span class="badge red">RED</span></li>
                 <li><a href="#h10">Open→Close Down-Streak Harvest</a> <span class="badge red">RED</span></li>
                 <li><a href="#h11">Dividend Capture DE (DAX-40 + MDAX-50)</a> <span class="badge red">RED</span> <span class="badge dim">neu · 2026-05-25</span></li>
+                <li><a href="#h12">Optionsschein vor Dividenden-Stichtag (Put &amp; Call)</a> <span class="badge red">RED</span> <span class="badge dim">neu · 2026-05-25</span></li>
             </ol>
             <p style="margin-top: 12px;">📬 <a href="#power"><strong>Iteration 2: Power-Analyse</strong></a> nach Reviewer-Feedback <span class="badge dim">v3 · 2026-05-25</span> (unten)</p>
         </section>
@@ -1188,6 +1189,127 @@ Pre-Reg-Commit: 871bac1b · Result-Commit: 9c4f5fb2</pre>
         </section>
 
         <!-- ================================================================== -->
+        <!-- H12: OPTIONSSCHEIN VOR DIVIDENDE                                      -->
+        <!-- ================================================================== -->
+        <section id="h12">
+            <h2>12. Optionsschein-Strategie vor dem Dividenden-Stichtag (Put &amp; Call)</h2>
+            <span class="badge red">RED</span> <span class="badge gray">2026-05-25</span>
+            <span class="badge dim">Theoretisch + empirisch falsifiziert</span>
+
+            <h3>Hypothese (zwei Varianten)</h3>
+            <p>
+                <strong>H1a (Put):</strong> Kauf eines Put-Optionsscheins vor dem Ex-Dividenden-Tag,
+                profitiere vom Kursabschlag am Ex-Tag.<br>
+                <strong>H1b (Call):</strong> Wenn der Kursabschlag bereits im Optionspreis eingepreist
+                ist, müsste der Call vor dem Ex-Tag billiger sein — also Call kaufen und profitieren,
+                wenn der Drop kleiner ausfällt als erwartet.
+            </p>
+
+            <h3>Theoretische Falsifikation (Put-Call-Parity)</h3>
+            <p>
+                Optionspreise sind <strong>per Konstruktion dividenden-bereinigt</strong>. Aus der
+                erweiterten Put-Call-Parity:
+            </p>
+            <pre>C − P = S − K·e^(−rT) − D·e^(−rT)
+
+mit D = erwartete Dividende vor Expiry,
+    r = risikoloser Zins, T = Restlaufzeit</pre>
+            <p>
+                Daraus folgt direkt:
+            </p>
+            <ul>
+                <li>Höhere Dividende → <strong>Put wird teurer, Call wird billiger</strong> — beides
+                    um genau den abdiskontierten Dividendenbetrag.</li>
+                <li>Am Ex-Tag fällt der Spot um die erwartete Dividende. Per Modell-Konstruktion ist
+                    der neue Put-Wert ≈ alter Put-Wert (kein Gewinn). Analog für den Call:
+                    Spot-Drop kompensiert den höheren Spot-zu-Strike-Abstand nach Removal der Dividende
+                    aus dem Pricing.</li>
+                <li>Netto-P&amp;L bei perfekt eingepreister Dividende: <strong>exakt 0</strong>,
+                    abzüglich Theta + Spread + Vega-Crush.</li>
+            </ul>
+
+            <h3>Empirische Verschärfung über Befund #11</h3>
+            <p>
+                Hypothese <a href="#h11">#11 (Dividend Capture DE)</a> hat gezeigt, dass die
+                <strong>Drop-Ratio in Deutschland ≥ 1</strong> ist — der Spot fällt im Mittel
+                <em>mindestens</em> so viel wie die Brutto-Dividende, oft sogar mehr (mean
+                Excess-Return je Trade negativ über alle 5 Hold-Windows).
+            </p>
+            <p>
+                Konsequenz für die Optionsschein-Strategien:
+            </p>
+            <ul>
+                <li><strong>Put-Variante:</strong> Drop-Ratio &lt; 1 wäre nötig für einen Edge.
+                    Befund #11 zeigt Drop-Ratio ≥ 1 → Put-Wert verändert sich höchstens neutral,
+                    nach Kosten negativ.</li>
+                <li><strong>Call-Variante:</strong> Hier wäre ein Drop-Ratio &gt; 1 (Aktie fällt
+                    <em>weniger</em> als eingepreist) der Edge — also genau die Gegenrichtung des
+                    Befunds. Drop-Ratio ist aber im Mittel ≥ 1, der Call verliert systematisch:
+                    der tatsächliche Spot-Drop übersteigt den eingepreisten Discount.</li>
+            </ul>
+
+            <h3>Zusätzliche Kosten-Killer (deutsche Optionsscheine)</h3>
+            <ul>
+                <li><strong>Bid-Ask-Spread</strong> 1–3 % (vs ~0.5 % bei US-Listed-Optionen)</li>
+                <li><strong>Theta</strong> (Zeitwertverlust) über den Halte-Zeitraum</li>
+                <li><strong>Vol-Crush</strong> nach Ex-Event (Vega-Verlust)</li>
+                <li><strong>Emittenten-Spread:</strong> Bank ist immer Gegenpartei und kennt die
+                    Pricing-Mechanik exakt — kein „naive seller" am anderen Ende</li>
+            </ul>
+
+            <h3>Test-Status</h3>
+            <p>
+                <strong>Keine empirische Studie durchgeführt</strong>, weil:
+            </p>
+            <ul>
+                <li>Historische Optionsschein-Preise (Comdirect, SocGen, BNP, etc.) sind in
+                    Deutschland kaum frei verfügbar.</li>
+                <li>Theoretische Black-Scholes-Rekonstruktion würde per Modell-Annahme exakt das
+                    Null-Ergebnis erzwingen — wäre tautologisch, nicht empirisch.</li>
+                <li>Live-Paper-Trading über mehrere Dividenden-Stichtage wäre möglich, n bliebe
+                    aber klein (eine DAX-Aktie zahlt 1× jährlich).</li>
+            </ul>
+            <p>
+                Das Verdict ist daher <strong>theoriegestützt</strong> (Put-Call-Parity als
+                geschlossene Form) plus <strong>empirisch indirekt verschärft</strong> durch
+                Befund #11. Eine separate Pre-Reg + empirischer Live-Test bleibt für eine
+                zukünftige Iteration möglich, aber unattraktiv: erwartete Effektgröße per Theorie
+                ≈ 0, Kosten 1–3 % je Trade.
+            </p>
+
+            <div class="info-box danger">
+                <strong>Verdict: RED — theoretisch falsifiziert per Put-Call-Parity,
+                empirisch zusätzlich verschärft durch Befund #11 (Drop-Ratio ≥ 1 in DE).</strong>
+                Sowohl Put- als auch Call-Variante sind systematisch unprofitabel. Die Strategie
+                ist mathematisch begründet wertlos — vor Kosten ≈ 0, nach Kosten signifikant
+                negativ.
+            </div>
+
+            <h3>Interpretation / Lehre</h3>
+            <ol>
+                <li><strong>Optionspreise enthalten alle bekannten zukünftigen Cash-Flows.</strong>
+                    Wer auf einen „im Voraus eingepreisten" Effekt setzt, wettet gegen das
+                    Bewertungs-Modell selbst, nicht gegen den Markt.</li>
+                <li><strong>Symmetrie-Test:</strong> Wenn eine Hypothese in der einen Richtung
+                    falsifiziert ist, ist ihre Umkehrung nicht automatisch der Edge — oft ist sie
+                    aus dem gleichen Grund tot. Hier: Put-Variante scheitert per Parity →
+                    Call-Variante scheitert per Parity ebenso.</li>
+                <li><strong>Empirie kann Theorie verschärfen:</strong> Befund #11 macht die
+                    Call-Variante <em>schlechter</em> als die theoretische Null-Erwartung, weil
+                    der reale Drop größer ist als der erwartete.</li>
+                <li><strong>Spread + Theta als sicheres Loss:</strong> bei reinen
+                    „nahezu Fair-Value"-Strategien fressen Transaktionskosten und Zeitwertverlust
+                    jede theoretische Asymmetrie auf.</li>
+            </ol>
+
+            <h3>Code-Referenz</h3>
+            <pre>Keine Empirie — Verdict folgt aus Put-Call-Parity (Lehrbuch)
+plus Befund #11 (Drop-Ratio ≥ 1).
+Theoretischer BS-Rekonstruktions-Test wäre tautologisch
+(per Modell-Annahme exakt 0), daher nicht durchgeführt.</pre>
+        </section>
+
+        <!-- ================================================================== -->
         <!-- SCHLUSSBETRACHTUNG                                                       -->
         <!-- ================================================================== -->
         <section>
@@ -1565,7 +1687,7 @@ Pre-Reg-Commit: 871bac1b · Result-Commit: 9c4f5fb2</pre>
             </div>
 
             <!-- ====================== TABELLE ALLE 10 ============================ -->
-            <h3 style="margin-top: 28px;">Power-Level + Verdict-Type für alle 11 RED-Hypothesen</h3>
+            <h3 style="margin-top: 28px;">Power-Level + Verdict-Type für alle 12 RED-Hypothesen</h3>
             <p>
                 Klassifikation aller bisher dokumentierten RED-Verdikte nach dem Schema oben.
                 <strong>Power Level</strong> = Einschätzung der Aussagekraft (High = großes n
@@ -1690,6 +1812,15 @@ Pre-Reg-Commit: 871bac1b · Result-Commit: 9c4f5fb2</pre>
                         <td>Sauber falsifiziert</td>
                         <td>Negativer Edge: Drop-Ratio ≥ 1, Steuer 26.375 % schlägt voll durch</td>
                     </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Optionsschein vor Dividende (Put &amp; Call)</td>
+                        <td class="num">n/a</td>
+                        <td class="num">≈ 0 (per Theorie)</td>
+                        <td><span class="power-pill high">High</span></td>
+                        <td>Sauber falsifiziert</td>
+                        <td>Put-Call-Parity preist Dividende ein; #11 zeigt Drop-Ratio ≥ 1 → beide Varianten tot</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -1700,19 +1831,20 @@ Pre-Reg-Commit: 871bac1b · Result-Commit: 9c4f5fb2</pre>
             </p>
 
             <!-- ====================== ZUSAMMENFASSUNG ============================ -->
-            <h3 style="margin-top: 24px;">Zusammenfassung — was die Power-Analyse über die 11 RED-Verdikte aussagt</h3>
+            <h3 style="margin-top: 24px;">Zusammenfassung — was die Power-Analyse über die 12 RED-Verdikte aussagt</h3>
             <div class="info-box gray">
                 <ul>
-                    <li><strong>8 von 11 — Sauber falsifiziert</strong>
+                    <li><strong>9 von 12 — Sauber falsifiziert</strong>
                         (Yen-Carry, FRED Trio, MA-Crossover, SOM, VIX-Conditioner, GDELT, Open→Close,
-                        Dividend Capture DE):
-                        Power reicht aus, Falsifikationsgrund ist methodisch (Direction-Flip, OOS-Kollaps,
-                        Cross-Asset-Inkonsistenz, Zufallsrate, Cluster-Artefakt, struktureller Verlust) —
-                        nicht statistische Schwäche. Diese Hypothesen sind endgültig tot.</li>
-                    <li><strong>2 von 11 — Underpowered</strong> (Streak-TECH-N=6, Minuten-Momentum):
+                        Dividend Capture DE, Optionsschein vor Dividende):
+                        Power reicht aus oder Theorie ist geschlossen (Put-Call-Parity).
+                        Falsifikationsgrund ist methodisch (Direction-Flip, OOS-Kollaps,
+                        Cross-Asset-Inkonsistenz, Zufallsrate, Cluster-Artefakt, struktureller Verlust,
+                        Modell-Tautologie) — nicht statistische Schwäche. Diese Hypothesen sind endgültig tot.</li>
+                    <li><strong>2 von 12 — Underpowered</strong> (Streak-TECH-N=6, Minuten-Momentum):
                         Stichprobe zu klein für die beobachtete Effekt-Größe. RED formal korrekt, aber
                         Re-Pre-Reg mit längerer Historie wäre methodisch legitim.</li>
-                    <li><strong>1 von 11 — Praktisch irrelevant</strong> (Close-to-Close MR Excess):
+                    <li><strong>1 von 12 — Praktisch irrelevant</strong> (Close-to-Close MR Excess):
                         Effekt selbst zu klein für Handelskosten. Selbst falls statistisch nachweisbar
                         wäre, ökonomisch wertlos.</li>
                 </ul>
