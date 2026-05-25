@@ -111,6 +111,68 @@ Falls während des Codings oder beim Testen herauskommt, dass irgendeine Annahme
 
 ---
 
-## Ergebnisse
+## Ergebnisse (Lauf 2026-05-25)
 
-*Dieser Abschnitt wird NACH dem Test-Lauf ergänzt — als separater Commit unterhalb dieser Linie. Vor dem Lauf darf der obige Text nicht mehr geändert werden.*
+**Verdict: RED — strukturell falsifiziert. Sogar *negativer* Edge.**
+
+### Daten-Yield
+
+- 84 von 90 Tickern erfolgreich geladen (6 mit 0 Tagen oder 0 Dividenden-Events, ausgeschlossen — keine Survivor-Bias-Korrektur, weil symmetrisch in Train+Test)
+- Benchmark `^GDAXI`: 4059 Datenpunkte
+- 5475 Event-Zeilen über alle 5 Hold-Windows; davon Train 3010, Test 2465
+- Pro N: ca. 602 Train-Events, 493 Test-Events — Power für mittlere Effekte ausreichend (vgl. Pre-Reg §5)
+
+### Statistik pro Hold-Window N
+
+| N | n_train | mean_train (%) | t_train | p₁_train | n_test | mean_test (%) | t_test | p₁_test | median_test (%) | wilcox_p |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 602 | −0.299 | −4.64 | 1.000 | 493 | −0.306 | −3.44 | 1.000 | −0.269 | 1.000 |
+| 3 | 602 | −0.328 | −3.50 | 1.000 | 493 | −0.471 | −3.83 | 1.000 | −0.420 | 1.000 |
+| 5 | 602 | −0.308 | −2.48 | 0.993 | 493 | −0.423 | −2.57 | 0.995 | −0.348 | 0.999 |
+| 10 | 602 | −0.299 | −1.85 | 0.968 | 493 | −0.824 | −3.64 | 1.000 | −0.773 | 1.000 |
+| 20 | 602 | +0.040 | +0.17 | 0.431 | 493 | −1.016 | −2.99 | 0.999 | −1.354 | 1.000 |
+
+(p₁ = einseitiger p-Wert *für die Hypothese-Richtung* Excess > 0. p₁ ≈ 1.0 heißt: Excess ist hochsignifikant in der *entgegengesetzten* Richtung.)
+
+### Gate-Check
+
+| N | G1 (Train>0, t>2.0) | G2 (Test t>2.58) | G3 (Median>0, wilcox<.05) | G4 (Test>0.3%) | Alle pass |
+|---|---|---|---|---|---|
+| 1 | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 3 | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 5 | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 10 | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 20 | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+**Kein einziges Hold-Window besteht auch nur G1.** Der schwächste Train-Verlust ist N=20 mit mean = +0.040 % (nicht signifikant, t = +0.17) — im Test kollabiert genau dieses N auf mean = −1.02 % (t = −2.99, signifikant negativ).
+
+### Lehre
+
+1. **Drop-Ratio ≥ 1 in Deutschland (im untersuchten Sample).** Der Ex-Day-Drop ist im Mittel mindestens so groß wie die Brutto-Dividende — der akademisch dokumentierte "Drop-Ratio < 1"-Effekt taucht hier nicht handelbar auf.
+
+2. **Steuer-Mechanik schlägt voll durch.** Die Strategie verliert ca. 0.3 %/Trade bei kurzem Hold (N=1) — das deckt sich mit der Größenordnung des Brutto-Steuerabzugs auf typische Dividenden-Yields (typisch 2–4 % p.a.; bei ~26 % Abzug = 0.5–1 % je Event Brutto-Steuer-Verlust, abzüglich Drop-Ratio-Vorteil).
+
+3. **Längeres Halten verstärkt den Verlust.** N=20 zeigt im Test mean = −1.02 % — vermutlich Mean Reversion gegen den DAX-Index in der Test-Periode (deutsche Single-Names underperformen den Index strukturell, ungeachtet der Dividende).
+
+4. **Pre-Reg-Disziplin bewahrt.** Die Hypothese wäre verlockend zum "Tuning" gewesen (Subsetting nach Sektor, nach Größe, nach Yield-Bracket). Stattdessen: ein Lauf, klares RED, keine Reparatur. Wenn der User die Hypothese in einer differenzierten Form weiterverfolgen will (z. B. "nur Aktien mit Yield > 5 %"), wäre das eine **neue Pre-Reg**, kein Patch dieser hier.
+
+### Einordnung in die done-Liste
+
+Diese Hypothese wird Eintrag **#11** auf der `done`-Seite (sobald in die Hauptseite aufgenommen):
+
+| Spalte | Wert |
+|---|---|
+| Hypothese | Dividend Capture DE (DAX-40 + MDAX-50) |
+| n (Test) | 493 pro Hold-Window |
+| Observed Effect | −0.31 % bis −1.02 % (negativ!) |
+| Power Level | **High** (n groß, Effekt klar messbar in *Gegenrichtung*) |
+| Verdict Type | **Sauber falsifiziert** (sogar Direction-Flip wäre falsche Sprache — der Effekt ist eindeutig negativ in Train *und* Test, gleiche Richtung, hochsignifikant) |
+| Kommentar | Drop-Ratio ≥ 1, Steuer schlägt voll durch, längeres Hold = mehr Verlust |
+
+### Code-Referenz
+
+- `dividend_capture_test.py`
+- `dividend_capture.log`, `dividend_capture_events.csv`, `dividend_capture_stats.csv`, `dividend_capture_gates.csv`
+- Daten-Cache: `dax_mdax_divs_2010_2025.pkl`, `gdaxi_2010_2025.pkl`
+- Pre-Reg-Commit-Anchor: `871bac1b`
+
