@@ -117,6 +117,91 @@ Wenn beim Coding herauskommt, dass die Pre-Reg unsauber definiert ist (z. B. Top
 
 ---
 
-## Ergebnisse
+## Ergebnisse (Lauf 2026-05-25)
 
-*Dieser Abschnitt wird NACH dem Test-Lauf ergänzt — als separater Commit unterhalb dieser Linie.*
+**Verdict: RED — selektiver Edge nicht reproduzierbar. Top-10-Outperformer aus Train sind in Test mehrheitlich Verlierer.**
+
+### Top-10 aus Train (2010-2018, gerankt nach mean Excess bei N=5)
+
+| Rang | Ticker | Unternehmen | Train-Mean (%) | Train n |
+|---|---|---|---|---|
+| 1 | SRT3.DE | Sartorius Vorzüge | +3.24 | 9 |
+| 2 | DUE.DE | Dürr AG | +3.23 | 8 |
+| 3 | STO3.DE | Sto SE | +2.12 | 8 |
+| 4 | PAH3.DE | Porsche Automobil Holding | +1.86 | 11 |
+| 5 | DEZ.DE | Deutz AG | +1.85 | 5 |
+| 6 | NEM.DE | Nemetschek SE | +1.41 | 9 |
+| 7 | EVK.DE | Evonik | +0.91 | 5 |
+| 8 | AIR.DE | Airbus | +0.81 | 8 |
+| 9 | ADS.DE | Adidas | +0.78 | 9 |
+| 10 | LXS.DE | Lanxess | +0.77 | 9 |
+
+### Aggregat-Test (Test-Periode 2019-2025, gleiche 10 Aktien)
+
+| Metrik | Wert |
+|---|---|
+| n_test | 66 |
+| **Mean Test-Excess** | **−0.68 %** |
+| t-Test (einseitig pos.) | −1.34 |
+| p₁ (one-sided) | 0.907 |
+| Median Test-Excess | −0.85 % |
+| Wilcoxon p₁ (greater) | 0.993 |
+
+### Pro-Aktie Test-Performance
+
+| Ticker | Test-Mean | Train→Test |
+|---|---|---|
+| LXS.DE | **+2.52 %** | bleibt positiv ✓ |
+| AIR.DE | **+1.17 %** | bleibt positiv ✓ |
+| EVK.DE | −0.01 % | Flat |
+| ADS.DE | −1.10 % | Flip |
+| NEM.DE | −1.12 % | Flip |
+| PAH3.DE | −1.18 % | Flip |
+| STO3.DE | −1.23 % | Flip |
+| DEZ.DE | −1.37 % | Flip |
+| DUE.DE | −1.58 % | Flip |
+| SRT3.DE | **−2.71 %** | Stark Flip |
+
+**Nur 2 von 10 Aktien (LXS, AIR) halten ihre positive Train-Performance in Test.** Die anderen 8 flippen die Richtung — Sartorius (Train-Rang 1) ist im Test sogar der schlechteste Performer (−2.71 %).
+
+### Gate-Check
+
+| Gate | Bedingung | Wert | Status |
+|---|---|---|---|
+| G1 | Mean > 0 | −0.68 % | ❌ FAIL |
+| G2 | t > 2.0 | −1.34 | ❌ FAIL |
+| G3 | Median > 0, Wilcox-p < 0.05 | Med −0.85, Wilcox p 0.993 | ❌ FAIL |
+| G4 | Mean > 0.5 % | −0.68 % | ❌ FAIL |
+| G5 | ≥ 6/10 positiv | 2/10 | ❌ FAIL |
+
+**Alle 5 Gates failed.** Nicht knapp — fundamental.
+
+### Was wir gelernt haben (über die Hypothese hinaus)
+
+1. **Train-Top-10 ≠ Test-Top-10.** Train-Top-10 und die Test-Top-10 aus dem Sanity-Check überlappen sich in nur **1 Aktie (LXS)**. Die Identität der Outperformer ist über Train→Test **nicht stabil**.
+
+2. **Der Sanity-Check von gestern war zirkulär.** Wir hatten die Top-10 aus *Test* gewählt und gegen Random-in-Test verglichen. Klar war Test besser — wir hatten ja gerade die Best-Performer ausgewählt. Die Drift-Frage „werden zufällige 5d-Fenster derselben Aktien auch positiv?" wurde durch Selektions-Bias automatisch beantwortet. **Methodischer Fehler von mir (Claude), den Train→Test-Split jetzt korrigiert.**
+
+3. **Mein Prior von 20-25 % nach Sanity-Check war zu hoch.** Hätte direkt 5 % bleiben sollen. Lehre: Sanity-Checks auf demselben Datensatz wie die Hypothese sind unzuverlässig — nur Train→Test-Trennung gibt echte Information.
+
+4. **Selektive Strategien auf Liquid-Markets sind in der Regel Cherry-Picking.** Die Train-Top-10 sahen plausibel aus (Sartorius, Dürr, Adidas — alles „Quality-Wachstum"-Aktien), aber das Pattern reproduziert sich nicht out-of-sample.
+
+### Einordnung in die done-Liste
+
+Diese Hypothese wird Eintrag **#13** auf der `done`-Seite:
+
+| Spalte | Wert |
+|---|---|
+| Hypothese | Selective Dividend Capture DE (Top-10 aus Train) |
+| n (Test) | 66 |
+| Observed Effect | −0.68 % |
+| Power Level | **Medium** (n=66 ausreichend für mittlere Effekte) |
+| Verdict Type | **Sauber falsifiziert** (Train-Selection nicht reproduzierbar OOS, klassisches Overfit-Pattern) |
+| Kommentar | Train-Top-10 ≠ Test-Top-10 (Überlappung: 1 von 10) — Selektion war Rauschen |
+
+### Code-Referenz
+
+- `selective_dividend_capture_test.py`
+- `selective_div_top10_train.csv`, `selective_div_test_events.csv`, `selective_div_test_per_ticker.csv`
+- Pre-Reg-Commit-Anchor: `ad95df6a`
+
