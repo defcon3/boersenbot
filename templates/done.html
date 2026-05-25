@@ -1098,9 +1098,9 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
         <!-- ITERATION 2: POWER-ANALYSE (v2 - 2026-05-25, ausgebaut)               -->
         <!-- ================================================================== -->
         <section id="power">
-            <h2>📬 Iteration 2 — Statistical Power: was „nicht signifikant" wirklich heißt</h2>
+            <h2>📬 Power-Analyse (Iteration 2 — Mai 2026)</h2>
             <span class="badge dim">Reviewer-Feedback 2026-05-24</span>
-            <span class="badge dim">v2 · ausgebaut 2026-05-25</span>
+            <span class="badge dim">v3 · überarbeitet 2026-05-25</span>
 
             <h3>Warum diese Sektion existiert</h3>
             <p>
@@ -1227,17 +1227,29 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
 
             <div class="stat-grid">
                 <div class="stat-tile">
+                    <div class="label">n (Test)</div>
+                    <div class="value">21</div>
+                </div>
+                <div class="stat-tile">
                     <div class="label">Beobachteter Effekt μ</div>
                     <div class="value">+0.302 %</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">t-Wert / p-Wert (einseitig)</div>
+                    <div class="value">+1.92 / 0.035</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Cohen's d</div>
+                    <div class="value">0.419</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">klein–mittel</div>
                 </div>
                 <div class="stat-tile warn">
                     <div class="label">Power bei n = 21</div>
                     <div class="value">60.8 %</div>
                 </div>
                 <div class="stat-tile">
-                    <div class="label">Cohen's d</div>
-                    <div class="value">0.419</div>
-                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">klein–mittel</div>
+                    <div class="label">MDE @ 80 % Power</div>
+                    <div class="value">±0.391 %</div>
                 </div>
                 <div class="stat-tile good">
                     <div class="label">n für 80 % Power</div>
@@ -1251,6 +1263,16 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
                     Abb. A1 — Power als Funktion der Stichprobengröße bei drei
                     hypothetischen Effekt-Größen. Vertikale Linien markieren das
                     tatsächliche n = 21 (beobachtet) und n = 36 (80 %-Ziel bei μ = 0.302 %).
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <div id="mdeBarA" style="width:100%; height:320px;"></div>
+                <div class="caption">
+                    Abb. A2 — Beobachteter Effekt (+0.302 %) im Vergleich zur Minimum
+                    Detectable Effect-Schwelle (±0.391 %) bei n = 21. Der beobachtete
+                    Effekt liegt 23 % unter der Detektions-Schwelle — gerade nicht
+                    signifikant erfassbar.
                 </div>
             </div>
 
@@ -1279,22 +1301,30 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
 
             <div class="stat-grid">
                 <div class="stat-tile">
+                    <div class="label">n (Test-Signaltage)</div>
+                    <div class="value">70</div>
+                </div>
+                <div class="stat-tile">
                     <div class="label">Beobachteter Effekt μ</div>
                     <div class="value">−0.710 %</div>
                 </div>
-                <div class="stat-tile good">
-                    <div class="label">Power bei n = 70</div>
-                    <div class="value">76.6 %</div>
+                <div class="stat-tile">
+                    <div class="label">t-Wert / p-Wert (einseitig)</div>
+                    <div class="value">−2.37 / 0.010</div>
                 </div>
                 <div class="stat-tile">
                     <div class="label">Cohen's d</div>
                     <div class="value">0.283</div>
                     <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">klein</div>
                 </div>
+                <div class="stat-tile good">
+                    <div class="label">Power bei n = 70</div>
+                    <div class="value">76.6 %</div>
+                </div>
                 <div class="stat-tile">
                     <div class="label">Annualisierter Excess</div>
                     <div class="value">−8.95 %</div>
-                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">(−0.71 % je 20d-Fenster × 252/20)</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">(−0.71 % je 20d × 252/20)</div>
                 </div>
             </div>
 
@@ -1334,8 +1364,21 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
 
             <div class="stat-grid">
                 <div class="stat-tile">
+                    <div class="label">n (Test)</div>
+                    <div class="value">300</div>
+                </div>
+                <div class="stat-tile">
                     <div class="label">Beobachteter Effekt μ</div>
                     <div class="value">+0.080 %</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">t-Wert / p-Wert (einseitig)</div>
+                    <div class="value">+1.40 / 0.081</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="label">Cohen's d</div>
+                    <div class="value">0.081</div>
+                    <div style="font-size:0.82em; color:#5d6d7e; margin-top:4px;">vernachlässigbar</div>
                 </div>
                 <div class="stat-tile bad">
                     <div class="label">Power bei n = 300</div>
@@ -1394,81 +1437,103 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
                     <tr>
                         <th>#</th>
                         <th>Hypothese</th>
-                        <th class="num">n (ca.)</th>
+                        <th class="num">n (Test)</th>
+                        <th class="num">Observed Effect</th>
                         <th>Power Level</th>
                         <th>Verdict Type</th>
+                        <th>Kommentar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Yen-Carry-Stress (Risk-Off-Detektor)</td>
+                        <td>Yen-Carry-Stress</td>
                         <td class="num">~6500</td>
+                        <td class="num">div. (OPPOSITE)</td>
                         <td><span class="power-pill high">High</span></td>
-                        <td>Strukturell — 47/48 OPPOSITE-Richtung</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>47/48 OPPOSITE — Spike misst Reaktion, nicht Vorhersage</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Streak-MR Sektor (TECH N=6)</td>
                         <td class="num">21</td>
+                        <td class="num">+0.302 %</td>
                         <td><span class="power-pill low">Low</span></td>
-                        <td>Inconclusive — Power 60.8 %</td>
+                        <td>Underpowered</td>
+                        <td>Power 60.8 % — Re-Pre-Reg mit längerer Historie sinnvoll</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>FRED Macro Trio (Yield/HY/Claims)</td>
                         <td class="num">70 – 4500</td>
+                        <td class="num">−0.71 %<br>(SPY-20d)</td>
                         <td><span class="power-pill medium">Medium</span></td>
-                        <td>Strukturell — Direction-Flip, Cross-Asset-Inkonsistenz</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>Cross-Asset-Inkonsistenz (IWM in falscher Richtung)</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>MA-Crossover 50/200 (S&amp;P-500)</td>
                         <td class="num">~7500</td>
+                        <td class="num">IS+, OOS Flip</td>
                         <td><span class="power-pill high">High</span></td>
-                        <td>Strukturell — IS-Lookback-Artefakt, OOS-Kollaps</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>IS-Lookback-Artefakt, OOS Vorzeichen-Flip</td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td>SOM-Marktregime als Predictor</td>
                         <td class="num">~5000</td>
+                        <td class="num">1/30 sig.</td>
                         <td><span class="power-pill high">High</span></td>
-                        <td>Strukturell — 1/30 = Zufallsrate</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>1/30 = exakte Zufallsrate</td>
                     </tr>
                     <tr>
                         <td>6</td>
                         <td>Close-to-Close MR Excess (breiter Korb)</td>
                         <td class="num">300</td>
+                        <td class="num">+0.080 %</td>
                         <td><span class="power-pill low">Low</span></td>
-                        <td>Inconclusive + Practical Negligibility</td>
+                        <td>Praktisch irrelevant</td>
+                        <td>Effekt &lt; MDE und &lt; typische Handelskosten (5–10 bps)</td>
                     </tr>
                     <tr>
                         <td>7</td>
                         <td>VIX-Conditioner für Streak-MR</td>
                         <td class="num">~5000</td>
+                        <td class="num">IS+, OOS ≈ 0</td>
                         <td><span class="power-pill medium">Medium</span></td>
-                        <td>Strukturell — IS-OOS-Divergenz</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>IS-Falle, OOS kollabiert</td>
                     </tr>
                     <tr>
                         <td>8</td>
                         <td>GDELT-News-Sentiment-Conditioning</td>
                         <td class="num">~2000</td>
+                        <td class="num">Cluster</td>
                         <td><span class="power-pill medium">Medium</span></td>
-                        <td>Strukturell — 2-Namen-Korb-Cluster-Illusion</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>2-Namen-Korb → Cluster-Illusion</td>
                     </tr>
                     <tr>
                         <td>9</td>
                         <td>Minuten-Momentum (Intraday-Continuation)</td>
                         <td class="num">dünn</td>
+                        <td class="num">~ 0</td>
                         <td><span class="power-pill low">Low</span></td>
-                        <td>Inconclusive — 4 Null-Befunde, Mechanismus implausibel</td>
+                        <td>Underpowered</td>
+                        <td>4 Null-Befunde, Daten zu dünn, Mechanismus implausibel</td>
                     </tr>
                     <tr>
                         <td>10</td>
                         <td>Open→Close Down-Streak Harvest</td>
                         <td class="num">~5000</td>
+                        <td class="num">Cluster</td>
                         <td><span class="power-pill medium">Medium</span></td>
-                        <td>Strukturell — Cluster-Illusion</td>
+                        <td>Sauber falsifiziert</td>
+                        <td>Down-Streak-Tag-Cluster, kein echter Excess</td>
                     </tr>
                 </tbody>
             </table>
@@ -1483,24 +1548,29 @@ github.com/defcon3/boersenbot/gap_bounce_study.py (Nachfass GAP-Korb)</pre>
             <h3 style="margin-top: 24px;">Zusammenfassung — was die Power-Analyse über die 10 RED-Verdikte aussagt</h3>
             <div class="info-box gray">
                 <ul>
-                    <li><strong>4 von 10</strong> (Yen-Carry, MA-Crossover, SOM, Open→Close-Korrektur):
-                        <em>High Power, strukturelles RED</em> — Effekt ist nicht nur „nicht gefunden",
-                        sondern aktiv widerlegt durch Direction-Flips, OOS-Kollaps oder Zufallsrate.</li>
-                    <li><strong>3 von 10</strong> (FRED Trio, VIX-Conditioner, GDELT):
-                        <em>Medium Power, strukturelles RED</em> — Sample reicht, Falsifikationsgrund
-                        ist methodisch (Cross-Asset, IS-OOS-Bruch, Cluster-Artefakt),
-                        nicht statistische Schwäche.</li>
-                    <li><strong>3 von 10</strong> (Streak-TECH-N=6, CC-MR Excess, Minuten-Momentum):
-                        <em>Low Power, Inconclusive</em> — RED bleibt formal, aber Re-Test
-                        mit größerem n wäre methodisch legitim. Speziell bei CC-MR ist die
-                        Practical Significance ohnehin nicht da (Effekt zu klein für Kosten).</li>
+                    <li><strong>7 von 10 — Sauber falsifiziert</strong>
+                        (Yen-Carry, FRED Trio, MA-Crossover, SOM, VIX-Conditioner, GDELT, Open→Close):
+                        Power reicht aus, Falsifikationsgrund ist methodisch (Direction-Flip, OOS-Kollaps,
+                        Cross-Asset-Inkonsistenz, Zufallsrate, Cluster-Artefakt) — nicht statistische Schwäche.
+                        Diese Hypothesen sind endgültig tot.</li>
+                    <li><strong>2 von 10 — Underpowered</strong> (Streak-TECH-N=6, Minuten-Momentum):
+                        Stichprobe zu klein für die beobachtete Effekt-Größe. RED formal korrekt, aber
+                        Re-Pre-Reg mit längerer Historie wäre methodisch legitim.</li>
+                    <li><strong>1 von 10 — Praktisch irrelevant</strong> (Close-to-Close MR Excess):
+                        Effekt selbst zu klein für Handelskosten. Selbst falls statistisch nachweisbar
+                        wäre, ökonomisch wertlos.</li>
                 </ul>
                 <p style="margin-top: 8px;">
-                    <strong>Praktische Lehre:</strong> Power-Analyse schwächt 3 der 10 Verdikte
-                    von „endgültig falsifiziert" auf „nicht entscheidbar". Sie hebt keines der
-                    Verdikte auf — aber sie qualifiziert die Sprache und zeigt, wo ein
-                    sauberes Re-Pre-Reg sinnvoll wäre.
+                    <strong>Praktische Konsequenzen für zukünftige Tests:</strong>
                 </p>
+                <ol style="margin-top: 4px;">
+                    <li><strong>Power vor dem Lauf prüfen</strong> — vor einer Pre-Reg überlegen, ob n
+                        groß genug ist, um den erwarteten Effekt mit ≥ 80 % Power zu finden.</li>
+                    <li><strong>MDE als Sanity-Check</strong> — wenn der erwartete Effekt &lt; MDE,
+                        lohnt sich der Test nicht oder n muss erhöht werden.</li>
+                    <li><strong>Practical Significance trennen von Statistical</strong> — auch ein
+                        winziger signifikanter Effekt ist nutzlos, wenn er kleiner als die Handelskosten ist.</li>
+                </ol>
             </div>
 
             <!-- ====================== AUSBLICK =================================== -->
@@ -1546,10 +1616,10 @@ Charts: Plotly inline (siehe Quelltext dieser Seite)</pre>
         <script>
         (function() {
             // ---------- Fall A: Power-Kurve ----------
-            var ns = [5, 10, 15, 21, 25, 30, 36, 40, 50, 60, 75, 100, 150, 200];
-            var pow_02  = [15.3, 22.1, 28.4, 35.4, 39.8, 45.0, 50.8, 54.4, 62.4, 69.3, 77.6, 87.1, 96.0, 98.9];
-            var pow_03  = [23.9, 37.4, 49.1, 60.8, 67.3, 74.2, 80.7, 84.2, 90.6, 94.5, 97.6, 99.5, 100.0, 100.0];
-            var pow_05  = [46.2, 70.8, 85.1, 93.7, 96.6, 98.4, 99.4, 99.7, 99.9, 100.0, 100.0, 100.0, 100.0, 100.0];
+            var ns = [10, 15, 21, 25, 30, 36, 40, 50, 60, 75, 90, 105, 120];
+            var pow_02  = [22.1, 28.4, 35.4, 39.8, 45.0, 50.8, 54.4, 62.4, 69.3, 77.6, 83.8, 88.4, 91.8];
+            var pow_03  = [37.4, 49.1, 60.8, 67.3, 74.2, 80.7, 84.2, 90.6, 94.5, 97.6, 99.0, 99.6, 99.8];
+            var pow_05  = [70.8, 85.1, 93.7, 96.6, 98.4, 99.4, 99.7, 99.9, 100.0, 100.0, 100.0, 100.0, 100.0];
 
             var traceA1 = {
                 x: ns, y: pow_02, mode: 'lines+markers', name: 'μ = 0.2 % (pessimistisch)',
@@ -1569,10 +1639,10 @@ Charts: Plotly inline (siehe Quelltext dieser Seite)</pre>
 
             var layoutA = {
                 title: {text: 'Power als Funktion der Stichprobengröße (Fall A: TECH N=6)', font: {size: 14}},
-                xaxis: {title: 'Sample Size n', range: [0, 210], gridcolor: '#ecf0f1'},
+                xaxis: {title: 'Sample Size n', range: [5, 125], gridcolor: '#ecf0f1'},
                 yaxis: {title: 'Statistical Power (%)', range: [0, 105], gridcolor: '#ecf0f1'},
                 shapes: [
-                    {type: 'line', x0: 0, x1: 210, y0: 80, y1: 80,
+                    {type: 'line', x0: 5, x1: 125, y0: 80, y1: 80,
                      line: {color: '#7f8c8d', width: 1, dash: 'dash'}},
                     {type: 'line', x0: 21, x1: 21, y0: 0, y1: 105,
                      line: {color: '#e67e22', width: 1, dash: 'dot'}},
@@ -1580,7 +1650,7 @@ Charts: Plotly inline (siehe Quelltext dieser Seite)</pre>
                      line: {color: '#11998e', width: 1, dash: 'dot'}}
                 ],
                 annotations: [
-                    {x: 200, y: 82, text: '80 %-Power-Ziel', showarrow: false,
+                    {x: 122, y: 82, text: '80 %-Power-Ziel', showarrow: false,
                      font: {size: 10, color: '#7f8c8d'}, xanchor: 'right'},
                     {x: 21, y: 102, text: 'n=21<br>(beobachtet)', showarrow: false,
                      font: {size: 10, color: '#e67e22'}, xanchor: 'left'},
@@ -1592,6 +1662,27 @@ Charts: Plotly inline (siehe Quelltext dieser Seite)</pre>
                 plot_bgcolor: '#fff', paper_bgcolor: '#fff'
             };
             Plotly.newPlot('powerCurveA', [traceA1, traceA2, traceA3], layoutA,
+                           {displayModeBar: false, responsive: true});
+
+            // ---------- Fall A: Observed vs MDE Bar ----------
+            var traceA_mde = {
+                x: ['Beobachteter Effekt', 'MDE @ 80 % Power'],
+                y: [0.302, 0.391],
+                type: 'bar',
+                marker: {color: ['#e67e22', '#7f8c8d']},
+                text: ['+0.302 %<br>(nicht sig.)', '±0.391 %<br>(Schwelle)'],
+                textposition: 'outside',
+                width: [0.5, 0.5],
+                hovertemplate: '%{x}<br>Wert: %{y:.3f}%<extra></extra>'
+            };
+            var layoutA_mde = {
+                title: {text: 'Fall A — Observed Effect vs. MDE bei n = 21', font: {size: 14}},
+                yaxis: {title: 'Effekt-Größe (%)', range: [0, 0.50], gridcolor: '#ecf0f1'},
+                margin: {l: 60, r: 30, t: 50, b: 50},
+                plot_bgcolor: '#fff', paper_bgcolor: '#fff',
+                showlegend: false
+            };
+            Plotly.newPlot('mdeBarA', [traceA_mde], layoutA_mde,
                            {displayModeBar: false, responsive: true});
 
             // ---------- Fall B: Cohen's d Vergleich ----------
