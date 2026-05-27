@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+econf,2024-25,1,2024-08-10,AFC Fylde,Solihull Moors,3,2,1,2,4957127
+econf,2024-25,1,2024-08-10,Aldershot Town,Forest Green Rovers,3,3,2,1,4957128
+econf,2024-25,1,2024-08-10,Boston United,AFC Rochdale,0,3,0,2,4957130
+econf,2024-25,1,2024-08-10,Dagenham & Redbridge,FC Wealdstone,2,1,0,0,4957131
+econf,2024-25,1,2024-08-10,FC Altrincham,FC Woking,1,0,1,0,4957129
+econf,2024-25,1,2024-08-10,FC Gateshead,Ebbsfleet United,5,1,3,0,4957133
+econf,2024-25,1,2024-08-10,FC Tamworth,Sutton United,1,1,0,0,4957137
+econf,2024-25,1,2024-08-10,Halifax Town,FC Barnet,2,1,0,0,4957132
+econf,2024-25,1,2024-08-10,Maidenhead United,FC Eastleigh,0,2,0,2,4957134
+econf,2024-25,1,2024-08-10,Oldham Athletic,Braintree Town,3,0,2,0,4957135
+econf,2024-25,1,2024-08-10,Southend United,York City,1,1,1,0,4957136
+econf,2024-25,1,2024-08-10,Yeovil Town,Hartlepool United,0,1,0,0,4957138
+econf,2024-25,2,2024-08-17,AFC Rochdale,Dagenham & Redbridge,1,1,0,0,4957145
+econf,2024-25,2,2024-08-17,Boston United,Forest Green Rovers,0,4,0,3,4957139
+econf,2024-25,2,2024-08-17,Braintree Town,Yeovil Town,0,1,0,0,4957140
+econf,2024-25,2,2024-08-17,Ebbsfleet United,FC Barnet,1,2,0,1,4957142
+econf,2024-25,2,2024-08-17,FC Eastleigh,AFC Fylde,4,2,1,2,4957141
+econf,2024-25,2,2024-08-17,FC Wealdstone,Oldham Athletic,0,1,0,0,4957148
+econf,2024-25,2,2024-08-17,FC Woking,FC Gateshead,0,2,0,1,4957149
+econf,2024-25,2,2024-08-17,Halifax Town,Aldershot Town,0,1,0,1,4957143
+econf,2024-25,2,2024-08-17,Hartlepool United,Southend United,0,0,0,0,4957144
+econf,2024-25,2,2024-08-17,Solihull Moors,Maidenhead United,2,1,0,0,4957146
+econf,2024-25,2,2024-08-17,Sutton United,FC Altrincham,5,0,4,0,4957147
+econf,2024-25,2,2024-08-17,York City,FC Tamworth,2,0,0,0,4957150
+econf,2024-25,3,2024-08-20,Braintree Town,Aldershot Town,2,1,0,1,4957152
+econf,2024-25,3,2024-08-20,FC Barnet,Forest Green Rovers,1,0,0,0,4957151
+econf,2024-25,3,2024-08-20,FC Eastleigh,Solihull Moors,2,1,2,0,4957153
+econf,2024-25,3,2024-08-20,FC Tamworth,Hartlepool United,0,1,0,0,4957158
+econf,2024-25,3,2024-08-20,FC Wealdstone,Sutton United,0,1,0,1,4957159
+econf,2024-25,3,2024-08-20,FC Woking,Dagenham & Redbridge,1,0,0,0,4957160
+econf,2024-25,3,2024-08-20,Halifax Town,FC Gateshead,1,1,0,0,4957154
+econf,2024-25,3,2024-08-20,Maidenhead United,FC Altrincham,0,1,0,1,4957155
+econf,2024-25,3,2024-08-20,Oldham Athletic,AFC Fylde,1,1,0,1,4957156
+econf,2024-25,3,2024-08-20,Southend United,Boston United,2,0,1,0,4957157
+econf,2024-25,3,2024-08-20,Yeovil Town,Ebbsfleet United,3,2,2,0,4957161
+econf,2024-25,3,2024-08-20,York City,AFC Rochdale,1,0,1,0,4957162
+econf,2024-25,4,2024-08-23,Dagenham & Redbridge,Halifax Town,1,1,1,0,4957168
+econf,2024-25,4,2024-08-24,AFC Fylde,Maidenhead United,0,0,0,0,4957163
+econf,2024-25,4,2024-08-24,AFC Rochdale,Forest Green Rovers,0,0,0,0,4957172
+econf,2024-25,4,2024-08-24,Aldershot Town,Oldham Athletic,4,1,1,0,4957164
+econf,2024-25,4,2024-08-24,Boston United,FC Tamworth,1,1,1,0,4957167
+econf,2024-25,4,2024-08-24,Ebbsfleet United,FC Woking,0,3,0,1,4957169
+econf,2024-25,4,2024-08-24,FC Altrincham,FC Eastleigh,0,1,0,0,4957165
+econf,2024-25,4,2024-08-24,FC Barnet,Southend United,2,1,1,0,4957166
+econf,2024-25,4,2024-08-24,FC Gateshead,Yeovil Town,3,1,2,1,4957170
+econf,2024-25,4,2024-08-24,Hartlepool United,FC Wealdstone,1,1,0,1,4957171
+econf,2024-25,4,2024-08-24,Solihull Moors,Braintree Town,1,1,0,1,4957173
+econf,2024-25,4,2024-08-24,Sutton United,York City,2,2,0,0,4957174
+econf,2024-25,5,2024-08-26,Braintree Town,Ebbsfleet United,0,0,0,0,4957175
+econf,2024-25,5,2024-08-26,FC Eastleigh,Sutton United,1,1,1,1,4957176
+econf,2024-25,5,2024-08-26,FC Tamworth,Aldershot Town,3,2,1,1,4957182
+econf,2024-25,5,2024-08-26,FC Wealdstone,AFC Fylde,1,0,1,0,4957183
+econf,2024-25,5,2024-08-26,FC Woking,Hartlepool United,3,2,0,2,4957184
+econf,2024-25,5,2024-08-26,Forest Green Rovers,FC Altrincham,2,1,1,0,4957178
+econf,2024-25,5,2024-08-26,Halifax Town,Solihull Moors,0,1,0,1,4957177
+econf,2024-25,5,2024-08-26,Maidenhead United,FC Barnet,3,1,2,1,4957179
+econf,2024-25,5,2024-08-26,Oldham Athletic,FC Gateshead,1,1,0,1,4957180
+econf,2024-25,5,2024-08-26,Southend United,Dagenham & Redbridge,2,2,1,1,4957181
+econf,2024-25,5,2024-08-26,Yeovil Town,AFC Rochdale,0,1,0,0,4957185
+econf,2024-25,5,2024-08-26,York City,Boston United,0,2,0,0,4957186
+econf,2024-25,6,2024-08-31,AFC Rochdale,FC Woking,3,0,1,0,4957196
+econf,2024-25,6,2024-08-31,Aldershot Town,Maidenhead United,4,3,1,1,4957188
+econf,2024-25,6,2024-08-31,Boston United,Yeovil Town,1,3,1,2,4957191
+econf,2024-25,6,2024-08-31,Dagenham & Redbridge,York City,0,2,0,0,4957192
+econf,2024-25,6,2024-08-31,Ebbsfleet United,Halifax Town,0,1,0,1,4957193
+econf,2024-25,6,2024-08-31,FC Altrincham,Oldham Athletic,1,1,0,1,4957189
+econf,2024-25,6,2024-08-31,FC Barnet,FC Tamworth,7,0,3,0,4957190
+econf,2024-25,6,2024-08-31,FC Gateshead,FC Eastleigh,2,1,1,0,4957194
+econf,2024-25,6,2024-08-31,Hartlepool United,Braintree Town,0,0,0,0,4957195
+econf,2024-25,6,2024-08-31,Solihull Moors,FC Wealdstone,1,1,1,0,4957197
+econf,2024-25,6,2024-08-31,Sutton United,Forest Green Rovers,1,2,0,1,4957198
+econf,2024-25,6,2024-09-17,AFC Fylde,Southend United,2,1,1,0,4957187
+econf,2024-25,7,2024-09-07,AFC Fylde,Yeovil Town,3,4,2,0,4957199
+econf,2024-25,7,2024-09-07,Aldershot Town,AFC Rochdale,0,2,0,2,4957200
+econf,2024-25,7,2024-09-07,Braintree Town,FC Woking,0,0,0,0,4957202
+econf,2024-25,7,2024-09-07,FC Altrincham,Ebbsfleet United,4,0,2,0,4957201
+econf,2024-25,7,2024-09-07,FC Eastleigh,FC Tamworth,1,0,1,0,4957203
+econf,2024-25,7,2024-09-07,FC Gateshead,FC Barnet,2,0,1,0,4957204
+econf,2024-25,7,2024-09-07,FC Wealdstone,York City,0,2,0,1,4957210
+econf,2024-25,7,2024-09-07,Hartlepool United,Halifax Town,0,0,0,0,4957205
+econf,2024-25,7,2024-09-07,Maidenhead United,Dagenham & Redbridge,1,1,1,0,4957206
+econf,2024-25,7,2024-09-07,Oldham Athletic,Southend United,1,1,0,1,4957207
+econf,2024-25,7,2024-09-07,Solihull Moors,Forest Green Rovers,0,1,0,0,4957208
+econf,2024-25,7,2024-09-07,Sutton United,Boston United,0,3,0,1,4957209
+econf,2024-25,8,2024-09-10,AFC Rochdale,Maidenhead United,3,1,2,0,4957217
+econf,2024-25,8,2024-09-10,Boston United,Hartlepool United,1,2,1,0,4957212
+econf,2024-25,8,2024-09-10,Dagenham & Redbridge,Sutton United,3,0,1,0,4957213
+econf,2024-25,8,2024-09-10,Ebbsfleet United,Aldershot Town,0,0,0,0,4957214
+econf,2024-25,8,2024-09-10,FC Barnet,FC Altrincham,2,1,1,1,4957211
+econf,2024-25,8,2024-09-10,FC Woking,FC Wealdstone,1,0,1,0,4957220
+econf,2024-25,8,2024-09-10,Forest Green Rovers,AFC Fylde,3,0,1,0,4957216
+econf,2024-25,8,2024-09-10,Halifax Town,Oldham Athletic,1,1,0,0,4957215
+econf,2024-25,8,2024-09-10,Southend United,FC Eastleigh,2,0,2,0,4957218
+econf,2024-25,8,2024-09-10,Yeovil Town,Solihull Moors,0,1,0,1,4957221
+econf,2024-25,8,2024-09-10,York City,Braintree Town,2,1,2,1,4957222
+econf,2024-25,8,2024-10-08,FC Tamworth,FC Gateshead,2,1,1,0,4957219
+econf,2024-25,9,2024-09-14,AFC Rochdale,Solihull Moors,1,2,0,1,4957229
+econf,2024-25,9,2024-09-14,Boston United,Aldershot Town,1,1,0,1,4957224
+econf,2024-25,9,2024-09-14,Dagenham & Redbridge,FC Gateshead,7,1,2,1,4957225
+econf,2024-25,9,2024-09-14,Ebbsfleet United,Hartlepool United,1,0,1,0,4957226
+econf,2024-25,9,2024-09-14,FC Barnet,Braintree Town,3,1,2,1,4957223
+econf,2024-25,9,2024-09-14,FC Tamworth,Maidenhead United,3,1,1,0,4957231
+econf,2024-25,9,2024-09-14,FC Woking,Oldham Athletic,1,3,0,1,4957232
+econf,2024-25,9,2024-09-14,Forest Green Rovers,FC Wealdstone,2,2,2,1,4957228
+econf,2024-25,9,2024-09-14,Halifax Town,FC Eastleigh,3,1,2,0,4957227
+econf,2024-25,9,2024-09-14,Southend United,Sutton United,1,3,1,1,4957230
+econf,2024-25,9,2024-09-14,Yeovil Town,FC Altrincham,0,0,0,0,4957233
+econf,2024-25,9,2024-09-14,York City,AFC Fylde,3,0,0,0,4957234
+econf,2024-25,10,2024-09-21,AFC Fylde,FC Woking,1,1,0,0,4957235
+econf,2024-25,10,2024-09-21,Aldershot Town,York City,0,0,0,0,4957236
+econf,2024-25,10,2024-09-21,Braintree Town,FC Tamworth,0,1,0,0,4957238
+econf,2024-25,10,2024-09-21,FC Altrincham,Boston United,2,2,0,0,4957237
+econf,2024-25,10,2024-09-21,FC Eastleigh,AFC Rochdale,4,2,2,1,4957239
+econf,2024-25,10,2024-09-21,FC Gateshead,Forest Green Rovers,0,2,0,1,4957240
+econf,2024-25,10,2024-09-21,FC Wealdstone,FC Barnet,0,3,0,0,4957246
+econf,2024-25,10,2024-09-21,Hartlepool United,Dagenham & Redbridge,0,1,0,1,4957241
+econf,2024-25,10,2024-09-21,Maidenhead United,Halifax Town,0,1,0,0,4957242
+econf,2024-25,10,2024-09-21,Oldham Athletic,Yeovil Town,1,0,0,0,4957243
+econf,2024-25,10,2024-09-21,Solihull Moors,Southend United,2,4,1,2,4957244
+econf,2024-25,10,2024-09-21,Sutton United,Ebbsfleet United,3,2,1,0,4957245
+econf,2024-25,11,2024-09-24,AFC Fylde,FC Tamworth,1,2,0,0,4957247
+econf,2024-25,11,2024-09-24,Aldershot Town,FC Barnet,0,1,0,1,4957248
+econf,2024-25,11,2024-09-24,Braintree Town,Halifax Town,1,0,0,0,4957250
+econf,2024-25,11,2024-09-24,FC Altrincham,Dagenham & Redbridge,2,1,1,1,4957249
+econf,2024-25,11,2024-09-24,FC Eastleigh,FC Woking,2,2,1,1,4957251
+econf,2024-25,11,2024-09-24,FC Gateshead,Boston United,2,0,2,0,4957252
+econf,2024-25,11,2024-09-24,FC Wealdstone,Southend United,1,1,0,0,4957258
+econf,2024-25,11,2024-09-24,Hartlepool United,AFC Rochdale,0,3,0,1,4957253
+econf,2024-25,11,2024-09-24,Maidenhead United,Ebbsfleet United,2,1,1,0,4957254
+econf,2024-25,11,2024-09-24,Oldham Athletic,Forest Green Rovers,1,0,1,0,4957255
+econf,2024-25,11,2024-09-24,Solihull Moors,York City,0,3,0,1,4957256
+econf,2024-25,11,2024-09-24,Sutton United,Yeovil Town,0,0,0,0,4957257
+econf,2024-25,12,2024-09-28,AFC Rochdale,Braintree Town,1,0,1,0,4957265
+econf,2024-25,12,2024-09-28,Boston United,Maidenhead United,1,2,1,1,4957260
+econf,2024-25,12,2024-09-28,Dagenham & Redbridge,Solihull Moors,1,1,0,0,4957261
+econf,2024-25,12,2024-09-28,Ebbsfleet United,Oldham Athletic,1,2,0,0,4957262
+econf,2024-25,12,2024-09-28,FC Barnet,AFC Fylde,2,0,0,0,4957259
+econf,2024-25,12,2024-09-28,FC Tamworth,FC Altrincham,1,2,0,0,4957267
+econf,2024-25,12,2024-09-28,FC Woking,Sutton United,1,2,0,2,4957268
+econf,2024-25,12,2024-09-28,Forest Green Rovers,Hartlepool United,1,0,0,0,4957264
+econf,2024-25,12,2024-09-28,Halifax Town,FC Wealdstone,2,2,0,1,4957263
+econf,2024-25,12,2024-09-28,Southend United,FC Gateshead,1,3,1,1,4957266
+econf,2024-25,12,2024-09-28,Yeovil Town,Aldershot Town,1,1,0,1,4957269
+econf,2024-25,12,2024-09-28,York City,FC Eastleigh,0,0,0,0,4957270
+econf,2024-25,13,2024-10-05,AFC Fylde,Aldershot Town,5,2,3,2,4957271
+econf,2024-25,13,2024-10-05,Braintree Town,FC Altrincham,2,0,1,0,4957273
+econf,2024-25,13,2024-10-05,Ebbsfleet United,AFC Rochdale,2,2,0,2,4957275
+econf,2024-25,13,2024-10-05,FC Barnet,Boston United,3,1,0,1,4957272
+econf,2024-25,13,2024-10-05,FC Eastleigh,Forest Green Rovers,1,3,1,0,4957274
+econf,2024-25,13,2024-10-05,FC Gateshead,FC Wealdstone,1,0,0,0,4957277
+econf,2024-25,13,2024-10-05,FC Woking,York City,1,1,0,0,4957281
+econf,2024-25,13,2024-10-05,Halifax Town,FC Tamworth,3,2,0,2,4957276
+econf,2024-25,13,2024-10-05,Hartlepool United,Sutton United,4,3,0,2,4957278
+econf,2024-25,13,2024-10-05,Oldham Athletic,Solihull Moors,2,3,0,0,4957279
+econf,2024-25,13,2024-10-05,Southend United,Maidenhead United,0,2,0,1,4957280
+econf,2024-25,13,2024-10-05,Yeovil Town,Dagenham & Redbridge,1,0,0,0,4957282
+econf,2024-25,14,2024-10-19,AFC Rochdale,Southend United,0,1,0,1,4957289
+econf,2024-25,14,2024-10-19,Aldershot Town,FC Eastleigh,2,1,0,0,4957283
+econf,2024-25,14,2024-10-19,Boston United,Halifax Town,0,1,0,1,4957285
+econf,2024-25,14,2024-10-19,Dagenham & Redbridge,AFC Fylde,4,0,1,0,4957286
+econf,2024-25,14,2024-10-19,FC Altrincham,FC Gateshead,2,2,1,2,4957284
+econf,2024-25,14,2024-10-19,FC Tamworth,FC Woking,3,2,2,0,4957292
+econf,2024-25,14,2024-10-19,FC Wealdstone,Yeovil Town,0,3,0,1,4957293
+econf,2024-25,14,2024-10-19,Forest Green Rovers,Braintree Town,2,1,1,1,4957287
+econf,2024-25,14,2024-10-19,Maidenhead United,Hartlepool United,1,1,1,0,4957288
+econf,2024-25,14,2024-10-19,Solihull Moors,FC Barnet,4,3,2,1,4957290
+econf,2024-25,14,2024-10-19,Sutton United,Oldham Athletic,1,3,0,1,4957291
+econf,2024-25,14,2024-10-19,York City,Ebbsfleet United,4,0,1,0,4957294
+econf,2024-25,15,2024-10-22,AFC Rochdale,Halifax Town,2,1,1,0,4957301
+econf,2024-25,15,2024-10-22,Dagenham & Redbridge,FC Eastleigh,2,2,2,1,4957298
+econf,2024-25,15,2024-10-22,FC Tamworth,Yeovil Town,0,0,0,0,4957304
+econf,2024-25,15,2024-10-22,Forest Green Rovers,Ebbsfleet United,3,1,1,0,4957299
+econf,2024-25,15,2024-10-22,Maidenhead United,Oldham Athletic,2,2,2,1,4957300
+econf,2024-25,15,2024-10-22,York City,FC Barnet,3,1,1,1,4957306
+econf,2024-25,15,2024-10-23,Aldershot Town,Southend United,0,0,0,0,4957295
+econf,2024-25,15,2024-10-23,Boston United,AFC Fylde,1,2,1,0,4957297
+econf,2024-25,15,2024-10-23,FC Altrincham,Hartlepool United,1,1,1,1,4957296
+econf,2024-25,15,2024-10-23,FC Wealdstone,Braintree Town,3,2,1,2,4957305
+econf,2024-25,15,2024-10-23,Solihull Moors,FC Woking,2,1,1,1,4957302
+econf,2024-25,15,2024-10-23,Sutton United,FC Gateshead,0,1,0,0,4957303
+econf,2024-25,16,2024-10-26,AFC Fylde,FC Altrincham,0,5,0,3,4957307
+econf,2024-25,16,2024-10-26,Braintree Town,Sutton United,0,1,0,0,4957309
+econf,2024-25,16,2024-10-26,Ebbsfleet United,FC Wealdstone,2,2,0,0,4957311
+econf,2024-25,16,2024-10-26,FC Barnet,AFC Rochdale,2,1,2,0,4957308
+econf,2024-25,16,2024-10-26,FC Eastleigh,Boston United,1,1,0,1,4957310
+econf,2024-25,16,2024-10-26,FC Gateshead,Solihull Moors,1,0,0,0,4957313
+econf,2024-25,16,2024-10-26,FC Woking,Forest Green Rovers,1,1,0,1,4957317
+econf,2024-25,16,2024-10-26,Halifax Town,York City,1,2,1,0,4957312
+econf,2024-25,16,2024-10-26,Hartlepool United,Aldershot Town,2,0,1,0,4957314
+econf,2024-25,16,2024-10-26,Oldham Athletic,Dagenham & Redbridge,1,0,1,0,4957315
+econf,2024-25,16,2024-10-26,Southend United,FC Tamworth,2,0,2,0,4957316
+econf,2024-25,16,2024-10-26,Yeovil Town,Maidenhead United,3,1,1,1,4957318
+econf,2024-25,17,2024-11-09,AFC Fylde,FC Gateshead,3,0,1,0,4957319
+econf,2024-25,17,2024-11-09,AFC Rochdale,Sutton United,2,1,1,1,4957326
+econf,2024-25,17,2024-11-09,Aldershot Town,FC Wealdstone,0,2,0,1,4957320
+econf,2024-25,17,2024-11-09,Boston United,Dagenham & Redbridge,1,1,1,1,4957322
+econf,2024-25,17,2024-11-09,FC Barnet,Oldham Athletic,0,0,0,0,4957321
+econf,2024-25,17,2024-11-09,FC Eastleigh,Braintree Town,1,2,1,0,4957323
+econf,2024-25,17,2024-11-09,FC Tamworth,Ebbsfleet United,1,1,0,1,4957329
+econf,2024-25,17,2024-11-09,Halifax Town,FC Woking,1,0,1,0,4957324
+econf,2024-25,17,2024-11-09,Maidenhead United,Forest Green Rovers,1,4,0,2,4957325
+econf,2024-25,17,2024-11-09,Solihull Moors,FC Altrincham,3,3,2,0,4957327
+econf,2024-25,17,2024-11-09,Southend United,Yeovil Town,0,1,0,0,4957328
+econf,2024-25,17,2024-11-09,York City,Hartlepool United,5,3,2,0,4957330
+econf,2024-25,18,2024-11-16,Braintree Town,AFC Fylde,1,0,0,0,4957332
+econf,2024-25,18,2024-11-16,Dagenham & Redbridge,FC Barnet,3,4,2,1,4957333
+econf,2024-25,18,2024-11-16,Ebbsfleet United,Solihull Moors,0,6,0,0,4957334
+econf,2024-25,18,2024-11-16,FC Altrincham,Southend United,2,0,2,0,4957331
+econf,2024-25,18,2024-11-16,FC Gateshead,Aldershot Town,2,2,2,1,4957336
+econf,2024-25,18,2024-11-16,FC Wealdstone,AFC Rochdale,2,0,0,0,4957340
+econf,2024-25,18,2024-11-16,FC Woking,Boston United,1,0,1,0,4957341
+econf,2024-25,18,2024-11-16,Forest Green Rovers,York City,2,0,0,0,4957335
+econf,2024-25,18,2024-11-16,Hartlepool United,FC Eastleigh,0,0,0,0,4957337
+econf,2024-25,18,2024-11-16,Oldham Athletic,FC Tamworth,4,0,3,0,4957338
+econf,2024-25,18,2024-11-16,Sutton United,Maidenhead United,1,0,1,0,4957339
+econf,2024-25,18,2024-11-16,Yeovil Town,Halifax Town,0,1,0,0,4957342
+econf,2024-25,19,2024-11-23,Aldershot Town,FC Altrincham,2,1,2,0,4957344
+econf,2024-25,19,2024-11-23,Boston United,Braintree Town,3,1,2,0,4957346
+econf,2024-25,19,2024-11-23,FC Barnet,FC Woking,2,0,1,0,4957345
+econf,2024-25,19,2024-11-23,FC Eastleigh,FC Wealdstone,1,1,1,0,4957347
+econf,2024-25,19,2024-11-23,FC Tamworth,Dagenham & Redbridge,2,1,0,1,4957353
+econf,2024-25,19,2024-11-23,Maidenhead United,FC Gateshead,0,5,0,2,4957349
+econf,2024-25,19,2024-11-23,Solihull Moors,Hartlepool United,3,4,1,2,4957351
+econf,2024-25,19,2024-11-23,Southend United,Forest Green Rovers,2,2,0,1,4957352
+econf,2024-25,19,2024-11-23,York City,Yeovil Town,4,0,2,0,4957354
+econf,2024-25,19,2024-12-10,AFC Fylde,Ebbsfleet United,2,0,0,0,4957343
+econf,2024-25,19,2024-12-10,Halifax Town,Sutton United,0,0,0,0,4957348
+econf,2024-25,19,2025-02-04,AFC Rochdale,Oldham Athletic,0,1,0,1,4957350
+econf,2024-25,20,2024-11-26,Braintree Town,Maidenhead United,1,3,0,2,4957356
+econf,2024-25,20,2024-11-26,Dagenham & Redbridge,Aldershot Town,3,2,0,0,4957357
+econf,2024-25,20,2024-11-26,FC Altrincham,York City,3,0,3,0,4957355
+econf,2024-25,20,2024-11-26,FC Gateshead,AFC Rochdale,0,1,0,0,4957360
+econf,2024-25,20,2024-11-26,FC Woking,Southend United,0,0,0,0,4957365
+econf,2024-25,20,2024-11-26,Hartlepool United,AFC Fylde,2,0,0,0,4957361
+econf,2024-25,20,2024-11-26,Oldham Athletic,Boston United,4,0,2,0,4957362
+econf,2024-25,20,2024-11-26,Sutton United,Solihull Moors,1,0,1,0,4957363
+econf,2024-25,20,2024-11-27,Ebbsfleet United,FC Eastleigh,0,1,0,0,4957358
+econf,2024-25,20,2024-11-27,Forest Green Rovers,Halifax Town,1,1,0,0,4957359
+econf,2024-25,20,2024-11-27,Yeovil Town,FC Barnet,1,2,0,1,4957366
+econf,2024-25,20,2025-02-04,FC Wealdstone,FC Tamworth,0,1,0,0,4957364
+econf,2024-25,21,2024-11-30,Braintree Town,FC Gateshead,2,2,2,2,4957367
+econf,2024-25,21,2024-11-30,Ebbsfleet United,Boston United,0,0,0,0,4957369
+econf,2024-25,21,2024-11-30,FC Woking,Yeovil Town,0,2,0,1,4957377
+econf,2024-25,21,2024-11-30,Halifax Town,Southend United,0,2,0,1,4957370
+econf,2024-25,21,2024-11-30,Hartlepool United,FC Barnet,0,0,0,0,4957372
+econf,2024-25,21,2024-11-30,Sutton United,AFC Fylde,2,0,0,0,4957375
+econf,2024-25,21,2024-11-30,York City,Maidenhead United,6,2,4,1,4957378
+econf,2024-25,21,2024-12-10,FC Wealdstone,FC Altrincham,3,3,2,2,4957376
+econf,2024-25,21,2024-12-10,Solihull Moors,Aldershot Town,2,1,1,0,4957374
+econf,2024-25,21,2024-12-17,AFC Rochdale,FC Tamworth,3,0,0,0,4957373
+econf,2024-25,21,2025-01-07,FC Eastleigh,Oldham Athletic,2,2,1,0,4957368
+econf,2024-25,21,2025-01-08,Forest Green Rovers,Dagenham & Redbridge,1,1,0,0,4957371
+econf,2024-25,22,2024-12-14,AFC Fylde,FC Eastleigh,2,2,1,0,4957379
+econf,2024-25,22,2024-12-14,Aldershot Town,Halifax Town,3,4,0,2,4957380
+econf,2024-25,22,2024-12-14,Dagenham & Redbridge,AFC Rochdale,1,0,0,0,4957383
+econf,2024-25,22,2024-12-14,FC Altrincham,Sutton United,1,0,1,0,4957381
+econf,2024-25,22,2024-12-14,FC Barnet,Ebbsfleet United,4,1,4,0,4957382
+econf,2024-25,22,2024-12-14,FC Gateshead,FC Woking,4,0,3,0,4957385
+econf,2024-25,22,2024-12-14,FC Tamworth,York City,1,1,0,1,4957389
+econf,2024-25,22,2024-12-14,Forest Green Rovers,Boston United,1,0,1,0,4957384
+econf,2024-25,22,2024-12-14,Maidenhead United,Solihull Moors,1,1,0,0,4957386
+econf,2024-25,22,2024-12-14,Oldham Athletic,FC Wealdstone,3,2,1,2,4957387
+econf,2024-25,22,2024-12-14,Southend United,Hartlepool United,0,0,0,0,4957388
+econf,2024-25,22,2024-12-14,Yeovil Town,Braintree Town,3,1,1,1,4957390
+econf,2024-25,23,2024-12-21,Braintree Town,Oldham Athletic,0,2,0,1,4957392
+econf,2024-25,23,2024-12-21,Ebbsfleet United,FC Gateshead,1,4,0,2,4957394
+econf,2024-25,23,2024-12-21,FC Barnet,Halifax Town,1,1,1,1,4957391
+econf,2024-25,23,2024-12-21,FC Eastleigh,Maidenhead United,1,0,1,0,4957393
+econf,2024-25,23,2024-12-21,FC Wealdstone,Dagenham & Redbridge,3,0,2,0,4957400
+econf,2024-25,23,2024-12-21,FC Woking,FC Altrincham,2,1,0,0,4957401
+econf,2024-25,23,2024-12-21,Forest Green Rovers,Aldershot Town,1,1,0,1,4957395
+econf,2024-25,23,2024-12-21,Hartlepool United,Yeovil Town,2,1,0,0,4957396
+econf,2024-25,23,2024-12-21,Solihull Moors,AFC Fylde,4,1,2,1,4957398
+econf,2024-25,23,2024-12-21,Sutton United,FC Tamworth,1,2,1,0,4957399
+econf,2024-25,23,2024-12-21,York City,Southend United,3,0,0,0,4957402
+econf,2024-25,23,2025-03-18,AFC Rochdale,Boston United,2,3,0,2,4957397
+econf,2024-25,24,2024-12-26,AFC Fylde,AFC Rochdale,1,3,1,1,4957403
+econf,2024-25,24,2024-12-26,Aldershot Town,FC Woking,2,2,1,1,4957404
+econf,2024-25,24,2024-12-26,Boston United,Solihull Moors,0,1,0,1,4957407
+econf,2024-25,24,2024-12-26,Dagenham & Redbridge,Braintree Town,2,4,1,2,4957408
+econf,2024-25,24,2024-12-26,FC Altrincham,Halifax Town,0,0,0,0,4957405
+econf,2024-25,24,2024-12-26,FC Barnet,Sutton United,3,3,2,1,4957406
+econf,2024-25,24,2024-12-26,FC Gateshead,Hartlepool United,4,3,2,1,4957409
+econf,2024-25,24,2024-12-26,FC Tamworth,Forest Green Rovers,1,1,0,1,4957413
+econf,2024-25,24,2024-12-26,Maidenhead United,FC Wealdstone,3,1,1,0,4957410
+econf,2024-25,24,2024-12-26,Southend United,Ebbsfleet United,4,0,2,0,4957412
+econf,2024-25,24,2024-12-26,Yeovil Town,FC Eastleigh,2,2,0,0,4957414
+econf,2024-25,24,2025-01-21,Oldham Athletic,York City,0,2,0,2,4957411
+econf,2024-25,25,2024-12-31,Solihull Moors,FC Tamworth,2,0,1,0,4957422
+econf,2024-25,25,2025-01-01,Braintree Town,Southend United,0,1,0,1,4957415
+econf,2024-25,25,2025-01-01,Ebbsfleet United,Dagenham & Redbridge,0,2,0,0,4957417
+econf,2024-25,25,2025-01-01,FC Eastleigh,FC Barnet,1,1,1,0,4957416
+econf,2024-25,25,2025-01-01,FC Woking,Maidenhead United,3,1,1,1,4957425
+econf,2024-25,25,2025-01-01,Forest Green Rovers,Yeovil Town,2,1,0,1,4957419
+econf,2024-25,25,2025-01-01,Hartlepool United,Oldham Athletic,2,1,1,1,4957420
+econf,2024-25,25,2025-01-01,Sutton United,Aldershot Town,1,1,1,0,4957423
+econf,2024-25,25,2025-01-01,York City,FC Gateshead,1,0,1,0,4957426
+econf,2024-25,25,2025-02-04,Halifax Town,AFC Fylde,1,2,1,1,4957418
+econf,2024-25,25,2025-03-11,AFC Rochdale,FC Altrincham,3,0,0,0,4957421
+econf,2024-25,25,2025-04-01,FC Wealdstone,Boston United,1,0,1,0,4957424
+econf,2024-25,26,2025-01-11,Boston United,Ebbsfleet United,2,2,1,1,4957431
+econf,2024-25,26,2025-01-11,Yeovil Town,FC Woking,1,1,1,0,4957438
+econf,2024-25,26,2025-01-28,FC Barnet,Hartlepool United,2,0,0,0,4957430
+econf,2024-25,26,2025-02-04,Dagenham & Redbridge,Forest Green Rovers,0,2,0,1,4957432
+econf,2024-25,26,2025-02-11,Southend United,Halifax Town,3,1,0,0,4957436
+econf,2024-25,26,2025-02-25,Aldershot Town,Solihull Moors,3,1,3,0,4957428
+econf,2024-25,26,2025-02-25,FC Tamworth,AFC Rochdale,1,1,1,0,4957437
+econf,2024-25,26,2025-02-25,Maidenhead United,York City,1,3,0,1,4957434
+econf,2024-25,26,2025-03-11,Oldham Athletic,FC Eastleigh,2,0,1,0,4957435
+econf,2024-25,26,2025-03-18,AFC Fylde,Sutton United,1,2,1,0,4957427
+econf,2024-25,26,2025-03-18,FC Altrincham,FC Wealdstone,0,1,0,0,4957429
+econf,2024-25,26,2025-03-18,FC Gateshead,Braintree Town,1,3,1,0,4957433
+econf,2024-25,27,2025-01-14,Aldershot Town,Braintree Town,2,2,2,2,4957440
+econf,2024-25,27,2025-01-14,Ebbsfleet United,Yeovil Town,1,1,0,1,4957444
+econf,2024-25,27,2025-01-14,FC Altrincham,Maidenhead United,4,0,4,0,4957441
+econf,2024-25,27,2025-01-14,FC Gateshead,Halifax Town,1,3,0,2,4957446
+econf,2024-25,27,2025-01-14,Forest Green Rovers,FC Barnet,0,0,0,0,4957445
+econf,2024-25,27,2025-01-14,Solihull Moors,FC Eastleigh,0,1,0,1,4957449
+econf,2024-25,27,2025-01-15,Sutton United,FC Wealdstone,2,2,1,1,4957450
+econf,2024-25,27,2025-02-01,AFC Fylde,Oldham Athletic,1,2,0,0,4957439
+econf,2024-25,27,2025-02-11,Dagenham & Redbridge,FC Woking,1,2,0,1,4957443
+econf,2024-25,27,2025-02-11,Hartlepool United,FC Tamworth,2,2,1,2,4957447
+econf,2024-25,27,2025-03-25,AFC Rochdale,York City,0,4,0,1,4957448
+econf,2024-25,27,2025-03-25,Boston United,Southend United,3,0,0,0,4957442
+econf,2024-25,28,2025-01-17,Yeovil Town,FC Gateshead,0,0,0,0,4957461
+econf,2024-25,28,2025-01-18,Braintree Town,Solihull Moors,1,0,1,0,4957451
+econf,2024-25,28,2025-01-18,FC Eastleigh,FC Altrincham,1,2,1,1,4957452
+econf,2024-25,28,2025-01-18,FC Tamworth,Boston United,3,0,2,0,4957458
+econf,2024-25,28,2025-01-18,FC Wealdstone,Hartlepool United,1,1,0,1,4957459
+econf,2024-25,28,2025-01-18,FC Woking,Ebbsfleet United,1,1,0,0,4957460
+econf,2024-25,28,2025-01-18,Forest Green Rovers,AFC Rochdale,1,0,0,0,4957454
+econf,2024-25,28,2025-01-18,Maidenhead United,AFC Fylde,4,1,2,0,4957455
+econf,2024-25,28,2025-01-18,Oldham Athletic,Aldershot Town,1,3,1,2,4957456
+econf,2024-25,28,2025-01-18,Southend United,FC Barnet,0,3,0,2,4957457
+econf,2024-25,28,2025-01-18,York City,Sutton United,1,2,0,2,4957462
+econf,2024-25,28,2025-03-18,Halifax Town,Dagenham & Redbridge,0,1,0,1,4957453
+econf,2024-25,29,2025-01-25,AFC Fylde,FC Wealdstone,2,0,0,0,4957463
+econf,2024-25,29,2025-01-25,AFC Rochdale,Yeovil Town,4,0,0,0,4957472
+econf,2024-25,29,2025-01-25,Aldershot Town,FC Tamworth,2,2,0,0,4957464
+econf,2024-25,29,2025-01-25,Boston United,York City,3,1,1,1,4957467
+econf,2024-25,29,2025-01-25,Dagenham & Redbridge,Southend United,0,2,0,1,4957468
+econf,2024-25,29,2025-01-25,Ebbsfleet United,Braintree Town,0,1,0,1,4957469
+econf,2024-25,29,2025-01-25,FC Altrincham,Forest Green Rovers,1,1,1,0,4957465
+econf,2024-25,29,2025-01-25,FC Barnet,Maidenhead United,3,0,1,0,4957466
+econf,2024-25,29,2025-01-25,FC Gateshead,Oldham Athletic,1,1,0,1,4957470
+econf,2024-25,29,2025-01-25,Hartlepool United,FC Woking,1,1,0,0,4957471
+econf,2024-25,29,2025-01-25,Solihull Moors,Halifax Town,0,2,0,1,4957473
+econf,2024-25,29,2025-01-25,Sutton United,FC Eastleigh,1,0,0,0,4957474
+econf,2024-25,30,2025-01-28,Southend United,AFC Fylde,2,0,1,0,4957481
+econf,2024-25,30,2025-02-01,Braintree Town,Hartlepool United,1,1,0,0,4957475
+econf,2024-25,30,2025-02-01,FC Tamworth,FC Barnet,0,1,0,1,4957482
+econf,2024-25,30,2025-02-01,FC Wealdstone,Solihull Moors,1,1,1,1,4957483
+econf,2024-25,30,2025-02-01,Halifax Town,Ebbsfleet United,2,0,1,0,4957477
+econf,2024-25,30,2025-02-01,York City,Dagenham & Redbridge,2,1,1,0,4957486
+econf,2024-25,30,2025-02-11,Oldham Athletic,FC Altrincham,2,2,0,1,4957480
+econf,2024-25,30,2025-02-25,FC Eastleigh,FC Gateshead,1,1,0,0,4957476
+econf,2024-25,30,2025-03-11,Forest Green Rovers,Sutton United,2,1,2,0,4957478
+econf,2024-25,30,2025-03-11,Yeovil Town,Boston United,0,3,0,2,4957485
+econf,2024-25,30,2025-03-18,Maidenhead United,Aldershot Town,0,1,0,0,4957479
+econf,2024-25,30,2025-04-01,FC Woking,AFC Rochdale,1,1,0,1,4957484
+econf,2024-25,31,2025-02-08,AFC Rochdale,Ebbsfleet United,0,0,0,0,4957493
+econf,2024-25,31,2025-02-08,Boston United,FC Barnet,0,0,0,0,4957489
+econf,2024-25,31,2025-02-08,Dagenham & Redbridge,Yeovil Town,1,1,1,1,4957490
+econf,2024-25,31,2025-02-08,FC Altrincham,Braintree Town,3,1,2,0,4957488
+econf,2024-25,31,2025-02-08,FC Tamworth,Halifax Town,1,2,0,1,4957496
+econf,2024-25,31,2025-02-08,FC Wealdstone,FC Gateshead,0,4,0,2,4957497
+econf,2024-25,31,2025-02-08,Forest Green Rovers,FC Eastleigh,2,1,0,0,4957491
+econf,2024-25,31,2025-02-08,Maidenhead United,Southend United,1,0,0,0,4957492
+econf,2024-25,31,2025-02-08,Solihull Moors,Oldham Athletic,0,1,0,1,4957494
+econf,2024-25,31,2025-02-08,Sutton United,Hartlepool United,1,2,0,0,4957495
+econf,2024-25,31,2025-02-08,York City,FC Woking,3,0,1,0,4957498
+econf,2024-25,31,2025-04-01,Aldershot Town,AFC Fylde,2,0,1,0,4957487
+econf,2024-25,32,2025-02-15,AFC Fylde,Dagenham & Redbridge,1,1,0,1,4957499
+econf,2024-25,32,2025-02-15,Braintree Town,Forest Green Rovers,2,0,2,0,4957501
+econf,2024-25,32,2025-02-15,Ebbsfleet United,York City,0,2,0,0,4957503
+econf,2024-25,32,2025-02-15,FC Barnet,Solihull Moors,3,1,1,0,4957500
+econf,2024-25,32,2025-02-15,FC Eastleigh,Aldershot Town,2,0,2,0,4957502
+econf,2024-25,32,2025-02-15,FC Gateshead,FC Altrincham,0,1,0,1,4957505
+econf,2024-25,32,2025-02-15,FC Woking,FC Tamworth,1,1,0,0,4957509
+econf,2024-25,32,2025-02-15,Halifax Town,Boston United,1,0,0,0,4957504
+econf,2024-25,32,2025-02-15,Hartlepool United,Maidenhead United,0,0,0,0,4957506
+econf,2024-25,32,2025-02-15,Oldham Athletic,Sutton United,0,0,0,0,4957507
+econf,2024-25,32,2025-02-15,Southend United,AFC Rochdale,1,1,0,1,4957508
+econf,2024-25,32,2025-02-15,Yeovil Town,FC Wealdstone,1,2,1,1,4957510
+econf,2024-25,33,2025-02-18,AFC Fylde,Boston United,1,2,1,2,4957511
+econf,2024-25,33,2025-02-18,Ebbsfleet United,Forest Green Rovers,0,0,0,0,4957515
+econf,2024-25,33,2025-02-18,FC Barnet,York City,3,1,1,0,4957512
+econf,2024-25,33,2025-02-18,FC Gateshead,Sutton United,4,3,2,1,4957517
+econf,2024-25,33,2025-02-18,Hartlepool United,FC Altrincham,1,2,0,0,4957518
+econf,2024-25,33,2025-02-18,Oldham Athletic,Maidenhead United,0,1,0,0,4957519
+econf,2024-25,33,2025-02-18,Southend United,Aldershot Town,2,1,0,0,4957520
+econf,2024-25,33,2025-02-18,Yeovil Town,FC Tamworth,2,1,0,1,4957522
+econf,2024-25,33,2025-02-19,Braintree Town,FC Wealdstone,1,2,1,0,4957513
+econf,2024-25,33,2025-02-19,FC Eastleigh,Dagenham & Redbridge,3,0,2,0,4957514
+econf,2024-25,33,2025-02-19,FC Woking,Solihull Moors,1,0,1,0,4957521
+econf,2024-25,33,2025-02-19,Halifax Town,AFC Rochdale,0,0,0,0,4957516
+econf,2024-25,34,2025-02-22,AFC Rochdale,FC Barnet,0,4,0,2,4957529
+econf,2024-25,34,2025-02-22,Aldershot Town,Hartlepool United,3,2,0,1,4957523
+econf,2024-25,34,2025-02-22,Boston United,FC Eastleigh,1,2,0,1,4957525
+econf,2024-25,34,2025-02-22,Dagenham & Redbridge,Oldham Athletic,2,2,1,0,4957526
+econf,2024-25,34,2025-02-22,FC Altrincham,AFC Fylde,1,2,1,2,4957524
+econf,2024-25,34,2025-02-22,FC Tamworth,Southend United,1,1,1,0,4957532
+econf,2024-25,34,2025-02-22,FC Wealdstone,Ebbsfleet United,4,2,2,2,4957533
+econf,2024-25,34,2025-02-22,Forest Green Rovers,FC Woking,1,1,0,0,4957527
+econf,2024-25,34,2025-02-22,Maidenhead United,Yeovil Town,0,2,0,1,4957528
+econf,2024-25,34,2025-02-22,Solihull Moors,FC Gateshead,1,3,0,1,4957530
+econf,2024-25,34,2025-02-22,Sutton United,Braintree Town,1,1,0,0,4957531
+econf,2024-25,34,2025-02-22,York City,Halifax Town,2,2,1,2,4957534
+econf,2024-25,35,2025-03-01,Braintree Town,FC Eastleigh,1,0,1,0,4957536
+econf,2024-25,35,2025-03-01,Dagenham & Redbridge,Boston United,1,3,1,1,4957537
+econf,2024-25,35,2025-03-01,Ebbsfleet United,FC Tamworth,2,3,1,3,4957538
+econf,2024-25,35,2025-03-01,FC Gateshead,AFC Fylde,1,1,1,0,4957540
+econf,2024-25,35,2025-03-01,Forest Green Rovers,Maidenhead United,2,0,1,0,4957539
+econf,2024-25,35,2025-03-01,Hartlepool United,York City,0,1,0,1,4957541
+econf,2024-25,35,2025-03-01,Oldham Athletic,FC Barnet,0,3,0,0,4957542
+econf,2024-25,35,2025-03-01,Yeovil Town,Southend United,2,2,2,1,4957546
+econf,2024-25,35,2025-03-25,FC Altrincham,Solihull Moors,1,1,1,0,4957535
+econf,2024-25,35,2025-03-25,FC Wealdstone,Aldershot Town,1,3,1,0,4957544
+econf,2024-25,35,2025-03-25,FC Woking,Halifax Town,0,0,0,0,4957545
+econf,2024-25,35,2025-04-08,Sutton United,AFC Rochdale,1,0,0,0,4957543
+econf,2024-25,36,2025-03-04,AFC Fylde,Hartlepool United,2,1,2,1,4957547
+econf,2024-25,36,2025-03-04,AFC Rochdale,FC Gateshead,1,0,0,0,4957554
+econf,2024-25,36,2025-03-04,Aldershot Town,Dagenham & Redbridge,0,0,0,0,4957548
+econf,2024-25,36,2025-03-04,Boston United,Oldham Athletic,0,0,0,0,4957550
+econf,2024-25,36,2025-03-04,FC Barnet,Yeovil Town,5,0,3,0,4957549
+econf,2024-25,36,2025-03-04,FC Eastleigh,Ebbsfleet United,2,0,1,0,4957551
+econf,2024-25,36,2025-03-04,FC Tamworth,FC Wealdstone,4,1,0,0,4957557
+econf,2024-25,36,2025-03-04,Halifax Town,Forest Green Rovers,2,1,1,0,4957552
+econf,2024-25,36,2025-03-04,Maidenhead United,Braintree Town,3,3,1,2,4957553
+econf,2024-25,36,2025-03-04,Solihull Moors,Sutton United,1,1,1,1,4957555
+econf,2024-25,36,2025-03-04,Southend United,FC Woking,2,2,1,1,4957556
+econf,2024-25,36,2025-03-04,York City,FC Altrincham,1,2,0,1,4957558
+econf,2024-25,37,2025-03-08,AFC Fylde,Braintree Town,0,2,0,1,4957559
+econf,2024-25,37,2025-03-08,AFC Rochdale,FC Wealdstone,4,1,1,0,4957566
+econf,2024-25,37,2025-03-08,Aldershot Town,FC Gateshead,3,1,1,1,4957560
+econf,2024-25,37,2025-03-08,Boston United,FC Woking,2,2,0,1,4957562
+econf,2024-25,37,2025-03-08,FC Barnet,Dagenham & Redbridge,1,0,0,0,4957561
+econf,2024-25,37,2025-03-08,FC Eastleigh,Hartlepool United,1,1,1,1,4957563
+econf,2024-25,37,2025-03-08,FC Tamworth,Oldham Athletic,1,1,1,1,4957569
+econf,2024-25,37,2025-03-08,Halifax Town,Yeovil Town,1,0,1,0,4957564
+econf,2024-25,37,2025-03-08,Maidenhead United,Sutton United,0,1,0,1,4957565
+econf,2024-25,37,2025-03-08,Solihull Moors,Ebbsfleet United,2,1,1,1,4957567
+econf,2024-25,37,2025-03-08,Southend United,FC Altrincham,2,1,2,0,4957568
+econf,2024-25,37,2025-03-08,York City,Forest Green Rovers,1,1,0,0,4957570
+econf,2024-25,38,2025-03-15,Braintree Town,Boston United,0,1,0,1,4957572
+econf,2024-25,38,2025-03-15,Dagenham & Redbridge,FC Tamworth,1,3,1,1,4957573
+econf,2024-25,38,2025-03-15,Ebbsfleet United,AFC Fylde,1,0,0,0,4957574
+econf,2024-25,38,2025-03-15,FC Altrincham,Aldershot Town,1,2,0,0,4957571
+econf,2024-25,38,2025-03-15,FC Gateshead,Maidenhead United,0,2,0,1,4957576
+econf,2024-25,38,2025-03-15,FC Wealdstone,FC Eastleigh,3,3,0,3,4957580
+econf,2024-25,38,2025-03-15,FC Woking,FC Barnet,0,1,0,1,4957581
+econf,2024-25,38,2025-03-15,Forest Green Rovers,Southend United,2,2,2,1,4957575
+econf,2024-25,38,2025-03-15,Hartlepool United,Solihull Moors,1,1,0,0,4957577
+econf,2024-25,38,2025-03-15,Oldham Athletic,AFC Rochdale,1,1,0,1,4957578
+econf,2024-25,38,2025-03-15,Sutton United,Halifax Town,0,3,0,2,4957579
+econf,2024-25,38,2025-03-15,Yeovil Town,York City,0,1,0,0,4957582
+econf,2024-25,39,2025-03-22,AFC Fylde,Forest Green Rovers,3,0,1,0,4957583
+econf,2024-25,39,2025-03-22,Aldershot Town,Ebbsfleet United,3,3,2,3,4957584
+econf,2024-25,39,2025-03-22,Braintree Town,York City,2,1,1,1,4957586
+econf,2024-25,39,2025-03-22,FC Altrincham,FC Barnet,0,1,0,1,4957585
+econf,2024-25,39,2025-03-22,FC Eastleigh,Southend United,1,2,0,2,4957587
+econf,2024-25,39,2025-03-22,FC Gateshead,FC Tamworth,0,2,0,0,4957588
+econf,2024-25,39,2025-03-22,FC Wealdstone,FC Woking,1,0,0,0,4957594
+econf,2024-25,39,2025-03-22,Hartlepool United,Boston United,4,1,2,1,4957589
+econf,2024-25,39,2025-03-22,Maidenhead United,AFC Rochdale,1,1,0,1,4957590
+econf,2024-25,39,2025-03-22,Oldham Athletic,Halifax Town,2,0,1,0,4957591
+econf,2024-25,39,2025-03-22,Solihull Moors,Yeovil Town,0,3,0,1,4957592
+econf,2024-25,39,2025-03-22,Sutton United,Dagenham & Redbridge,1,1,0,0,4957593
+econf,2024-25,40,2025-03-29,AFC Rochdale,Aldershot Town,4,0,2,0,4957601
+econf,2024-25,40,2025-03-29,Boston United,Sutton United,2,1,1,1,4957596
+econf,2024-25,40,2025-03-29,Dagenham & Redbridge,Maidenhead United,1,0,0,0,4957597
+econf,2024-25,40,2025-03-29,Ebbsfleet United,FC Altrincham,2,2,1,1,4957598
+econf,2024-25,40,2025-03-29,FC Barnet,FC Gateshead,3,1,2,0,4957595
+econf,2024-25,40,2025-03-29,FC Tamworth,FC Eastleigh,2,0,0,0,4957603
+econf,2024-25,40,2025-03-29,FC Woking,Braintree Town,2,1,1,0,4957604
+econf,2024-25,40,2025-03-29,Forest Green Rovers,Solihull Moors,1,0,1,0,4957600
+econf,2024-25,40,2025-03-29,Halifax Town,Hartlepool United,0,1,0,1,4957599
+econf,2024-25,40,2025-03-29,Southend United,Oldham Athletic,1,0,1,0,4957602
+econf,2024-25,40,2025-03-29,Yeovil Town,AFC Fylde,1,0,0,0,4957605
+econf,2024-25,40,2025-03-29,York City,FC Wealdstone,3,0,1,0,4957606
+econf,2024-25,41,2025-04-05,AFC Fylde,York City,1,3,0,1,4957607
+econf,2024-25,41,2025-04-05,Braintree Town,FC Barnet,2,1,1,1,4957610
+econf,2024-25,41,2025-04-05,FC Altrincham,Yeovil Town,2,1,1,1,4957609
+econf,2024-25,41,2025-04-05,FC Eastleigh,Halifax Town,1,1,0,0,4957611
+econf,2024-25,41,2025-04-05,FC Gateshead,Dagenham & Redbridge,2,1,2,0,4957612
+econf,2024-25,41,2025-04-05,FC Wealdstone,Forest Green Rovers,2,1,1,1,4957618
+econf,2024-25,41,2025-04-05,Hartlepool United,Ebbsfleet United,3,2,1,0,4957613
+econf,2024-25,41,2025-04-05,Maidenhead United,FC Tamworth,3,1,1,0,4957614
+econf,2024-25,41,2025-04-05,Sutton United,Southend United,1,1,0,1,4957617
+econf,2024-25,41,2025-04-08,Aldershot Town,Boston United,1,2,1,0,4957608
+econf,2024-25,41,2025-04-08,Oldham Athletic,FC Woking,1,2,1,0,4957615
+econf,2024-25,41,2025-04-29,Solihull Moors,AFC Rochdale,0,1,0,0,4957616
+econf,2024-25,42,2025-04-12,AFC Rochdale,FC Eastleigh,4,0,2,0,4957625
+econf,2024-25,42,2025-04-12,Boston United,FC Altrincham,1,0,1,0,4957620
+econf,2024-25,42,2025-04-12,Dagenham & Redbridge,Hartlepool United,1,1,0,1,4957621
+econf,2024-25,42,2025-04-12,Ebbsfleet United,Sutton United,4,1,1,0,4957622
+econf,2024-25,42,2025-04-12,FC Barnet,FC Wealdstone,1,1,1,0,4957619
+econf,2024-25,42,2025-04-12,FC Tamworth,Braintree Town,4,2,3,2,4957627
+econf,2024-25,42,2025-04-12,FC Woking,AFC Fylde,1,0,0,0,4957628
+econf,2024-25,42,2025-04-12,Forest Green Rovers,FC Gateshead,2,3,0,2,4957624
+econf,2024-25,42,2025-04-12,Halifax Town,Maidenhead United,0,2,0,0,4957623
+econf,2024-25,42,2025-04-12,Southend United,Solihull Moors,0,1,0,1,4957626
+econf,2024-25,42,2025-04-12,Yeovil Town,Oldham Athletic,2,1,1,0,4957629
+econf,2024-25,42,2025-04-12,York City,Aldershot Town,7,2,4,2,4957630
+econf,2024-25,43,2025-04-18,AFC Fylde,Halifax Town,0,1,0,1,4957631
+econf,2024-25,43,2025-04-18,Aldershot Town,Sutton United,1,1,0,1,4957632
+econf,2024-25,43,2025-04-18,Boston United,FC Wealdstone,2,0,2,0,4957635
+econf,2024-25,43,2025-04-18,Dagenham & Redbridge,Ebbsfleet United,1,0,0,0,4957636
+econf,2024-25,43,2025-04-18,FC Altrincham,AFC Rochdale,1,2,0,1,4957633
+econf,2024-25,43,2025-04-18,FC Barnet,FC Eastleigh,1,1,1,1,4957634
+econf,2024-25,43,2025-04-18,FC Gateshead,York City,1,3,1,1,4957637
+econf,2024-25,43,2025-04-18,FC Tamworth,Solihull Moors,1,2,1,0,4957641
+econf,2024-25,43,2025-04-18,Maidenhead United,FC Woking,2,2,1,0,4957638
+econf,2024-25,43,2025-04-18,Oldham Athletic,Hartlepool United,2,1,1,1,4957639
+econf,2024-25,43,2025-04-18,Southend United,Braintree Town,0,0,0,0,4957640
+econf,2024-25,43,2025-04-18,Yeovil Town,Forest Green Rovers,1,1,1,0,4957642
+econf,2024-25,44,2025-04-21,AFC Rochdale,AFC Fylde,0,0,0,0,4957649
+econf,2024-25,44,2025-04-21,Braintree Town,Dagenham & Redbridge,0,0,0,0,4957643
+econf,2024-25,44,2025-04-21,Ebbsfleet United,Southend United,0,4,0,1,4957645
+econf,2024-25,44,2025-04-21,FC Eastleigh,Yeovil Town,1,0,1,0,4957644
+econf,2024-25,44,2025-04-21,FC Wealdstone,Maidenhead United,1,1,1,1,4957652
+econf,2024-25,44,2025-04-21,FC Woking,Aldershot Town,3,0,3,0,4957653
+econf,2024-25,44,2025-04-21,Forest Green Rovers,FC Tamworth,3,0,3,0,4957647
+econf,2024-25,44,2025-04-21,Halifax Town,FC Altrincham,0,3,0,1,4957646
+econf,2024-25,44,2025-04-21,Hartlepool United,FC Gateshead,3,2,2,0,4957648
+econf,2024-25,44,2025-04-21,Solihull Moors,Boston United,3,2,1,2,4957650
+econf,2024-25,44,2025-04-21,Sutton United,FC Barnet,1,3,1,1,4957651
+econf,2024-25,44,2025-04-21,York City,Oldham Athletic,1,1,1,0,4957654
+econf,2024-25,45,2025-04-26,AFC Rochdale,Hartlepool United,5,1,3,1,4957661
+econf,2024-25,45,2025-04-26,Boston United,FC Gateshead,2,1,2,1,4957656
+econf,2024-25,45,2025-04-26,Dagenham & Redbridge,FC Altrincham,6,1,4,0,4957657
+econf,2024-25,45,2025-04-26,Ebbsfleet United,Maidenhead United,0,2,0,0,4957658
+econf,2024-25,45,2025-04-26,FC Barnet,Aldershot Town,4,0,2,0,4957655
+econf,2024-25,45,2025-04-26,FC Tamworth,AFC Fylde,4,3,2,3,4957663
+econf,2024-25,45,2025-04-26,FC Woking,FC Eastleigh,2,2,1,1,4957664
+econf,2024-25,45,2025-04-26,Forest Green Rovers,Oldham Athletic,1,0,1,0,4957660
+econf,2024-25,45,2025-04-26,Halifax Town,Braintree Town,1,0,0,0,4957659
+econf,2024-25,45,2025-04-26,Southend United,FC Wealdstone,3,0,1,0,4957662
+econf,2024-25,45,2025-04-26,Yeovil Town,Sutton United,1,2,1,0,4957665
+econf,2024-25,45,2025-04-26,York City,Solihull Moors,2,0,1,0,4957666
+econf,2024-25,46,2025-05-05,AFC Fylde,FC Barnet,0,3,0,2,4957667
+econf,2024-25,46,2025-05-05,Aldershot Town,Yeovil Town,2,1,1,0,4957668
+econf,2024-25,46,2025-05-05,Braintree Town,AFC Rochdale,2,0,1,0,4957670
+econf,2024-25,46,2025-05-05,FC Altrincham,FC Tamworth,1,1,0,1,4957669
+econf,2024-25,46,2025-05-05,FC Eastleigh,York City,0,2,0,2,4957671
+econf,2024-25,46,2025-05-05,FC Gateshead,Southend United,0,0,0,0,4957672
+econf,2024-25,46,2025-05-05,FC Wealdstone,Halifax Town,3,1,3,0,4957678
+econf,2024-25,46,2025-05-05,Hartlepool United,Forest Green Rovers,1,1,1,0,4957673
+econf,2024-25,46,2025-05-05,Maidenhead United,Boston United,3,0,1,0,4957674
+econf,2024-25,46,2025-05-05,Oldham Athletic,Ebbsfleet United,2,0,1,0,4957675
+econf,2024-25,46,2025-05-05,Solihull Moors,Dagenham & Redbridge,1,1,0,1,4957676
+econf,2024-25,46,2025-05-05,Sutton United,FC Woking,1,1,0,1,4957677

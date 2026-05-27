@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+econf,2020-21,1,2020-10-03,AFC Wrexham,Boreham Wood,2,1,1,0,4681212
+econf,2020-21,1,2020-10-03,Dover Athletic,Notts County,1,0,,,4681203
+econf,2020-21,1,2020-10-03,FC Altrincham,FC Weymouth,0,0,0,0,4681201
+econf,2020-21,1,2020-10-03,FC Barnet,FC Eastleigh,1,5,1,1,4681202
+econf,2020-21,1,2020-10-03,FC King's Lynn,Yeovil Town,2,2,0,0,4681206
+econf,2020-21,1,2020-10-03,FC Woking,Solihull Moors,2,1,0,1,4681211
+econf,2020-21,1,2020-10-03,Halifax Town,Dagenham & Redbridge,2,0,1,0,4681204
+econf,2020-21,1,2020-10-03,Hartlepool United,Aldershot Town,2,1,1,0,4681205
+econf,2020-21,1,2020-10-03,Macclesfield Town,FC Bromley,,,,,4681207
+econf,2020-21,1,2020-10-03,Sutton United,Maidenhead United,3,0,2,0,4681208
+econf,2020-21,1,2020-10-03,Torquay United,Stockport County,1,0,0,0,4681209
+econf,2020-21,1,2020-10-20,FC Wealdstone,FC Chesterfield,3,2,2,1,4681210
+econf,2020-21,2,2020-10-06,Aldershot Town,Sutton United,1,2,0,1,4681213
+econf,2020-21,2,2020-10-06,Boreham Wood,Macclesfield Town,,,,,4681214
+econf,2020-21,2,2020-10-06,Dagenham & Redbridge,FC Barnet,1,2,1,0,4681217
+econf,2020-21,2,2020-10-06,FC Bromley,Dover Athletic,4,1,,,4681215
+econf,2020-21,2,2020-10-06,FC Chesterfield,Hartlepool United,1,2,0,0,4681216
+econf,2020-21,2,2020-10-06,FC Eastleigh,Torquay United,2,1,0,1,4681218
+econf,2020-21,2,2020-10-06,FC Weymouth,FC Woking,0,1,0,1,4681223
+econf,2020-21,2,2020-10-06,Maidenhead United,FC King's Lynn,2,3,1,1,4681219
+econf,2020-21,2,2020-10-06,Solihull Moors,AFC Wrexham,1,0,0,0,4681221
+econf,2020-21,2,2020-10-06,Stockport County,Halifax Town,2,1,1,1,4681222
+econf,2020-21,2,2020-10-06,Yeovil Town,FC Wealdstone,2,2,0,1,4681224
+econf,2020-21,2,2020-10-07,Notts County,FC Altrincham,3,1,2,0,4681220
+econf,2020-21,3,2020-10-10,Aldershot Town,Macclesfield Town,,,,,4681236
+econf,2020-21,3,2020-10-10,Boreham Wood,Halifax Town,0,0,0,0,4681225
+econf,2020-21,3,2020-10-10,Dagenham & Redbridge,FC Wealdstone,1,0,0,0,4681228
+econf,2020-21,3,2020-10-10,FC Bromley,Torquay United,1,2,1,0,4681226
+econf,2020-21,3,2020-10-10,FC Chesterfield,FC Woking,4,0,1,0,4681227
+econf,2020-21,3,2020-10-10,FC Eastleigh,FC Altrincham,1,1,1,1,4681229
+econf,2020-21,3,2020-10-10,FC Weymouth,Sutton United,0,1,0,0,4681234
+econf,2020-21,3,2020-10-10,Maidenhead United,Hartlepool United,0,4,0,1,4681230
+econf,2020-21,3,2020-10-10,Notts County,FC Barnet,4,2,3,1,4681231
+econf,2020-21,3,2020-10-10,Solihull Moors,FC King's Lynn,5,0,1,0,4681232
+econf,2020-21,3,2020-10-10,Stockport County,Dover Athletic,3,0,,,4681233
+econf,2020-21,3,2020-10-10,Yeovil Town,AFC Wrexham,0,1,0,1,4681235
+econf,2020-21,4,2020-10-12,AFC Wrexham,Maidenhead United,0,1,0,1,4681248
+econf,2020-21,4,2020-10-13,Dover Athletic,Aldershot Town,0,5,,,4681239
+econf,2020-21,4,2020-10-13,FC Barnet,FC Weymouth,1,0,1,0,4681238
+econf,2020-21,4,2020-10-13,FC King's Lynn,Boreham Wood,0,3,0,2,4681242
+econf,2020-21,4,2020-10-13,FC Wealdstone,Stockport County,2,5,1,1,4681246
+econf,2020-21,4,2020-10-13,FC Woking,Dagenham & Redbridge,2,0,2,0,4681247
+econf,2020-21,4,2020-10-13,Halifax Town,Yeovil Town,1,1,1,0,4681240
+econf,2020-21,4,2020-10-13,Hartlepool United,FC Bromley,0,0,0,0,4681241
+econf,2020-21,4,2020-10-13,Macclesfield Town,FC Eastleigh,,,,,4681243
+econf,2020-21,4,2020-10-13,Sutton United,Notts County,0,1,0,0,4681244
+econf,2020-21,4,2020-10-13,Torquay United,FC Chesterfield,2,1,1,1,4681245
+econf,2020-21,4,2020-11-11,FC Altrincham,Solihull Moors,0,2,0,2,4681237
+econf,2020-21,5,2020-10-17,Dagenham & Redbridge,Yeovil Town,0,0,0,0,4681252
+econf,2020-21,5,2020-10-17,FC Chesterfield,Stockport County,1,2,1,1,4681251
+econf,2020-21,5,2020-10-17,FC Eastleigh,Aldershot Town,2,2,1,1,4681253
+econf,2020-21,5,2020-10-17,FC Wealdstone,AFC Wrexham,4,3,2,2,4681258
+econf,2020-21,5,2020-10-17,FC Weymouth,FC King's Lynn,2,1,1,0,4681259
+econf,2020-21,5,2020-10-17,FC Woking,Halifax Town,0,0,0,0,4681260
+econf,2020-21,5,2020-10-17,Notts County,Maidenhead United,2,3,2,1,4681254
+econf,2020-21,5,2020-10-17,Solihull Moors,Boreham Wood,1,0,0,0,4681255
+econf,2020-21,5,2020-10-17,Sutton United,Macclesfield FC,,,,,4681256
+econf,2020-21,5,2020-10-17,Torquay United,Dover Athletic,2,0,,,4681257
+econf,2020-21,5,2020-11-24,FC Altrincham,FC Bromley,0,1,0,1,4681249
+econf,2020-21,5,2020-11-24,FC Barnet,Hartlepool United,0,0,0,0,4681250
+econf,2020-21,6,2020-10-27,AFC Wrexham,FC Barnet,0,0,0,0,4681271
+econf,2020-21,6,2020-10-27,Aldershot Town,Torquay United,1,4,1,1,4681261
+econf,2020-21,6,2020-10-27,Boreham Wood,FC Woking,1,0,1,0,4681262
+econf,2020-21,6,2020-10-27,Dover Athletic,FC Eastleigh,3,2,,,4681264
+econf,2020-21,6,2020-10-27,FC Bromley,FC Weymouth,3,2,1,1,4681263
+econf,2020-21,6,2020-10-27,FC King's Lynn,FC Wealdstone,2,3,0,1,4681267
+econf,2020-21,6,2020-10-27,Hartlepool United,FC Altrincham,1,1,1,0,4681266
+econf,2020-21,6,2020-10-27,Macclesfield FC,FC Chesterfield,,,,,4681268
+econf,2020-21,6,2020-10-27,Maidenhead United,Dagenham & Redbridge,2,1,0,1,4681269
+econf,2020-21,6,2020-10-27,Stockport County,Solihull Moors,0,0,0,0,4681270
+econf,2020-21,6,2020-10-27,Yeovil Town,Sutton United,1,2,1,1,4681272
+econf,2020-21,6,2020-11-17,Halifax Town,Notts County,1,1,0,1,4681265
+econf,2020-21,7,2020-10-31,Dover Athletic,FC Altrincham,0,1,,,4681276
+econf,2020-21,7,2020-10-31,FC Bromley,FC Eastleigh,1,2,0,0,4681275
+econf,2020-21,7,2020-10-31,FC King's Lynn,FC Woking,3,2,1,2,4681279
+econf,2020-21,7,2020-10-31,Hartlepool United,Torquay United,0,5,0,3,4681278
+econf,2020-21,7,2020-10-31,Macclesfield FC,FC Barnet,,,,,4681280
+econf,2020-21,7,2020-10-31,Maidenhead United,Solihull Moors,3,1,0,0,4681281
+econf,2020-21,7,2020-10-31,Stockport County,FC Weymouth,1,2,1,0,4681282
+econf,2020-21,7,2020-10-31,Yeovil Town,FC Chesterfield,0,1,0,0,4681284
+econf,2020-21,7,2020-11-07,Aldershot Town,Notts County,1,0,0,0,4681273
+econf,2020-21,7,2020-11-10,Boreham Wood,Dagenham & Redbridge,0,1,0,0,4681274
+econf,2020-21,7,2020-11-10,Halifax Town,FC Wealdstone,0,1,0,0,4681277
+econf,2020-21,7,2020-11-24,AFC Wrexham,Sutton United,4,0,2,0,4681283
+econf,2020-21,8,2020-11-14,FC Altrincham,Aldershot Town,1,2,0,1,4681285
+econf,2020-21,8,2020-11-14,FC Barnet,FC Bromley,1,3,0,2,4681286
+econf,2020-21,8,2020-11-14,FC Chesterfield,Maidenhead United,1,2,1,0,4681287
+econf,2020-21,8,2020-11-14,FC Woking,Yeovil Town,1,1,0,1,4681296
+econf,2020-21,8,2020-11-14,Notts County,Macclesfield FC,,,,,4681290
+econf,2020-21,8,2020-11-14,Sutton United,FC King's Lynn,5,1,1,0,4681292
+econf,2020-21,8,2020-11-14,Torquay United,Boreham Wood,1,1,1,1,4681293
+econf,2020-21,8,2020-12-15,FC Weymouth,AFC Wrexham,2,3,2,0,4681295
+econf,2020-21,8,2020-12-15,Solihull Moors,Halifax Town,2,1,1,1,4681291
+econf,2020-21,8,2021-01-19,Dagenham & Redbridge,Stockport County,0,2,0,0,4681288
+econf,2020-21,8,2021-02-16,FC Eastleigh,Hartlepool United,2,1,2,0,4681289
+econf,2020-21,8,2021-04-27,FC Wealdstone,Dover Athletic,,,,,4681294
+econf,2020-21,9,2020-11-17,Aldershot Town,Maidenhead United,0,0,0,0,4681297
+econf,2020-21,9,2020-11-17,Dover Athletic,FC Woking,1,5,,,4681301
+econf,2020-21,9,2020-11-17,FC Altrincham,FC Chesterfield,3,2,1,1,4681298
+econf,2020-21,9,2020-11-17,FC Barnet,FC King's Lynn,0,2,0,1,4681299
+econf,2020-21,9,2020-11-17,FC Bromley,Boreham Wood,1,1,1,1,4681300
+econf,2020-21,9,2020-11-17,FC Eastleigh,FC Wealdstone,2,0,0,0,4681302
+econf,2020-21,9,2020-11-17,Hartlepool United,AFC Wrexham,0,1,0,0,4681303
+econf,2020-21,9,2020-11-17,Macclesfield FC,Halifax Town,,,,,4681304
+econf,2020-21,9,2020-11-17,Sutton United,Dagenham & Redbridge,1,1,1,0,4681306
+econf,2020-21,9,2020-12-15,Notts County,Stockport County,1,0,1,0,4681305
+econf,2020-21,9,2021-01-05,FC Weymouth,Yeovil Town,0,3,0,2,4681308
+econf,2020-21,9,2021-03-23,Torquay United,Solihull Moors,2,0,2,0,4681307
+econf,2020-21,10,2020-11-21,AFC Wrexham,Aldershot Town,1,0,0,0,4681319
+econf,2020-21,10,2020-11-21,Boreham Wood,FC Altrincham,0,1,0,0,4681309
+econf,2020-21,10,2020-11-21,Dagenham & Redbridge,Macclesfield FC,,,,,4681311
+econf,2020-21,10,2020-11-21,FC Chesterfield,Notts County,2,3,1,1,4681310
+econf,2020-21,10,2020-11-21,FC King's Lynn,Dover Athletic,2,0,,,4681313
+econf,2020-21,10,2020-11-21,FC Wealdstone,Sutton United,3,3,0,2,4681317
+econf,2020-21,10,2020-11-21,FC Woking,FC Barnet,4,1,2,0,4681318
+econf,2020-21,10,2020-11-21,Halifax Town,Torquay United,1,2,0,1,4681312
+econf,2020-21,10,2020-11-21,Maidenhead United,FC Bromley,2,2,1,0,4681314
+econf,2020-21,10,2020-11-21,Yeovil Town,Hartlepool United,1,3,1,3,4681320
+econf,2020-21,10,2021-03-23,Stockport County,FC Eastleigh,3,0,1,0,4681316
+econf,2020-21,10,2021-05-11,Solihull Moors,FC Weymouth,2,1,1,1,4681315
+econf,2020-21,11,2020-11-27,Notts County,FC Wealdstone,3,0,2,0,4681329
+econf,2020-21,11,2020-11-28,FC Altrincham,Maidenhead United,2,0,0,0,4681322
+econf,2020-21,11,2020-11-28,FC Bromley,AFC Wrexham,1,1,1,0,4681324
+econf,2020-21,11,2020-11-28,FC Weymouth,FC Chesterfield,1,2,1,1,4681332
+econf,2020-21,11,2020-11-28,Macclesfield FC,FC Woking,,,,,4681328
+econf,2020-21,11,2020-11-28,Sutton United,Halifax Town,1,0,1,0,4681330
+econf,2020-21,11,2020-12-15,Torquay United,Dagenham & Redbridge,0,1,0,1,4681331
+econf,2020-21,11,2020-12-22,Hartlepool United,Stockport County,4,0,1,0,4681327
+econf,2020-21,11,2021-01-12,Dover Athletic,Boreham Wood,1,1,,,4681325
+econf,2020-21,11,2021-01-19,FC Eastleigh,FC King's Lynn,0,1,0,1,4681326
+econf,2020-21,11,2021-02-16,Aldershot Town,Solihull Moors,1,3,0,2,4681321
+econf,2020-21,11,2021-03-02,FC Barnet,Yeovil Town,1,4,1,2,4681323
+econf,2020-21,12,2020-12-01,AFC Wrexham,FC Altrincham,0,1,0,1,4681343
+econf,2020-21,12,2020-12-01,FC Chesterfield,Aldershot Town,0,0,0,0,4681334
+econf,2020-21,12,2020-12-01,FC King's Lynn,FC Bromley,1,4,0,3,4681337
+econf,2020-21,12,2020-12-01,FC Wealdstone,Torquay United,1,2,1,0,4681341
+econf,2020-21,12,2020-12-01,FC Woking,Sutton United,0,1,0,1,4681342
+econf,2020-21,12,2020-12-01,Solihull Moors,Hartlepool United,2,0,0,0,4681339
+econf,2020-21,12,2020-12-01,Stockport County,Macclesfield FC,,,,,4681340
+econf,2020-21,12,2020-12-01,Yeovil Town,FC Eastleigh,1,3,0,2,4681344
+econf,2020-21,12,2020-12-02,Dagenham & Redbridge,Notts County,0,0,0,0,4681335
+econf,2020-21,12,2020-12-02,Halifax Town,FC Barnet,5,2,3,0,4681336
+econf,2020-21,12,2021-02-02,Boreham Wood,FC Weymouth,1,0,0,0,4681333
+econf,2020-21,12,2021-03-02,Maidenhead United,Dover Athletic,,,,,4681338
+econf,2020-21,13,2020-12-05,Aldershot Town,Dagenham & Redbridge,2,1,2,0,4681345
+econf,2020-21,13,2020-12-05,FC Barnet,FC Wealdstone,0,0,0,0,4681347
+econf,2020-21,13,2020-12-05,FC Bromley,Stockport County,0,2,0,1,4681348
+econf,2020-21,13,2020-12-05,FC Eastleigh,Maidenhead United,0,1,0,0,4681350
+econf,2020-21,13,2020-12-05,FC Weymouth,Halifax Town,1,5,0,2,4681356
+econf,2020-21,13,2020-12-05,Hartlepool United,Boreham Wood,1,2,1,1,4681351
+econf,2020-21,13,2020-12-05,Macclesfield FC,Yeovil Town,,,,,4681352
+econf,2020-21,13,2020-12-05,Notts County,FC Woking,1,0,0,0,4681353
+econf,2020-21,13,2020-12-05,Sutton United,Solihull Moors,4,1,2,0,4681354
+econf,2020-21,13,2020-12-05,Torquay United,AFC Wrexham,3,1,2,1,4681355
+econf,2020-21,13,2021-03-23,Dover Athletic,FC Chesterfield,,,,,4681349
+econf,2020-21,13,2021-03-23,FC Altrincham,FC King's Lynn,3,0,1,0,4681346
+econf,2020-21,14,2020-12-08,Aldershot Town,Halifax Town,1,3,1,0,4681357
+econf,2020-21,14,2020-12-08,FC Barnet,Stockport County,1,2,0,1,4681359
+econf,2020-21,14,2020-12-08,FC Bromley,Yeovil Town,1,2,0,2,4681360
+econf,2020-21,14,2020-12-08,FC Weymouth,Dagenham & Redbridge,2,3,1,2,4681368
+econf,2020-21,14,2020-12-08,Hartlepool United,FC King's Lynn,2,0,1,0,4681363
+econf,2020-21,14,2020-12-08,Macclesfield FC,FC Wealdstone,,,,,4681364
+econf,2020-21,14,2020-12-08,Notts County,Boreham Wood,0,1,0,0,4681365
+econf,2020-21,14,2020-12-08,Sutton United,FC Chesterfield,0,1,0,1,4681366
+econf,2020-21,14,2020-12-08,Torquay United,Maidenhead United,2,1,1,0,4681367
+econf,2020-21,14,2021-01-23,Dover Athletic,Solihull Moors,0,2,,,4681361
+econf,2020-21,14,2021-02-02,FC Eastleigh,AFC Wrexham,1,1,0,1,4681362
+econf,2020-21,14,2021-03-02,FC Altrincham,FC Woking,1,0,0,0,4681358
+econf,2020-21,15,2020-12-12,Boreham Wood,Aldershot Town,3,2,2,1,4681369
+econf,2020-21,15,2020-12-12,Dagenham & Redbridge,FC Altrincham,0,1,0,1,4681371
+econf,2020-21,15,2020-12-12,FC Chesterfield,FC Barnet,6,0,1,0,4681370
+econf,2020-21,15,2020-12-12,FC King's Lynn,Torquay United,0,0,0,0,4681373
+econf,2020-21,15,2020-12-12,FC Wealdstone,FC Weymouth,2,1,1,1,4681377
+econf,2020-21,15,2020-12-12,FC Woking,Hartlepool United,3,0,2,0,4681378
+econf,2020-21,15,2020-12-12,Maidenhead United,Macclesfield FC,,,,,4681374
+econf,2020-21,15,2020-12-12,Solihull Moors,FC Bromley,0,1,0,1,4681375
+econf,2020-21,15,2020-12-22,Halifax Town,FC Eastleigh,3,1,2,0,4681372
+econf,2020-21,15,2021-01-16,AFC Wrexham,Dover Athletic,3,1,,,4681379
+econf,2020-21,15,2021-02-02,Stockport County,Sutton United,0,2,0,1,4681376
+econf,2020-21,15,2021-03-23,Yeovil Town,Notts County,2,2,2,0,4681380
+econf,2020-21,16,2020-12-26,AFC Wrexham,Macclesfield FC,,,,,4681392
+econf,2020-21,16,2020-12-26,Aldershot Town,FC Woking,3,0,3,0,4681381
+econf,2020-21,16,2020-12-26,Dover Athletic,Dagenham & Redbridge,0,1,,,4681385
+econf,2020-21,16,2020-12-26,FC Altrincham,Stockport County,1,1,1,0,4681382
+econf,2020-21,16,2020-12-26,FC Eastleigh,FC Weymouth,0,0,0,0,4681386
+econf,2020-21,16,2020-12-26,Hartlepool United,Halifax Town,3,1,1,1,4681387
+econf,2020-21,16,2020-12-26,Maidenhead United,FC Wealdstone,4,0,2,0,4681389
+econf,2020-21,16,2020-12-26,Torquay United,Yeovil Town,6,1,4,0,4681391
+econf,2020-21,16,2021-01-05,Solihull Moors,FC Chesterfield,2,1,0,1,4681390
+econf,2020-21,16,2021-02-16,FC King's Lynn,Notts County,0,1,0,0,4681388
+econf,2020-21,16,2021-03-23,FC Bromley,Sutton United,1,3,0,1,4681384
+econf,2020-21,16,2021-04-20,Boreham Wood,FC Barnet,0,0,0,0,4681383
+econf,2020-21,17,2020-12-28,FC Weymouth,Torquay United,3,4,1,2,4681402
+econf,2020-21,17,2020-12-28,FC Woking,FC Eastleigh,0,0,0,0,4681403
+econf,2020-21,17,2020-12-28,Halifax Town,FC Altrincham,3,2,2,1,4681396
+econf,2020-21,17,2020-12-28,Macclesfield FC,Solihull Moors,,,,,4681397
+econf,2020-21,17,2020-12-28,Notts County,Hartlepool United,0,1,0,1,4681398
+econf,2020-21,17,2020-12-28,Stockport County,AFC Wrexham,2,0,2,0,4681399
+econf,2020-21,17,2020-12-28,Yeovil Town,Aldershot Town,3,0,1,0,4681404
+econf,2020-21,17,2021-02-16,Dagenham & Redbridge,FC Bromley,1,0,1,0,4681395
+econf,2020-21,17,2021-02-16,Sutton United,Dover Athletic,,,,,4681400
+econf,2020-21,17,2021-04-10,Boreham Wood,FC Wealdstone,3,1,0,0,4681401
+econf,2020-21,17,2021-05-11,FC Chesterfield,FC King's Lynn,4,1,2,1,4681394
+econf,2020-21,17,2021-05-25,FC Barnet,Maidenhead United,2,0,0,0,4681393
+econf,2020-21,18,2021-01-02,FC Barnet,Boreham Wood,0,3,0,3,4681405
+econf,2020-21,18,2021-01-02,FC Chesterfield,Solihull Moors,1,0,1,0,4681406
+econf,2020-21,18,2021-01-02,FC Weymouth,FC Eastleigh,1,1,0,1,4681414
+econf,2020-21,18,2021-01-02,FC Woking,Aldershot Town,0,1,0,0,4681415
+econf,2020-21,18,2021-01-02,Macclesfield FC,AFC Wrexham,,,,,4681409
+econf,2020-21,18,2021-01-02,Stockport County,FC Altrincham,2,2,1,0,4681411
+econf,2020-21,18,2021-01-02,Yeovil Town,Torquay United,2,1,0,0,4681416
+econf,2020-21,18,2021-03-02,Halifax Town,Hartlepool United,1,1,0,1,4681408
+econf,2020-21,18,2021-03-02,Notts County,FC King's Lynn,2,2,2,1,4681410
+econf,2020-21,18,2021-03-02,Sutton United,FC Bromley,3,2,0,1,4681412
+econf,2020-21,18,2021-03-30,Dagenham & Redbridge,Dover Athletic,,,,,4681407
+econf,2020-21,18,2021-04-20,FC Wealdstone,Maidenhead United,0,6,0,1,4681413
+econf,2020-21,19,2021-01-09,FC King's Lynn,Halifax Town,1,1,1,0,4681424
+econf,2020-21,19,2021-01-09,Hartlepool United,FC Wealdstone,3,1,1,0,4681423
+econf,2020-21,19,2021-01-09,Sutton United,FC Altrincham,2,2,2,1,4681418
+econf,2020-21,19,2021-01-09,Torquay United,Macclesfield FC,,,,,4681427
+econf,2020-21,19,2021-02-02,Aldershot Town,FC Barnet,2,1,0,0,4681417
+econf,2020-21,19,2021-02-16,AFC Wrexham,FC Woking,2,0,1,0,4681428
+econf,2020-21,19,2021-02-16,Boreham Wood,Yeovil Town,2,3,0,3,4681419
+econf,2020-21,19,2021-02-16,Maidenhead United,Stockport County,0,0,0,0,4681425
+econf,2020-21,19,2021-03-02,Solihull Moors,Dagenham & Redbridge,0,1,0,0,4681426
+econf,2020-21,19,2021-04-20,Dover Athletic,FC Weymouth,,,,,4681421
+econf,2020-21,19,2021-04-27,FC Bromley,FC Chesterfield,1,2,0,0,4681420
+econf,2020-21,19,2021-04-27,FC Eastleigh,Notts County,2,0,0,0,4681422
+econf,2020-21,20,2021-01-23,Dagenham & Redbridge,FC King's Lynn,3,2,0,2,4681431
+econf,2020-21,20,2021-01-23,FC Barnet,FC Altrincham,1,2,1,1,4681429
+econf,2020-21,20,2021-01-23,FC Bromley,Halifax Town,1,2,1,1,4681432
+econf,2020-21,20,2021-01-23,FC Chesterfield,AFC Wrexham,2,1,1,1,4681430
+econf,2020-21,20,2021-01-23,FC Wealdstone,Aldershot Town,3,4,2,3,4681437
+econf,2020-21,20,2021-01-23,FC Weymouth,Hartlepool United,1,0,1,0,4681438
+econf,2020-21,20,2021-01-23,FC Woking,Maidenhead United,0,0,0,0,4681439
+econf,2020-21,20,2021-01-23,Macclesfield FC,Dover Athletic,,,,,4681433
+econf,2020-21,20,2021-01-23,Notts County,Torquay United,0,0,0,0,4681434
+econf,2020-21,20,2021-01-23,Stockport County,Boreham Wood,1,1,1,0,4681435
+econf,2020-21,20,2021-01-23,Sutton United,FC Eastleigh,3,0,2,0,4681436
+econf,2020-21,20,2021-04-27,Yeovil Town,Solihull Moors,3,0,1,0,4681440
+econf,2020-21,21,2021-01-26,AFC Wrexham,Halifax Town,0,0,0,0,4681452
+econf,2020-21,21,2021-01-26,Aldershot Town,FC Weymouth,0,2,0,2,4681441
+econf,2020-21,21,2021-01-26,Boreham Wood,FC Chesterfield,0,0,0,0,4681443
+econf,2020-21,21,2021-01-26,Dover Athletic,FC Barnet,3,1,,,4681445
+econf,2020-21,21,2021-01-26,FC Altrincham,FC Wealdstone,2,0,1,0,4681442
+econf,2020-21,21,2021-01-26,FC Bromley,FC Woking,2,2,1,0,4681444
+econf,2020-21,21,2021-01-26,FC Eastleigh,Dagenham & Redbridge,3,0,1,0,4681446
+econf,2020-21,21,2021-01-26,Hartlepool United,Macclesfield FC,,,,,4681447
+econf,2020-21,21,2021-01-26,Torquay United,Sutton United,0,0,0,0,4681451
+econf,2020-21,21,2021-01-27,Maidenhead United,Yeovil Town,4,2,1,1,4681449
+econf,2020-21,21,2021-04-13,Solihull Moors,Notts County,2,1,0,1,4681450
+econf,2020-21,21,2021-04-27,FC King's Lynn,Stockport County,0,4,0,4,4681448
+econf,2020-21,22,2021-01-30,Boreham Wood,FC Eastleigh,1,2,1,0,4681455
+econf,2020-21,22,2021-01-30,Dagenham & Redbridge,FC Chesterfield,2,2,1,2,4681457
+econf,2020-21,22,2021-01-30,FC Altrincham,Macclesfield FC,,,,,4681453
+econf,2020-21,22,2021-01-30,FC Barnet,Torquay United,0,2,0,1,4681454
+econf,2020-21,22,2021-01-30,FC Bromley,Aldershot Town,2,0,1,0,4681456
+econf,2020-21,22,2021-01-30,FC King's Lynn,AFC Wrexham,0,2,0,2,4681460
+econf,2020-21,22,2021-01-30,FC Weymouth,Notts County,0,1,0,0,4681462
+econf,2020-21,22,2021-01-30,FC Woking,Stockport County,1,4,0,3,4681463
+econf,2020-21,22,2021-01-30,Halifax Town,Maidenhead United,2,3,1,2,4681458
+econf,2020-21,22,2021-01-30,Hartlepool United,Sutton United,1,0,0,0,4681459
+econf,2020-21,22,2021-01-30,Yeovil Town,Dover Athletic,3,1,,,4681464
+econf,2020-21,22,2021-03-30,Solihull Moors,FC Wealdstone,3,0,1,0,4681461
+econf,2020-21,23,2021-02-02,Torquay United,FC Altrincham,1,2,1,2,4681474
+econf,2020-21,23,2021-02-06,AFC Wrexham,Dagenham & Redbridge,2,2,1,0,4681476
+econf,2020-21,23,2021-02-06,Dover Athletic,Hartlepool United,,,,,4681467
+econf,2020-21,23,2021-02-06,FC Eastleigh,Solihull Moors,1,1,1,0,4681468
+econf,2020-21,23,2021-02-06,Macclesfield FC,FC Weymouth,,,,,4681469
+econf,2020-21,23,2021-02-06,Maidenhead United,Boreham Wood,0,1,0,0,4681470
+econf,2020-21,23,2021-02-06,Stockport County,Yeovil Town,1,0,1,0,4681472
+econf,2020-21,23,2021-03-23,FC Wealdstone,FC Woking,0,1,0,0,4681475
+econf,2020-21,23,2021-04-20,Aldershot Town,FC King's Lynn,1,1,1,0,4681465
+econf,2020-21,23,2021-04-20,FC Chesterfield,Halifax Town,1,2,0,2,4681466
+econf,2020-21,23,2021-04-27,Sutton United,FC Barnet,1,0,0,0,4681473
+econf,2020-21,23,2021-05-15,Notts County,FC Bromley,2,2,0,1,4681471
+econf,2020-21,24,2021-02-09,Dover Athletic,Maidenhead United,,,,,4681481
+econf,2020-21,24,2021-02-09,FC Altrincham,AFC Wrexham,1,2,0,1,4681478
+econf,2020-21,24,2021-02-09,FC Bromley,FC King's Lynn,2,0,1,0,4681480
+econf,2020-21,24,2021-02-09,FC Eastleigh,Yeovil Town,1,0,1,0,4681482
+econf,2020-21,24,2021-02-09,Hartlepool United,Solihull Moors,2,0,1,0,4681483
+econf,2020-21,24,2021-02-09,Macclesfield FC,Stockport County,,,,,4681484
+econf,2020-21,24,2021-02-09,Notts County,Dagenham & Redbridge,3,1,3,0,4681485
+econf,2020-21,24,2021-02-09,Torquay United,FC Wealdstone,1,1,0,1,4681487
+econf,2020-21,24,2021-02-16,FC Barnet,Halifax Town,2,1,2,1,4681479
+econf,2020-21,24,2021-03-23,Aldershot Town,FC Chesterfield,0,1,0,1,4681477
+econf,2020-21,24,2021-05-11,Sutton United,FC Woking,3,2,1,1,4681486
+econf,2020-21,24,2021-05-18,FC Weymouth,Boreham Wood,1,3,0,2,4681488
+econf,2020-21,25,2021-02-13,FC King's Lynn,Macclesfield FC,,,,,4681493
+econf,2020-21,25,2021-02-13,Halifax Town,Dover Athletic,,,,,4681492
+econf,2020-21,25,2021-02-13,Stockport County,Aldershot Town,0,0,0,0,4681496
+econf,2020-21,25,2021-02-13,Sutton United,Boreham Wood,2,0,1,0,4681489
+econf,2020-21,25,2021-02-13,Yeovil Town,FC Altrincham,2,0,0,0,4681500
+econf,2020-21,25,2021-03-02,FC Chesterfield,FC Eastleigh,1,0,0,0,4681490
+econf,2020-21,25,2021-03-23,Dagenham & Redbridge,Hartlepool United,0,1,0,1,4681491
+econf,2020-21,25,2021-04-20,FC Woking,Torquay United,0,2,0,2,4681498
+econf,2020-21,25,2021-04-27,Maidenhead United,FC Weymouth,0,1,0,1,4681494
+econf,2020-21,25,2021-05-11,FC Wealdstone,FC Bromley,0,1,0,0,4681497
+econf,2020-21,25,2021-05-18,AFC Wrexham,Notts County,0,1,0,1,4681499
+econf,2020-21,25,2021-05-19,Solihull Moors,FC Barnet,1,0,0,0,4681495
+econf,2020-21,26,2021-02-20,Aldershot Town,AFC Wrexham,3,0,1,0,4681501
+econf,2020-21,26,2021-02-20,Dover Athletic,FC King's Lynn,,,,,4681505
+econf,2020-21,26,2021-02-20,FC Altrincham,Boreham Wood,2,3,0,2,4681502
+econf,2020-21,26,2021-02-20,FC Barnet,FC Woking,0,2,0,1,4681503
+econf,2020-21,26,2021-02-20,FC Bromley,Maidenhead United,2,2,2,0,4681504
+econf,2020-21,26,2021-02-20,FC Eastleigh,Stockport County,1,0,0,0,4681506
+econf,2020-21,26,2021-02-20,FC Weymouth,Solihull Moors,0,0,0,0,4681512
+econf,2020-21,26,2021-02-20,Hartlepool United,Yeovil Town,2,1,0,0,4681507
+econf,2020-21,26,2021-02-20,Macclesfield FC,Dagenham & Redbridge,,,,,4681508
+econf,2020-21,26,2021-02-20,Notts County,FC Chesterfield,0,1,0,1,4681509
+econf,2020-21,26,2021-02-20,Sutton United,FC Wealdstone,4,1,3,0,4681510
+econf,2020-21,26,2021-02-20,Torquay United,Halifax Town,2,3,1,1,4681511
+econf,2020-21,27,2021-02-23,AFC Wrexham,Hartlepool United,0,0,0,0,4681523
+econf,2020-21,27,2021-02-23,Boreham Wood,FC Bromley,1,1,1,0,4681513
+econf,2020-21,27,2021-02-23,Dagenham & Redbridge,Sutton United,1,2,0,1,4681515
+econf,2020-21,27,2021-02-23,FC Chesterfield,FC Altrincham,1,0,0,0,4681514
+econf,2020-21,27,2021-02-23,FC King's Lynn,FC Barnet,5,1,2,1,4681517
+econf,2020-21,27,2021-02-23,FC Wealdstone,FC Eastleigh,0,0,0,0,4681521
+econf,2020-21,27,2021-02-23,FC Woking,Dover Athletic,,,,,4681522
+econf,2020-21,27,2021-02-23,Halifax Town,Macclesfield FC,,,,,4681516
+econf,2020-21,27,2021-02-23,Maidenhead United,Aldershot Town,2,4,1,3,4681518
+econf,2020-21,27,2021-02-23,Solihull Moors,Torquay United,1,2,0,1,4681519
+econf,2020-21,27,2021-02-23,Stockport County,Notts County,0,0,0,0,4681520
+econf,2020-21,27,2021-02-23,Yeovil Town,FC Weymouth,3,1,1,1,4681524
+econf,2020-21,28,2021-02-27,AFC Wrexham,FC Wealdstone,4,1,0,1,4681535
+econf,2020-21,28,2021-02-27,Boreham Wood,Solihull Moors,2,2,1,1,4681526
+econf,2020-21,28,2021-02-27,Dover Athletic,Torquay United,,,,,4681528
+econf,2020-21,28,2021-02-27,FC Bromley,FC Altrincham,3,1,3,1,4681527
+econf,2020-21,28,2021-02-27,FC King's Lynn,FC Weymouth,2,2,2,2,4681531
+econf,2020-21,28,2021-02-27,Hartlepool United,FC Barnet,1,0,1,0,4681530
+econf,2020-21,28,2021-02-27,Macclesfield FC,Sutton United,,,,,4681532
+econf,2020-21,28,2021-02-27,Stockport County,FC Chesterfield,2,0,0,0,4681534
+econf,2020-21,28,2021-02-27,Yeovil Town,Dagenham & Redbridge,1,0,0,0,4681536
+econf,2020-21,28,2021-04-27,Halifax Town,FC Woking,1,0,0,0,4681529
+econf,2020-21,28,2021-05-11,Maidenhead United,Notts County,0,4,0,1,4681533
+econf,2020-21,28,2021-05-18,Aldershot Town,FC Eastleigh,1,3,0,1,4681525
+econf,2020-21,29,2021-03-06,Dagenham & Redbridge,Boreham Wood,2,2,0,1,4681540
+econf,2020-21,29,2021-03-06,FC Altrincham,Dover Athletic,,,,,4681537
+econf,2020-21,29,2021-03-06,FC Barnet,Macclesfield FC,,,,,4681538
+econf,2020-21,29,2021-03-06,FC Chesterfield,Yeovil Town,3,0,0,0,4681539
+econf,2020-21,29,2021-03-06,FC Eastleigh,FC Bromley,1,2,0,0,4681541
+econf,2020-21,29,2021-03-06,FC Wealdstone,Halifax Town,1,2,1,0,4681546
+econf,2020-21,29,2021-03-06,FC Weymouth,Stockport County,1,0,1,0,4681547
+econf,2020-21,29,2021-03-06,FC Woking,FC King's Lynn,3,0,1,0,4681548
+econf,2020-21,29,2021-03-06,Solihull Moors,Maidenhead United,1,1,0,1,4681543
+econf,2020-21,29,2021-03-06,Sutton United,AFC Wrexham,0,0,0,0,4681544
+econf,2020-21,29,2021-03-06,Torquay United,Hartlepool United,0,1,0,1,4681545
+econf,2020-21,29,2021-03-30,Notts County,Aldershot Town,0,1,0,1,4681542
+econf,2020-21,30,2021-02-06,FC Weymouth,FC Bromley,2,1,2,1,4681559
+econf,2020-21,30,2021-03-09,Dagenham & Redbridge,Maidenhead United,2,1,2,0,4681552
+econf,2020-21,30,2021-03-09,FC Altrincham,Hartlepool United,1,1,1,1,4681549
+econf,2020-21,30,2021-03-09,FC Barnet,AFC Wrexham,0,2,0,1,4681550
+econf,2020-21,30,2021-03-09,FC Chesterfield,Macclesfield FC,,,,,4681551
+econf,2020-21,30,2021-03-09,FC Eastleigh,Dover Athletic,,,,,4681553
+econf,2020-21,30,2021-03-09,FC Wealdstone,FC King's Lynn,3,1,2,0,4681558
+econf,2020-21,30,2021-03-09,FC Woking,Boreham Wood,0,0,0,0,4681560
+econf,2020-21,30,2021-03-09,Notts County,Halifax Town,1,2,0,1,4681554
+econf,2020-21,30,2021-03-09,Solihull Moors,Stockport County,0,5,0,4,4681555
+econf,2020-21,30,2021-03-09,Sutton United,Yeovil Town,2,1,1,0,4681556
+econf,2020-21,30,2021-04-27,Torquay United,Aldershot Town,2,1,1,1,4681557
+econf,2020-21,31,2021-03-13,AFC Wrexham,FC Weymouth,2,0,0,0,4681571
+econf,2020-21,31,2021-03-13,Aldershot Town,FC Altrincham,2,1,1,0,4681561
+econf,2020-21,31,2021-03-13,Boreham Wood,Torquay United,0,0,0,0,4681562
+econf,2020-21,31,2021-03-13,Dover Athletic,FC Wealdstone,,,,,4681564
+econf,2020-21,31,2021-03-13,FC Bromley,FC Barnet,2,2,1,1,4681563
+econf,2020-21,31,2021-03-13,FC King's Lynn,Sutton United,0,1,0,0,4681567
+econf,2020-21,31,2021-03-13,Halifax Town,Solihull Moors,1,0,0,0,4681565
+econf,2020-21,31,2021-03-13,Hartlepool United,FC Eastleigh,0,0,0,0,4681566
+econf,2020-21,31,2021-03-13,Macclesfield FC,Notts County,,,,,4681568
+econf,2020-21,31,2021-03-13,Maidenhead United,FC Chesterfield,2,0,1,0,4681569
+econf,2020-21,31,2021-03-13,Yeovil Town,FC Woking,2,1,1,0,4681572
+econf,2020-21,31,2021-05-11,Stockport County,Dagenham & Redbridge,1,1,1,1,4681570
+econf,2020-21,32,2021-03-16,AFC Wrexham,FC Eastleigh,2,2,1,1,4681583
+econf,2020-21,32,2021-03-16,Boreham Wood,Notts County,2,2,1,0,4681573
+econf,2020-21,32,2021-03-16,Dagenham & Redbridge,FC Weymouth,1,1,1,0,4681575
+econf,2020-21,32,2021-03-16,FC Chesterfield,Sutton United,0,1,0,1,4681574
+econf,2020-21,32,2021-03-16,FC King's Lynn,Hartlepool United,2,2,2,1,4681577
+econf,2020-21,32,2021-03-16,FC Wealdstone,Macclesfield FC,,,,,4681581
+econf,2020-21,32,2021-03-16,FC Woking,FC Altrincham,1,1,1,0,4681582
+econf,2020-21,32,2021-03-16,Halifax Town,Aldershot Town,1,0,0,0,4681576
+econf,2020-21,32,2021-03-16,Maidenhead United,Torquay United,4,1,2,0,4681578
+econf,2020-21,32,2021-03-16,Solihull Moors,Dover Athletic,,,,,4681579
+econf,2020-21,32,2021-03-16,Stockport County,FC Barnet,2,1,1,0,4681580
+econf,2020-21,32,2021-03-16,Yeovil Town,FC Bromley,1,2,0,0,4681584
+econf,2020-21,33,2021-03-20,Aldershot Town,Boreham Wood,3,3,0,1,4681585
+econf,2020-21,33,2021-03-20,Dover Athletic,AFC Wrexham,,,,,4681589
+econf,2020-21,33,2021-03-20,FC Altrincham,Dagenham & Redbridge,0,1,0,0,4681586
+econf,2020-21,33,2021-03-20,FC Barnet,FC Chesterfield,0,2,0,1,4681587
+econf,2020-21,33,2021-03-20,FC Bromley,Solihull Moors,1,0,0,0,4681588
+econf,2020-21,33,2021-03-20,FC Eastleigh,Halifax Town,1,0,0,0,4681590
+econf,2020-21,33,2021-03-20,FC Weymouth,FC Wealdstone,4,0,1,0,4681596
+econf,2020-21,33,2021-03-20,Hartlepool United,FC Woking,1,0,0,0,4681591
+econf,2020-21,33,2021-03-20,Macclesfield FC,Maidenhead United,,,,,4681592
+econf,2020-21,33,2021-03-20,Notts County,Yeovil Town,2,0,1,0,4681593
+econf,2020-21,33,2021-03-20,Sutton United,Stockport County,1,1,0,0,4681594
+econf,2020-21,33,2021-03-20,Torquay United,FC King's Lynn,1,0,0,0,4681595
+econf,2020-21,34,2021-03-13,FC Wealdstone,Notts County,0,1,0,0,4681605
+econf,2020-21,34,2021-03-27,AFC Wrexham,FC Bromley,3,0,2,0,4681607
+econf,2020-21,34,2021-03-27,Boreham Wood,Dover Athletic,,,,,4681597
+econf,2020-21,34,2021-03-27,Dagenham & Redbridge,Torquay United,1,0,0,0,4681599
+econf,2020-21,34,2021-03-27,FC Chesterfield,FC Weymouth,1,0,1,0,4681598
+econf,2020-21,34,2021-03-27,FC King's Lynn,FC Eastleigh,2,1,0,1,4681601
+econf,2020-21,34,2021-03-27,FC Woking,Macclesfield FC,,,,,4681606
+econf,2020-21,34,2021-03-27,Halifax Town,Sutton United,2,2,1,0,4681600
+econf,2020-21,34,2021-03-27,Maidenhead United,FC Altrincham,0,1,0,0,4681602
+econf,2020-21,34,2021-03-27,Solihull Moors,Aldershot Town,1,0,1,0,4681603
+econf,2020-21,34,2021-03-27,Stockport County,Hartlepool United,1,1,0,0,4681604
+econf,2020-21,34,2021-03-27,Yeovil Town,FC Barnet,3,1,3,0,4681608
+econf,2020-21,35,2021-04-02,Aldershot Town,Stockport County,1,2,0,1,4681609
+econf,2020-21,35,2021-04-02,Boreham Wood,Sutton United,0,0,0,0,4681618
+econf,2020-21,35,2021-04-02,Dover Athletic,Halifax Town,,,,,4681613
+econf,2020-21,35,2021-04-02,FC Barnet,Solihull Moors,0,2,0,1,4681611
+econf,2020-21,35,2021-04-02,FC Bromley,FC Wealdstone,2,2,1,2,4681612
+econf,2020-21,35,2021-04-02,FC Eastleigh,FC Chesterfield,0,1,0,0,4681614
+econf,2020-21,35,2021-04-02,FC Weymouth,Maidenhead United,2,1,0,0,4681620
+econf,2020-21,35,2021-04-02,Hartlepool United,Dagenham & Redbridge,2,1,1,1,4681615
+econf,2020-21,35,2021-04-02,Macclesfield FC,FC King's Lynn,,,,,4681616
+econf,2020-21,35,2021-04-02,Notts County,AFC Wrexham,1,0,0,0,4681617
+econf,2020-21,35,2021-04-02,Torquay United,FC Woking,1,0,0,0,4681619
+econf,2020-21,35,2021-05-22,FC Altrincham,Yeovil Town,4,3,2,0,4681610
+econf,2020-21,36,2021-04-05,AFC Wrexham,Torquay United,0,1,0,0,4681631
+econf,2020-21,36,2021-04-05,Boreham Wood,Hartlepool United,2,2,2,1,4681621
+econf,2020-21,36,2021-04-05,Dagenham & Redbridge,Aldershot Town,0,2,0,1,4681623
+econf,2020-21,36,2021-04-05,FC Chesterfield,Dover Athletic,,,,,4681622
+econf,2020-21,36,2021-04-05,FC King's Lynn,FC Altrincham,2,0,0,0,4681625
+econf,2020-21,36,2021-04-05,FC Wealdstone,FC Barnet,5,1,2,0,4681629
+econf,2020-21,36,2021-04-05,FC Woking,Notts County,2,4,2,1,4681630
+econf,2020-21,36,2021-04-05,Halifax Town,FC Weymouth,3,2,2,1,4681624
+econf,2020-21,36,2021-04-05,Maidenhead United,FC Eastleigh,0,1,0,0,4681626
+econf,2020-21,36,2021-04-05,Solihull Moors,Sutton United,0,0,0,0,4681627
+econf,2020-21,36,2021-04-05,Stockport County,FC Bromley,0,0,0,0,4681628
+econf,2020-21,36,2021-04-05,Yeovil Town,Macclesfield FC,,,,,4681632
+econf,2020-21,37,2021-03-02,FC Wealdstone,Boreham Wood,1,0,1,0,4681635
+econf,2020-21,37,2021-04-10,AFC Wrexham,Stockport County,0,3,0,2,4681644
+econf,2020-21,37,2021-04-10,Dover Athletic,Sutton United,,,,,4681637
+econf,2020-21,37,2021-04-10,FC Altrincham,Halifax Town,0,1,0,1,4681634
+econf,2020-21,37,2021-04-10,FC Bromley,Dagenham & Redbridge,1,0,1,0,4681636
+econf,2020-21,37,2021-04-10,FC Eastleigh,FC Woking,0,0,0,0,4681638
+econf,2020-21,37,2021-04-10,FC King's Lynn,FC Chesterfield,1,2,1,0,4681640
+econf,2020-21,37,2021-04-10,Hartlepool United,Notts County,2,0,1,0,4681639
+econf,2020-21,37,2021-04-10,Maidenhead United,FC Barnet,0,0,0,0,4681641
+econf,2020-21,37,2021-04-10,Solihull Moors,Macclesfield FC,,,,,4681642
+econf,2020-21,37,2021-04-10,Torquay United,FC Weymouth,2,1,0,1,4681643
+econf,2020-21,37,2021-05-11,Aldershot Town,Yeovil Town,2,0,0,0,4681633
+econf,2020-21,38,2020-11-07,FC Wealdstone,FC Altrincham,1,0,0,0,4681653
+econf,2020-21,38,2021-01-27,Notts County,Solihull Moors,2,0,0,0,4681650
+econf,2020-21,38,2021-04-13,Dagenham & Redbridge,FC Eastleigh,2,0,1,0,4681647
+econf,2020-21,38,2021-04-13,FC Barnet,Dover Athletic,,,,,4681645
+econf,2020-21,38,2021-04-13,FC Chesterfield,Boreham Wood,0,0,0,0,4681646
+econf,2020-21,38,2021-04-13,FC Weymouth,Aldershot Town,0,3,0,1,4681654
+econf,2020-21,38,2021-04-13,FC Woking,FC Bromley,3,4,2,1,4681655
+econf,2020-21,38,2021-04-13,Halifax Town,AFC Wrexham,0,4,0,4,4681648
+econf,2020-21,38,2021-04-13,Macclesfield FC,Hartlepool United,,,,,4681649
+econf,2020-21,38,2021-04-13,Stockport County,FC King's Lynn,4,0,1,0,4681651
+econf,2020-21,38,2021-04-13,Sutton United,Torquay United,0,1,0,0,4681652
+econf,2020-21,38,2021-05-18,Yeovil Town,Maidenhead United,0,0,0,0,4681656
+econf,2020-21,39,2021-04-17,Dagenham & Redbridge,Solihull Moors,3,2,2,1,4681659
+econf,2020-21,39,2021-04-17,FC Altrincham,Sutton United,0,4,0,2,4681664
+econf,2020-21,39,2021-04-17,FC Barnet,Aldershot Town,3,1,1,1,4681657
+econf,2020-21,39,2021-04-17,FC Chesterfield,FC Bromley,1,2,0,1,4681658
+econf,2020-21,39,2021-04-17,FC Wealdstone,Hartlepool United,2,7,0,3,4681665
+econf,2020-21,39,2021-04-17,FC Weymouth,Dover Athletic,,,,,4681666
+econf,2020-21,39,2021-04-17,FC Woking,AFC Wrexham,0,4,0,1,4681667
+econf,2020-21,39,2021-04-17,Halifax Town,FC King's Lynn,4,2,2,2,4681660
+econf,2020-21,39,2021-04-17,Macclesfield FC,Torquay United,,,,,4681661
+econf,2020-21,39,2021-04-17,Notts County,FC Eastleigh,0,1,0,1,4681662
+econf,2020-21,39,2021-04-17,Stockport County,Maidenhead United,2,2,1,1,4681663
+econf,2020-21,39,2021-04-17,Yeovil Town,Boreham Wood,1,0,1,0,4681668
+econf,2020-21,40,2021-04-24,AFC Wrexham,FC Chesterfield,0,0,0,0,4681680
+econf,2020-21,40,2021-04-24,Aldershot Town,FC Wealdstone,2,0,1,0,4681669
+econf,2020-21,40,2021-04-24,Boreham Wood,Stockport County,0,3,0,2,4681671
+econf,2020-21,40,2021-04-24,Dover Athletic,Macclesfield FC,,,,,4681673
+econf,2020-21,40,2021-04-24,FC Altrincham,FC Barnet,2,3,2,1,4681670
+econf,2020-21,40,2021-04-24,FC Eastleigh,Sutton United,1,0,1,0,4681674
+econf,2020-21,40,2021-04-24,FC King's Lynn,Dagenham & Redbridge,0,3,0,2,4681676
+econf,2020-21,40,2021-04-24,Halifax Town,FC Bromley,1,2,0,1,4681672
+econf,2020-21,40,2021-04-24,Maidenhead United,FC Woking,2,1,2,0,4681677
+econf,2020-21,40,2021-04-24,Solihull Moors,Yeovil Town,5,1,1,0,4681678
+econf,2020-21,40,2021-04-24,Torquay United,Notts County,2,2,0,1,4681679
+econf,2020-21,40,2021-05-29,Hartlepool United,FC Weymouth,4,0,2,0,4681675
+econf,2020-21,41,2021-05-01,AFC Wrexham,Solihull Moors,2,1,2,0,4681692
+econf,2020-21,41,2021-05-01,Dover Athletic,FC Bromley,,,,,4681683
+econf,2020-21,41,2021-05-01,FC Altrincham,Notts County,1,1,1,1,4681681
+econf,2020-21,41,2021-05-01,FC Barnet,Dagenham & Redbridge,0,2,0,1,4681682
+econf,2020-21,41,2021-05-01,FC King's Lynn,Maidenhead United,0,0,0,0,4681686
+econf,2020-21,41,2021-05-01,FC Wealdstone,Yeovil Town,0,2,0,2,4681690
+econf,2020-21,41,2021-05-01,FC Woking,FC Weymouth,2,4,1,1,4681691
+econf,2020-21,41,2021-05-01,Halifax Town,Stockport County,0,1,0,1,4681684
+econf,2020-21,41,2021-05-01,Hartlepool United,FC Chesterfield,3,1,3,0,4681685
+econf,2020-21,41,2021-05-01,Macclesfield FC,Boreham Wood,,,,,4681687
+econf,2020-21,41,2021-05-01,Sutton United,Aldershot Town,3,1,2,1,4681688
+econf,2020-21,41,2021-05-01,Torquay United,FC Eastleigh,3,1,1,0,4681689
+econf,2020-21,42,2021-05-03,Aldershot Town,Dover Athletic,,,,,4681693
+econf,2020-21,42,2021-05-03,Boreham Wood,FC King's Lynn,5,1,1,1,4681694
+econf,2020-21,42,2021-05-03,Dagenham & Redbridge,FC Woking,3,1,2,0,4681697
+econf,2020-21,42,2021-05-03,FC Bromley,Hartlepool United,1,0,1,0,4681695
+econf,2020-21,42,2021-05-03,FC Chesterfield,Torquay United,0,2,0,1,4681696
+econf,2020-21,42,2021-05-03,FC Eastleigh,Macclesfield FC,,,,,4681698
+econf,2020-21,42,2021-05-03,FC Weymouth,FC Barnet,0,2,0,1,4681703
+econf,2020-21,42,2021-05-03,Maidenhead United,AFC Wrexham,2,2,2,0,4681699
+econf,2020-21,42,2021-05-03,Solihull Moors,FC Altrincham,4,0,1,0,4681701
+econf,2020-21,42,2021-05-03,Stockport County,FC Wealdstone,4,0,0,0,4681702
+econf,2020-21,42,2021-05-03,Yeovil Town,Halifax Town,0,3,0,1,4681704
+econf,2020-21,42,2021-05-04,Notts County,Sutton United,3,2,1,1,4681700
+econf,2020-21,43,2021-05-08,AFC Wrexham,Yeovil Town,3,0,3,0,4681716
+econf,2020-21,43,2021-05-08,Dover Athletic,Stockport County,,,,,4681707
+econf,2020-21,43,2021-05-08,FC Barnet,Notts County,1,4,0,1,4681706
+econf,2020-21,43,2021-05-08,FC Wealdstone,Dagenham & Redbridge,0,5,0,4,4681714
+econf,2020-21,43,2021-05-08,FC Woking,FC Chesterfield,1,4,1,3,4681715
+econf,2020-21,43,2021-05-08,Halifax Town,Boreham Wood,0,1,0,0,4681708
+econf,2020-21,43,2021-05-08,Hartlepool United,Maidenhead United,2,4,1,2,4681709
+econf,2020-21,43,2021-05-08,Macclesfield FC,Aldershot Town,,,,,4681711
+econf,2020-21,43,2021-05-08,Sutton United,FC Weymouth,2,0,1,0,4681712
+econf,2020-21,43,2021-05-08,Torquay United,FC Bromley,0,0,0,0,4681713
+econf,2020-21,43,2021-05-25,FC Altrincham,FC Eastleigh,1,1,0,0,4681705
+econf,2020-21,43,2021-05-25,FC King's Lynn,Solihull Moors,1,1,1,0,4681710
+econf,2020-21,44,2021-05-15,Aldershot Town,Hartlepool United,1,3,0,0,4681717
+econf,2020-21,44,2021-05-15,Boreham Wood,AFC Wrexham,2,3,2,0,4681718
+econf,2020-21,44,2021-05-15,Dagenham & Redbridge,Halifax Town,3,0,2,0,4681721
+econf,2020-21,44,2021-05-15,FC Bromley,Macclesfield FC,,,,,4681719
+econf,2020-21,44,2021-05-15,FC Chesterfield,FC Wealdstone,0,0,0,0,4681720
+econf,2020-21,44,2021-05-15,FC Eastleigh,FC Barnet,3,0,1,0,4681722
+econf,2020-21,44,2021-05-15,FC Weymouth,FC Altrincham,2,1,1,0,4681727
+econf,2020-21,44,2021-05-15,Maidenhead United,Sutton United,0,3,0,0,4681723
+econf,2020-21,44,2021-05-15,Notts County,Dover Athletic,,,,,4681724
+econf,2020-21,44,2021-05-15,Solihull Moors,FC Woking,2,1,1,0,4681725
+econf,2020-21,44,2021-05-15,Yeovil Town,FC King's Lynn,3,1,2,1,4681728
+econf,2020-21,44,2021-05-16,Stockport County,Torquay United,2,2,1,1,4681726
+econf,2020-21,45,2021-05-22,AFC Wrexham,FC King's Lynn,5,3,3,1,4681740
+econf,2020-21,45,2021-05-22,Aldershot Town,FC Bromley,2,3,0,1,4681729
+econf,2020-21,45,2021-05-22,Dover Athletic,Yeovil Town,,,,,4681731
+econf,2020-21,45,2021-05-22,FC Chesterfield,Dagenham & Redbridge,2,1,1,1,4681730
+econf,2020-21,45,2021-05-22,FC Eastleigh,Boreham Wood,1,0,0,0,4681732
+econf,2020-21,45,2021-05-22,FC Wealdstone,Solihull Moors,1,4,0,2,4681739
+econf,2020-21,45,2021-05-22,Macclesfield FC,FC Altrincham,,,,,4681733
+econf,2020-21,45,2021-05-22,Maidenhead United,Halifax Town,1,2,0,1,4681734
+econf,2020-21,45,2021-05-22,Notts County,FC Weymouth,3,0,2,0,4681735
+econf,2020-21,45,2021-05-22,Stockport County,FC Woking,1,1,1,1,4681736
+econf,2020-21,45,2021-05-22,Torquay United,FC Barnet,2,2,2,1,4681738
+econf,2020-21,45,2021-05-23,Sutton United,Hartlepool United,3,0,1,0,4681737
+econf,2020-21,46,2021-05-29,Boreham Wood,Maidenhead United,1,4,0,2,4681743
+econf,2020-21,46,2021-05-29,Dagenham & Redbridge,AFC Wrexham,1,1,0,0,4681745
+econf,2020-21,46,2021-05-29,FC Altrincham,Torquay United,0,0,0,0,4681741
+econf,2020-21,46,2021-05-29,FC Barnet,Sutton United,2,0,0,0,4681742
+econf,2020-21,46,2021-05-29,FC Bromley,Notts County,1,0,0,0,4681744
+econf,2020-21,46,2021-05-29,FC King's Lynn,Aldershot Town,4,4,1,2,4681748
+econf,2020-21,46,2021-05-29,FC Weymouth,Macclesfield FC,,,,,4681750
+econf,2020-21,46,2021-05-29,FC Woking,FC Wealdstone,2,4,1,1,4681751
+econf,2020-21,46,2021-05-29,Halifax Town,FC Chesterfield,1,2,1,1,4681746
+econf,2020-21,46,2021-05-29,Hartlepool United,Dover Athletic,,,,,4681747
+econf,2020-21,46,2021-05-29,Solihull Moors,FC Eastleigh,2,0,2,0,4681749
+econf,2020-21,46,2021-05-29,Yeovil Town,Stockport County,0,1,0,1,4681752

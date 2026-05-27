@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el2,2017-18,1,2017-08-05,Accrington Stanley,Colchester United,3,1,2,0,3820965
+el2,2017-18,1,2017-08-05,Carlisle United,Swindon Town,1,2,0,1,3820966
+el2,2017-18,1,2017-08-05,Coventry City,Notts County,3,0,1,0,3820968
+el2,2017-18,1,2017-08-05,Crawley Town,FC Port Vale,1,3,0,2,3820969
+el2,2017-18,1,2017-08-05,Crewe Alexandra,Mansfield Town,2,2,1,0,3820970
+el2,2017-18,1,2017-08-05,Exeter City,Cambridge United,1,0,1,0,3820971
+el2,2017-18,1,2017-08-05,FC Chesterfield,Grimsby Town,1,3,0,2,3820967
+el2,2017-18,1,2017-08-05,FC Morecambe,Cheltenham Town,2,1,0,1,3820974
+el2,2017-18,1,2017-08-05,FC Stevenage,Newport County,3,3,1,0,3820975
+el2,2017-18,1,2017-08-05,Forest Green Rovers,FC Barnet,2,2,2,0,3820972
+el2,2017-18,1,2017-08-05,Luton Town,Yeovil Town,8,2,5,1,3820973
+el2,2017-18,1,2017-08-05,Wycombe Wanderers,Lincoln City,2,2,2,1,3820976
+el2,2017-18,2,2017-08-12,Cambridge United,Carlisle United,1,2,1,2,3820978
+el2,2017-18,2,2017-08-12,Cheltenham Town,Crawley Town,1,0,1,0,3820979
+el2,2017-18,2,2017-08-12,Colchester United,FC Stevenage,1,1,0,0,3820980
+el2,2017-18,2,2017-08-12,Crewe Alexandra,Newport County,1,1,1,1,3820984
+el2,2017-18,2,2017-08-12,FC Barnet,Luton Town,1,0,0,0,3820977
+el2,2017-18,2,2017-08-12,FC Port Vale,Wycombe Wanderers,2,3,0,3,3820986
+el2,2017-18,2,2017-08-12,Grimsby Town,Coventry City,0,2,0,0,3820981
+el2,2017-18,2,2017-08-12,Lincoln City,FC Morecambe,1,1,0,0,3820982
+el2,2017-18,2,2017-08-12,Mansfield Town,Forest Green Rovers,2,0,0,0,3820983
+el2,2017-18,2,2017-08-12,Notts County,FC Chesterfield,2,0,0,0,3820985
+el2,2017-18,2,2017-08-12,Swindon Town,Exeter City,1,1,0,1,3820987
+el2,2017-18,2,2017-08-12,Yeovil Town,Accrington Stanley,3,2,3,1,3820988
+el2,2017-18,3,2017-08-19,Accrington Stanley,Mansfield Town,2,1,1,1,3820989
+el2,2017-18,3,2017-08-19,Carlisle United,Cheltenham Town,3,0,2,0,3820990
+el2,2017-18,3,2017-08-19,Coventry City,Newport County,0,1,0,0,3820992
+el2,2017-18,3,2017-08-19,Crawley Town,Cambridge United,0,1,0,0,3820993
+el2,2017-18,3,2017-08-19,Crewe Alexandra,FC Barnet,1,0,0,0,3820994
+el2,2017-18,3,2017-08-19,Exeter City,Lincoln City,1,0,1,0,3820995
+el2,2017-18,3,2017-08-19,FC Chesterfield,FC Port Vale,2,0,2,0,3820991
+el2,2017-18,3,2017-08-19,FC Morecambe,Swindon Town,0,1,0,1,3820998
+el2,2017-18,3,2017-08-19,FC Stevenage,Grimsby Town,3,1,2,0,3820999
+el2,2017-18,3,2017-08-19,Forest Green Rovers,Yeovil Town,4,3,2,3,3820996
+el2,2017-18,3,2017-08-19,Luton Town,Colchester United,3,0,1,0,3820997
+el2,2017-18,3,2017-08-19,Wycombe Wanderers,Notts County,2,4,0,2,3821000
+el2,2017-18,4,2017-08-25,Notts County,Accrington Stanley,2,2,1,0,3821009
+el2,2017-18,4,2017-08-26,Cambridge United,FC Morecambe,0,0,0,0,3821002
+el2,2017-18,4,2017-08-26,Cheltenham Town,Exeter City,3,4,2,2,3821003
+el2,2017-18,4,2017-08-26,Colchester United,Forest Green Rovers,5,1,2,1,3821004
+el2,2017-18,4,2017-08-26,FC Barnet,FC Stevenage,0,1,0,1,3821001
+el2,2017-18,4,2017-08-26,FC Port Vale,Crewe Alexandra,0,1,0,1,3821010
+el2,2017-18,4,2017-08-26,Grimsby Town,Wycombe Wanderers,2,3,0,2,3821005
+el2,2017-18,4,2017-08-26,Lincoln City,Carlisle United,4,1,1,0,3821006
+el2,2017-18,4,2017-08-26,Mansfield Town,Luton Town,2,2,1,0,3821007
+el2,2017-18,4,2017-08-26,Newport County,FC Chesterfield,4,1,0,1,3821008
+el2,2017-18,4,2017-08-26,Swindon Town,Crawley Town,0,3,0,1,3821011
+el2,2017-18,4,2017-08-26,Yeovil Town,Coventry City,2,0,1,0,3821012
+el2,2017-18,5,2017-09-02,Cambridge United,Colchester United,1,0,0,0,3821013
+el2,2017-18,5,2017-09-02,Carlisle United,Mansfield Town,1,1,1,0,3821014
+el2,2017-18,5,2017-09-02,Cheltenham Town,FC Stevenage,0,1,0,0,3821015
+el2,2017-18,5,2017-09-02,Crawley Town,Yeovil Town,2,0,1,0,3821017
+el2,2017-18,5,2017-09-02,Exeter City,Newport County,1,0,0,0,3821018
+el2,2017-18,5,2017-09-02,FC Chesterfield,Coventry City,0,0,0,0,3821016
+el2,2017-18,5,2017-09-02,FC Morecambe,Accrington Stanley,1,2,0,1,3821021
+el2,2017-18,5,2017-09-02,FC Port Vale,Notts County,0,1,0,0,3821022
+el2,2017-18,5,2017-09-02,Grimsby Town,Crewe Alexandra,1,0,1,0,3821019
+el2,2017-18,5,2017-09-02,Lincoln City,Luton Town,0,0,0,0,3821020
+el2,2017-18,5,2017-09-02,Swindon Town,FC Barnet,1,4,0,2,3821023
+el2,2017-18,5,2017-09-02,Wycombe Wanderers,Forest Green Rovers,3,1,3,0,3821024
+el2,2017-18,6,2017-09-09,Accrington Stanley,Carlisle United,3,0,2,0,3821025
+el2,2017-18,6,2017-09-09,Colchester United,Crawley Town,3,1,3,0,3821027
+el2,2017-18,6,2017-09-09,Coventry City,FC Port Vale,1,0,1,0,3821028
+el2,2017-18,6,2017-09-09,Crewe Alexandra,FC Chesterfield,5,1,1,0,3821029
+el2,2017-18,6,2017-09-09,FC Barnet,Cambridge United,3,1,1,0,3821026
+el2,2017-18,6,2017-09-09,FC Stevenage,Lincoln City,1,2,1,0,3821035
+el2,2017-18,6,2017-09-09,Forest Green Rovers,Exeter City,1,3,0,2,3821030
+el2,2017-18,6,2017-09-09,Luton Town,Swindon Town,0,3,0,1,3821031
+el2,2017-18,6,2017-09-09,Mansfield Town,Grimsby Town,4,1,1,0,3821032
+el2,2017-18,6,2017-09-09,Newport County,Wycombe Wanderers,0,0,0,0,3821033
+el2,2017-18,6,2017-09-09,Notts County,FC Morecambe,2,0,1,0,3821034
+el2,2017-18,6,2017-09-09,Yeovil Town,Cheltenham Town,0,0,0,0,3821036
+el2,2017-18,7,2017-09-12,Accrington Stanley,Grimsby Town,1,2,1,1,3821037
+el2,2017-18,7,2017-09-12,Colchester United,FC Chesterfield,1,1,0,1,3821038
+el2,2017-18,7,2017-09-12,Coventry City,Carlisle United,2,0,0,0,3821039
+el2,2017-18,7,2017-09-12,Crewe Alexandra,Cambridge United,0,1,0,1,3821040
+el2,2017-18,7,2017-09-12,FC Barnet,Exeter City,1,2,0,0,3821048
+el2,2017-18,7,2017-09-12,FC Stevenage,Crawley Town,1,1,1,0,3821046
+el2,2017-18,7,2017-09-12,Forest Green Rovers,Lincoln City,0,1,0,0,3821041
+el2,2017-18,7,2017-09-12,Luton Town,FC Port Vale,2,0,1,0,3821042
+el2,2017-18,7,2017-09-12,Mansfield Town,Wycombe Wanderers,0,0,0,0,3821043
+el2,2017-18,7,2017-09-12,Newport County,Cheltenham Town,1,0,1,0,3821044
+el2,2017-18,7,2017-09-12,Notts County,Swindon Town,1,0,1,0,3821045
+el2,2017-18,7,2017-09-12,Yeovil Town,FC Morecambe,2,2,1,0,3821047
+el2,2017-18,8,2017-09-16,Cambridge United,Coventry City,2,1,1,0,3821049
+el2,2017-18,8,2017-09-16,Carlisle United,FC Barnet,1,1,0,1,3821050
+el2,2017-18,8,2017-09-16,Cheltenham Town,Colchester United,3,1,2,1,3821051
+el2,2017-18,8,2017-09-16,Crawley Town,Notts County,0,1,0,0,3821053
+el2,2017-18,8,2017-09-16,Exeter City,Crewe Alexandra,3,0,2,0,3821054
+el2,2017-18,8,2017-09-16,FC Chesterfield,Accrington Stanley,1,2,0,0,3821052
+el2,2017-18,8,2017-09-16,FC Morecambe,Newport County,2,1,1,1,3821057
+el2,2017-18,8,2017-09-16,FC Port Vale,Forest Green Rovers,1,1,1,0,3821058
+el2,2017-18,8,2017-09-16,Grimsby Town,Yeovil Town,2,1,1,1,3821055
+el2,2017-18,8,2017-09-16,Lincoln City,Mansfield Town,0,1,0,0,3821056
+el2,2017-18,8,2017-09-16,Swindon Town,FC Stevenage,3,2,2,0,3821059
+el2,2017-18,8,2017-09-16,Wycombe Wanderers,Luton Town,1,2,1,0,3821060
+el2,2017-18,9,2017-09-22,Forest Green Rovers,Swindon Town,0,2,0,0,3821066
+el2,2017-18,9,2017-09-23,Accrington Stanley,Cheltenham Town,1,1,1,1,3821061
+el2,2017-18,9,2017-09-23,Colchester United,Wycombe Wanderers,1,2,1,1,3821063
+el2,2017-18,9,2017-09-23,Coventry City,Exeter City,2,0,0,0,3821064
+el2,2017-18,9,2017-09-23,Crewe Alexandra,Carlisle United,0,5,0,1,3821065
+el2,2017-18,9,2017-09-23,FC Barnet,Crawley Town,1,2,0,0,3821062
+el2,2017-18,9,2017-09-23,FC Stevenage,FC Morecambe,2,1,1,1,3821071
+el2,2017-18,9,2017-09-23,Luton Town,FC Chesterfield,1,0,0,0,3821067
+el2,2017-18,9,2017-09-23,Mansfield Town,Cambridge United,2,1,0,0,3821068
+el2,2017-18,9,2017-09-23,Newport County,Grimsby Town,1,0,0,0,3821069
+el2,2017-18,9,2017-09-23,Notts County,Lincoln City,4,1,1,0,3821070
+el2,2017-18,9,2017-09-23,Yeovil Town,FC Port Vale,1,1,0,1,3821072
+el2,2017-18,10,2017-09-26,Cambridge United,Forest Green Rovers,3,0,1,0,3821073
+el2,2017-18,10,2017-09-26,Carlisle United,FC Stevenage,0,2,0,0,3821074
+el2,2017-18,10,2017-09-26,Cheltenham Town,Mansfield Town,3,0,0,0,3821075
+el2,2017-18,10,2017-09-26,Crawley Town,Newport County,1,2,1,1,3821077
+el2,2017-18,10,2017-09-26,Exeter City,Notts County,0,3,0,1,3821078
+el2,2017-18,10,2017-09-26,FC Chesterfield,Yeovil Town,2,3,0,2,3821076
+el2,2017-18,10,2017-09-26,FC Morecambe,Luton Town,0,0,0,0,3821081
+el2,2017-18,10,2017-09-26,FC Port Vale,Accrington Stanley,1,2,1,1,3821082
+el2,2017-18,10,2017-09-26,Grimsby Town,Colchester United,2,2,1,1,3821079
+el2,2017-18,10,2017-09-26,Lincoln City,FC Barnet,2,1,2,0,3821080
+el2,2017-18,10,2017-09-26,Swindon Town,Coventry City,1,2,1,1,3821083
+el2,2017-18,10,2017-09-26,Wycombe Wanderers,Crewe Alexandra,3,2,1,1,3821084
+el2,2017-18,11,2017-09-30,Coventry City,Crewe Alexandra,1,0,1,0,3821086
+el2,2017-18,11,2017-09-30,Crawley Town,Carlisle United,0,1,0,0,3821087
+el2,2017-18,11,2017-09-30,Exeter City,FC Morecambe,4,1,3,1,3821088
+el2,2017-18,11,2017-09-30,FC Chesterfield,Cheltenham Town,0,2,0,1,3821085
+el2,2017-18,11,2017-09-30,FC Stevenage,FC Port Vale,2,0,1,0,3821093
+el2,2017-18,11,2017-09-30,Forest Green Rovers,Accrington Stanley,0,1,0,0,3821089
+el2,2017-18,11,2017-09-30,Grimsby Town,Lincoln City,0,0,0,0,3821090
+el2,2017-18,11,2017-09-30,Luton Town,Newport County,3,1,3,0,3821091
+el2,2017-18,11,2017-09-30,Mansfield Town,Notts County,3,1,0,0,3821092
+el2,2017-18,11,2017-09-30,Swindon Town,Cambridge United,2,0,1,0,3821094
+el2,2017-18,11,2017-09-30,Wycombe Wanderers,FC Barnet,3,1,1,0,3821095
+el2,2017-18,11,2017-09-30,Yeovil Town,Colchester United,0,1,0,1,3821096
+el2,2017-18,12,2017-10-07,Accrington Stanley,Luton Town,0,2,0,2,3821097
+el2,2017-18,12,2017-10-07,Cambridge United,Wycombe Wanderers,1,3,0,0,3821099
+el2,2017-18,12,2017-10-07,Carlisle United,Exeter City,0,1,0,0,3821100
+el2,2017-18,12,2017-10-07,Cheltenham Town,Swindon Town,2,1,1,0,3821101
+el2,2017-18,12,2017-10-07,Colchester United,Mansfield Town,2,0,2,0,3821102
+el2,2017-18,12,2017-10-07,Crewe Alexandra,FC Stevenage,1,0,0,0,3821103
+el2,2017-18,12,2017-10-07,FC Barnet,Coventry City,0,0,0,0,3821098
+el2,2017-18,12,2017-10-07,FC Morecambe,Crawley Town,0,1,0,1,3821105
+el2,2017-18,12,2017-10-07,FC Port Vale,Grimsby Town,1,2,1,0,3821108
+el2,2017-18,12,2017-10-07,Lincoln City,FC Chesterfield,2,1,2,0,3821104
+el2,2017-18,12,2017-10-07,Newport County,Yeovil Town,2,0,1,0,3821106
+el2,2017-18,12,2017-10-07,Notts County,Forest Green Rovers,1,1,0,1,3821107
+el2,2017-18,13,2017-10-14,Accrington Stanley,Coventry City,1,0,1,0,3821109
+el2,2017-18,13,2017-10-14,Colchester United,Carlisle United,0,1,0,0,3821111
+el2,2017-18,13,2017-10-14,FC Chesterfield,FC Morecambe,0,2,0,1,3821110
+el2,2017-18,13,2017-10-14,FC Port Vale,Cheltenham Town,3,1,1,0,3821118
+el2,2017-18,13,2017-10-14,Forest Green Rovers,Newport County,0,4,0,2,3821112
+el2,2017-18,13,2017-10-14,Grimsby Town,Crawley Town,0,0,0,0,3821113
+el2,2017-18,13,2017-10-14,Lincoln City,Cambridge United,0,0,0,0,3821114
+el2,2017-18,13,2017-10-14,Luton Town,FC Stevenage,7,1,3,1,3821115
+el2,2017-18,13,2017-10-14,Mansfield Town,Swindon Town,1,3,0,2,3821116
+el2,2017-18,13,2017-10-14,Notts County,FC Barnet,2,1,1,0,3821117
+el2,2017-18,13,2017-10-14,Wycombe Wanderers,Exeter City,0,0,0,0,3821119
+el2,2017-18,13,2017-10-14,Yeovil Town,Crewe Alexandra,2,0,1,0,3821120
+el2,2017-18,14,2017-10-17,Cambridge United,Yeovil Town,2,1,2,0,3821121
+el2,2017-18,14,2017-10-17,Carlisle United,Wycombe Wanderers,3,3,2,1,3821122
+el2,2017-18,14,2017-10-17,Cheltenham Town,Grimsby Town,2,3,1,3,3821123
+el2,2017-18,14,2017-10-17,Coventry City,Forest Green Rovers,0,1,0,1,3821124
+el2,2017-18,14,2017-10-17,Crawley Town,FC Chesterfield,0,2,0,0,3821125
+el2,2017-18,14,2017-10-17,Crewe Alexandra,Notts County,2,0,1,0,3821126
+el2,2017-18,14,2017-10-17,Exeter City,Luton Town,1,4,1,1,3821127
+el2,2017-18,14,2017-10-17,FC Barnet,Mansfield Town,1,1,0,1,3821132
+el2,2017-18,14,2017-10-17,FC Morecambe,FC Port Vale,0,3,0,1,3821128
+el2,2017-18,14,2017-10-17,FC Stevenage,Accrington Stanley,3,2,0,1,3821130
+el2,2017-18,14,2017-10-17,Newport County,Colchester United,1,2,0,0,3821129
+el2,2017-18,14,2017-10-17,Swindon Town,Lincoln City,0,1,0,0,3821131
+el2,2017-18,15,2017-10-21,Cambridge United,FC Chesterfield,2,1,0,0,3821134
+el2,2017-18,15,2017-10-21,Carlisle United,Notts County,1,1,1,0,3821135
+el2,2017-18,15,2017-10-21,Cheltenham Town,Lincoln City,1,0,1,0,3821136
+el2,2017-18,15,2017-10-21,Coventry City,Colchester United,0,0,0,0,3821137
+el2,2017-18,15,2017-10-21,Crawley Town,Luton Town,0,0,0,0,3821138
+el2,2017-18,15,2017-10-21,Crewe Alexandra,Accrington Stanley,0,2,0,2,3821139
+el2,2017-18,15,2017-10-21,Exeter City,FC Port Vale,0,1,0,1,3821140
+el2,2017-18,15,2017-10-21,FC Barnet,Yeovil Town,1,1,1,0,3821133
+el2,2017-18,15,2017-10-21,FC Morecambe,Grimsby Town,0,0,0,0,3821141
+el2,2017-18,15,2017-10-21,FC Stevenage,Forest Green Rovers,1,2,1,0,3821143
+el2,2017-18,15,2017-10-21,Newport County,Mansfield Town,1,1,0,1,3821142
+el2,2017-18,15,2017-10-21,Swindon Town,Wycombe Wanderers,1,0,1,0,3821144
+el2,2017-18,16,2017-10-28,Accrington Stanley,FC Barnet,4,1,1,0,3821145
+el2,2017-18,16,2017-10-28,Colchester United,Crewe Alexandra,3,1,1,1,3821147
+el2,2017-18,16,2017-10-28,FC Chesterfield,Carlisle United,2,2,1,0,3821146
+el2,2017-18,16,2017-10-28,FC Port Vale,Swindon Town,0,3,0,0,3821154
+el2,2017-18,16,2017-10-28,Forest Green Rovers,FC Morecambe,2,0,1,0,3821148
+el2,2017-18,16,2017-10-28,Grimsby Town,Cambridge United,0,0,0,0,3821149
+el2,2017-18,16,2017-10-28,Lincoln City,Crawley Town,0,0,0,0,3821150
+el2,2017-18,16,2017-10-28,Luton Town,Coventry City,0,3,0,1,3821151
+el2,2017-18,16,2017-10-28,Mansfield Town,Exeter City,1,1,1,0,3821152
+el2,2017-18,16,2017-10-28,Notts County,Newport County,3,0,1,0,3821153
+el2,2017-18,16,2017-10-28,Wycombe Wanderers,Cheltenham Town,3,3,0,1,3821155
+el2,2017-18,16,2017-10-28,Yeovil Town,FC Stevenage,3,0,3,0,3821156
+el2,2017-18,17,2017-11-10,Newport County,FC Port Vale,1,1,0,0,3821166
+el2,2017-18,17,2017-11-11,Cambridge United,Accrington Stanley,0,0,0,0,3821158
+el2,2017-18,17,2017-11-11,Carlisle United,Yeovil Town,4,0,2,0,3821159
+el2,2017-18,17,2017-11-11,Cheltenham Town,Luton Town,2,2,1,1,3821160
+el2,2017-18,17,2017-11-11,Coventry City,Mansfield Town,0,1,0,0,3821161
+el2,2017-18,17,2017-11-11,Crawley Town,Forest Green Rovers,1,1,0,0,3821162
+el2,2017-18,17,2017-11-11,Crewe Alexandra,Lincoln City,1,4,1,0,3821163
+el2,2017-18,17,2017-11-11,Exeter City,Grimsby Town,2,0,1,0,3821164
+el2,2017-18,17,2017-11-11,FC Barnet,Colchester United,0,1,0,0,3821157
+el2,2017-18,17,2017-11-11,FC Morecambe,Wycombe Wanderers,2,1,2,0,3821165
+el2,2017-18,17,2017-11-11,FC Stevenage,Notts County,1,1,1,0,3821167
+el2,2017-18,17,2017-11-11,Swindon Town,FC Chesterfield,2,2,0,0,3821168
+el2,2017-18,18,2017-11-18,Accrington Stanley,Newport County,1,1,0,0,3821169
+el2,2017-18,18,2017-11-18,Colchester United,FC Morecambe,0,0,0,0,3821171
+el2,2017-18,18,2017-11-18,FC Chesterfield,Exeter City,1,0,0,0,3821170
+el2,2017-18,18,2017-11-18,FC Port Vale,FC Barnet,1,0,0,0,3821178
+el2,2017-18,18,2017-11-18,Forest Green Rovers,Crewe Alexandra,3,2,1,1,3821172
+el2,2017-18,18,2017-11-18,Grimsby Town,Carlisle United,0,1,0,0,3821173
+el2,2017-18,18,2017-11-18,Lincoln City,Coventry City,1,2,1,0,3821174
+el2,2017-18,18,2017-11-18,Luton Town,Cambridge United,7,0,4,0,3821175
+el2,2017-18,18,2017-11-18,Mansfield Town,FC Stevenage,1,0,1,0,3821176
+el2,2017-18,18,2017-11-18,Notts County,Cheltenham Town,3,1,1,1,3821177
+el2,2017-18,18,2017-11-18,Wycombe Wanderers,Crawley Town,4,0,0,0,3821179
+el2,2017-18,18,2017-11-18,Yeovil Town,Swindon Town,1,2,1,0,3821180
+el2,2017-18,19,2017-11-21,Accrington Stanley,Wycombe Wanderers,1,0,0,0,3821181
+el2,2017-18,19,2017-11-21,Cheltenham Town,Cambridge United,0,0,0,0,3821182
+el2,2017-18,19,2017-11-21,Colchester United,Lincoln City,1,0,1,0,3821184
+el2,2017-18,19,2017-11-21,Crawley Town,Exeter City,3,1,1,1,3821185
+el2,2017-18,19,2017-11-21,FC Chesterfield,Forest Green Rovers,3,2,1,0,3821183
+el2,2017-18,19,2017-11-21,FC Morecambe,Crewe Alexandra,0,1,0,0,3821188
+el2,2017-18,19,2017-11-21,FC Port Vale,Mansfield Town,0,4,0,1,3821190
+el2,2017-18,19,2017-11-21,FC Stevenage,Coventry City,1,1,0,1,3821191
+el2,2017-18,19,2017-11-21,Grimsby Town,Swindon Town,3,2,1,2,3821186
+el2,2017-18,19,2017-11-21,Luton Town,Carlisle United,3,0,2,0,3821187
+el2,2017-18,19,2017-11-21,Newport County,FC Barnet,1,2,0,0,3821189
+el2,2017-18,19,2017-11-21,Yeovil Town,Notts County,1,1,0,1,3821192
+el2,2017-18,20,2017-11-25,Cambridge United,FC Stevenage,1,0,0,0,3821194
+el2,2017-18,20,2017-11-25,Carlisle United,FC Morecambe,1,1,0,0,3821195
+el2,2017-18,20,2017-11-25,Coventry City,Crawley Town,1,1,0,1,3821196
+el2,2017-18,20,2017-11-25,Crewe Alexandra,Luton Town,1,2,0,0,3821197
+el2,2017-18,20,2017-11-25,Exeter City,Accrington Stanley,2,0,1,0,3821198
+el2,2017-18,20,2017-11-25,FC Barnet,Grimsby Town,0,2,0,1,3821193
+el2,2017-18,20,2017-11-25,Forest Green Rovers,Cheltenham Town,1,1,1,1,3821199
+el2,2017-18,20,2017-11-25,Lincoln City,FC Port Vale,3,1,1,1,3821200
+el2,2017-18,20,2017-11-25,Mansfield Town,FC Chesterfield,2,2,1,1,3821201
+el2,2017-18,20,2017-11-25,Notts County,Colchester United,2,1,0,0,3821202
+el2,2017-18,20,2017-11-25,Swindon Town,Newport County,0,1,0,0,3821203
+el2,2017-18,20,2017-11-25,Wycombe Wanderers,Yeovil Town,2,1,2,1,3821204
+el2,2017-18,21,2017-12-09,Cheltenham Town,Crewe Alexandra,1,0,0,0,3821206
+el2,2017-18,21,2017-12-09,Colchester United,Exeter City,3,1,3,0,3821208
+el2,2017-18,21,2017-12-09,Crawley Town,Mansfield Town,2,0,0,0,3821209
+el2,2017-18,21,2017-12-09,FC Chesterfield,FC Barnet,2,1,0,1,3821207
+el2,2017-18,21,2017-12-09,FC Morecambe,Coventry City,2,0,1,0,3821212
+el2,2017-18,21,2017-12-09,FC Port Vale,Cambridge United,2,0,1,0,3821214
+el2,2017-18,21,2017-12-09,FC Stevenage,Wycombe Wanderers,0,0,0,0,3821215
+el2,2017-18,21,2017-12-09,Grimsby Town,Forest Green Rovers,1,0,1,0,3821210
+el2,2017-18,21,2017-12-09,Luton Town,Notts County,1,1,1,0,3821211
+el2,2017-18,21,2017-12-09,Newport County,Carlisle United,3,3,1,0,3821213
+el2,2017-18,21,2017-12-09,Yeovil Town,Lincoln City,0,2,0,0,3821216
+el2,2017-18,21,2018-02-06,Accrington Stanley,Swindon Town,2,1,1,0,3821205
+el2,2017-18,22,2017-12-15,Swindon Town,Colchester United,2,3,1,1,3821227
+el2,2017-18,22,2017-12-16,Cambridge United,Newport County,1,2,0,1,3821218
+el2,2017-18,22,2017-12-16,Carlisle United,FC Port Vale,1,2,0,0,3821219
+el2,2017-18,22,2017-12-16,Coventry City,Cheltenham Town,2,1,1,1,3821220
+el2,2017-18,22,2017-12-16,Crewe Alexandra,Crawley Town,3,0,2,0,3821221
+el2,2017-18,22,2017-12-16,Exeter City,FC Stevenage,2,1,0,0,3821222
+el2,2017-18,22,2017-12-16,FC Barnet,FC Morecambe,2,1,2,0,3821217
+el2,2017-18,22,2017-12-16,Forest Green Rovers,Luton Town,0,2,0,1,3821223
+el2,2017-18,22,2017-12-16,Lincoln City,Accrington Stanley,2,0,1,0,3821224
+el2,2017-18,22,2017-12-16,Mansfield Town,Yeovil Town,0,0,0,0,3821225
+el2,2017-18,22,2017-12-16,Notts County,Grimsby Town,0,0,0,0,3821226
+el2,2017-18,22,2017-12-16,Wycombe Wanderers,FC Chesterfield,1,0,0,0,3821228
+el2,2017-18,23,2017-12-22,Coventry City,Wycombe Wanderers,3,2,2,1,3821232
+el2,2017-18,23,2017-12-23,Accrington Stanley,Crawley Town,2,3,1,3,3821229
+el2,2017-18,23,2017-12-23,Colchester United,FC Port Vale,1,1,1,0,3821231
+el2,2017-18,23,2017-12-23,Crewe Alexandra,Swindon Town,0,3,0,3,3821233
+el2,2017-18,23,2017-12-23,FC Barnet,Cheltenham Town,0,2,0,2,3821230
+el2,2017-18,23,2017-12-23,FC Stevenage,FC Chesterfield,5,1,3,1,3821239
+el2,2017-18,23,2017-12-23,Forest Green Rovers,Carlisle United,0,1,0,1,3821234
+el2,2017-18,23,2017-12-23,Luton Town,Grimsby Town,2,0,1,0,3821235
+el2,2017-18,23,2017-12-23,Mansfield Town,FC Morecambe,2,1,1,0,3821236
+el2,2017-18,23,2017-12-23,Newport County,Lincoln City,0,0,0,0,3821237
+el2,2017-18,23,2017-12-23,Notts County,Cambridge United,3,3,0,1,3821238
+el2,2017-18,23,2017-12-23,Yeovil Town,Exeter City,3,1,1,0,3821240
+el2,2017-18,24,2017-12-26,Cambridge United,FC Barnet,1,0,0,0,3821241
+el2,2017-18,24,2017-12-26,Carlisle United,Accrington Stanley,3,1,1,0,3821242
+el2,2017-18,24,2017-12-26,Cheltenham Town,Yeovil Town,0,2,0,0,3821243
+el2,2017-18,24,2017-12-26,Crawley Town,Colchester United,0,2,0,1,3821245
+el2,2017-18,24,2017-12-26,FC Chesterfield,Crewe Alexandra,0,2,0,2,3821244
+el2,2017-18,24,2017-12-26,FC Morecambe,Notts County,1,4,0,2,3821249
+el2,2017-18,24,2017-12-26,FC Port Vale,Coventry City,1,0,0,0,3821250
+el2,2017-18,24,2017-12-26,Grimsby Town,Mansfield Town,1,1,1,0,3821247
+el2,2017-18,24,2017-12-26,Lincoln City,FC Stevenage,3,0,1,0,3821248
+el2,2017-18,24,2017-12-26,Swindon Town,Luton Town,0,5,0,0,3821251
+el2,2017-18,24,2017-12-26,Wycombe Wanderers,Newport County,2,0,1,0,3821252
+el2,2017-18,24,2018-01-31,Exeter City,Forest Green Rovers,2,0,0,0,3821246
+el2,2017-18,25,2017-12-29,FC Morecambe,Yeovil Town,4,3,0,2,3821261
+el2,2017-18,25,2017-12-30,Cambridge United,Crewe Alexandra,3,1,2,1,3821253
+el2,2017-18,25,2017-12-30,Carlisle United,Coventry City,0,1,0,0,3821254
+el2,2017-18,25,2017-12-30,Cheltenham Town,Newport County,1,1,0,0,3821255
+el2,2017-18,25,2017-12-30,Crawley Town,FC Stevenage,1,0,1,0,3821257
+el2,2017-18,25,2017-12-30,Exeter City,FC Barnet,2,1,1,0,3821258
+el2,2017-18,25,2017-12-30,FC Chesterfield,Colchester United,0,0,0,0,3821256
+el2,2017-18,25,2017-12-30,FC Port Vale,Luton Town,4,0,1,0,3821262
+el2,2017-18,25,2017-12-30,Grimsby Town,Accrington Stanley,0,3,0,0,3821259
+el2,2017-18,25,2017-12-30,Lincoln City,Forest Green Rovers,2,1,1,1,3821260
+el2,2017-18,25,2017-12-30,Swindon Town,Notts County,1,0,0,0,3821263
+el2,2017-18,25,2017-12-30,Wycombe Wanderers,Mansfield Town,1,2,1,0,3821264
+el2,2017-18,26,2018-01-01,Colchester United,Cambridge United,0,0,0,0,3821267
+el2,2017-18,26,2018-01-01,Coventry City,FC Chesterfield,1,0,1,0,3821268
+el2,2017-18,26,2018-01-01,Crewe Alexandra,Grimsby Town,2,0,2,0,3821269
+el2,2017-18,26,2018-01-01,FC Barnet,Swindon Town,1,2,1,2,3821266
+el2,2017-18,26,2018-01-01,FC Stevenage,Cheltenham Town,4,1,2,1,3821275
+el2,2017-18,26,2018-01-01,Forest Green Rovers,Wycombe Wanderers,1,2,0,2,3821270
+el2,2017-18,26,2018-01-01,Luton Town,Lincoln City,4,2,2,2,3821271
+el2,2017-18,26,2018-01-01,Mansfield Town,Carlisle United,3,1,2,0,3821272
+el2,2017-18,26,2018-01-01,Newport County,Exeter City,2,1,1,0,3821273
+el2,2017-18,26,2018-01-01,Notts County,FC Port Vale,1,0,0,0,3821274
+el2,2017-18,26,2018-01-01,Yeovil Town,Crawley Town,1,2,1,1,3821276
+el2,2017-18,26,2018-03-06,Accrington Stanley,FC Morecambe,1,0,1,0,3821265
+el2,2017-18,27,2018-01-06,Accrington Stanley,FC Chesterfield,4,0,2,0,3821277
+el2,2017-18,27,2018-01-06,Colchester United,Cheltenham Town,1,4,1,0,3821279
+el2,2017-18,27,2018-01-06,Forest Green Rovers,FC Port Vale,1,0,0,0,3821282
+el2,2017-18,27,2018-01-23,Newport County,FC Morecambe,1,1,1,0,3821285
+el2,2017-18,27,2018-01-23,Notts County,Crawley Town,1,2,0,1,3821286
+el2,2017-18,27,2018-01-30,Coventry City,Cambridge United,3,1,2,0,3821280
+el2,2017-18,27,2018-01-30,FC Stevenage,Swindon Town,0,1,0,1,3821287
+el2,2017-18,27,2018-01-30,Luton Town,Wycombe Wanderers,2,3,1,2,3821283
+el2,2017-18,27,2018-01-30,Yeovil Town,Grimsby Town,3,0,1,0,3821288
+el2,2017-18,27,2018-02-20,Crewe Alexandra,Exeter City,1,2,0,0,3821281
+el2,2017-18,27,2018-02-20,FC Barnet,Carlisle United,1,3,0,0,3821278
+el2,2017-18,27,2018-03-06,Mansfield Town,Lincoln City,1,1,0,0,3821284
+el2,2017-18,28,2018-01-13,Cambridge United,Mansfield Town,0,0,0,0,3821289
+el2,2017-18,28,2018-01-13,Carlisle United,Crewe Alexandra,1,0,0,0,3821290
+el2,2017-18,28,2018-01-13,Cheltenham Town,Accrington Stanley,0,2,0,1,3821291
+el2,2017-18,28,2018-01-13,Crawley Town,FC Barnet,2,0,0,0,3821293
+el2,2017-18,28,2018-01-13,Exeter City,Coventry City,1,0,1,0,3821294
+el2,2017-18,28,2018-01-13,FC Chesterfield,Luton Town,2,0,2,0,3821292
+el2,2017-18,28,2018-01-13,FC Morecambe,FC Stevenage,1,1,1,0,3821297
+el2,2017-18,28,2018-01-13,FC Port Vale,Yeovil Town,1,1,0,1,3821298
+el2,2017-18,28,2018-01-13,Grimsby Town,Newport County,1,2,0,1,3821295
+el2,2017-18,28,2018-01-13,Lincoln City,Notts County,2,2,1,1,3821296
+el2,2017-18,28,2018-01-13,Swindon Town,Forest Green Rovers,1,0,0,0,3821299
+el2,2017-18,28,2018-01-13,Wycombe Wanderers,Colchester United,3,1,2,0,3821300
+el2,2017-18,29,2018-01-19,Newport County,Crawley Town,2,1,2,0,3821309
+el2,2017-18,29,2018-01-20,Accrington Stanley,FC Port Vale,3,2,0,2,3821301
+el2,2017-18,29,2018-01-20,Colchester United,Grimsby Town,1,1,0,1,3821303
+el2,2017-18,29,2018-01-20,Coventry City,Swindon Town,3,1,2,1,3821304
+el2,2017-18,29,2018-01-20,Crewe Alexandra,Wycombe Wanderers,2,3,1,0,3821305
+el2,2017-18,29,2018-01-20,FC Barnet,Lincoln City,1,1,1,0,3821302
+el2,2017-18,29,2018-01-20,FC Stevenage,Carlisle United,0,0,0,0,3821311
+el2,2017-18,29,2018-01-20,Forest Green Rovers,Cambridge United,5,2,2,2,3821306
+el2,2017-18,29,2018-01-20,Luton Town,FC Morecambe,1,0,0,0,3821307
+el2,2017-18,29,2018-01-20,Mansfield Town,Cheltenham Town,3,2,1,1,3821308
+el2,2017-18,29,2018-01-20,Notts County,Exeter City,1,2,0,2,3821310
+el2,2017-18,29,2018-01-20,Yeovil Town,FC Chesterfield,1,2,0,0,3821312
+el2,2017-18,30,2018-01-27,Carlisle United,Forest Green Rovers,1,0,1,0,3821314
+el2,2017-18,30,2018-01-27,Cheltenham Town,FC Barnet,1,1,0,1,3821315
+el2,2017-18,30,2018-01-27,Crawley Town,Accrington Stanley,2,1,2,0,3821317
+el2,2017-18,30,2018-01-27,FC Chesterfield,FC Stevenage,0,1,0,0,3821316
+el2,2017-18,30,2018-01-27,FC Morecambe,Mansfield Town,1,2,1,0,3821321
+el2,2017-18,30,2018-01-27,FC Port Vale,Colchester United,2,2,1,2,3821322
+el2,2017-18,30,2018-01-27,Grimsby Town,Luton Town,0,1,0,0,3821319
+el2,2017-18,30,2018-01-27,Swindon Town,Crewe Alexandra,4,3,1,2,3821323
+el2,2017-18,30,2018-01-30,Lincoln City,Newport County,3,1,1,1,3821320
+el2,2017-18,30,2018-02-20,Cambridge United,Notts County,1,0,1,0,3821313
+el2,2017-18,30,2018-02-27,Wycombe Wanderers,Coventry City,0,1,0,0,3821324
+el2,2017-18,30,2018-03-13,Exeter City,Yeovil Town,0,0,0,0,3821318
+el2,2017-18,31,2018-02-03,Accrington Stanley,FC Stevenage,3,2,1,2,3821325
+el2,2017-18,31,2018-02-03,Colchester United,Newport County,2,0,0,0,3821327
+el2,2017-18,31,2018-02-03,FC Chesterfield,Crawley Town,1,2,1,0,3821326
+el2,2017-18,31,2018-02-03,FC Port Vale,FC Morecambe,0,0,0,0,3821334
+el2,2017-18,31,2018-02-03,Forest Green Rovers,Coventry City,2,1,1,0,3821328
+el2,2017-18,31,2018-02-03,Grimsby Town,Cheltenham Town,1,1,1,0,3821329
+el2,2017-18,31,2018-02-03,Lincoln City,Swindon Town,2,2,1,2,3821330
+el2,2017-18,31,2018-02-03,Luton Town,Exeter City,1,0,1,0,3821331
+el2,2017-18,31,2018-02-03,Mansfield Town,FC Barnet,3,1,1,0,3821332
+el2,2017-18,31,2018-02-03,Notts County,Crewe Alexandra,4,1,2,1,3821333
+el2,2017-18,31,2018-02-03,Wycombe Wanderers,Carlisle United,4,3,2,0,3821335
+el2,2017-18,31,2018-02-03,Yeovil Town,Cambridge United,2,0,0,0,3821336
+el2,2017-18,32,2018-02-09,Cambridge United,Lincoln City,0,0,0,0,3821338
+el2,2017-18,32,2018-02-10,Carlisle United,Colchester United,1,1,0,1,3821339
+el2,2017-18,32,2018-02-10,Cheltenham Town,FC Port Vale,5,1,2,1,3821340
+el2,2017-18,32,2018-02-10,Coventry City,Accrington Stanley,0,2,0,1,3821341
+el2,2017-18,32,2018-02-10,Crawley Town,Grimsby Town,3,0,1,0,3821342
+el2,2017-18,32,2018-02-10,Crewe Alexandra,Yeovil Town,0,0,0,0,3821343
+el2,2017-18,32,2018-02-10,Exeter City,Wycombe Wanderers,1,1,1,0,3821344
+el2,2017-18,32,2018-02-10,FC Barnet,Notts County,1,0,0,0,3821337
+el2,2017-18,32,2018-02-10,FC Stevenage,Luton Town,1,1,0,0,3821347
+el2,2017-18,32,2018-02-10,Swindon Town,Mansfield Town,1,0,1,0,3821348
+el2,2017-18,32,2018-03-06,Newport County,Forest Green Rovers,3,3,3,2,3821346
+el2,2017-18,32,2018-04-10,FC Morecambe,FC Chesterfield,2,2,2,0,3821345
+el2,2017-18,33,2018-01-06,Grimsby Town,FC Morecambe,0,2,0,2,3821353
+el2,2017-18,33,2018-02-13,Accrington Stanley,Crewe Alexandra,1,0,1,0,3821349
+el2,2017-18,33,2018-02-13,Colchester United,Coventry City,2,1,1,0,3821351
+el2,2017-18,33,2018-02-13,FC Chesterfield,Cambridge United,2,3,1,1,3821350
+el2,2017-18,33,2018-02-13,Forest Green Rovers,FC Stevenage,3,1,1,1,3821352
+el2,2017-18,33,2018-02-13,Lincoln City,Cheltenham Town,1,0,1,0,3821354
+el2,2017-18,33,2018-02-13,Luton Town,Crawley Town,4,1,2,0,3821355
+el2,2017-18,33,2018-02-13,Mansfield Town,Newport County,5,0,4,0,3821356
+el2,2017-18,33,2018-02-13,Notts County,Carlisle United,2,1,2,0,3821357
+el2,2017-18,33,2018-02-13,Wycombe Wanderers,Swindon Town,3,2,2,1,3821359
+el2,2017-18,33,2018-02-13,Yeovil Town,FC Barnet,2,0,1,0,3821360
+el2,2017-18,33,2018-03-20,FC Port Vale,Exeter City,0,1,0,1,3821358
+el2,2017-18,34,2018-02-17,Cambridge United,Grimsby Town,3,1,1,0,3821362
+el2,2017-18,34,2018-02-17,Carlisle United,FC Chesterfield,2,0,1,0,3821363
+el2,2017-18,34,2018-02-17,Cheltenham Town,Wycombe Wanderers,0,2,0,2,3821364
+el2,2017-18,34,2018-02-17,Crawley Town,Lincoln City,3,1,1,0,3821366
+el2,2017-18,34,2018-02-17,Crewe Alexandra,Colchester United,1,0,0,0,3821367
+el2,2017-18,34,2018-02-17,Exeter City,Mansfield Town,0,1,0,1,3821368
+el2,2017-18,34,2018-02-17,FC Barnet,Accrington Stanley,1,1,1,0,3821361
+el2,2017-18,34,2018-02-17,FC Morecambe,Forest Green Rovers,1,1,0,1,3821369
+el2,2017-18,34,2018-02-17,FC Stevenage,Yeovil Town,4,1,2,0,3821371
+el2,2017-18,34,2018-02-17,Newport County,Notts County,0,0,0,0,3821370
+el2,2017-18,34,2018-02-17,Swindon Town,FC Port Vale,3,2,2,2,3821372
+el2,2017-18,34,2018-03-13,Coventry City,Luton Town,2,2,2,0,3821365
+el2,2017-18,35,2018-02-24,Accrington Stanley,Cambridge United,1,0,0,0,3821373
+el2,2017-18,35,2018-02-24,Colchester United,FC Barnet,0,1,0,0,3821375
+el2,2017-18,35,2018-02-24,FC Chesterfield,Swindon Town,2,1,1,0,3821374
+el2,2017-18,35,2018-02-24,FC Port Vale,Newport County,0,0,0,0,3821382
+el2,2017-18,35,2018-02-24,Forest Green Rovers,Crawley Town,2,0,2,0,3821376
+el2,2017-18,35,2018-02-24,Grimsby Town,Exeter City,0,1,0,1,3821377
+el2,2017-18,35,2018-02-24,Lincoln City,Crewe Alexandra,1,4,1,1,3821378
+el2,2017-18,35,2018-02-24,Luton Town,Cheltenham Town,2,2,0,1,3821379
+el2,2017-18,35,2018-02-24,Mansfield Town,Coventry City,1,1,1,0,3821380
+el2,2017-18,35,2018-02-24,Notts County,FC Stevenage,2,0,0,0,3821381
+el2,2017-18,35,2018-02-24,Wycombe Wanderers,FC Morecambe,2,4,0,3,3821383
+el2,2017-18,35,2018-02-24,Yeovil Town,Carlisle United,0,1,0,0,3821384
+el2,2017-18,36,2018-03-03,Cambridge United,Luton Town,1,1,0,1,3821386
+el2,2017-18,36,2018-03-03,Carlisle United,Grimsby Town,2,0,1,0,3821387
+el2,2017-18,36,2018-03-06,Cheltenham Town,Notts County,1,1,0,1,3821388
+el2,2017-18,36,2018-03-13,FC Barnet,FC Port Vale,1,1,1,0,3821385
+el2,2017-18,36,2018-03-20,Crewe Alexandra,Forest Green Rovers,3,1,1,0,3821391
+el2,2017-18,36,2018-03-20,FC Morecambe,Colchester United,0,0,0,0,3821393
+el2,2017-18,36,2018-03-21,Crawley Town,Wycombe Wanderers,2,3,1,2,3821390
+el2,2017-18,36,2018-04-10,FC Stevenage,Mansfield Town,1,1,1,0,3821395
+el2,2017-18,36,2018-04-10,Swindon Town,Yeovil Town,2,2,1,0,3821396
+el2,2017-18,36,2018-04-17,Exeter City,FC Chesterfield,2,1,1,0,3821392
+el2,2017-18,36,2018-04-24,Coventry City,Lincoln City,2,4,2,3,3821389
+el2,2017-18,36,2018-04-24,Newport County,Accrington Stanley,2,1,1,0,3821394
+el2,2017-18,37,2018-03-10,Coventry City,FC Barnet,1,0,0,0,3821398
+el2,2017-18,37,2018-03-10,Crawley Town,FC Morecambe,1,1,0,0,3821399
+el2,2017-18,37,2018-03-10,Exeter City,Carlisle United,1,1,1,0,3821400
+el2,2017-18,37,2018-03-10,FC Chesterfield,Lincoln City,1,3,1,1,3821397
+el2,2017-18,37,2018-03-10,FC Stevenage,Crewe Alexandra,2,2,1,0,3821405
+el2,2017-18,37,2018-03-10,Forest Green Rovers,Notts County,1,2,0,1,3821401
+el2,2017-18,37,2018-03-10,Grimsby Town,FC Port Vale,1,1,0,1,3821402
+el2,2017-18,37,2018-03-10,Luton Town,Accrington Stanley,1,2,0,1,3821403
+el2,2017-18,37,2018-03-10,Mansfield Town,Colchester United,1,1,1,0,3821404
+el2,2017-18,37,2018-03-10,Swindon Town,Cheltenham Town,0,3,0,1,3821406
+el2,2017-18,37,2018-03-10,Wycombe Wanderers,Cambridge United,1,1,1,0,3821407
+el2,2017-18,37,2018-03-10,Yeovil Town,Newport County,0,2,0,0,3821408
+el2,2017-18,38,2018-03-17,Accrington Stanley,Forest Green Rovers,3,1,1,0,3821409
+el2,2017-18,38,2018-03-17,Cambridge United,Swindon Town,1,3,0,1,3821411
+el2,2017-18,38,2018-03-17,Carlisle United,Crawley Town,2,2,1,0,3821412
+el2,2017-18,38,2018-03-17,Cheltenham Town,FC Chesterfield,1,1,0,0,3821413
+el2,2017-18,38,2018-03-17,Colchester United,Yeovil Town,0,1,0,1,3821414
+el2,2017-18,38,2018-03-17,Crewe Alexandra,Coventry City,1,2,1,2,3821415
+el2,2017-18,38,2018-03-17,FC Barnet,Wycombe Wanderers,0,2,0,0,3821410
+el2,2017-18,38,2018-03-17,FC Morecambe,Exeter City,2,1,1,1,3821417
+el2,2017-18,38,2018-03-17,FC Port Vale,FC Stevenage,2,2,0,1,3821420
+el2,2017-18,38,2018-03-17,Lincoln City,Grimsby Town,3,1,3,1,3821416
+el2,2017-18,38,2018-03-17,Newport County,Luton Town,1,1,1,1,3821418
+el2,2017-18,38,2018-03-17,Notts County,Mansfield Town,1,1,1,0,3821419
+el2,2017-18,39,2018-03-24,Carlisle United,Cambridge United,1,1,0,0,3821422
+el2,2017-18,39,2018-03-24,Coventry City,Grimsby Town,4,0,1,0,3821424
+el2,2017-18,39,2018-03-24,Crawley Town,Cheltenham Town,3,5,0,3,3821425
+el2,2017-18,39,2018-03-24,Exeter City,Swindon Town,3,1,2,1,3821427
+el2,2017-18,39,2018-03-24,FC Morecambe,Lincoln City,0,0,0,0,3821430
+el2,2017-18,39,2018-03-24,FC Stevenage,Colchester United,0,1,0,1,3821431
+el2,2017-18,39,2018-03-24,Forest Green Rovers,Mansfield Town,2,0,0,0,3821428
+el2,2017-18,39,2018-03-24,Luton Town,FC Barnet,2,0,0,0,3821429
+el2,2017-18,39,2018-03-24,Newport County,Crewe Alexandra,1,2,0,1,3821426
+el2,2017-18,39,2018-03-24,Wycombe Wanderers,FC Port Vale,0,0,0,0,3821432
+el2,2017-18,39,2018-03-25,FC Chesterfield,Notts County,3,1,2,0,3821423
+el2,2017-18,39,2018-04-17,Accrington Stanley,Yeovil Town,2,0,2,0,3821421
+el2,2017-18,40,2018-03-30,Cambridge United,Crawley Town,3,1,2,0,3821434
+el2,2017-18,40,2018-03-30,Cheltenham Town,Carlisle United,0,1,0,0,3821435
+el2,2017-18,40,2018-03-30,Colchester United,Luton Town,2,1,2,0,3821436
+el2,2017-18,40,2018-03-30,FC Barnet,Crewe Alexandra,2,1,0,0,3821433
+el2,2017-18,40,2018-03-30,FC Port Vale,FC Chesterfield,2,1,1,0,3821442
+el2,2017-18,40,2018-03-30,Grimsby Town,FC Stevenage,0,0,0,0,3821437
+el2,2017-18,40,2018-03-30,Lincoln City,Exeter City,3,2,0,1,3821438
+el2,2017-18,40,2018-03-30,Mansfield Town,Accrington Stanley,0,1,0,0,3821439
+el2,2017-18,40,2018-03-30,Newport County,Coventry City,1,1,1,0,3821440
+el2,2017-18,40,2018-03-30,Notts County,Wycombe Wanderers,0,0,0,0,3821441
+el2,2017-18,40,2018-03-30,Swindon Town,FC Morecambe,1,1,0,1,3821443
+el2,2017-18,40,2018-04-24,Yeovil Town,Forest Green Rovers,0,0,0,0,3821444
+el2,2017-18,41,2018-04-02,Accrington Stanley,Notts County,1,0,1,0,3821445
+el2,2017-18,41,2018-04-02,Carlisle United,Lincoln City,0,1,0,1,3821446
+el2,2017-18,41,2018-04-02,Coventry City,Yeovil Town,2,6,0,3,3821448
+el2,2017-18,41,2018-04-02,Crawley Town,Swindon Town,1,1,1,0,3821449
+el2,2017-18,41,2018-04-02,Crewe Alexandra,FC Port Vale,2,2,1,1,3821450
+el2,2017-18,41,2018-04-02,Exeter City,Cheltenham Town,2,1,1,1,3821451
+el2,2017-18,41,2018-04-02,FC Stevenage,FC Barnet,4,1,1,0,3821455
+el2,2017-18,41,2018-04-02,Forest Green Rovers,Colchester United,1,2,1,1,3821452
+el2,2017-18,41,2018-04-02,Luton Town,Mansfield Town,2,1,0,1,3821453
+el2,2017-18,41,2018-04-02,Wycombe Wanderers,Grimsby Town,2,1,0,1,3821456
+el2,2017-18,41,2018-04-24,FC Morecambe,Cambridge United,0,0,0,0,3821454
+el2,2017-18,41,2018-05-01,FC Chesterfield,Newport County,1,0,0,0,3821447
+el2,2017-18,42,2018-04-07,Cambridge United,Exeter City,2,3,1,0,3821458
+el2,2017-18,42,2018-04-07,Cheltenham Town,FC Morecambe,3,0,0,0,3821459
+el2,2017-18,42,2018-04-07,Colchester United,Accrington Stanley,0,1,0,0,3821460
+el2,2017-18,42,2018-04-07,FC Barnet,Forest Green Rovers,1,0,1,0,3821457
+el2,2017-18,42,2018-04-07,FC Port Vale,Crawley Town,1,2,1,1,3821466
+el2,2017-18,42,2018-04-07,Grimsby Town,FC Chesterfield,1,0,0,0,3821461
+el2,2017-18,42,2018-04-07,Mansfield Town,Crewe Alexandra,3,4,1,4,3821463
+el2,2017-18,42,2018-04-07,Newport County,FC Stevenage,0,1,0,1,3821464
+el2,2017-18,42,2018-04-07,Notts County,Coventry City,2,1,0,0,3821465
+el2,2017-18,42,2018-04-07,Swindon Town,Carlisle United,0,0,0,0,3821467
+el2,2017-18,42,2018-04-07,Yeovil Town,Luton Town,0,3,0,3,3821468
+el2,2017-18,42,2018-04-17,Lincoln City,Wycombe Wanderers,0,0,0,0,3821462
+el2,2017-18,43,2018-04-14,Accrington Stanley,Exeter City,1,1,1,1,3821469
+el2,2017-18,43,2018-04-14,Cheltenham Town,Forest Green Rovers,0,1,0,1,3821470
+el2,2017-18,43,2018-04-14,Colchester United,Notts County,1,3,1,0,3821472
+el2,2017-18,43,2018-04-14,Crawley Town,Coventry City,1,2,1,1,3821473
+el2,2017-18,43,2018-04-14,FC Chesterfield,Mansfield Town,0,1,0,0,3821471
+el2,2017-18,43,2018-04-14,FC Morecambe,Carlisle United,1,1,1,1,3821476
+el2,2017-18,43,2018-04-14,FC Port Vale,Lincoln City,1,0,0,0,3821478
+el2,2017-18,43,2018-04-14,FC Stevenage,Cambridge United,0,2,0,0,3821479
+el2,2017-18,43,2018-04-14,Grimsby Town,FC Barnet,2,2,1,0,3821474
+el2,2017-18,43,2018-04-14,Luton Town,Crewe Alexandra,3,1,2,1,3821475
+el2,2017-18,43,2018-04-14,Newport County,Swindon Town,2,1,2,0,3821477
+el2,2017-18,43,2018-04-14,Yeovil Town,Wycombe Wanderers,0,1,0,0,3821480
+el2,2017-18,44,2018-04-20,Coventry City,FC Stevenage,3,1,3,1,3821484
+el2,2017-18,44,2018-04-21,Cambridge United,Cheltenham Town,4,3,1,2,3821482
+el2,2017-18,44,2018-04-21,Carlisle United,Luton Town,1,1,1,0,3821483
+el2,2017-18,44,2018-04-21,Crewe Alexandra,FC Morecambe,1,0,0,0,3821485
+el2,2017-18,44,2018-04-21,Exeter City,Crawley Town,2,2,1,1,3821486
+el2,2017-18,44,2018-04-21,FC Barnet,Newport County,2,0,1,0,3821481
+el2,2017-18,44,2018-04-21,Forest Green Rovers,FC Chesterfield,4,1,1,1,3821487
+el2,2017-18,44,2018-04-21,Lincoln City,Colchester United,2,1,0,0,3821488
+el2,2017-18,44,2018-04-21,Mansfield Town,FC Port Vale,1,1,0,0,3821489
+el2,2017-18,44,2018-04-21,Notts County,Yeovil Town,4,1,1,0,3821490
+el2,2017-18,44,2018-04-21,Swindon Town,Grimsby Town,0,1,0,1,3821491
+el2,2017-18,44,2018-04-21,Wycombe Wanderers,Accrington Stanley,0,4,0,2,3821492
+el2,2017-18,45,2018-04-28,Accrington Stanley,Lincoln City,1,0,1,0,3821493
+el2,2017-18,45,2018-04-28,Cheltenham Town,Coventry City,1,6,0,4,3821494
+el2,2017-18,45,2018-04-28,Colchester United,Swindon Town,0,0,0,0,3821496
+el2,2017-18,45,2018-04-28,Crawley Town,Crewe Alexandra,1,2,1,1,3821497
+el2,2017-18,45,2018-04-28,FC Chesterfield,Wycombe Wanderers,1,2,1,1,3821495
+el2,2017-18,45,2018-04-28,FC Morecambe,FC Barnet,0,1,0,0,3821500
+el2,2017-18,45,2018-04-28,FC Port Vale,Carlisle United,1,2,1,0,3821502
+el2,2017-18,45,2018-04-28,FC Stevenage,Exeter City,3,1,2,0,3821503
+el2,2017-18,45,2018-04-28,Grimsby Town,Notts County,2,1,1,0,3821498
+el2,2017-18,45,2018-04-28,Luton Town,Forest Green Rovers,3,1,1,0,3821499
+el2,2017-18,45,2018-04-28,Newport County,Cambridge United,2,1,1,0,3821501
+el2,2017-18,45,2018-04-28,Yeovil Town,Mansfield Town,2,3,1,0,3821504
+el2,2017-18,46,2018-05-05,Cambridge United,FC Port Vale,5,0,2,0,3821506
+el2,2017-18,46,2018-05-05,Carlisle United,Newport County,1,1,1,1,3821507
+el2,2017-18,46,2018-05-05,Coventry City,FC Morecambe,0,0,0,0,3821508
+el2,2017-18,46,2018-05-05,Crewe Alexandra,Cheltenham Town,2,1,1,1,3821509
+el2,2017-18,46,2018-05-05,Exeter City,Colchester United,1,0,0,0,3821510
+el2,2017-18,46,2018-05-05,FC Barnet,FC Chesterfield,3,0,1,0,3821505
+el2,2017-18,46,2018-05-05,Forest Green Rovers,Grimsby Town,0,3,0,0,3821511
+el2,2017-18,46,2018-05-05,Lincoln City,Yeovil Town,1,1,0,1,3821512
+el2,2017-18,46,2018-05-05,Mansfield Town,Crawley Town,1,1,0,1,3821513
+el2,2017-18,46,2018-05-05,Notts County,Luton Town,0,0,0,0,3821514
+el2,2017-18,46,2018-05-05,Swindon Town,Accrington Stanley,3,0,2,0,3821515
+el2,2017-18,46,2018-05-05,Wycombe Wanderers,FC Stevenage,1,0,1,0,3821516

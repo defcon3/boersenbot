@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el2,2021-22,1,2021-08-07,Carlisle United,Colchester United,0,0,0,0,4720283
+el2,2021-22,1,2021-08-07,Exeter City,Bradford City,0,0,0,0,4720284
+el2,2021-22,1,2021-08-07,FC Stevenage,AFC Barrow,1,0,0,0,4720293
+el2,2021-22,1,2021-08-07,Forest Green Rovers,Sutton United,2,1,1,0,4720285
+el2,2021-22,1,2021-08-07,Harrogate Town,AFC Rochdale,3,2,2,1,4720286
+el2,2021-22,1,2021-08-07,Hartlepool United,Crawley Town,1,0,0,0,4720287
+el2,2021-22,1,2021-08-07,Mansfield Town,Bristol Rovers,2,1,1,0,4720288
+el2,2021-22,1,2021-08-07,Northampton Town,FC Port Vale,1,0,1,0,4720289
+el2,2021-22,1,2021-08-07,Oldham Athletic,Newport County,0,1,0,0,4720290
+el2,2021-22,1,2021-08-07,Salford City,Leyton Orient,1,1,1,1,4720291
+el2,2021-22,1,2021-08-07,Scunthorpe United,Swindon Town,1,3,0,0,4720292
+el2,2021-22,1,2021-08-07,Tranmere Rovers,FC Walsall,1,0,0,0,4720294
+el2,2021-22,2,2021-08-14,AFC Barrow,Hartlepool United,3,2,1,1,4720295
+el2,2021-22,2,2021-08-14,AFC Rochdale,Scunthorpe United,0,0,0,0,4720303
+el2,2021-22,2,2021-08-14,Bradford City,Oldham Athletic,2,1,1,0,4720296
+el2,2021-22,2,2021-08-14,Bristol Rovers,FC Stevenage,0,2,0,0,4720297
+el2,2021-22,2,2021-08-14,Colchester United,Northampton Town,0,1,0,1,4720298
+el2,2021-22,2,2021-08-14,FC Port Vale,Tranmere Rovers,0,0,0,0,4720302
+el2,2021-22,2,2021-08-14,FC Walsall,Forest Green Rovers,1,3,0,3,4720306
+el2,2021-22,2,2021-08-14,Leyton Orient,Exeter City,3,0,2,0,4720300
+el2,2021-22,2,2021-08-14,Swindon Town,Carlisle United,1,2,1,2,4720305
+el2,2021-22,2,2021-09-21,Crawley Town,Harrogate Town,2,2,2,1,4720299
+el2,2021-22,2,2022-02-08,Sutton United,Salford City,0,0,0,0,4720304
+el2,2021-22,2,2022-02-19,Newport County,Mansfield Town,1,1,0,0,4720301
+el2,2021-22,3,2021-08-17,AFC Barrow,Exeter City,0,0,0,0,4720307
+el2,2021-22,3,2021-08-17,AFC Rochdale,Forest Green Rovers,1,2,0,1,4720315
+el2,2021-22,3,2021-08-17,Bradford City,FC Stevenage,4,1,3,1,4720308
+el2,2021-22,3,2021-08-17,Bristol Rovers,Oldham Athletic,1,0,1,0,4720309
+el2,2021-22,3,2021-08-17,Colchester United,Mansfield Town,1,1,0,0,4720310
+el2,2021-22,3,2021-08-17,Crawley Town,Salford City,2,1,1,1,4720311
+el2,2021-22,3,2021-08-17,FC Port Vale,Carlisle United,0,0,0,0,4720314
+el2,2021-22,3,2021-08-17,FC Walsall,Scunthorpe United,1,1,0,0,4720318
+el2,2021-22,3,2021-08-17,Swindon Town,Tranmere Rovers,0,0,0,0,4720317
+el2,2021-22,3,2021-08-24,Leyton Orient,Harrogate Town,0,2,0,2,4720312
+el2,2021-22,3,2021-09-14,Newport County,Northampton Town,0,1,0,1,4720313
+el2,2021-22,3,2021-09-14,Sutton United,Hartlepool United,1,0,1,0,4720316
+el2,2021-22,4,2021-08-21,Carlisle United,Leyton Orient,1,1,1,0,4720319
+el2,2021-22,4,2021-08-21,Exeter City,Bristol Rovers,4,1,4,0,4720320
+el2,2021-22,4,2021-08-21,FC Stevenage,FC Port Vale,1,1,1,1,4720329
+el2,2021-22,4,2021-08-21,Forest Green Rovers,Crawley Town,6,3,2,2,4720321
+el2,2021-22,4,2021-08-21,Harrogate Town,AFC Barrow,2,1,0,1,4720322
+el2,2021-22,4,2021-08-21,Hartlepool United,FC Walsall,2,0,1,0,4720323
+el2,2021-22,4,2021-08-21,Mansfield Town,Bradford City,2,3,1,1,4720324
+el2,2021-22,4,2021-08-21,Northampton Town,AFC Rochdale,1,3,1,1,4720325
+el2,2021-22,4,2021-08-21,Oldham Athletic,Colchester United,1,2,0,2,4720326
+el2,2021-22,4,2021-08-21,Salford City,Swindon Town,0,1,0,0,4720327
+el2,2021-22,4,2021-08-21,Scunthorpe United,Sutton United,1,1,0,0,4720328
+el2,2021-22,4,2021-08-21,Tranmere Rovers,Newport County,0,1,0,0,4720330
+el2,2021-22,5,2021-08-27,AFC Rochdale,Colchester United,1,1,0,1,4720337
+el2,2021-22,5,2021-08-28,AFC Barrow,Bristol Rovers,1,1,1,1,4720331
+el2,2021-22,5,2021-08-28,Crawley Town,Northampton Town,0,0,0,0,4720332
+el2,2021-22,5,2021-08-28,FC Walsall,FC Stevenage,1,0,1,0,4720342
+el2,2021-22,5,2021-08-28,Forest Green Rovers,FC Port Vale,0,2,0,2,4720333
+el2,2021-22,5,2021-08-28,Harrogate Town,Exeter City,1,1,1,0,4720334
+el2,2021-22,5,2021-08-28,Hartlepool United,Carlisle United,2,1,1,1,4720335
+el2,2021-22,5,2021-08-28,Leyton Orient,Bradford City,2,0,0,0,4720336
+el2,2021-22,5,2021-08-28,Salford City,Newport County,3,0,3,0,4720338
+el2,2021-22,5,2021-08-28,Scunthorpe United,Tranmere Rovers,1,0,1,0,4720339
+el2,2021-22,5,2021-08-28,Sutton United,Oldham Athletic,1,2,0,0,4720340
+el2,2021-22,5,2021-08-28,Swindon Town,Mansfield Town,1,0,0,0,4720341
+el2,2021-22,6,2021-09-04,Bradford City,FC Walsall,1,1,1,1,4720343
+el2,2021-22,6,2021-09-04,Bristol Rovers,Crawley Town,1,0,0,0,4720344
+el2,2021-22,6,2021-09-04,Carlisle United,Salford City,2,1,1,1,4720345
+el2,2021-22,6,2021-09-04,Exeter City,Forest Green Rovers,0,0,0,0,4720347
+el2,2021-22,6,2021-09-04,FC Port Vale,AFC Rochdale,2,3,1,1,4720352
+el2,2021-22,6,2021-09-04,FC Stevenage,Swindon Town,1,1,0,0,4720353
+el2,2021-22,6,2021-09-04,Mansfield Town,Harrogate Town,1,3,1,2,4720348
+el2,2021-22,6,2021-09-04,Newport County,Leyton Orient,2,2,1,1,4720349
+el2,2021-22,6,2021-09-04,Northampton Town,Scunthorpe United,2,0,0,0,4720350
+el2,2021-22,6,2021-09-04,Oldham Athletic,AFC Barrow,0,3,0,1,4720351
+el2,2021-22,6,2021-09-04,Tranmere Rovers,Hartlepool United,1,0,0,0,4720354
+el2,2021-22,6,2021-10-26,Colchester United,Sutton United,1,3,1,2,4720346
+el2,2021-22,7,2021-09-10,AFC Barrow,Colchester United,2,3,1,2,4720355
+el2,2021-22,7,2021-09-10,Harrogate Town,Newport County,2,2,2,2,4720358
+el2,2021-22,7,2021-09-11,AFC Rochdale,Tranmere Rovers,1,0,0,0,4720361
+el2,2021-22,7,2021-09-11,Crawley Town,Carlisle United,2,1,1,0,4720356
+el2,2021-22,7,2021-09-11,FC Walsall,Mansfield Town,3,1,2,0,4720366
+el2,2021-22,7,2021-09-11,Forest Green Rovers,Northampton Town,1,0,0,0,4720357
+el2,2021-22,7,2021-09-11,Hartlepool United,Bristol Rovers,1,0,0,0,4720359
+el2,2021-22,7,2021-09-11,Leyton Orient,Oldham Athletic,4,0,2,0,4720360
+el2,2021-22,7,2021-09-11,Salford City,Bradford City,1,0,0,0,4720362
+el2,2021-22,7,2021-09-11,Scunthorpe United,Exeter City,0,4,0,1,4720363
+el2,2021-22,7,2021-09-11,Sutton United,FC Stevenage,2,1,0,0,4720364
+el2,2021-22,7,2021-09-11,Swindon Town,FC Port Vale,1,2,0,1,4720365
+el2,2021-22,8,2021-09-18,Bradford City,AFC Barrow,1,1,0,1,4720367
+el2,2021-22,8,2021-09-18,Bristol Rovers,Leyton Orient,1,3,0,3,4720368
+el2,2021-22,8,2021-09-18,Carlisle United,Scunthorpe United,2,2,0,2,4720369
+el2,2021-22,8,2021-09-18,Colchester United,Crawley Town,0,1,0,1,4720370
+el2,2021-22,8,2021-09-18,Exeter City,Sutton United,2,0,0,0,4720371
+el2,2021-22,8,2021-09-18,FC Port Vale,Harrogate Town,2,0,1,0,4720376
+el2,2021-22,8,2021-09-18,FC Stevenage,Forest Green Rovers,0,4,0,1,4720377
+el2,2021-22,8,2021-09-18,Mansfield Town,AFC Rochdale,1,1,0,0,4720372
+el2,2021-22,8,2021-09-18,Newport County,FC Walsall,2,1,1,1,4720373
+el2,2021-22,8,2021-09-18,Northampton Town,Swindon Town,1,1,0,0,4720374
+el2,2021-22,8,2021-09-18,Oldham Athletic,Hartlepool United,0,0,0,0,4720375
+el2,2021-22,8,2021-09-18,Tranmere Rovers,Salford City,2,0,1,0,4720378
+el2,2021-22,9,2021-09-24,AFC Barrow,Newport County,2,1,0,1,4720379
+el2,2021-22,9,2021-09-25,AFC Rochdale,Oldham Athletic,0,1,0,0,4720385
+el2,2021-22,9,2021-09-25,Crawley Town,Bradford City,2,1,1,0,4720380
+el2,2021-22,9,2021-09-25,FC Walsall,Bristol Rovers,1,2,1,0,4720390
+el2,2021-22,9,2021-09-25,Forest Green Rovers,Tranmere Rovers,0,0,0,0,4720381
+el2,2021-22,9,2021-09-25,Harrogate Town,FC Stevenage,0,0,0,0,4720382
+el2,2021-22,9,2021-09-25,Hartlepool United,Exeter City,1,1,1,1,4720383
+el2,2021-22,9,2021-09-25,Leyton Orient,Mansfield Town,0,0,0,0,4720384
+el2,2021-22,9,2021-09-25,Salford City,Northampton Town,2,2,1,1,4720386
+el2,2021-22,9,2021-09-25,Scunthorpe United,FC Port Vale,0,1,0,1,4720387
+el2,2021-22,9,2021-09-25,Sutton United,Carlisle United,4,0,2,0,4720388
+el2,2021-22,9,2021-09-25,Swindon Town,Colchester United,0,0,0,0,4720389
+el2,2021-22,10,2021-10-02,Bradford City,AFC Rochdale,2,0,1,0,4720391
+el2,2021-22,10,2021-10-02,Bristol Rovers,Swindon Town,1,3,1,0,4720392
+el2,2021-22,10,2021-10-02,Carlisle United,Forest Green Rovers,0,2,0,2,4720393
+el2,2021-22,10,2021-10-02,Colchester United,Salford City,0,2,0,2,4720394
+el2,2021-22,10,2021-10-02,Exeter City,FC Walsall,2,2,1,1,4720395
+el2,2021-22,10,2021-10-02,FC Port Vale,Leyton Orient,3,2,1,0,4720400
+el2,2021-22,10,2021-10-02,FC Stevenage,Hartlepool United,2,0,1,0,4720401
+el2,2021-22,10,2021-10-02,Mansfield Town,AFC Barrow,0,1,0,0,4720396
+el2,2021-22,10,2021-10-02,Newport County,Scunthorpe United,3,0,1,0,4720397
+el2,2021-22,10,2021-10-02,Northampton Town,Sutton United,0,2,0,1,4720398
+el2,2021-22,10,2021-10-02,Oldham Athletic,Harrogate Town,1,2,0,1,4720399
+el2,2021-22,10,2021-10-02,Tranmere Rovers,Crawley Town,2,1,1,0,4720402
+el2,2021-22,11,2021-10-08,Tranmere Rovers,Colchester United,2,0,0,0,4720413
+el2,2021-22,11,2021-10-09,AFC Barrow,Leyton Orient,1,1,0,0,4720403
+el2,2021-22,11,2021-10-09,AFC Rochdale,Crawley Town,0,1,0,1,4720410
+el2,2021-22,11,2021-10-09,Bristol Rovers,Carlisle United,3,0,1,0,4720404
+el2,2021-22,11,2021-10-09,FC Stevenage,Exeter City,2,2,1,1,4720411
+el2,2021-22,11,2021-10-09,FC Walsall,Salford City,2,1,1,0,4720414
+el2,2021-22,11,2021-10-09,Forest Green Rovers,Swindon Town,0,2,0,0,4720405
+el2,2021-22,11,2021-10-09,Harrogate Town,Scunthorpe United,6,1,5,0,4720406
+el2,2021-22,11,2021-10-09,Hartlepool United,Northampton Town,2,1,0,0,4720407
+el2,2021-22,11,2021-10-09,Mansfield Town,Oldham Athletic,0,0,0,0,4720408
+el2,2021-22,11,2021-10-09,Newport County,Bradford City,0,0,0,0,4720409
+el2,2021-22,11,2021-10-09,Sutton United,FC Port Vale,4,3,1,2,4720412
+el2,2021-22,12,2021-10-16,Bradford City,Bristol Rovers,2,2,1,0,4720415
+el2,2021-22,12,2021-10-16,Carlisle United,Tranmere Rovers,0,1,0,0,4720416
+el2,2021-22,12,2021-10-16,Colchester United,Harrogate Town,1,0,0,0,4720417
+el2,2021-22,12,2021-10-16,Crawley Town,Sutton United,0,1,0,0,4720418
+el2,2021-22,12,2021-10-16,Exeter City,Newport County,2,2,1,2,4720419
+el2,2021-22,12,2021-10-16,FC Port Vale,AFC Barrow,3,1,0,1,4720423
+el2,2021-22,12,2021-10-16,Leyton Orient,FC Walsall,0,0,0,0,4720420
+el2,2021-22,12,2021-10-16,Northampton Town,Mansfield Town,2,0,1,0,4720421
+el2,2021-22,12,2021-10-16,Oldham Athletic,FC Stevenage,3,0,2,0,4720422
+el2,2021-22,12,2021-10-16,Salford City,Hartlepool United,2,0,1,0,4720424
+el2,2021-22,12,2021-10-16,Scunthorpe United,Forest Green Rovers,0,2,0,0,4720425
+el2,2021-22,12,2021-10-16,Swindon Town,AFC Rochdale,2,2,1,0,4720426
+el2,2021-22,13,2021-10-19,AFC Barrow,Scunthorpe United,1,1,0,1,4720427
+el2,2021-22,13,2021-10-19,Bradford City,Hartlepool United,1,3,0,1,4720428
+el2,2021-22,13,2021-10-19,Colchester United,Bristol Rovers,1,1,0,0,4720429
+el2,2021-22,13,2021-10-19,Crawley Town,Exeter City,1,3,1,0,4720430
+el2,2021-22,13,2021-10-19,Harrogate Town,Tranmere Rovers,2,2,1,1,4720431
+el2,2021-22,13,2021-10-19,Leyton Orient,Forest Green Rovers,1,1,0,0,4720432
+el2,2021-22,13,2021-10-19,Mansfield Town,FC Port Vale,1,1,0,1,4720433
+el2,2021-22,13,2021-10-19,Newport County,Carlisle United,2,2,2,1,4720434
+el2,2021-22,13,2021-10-19,Northampton Town,FC Stevenage,3,0,2,0,4720435
+el2,2021-22,13,2021-10-19,Oldham Athletic,FC Walsall,1,3,0,2,4720436
+el2,2021-22,13,2021-10-19,Salford City,AFC Rochdale,0,0,0,0,4720437
+el2,2021-22,13,2021-10-19,Sutton United,Swindon Town,1,2,1,2,4720438
+el2,2021-22,14,2021-10-23,AFC Rochdale,Sutton United,3,2,1,0,4720445
+el2,2021-22,14,2021-10-23,Bristol Rovers,Newport County,1,3,1,2,4720439
+el2,2021-22,14,2021-10-23,Carlisle United,Oldham Athletic,0,0,0,0,4720440
+el2,2021-22,14,2021-10-23,Exeter City,Mansfield Town,2,1,0,0,4720441
+el2,2021-22,14,2021-10-23,FC Port Vale,Colchester United,3,0,2,0,4720444
+el2,2021-22,14,2021-10-23,FC Stevenage,Leyton Orient,0,0,0,0,4720447
+el2,2021-22,14,2021-10-23,FC Walsall,AFC Barrow,2,2,1,1,4720450
+el2,2021-22,14,2021-10-23,Forest Green Rovers,Salford City,3,1,1,1,4720442
+el2,2021-22,14,2021-10-23,Hartlepool United,Harrogate Town,3,2,0,2,4720443
+el2,2021-22,14,2021-10-23,Scunthorpe United,Crawley Town,2,1,1,0,4720446
+el2,2021-22,14,2021-10-23,Swindon Town,Bradford City,1,3,0,2,4720448
+el2,2021-22,14,2021-10-23,Tranmere Rovers,Northampton Town,0,2,0,0,4720449
+el2,2021-22,15,2021-10-30,AFC Barrow,AFC Rochdale,1,2,0,1,4720451
+el2,2021-22,15,2021-10-30,Bradford City,Forest Green Rovers,1,1,1,0,4720452
+el2,2021-22,15,2021-10-30,Colchester United,Scunthorpe United,2,1,2,0,4720453
+el2,2021-22,15,2021-10-30,Crawley Town,FC Port Vale,1,4,1,0,4720454
+el2,2021-22,15,2021-10-30,Harrogate Town,Bristol Rovers,0,1,0,0,4720455
+el2,2021-22,15,2021-10-30,Leyton Orient,Hartlepool United,5,0,2,0,4720456
+el2,2021-22,15,2021-10-30,Mansfield Town,Tranmere Rovers,2,0,1,0,4720457
+el2,2021-22,15,2021-10-30,Newport County,FC Stevenage,5,0,3,0,4720458
+el2,2021-22,15,2021-10-30,Northampton Town,Carlisle United,3,0,1,0,4720459
+el2,2021-22,15,2021-10-30,Oldham Athletic,Swindon Town,1,3,0,1,4720460
+el2,2021-22,15,2021-10-30,Salford City,Exeter City,1,2,0,0,4720461
+el2,2021-22,15,2021-10-30,Sutton United,FC Walsall,0,1,0,0,4720462
+el2,2021-22,16,2021-11-12,Hartlepool United,Newport County,1,2,0,1,4720467
+el2,2021-22,16,2021-11-13,AFC Rochdale,Leyton Orient,2,2,1,1,4720469
+el2,2021-22,16,2021-11-13,Bristol Rovers,Northampton Town,2,1,0,1,4720463
+el2,2021-22,16,2021-11-13,Carlisle United,AFC Barrow,0,0,0,0,4720464
+el2,2021-22,16,2021-11-13,Exeter City,Oldham Athletic,2,1,1,0,4720465
+el2,2021-22,16,2021-11-13,FC Port Vale,Bradford City,1,1,0,0,4720468
+el2,2021-22,16,2021-11-13,FC Stevenage,Mansfield Town,1,2,0,1,4720471
+el2,2021-22,16,2021-11-13,FC Walsall,Harrogate Town,1,3,0,1,4720474
+el2,2021-22,16,2021-11-13,Scunthorpe United,Salford City,1,1,1,0,4720470
+el2,2021-22,16,2021-11-13,Tranmere Rovers,Sutton United,0,1,0,0,4720473
+el2,2021-22,16,2022-01-11,Forest Green Rovers,Colchester United,2,0,1,0,4720466
+el2,2021-22,16,2022-02-01,Swindon Town,Crawley Town,1,1,0,1,4720472
+el2,2021-22,17,2021-11-20,AFC Barrow,Crawley Town,0,1,0,0,4720475
+el2,2021-22,17,2021-11-20,Bradford City,Northampton Town,1,1,0,0,4720476
+el2,2021-22,17,2021-11-20,Bristol Rovers,Tranmere Rovers,2,2,2,1,4720477
+el2,2021-22,17,2021-11-20,Exeter City,Carlisle United,2,1,0,0,4720478
+el2,2021-22,17,2021-11-20,FC Stevenage,Colchester United,1,0,1,0,4720485
+el2,2021-22,17,2021-11-20,FC Walsall,AFC Rochdale,0,0,0,0,4720486
+el2,2021-22,17,2021-11-20,Harrogate Town,Salford City,0,2,0,1,4720479
+el2,2021-22,17,2021-11-20,Hartlepool United,Forest Green Rovers,1,3,0,3,4720480
+el2,2021-22,17,2021-11-20,Leyton Orient,Sutton United,4,1,1,1,4720481
+el2,2021-22,17,2021-11-20,Mansfield Town,Scunthorpe United,3,1,2,1,4720482
+el2,2021-22,17,2021-11-20,Newport County,Swindon Town,1,2,0,0,4720483
+el2,2021-22,17,2021-11-20,Oldham Athletic,FC Port Vale,3,2,1,1,4720484
+el2,2021-22,18,2021-11-23,AFC Rochdale,FC Stevenage,2,2,2,1,4720493
+el2,2021-22,18,2021-11-23,Carlisle United,Harrogate Town,0,2,0,1,4720487
+el2,2021-22,18,2021-11-23,Colchester United,Exeter City,3,1,2,0,4720488
+el2,2021-22,18,2021-11-23,Crawley Town,Newport County,1,1,0,0,4720489
+el2,2021-22,18,2021-11-23,FC Port Vale,FC Walsall,0,1,0,1,4720492
+el2,2021-22,18,2021-11-23,Forest Green Rovers,AFC Barrow,2,0,0,0,4720490
+el2,2021-22,18,2021-11-23,Northampton Town,Oldham Athletic,2,1,2,0,4720491
+el2,2021-22,18,2021-11-23,Salford City,Bristol Rovers,1,1,0,1,4720494
+el2,2021-22,18,2021-11-23,Scunthorpe United,Leyton Orient,1,1,0,1,4720495
+el2,2021-22,18,2021-11-23,Sutton United,Mansfield Town,2,0,1,0,4720496
+el2,2021-22,18,2021-11-23,Swindon Town,Hartlepool United,3,1,0,0,4720497
+el2,2021-22,18,2021-11-23,Tranmere Rovers,Bradford City,2,1,0,1,4720498
+el2,2021-22,19,2021-11-26,Colchester United,Newport County,1,1,0,1,4720500
+el2,2021-22,19,2021-11-27,AFC Rochdale,Exeter City,1,1,0,0,4720505
+el2,2021-22,19,2021-11-27,Carlisle United,FC Walsall,1,0,0,0,4720499
+el2,2021-22,19,2021-11-27,Crawley Town,Mansfield Town,1,2,0,1,4720501
+el2,2021-22,19,2021-11-27,FC Port Vale,Hartlepool United,2,0,1,0,4720504
+el2,2021-22,19,2021-11-27,Forest Green Rovers,Bristol Rovers,2,0,1,0,4720502
+el2,2021-22,19,2021-11-27,Northampton Town,Leyton Orient,1,0,1,0,4720503
+el2,2021-22,19,2021-11-27,Salford City,Oldham Athletic,2,0,1,0,4720506
+el2,2021-22,19,2021-11-27,Scunthorpe United,Bradford City,1,1,1,0,4720507
+el2,2021-22,19,2021-11-27,Sutton United,AFC Barrow,1,0,1,0,4720508
+el2,2021-22,19,2021-11-27,Swindon Town,Harrogate Town,1,1,0,1,4720509
+el2,2021-22,19,2022-02-01,Tranmere Rovers,FC Stevenage,1,0,0,0,4720510
+el2,2021-22,20,2021-12-07,Bristol Rovers,FC Port Vale,1,2,0,2,4720513
+el2,2021-22,20,2021-12-07,Exeter City,Northampton Town,1,2,0,1,4720514
+el2,2021-22,20,2021-12-07,FC Stevenage,Scunthorpe United,1,1,1,1,4720521
+el2,2021-22,20,2021-12-07,FC Walsall,Crawley Town,1,1,1,1,4720522
+el2,2021-22,20,2021-12-07,Harrogate Town,Forest Green Rovers,1,4,0,3,4720515
+el2,2021-22,20,2021-12-07,Leyton Orient,Swindon Town,4,1,1,1,4720517
+el2,2021-22,20,2021-12-07,Mansfield Town,Carlisle United,1,0,1,0,4720518
+el2,2021-22,20,2021-12-07,Newport County,Sutton United,3,2,0,2,4720519
+el2,2021-22,20,2021-12-07,Oldham Athletic,Tranmere Rovers,0,1,0,0,4720520
+el2,2021-22,20,2021-12-08,Bradford City,Colchester United,0,0,0,0,4720512
+el2,2021-22,20,2021-12-08,Hartlepool United,AFC Rochdale,2,1,0,0,4720516
+el2,2021-22,20,2022-01-25,AFC Barrow,Salford City,0,2,0,0,4720511
+el2,2021-22,21,2021-12-11,AFC Barrow,Swindon Town,2,0,0,0,4720523
+el2,2021-22,21,2021-12-11,Bradford City,Sutton United,2,2,1,1,4720524
+el2,2021-22,21,2021-12-11,Bristol Rovers,AFC Rochdale,4,2,1,0,4720525
+el2,2021-22,21,2021-12-11,Exeter City,Tranmere Rovers,0,1,0,1,4720526
+el2,2021-22,21,2021-12-11,FC Stevenage,Carlisle United,0,2,0,1,4720533
+el2,2021-22,21,2021-12-11,FC Walsall,Colchester United,3,0,2,0,4720534
+el2,2021-22,21,2021-12-11,Harrogate Town,Northampton Town,1,2,1,1,4720527
+el2,2021-22,21,2021-12-11,Hartlepool United,Scunthorpe United,0,0,0,0,4720528
+el2,2021-22,21,2021-12-11,Leyton Orient,Crawley Town,1,2,0,1,4720529
+el2,2021-22,21,2021-12-11,Mansfield Town,Salford City,2,1,2,1,4720530
+el2,2021-22,21,2021-12-11,Newport County,FC Port Vale,2,1,0,1,4720531
+el2,2021-22,21,2021-12-11,Oldham Athletic,Forest Green Rovers,5,5,1,3,4720532
+el2,2021-22,22,2021-12-18,AFC Rochdale,Newport County,3,0,1,0,4720541
+el2,2021-22,22,2021-12-18,Salford City,FC Stevenage,1,0,1,0,4720542
+el2,2021-22,22,2021-12-18,Sutton United,Harrogate Town,1,0,1,0,4720544
+el2,2021-22,22,2021-12-18,Tranmere Rovers,Leyton Orient,1,0,0,0,4720546
+el2,2021-22,22,2022-01-08,Carlisle United,Bradford City,2,0,1,0,4720535
+el2,2021-22,22,2022-01-25,Scunthorpe United,Bristol Rovers,2,3,0,1,4720543
+el2,2021-22,22,2022-02-01,Northampton Town,AFC Barrow,0,1,0,0,4720539
+el2,2021-22,22,2022-02-22,Colchester United,Hartlepool United,1,2,1,0,4720536
+el2,2021-22,22,2022-02-22,Swindon Town,FC Walsall,5,0,2,0,4720545
+el2,2021-22,22,2022-03-01,Crawley Town,Oldham Athletic,2,2,0,0,4720537
+el2,2021-22,22,2022-03-22,FC Port Vale,Exeter City,0,0,0,0,4720540
+el2,2021-22,22,2022-04-05,Forest Green Rovers,Mansfield Town,1,0,1,0,4720538
+el2,2021-22,23,2021-12-26,Mansfield Town,Hartlepool United,3,2,0,1,4720552
+el2,2021-22,23,2021-12-26,Oldham Athletic,Scunthorpe United,1,3,1,0,4720555
+el2,2021-22,23,2021-12-26,Tranmere Rovers,AFC Barrow,2,0,1,0,4720558
+el2,2021-22,23,2022-01-18,FC Port Vale,Salford City,0,1,0,0,4720556
+el2,2021-22,23,2022-01-18,FC Stevenage,Crawley Town,2,1,1,1,4720557
+el2,2021-22,23,2022-02-15,Bristol Rovers,Sutton United,2,0,1,0,4720548
+el2,2021-22,23,2022-02-22,Bradford City,Harrogate Town,1,3,1,1,4720547
+el2,2021-22,23,2022-03-01,Carlisle United,AFC Rochdale,2,0,1,0,4720549
+el2,2021-22,23,2022-03-01,Colchester United,Leyton Orient,2,2,0,0,4720550
+el2,2021-22,23,2022-03-01,Newport County,Forest Green Rovers,1,1,1,0,4720553
+el2,2021-22,23,2022-03-01,Northampton Town,FC Walsall,1,1,1,0,4720554
+el2,2021-22,23,2022-03-08,Exeter City,Swindon Town,3,1,2,0,4720551
+el2,2021-22,24,2021-12-29,AFC Barrow,Oldham Athletic,0,0,0,0,4720559
+el2,2021-22,24,2021-12-29,Swindon Town,FC Stevenage,0,0,0,0,4720569
+el2,2021-22,24,2022-01-04,Forest Green Rovers,Exeter City,0,0,0,0,4720561
+el2,2021-22,24,2022-01-18,Sutton United,Colchester United,3,2,1,2,4720568
+el2,2021-22,24,2022-01-25,FC Walsall,Bradford City,1,2,0,1,4720570
+el2,2021-22,24,2022-01-25,Leyton Orient,Newport County,0,1,0,0,4720564
+el2,2021-22,24,2022-02-01,Harrogate Town,Mansfield Town,0,0,0,0,4720562
+el2,2021-22,24,2022-02-01,Salford City,Carlisle United,2,1,0,0,4720566
+el2,2021-22,24,2022-02-15,Hartlepool United,Tranmere Rovers,1,0,1,0,4720563
+el2,2021-22,24,2022-02-22,AFC Rochdale,FC Port Vale,1,1,0,1,4720565
+el2,2021-22,24,2022-02-22,Scunthorpe United,Northampton Town,0,0,0,0,4720567
+el2,2021-22,24,2022-03-08,Crawley Town,Bristol Rovers,1,2,0,1,4720560
+el2,2021-22,25,2022-01-01,AFC Barrow,Bradford City,1,2,0,1,4720571
+el2,2021-22,25,2022-01-01,Crawley Town,Colchester United,3,1,2,0,4720572
+el2,2021-22,25,2022-01-01,FC Walsall,Newport County,3,3,0,1,4720582
+el2,2021-22,25,2022-01-01,Forest Green Rovers,FC Stevenage,2,0,0,0,4720573
+el2,2021-22,25,2022-01-01,Hartlepool United,Oldham Athletic,0,0,0,0,4720575
+el2,2021-22,25,2022-01-01,Scunthorpe United,Carlisle United,0,1,0,1,4720579
+el2,2021-22,25,2022-01-01,Sutton United,Exeter City,2,1,1,1,4720580
+el2,2021-22,25,2022-01-01,Swindon Town,Northampton Town,5,2,1,1,4720581
+el2,2021-22,25,2022-01-11,Salford City,Tranmere Rovers,1,1,1,0,4720578
+el2,2021-22,25,2022-02-22,Leyton Orient,Bristol Rovers,0,2,0,2,4720576
+el2,2021-22,25,2022-03-01,Harrogate Town,FC Port Vale,1,1,1,0,4720574
+el2,2021-22,25,2022-03-22,AFC Rochdale,Mansfield Town,0,1,0,0,4720577
+el2,2021-22,26,2022-01-08,FC Stevenage,FC Walsall,3,1,2,0,4720593
+el2,2021-22,26,2022-01-08,Newport County,Salford City,0,2,0,1,4720589
+el2,2021-22,26,2022-01-08,Northampton Town,Crawley Town,0,1,0,1,4720590
+el2,2021-22,26,2022-01-08,Tranmere Rovers,Scunthorpe United,4,0,2,0,4720594
+el2,2021-22,26,2022-01-11,Mansfield Town,Swindon Town,3,2,3,1,4720588
+el2,2021-22,26,2022-01-18,Carlisle United,Hartlepool United,0,0,0,0,4720585
+el2,2021-22,26,2022-02-01,Bradford City,Leyton Orient,1,1,0,0,4720583
+el2,2021-22,26,2022-02-01,Colchester United,AFC Rochdale,1,1,0,0,4720586
+el2,2021-22,26,2022-02-01,FC Port Vale,Forest Green Rovers,1,1,1,0,4720592
+el2,2021-22,26,2022-02-15,Exeter City,Harrogate Town,4,3,1,2,4720587
+el2,2021-22,26,2022-03-01,Bristol Rovers,AFC Barrow,1,0,0,0,4720584
+el2,2021-22,26,2022-03-22,Oldham Athletic,Sutton United,1,3,0,1,4720591
+el2,2021-22,27,2022-01-15,Bradford City,Salford City,2,1,0,1,4720595
+el2,2021-22,27,2022-01-15,Bristol Rovers,Hartlepool United,2,0,0,0,4720596
+el2,2021-22,27,2022-01-15,Carlisle United,Crawley Town,1,1,0,1,4720597
+el2,2021-22,27,2022-01-15,Colchester United,AFC Barrow,0,2,0,0,4720598
+el2,2021-22,27,2022-01-15,Exeter City,Scunthorpe United,2,0,0,0,4720599
+el2,2021-22,27,2022-01-15,FC Port Vale,Swindon Town,1,3,1,2,4720604
+el2,2021-22,27,2022-01-15,FC Stevenage,Sutton United,3,3,2,0,4720605
+el2,2021-22,27,2022-01-15,Mansfield Town,FC Walsall,2,0,0,0,4720600
+el2,2021-22,27,2022-01-15,Newport County,Harrogate Town,4,0,2,0,4720601
+el2,2021-22,27,2022-01-15,Northampton Town,Forest Green Rovers,1,1,0,0,4720602
+el2,2021-22,27,2022-01-15,Tranmere Rovers,AFC Rochdale,2,0,2,0,4720606
+el2,2021-22,27,2022-03-29,Oldham Athletic,Leyton Orient,2,0,1,0,4720603
+el2,2021-22,28,2022-01-22,AFC Barrow,Mansfield Town,1,3,1,2,4720607
+el2,2021-22,28,2022-01-22,AFC Rochdale,Bradford City,0,0,0,0,4720613
+el2,2021-22,28,2022-01-22,Crawley Town,Tranmere Rovers,0,1,0,0,4720608
+el2,2021-22,28,2022-01-22,FC Walsall,Exeter City,0,2,0,1,4720618
+el2,2021-22,28,2022-01-22,Forest Green Rovers,Carlisle United,3,0,1,0,4720609
+el2,2021-22,28,2022-01-22,Harrogate Town,Oldham Athletic,3,0,1,0,4720610
+el2,2021-22,28,2022-01-22,Hartlepool United,FC Stevenage,1,1,0,0,4720611
+el2,2021-22,28,2022-01-22,Leyton Orient,FC Port Vale,0,0,0,0,4720612
+el2,2021-22,28,2022-01-22,Salford City,Colchester United,0,3,0,2,4720614
+el2,2021-22,28,2022-01-22,Scunthorpe United,Newport County,0,1,0,0,4720615
+el2,2021-22,28,2022-01-22,Sutton United,Northampton Town,0,0,0,0,4720616
+el2,2021-22,28,2022-01-22,Swindon Town,Bristol Rovers,1,1,1,1,4720617
+el2,2021-22,29,2022-01-29,Bradford City,Crawley Town,1,2,1,0,4720619
+el2,2021-22,29,2022-01-29,Bristol Rovers,FC Walsall,1,0,0,0,4720620
+el2,2021-22,29,2022-01-29,Carlisle United,Sutton United,0,2,0,2,4720621
+el2,2021-22,29,2022-01-29,Colchester United,Swindon Town,1,1,0,0,4720622
+el2,2021-22,29,2022-01-29,Exeter City,Hartlepool United,0,0,0,0,4720623
+el2,2021-22,29,2022-01-29,FC Port Vale,Scunthorpe United,1,0,0,0,4720628
+el2,2021-22,29,2022-01-29,FC Stevenage,Harrogate Town,3,0,2,0,4720629
+el2,2021-22,29,2022-01-29,Mansfield Town,Leyton Orient,2,0,1,0,4720624
+el2,2021-22,29,2022-01-29,Newport County,AFC Barrow,2,1,2,0,4720625
+el2,2021-22,29,2022-01-29,Northampton Town,Salford City,1,0,1,0,4720626
+el2,2021-22,29,2022-01-29,Oldham Athletic,AFC Rochdale,0,0,0,0,4720627
+el2,2021-22,29,2022-01-29,Tranmere Rovers,Forest Green Rovers,0,4,0,2,4720630
+el2,2021-22,30,2022-02-05,AFC Barrow,Tranmere Rovers,1,1,0,1,4720631
+el2,2021-22,30,2022-02-05,Crawley Town,FC Stevenage,2,2,1,0,4720632
+el2,2021-22,30,2022-02-05,FC Walsall,Northampton Town,0,1,0,1,4720642
+el2,2021-22,30,2022-02-05,Forest Green Rovers,Newport County,2,0,1,0,4720633
+el2,2021-22,30,2022-02-05,Harrogate Town,Bradford City,2,0,0,0,4720634
+el2,2021-22,30,2022-02-05,Leyton Orient,Colchester United,0,1,0,1,4720636
+el2,2021-22,30,2022-02-05,Scunthorpe United,Oldham Athletic,0,1,0,0,4720639
+el2,2021-22,30,2022-02-05,Sutton United,Bristol Rovers,1,1,1,0,4720640
+el2,2021-22,30,2022-02-05,Swindon Town,Exeter City,1,2,0,0,4720641
+el2,2021-22,30,2022-03-29,AFC Rochdale,Carlisle United,2,0,1,0,4720637
+el2,2021-22,30,2022-03-29,Hartlepool United,Mansfield Town,2,2,2,2,4720635
+el2,2021-22,30,2022-04-05,Salford City,FC Port Vale,0,1,0,0,4720638
+el2,2021-22,31,2021-08-14,Salford City,Sutton United,0,0,0,0,4720651
+el2,2021-22,31,2022-02-08,Carlisle United,FC Port Vale,1,3,1,2,4720643
+el2,2021-22,31,2022-02-08,Exeter City,Leyton Orient,1,0,0,0,4720644
+el2,2021-22,31,2022-02-08,FC Stevenage,Bradford City,0,1,0,0,4720653
+el2,2021-22,31,2022-02-08,Forest Green Rovers,AFC Rochdale,2,1,0,0,4720645
+el2,2021-22,31,2022-02-08,Harrogate Town,Crawley Town,1,3,0,0,4720646
+el2,2021-22,31,2022-02-08,Hartlepool United,AFC Barrow,3,1,3,1,4720647
+el2,2021-22,31,2022-02-08,Mansfield Town,Colchester United,2,1,1,0,4720648
+el2,2021-22,31,2022-02-08,Northampton Town,Newport County,1,0,0,0,4720649
+el2,2021-22,31,2022-02-08,Oldham Athletic,Bristol Rovers,2,1,2,1,4720650
+el2,2021-22,31,2022-02-08,Scunthorpe United,FC Walsall,1,0,1,0,4720652
+el2,2021-22,31,2022-02-08,Tranmere Rovers,Swindon Town,3,0,1,0,4720654
+el2,2021-22,32,2022-02-12,AFC Barrow,FC Stevenage,0,0,0,0,4720655
+el2,2021-22,32,2022-02-12,AFC Rochdale,Harrogate Town,3,3,1,2,4720663
+el2,2021-22,32,2022-02-12,Bradford City,Exeter City,0,1,0,1,4720656
+el2,2021-22,32,2022-02-12,Bristol Rovers,Mansfield Town,0,0,0,0,4720657
+el2,2021-22,32,2022-02-12,Colchester United,Carlisle United,2,2,0,0,4720658
+el2,2021-22,32,2022-02-12,Crawley Town,Hartlepool United,0,1,0,1,4720659
+el2,2021-22,32,2022-02-12,FC Port Vale,Northampton Town,0,0,0,0,4720662
+el2,2021-22,32,2022-02-12,FC Walsall,Tranmere Rovers,1,0,0,0,4720666
+el2,2021-22,32,2022-02-12,Leyton Orient,Salford City,0,2,0,0,4720660
+el2,2021-22,32,2022-02-12,Newport County,Oldham Athletic,3,3,2,1,4720661
+el2,2021-22,32,2022-02-12,Sutton United,Forest Green Rovers,1,1,1,0,4720664
+el2,2021-22,32,2022-02-12,Swindon Town,Scunthorpe United,3,0,0,0,4720665
+el2,2021-22,33,2021-08-14,Mansfield Town,Newport County,2,1,2,1,4720672
+el2,2021-22,33,2022-02-19,Carlisle United,Swindon Town,0,3,0,1,4720667
+el2,2021-22,33,2022-02-19,FC Stevenage,Bristol Rovers,0,4,0,1,4720677
+el2,2021-22,33,2022-02-19,Forest Green Rovers,FC Walsall,0,1,0,1,4720669
+el2,2021-22,33,2022-02-19,Hartlepool United,Sutton United,1,1,0,1,4720671
+el2,2021-22,33,2022-02-19,Northampton Town,Colchester United,3,0,1,0,4720673
+el2,2021-22,33,2022-02-19,Oldham Athletic,Bradford City,2,0,2,0,4720674
+el2,2021-22,33,2022-02-19,Scunthorpe United,AFC Rochdale,1,2,1,0,4720676
+el2,2021-22,33,2022-02-19,Tranmere Rovers,FC Port Vale,1,1,0,0,4720678
+el2,2021-22,33,2022-03-22,Harrogate Town,Leyton Orient,0,3,0,0,4720670
+el2,2021-22,33,2022-03-29,Salford City,Crawley Town,2,1,1,0,4720675
+el2,2021-22,33,2022-04-26,Exeter City,AFC Barrow,2,1,1,1,4720668
+el2,2021-22,34,2022-02-26,AFC Barrow,Harrogate Town,0,0,0,0,4720679
+el2,2021-22,34,2022-02-26,AFC Rochdale,Northampton Town,1,0,0,0,4720687
+el2,2021-22,34,2022-02-26,Bradford City,Mansfield Town,0,2,0,1,4720680
+el2,2021-22,34,2022-02-26,Bristol Rovers,Exeter City,1,1,1,1,4720681
+el2,2021-22,34,2022-02-26,Colchester United,Oldham Athletic,1,1,0,1,4720682
+el2,2021-22,34,2022-02-26,Crawley Town,Forest Green Rovers,2,1,2,0,4720683
+el2,2021-22,34,2022-02-26,FC Port Vale,FC Stevenage,2,0,2,0,4720686
+el2,2021-22,34,2022-02-26,FC Walsall,Hartlepool United,3,1,2,0,4720690
+el2,2021-22,34,2022-02-26,Leyton Orient,Carlisle United,0,1,0,1,4720684
+el2,2021-22,34,2022-02-26,Newport County,Tranmere Rovers,4,2,0,0,4720685
+el2,2021-22,34,2022-02-26,Sutton United,Scunthorpe United,4,1,3,0,4720688
+el2,2021-22,34,2022-02-26,Swindon Town,Salford City,1,2,0,0,4720689
+el2,2021-22,35,2022-03-04,Mansfield Town,Exeter City,2,1,1,0,4720697
+el2,2021-22,35,2022-03-05,AFC Barrow,FC Walsall,1,1,1,0,4720691
+el2,2021-22,35,2022-03-05,Bradford City,Swindon Town,1,2,1,1,4720692
+el2,2021-22,35,2022-03-05,Colchester United,FC Port Vale,1,0,0,0,4720693
+el2,2021-22,35,2022-03-05,Crawley Town,Scunthorpe United,0,0,0,0,4720694
+el2,2021-22,35,2022-03-05,Harrogate Town,Hartlepool United,1,2,1,1,4720695
+el2,2021-22,35,2022-03-05,Leyton Orient,FC Stevenage,2,2,1,2,4720696
+el2,2021-22,35,2022-03-05,Newport County,Bristol Rovers,1,0,1,0,4720698
+el2,2021-22,35,2022-03-05,Northampton Town,Tranmere Rovers,3,2,2,0,4720699
+el2,2021-22,35,2022-03-05,Oldham Athletic,Carlisle United,1,2,1,0,4720700
+el2,2021-22,35,2022-03-05,Salford City,Forest Green Rovers,1,1,1,0,4720701
+el2,2021-22,35,2022-03-05,Sutton United,AFC Rochdale,3,0,2,0,4720702
+el2,2021-22,36,2022-03-11,Tranmere Rovers,Mansfield Town,3,2,1,1,4720713
+el2,2021-22,36,2022-03-12,AFC Rochdale,AFC Barrow,0,0,0,0,4720709
+el2,2021-22,36,2022-03-12,Bristol Rovers,Harrogate Town,3,0,2,0,4720703
+el2,2021-22,36,2022-03-12,Carlisle United,Northampton Town,2,1,0,0,4720704
+el2,2021-22,36,2022-03-12,Exeter City,Salford City,0,0,0,0,4720705
+el2,2021-22,36,2022-03-12,FC Port Vale,Crawley Town,4,1,2,1,4720708
+el2,2021-22,36,2022-03-12,FC Stevenage,Newport County,0,2,0,0,4720711
+el2,2021-22,36,2022-03-12,FC Walsall,Sutton United,1,0,1,0,4720714
+el2,2021-22,36,2022-03-12,Forest Green Rovers,Bradford City,0,2,0,0,4720706
+el2,2021-22,36,2022-03-12,Hartlepool United,Leyton Orient,0,0,0,0,4720707
+el2,2021-22,36,2022-03-12,Scunthorpe United,Colchester United,1,3,1,0,4720710
+el2,2021-22,36,2022-03-12,Swindon Town,Oldham Athletic,1,0,0,0,4720712
+el2,2021-22,37,2022-03-15,AFC Rochdale,Salford City,1,1,1,0,4720721
+el2,2021-22,37,2022-03-15,Bristol Rovers,Colchester United,1,0,0,0,4720715
+el2,2021-22,37,2022-03-15,Carlisle United,Newport County,1,2,0,1,4720716
+el2,2021-22,37,2022-03-15,Exeter City,Crawley Town,2,1,2,1,4720717
+el2,2021-22,37,2022-03-15,FC Port Vale,Mansfield Town,3,1,1,1,4720720
+el2,2021-22,37,2022-03-15,FC Stevenage,Northampton Town,1,2,0,1,4720723
+el2,2021-22,37,2022-03-15,FC Walsall,Oldham Athletic,2,1,1,1,4720726
+el2,2021-22,37,2022-03-15,Forest Green Rovers,Leyton Orient,1,1,1,0,4720718
+el2,2021-22,37,2022-03-15,Hartlepool United,Bradford City,0,2,0,0,4720719
+el2,2021-22,37,2022-03-15,Scunthorpe United,AFC Barrow,0,1,0,1,4720722
+el2,2021-22,37,2022-03-15,Swindon Town,Sutton United,2,1,1,1,4720724
+el2,2021-22,37,2022-03-15,Tranmere Rovers,Harrogate Town,2,0,0,0,4720725
+el2,2021-22,38,2022-03-18,Newport County,Hartlepool United,2,3,1,2,4720734
+el2,2021-22,38,2022-03-19,AFC Barrow,Carlisle United,1,2,0,1,4720727
+el2,2021-22,38,2022-03-19,Bradford City,FC Port Vale,1,2,0,0,4720728
+el2,2021-22,38,2022-03-19,Crawley Town,Swindon Town,3,1,1,0,4720730
+el2,2021-22,38,2022-03-19,Harrogate Town,FC Walsall,1,1,0,0,4720731
+el2,2021-22,38,2022-03-19,Leyton Orient,AFC Rochdale,3,1,1,1,4720732
+el2,2021-22,38,2022-03-19,Northampton Town,Bristol Rovers,0,1,0,1,4720735
+el2,2021-22,38,2022-03-19,Oldham Athletic,Exeter City,0,2,0,0,4720736
+el2,2021-22,38,2022-03-19,Salford City,Scunthorpe United,5,1,2,0,4720737
+el2,2021-22,38,2022-03-19,Sutton United,Tranmere Rovers,1,1,1,0,4720738
+el2,2021-22,38,2022-03-21,Colchester United,Forest Green Rovers,0,1,0,1,4720729
+el2,2021-22,38,2022-04-26,Mansfield Town,FC Stevenage,2,0,0,0,4720733
+el2,2021-22,39,2022-03-26,Bradford City,Newport County,0,0,0,0,4720739
+el2,2021-22,39,2022-03-26,Carlisle United,Bristol Rovers,1,0,0,0,4720740
+el2,2021-22,39,2022-03-26,Colchester United,Tranmere Rovers,1,0,0,0,4720741
+el2,2021-22,39,2022-03-26,Crawley Town,AFC Rochdale,1,0,1,0,4720742
+el2,2021-22,39,2022-03-26,Exeter City,FC Stevenage,2,1,2,1,4720743
+el2,2021-22,39,2022-03-26,FC Port Vale,Sutton United,2,0,2,0,4720747
+el2,2021-22,39,2022-03-26,Leyton Orient,AFC Barrow,2,0,0,0,4720744
+el2,2021-22,39,2022-03-26,Northampton Town,Hartlepool United,2,0,1,0,4720745
+el2,2021-22,39,2022-03-26,Oldham Athletic,Mansfield Town,1,2,1,0,4720746
+el2,2021-22,39,2022-03-26,Salford City,FC Walsall,2,1,1,1,4720748
+el2,2021-22,39,2022-03-26,Scunthorpe United,Harrogate Town,0,3,0,1,4720749
+el2,2021-22,39,2022-04-26,Swindon Town,Forest Green Rovers,2,1,2,0,4720750
+el2,2021-22,40,2022-04-02,AFC Barrow,FC Port Vale,1,2,1,0,4720751
+el2,2021-22,40,2022-04-02,AFC Rochdale,Swindon Town,0,0,0,0,4720758
+el2,2021-22,40,2022-04-02,Bristol Rovers,Bradford City,2,1,0,0,4720752
+el2,2021-22,40,2022-04-02,FC Stevenage,Oldham Athletic,0,1,0,1,4720759
+el2,2021-22,40,2022-04-02,FC Walsall,Leyton Orient,0,2,0,2,4720762
+el2,2021-22,40,2022-04-02,Forest Green Rovers,Scunthorpe United,1,0,0,0,4720753
+el2,2021-22,40,2022-04-02,Harrogate Town,Colchester United,1,2,1,2,4720754
+el2,2021-22,40,2022-04-02,Hartlepool United,Salford City,0,2,0,2,4720755
+el2,2021-22,40,2022-04-02,Mansfield Town,Northampton Town,1,0,1,0,4720756
+el2,2021-22,40,2022-04-02,Newport County,Exeter City,0,1,0,0,4720757
+el2,2021-22,40,2022-04-02,Tranmere Rovers,Carlisle United,2,2,1,0,4720761
+el2,2021-22,40,2022-04-26,Sutton United,Crawley Town,3,0,2,0,4720760
+el2,2021-22,41,2022-04-09,AFC Rochdale,FC Walsall,1,0,0,0,4720769
+el2,2021-22,41,2022-04-09,Carlisle United,Exeter City,0,1,0,0,4720763
+el2,2021-22,41,2022-04-09,Colchester United,FC Stevenage,0,2,0,1,4720764
+el2,2021-22,41,2022-04-09,Crawley Town,AFC Barrow,1,0,0,0,4720765
+el2,2021-22,41,2022-04-09,FC Port Vale,Oldham Athletic,3,2,2,2,4720768
+el2,2021-22,41,2022-04-09,Forest Green Rovers,Hartlepool United,1,1,0,0,4720766
+el2,2021-22,41,2022-04-09,Northampton Town,Bradford City,0,0,0,0,4720767
+el2,2021-22,41,2022-04-09,Salford City,Harrogate Town,2,0,0,0,4720770
+el2,2021-22,41,2022-04-09,Scunthorpe United,Mansfield Town,0,4,0,3,4720771
+el2,2021-22,41,2022-04-09,Sutton United,Leyton Orient,1,0,1,0,4720772
+el2,2021-22,41,2022-04-09,Swindon Town,Newport County,0,1,0,0,4720773
+el2,2021-22,41,2022-04-09,Tranmere Rovers,Bristol Rovers,1,1,0,0,4720774
+el2,2021-22,42,2022-04-15,AFC Barrow,Forest Green Rovers,4,0,2,0,4720775
+el2,2021-22,42,2022-04-15,Bradford City,Tranmere Rovers,1,1,1,0,4720776
+el2,2021-22,42,2022-04-15,Bristol Rovers,Salford City,1,0,0,0,4720777
+el2,2021-22,42,2022-04-15,Exeter City,Colchester United,2,0,1,0,4720778
+el2,2021-22,42,2022-04-15,FC Stevenage,AFC Rochdale,1,0,0,0,4720785
+el2,2021-22,42,2022-04-15,FC Walsall,Carlisle United,1,0,1,0,4720786
+el2,2021-22,42,2022-04-15,Harrogate Town,Swindon Town,1,4,0,2,4720779
+el2,2021-22,42,2022-04-15,Hartlepool United,FC Port Vale,0,1,0,0,4720780
+el2,2021-22,42,2022-04-15,Leyton Orient,Scunthorpe United,3,0,3,0,4720781
+el2,2021-22,42,2022-04-15,Mansfield Town,Sutton United,2,3,0,1,4720782
+el2,2021-22,42,2022-04-15,Newport County,Crawley Town,1,2,0,2,4720783
+el2,2021-22,42,2022-04-15,Oldham Athletic,Northampton Town,0,2,0,1,4720784
+el2,2021-22,43,2022-04-18,AFC Rochdale,Hartlepool United,2,1,0,1,4720793
+el2,2021-22,43,2022-04-18,Carlisle United,Mansfield Town,1,0,0,0,4720787
+el2,2021-22,43,2022-04-18,Colchester United,Bradford City,3,0,2,0,4720788
+el2,2021-22,43,2022-04-18,Crawley Town,FC Walsall,1,0,0,0,4720789
+el2,2021-22,43,2022-04-18,FC Port Vale,Bristol Rovers,1,3,1,2,4720792
+el2,2021-22,43,2022-04-18,Forest Green Rovers,Oldham Athletic,2,0,2,0,4720790
+el2,2021-22,43,2022-04-18,Northampton Town,Harrogate Town,3,0,1,0,4720791
+el2,2021-22,43,2022-04-18,Salford City,AFC Barrow,2,2,1,0,4720794
+el2,2021-22,43,2022-04-18,Scunthorpe United,FC Stevenage,1,1,0,0,4720795
+el2,2021-22,43,2022-04-18,Sutton United,Newport County,1,0,1,0,4720796
+el2,2021-22,43,2022-04-18,Swindon Town,Leyton Orient,1,2,0,1,4720797
+el2,2021-22,43,2022-04-18,Tranmere Rovers,Exeter City,2,0,1,0,4720798
+el2,2021-22,44,2022-04-22,Newport County,Colchester United,1,2,1,0,4720807
+el2,2021-22,44,2022-04-23,AFC Barrow,Sutton United,1,0,0,0,4720799
+el2,2021-22,44,2022-04-23,Bradford City,Scunthorpe United,2,1,2,1,4720800
+el2,2021-22,44,2022-04-23,Bristol Rovers,Forest Green Rovers,0,0,0,0,4720801
+el2,2021-22,44,2022-04-23,Exeter City,AFC Rochdale,2,0,1,0,4720802
+el2,2021-22,44,2022-04-23,FC Stevenage,Tranmere Rovers,2,0,1,0,4720809
+el2,2021-22,44,2022-04-23,FC Walsall,FC Port Vale,2,0,0,0,4720810
+el2,2021-22,44,2022-04-23,Harrogate Town,Carlisle United,3,0,2,0,4720803
+el2,2021-22,44,2022-04-23,Hartlepool United,Swindon Town,0,3,0,1,4720804
+el2,2021-22,44,2022-04-23,Leyton Orient,Northampton Town,2,4,1,4,4720805
+el2,2021-22,44,2022-04-23,Mansfield Town,Crawley Town,2,0,1,0,4720806
+el2,2021-22,44,2022-04-23,Oldham Athletic,Salford City,1,2,1,2,4720808
+el2,2021-22,45,2022-04-30,AFC Rochdale,Bristol Rovers,3,4,2,0,4720817
+el2,2021-22,45,2022-04-30,Carlisle United,FC Stevenage,2,1,0,0,4720811
+el2,2021-22,45,2022-04-30,Colchester United,FC Walsall,2,2,1,1,4720812
+el2,2021-22,45,2022-04-30,Crawley Town,Leyton Orient,0,2,0,1,4720813
+el2,2021-22,45,2022-04-30,Forest Green Rovers,Harrogate Town,1,3,1,1,4720814
+el2,2021-22,45,2022-04-30,Northampton Town,Exeter City,1,1,1,0,4720815
+el2,2021-22,45,2022-04-30,Scunthorpe United,Hartlepool United,1,1,0,0,4720819
+el2,2021-22,45,2022-04-30,Sutton United,Bradford City,1,4,0,1,4720820
+el2,2021-22,45,2022-04-30,Swindon Town,AFC Barrow,2,1,1,0,4720821
+el2,2021-22,45,2022-04-30,Tranmere Rovers,Oldham Athletic,2,0,1,0,4720822
+el2,2021-22,45,2022-05-02,FC Port Vale,Newport County,1,2,0,1,4720816
+el2,2021-22,45,2022-05-02,Salford City,Mansfield Town,2,2,1,2,4720818
+el2,2021-22,46,2022-05-07,AFC Barrow,Northampton Town,1,3,1,3,4720823
+el2,2021-22,46,2022-05-07,Bradford City,Carlisle United,2,0,1,0,4720824
+el2,2021-22,46,2022-05-07,Bristol Rovers,Scunthorpe United,7,0,2,0,4720825
+el2,2021-22,46,2022-05-07,Exeter City,FC Port Vale,0,1,0,1,4720826
+el2,2021-22,46,2022-05-07,FC Stevenage,Salford City,4,2,2,1,4720833
+el2,2021-22,46,2022-05-07,FC Walsall,Swindon Town,0,3,0,3,4720834
+el2,2021-22,46,2022-05-07,Harrogate Town,Sutton United,0,2,0,1,4720827
+el2,2021-22,46,2022-05-07,Hartlepool United,Colchester United,0,2,0,1,4720828
+el2,2021-22,46,2022-05-07,Leyton Orient,Tranmere Rovers,0,1,0,1,4720829
+el2,2021-22,46,2022-05-07,Mansfield Town,Forest Green Rovers,2,2,1,0,4720830
+el2,2021-22,46,2022-05-07,Newport County,AFC Rochdale,0,2,0,1,4720831
+el2,2021-22,46,2022-05-07,Oldham Athletic,Crawley Town,3,3,2,2,4720832

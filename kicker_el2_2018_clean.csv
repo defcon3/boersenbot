@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el2,2018-19,1,2018-08-04,Cheltenham Town,Crawley Town,0,1,0,0,4226354
+el2,2018-19,1,2018-08-04,Crewe Alexandra,FC Morecambe,6,0,2,0,4226355
+el2,2018-19,1,2018-08-04,Exeter City,Carlisle United,3,1,2,1,4226356
+el2,2018-19,1,2018-08-04,FC Bury,Yeovil Town,1,0,0,0,4226353
+el2,2018-19,1,2018-08-04,FC Port Vale,Cambridge United,3,0,1,0,4226362
+el2,2018-19,1,2018-08-04,FC Stevenage,Tranmere Rovers,2,2,2,1,4226363
+el2,2018-19,1,2018-08-04,Grimsby Town,Forest Green Rovers,1,4,1,0,4226357
+el2,2018-19,1,2018-08-04,Mansfield Town,Newport County,3,0,1,0,4226358
+el2,2018-19,1,2018-08-04,Northampton Town,Lincoln City,0,1,0,0,4226359
+el2,2018-19,1,2018-08-04,Notts County,Colchester United,0,0,0,0,4226360
+el2,2018-19,1,2018-08-04,Oldham Athletic,Milton Keynes Dons,1,2,1,2,4226361
+el2,2018-19,1,2018-08-04,Swindon Town,Macclesfield Town,3,2,0,0,4226364
+el2,2018-19,2,2018-08-11,Cambridge United,Notts County,3,2,0,1,4226365
+el2,2018-19,2,2018-08-11,Carlisle United,Northampton Town,2,2,1,1,4226366
+el2,2018-19,2,2018-08-11,Colchester United,FC Port Vale,2,0,2,0,4226367
+el2,2018-19,2,2018-08-11,Crawley Town,FC Stevenage,1,3,0,0,4226368
+el2,2018-19,2,2018-08-11,FC Morecambe,Exeter City,0,2,0,1,4226373
+el2,2018-19,2,2018-08-11,Forest Green Rovers,Oldham Athletic,1,1,1,0,4226369
+el2,2018-19,2,2018-08-11,Lincoln City,Swindon Town,4,1,2,1,4226370
+el2,2018-19,2,2018-08-11,Macclesfield Town,Grimsby Town,0,2,0,1,4226371
+el2,2018-19,2,2018-08-11,Milton Keynes Dons,FC Bury,1,0,0,0,4226372
+el2,2018-19,2,2018-08-11,Newport County,Crewe Alexandra,1,0,1,0,4226374
+el2,2018-19,2,2018-08-11,Tranmere Rovers,Cheltenham Town,1,0,1,0,4226375
+el2,2018-19,2,2018-08-11,Yeovil Town,Mansfield Town,2,2,2,2,4226376
+el2,2018-19,3,2018-08-17,Notts County,Yeovil Town,0,4,0,2,4226384
+el2,2018-19,3,2018-08-18,Cheltenham Town,Carlisle United,0,1,0,1,4226378
+el2,2018-19,3,2018-08-18,Crewe Alexandra,Milton Keynes Dons,0,0,0,0,4226379
+el2,2018-19,3,2018-08-18,Exeter City,Newport County,1,1,1,0,4226380
+el2,2018-19,3,2018-08-18,FC Bury,Forest Green Rovers,1,1,0,1,4226377
+el2,2018-19,3,2018-08-18,FC Port Vale,Crawley Town,1,0,1,0,4226386
+el2,2018-19,3,2018-08-18,FC Stevenage,FC Morecambe,1,0,1,0,4226387
+el2,2018-19,3,2018-08-18,Grimsby Town,Lincoln City,1,1,1,0,4226381
+el2,2018-19,3,2018-08-18,Mansfield Town,Colchester United,1,1,0,0,4226382
+el2,2018-19,3,2018-08-18,Northampton Town,Cambridge United,2,2,0,0,4226383
+el2,2018-19,3,2018-08-18,Oldham Athletic,Macclesfield Town,3,1,1,0,4226385
+el2,2018-19,3,2018-08-18,Swindon Town,Tranmere Rovers,3,2,1,2,4226388
+el2,2018-19,4,2018-08-21,Cambridge United,Exeter City,0,2,0,2,4226389
+el2,2018-19,4,2018-08-21,Carlisle United,FC Port Vale,2,1,1,0,4226390
+el2,2018-19,4,2018-08-21,Colchester United,Crewe Alexandra,6,0,3,0,4226391
+el2,2018-19,4,2018-08-21,Crawley Town,Swindon Town,2,2,0,2,4226392
+el2,2018-19,4,2018-08-21,FC Morecambe,Northampton Town,1,0,1,0,4226397
+el2,2018-19,4,2018-08-21,Forest Green Rovers,FC Stevenage,0,0,0,0,4226393
+el2,2018-19,4,2018-08-21,Lincoln City,FC Bury,2,1,0,1,4226394
+el2,2018-19,4,2018-08-21,Macclesfield Town,Cheltenham Town,1,1,1,0,4226395
+el2,2018-19,4,2018-08-21,Milton Keynes Dons,Grimsby Town,1,1,0,1,4226396
+el2,2018-19,4,2018-08-21,Newport County,Notts County,3,2,2,1,4226398
+el2,2018-19,4,2018-08-21,Tranmere Rovers,Mansfield Town,0,0,0,0,4226399
+el2,2018-19,4,2018-08-21,Yeovil Town,Oldham Athletic,0,0,0,0,4226400
+el2,2018-19,5,2018-08-25,Cambridge United,Cheltenham Town,0,1,0,0,4226401
+el2,2018-19,5,2018-08-25,Carlisle United,Crewe Alexandra,1,0,0,0,4226402
+el2,2018-19,5,2018-08-25,Colchester United,Northampton Town,1,2,0,0,4226403
+el2,2018-19,5,2018-08-25,Crawley Town,FC Bury,3,2,1,0,4226404
+el2,2018-19,5,2018-08-25,FC Morecambe,Oldham Athletic,0,2,0,2,4226409
+el2,2018-19,5,2018-08-25,Forest Green Rovers,Swindon Town,1,1,1,1,4226405
+el2,2018-19,5,2018-08-25,Lincoln City,Notts County,3,1,2,1,4226406
+el2,2018-19,5,2018-08-25,Macclesfield Town,Mansfield Town,1,1,0,1,4226407
+el2,2018-19,5,2018-08-25,Milton Keynes Dons,Exeter City,1,0,0,0,4226408
+el2,2018-19,5,2018-08-25,Newport County,Grimsby Town,1,0,1,0,4226410
+el2,2018-19,5,2018-08-25,Tranmere Rovers,FC Port Vale,1,0,0,0,4226411
+el2,2018-19,5,2018-08-25,Yeovil Town,FC Stevenage,2,0,2,0,4226412
+el2,2018-19,6,2018-09-01,Cheltenham Town,Colchester United,1,3,0,2,4226414
+el2,2018-19,6,2018-09-01,Crewe Alexandra,Macclesfield Town,3,0,2,0,4226415
+el2,2018-19,6,2018-09-01,Exeter City,Lincoln City,0,3,0,2,4226416
+el2,2018-19,6,2018-09-01,FC Bury,FC Morecambe,3,2,2,1,4226413
+el2,2018-19,6,2018-09-01,FC Port Vale,Newport County,1,2,1,1,4226422
+el2,2018-19,6,2018-09-01,FC Stevenage,Cambridge United,0,1,0,1,4226423
+el2,2018-19,6,2018-09-01,Grimsby Town,Yeovil Town,0,1,0,0,4226417
+el2,2018-19,6,2018-09-01,Mansfield Town,Carlisle United,1,0,0,0,4226418
+el2,2018-19,6,2018-09-01,Northampton Town,Tranmere Rovers,1,1,0,0,4226419
+el2,2018-19,6,2018-09-01,Notts County,Forest Green Rovers,1,3,0,1,4226420
+el2,2018-19,6,2018-09-01,Oldham Athletic,Crawley Town,2,1,1,1,4226421
+el2,2018-19,6,2018-09-01,Swindon Town,Milton Keynes Dons,1,1,0,1,4226424
+el2,2018-19,7,2018-09-08,Cambridge United,Carlisle United,1,2,1,1,4226426
+el2,2018-19,7,2018-09-08,Exeter City,Notts County,5,1,2,1,4226428
+el2,2018-19,7,2018-09-08,FC Bury,Grimsby Town,4,0,2,0,4226425
+el2,2018-19,7,2018-09-08,FC Morecambe,Swindon Town,0,1,0,1,4226431
+el2,2018-19,7,2018-09-08,FC Stevenage,Macclesfield Town,1,0,1,0,4226434
+el2,2018-19,7,2018-09-08,Forest Green Rovers,FC Port Vale,1,1,1,0,4226429
+el2,2018-19,7,2018-09-08,Lincoln City,Crawley Town,0,1,0,1,4226430
+el2,2018-19,7,2018-09-08,Northampton Town,Cheltenham Town,1,3,0,1,4226432
+el2,2018-19,7,2018-09-08,Oldham Athletic,Newport County,0,1,0,0,4226433
+el2,2018-19,7,2018-09-08,Tranmere Rovers,Colchester United,1,1,1,0,4226435
+el2,2018-19,7,2018-09-25,Yeovil Town,Milton Keynes Dons,1,1,0,1,4226436
+el2,2018-19,7,2018-10-30,Crewe Alexandra,Mansfield Town,0,3,0,2,4226427
+el2,2018-19,8,2018-09-15,Carlisle United,Tranmere Rovers,0,2,0,0,4226437
+el2,2018-19,8,2018-09-15,Cheltenham Town,Crewe Alexandra,0,0,0,0,4226438
+el2,2018-19,8,2018-09-15,Colchester United,Cambridge United,3,0,2,0,4226439
+el2,2018-19,8,2018-09-15,Crawley Town,FC Morecambe,2,0,0,0,4226440
+el2,2018-19,8,2018-09-15,FC Port Vale,Northampton Town,2,0,1,0,4226447
+el2,2018-19,8,2018-09-15,Grimsby Town,Oldham Athletic,0,3,0,0,4226441
+el2,2018-19,8,2018-09-15,Macclesfield Town,Lincoln City,1,2,0,1,4226442
+el2,2018-19,8,2018-09-15,Mansfield Town,Exeter City,1,2,0,1,4226443
+el2,2018-19,8,2018-09-15,Milton Keynes Dons,Forest Green Rovers,1,1,1,0,4226444
+el2,2018-19,8,2018-09-15,Newport County,Yeovil Town,0,6,0,3,4226445
+el2,2018-19,8,2018-09-15,Notts County,FC Stevenage,3,3,2,2,4226446
+el2,2018-19,8,2018-09-15,Swindon Town,FC Bury,1,2,0,1,4226448
+el2,2018-19,9,2018-09-22,Cambridge United,Mansfield Town,1,1,0,1,4226450
+el2,2018-19,9,2018-09-22,Crewe Alexandra,FC Port Vale,0,1,0,0,4226451
+el2,2018-19,9,2018-09-22,Exeter City,Cheltenham Town,3,1,0,1,4226452
+el2,2018-19,9,2018-09-22,FC Bury,Carlisle United,0,1,0,0,4226449
+el2,2018-19,9,2018-09-22,FC Morecambe,Macclesfield Town,2,1,0,0,4226455
+el2,2018-19,9,2018-09-22,FC Stevenage,Grimsby Town,1,0,0,0,4226458
+el2,2018-19,9,2018-09-22,Forest Green Rovers,Crawley Town,1,0,0,0,4226453
+el2,2018-19,9,2018-09-22,Lincoln City,Milton Keynes Dons,2,1,0,0,4226454
+el2,2018-19,9,2018-09-22,Northampton Town,Notts County,0,0,0,0,4226456
+el2,2018-19,9,2018-09-22,Oldham Athletic,Colchester United,3,3,0,1,4226457
+el2,2018-19,9,2018-09-22,Tranmere Rovers,Newport County,0,1,0,1,4226459
+el2,2018-19,9,2018-09-22,Yeovil Town,Swindon Town,0,3,0,0,4226460
+el2,2018-19,10,2018-09-29,Carlisle United,FC Stevenage,0,1,0,0,4226461
+el2,2018-19,10,2018-09-29,Cheltenham Town,Lincoln City,0,2,0,0,4226462
+el2,2018-19,10,2018-09-29,Colchester United,FC Bury,1,2,0,1,4226463
+el2,2018-19,10,2018-09-29,Crawley Town,Yeovil Town,3,1,1,1,4226464
+el2,2018-19,10,2018-09-29,FC Port Vale,Exeter City,1,1,0,0,4226471
+el2,2018-19,10,2018-09-29,Grimsby Town,FC Morecambe,1,2,1,0,4226465
+el2,2018-19,10,2018-09-29,Macclesfield Town,Forest Green Rovers,1,1,0,0,4226466
+el2,2018-19,10,2018-09-29,Mansfield Town,Northampton Town,4,0,1,0,4226467
+el2,2018-19,10,2018-09-29,Milton Keynes Dons,Tranmere Rovers,1,1,1,1,4226468
+el2,2018-19,10,2018-09-29,Newport County,Cambridge United,4,2,1,2,4226469
+el2,2018-19,10,2018-09-29,Notts County,Crewe Alexandra,2,1,1,1,4226470
+el2,2018-19,10,2018-09-29,Swindon Town,Oldham Athletic,0,0,0,0,4226472
+el2,2018-19,11,2018-10-02,Cambridge United,Forest Green Rovers,1,3,1,1,4226473
+el2,2018-19,11,2018-10-02,Carlisle United,Grimsby Town,0,1,0,1,4226474
+el2,2018-19,11,2018-10-02,Cheltenham Town,FC Morecambe,2,2,1,1,4226475
+el2,2018-19,11,2018-10-02,Colchester United,Yeovil Town,3,1,1,0,4226476
+el2,2018-19,11,2018-10-02,Crewe Alexandra,Swindon Town,1,0,1,0,4226477
+el2,2018-19,11,2018-10-02,Exeter City,FC Stevenage,1,0,1,0,4226478
+el2,2018-19,11,2018-10-02,FC Port Vale,Milton Keynes Dons,0,2,0,2,4226483
+el2,2018-19,11,2018-10-02,Mansfield Town,Oldham Athletic,0,0,0,0,4226479
+el2,2018-19,11,2018-10-02,Newport County,Macclesfield Town,3,3,1,2,4226480
+el2,2018-19,11,2018-10-02,Northampton Town,FC Bury,0,0,0,0,4226481
+el2,2018-19,11,2018-10-02,Notts County,Crawley Town,3,1,2,0,4226482
+el2,2018-19,11,2018-10-02,Tranmere Rovers,Lincoln City,1,0,0,0,4226484
+el2,2018-19,12,2018-10-06,Crawley Town,Cambridge United,2,0,0,0,4226486
+el2,2018-19,12,2018-10-06,FC Bury,Mansfield Town,2,2,0,1,4226485
+el2,2018-19,12,2018-10-06,FC Morecambe,Tranmere Rovers,3,4,1,2,4226492
+el2,2018-19,12,2018-10-06,FC Stevenage,Colchester United,3,1,1,1,4226494
+el2,2018-19,12,2018-10-06,Forest Green Rovers,Newport County,1,1,1,1,4226487
+el2,2018-19,12,2018-10-06,Grimsby Town,FC Port Vale,2,0,1,0,4226488
+el2,2018-19,12,2018-10-06,Lincoln City,Crewe Alexandra,1,0,0,0,4226489
+el2,2018-19,12,2018-10-06,Macclesfield Town,Notts County,0,1,0,0,4226490
+el2,2018-19,12,2018-10-06,Milton Keynes Dons,Cheltenham Town,3,0,1,0,4226491
+el2,2018-19,12,2018-10-06,Oldham Athletic,Carlisle United,1,3,0,1,4226493
+el2,2018-19,12,2018-10-06,Swindon Town,Northampton Town,1,1,0,0,4226495
+el2,2018-19,12,2018-10-06,Yeovil Town,Exeter City,2,2,0,1,4226496
+el2,2018-19,13,2018-10-12,Tranmere Rovers,Macclesfield Town,1,0,0,0,4226508
+el2,2018-19,13,2018-10-13,Cambridge United,Milton Keynes Dons,0,1,0,1,4226497
+el2,2018-19,13,2018-10-13,Carlisle United,FC Morecambe,0,2,0,2,4226498
+el2,2018-19,13,2018-10-13,Colchester United,Crawley Town,3,1,1,1,4226500
+el2,2018-19,13,2018-10-13,Crewe Alexandra,FC Bury,1,1,1,0,4226501
+el2,2018-19,13,2018-10-13,Exeter City,Swindon Town,2,0,1,0,4226502
+el2,2018-19,13,2018-10-13,FC Port Vale,Lincoln City,2,6,0,3,4226507
+el2,2018-19,13,2018-10-13,Newport County,FC Stevenage,2,1,1,1,4226504
+el2,2018-19,13,2018-10-13,Northampton Town,Forest Green Rovers,2,1,0,1,4226505
+el2,2018-19,13,2018-11-06,Mansfield Town,Grimsby Town,2,1,0,1,4226503
+el2,2018-19,13,2018-11-06,Notts County,Oldham Athletic,0,0,0,0,4226506
+el2,2018-19,13,2019-02-05,Cheltenham Town,Yeovil Town,1,0,0,0,4226499
+el2,2018-19,14,2018-10-20,Crawley Town,Newport County,4,1,1,0,4226510
+el2,2018-19,14,2018-10-20,FC Bury,Notts County,4,0,2,0,4226509
+el2,2018-19,14,2018-10-20,FC Morecambe,Colchester United,0,1,0,1,4226516
+el2,2018-19,14,2018-10-20,FC Stevenage,Crewe Alexandra,0,1,0,0,4226518
+el2,2018-19,14,2018-10-20,Forest Green Rovers,Cheltenham Town,1,1,0,1,4226511
+el2,2018-19,14,2018-10-20,Grimsby Town,Exeter City,0,0,0,0,4226512
+el2,2018-19,14,2018-10-20,Lincoln City,Cambridge United,1,1,1,1,4226513
+el2,2018-19,14,2018-10-20,Macclesfield Town,Carlisle United,2,1,0,0,4226514
+el2,2018-19,14,2018-10-20,Milton Keynes Dons,Northampton Town,1,0,1,0,4226515
+el2,2018-19,14,2018-10-20,Oldham Athletic,FC Port Vale,0,1,0,1,4226517
+el2,2018-19,14,2018-10-20,Swindon Town,Mansfield Town,0,0,0,0,4226519
+el2,2018-19,14,2018-10-20,Yeovil Town,Tranmere Rovers,0,0,0,0,4226520
+el2,2018-19,15,2018-10-23,Crawley Town,Exeter City,1,1,0,0,4226522
+el2,2018-19,15,2018-10-23,FC Bury,Newport County,1,1,1,0,4226521
+el2,2018-19,15,2018-10-23,FC Morecambe,Mansfield Town,0,1,0,1,4226528
+el2,2018-19,15,2018-10-23,FC Stevenage,FC Port Vale,0,0,0,0,4226530
+el2,2018-19,15,2018-10-23,Forest Green Rovers,Tranmere Rovers,3,1,2,0,4226523
+el2,2018-19,15,2018-10-23,Grimsby Town,Colchester United,1,0,0,0,4226524
+el2,2018-19,15,2018-10-23,Lincoln City,Carlisle United,2,2,2,2,4226525
+el2,2018-19,15,2018-10-23,Macclesfield Town,Northampton Town,0,5,0,4,4226526
+el2,2018-19,15,2018-10-23,Milton Keynes Dons,Notts County,2,1,0,1,4226527
+el2,2018-19,15,2018-10-23,Oldham Athletic,Cheltenham Town,2,0,0,0,4226529
+el2,2018-19,15,2018-10-23,Swindon Town,Cambridge United,0,2,0,2,4226531
+el2,2018-19,15,2018-10-23,Yeovil Town,Crewe Alexandra,1,1,1,1,4226532
+el2,2018-19,16,2018-10-27,Cambridge United,Macclesfield Town,1,0,0,0,4226533
+el2,2018-19,16,2018-10-27,Carlisle United,Yeovil Town,0,1,0,0,4226534
+el2,2018-19,16,2018-10-27,Cheltenham Town,FC Stevenage,0,2,0,2,4226535
+el2,2018-19,16,2018-10-27,Colchester United,Lincoln City,1,0,1,0,4226536
+el2,2018-19,16,2018-10-27,Crewe Alexandra,Grimsby Town,2,0,0,0,4226537
+el2,2018-19,16,2018-10-27,Exeter City,Forest Green Rovers,1,2,0,0,4226538
+el2,2018-19,16,2018-10-27,FC Port Vale,FC Bury,1,0,0,0,4226543
+el2,2018-19,16,2018-10-27,Mansfield Town,Milton Keynes Dons,1,1,1,1,4226539
+el2,2018-19,16,2018-10-27,Newport County,FC Morecambe,1,1,1,0,4226540
+el2,2018-19,16,2018-10-27,Northampton Town,Oldham Athletic,2,1,2,0,4226541
+el2,2018-19,16,2018-10-27,Notts County,Swindon Town,1,2,1,0,4226542
+el2,2018-19,16,2018-10-27,Tranmere Rovers,Crawley Town,5,1,2,0,4226544
+el2,2018-19,17,2018-11-03,Cambridge United,Grimsby Town,1,0,0,0,4226545
+el2,2018-19,17,2018-11-03,Carlisle United,Newport County,3,2,2,1,4226546
+el2,2018-19,17,2018-11-03,Cheltenham Town,Mansfield Town,2,2,2,1,4226547
+el2,2018-19,17,2018-11-03,Colchester United,Swindon Town,1,0,1,0,4226548
+el2,2018-19,17,2018-11-03,Crawley Town,Milton Keynes Dons,0,4,0,3,4226549
+el2,2018-19,17,2018-11-03,FC Morecambe,Yeovil Town,2,1,1,0,4226552
+el2,2018-19,17,2018-11-03,FC Port Vale,Notts County,2,2,1,1,4226554
+el2,2018-19,17,2018-11-03,FC Stevenage,Oldham Athletic,3,2,1,1,4226555
+el2,2018-19,17,2018-11-03,Lincoln City,Forest Green Rovers,2,1,1,1,4226550
+el2,2018-19,17,2018-11-03,Macclesfield Town,FC Bury,1,4,1,3,4226551
+el2,2018-19,17,2018-11-03,Northampton Town,Crewe Alexandra,2,0,1,0,4226553
+el2,2018-19,17,2018-11-03,Tranmere Rovers,Exeter City,2,0,1,0,4226556
+el2,2018-19,18,2018-11-17,Crewe Alexandra,Tranmere Rovers,3,2,1,1,4226558
+el2,2018-19,18,2018-11-17,Exeter City,Northampton Town,2,2,2,1,4226559
+el2,2018-19,18,2018-11-17,FC Bury,FC Stevenage,4,0,0,0,4226557
+el2,2018-19,18,2018-11-17,Forest Green Rovers,FC Morecambe,0,1,0,0,4226560
+el2,2018-19,18,2018-11-17,Grimsby Town,Crawley Town,1,0,0,0,4226561
+el2,2018-19,18,2018-11-17,Mansfield Town,FC Port Vale,1,0,1,0,4226562
+el2,2018-19,18,2018-11-17,Milton Keynes Dons,Macclesfield Town,2,0,0,0,4226563
+el2,2018-19,18,2018-11-17,Newport County,Colchester United,2,0,0,0,4226564
+el2,2018-19,18,2018-11-17,Notts County,Cheltenham Town,0,3,0,1,4226565
+el2,2018-19,18,2018-11-17,Oldham Athletic,Cambridge United,3,1,0,1,4226566
+el2,2018-19,18,2018-11-17,Swindon Town,Carlisle United,0,4,0,1,4226567
+el2,2018-19,18,2019-01-22,Yeovil Town,Lincoln City,0,2,0,2,4226568
+el2,2018-19,19,2018-11-24,Cambridge United,FC Bury,2,2,1,2,4226569
+el2,2018-19,19,2018-11-24,Carlisle United,Forest Green Rovers,1,2,0,1,4226570
+el2,2018-19,19,2018-11-24,Cheltenham Town,Newport County,2,1,2,0,4226571
+el2,2018-19,19,2018-11-24,Colchester United,Exeter City,1,1,0,0,4226572
+el2,2018-19,19,2018-11-24,Crawley Town,Crewe Alexandra,3,0,1,0,4226573
+el2,2018-19,19,2018-11-24,FC Morecambe,Notts County,1,1,0,0,4226576
+el2,2018-19,19,2018-11-24,FC Port Vale,Swindon Town,0,1,0,1,4226578
+el2,2018-19,19,2018-11-24,FC Stevenage,Milton Keynes Dons,3,2,1,1,4226579
+el2,2018-19,19,2018-11-24,Lincoln City,Mansfield Town,1,1,0,0,4226574
+el2,2018-19,19,2018-11-24,Macclesfield Town,Yeovil Town,1,0,0,0,4226575
+el2,2018-19,19,2018-11-24,Northampton Town,Grimsby Town,2,2,1,1,4226577
+el2,2018-19,19,2018-11-24,Tranmere Rovers,Oldham Athletic,1,1,0,1,4226580
+el2,2018-19,20,2018-11-27,Crewe Alexandra,Cambridge United,2,0,1,0,4226582
+el2,2018-19,20,2018-11-27,Exeter City,Macclesfield Town,0,1,0,0,4226583
+el2,2018-19,20,2018-11-27,FC Bury,Cheltenham Town,4,1,2,1,4226581
+el2,2018-19,20,2018-11-27,Forest Green Rovers,Colchester United,0,1,0,1,4226584
+el2,2018-19,20,2018-11-27,Grimsby Town,Tranmere Rovers,5,2,2,1,4226585
+el2,2018-19,20,2018-11-27,Milton Keynes Dons,FC Morecambe,2,0,0,0,4226587
+el2,2018-19,20,2018-11-27,Newport County,Northampton Town,3,1,3,1,4226588
+el2,2018-19,20,2018-11-27,Notts County,Carlisle United,1,1,0,0,4226589
+el2,2018-19,20,2018-11-27,Oldham Athletic,Lincoln City,1,1,0,0,4226590
+el2,2018-19,20,2018-11-27,Swindon Town,FC Stevenage,3,2,3,1,4226591
+el2,2018-19,20,2018-11-27,Yeovil Town,FC Port Vale,0,3,0,2,4226592
+el2,2018-19,20,2019-01-15,Mansfield Town,Crawley Town,1,0,0,0,4226586
+el2,2018-19,21,2018-12-08,Cheltenham Town,Grimsby Town,2,1,1,0,4226594
+el2,2018-19,21,2018-12-08,Colchester United,Macclesfield Town,1,0,1,0,4226595
+el2,2018-19,21,2018-12-08,Crawley Town,Northampton Town,0,1,0,0,4226596
+el2,2018-19,21,2018-12-08,Crewe Alexandra,Oldham Athletic,0,2,0,2,4226597
+el2,2018-19,21,2018-12-08,FC Bury,Exeter City,2,0,1,0,4226593
+el2,2018-19,21,2018-12-08,FC Morecambe,FC Port Vale,2,2,2,0,4226600
+el2,2018-19,21,2018-12-08,FC Stevenage,Lincoln City,0,1,0,1,4226601
+el2,2018-19,21,2018-12-08,Mansfield Town,Notts County,2,0,1,0,4226598
+el2,2018-19,21,2018-12-08,Milton Keynes Dons,Carlisle United,2,0,0,0,4226599
+el2,2018-19,21,2018-12-08,Swindon Town,Newport County,2,1,1,0,4226602
+el2,2018-19,21,2018-12-08,Tranmere Rovers,Cambridge United,1,0,0,0,4226603
+el2,2018-19,21,2018-12-08,Yeovil Town,Forest Green Rovers,1,2,0,0,4226604
+el2,2018-19,22,2018-12-15,Cambridge United,Yeovil Town,0,0,0,0,4226605
+el2,2018-19,22,2018-12-15,Carlisle United,Colchester United,4,0,1,0,4226606
+el2,2018-19,22,2018-12-15,Exeter City,Crewe Alexandra,1,0,1,0,4226607
+el2,2018-19,22,2018-12-15,FC Port Vale,Cheltenham Town,2,2,1,1,4226616
+el2,2018-19,22,2018-12-15,Grimsby Town,Swindon Town,2,1,1,1,4226609
+el2,2018-19,22,2018-12-15,Lincoln City,FC Morecambe,3,1,3,0,4226610
+el2,2018-19,22,2018-12-15,Macclesfield Town,Crawley Town,2,0,1,0,4226611
+el2,2018-19,22,2018-12-15,Northampton Town,FC Stevenage,1,1,1,0,4226613
+el2,2018-19,22,2018-12-15,Notts County,Tranmere Rovers,3,2,2,1,4226614
+el2,2018-19,22,2018-12-15,Oldham Athletic,FC Bury,4,2,3,0,4226615
+el2,2018-19,22,2019-01-29,Forest Green Rovers,Mansfield Town,1,1,0,1,4226608
+el2,2018-19,22,2019-02-12,Newport County,Milton Keynes Dons,0,1,0,0,4226612
+el2,2018-19,23,2018-12-22,Crawley Town,Carlisle United,2,3,2,2,4226618
+el2,2018-19,23,2018-12-22,FC Bury,Tranmere Rovers,2,1,0,0,4226617
+el2,2018-19,23,2018-12-22,FC Morecambe,Cambridge United,3,0,0,0,4226624
+el2,2018-19,23,2018-12-22,FC Stevenage,Mansfield Town,1,3,1,0,4226626
+el2,2018-19,23,2018-12-22,Forest Green Rovers,Crewe Alexandra,1,0,1,0,4226619
+el2,2018-19,23,2018-12-22,Grimsby Town,Notts County,4,0,2,0,4226620
+el2,2018-19,23,2018-12-22,Lincoln City,Newport County,3,2,2,1,4226621
+el2,2018-19,23,2018-12-22,Macclesfield Town,FC Port Vale,0,0,0,0,4226622
+el2,2018-19,23,2018-12-22,Milton Keynes Dons,Colchester United,0,1,0,1,4226623
+el2,2018-19,23,2018-12-22,Oldham Athletic,Exeter City,2,3,1,1,4226625
+el2,2018-19,23,2018-12-22,Swindon Town,Cheltenham Town,0,0,0,0,4226627
+el2,2018-19,23,2018-12-22,Yeovil Town,Northampton Town,1,1,0,0,4226628
+el2,2018-19,24,2018-12-26,Cambridge United,Crawley Town,2,1,1,1,4226629
+el2,2018-19,24,2018-12-26,Carlisle United,Oldham Athletic,6,0,2,0,4226630
+el2,2018-19,24,2018-12-26,Cheltenham Town,Milton Keynes Dons,3,1,2,1,4226631
+el2,2018-19,24,2018-12-26,Colchester United,FC Stevenage,1,2,0,2,4226632
+el2,2018-19,24,2018-12-26,Crewe Alexandra,Lincoln City,2,1,0,0,4226633
+el2,2018-19,24,2018-12-26,Exeter City,Yeovil Town,2,1,1,0,4226634
+el2,2018-19,24,2018-12-26,FC Port Vale,Grimsby Town,0,1,0,0,4226639
+el2,2018-19,24,2018-12-26,Mansfield Town,FC Bury,2,1,0,0,4226635
+el2,2018-19,24,2018-12-26,Newport County,Forest Green Rovers,1,4,1,2,4226636
+el2,2018-19,24,2018-12-26,Northampton Town,Swindon Town,1,1,1,0,4226637
+el2,2018-19,24,2018-12-26,Notts County,Macclesfield Town,1,2,0,1,4226638
+el2,2018-19,24,2018-12-26,Tranmere Rovers,FC Morecambe,3,1,3,0,4226640
+el2,2018-19,25,2018-12-29,Cambridge United,Lincoln City,1,2,1,0,4226641
+el2,2018-19,25,2018-12-29,Carlisle United,Macclesfield Town,2,1,1,1,4226642
+el2,2018-19,25,2018-12-29,Cheltenham Town,Forest Green Rovers,2,2,0,0,4226643
+el2,2018-19,25,2018-12-29,Colchester United,FC Morecambe,0,0,0,0,4226644
+el2,2018-19,25,2018-12-29,Crewe Alexandra,FC Stevenage,1,0,1,0,4226645
+el2,2018-19,25,2018-12-29,Exeter City,Grimsby Town,1,2,0,1,4226646
+el2,2018-19,25,2018-12-29,FC Port Vale,Oldham Athletic,1,4,1,1,4226651
+el2,2018-19,25,2018-12-29,Mansfield Town,Swindon Town,0,0,0,0,4226647
+el2,2018-19,25,2018-12-29,Newport County,Crawley Town,0,0,0,0,4226648
+el2,2018-19,25,2018-12-29,Northampton Town,Milton Keynes Dons,2,2,0,1,4226649
+el2,2018-19,25,2018-12-29,Notts County,FC Bury,0,0,0,0,4226650
+el2,2018-19,25,2018-12-29,Tranmere Rovers,Yeovil Town,0,0,0,0,4226652
+el2,2018-19,26,2019-01-01,Crawley Town,Colchester United,2,0,0,0,4226654
+el2,2018-19,26,2019-01-01,FC Bury,Crewe Alexandra,3,1,0,1,4226653
+el2,2018-19,26,2019-01-01,FC Morecambe,Carlisle United,0,2,0,1,4226660
+el2,2018-19,26,2019-01-01,FC Stevenage,Newport County,1,0,0,0,4226662
+el2,2018-19,26,2019-01-01,Forest Green Rovers,Northampton Town,2,1,1,0,4226655
+el2,2018-19,26,2019-01-01,Grimsby Town,Mansfield Town,0,1,0,1,4226656
+el2,2018-19,26,2019-01-01,Lincoln City,FC Port Vale,1,1,0,0,4226657
+el2,2018-19,26,2019-01-01,Macclesfield Town,Tranmere Rovers,1,1,1,1,4226658
+el2,2018-19,26,2019-01-01,Milton Keynes Dons,Cambridge United,6,0,3,0,4226659
+el2,2018-19,26,2019-01-01,Oldham Athletic,Notts County,2,0,1,0,4226661
+el2,2018-19,26,2019-01-01,Swindon Town,Exeter City,0,2,0,1,4226663
+el2,2018-19,26,2019-01-01,Yeovil Town,Cheltenham Town,1,4,0,2,4226664
+el2,2018-19,27,2019-01-05,Cambridge United,FC Stevenage,2,0,2,0,4226665
+el2,2018-19,27,2019-01-05,Carlisle United,Mansfield Town,3,2,2,0,4226666
+el2,2018-19,27,2019-01-05,Colchester United,Notts County,3,3,2,3,4226667
+el2,2018-19,27,2019-01-05,Crawley Town,Cheltenham Town,1,0,1,0,4226668
+el2,2018-19,27,2019-01-05,FC Morecambe,Crewe Alexandra,2,2,0,1,4226673
+el2,2018-19,27,2019-01-05,Macclesfield Town,Swindon Town,1,2,1,1,4226671
+el2,2018-19,27,2019-01-05,Yeovil Town,FC Bury,0,1,0,1,4226676
+el2,2018-19,27,2019-01-22,Forest Green Rovers,Grimsby Town,3,0,2,0,4226669
+el2,2018-19,27,2019-01-29,Milton Keynes Dons,Oldham Athletic,2,1,1,0,4226672
+el2,2018-19,27,2019-01-29,Newport County,FC Port Vale,0,0,0,0,4226674
+el2,2018-19,27,2019-02-05,Tranmere Rovers,Northampton Town,1,2,1,2,4226675
+el2,2018-19,27,2019-02-26,Lincoln City,Exeter City,1,1,0,1,4226670
+el2,2018-19,28,2019-01-12,Cheltenham Town,Tranmere Rovers,1,3,1,0,4226678
+el2,2018-19,28,2019-01-12,Crewe Alexandra,Newport County,3,2,1,0,4226679
+el2,2018-19,28,2019-01-12,Exeter City,FC Morecambe,0,0,0,0,4226680
+el2,2018-19,28,2019-01-12,FC Bury,Milton Keynes Dons,4,3,1,2,4226677
+el2,2018-19,28,2019-01-12,FC Port Vale,Colchester United,0,3,0,2,4226686
+el2,2018-19,28,2019-01-12,FC Stevenage,Crawley Town,2,1,2,1,4226687
+el2,2018-19,28,2019-01-12,Grimsby Town,Macclesfield Town,0,2,0,2,4226681
+el2,2018-19,28,2019-01-12,Mansfield Town,Yeovil Town,0,1,0,1,4226682
+el2,2018-19,28,2019-01-12,Northampton Town,Carlisle United,3,0,0,0,4226683
+el2,2018-19,28,2019-01-12,Notts County,Cambridge United,0,1,0,1,4226684
+el2,2018-19,28,2019-01-12,Oldham Athletic,Forest Green Rovers,0,0,0,0,4226685
+el2,2018-19,28,2019-01-12,Swindon Town,Lincoln City,2,2,0,2,4226688
+el2,2018-19,29,2019-01-19,Cambridge United,Northampton Town,3,2,1,1,4226689
+el2,2018-19,29,2019-01-19,Carlisle United,Cheltenham Town,2,0,0,0,4226690
+el2,2018-19,29,2019-01-19,Colchester United,Mansfield Town,2,3,2,0,4226691
+el2,2018-19,29,2019-01-19,Crawley Town,FC Port Vale,0,1,0,1,4226692
+el2,2018-19,29,2019-01-19,FC Morecambe,FC Stevenage,1,2,0,1,4226697
+el2,2018-19,29,2019-01-19,Forest Green Rovers,FC Bury,1,2,1,0,4226693
+el2,2018-19,29,2019-01-19,Lincoln City,Grimsby Town,1,0,1,0,4226694
+el2,2018-19,29,2019-01-19,Macclesfield Town,Oldham Athletic,2,1,1,1,4226695
+el2,2018-19,29,2019-01-19,Milton Keynes Dons,Crewe Alexandra,0,1,0,1,4226696
+el2,2018-19,29,2019-01-19,Newport County,Exeter City,1,0,0,0,4226698
+el2,2018-19,29,2019-01-19,Tranmere Rovers,Swindon Town,1,2,0,2,4226699
+el2,2018-19,29,2019-01-19,Yeovil Town,Notts County,2,0,1,0,4226700
+el2,2018-19,30,2019-01-26,Cheltenham Town,Macclesfield Town,3,2,0,2,4226702
+el2,2018-19,30,2019-01-26,Crewe Alexandra,Colchester United,2,1,0,1,4226703
+el2,2018-19,30,2019-01-26,Exeter City,Cambridge United,1,0,0,0,4226704
+el2,2018-19,30,2019-01-26,FC Bury,Lincoln City,3,3,2,2,4226701
+el2,2018-19,30,2019-01-26,FC Port Vale,Carlisle United,0,1,0,0,4226710
+el2,2018-19,30,2019-01-26,FC Stevenage,Forest Green Rovers,0,2,0,1,4226711
+el2,2018-19,30,2019-01-26,Grimsby Town,Milton Keynes Dons,1,0,1,0,4226705
+el2,2018-19,30,2019-01-26,Mansfield Town,Tranmere Rovers,3,0,1,0,4226706
+el2,2018-19,30,2019-01-26,Northampton Town,FC Morecambe,1,1,1,0,4226707
+el2,2018-19,30,2019-01-26,Swindon Town,Crawley Town,0,1,0,1,4226712
+el2,2018-19,30,2019-02-12,Oldham Athletic,Yeovil Town,4,1,1,0,4226709
+el2,2018-19,30,2019-02-19,Notts County,Newport County,1,4,1,3,4226708
+el2,2018-19,31,2019-02-02,Exeter City,Milton Keynes Dons,3,1,2,0,4226716
+el2,2018-19,31,2019-02-02,FC Bury,Crawley Town,1,1,0,0,4226713
+el2,2018-19,31,2019-02-02,FC Stevenage,Yeovil Town,1,0,0,0,4226723
+el2,2018-19,31,2019-02-02,Grimsby Town,Newport County,3,0,1,0,4226717
+el2,2018-19,31,2019-02-02,Mansfield Town,Macclesfield Town,3,1,1,1,4226718
+el2,2018-19,31,2019-02-02,Northampton Town,Colchester United,0,4,0,1,4226719
+el2,2018-19,31,2019-02-02,Notts County,Lincoln City,1,1,1,1,4226720
+el2,2018-19,31,2019-02-12,Crewe Alexandra,Carlisle United,2,1,1,1,4226715
+el2,2018-19,31,2019-02-12,Swindon Town,Forest Green Rovers,2,0,2,0,4226724
+el2,2018-19,31,2019-02-19,Cheltenham Town,Cambridge United,2,0,1,0,4226714
+el2,2018-19,31,2019-02-19,FC Port Vale,Tranmere Rovers,1,2,0,1,4226722
+el2,2018-19,31,2019-02-19,Oldham Athletic,FC Morecambe,1,2,0,1,4226721
+el2,2018-19,32,2019-02-09,Cambridge United,FC Port Vale,1,0,1,0,4226725
+el2,2018-19,32,2019-02-09,Carlisle United,Exeter City,1,1,0,1,4226726
+el2,2018-19,32,2019-02-09,Colchester United,Cheltenham Town,3,0,2,0,4226727
+el2,2018-19,32,2019-02-09,Crawley Town,Oldham Athletic,0,3,0,0,4226728
+el2,2018-19,32,2019-02-09,FC Morecambe,FC Bury,2,3,0,2,4226733
+el2,2018-19,32,2019-02-09,Forest Green Rovers,Notts County,1,2,0,0,4226729
+el2,2018-19,32,2019-02-09,Lincoln City,Northampton Town,1,1,1,1,4226730
+el2,2018-19,32,2019-02-09,Macclesfield Town,Crewe Alexandra,3,3,1,2,4226731
+el2,2018-19,32,2019-02-09,Milton Keynes Dons,Swindon Town,2,3,0,1,4226732
+el2,2018-19,32,2019-02-09,Newport County,Mansfield Town,1,0,1,0,4226734
+el2,2018-19,32,2019-02-09,Tranmere Rovers,FC Stevenage,2,0,1,0,4226735
+el2,2018-19,32,2019-02-09,Yeovil Town,Grimsby Town,1,3,0,2,4226736
+el2,2018-19,33,2019-02-16,Cambridge United,Tranmere Rovers,0,0,0,0,4226737
+el2,2018-19,33,2019-02-16,Carlisle United,Milton Keynes Dons,2,3,1,1,4226738
+el2,2018-19,33,2019-02-16,Exeter City,FC Bury,0,1,0,0,4226739
+el2,2018-19,33,2019-02-16,FC Port Vale,FC Morecambe,0,1,0,0,4226748
+el2,2018-19,33,2019-02-16,Forest Green Rovers,Yeovil Town,3,0,2,0,4226740
+el2,2018-19,33,2019-02-16,Grimsby Town,Cheltenham Town,1,0,1,0,4226741
+el2,2018-19,33,2019-02-16,Lincoln City,FC Stevenage,2,2,0,0,4226742
+el2,2018-19,33,2019-02-16,Macclesfield Town,Colchester United,1,1,1,0,4226743
+el2,2018-19,33,2019-02-16,Northampton Town,Crawley Town,0,0,0,0,4226745
+el2,2018-19,33,2019-02-16,Notts County,Mansfield Town,1,0,1,0,4226746
+el2,2018-19,33,2019-02-16,Oldham Athletic,Crewe Alexandra,1,1,1,0,4226747
+el2,2018-19,33,2019-04-09,Newport County,Swindon Town,0,0,0,0,4226744
+el2,2018-19,34,2019-02-23,Cheltenham Town,FC Port Vale,1,0,1,0,4226750
+el2,2018-19,34,2019-02-23,Colchester United,Carlisle United,1,1,0,0,4226751
+el2,2018-19,34,2019-02-23,Crawley Town,Macclesfield Town,1,1,0,1,4226752
+el2,2018-19,34,2019-02-23,Crewe Alexandra,Exeter City,1,2,0,1,4226753
+el2,2018-19,34,2019-02-23,FC Bury,Oldham Athletic,3,1,0,1,4226749
+el2,2018-19,34,2019-02-23,FC Morecambe,Lincoln City,0,2,0,1,4226756
+el2,2018-19,34,2019-02-23,FC Stevenage,Northampton Town,1,2,0,1,4226757
+el2,2018-19,34,2019-02-23,Mansfield Town,Forest Green Rovers,1,0,0,0,4226754
+el2,2018-19,34,2019-02-23,Milton Keynes Dons,Newport County,2,0,0,0,4226755
+el2,2018-19,34,2019-02-23,Swindon Town,Grimsby Town,1,1,0,0,4226758
+el2,2018-19,34,2019-02-23,Tranmere Rovers,Notts County,1,0,0,0,4226759
+el2,2018-19,34,2019-02-23,Yeovil Town,Cambridge United,1,0,1,0,4226760
+el2,2018-19,35,2019-03-02,Crewe Alexandra,Northampton Town,0,2,0,2,4226762
+el2,2018-19,35,2019-03-02,Exeter City,Tranmere Rovers,0,1,0,1,4226763
+el2,2018-19,35,2019-03-02,FC Bury,Macclesfield Town,3,0,1,0,4226761
+el2,2018-19,35,2019-03-02,Forest Green Rovers,Lincoln City,1,2,1,1,4226764
+el2,2018-19,35,2019-03-02,Grimsby Town,Cambridge United,0,2,0,1,4226765
+el2,2018-19,35,2019-03-02,Mansfield Town,Cheltenham Town,4,2,2,0,4226766
+el2,2018-19,35,2019-03-02,Milton Keynes Dons,Crawley Town,1,0,1,0,4226767
+el2,2018-19,35,2019-03-02,Newport County,Carlisle United,2,0,1,0,4226768
+el2,2018-19,35,2019-03-02,Notts County,FC Port Vale,0,0,0,0,4226769
+el2,2018-19,35,2019-03-02,Oldham Athletic,FC Stevenage,1,1,0,0,4226770
+el2,2018-19,35,2019-03-02,Swindon Town,Colchester United,3,0,2,0,4226771
+el2,2018-19,35,2019-03-02,Yeovil Town,FC Morecambe,3,2,0,1,4226772
+el2,2018-19,36,2019-03-08,Lincoln City,Yeovil Town,1,0,0,0,4226778
+el2,2018-19,36,2019-03-08,Tranmere Rovers,Crewe Alexandra,1,0,0,0,4226784
+el2,2018-19,36,2019-03-09,Cambridge United,Oldham Athletic,1,1,0,1,4226773
+el2,2018-19,36,2019-03-09,Carlisle United,Swindon Town,2,1,1,1,4226774
+el2,2018-19,36,2019-03-09,Cheltenham Town,Notts County,4,1,2,0,4226775
+el2,2018-19,36,2019-03-09,Colchester United,Newport County,3,0,2,0,4226776
+el2,2018-19,36,2019-03-09,Crawley Town,Grimsby Town,2,1,2,1,4226777
+el2,2018-19,36,2019-03-09,FC Morecambe,Forest Green Rovers,3,0,2,0,4226780
+el2,2018-19,36,2019-03-09,FC Port Vale,Mansfield Town,2,1,0,0,4226782
+el2,2018-19,36,2019-03-09,FC Stevenage,FC Bury,0,1,0,0,4226783
+el2,2018-19,36,2019-03-09,Macclesfield Town,Milton Keynes Dons,1,3,1,1,4226779
+el2,2018-19,36,2019-03-09,Northampton Town,Exeter City,2,1,1,0,4226781
+el2,2018-19,37,2019-03-05,Cheltenham Town,FC Bury,1,1,1,1,4226785
+el2,2018-19,37,2019-03-12,Cambridge United,Crewe Alexandra,0,0,0,0,4226786
+el2,2018-19,37,2019-03-12,Carlisle United,Notts County,1,3,0,1,4226787
+el2,2018-19,37,2019-03-12,Colchester United,Forest Green Rovers,0,3,0,2,4226788
+el2,2018-19,37,2019-03-12,Crawley Town,Mansfield Town,0,0,0,0,4226789
+el2,2018-19,37,2019-03-12,FC Morecambe,Milton Keynes Dons,4,2,2,0,4226792
+el2,2018-19,37,2019-03-12,FC Port Vale,Yeovil Town,3,0,1,0,4226794
+el2,2018-19,37,2019-03-12,FC Stevenage,Swindon Town,2,0,1,0,4226795
+el2,2018-19,37,2019-03-12,Lincoln City,Oldham Athletic,2,0,1,0,4226790
+el2,2018-19,37,2019-03-12,Northampton Town,Newport County,1,0,0,0,4226793
+el2,2018-19,37,2019-03-12,Tranmere Rovers,Grimsby Town,4,1,4,1,4226796
+el2,2018-19,37,2019-04-09,Macclesfield Town,Exeter City,3,2,2,2,4226791
+el2,2018-19,38,2019-03-15,Newport County,Cheltenham Town,1,0,0,0,4226804
+el2,2018-19,38,2019-03-16,Crewe Alexandra,Crawley Town,6,1,4,1,4226798
+el2,2018-19,38,2019-03-16,Exeter City,Colchester United,3,0,1,0,4226799
+el2,2018-19,38,2019-03-16,Forest Green Rovers,Carlisle United,1,1,1,0,4226800
+el2,2018-19,38,2019-03-16,Grimsby Town,Northampton Town,0,0,0,0,4226801
+el2,2018-19,38,2019-03-16,Milton Keynes Dons,FC Stevenage,1,1,0,1,4226803
+el2,2018-19,38,2019-03-16,Notts County,FC Morecambe,0,0,0,0,4226805
+el2,2018-19,38,2019-03-16,Swindon Town,FC Port Vale,0,0,0,0,4226807
+el2,2018-19,38,2019-03-16,Yeovil Town,Macclesfield Town,0,2,0,2,4226808
+el2,2018-19,38,2019-03-18,Mansfield Town,Lincoln City,1,1,1,0,4226802
+el2,2018-19,38,2019-04-02,FC Bury,Cambridge United,0,3,0,2,4226797
+el2,2018-19,38,2019-04-02,Oldham Athletic,Tranmere Rovers,2,0,1,0,4226806
+el2,2018-19,39,2019-03-23,Carlisle United,Cambridge United,2,2,2,1,4226809
+el2,2018-19,39,2019-03-23,Cheltenham Town,Northampton Town,3,1,2,0,4226810
+el2,2018-19,39,2019-03-23,Colchester United,Tranmere Rovers,0,2,0,1,4226811
+el2,2018-19,39,2019-03-23,Crawley Town,Lincoln City,0,3,0,1,4226812
+el2,2018-19,39,2019-03-23,FC Port Vale,Forest Green Rovers,0,2,0,0,4226819
+el2,2018-19,39,2019-03-23,Grimsby Town,FC Bury,0,0,0,0,4226813
+el2,2018-19,39,2019-03-23,Macclesfield Town,FC Stevenage,2,2,1,1,4226814
+el2,2018-19,39,2019-03-23,Mansfield Town,Crewe Alexandra,1,2,0,0,4226815
+el2,2018-19,39,2019-03-23,Milton Keynes Dons,Yeovil Town,2,0,1,0,4226816
+el2,2018-19,39,2019-03-23,Notts County,Exeter City,0,1,0,0,4226818
+el2,2018-19,39,2019-03-23,Swindon Town,FC Morecambe,4,0,2,0,4226820
+el2,2018-19,39,2019-04-30,Newport County,Oldham Athletic,2,0,0,0,4226817
+el2,2018-19,40,2019-03-30,Cambridge United,Colchester United,0,1,0,0,4226822
+el2,2018-19,40,2019-03-30,Crewe Alexandra,Cheltenham Town,1,3,1,1,4226823
+el2,2018-19,40,2019-03-30,Exeter City,Mansfield Town,1,4,1,2,4226824
+el2,2018-19,40,2019-03-30,FC Bury,Swindon Town,1,3,1,1,4226821
+el2,2018-19,40,2019-03-30,FC Morecambe,Crawley Town,1,0,0,0,4226827
+el2,2018-19,40,2019-03-30,FC Stevenage,Notts County,0,3,0,3,4226830
+el2,2018-19,40,2019-03-30,Forest Green Rovers,Milton Keynes Dons,1,2,0,1,4226825
+el2,2018-19,40,2019-03-30,Lincoln City,Macclesfield Town,1,1,1,1,4226826
+el2,2018-19,40,2019-03-30,Northampton Town,FC Port Vale,1,2,1,1,4226828
+el2,2018-19,40,2019-03-30,Oldham Athletic,Grimsby Town,2,0,1,0,4226829
+el2,2018-19,40,2019-03-30,Tranmere Rovers,Carlisle United,3,0,1,0,4226831
+el2,2018-19,40,2019-03-30,Yeovil Town,Newport County,1,3,0,0,4226832
+el2,2018-19,41,2019-04-06,Carlisle United,FC Bury,3,2,1,2,4226833
+el2,2018-19,41,2019-04-06,Cheltenham Town,Exeter City,1,1,0,1,4226834
+el2,2018-19,41,2019-04-06,Colchester United,Oldham Athletic,0,2,0,2,4226835
+el2,2018-19,41,2019-04-06,Crawley Town,Forest Green Rovers,1,2,1,1,4226836
+el2,2018-19,41,2019-04-06,FC Port Vale,Crewe Alexandra,1,0,0,0,4226843
+el2,2018-19,41,2019-04-06,Grimsby Town,FC Stevenage,0,2,0,1,4226837
+el2,2018-19,41,2019-04-06,Macclesfield Town,FC Morecambe,1,1,1,1,4226838
+el2,2018-19,41,2019-04-06,Mansfield Town,Cambridge United,1,0,0,0,4226839
+el2,2018-19,41,2019-04-06,Milton Keynes Dons,Lincoln City,0,2,0,1,4226840
+el2,2018-19,41,2019-04-06,Newport County,Tranmere Rovers,0,0,0,0,4226841
+el2,2018-19,41,2019-04-06,Notts County,Northampton Town,2,2,1,1,4226842
+el2,2018-19,41,2019-04-06,Swindon Town,Yeovil Town,1,1,1,0,4226844
+el2,2018-19,42,2019-04-13,Cambridge United,Newport County,0,3,0,2,4226846
+el2,2018-19,42,2019-04-13,Crewe Alexandra,Notts County,3,0,1,0,4226847
+el2,2018-19,42,2019-04-13,Exeter City,FC Port Vale,2,0,1,0,4226848
+el2,2018-19,42,2019-04-13,FC Bury,Colchester United,2,0,0,0,4226845
+el2,2018-19,42,2019-04-13,FC Morecambe,Grimsby Town,1,1,0,0,4226851
+el2,2018-19,42,2019-04-13,FC Stevenage,Carlisle United,3,0,1,0,4226854
+el2,2018-19,42,2019-04-13,Forest Green Rovers,Macclesfield Town,2,0,0,0,4226849
+el2,2018-19,42,2019-04-13,Lincoln City,Cheltenham Town,1,1,1,0,4226850
+el2,2018-19,42,2019-04-13,Northampton Town,Mansfield Town,1,1,0,1,4226852
+el2,2018-19,42,2019-04-13,Oldham Athletic,Swindon Town,2,2,1,1,4226853
+el2,2018-19,42,2019-04-13,Tranmere Rovers,Milton Keynes Dons,2,1,1,1,4226855
+el2,2018-19,42,2019-04-13,Yeovil Town,Crawley Town,0,1,0,0,4226856
+el2,2018-19,43,2019-04-19,Cambridge United,Swindon Town,0,0,0,0,4226857
+el2,2018-19,43,2019-04-19,Carlisle United,Lincoln City,1,0,0,0,4226858
+el2,2018-19,43,2019-04-19,Cheltenham Town,Oldham Athletic,0,0,0,0,4226859
+el2,2018-19,43,2019-04-19,Colchester United,Grimsby Town,1,0,1,0,4226860
+el2,2018-19,43,2019-04-19,Crewe Alexandra,Yeovil Town,2,0,1,0,4226861
+el2,2018-19,43,2019-04-19,Exeter City,Crawley Town,1,3,0,2,4226862
+el2,2018-19,43,2019-04-19,FC Port Vale,FC Stevenage,1,4,0,1,4226867
+el2,2018-19,43,2019-04-19,Mansfield Town,FC Morecambe,4,0,1,0,4226863
+el2,2018-19,43,2019-04-19,Newport County,FC Bury,3,1,2,1,4226864
+el2,2018-19,43,2019-04-19,Northampton Town,Macclesfield Town,3,1,1,1,4226865
+el2,2018-19,43,2019-04-19,Notts County,Milton Keynes Dons,1,2,0,0,4226866
+el2,2018-19,43,2019-04-19,Tranmere Rovers,Forest Green Rovers,0,1,0,0,4226868
+el2,2018-19,44,2019-04-22,Crawley Town,Notts County,1,1,1,1,4226870
+el2,2018-19,44,2019-04-22,FC Bury,Northampton Town,3,1,1,1,4226869
+el2,2018-19,44,2019-04-22,FC Morecambe,Cheltenham Town,4,0,0,0,4226876
+el2,2018-19,44,2019-04-22,FC Stevenage,Exeter City,1,1,1,1,4226878
+el2,2018-19,44,2019-04-22,Forest Green Rovers,Cambridge United,2,1,1,0,4226871
+el2,2018-19,44,2019-04-22,Grimsby Town,Carlisle United,1,0,0,0,4226872
+el2,2018-19,44,2019-04-22,Lincoln City,Tranmere Rovers,0,0,0,0,4226873
+el2,2018-19,44,2019-04-22,Macclesfield Town,Newport County,0,0,0,0,4226874
+el2,2018-19,44,2019-04-22,Milton Keynes Dons,FC Port Vale,1,1,0,0,4226875
+el2,2018-19,44,2019-04-22,Oldham Athletic,Mansfield Town,3,2,1,0,4226877
+el2,2018-19,44,2019-04-22,Swindon Town,Crewe Alexandra,1,2,0,2,4226879
+el2,2018-19,44,2019-04-22,Yeovil Town,Colchester United,1,1,0,0,4226880
+el2,2018-19,45,2019-04-27,Cambridge United,FC Morecambe,1,2,0,1,4226881
+el2,2018-19,45,2019-04-27,Carlisle United,Crawley Town,4,2,4,1,4226882
+el2,2018-19,45,2019-04-27,Cheltenham Town,Swindon Town,3,2,3,0,4226883
+el2,2018-19,45,2019-04-27,Colchester United,Milton Keynes Dons,2,0,1,0,4226884
+el2,2018-19,45,2019-04-27,Crewe Alexandra,Forest Green Rovers,4,3,1,1,4226885
+el2,2018-19,45,2019-04-27,Exeter City,Oldham Athletic,1,0,0,0,4226886
+el2,2018-19,45,2019-04-27,FC Port Vale,Macclesfield Town,0,1,0,0,4226891
+el2,2018-19,45,2019-04-27,Mansfield Town,FC Stevenage,1,2,0,0,4226887
+el2,2018-19,45,2019-04-27,Newport County,Lincoln City,1,0,1,0,4226888
+el2,2018-19,45,2019-04-27,Northampton Town,Yeovil Town,2,2,0,2,4226889
+el2,2018-19,45,2019-04-27,Notts County,Grimsby Town,2,1,0,0,4226890
+el2,2018-19,45,2019-04-30,Tranmere Rovers,FC Bury,1,1,1,0,4226892
+el2,2018-19,46,2019-05-04,Crawley Town,Tranmere Rovers,3,1,2,0,4226894
+el2,2018-19,46,2019-05-04,FC Bury,FC Port Vale,1,1,1,1,4226893
+el2,2018-19,46,2019-05-04,FC Morecambe,Newport County,1,1,1,0,4226900
+el2,2018-19,46,2019-05-04,FC Stevenage,Cheltenham Town,2,0,0,0,4226902
+el2,2018-19,46,2019-05-04,Forest Green Rovers,Exeter City,0,0,0,0,4226895
+el2,2018-19,46,2019-05-04,Grimsby Town,Crewe Alexandra,2,0,2,0,4226896
+el2,2018-19,46,2019-05-04,Lincoln City,Colchester United,0,3,0,3,4226897
+el2,2018-19,46,2019-05-04,Macclesfield Town,Cambridge United,1,1,0,1,4226898
+el2,2018-19,46,2019-05-04,Milton Keynes Dons,Mansfield Town,1,0,1,0,4226899
+el2,2018-19,46,2019-05-04,Oldham Athletic,Northampton Town,2,5,1,3,4226901
+el2,2018-19,46,2019-05-04,Swindon Town,Notts County,3,1,0,0,4226903
+el2,2018-19,46,2019-05-04,Yeovil Town,Carlisle United,0,0,0,0,4226904

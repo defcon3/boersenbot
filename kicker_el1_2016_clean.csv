@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el1,2016-17,1,2016-08-06,AFC Rochdale,Peterborough United,2,3,2,2,3315228
+el1,2016-17,1,2016-08-06,Bolton Wanderers,Sheffield United,1,0,1,0,3315222
+el1,2016-17,1,2016-08-06,Bradford City,FC Port Vale,0,0,0,0,3315223
+el1,2016-17,1,2016-08-06,FC Bury,Charlton Athletic,2,0,0,0,3315224
+el1,2016-17,1,2016-08-06,FC Millwall,Oldham Athletic,3,0,2,0,3315225
+el1,2016-17,1,2016-08-06,FC Walsall,AFC Wimbledon,3,1,2,0,3315233
+el1,2016-17,1,2016-08-06,Northampton Town,Fleetwood Town,1,1,1,0,3315226
+el1,2016-17,1,2016-08-06,Oxford United,FC Chesterfield,1,1,1,0,3315227
+el1,2016-17,1,2016-08-06,Scunthorpe United,Bristol Rovers,3,1,0,1,3315229
+el1,2016-17,1,2016-08-06,Shrewsbury Town,Milton Keynes Dons,0,1,0,0,3315230
+el1,2016-17,1,2016-08-06,Southend United,FC Gillingham,1,3,1,1,3315231
+el1,2016-17,1,2016-08-06,Swindon Town,Coventry City,1,0,0,0,3315232
+el1,2016-17,2,2016-08-13,AFC Wimbledon,Bolton Wanderers,1,2,1,1,3315234
+el1,2016-17,2,2016-08-13,Charlton Athletic,Northampton Town,1,1,0,1,3315236
+el1,2016-17,2,2016-08-13,Coventry City,Shrewsbury Town,0,0,0,0,3315238
+el1,2016-17,2,2016-08-13,FC Chesterfield,Swindon Town,3,1,2,0,3315237
+el1,2016-17,2,2016-08-13,FC Gillingham,FC Bury,2,1,1,0,3315240
+el1,2016-17,2,2016-08-13,FC Port Vale,Southend United,2,0,1,0,3315244
+el1,2016-17,2,2016-08-13,Fleetwood Town,Scunthorpe United,2,2,1,0,3315239
+el1,2016-17,2,2016-08-13,Milton Keynes Dons,FC Millwall,2,2,2,2,3315241
+el1,2016-17,2,2016-08-13,Oldham Athletic,FC Walsall,0,0,0,0,3315242
+el1,2016-17,2,2016-08-13,Peterborough United,Bradford City,0,1,0,1,3315243
+el1,2016-17,2,2016-08-13,Sheffield United,AFC Rochdale,1,1,0,1,3315245
+el1,2016-17,2,2016-08-14,Bristol Rovers,Oxford United,2,1,1,1,3315235
+el1,2016-17,3,2016-08-16,AFC Wimbledon,Scunthorpe United,1,2,0,2,3315246
+el1,2016-17,3,2016-08-16,Charlton Athletic,Shrewsbury Town,3,0,3,0,3315248
+el1,2016-17,3,2016-08-16,Coventry City,FC Bury,0,0,0,0,3315250
+el1,2016-17,3,2016-08-16,FC Chesterfield,FC Walsall,2,0,0,0,3315249
+el1,2016-17,3,2016-08-16,FC Gillingham,Swindon Town,1,1,0,0,3315252
+el1,2016-17,3,2016-08-16,FC Port Vale,AFC Rochdale,1,0,0,0,3315256
+el1,2016-17,3,2016-08-16,Milton Keynes Dons,Bradford City,1,2,0,2,3315253
+el1,2016-17,3,2016-08-16,Oldham Athletic,Northampton Town,0,0,0,0,3315254
+el1,2016-17,3,2016-08-16,Peterborough United,FC Millwall,5,1,3,0,3315255
+el1,2016-17,3,2016-08-16,Sheffield United,Southend United,0,3,0,3,3315257
+el1,2016-17,3,2016-08-17,Bristol Rovers,Bolton Wanderers,1,2,0,2,3315247
+el1,2016-17,3,2016-08-17,Fleetwood Town,Oxford United,2,0,0,0,3315251
+el1,2016-17,4,2016-08-20,AFC Rochdale,Milton Keynes Dons,0,1,0,0,3315264
+el1,2016-17,4,2016-08-20,Bolton Wanderers,Fleetwood Town,2,1,0,1,3315258
+el1,2016-17,4,2016-08-20,Bradford City,Coventry City,3,1,0,1,3315259
+el1,2016-17,4,2016-08-20,FC Bury,Oldham Athletic,0,1,0,1,3315260
+el1,2016-17,4,2016-08-20,FC Millwall,Sheffield United,2,1,1,1,3315261
+el1,2016-17,4,2016-08-20,FC Walsall,Charlton Athletic,1,2,0,1,3315269
+el1,2016-17,4,2016-08-20,Northampton Town,AFC Wimbledon,0,0,0,0,3315262
+el1,2016-17,4,2016-08-20,Oxford United,Peterborough United,2,1,0,0,3315263
+el1,2016-17,4,2016-08-20,Scunthorpe United,FC Gillingham,5,0,3,0,3315265
+el1,2016-17,4,2016-08-20,Shrewsbury Town,FC Chesterfield,2,1,1,1,3315266
+el1,2016-17,4,2016-08-20,Southend United,Bristol Rovers,1,1,0,0,3315267
+el1,2016-17,4,2016-08-20,Swindon Town,FC Port Vale,1,0,0,0,3315268
+el1,2016-17,5,2016-08-27,AFC Rochdale,AFC Wimbledon,1,1,0,1,3315276
+el1,2016-17,5,2016-08-27,Bradford City,Oldham Athletic,1,1,0,1,3315270
+el1,2016-17,5,2016-08-27,Charlton Athletic,Bolton Wanderers,1,1,0,0,3315271
+el1,2016-17,5,2016-08-27,Coventry City,Northampton Town,1,1,0,1,3315273
+el1,2016-17,5,2016-08-27,FC Chesterfield,FC Millwall,1,3,0,3,3315272
+el1,2016-17,5,2016-08-27,FC Port Vale,Scunthorpe United,3,1,1,1,3315275
+el1,2016-17,5,2016-08-27,FC Walsall,FC Bury,3,3,3,0,3315281
+el1,2016-17,5,2016-08-27,Milton Keynes Dons,Peterborough United,0,2,0,1,3315274
+el1,2016-17,5,2016-08-27,Sheffield United,Oxford United,2,1,0,1,3315277
+el1,2016-17,5,2016-08-27,Shrewsbury Town,FC Gillingham,2,3,2,0,3315278
+el1,2016-17,5,2016-08-27,Southend United,Fleetwood Town,0,2,0,1,3315279
+el1,2016-17,5,2016-09-20,Swindon Town,Bristol Rovers,1,2,1,0,3315280
+el1,2016-17,6,2016-09-03,AFC Wimbledon,FC Chesterfield,2,1,0,1,3315282
+el1,2016-17,6,2016-09-03,Bolton Wanderers,Southend United,1,1,0,1,3315283
+el1,2016-17,6,2016-09-03,FC Bury,FC Port Vale,4,1,3,0,3315285
+el1,2016-17,6,2016-09-03,FC Millwall,Bradford City,1,1,0,1,3315288
+el1,2016-17,6,2016-09-03,Fleetwood Town,Coventry City,2,0,0,0,3315286
+el1,2016-17,6,2016-09-03,Oldham Athletic,Shrewsbury Town,2,3,1,1,3315290
+el1,2016-17,6,2016-09-03,Oxford United,AFC Rochdale,1,0,0,0,3315291
+el1,2016-17,6,2016-09-03,Peterborough United,Swindon Town,2,2,1,0,3315292
+el1,2016-17,6,2016-09-04,FC Gillingham,Sheffield United,1,2,1,0,3315287
+el1,2016-17,6,2016-09-04,Northampton Town,Milton Keynes Dons,3,2,3,1,3315289
+el1,2016-17,6,2016-09-13,Bristol Rovers,FC Walsall,1,1,1,1,3315284
+el1,2016-17,6,2016-09-20,Scunthorpe United,Charlton Athletic,0,0,0,0,3315293
+el1,2016-17,7,2016-09-10,AFC Wimbledon,Sheffield United,2,3,1,2,3315294
+el1,2016-17,7,2016-09-10,Bolton Wanderers,Milton Keynes Dons,1,1,1,0,3315295
+el1,2016-17,7,2016-09-10,Bristol Rovers,AFC Rochdale,2,2,1,2,3315296
+el1,2016-17,7,2016-09-10,FC Bury,Shrewsbury Town,2,1,0,0,3315297
+el1,2016-17,7,2016-09-10,FC Gillingham,Bradford City,1,1,1,1,3315299
+el1,2016-17,7,2016-09-10,FC Millwall,Coventry City,1,1,0,1,3315300
+el1,2016-17,7,2016-09-10,Fleetwood Town,Charlton Athletic,2,2,2,1,3315298
+el1,2016-17,7,2016-09-10,Northampton Town,FC Walsall,2,0,1,0,3315301
+el1,2016-17,7,2016-09-10,Oldham Athletic,FC Chesterfield,0,0,0,0,3315302
+el1,2016-17,7,2016-09-10,Oxford United,Swindon Town,2,0,1,0,3315303
+el1,2016-17,7,2016-09-10,Peterborough United,FC Port Vale,2,2,1,1,3315304
+el1,2016-17,7,2016-09-10,Scunthorpe United,Southend United,4,0,2,0,3315305
+el1,2016-17,8,2016-09-17,AFC Rochdale,Fleetwood Town,2,1,1,1,3315312
+el1,2016-17,8,2016-09-17,Bradford City,Bristol Rovers,1,1,0,0,3315306
+el1,2016-17,8,2016-09-17,Charlton Athletic,AFC Wimbledon,1,2,1,0,3315307
+el1,2016-17,8,2016-09-17,Coventry City,Oldham Athletic,0,0,0,0,3315309
+el1,2016-17,8,2016-09-17,FC Chesterfield,Northampton Town,3,1,1,0,3315308
+el1,2016-17,8,2016-09-17,FC Port Vale,FC Gillingham,2,1,0,1,3315311
+el1,2016-17,8,2016-09-17,FC Walsall,Bolton Wanderers,1,0,1,0,3315317
+el1,2016-17,8,2016-09-17,Milton Keynes Dons,Oxford United,0,0,0,0,3315310
+el1,2016-17,8,2016-09-17,Sheffield United,Peterborough United,1,0,1,0,3315313
+el1,2016-17,8,2016-09-17,Shrewsbury Town,Scunthorpe United,0,1,0,1,3315314
+el1,2016-17,8,2016-09-17,Southend United,FC Millwall,3,1,1,1,3315315
+el1,2016-17,8,2016-09-17,Swindon Town,FC Bury,1,2,0,2,3315316
+el1,2016-17,9,2016-09-24,AFC Wimbledon,Shrewsbury Town,1,1,1,0,3315318
+el1,2016-17,9,2016-09-24,Bolton Wanderers,Bradford City,0,0,0,0,3315319
+el1,2016-17,9,2016-09-24,Bristol Rovers,FC Port Vale,2,1,1,1,3315320
+el1,2016-17,9,2016-09-24,FC Bury,FC Chesterfield,2,1,1,1,3315321
+el1,2016-17,9,2016-09-24,FC Gillingham,Coventry City,2,1,1,1,3315323
+el1,2016-17,9,2016-09-24,FC Millwall,AFC Rochdale,2,3,2,1,3315324
+el1,2016-17,9,2016-09-24,Fleetwood Town,Milton Keynes Dons,1,4,0,1,3315322
+el1,2016-17,9,2016-09-24,Northampton Town,Southend United,4,0,0,0,3315325
+el1,2016-17,9,2016-09-24,Oldham Athletic,Swindon Town,0,2,0,1,3315326
+el1,2016-17,9,2016-09-24,Oxford United,Charlton Athletic,1,1,0,0,3315327
+el1,2016-17,9,2016-09-24,Peterborough United,FC Walsall,1,1,1,1,3315328
+el1,2016-17,9,2016-09-24,Scunthorpe United,Sheffield United,2,2,0,1,3315329
+el1,2016-17,10,2016-09-27,AFC Rochdale,Bolton Wanderers,1,0,0,0,3315336
+el1,2016-17,10,2016-09-27,Bradford City,Fleetwood Town,2,1,1,1,3315330
+el1,2016-17,10,2016-09-27,Charlton Athletic,Oldham Athletic,1,1,1,0,3315331
+el1,2016-17,10,2016-09-27,FC Chesterfield,FC Gillingham,3,3,1,0,3315332
+el1,2016-17,10,2016-09-27,FC Port Vale,FC Millwall,3,1,1,0,3315335
+el1,2016-17,10,2016-09-27,FC Walsall,Scunthorpe United,1,4,1,2,3315341
+el1,2016-17,10,2016-09-27,Milton Keynes Dons,FC Bury,1,3,0,1,3315334
+el1,2016-17,10,2016-09-27,Sheffield United,Bristol Rovers,1,0,0,0,3315337
+el1,2016-17,10,2016-09-27,Shrewsbury Town,Peterborough United,1,1,0,1,3315338
+el1,2016-17,10,2016-09-27,Southend United,Oxford United,2,1,1,1,3315339
+el1,2016-17,10,2016-09-27,Swindon Town,Northampton Town,1,3,0,1,3315340
+el1,2016-17,10,2016-09-28,Coventry City,AFC Wimbledon,2,2,1,1,3315333
+el1,2016-17,11,2016-10-01,AFC Wimbledon,FC Gillingham,2,0,2,0,3315342
+el1,2016-17,11,2016-10-01,Bolton Wanderers,Oxford United,0,2,0,0,3315343
+el1,2016-17,11,2016-10-01,Charlton Athletic,AFC Rochdale,0,1,0,1,3315345
+el1,2016-17,11,2016-10-01,FC Bury,Scunthorpe United,1,2,0,1,3315344
+el1,2016-17,11,2016-10-01,FC Chesterfield,Bradford City,0,1,0,1,3315346
+el1,2016-17,11,2016-10-01,FC Port Vale,Coventry City,0,2,0,1,3315350
+el1,2016-17,11,2016-10-01,FC Walsall,FC Millwall,2,1,1,1,3315353
+el1,2016-17,11,2016-10-01,Fleetwood Town,Sheffield United,1,1,1,0,3315347
+el1,2016-17,11,2016-10-01,Northampton Town,Bristol Rovers,2,3,1,0,3315348
+el1,2016-17,11,2016-10-01,Oldham Athletic,Milton Keynes Dons,0,2,0,1,3315349
+el1,2016-17,11,2016-10-01,Shrewsbury Town,Swindon Town,1,1,1,1,3315351
+el1,2016-17,11,2016-10-01,Southend United,Peterborough United,1,1,0,0,3315352
+el1,2016-17,12,2016-10-08,AFC Rochdale,Southend United,3,0,2,0,3315362
+el1,2016-17,12,2016-10-08,Bradford City,Shrewsbury Town,2,0,1,0,3315354
+el1,2016-17,12,2016-10-08,FC Gillingham,Oldham Athletic,1,2,1,0,3315357
+el1,2016-17,12,2016-10-08,Peterborough United,FC Bury,3,1,1,1,3315361
+el1,2016-17,12,2016-10-08,Scunthorpe United,Northampton Town,1,1,1,0,3315363
+el1,2016-17,12,2016-10-08,Swindon Town,Bolton Wanderers,0,1,0,0,3315365
+el1,2016-17,12,2016-10-09,Milton Keynes Dons,FC Port Vale,0,1,0,1,3315359
+el1,2016-17,12,2016-10-09,Oxford United,AFC Wimbledon,1,3,0,3,3315360
+el1,2016-17,12,2016-11-01,Bristol Rovers,Fleetwood Town,2,1,0,1,3315355
+el1,2016-17,12,2016-11-01,Coventry City,FC Chesterfield,2,0,0,0,3315356
+el1,2016-17,12,2016-11-29,Sheffield United,FC Walsall,0,1,0,1,3315364
+el1,2016-17,12,2016-12-21,FC Millwall,Charlton Athletic,3,1,2,0,3315358
+el1,2016-17,13,2016-10-15,AFC Rochdale,FC Bury,2,0,1,0,3315373
+el1,2016-17,13,2016-10-15,AFC Wimbledon,Swindon Town,0,0,0,0,3315366
+el1,2016-17,13,2016-10-15,Bolton Wanderers,Oldham Athletic,2,0,1,0,3315367
+el1,2016-17,13,2016-10-15,Bristol Rovers,FC Gillingham,2,1,0,0,3315368
+el1,2016-17,13,2016-10-15,Charlton Athletic,Coventry City,3,0,1,0,3315369
+el1,2016-17,13,2016-10-15,FC Walsall,Shrewsbury Town,3,2,2,1,3315377
+el1,2016-17,13,2016-10-15,Fleetwood Town,Peterborough United,2,0,1,0,3315370
+el1,2016-17,13,2016-10-15,Northampton Town,FC Millwall,1,3,0,1,3315371
+el1,2016-17,13,2016-10-15,Oxford United,Bradford City,1,0,0,0,3315372
+el1,2016-17,13,2016-10-15,Scunthorpe United,Milton Keynes Dons,2,1,0,1,3315374
+el1,2016-17,13,2016-10-15,Sheffield United,FC Port Vale,4,0,2,0,3315375
+el1,2016-17,13,2016-10-15,Southend United,FC Chesterfield,1,0,1,0,3315376
+el1,2016-17,14,2016-10-18,Bradford City,Southend United,1,1,1,0,3315378
+el1,2016-17,14,2016-10-18,Coventry City,Oxford United,2,1,2,0,3315381
+el1,2016-17,14,2016-10-18,FC Bury,AFC Wimbledon,1,2,1,1,3315379
+el1,2016-17,14,2016-10-18,FC Chesterfield,Fleetwood Town,0,1,0,1,3315380
+el1,2016-17,14,2016-10-18,FC Gillingham,FC Walsall,1,1,1,0,3315382
+el1,2016-17,14,2016-10-18,FC Millwall,Bolton Wanderers,0,2,0,1,3315383
+el1,2016-17,14,2016-10-18,FC Port Vale,Charlton Athletic,1,1,0,1,3315387
+el1,2016-17,14,2016-10-18,Milton Keynes Dons,Bristol Rovers,3,3,2,0,3315384
+el1,2016-17,14,2016-10-18,Oldham Athletic,Scunthorpe United,2,0,2,0,3315385
+el1,2016-17,14,2016-10-18,Peterborough United,Northampton Town,3,0,2,0,3315386
+el1,2016-17,14,2016-10-18,Shrewsbury Town,Sheffield United,0,3,0,0,3315388
+el1,2016-17,14,2016-10-18,Swindon Town,AFC Rochdale,3,0,2,0,3315389
+el1,2016-17,15,2016-10-22,Bradford City,Sheffield United,3,3,1,1,3315390
+el1,2016-17,15,2016-10-22,Coventry City,AFC Rochdale,2,0,1,0,3315393
+el1,2016-17,15,2016-10-22,FC Chesterfield,Scunthorpe United,0,3,0,0,3315392
+el1,2016-17,15,2016-10-22,FC Gillingham,Charlton Athletic,1,1,1,0,3315394
+el1,2016-17,15,2016-10-22,FC Millwall,Fleetwood Town,2,1,1,0,3315395
+el1,2016-17,15,2016-10-22,FC Port Vale,Oxford United,2,2,0,2,3315399
+el1,2016-17,15,2016-10-22,Milton Keynes Dons,Southend United,0,3,0,2,3315396
+el1,2016-17,15,2016-10-22,Oldham Athletic,Bristol Rovers,0,2,0,1,3315397
+el1,2016-17,15,2016-10-22,Peterborough United,AFC Wimbledon,0,1,0,1,3315398
+el1,2016-17,15,2016-10-22,Shrewsbury Town,Northampton Town,2,4,1,2,3315400
+el1,2016-17,15,2016-10-22,Swindon Town,FC Walsall,0,2,0,1,3315401
+el1,2016-17,15,2016-10-24,FC Bury,Bolton Wanderers,0,2,0,1,3315391
+el1,2016-17,16,2016-10-29,AFC Rochdale,Oldham Athletic,1,0,1,0,3315409
+el1,2016-17,16,2016-10-29,AFC Wimbledon,Bradford City,2,3,1,1,3315402
+el1,2016-17,16,2016-10-29,Bolton Wanderers,FC Port Vale,3,1,3,0,3315403
+el1,2016-17,16,2016-10-29,Bristol Rovers,Peterborough United,1,2,0,0,3315404
+el1,2016-17,16,2016-10-29,Charlton Athletic,FC Chesterfield,1,0,0,0,3315405
+el1,2016-17,16,2016-10-29,FC Walsall,Coventry City,1,1,0,1,3315413
+el1,2016-17,16,2016-10-29,Fleetwood Town,FC Gillingham,2,1,1,0,3315406
+el1,2016-17,16,2016-10-29,Northampton Town,FC Bury,3,2,1,0,3315407
+el1,2016-17,16,2016-10-29,Oxford United,FC Millwall,1,2,1,1,3315408
+el1,2016-17,16,2016-10-29,Scunthorpe United,Swindon Town,4,1,4,0,3315410
+el1,2016-17,16,2016-10-29,Sheffield United,Milton Keynes Dons,2,1,1,0,3315411
+el1,2016-17,16,2016-10-29,Southend United,Shrewsbury Town,1,1,1,1,3315412
+el1,2016-17,17,2016-11-12,Bradford City,AFC Rochdale,4,0,2,0,3315414
+el1,2016-17,17,2016-11-12,Coventry City,Scunthorpe United,0,1,0,0,3315417
+el1,2016-17,17,2016-11-12,FC Bury,Southend United,1,4,1,2,3315415
+el1,2016-17,17,2016-11-12,FC Gillingham,Northampton Town,2,1,0,1,3315418
+el1,2016-17,17,2016-11-12,FC Millwall,Bristol Rovers,4,0,1,0,3315419
+el1,2016-17,17,2016-11-12,FC Port Vale,Fleetwood Town,2,1,0,0,3315423
+el1,2016-17,17,2016-11-12,Milton Keynes Dons,FC Walsall,1,1,0,1,3315420
+el1,2016-17,17,2016-11-12,Oldham Athletic,AFC Wimbledon,0,0,0,0,3315421
+el1,2016-17,17,2016-11-12,Shrewsbury Town,Oxford United,2,0,1,0,3315424
+el1,2016-17,17,2016-11-12,Swindon Town,Charlton Athletic,3,0,1,0,3315425
+el1,2016-17,17,2016-11-13,FC Chesterfield,Sheffield United,1,4,1,0,3315416
+el1,2016-17,17,2016-11-13,Peterborough United,Bolton Wanderers,1,0,1,0,3315422
+el1,2016-17,18,2016-11-19,AFC Rochdale,Swindon Town,4,0,1,0,3315433
+el1,2016-17,18,2016-11-19,AFC Wimbledon,FC Bury,5,1,4,1,3315426
+el1,2016-17,18,2016-11-19,Bolton Wanderers,FC Millwall,2,0,1,0,3315427
+el1,2016-17,18,2016-11-19,Bristol Rovers,Milton Keynes Dons,0,0,0,0,3315428
+el1,2016-17,18,2016-11-19,Charlton Athletic,FC Port Vale,2,0,2,0,3315429
+el1,2016-17,18,2016-11-19,FC Walsall,FC Gillingham,1,2,1,1,3315437
+el1,2016-17,18,2016-11-19,Fleetwood Town,FC Chesterfield,2,1,1,0,3315430
+el1,2016-17,18,2016-11-19,Northampton Town,Peterborough United,0,1,0,0,3315431
+el1,2016-17,18,2016-11-19,Oxford United,Coventry City,4,1,3,0,3315432
+el1,2016-17,18,2016-11-19,Scunthorpe United,Oldham Athletic,1,0,0,0,3315434
+el1,2016-17,18,2016-11-19,Sheffield United,Shrewsbury Town,2,1,2,0,3315435
+el1,2016-17,18,2016-11-19,Southend United,Bradford City,3,0,1,0,3315436
+el1,2016-17,19,2016-11-22,AFC Rochdale,FC Walsall,4,0,2,0,3315446
+el1,2016-17,19,2016-11-22,Bolton Wanderers,Coventry City,1,0,1,0,3315449
+el1,2016-17,19,2016-11-22,Bradford City,Northampton Town,1,0,0,0,3315438
+el1,2016-17,19,2016-11-22,Bristol Rovers,Charlton Athletic,1,5,0,2,3315439
+el1,2016-17,19,2016-11-22,FC Millwall,AFC Wimbledon,0,0,0,0,3315441
+el1,2016-17,19,2016-11-22,FC Port Vale,Oldham Athletic,2,2,0,0,3315445
+el1,2016-17,19,2016-11-22,Fleetwood Town,Shrewsbury Town,3,0,1,0,3315440
+el1,2016-17,19,2016-11-22,Milton Keynes Dons,FC Chesterfield,2,3,0,1,3315442
+el1,2016-17,19,2016-11-22,Oxford United,FC Gillingham,1,0,1,0,3315443
+el1,2016-17,19,2016-11-22,Peterborough United,Scunthorpe United,0,2,0,1,3315444
+el1,2016-17,19,2016-11-22,Sheffield United,FC Bury,1,0,0,0,3315447
+el1,2016-17,19,2016-11-22,Southend United,Swindon Town,1,1,1,0,3315448
+el1,2016-17,20,2016-11-26,AFC Wimbledon,Fleetwood Town,2,2,0,1,3315450
+el1,2016-17,20,2016-11-26,Charlton Athletic,Sheffield United,1,1,0,1,3315452
+el1,2016-17,20,2016-11-26,Coventry City,Milton Keynes Dons,1,2,1,1,3315454
+el1,2016-17,20,2016-11-26,FC Bury,FC Millwall,2,3,0,0,3315451
+el1,2016-17,20,2016-11-26,FC Chesterfield,Bristol Rovers,3,2,2,1,3315453
+el1,2016-17,20,2016-11-26,FC Gillingham,AFC Rochdale,3,0,0,0,3315455
+el1,2016-17,20,2016-11-26,FC Walsall,Southend United,0,0,0,0,3315461
+el1,2016-17,20,2016-11-26,Northampton Town,Bolton Wanderers,0,1,0,1,3315456
+el1,2016-17,20,2016-11-26,Scunthorpe United,Oxford United,1,1,1,0,3315458
+el1,2016-17,20,2016-11-26,Shrewsbury Town,FC Port Vale,0,0,0,0,3315459
+el1,2016-17,20,2016-11-26,Swindon Town,Bradford City,1,0,1,0,3315460
+el1,2016-17,20,2017-01-24,Oldham Athletic,Peterborough United,2,0,0,0,3315457
+el1,2016-17,21,2016-12-10,AFC Rochdale,Scunthorpe United,3,2,1,0,3315471
+el1,2016-17,21,2016-12-10,Bradford City,Charlton Athletic,0,0,0,0,3315463
+el1,2016-17,21,2016-12-10,Bristol Rovers,FC Bury,4,2,2,1,3315464
+el1,2016-17,21,2016-12-10,FC Millwall,Shrewsbury Town,0,1,0,1,3315466
+el1,2016-17,21,2016-12-10,FC Port Vale,Northampton Town,2,3,0,1,3315470
+el1,2016-17,21,2016-12-10,Fleetwood Town,FC Walsall,2,1,1,0,3315465
+el1,2016-17,21,2016-12-10,Milton Keynes Dons,AFC Wimbledon,1,0,0,0,3315467
+el1,2016-17,21,2016-12-10,Oxford United,Oldham Athletic,1,1,0,1,3315468
+el1,2016-17,21,2016-12-10,Peterborough United,FC Chesterfield,5,2,2,2,3315469
+el1,2016-17,21,2016-12-10,Sheffield United,Swindon Town,4,0,0,0,3315472
+el1,2016-17,21,2016-12-10,Southend United,Coventry City,3,1,1,0,3315473
+el1,2016-17,21,2016-12-12,Bolton Wanderers,FC Gillingham,4,0,2,0,3315462
+el1,2016-17,22,2016-12-15,Coventry City,Sheffield United,1,2,0,1,3315478
+el1,2016-17,22,2016-12-17,AFC Wimbledon,FC Port Vale,4,0,0,0,3315474
+el1,2016-17,22,2016-12-17,Charlton Athletic,Peterborough United,0,2,0,1,3315476
+el1,2016-17,22,2016-12-17,FC Bury,Oxford United,2,3,2,2,3315475
+el1,2016-17,22,2016-12-17,FC Chesterfield,Bolton Wanderers,1,0,1,0,3315477
+el1,2016-17,22,2016-12-17,FC Gillingham,Milton Keynes Dons,1,0,0,0,3315479
+el1,2016-17,22,2016-12-17,FC Walsall,Bradford City,1,1,0,0,3315485
+el1,2016-17,22,2016-12-17,Northampton Town,AFC Rochdale,2,3,1,1,3315480
+el1,2016-17,22,2016-12-17,Oldham Athletic,Southend United,0,2,0,1,3315481
+el1,2016-17,22,2016-12-17,Scunthorpe United,FC Millwall,3,0,2,0,3315482
+el1,2016-17,22,2016-12-17,Shrewsbury Town,Bristol Rovers,2,0,1,0,3315483
+el1,2016-17,22,2016-12-17,Swindon Town,Fleetwood Town,1,1,1,1,3315484
+el1,2016-17,23,2016-12-26,AFC Rochdale,FC Chesterfield,3,0,1,0,3315495
+el1,2016-17,23,2016-12-26,Bolton Wanderers,Shrewsbury Town,2,1,2,0,3315486
+el1,2016-17,23,2016-12-26,Bradford City,Scunthorpe United,0,0,0,0,3315487
+el1,2016-17,23,2016-12-26,Bristol Rovers,Coventry City,4,1,1,0,3315488
+el1,2016-17,23,2016-12-26,FC Millwall,Swindon Town,2,0,1,0,3315490
+el1,2016-17,23,2016-12-26,FC Port Vale,FC Walsall,0,1,0,1,3315494
+el1,2016-17,23,2016-12-26,Fleetwood Town,FC Bury,0,0,0,0,3315489
+el1,2016-17,23,2016-12-26,Milton Keynes Dons,Charlton Athletic,0,1,0,1,3315491
+el1,2016-17,23,2016-12-26,Oxford United,Northampton Town,0,1,0,0,3315492
+el1,2016-17,23,2016-12-26,Peterborough United,FC Gillingham,1,1,0,0,3315493
+el1,2016-17,23,2016-12-26,Sheffield United,Oldham Athletic,2,0,0,0,3315496
+el1,2016-17,23,2016-12-26,Southend United,AFC Wimbledon,3,0,2,0,3315497
+el1,2016-17,24,2016-12-30,AFC Rochdale,Shrewsbury Town,2,1,2,0,3315507
+el1,2016-17,24,2016-12-30,FC Millwall,FC Gillingham,2,1,1,0,3315502
+el1,2016-17,24,2016-12-30,FC Port Vale,FC Chesterfield,1,0,0,0,3315506
+el1,2016-17,24,2016-12-30,Milton Keynes Dons,Swindon Town,3,2,2,1,3315503
+el1,2016-17,24,2016-12-31,Bolton Wanderers,Scunthorpe United,2,1,1,0,3315498
+el1,2016-17,24,2016-12-31,Bradford City,FC Bury,1,1,0,1,3315499
+el1,2016-17,24,2016-12-31,Bristol Rovers,AFC Wimbledon,2,0,0,0,3315500
+el1,2016-17,24,2016-12-31,Fleetwood Town,Oldham Athletic,1,0,0,0,3315501
+el1,2016-17,24,2016-12-31,Oxford United,FC Walsall,0,0,0,0,3315504
+el1,2016-17,24,2016-12-31,Peterborough United,Coventry City,1,1,0,1,3315505
+el1,2016-17,24,2016-12-31,Sheffield United,Northampton Town,1,0,0,0,3315508
+el1,2016-17,24,2016-12-31,Southend United,Charlton Athletic,1,1,1,0,3315509
+el1,2016-17,25,2017-01-02,AFC Wimbledon,FC Millwall,2,2,1,2,3315510
+el1,2016-17,25,2017-01-02,Charlton Athletic,Bristol Rovers,4,1,1,1,3315512
+el1,2016-17,25,2017-01-02,Coventry City,Bolton Wanderers,2,2,1,0,3315514
+el1,2016-17,25,2017-01-02,FC Bury,Sheffield United,1,3,1,1,3315511
+el1,2016-17,25,2017-01-02,FC Chesterfield,Milton Keynes Dons,0,0,0,0,3315513
+el1,2016-17,25,2017-01-02,FC Gillingham,Oxford United,0,1,0,0,3315515
+el1,2016-17,25,2017-01-02,FC Walsall,AFC Rochdale,0,2,0,1,3315521
+el1,2016-17,25,2017-01-02,Northampton Town,Bradford City,1,2,1,0,3315516
+el1,2016-17,25,2017-01-02,Oldham Athletic,FC Port Vale,0,0,0,0,3315517
+el1,2016-17,25,2017-01-02,Scunthorpe United,Peterborough United,1,1,1,0,3315518
+el1,2016-17,25,2017-01-02,Shrewsbury Town,Fleetwood Town,0,1,0,1,3315519
+el1,2016-17,25,2017-01-02,Swindon Town,Southend United,0,0,0,0,3315520
+el1,2016-17,26,2017-01-07,Bradford City,FC Chesterfield,2,0,2,0,3315522
+el1,2016-17,26,2017-01-07,Bristol Rovers,Northampton Town,5,0,4,0,3315523
+el1,2016-17,26,2017-01-07,Scunthorpe United,FC Bury,3,2,3,1,3315531
+el1,2016-17,26,2017-01-07,Swindon Town,Shrewsbury Town,1,1,0,0,3315533
+el1,2016-17,26,2017-01-24,Sheffield United,Fleetwood Town,0,2,0,1,3315532
+el1,2016-17,26,2017-02-01,FC Millwall,FC Walsall,0,0,0,0,3315526
+el1,2016-17,26,2017-02-07,Milton Keynes Dons,Oldham Athletic,1,0,0,0,3315527
+el1,2016-17,26,2017-02-18,AFC Rochdale,Charlton Athletic,3,3,1,1,3315530
+el1,2016-17,26,2017-02-21,FC Gillingham,AFC Wimbledon,2,2,2,1,3315525
+el1,2016-17,26,2017-02-21,Peterborough United,Southend United,1,4,0,1,3315529
+el1,2016-17,26,2017-03-21,Coventry City,FC Port Vale,2,1,2,0,3315524
+el1,2016-17,26,2017-03-21,Oxford United,Bolton Wanderers,2,4,1,2,3315528
+el1,2016-17,27,2017-01-14,AFC Wimbledon,Oxford United,2,1,2,1,3315534
+el1,2016-17,27,2017-01-14,Bolton Wanderers,Swindon Town,1,2,0,0,3315535
+el1,2016-17,27,2017-01-14,Charlton Athletic,FC Millwall,0,0,0,0,3315537
+el1,2016-17,27,2017-01-14,FC Bury,Peterborough United,5,1,4,1,3315536
+el1,2016-17,27,2017-01-14,FC Chesterfield,Coventry City,1,0,0,0,3315538
+el1,2016-17,27,2017-01-14,FC Walsall,Sheffield United,4,1,1,1,3315545
+el1,2016-17,27,2017-01-14,Fleetwood Town,Bristol Rovers,3,1,2,0,3315539
+el1,2016-17,27,2017-01-14,Northampton Town,Scunthorpe United,1,2,1,1,3315540
+el1,2016-17,27,2017-01-14,Oldham Athletic,FC Gillingham,1,0,1,0,3315541
+el1,2016-17,27,2017-01-14,Shrewsbury Town,Bradford City,1,0,1,0,3315543
+el1,2016-17,27,2017-01-14,Southend United,AFC Rochdale,2,1,1,0,3315544
+el1,2016-17,27,2017-03-25,FC Port Vale,Milton Keynes Dons,0,0,0,0,3315542
+el1,2016-17,28,2017-01-20,FC Port Vale,FC Bury,2,2,2,1,3315551
+el1,2016-17,28,2017-01-21,AFC Rochdale,Oxford United,0,4,0,2,3315552
+el1,2016-17,28,2017-01-21,Bradford City,FC Millwall,1,1,0,0,3315546
+el1,2016-17,28,2017-01-21,Coventry City,Fleetwood Town,0,1,0,0,3315549
+el1,2016-17,28,2017-01-21,FC Chesterfield,AFC Wimbledon,0,0,0,0,3315548
+el1,2016-17,28,2017-01-21,FC Walsall,Bristol Rovers,3,1,1,0,3315557
+el1,2016-17,28,2017-01-21,Milton Keynes Dons,Northampton Town,5,3,2,0,3315550
+el1,2016-17,28,2017-01-21,Sheffield United,FC Gillingham,2,2,1,0,3315553
+el1,2016-17,28,2017-01-21,Shrewsbury Town,Oldham Athletic,1,0,0,0,3315554
+el1,2016-17,28,2017-01-21,Swindon Town,Peterborough United,0,1,0,0,3315556
+el1,2016-17,28,2017-03-07,Charlton Athletic,Scunthorpe United,2,1,1,0,3315547
+el1,2016-17,28,2017-04-04,Southend United,Bolton Wanderers,0,1,0,0,3315555
+el1,2016-17,29,2017-01-28,Bolton Wanderers,Charlton Athletic,1,2,1,2,3315559
+el1,2016-17,29,2017-01-28,Bristol Rovers,Swindon Town,1,0,1,0,3315560
+el1,2016-17,29,2017-01-28,FC Bury,FC Walsall,3,3,2,0,3315561
+el1,2016-17,29,2017-01-28,FC Gillingham,Shrewsbury Town,1,1,1,0,3315563
+el1,2016-17,29,2017-01-28,Fleetwood Town,Southend United,1,1,0,1,3315562
+el1,2016-17,29,2017-01-28,Northampton Town,Coventry City,3,0,0,0,3315565
+el1,2016-17,29,2017-01-28,Oldham Athletic,Bradford City,1,2,1,1,3315566
+el1,2016-17,29,2017-01-28,Peterborough United,Milton Keynes Dons,0,4,0,0,3315568
+el1,2016-17,29,2017-01-28,Scunthorpe United,FC Port Vale,3,2,0,1,3315569
+el1,2016-17,29,2017-02-21,FC Millwall,FC Chesterfield,0,0,0,0,3315564
+el1,2016-17,29,2017-03-07,Oxford United,Sheffield United,2,3,1,0,3315567
+el1,2016-17,29,2017-03-28,AFC Wimbledon,AFC Rochdale,3,1,0,0,3315558
+el1,2016-17,30,2017-02-04,AFC Rochdale,Bristol Rovers,0,0,0,0,3315576
+el1,2016-17,30,2017-02-04,Bradford City,FC Gillingham,2,2,2,1,3315570
+el1,2016-17,30,2017-02-04,Charlton Athletic,Fleetwood Town,1,1,1,0,3315571
+el1,2016-17,30,2017-02-04,Coventry City,FC Millwall,0,2,0,1,3315573
+el1,2016-17,30,2017-02-04,FC Chesterfield,Oldham Athletic,0,1,0,0,3315572
+el1,2016-17,30,2017-02-04,FC Port Vale,Peterborough United,0,3,0,1,3315575
+el1,2016-17,30,2017-02-04,FC Walsall,Northampton Town,2,1,0,1,3315581
+el1,2016-17,30,2017-02-04,Milton Keynes Dons,Bolton Wanderers,1,1,0,1,3315574
+el1,2016-17,30,2017-02-04,Sheffield United,AFC Wimbledon,4,0,2,0,3315577
+el1,2016-17,30,2017-02-04,Shrewsbury Town,FC Bury,2,1,0,0,3315578
+el1,2016-17,30,2017-02-04,Southend United,Scunthorpe United,3,1,1,1,3315579
+el1,2016-17,30,2017-02-05,Swindon Town,Oxford United,1,2,1,0,3315580
+el1,2016-17,31,2017-02-11,AFC Wimbledon,Charlton Athletic,1,1,0,1,3315582
+el1,2016-17,31,2017-02-11,Bolton Wanderers,FC Walsall,4,1,3,1,3315583
+el1,2016-17,31,2017-02-11,Bristol Rovers,Bradford City,1,1,1,1,3315584
+el1,2016-17,31,2017-02-11,FC Bury,Swindon Town,1,0,1,0,3315585
+el1,2016-17,31,2017-02-11,FC Gillingham,FC Port Vale,1,1,0,0,3315587
+el1,2016-17,31,2017-02-11,FC Millwall,Southend United,1,0,0,0,3315588
+el1,2016-17,31,2017-02-11,Fleetwood Town,AFC Rochdale,0,0,0,0,3315586
+el1,2016-17,31,2017-02-11,Northampton Town,FC Chesterfield,3,1,2,0,3315589
+el1,2016-17,31,2017-02-11,Oldham Athletic,Coventry City,3,2,1,1,3315590
+el1,2016-17,31,2017-02-11,Oxford United,Milton Keynes Dons,1,0,0,0,3315591
+el1,2016-17,31,2017-02-11,Peterborough United,Sheffield United,0,1,0,0,3315592
+el1,2016-17,31,2017-02-11,Scunthorpe United,Shrewsbury Town,0,1,0,0,3315593
+el1,2016-17,32,2017-02-14,AFC Wimbledon,Coventry City,1,1,0,0,3315594
+el1,2016-17,32,2017-02-14,Bolton Wanderers,AFC Rochdale,1,0,0,0,3315605
+el1,2016-17,32,2017-02-14,Bristol Rovers,Sheffield United,0,0,0,0,3315595
+el1,2016-17,32,2017-02-14,FC Bury,Milton Keynes Dons,0,0,0,0,3315596
+el1,2016-17,32,2017-02-14,FC Gillingham,FC Chesterfield,1,1,0,0,3315598
+el1,2016-17,32,2017-02-14,FC Millwall,FC Port Vale,2,0,1,0,3315599
+el1,2016-17,32,2017-02-14,Fleetwood Town,Bradford City,2,1,0,1,3315597
+el1,2016-17,32,2017-02-14,Northampton Town,Swindon Town,2,1,0,0,3315600
+el1,2016-17,32,2017-02-14,Oldham Athletic,Charlton Athletic,1,0,1,0,3315601
+el1,2016-17,32,2017-02-14,Oxford United,Southend United,0,2,0,0,3315602
+el1,2016-17,32,2017-02-14,Peterborough United,Shrewsbury Town,2,1,0,1,3315603
+el1,2016-17,32,2017-02-14,Scunthorpe United,FC Walsall,0,0,0,0,3315604
+el1,2016-17,33,2017-02-18,Bradford City,Bolton Wanderers,2,2,2,0,3315606
+el1,2016-17,33,2017-02-18,Coventry City,FC Gillingham,2,1,2,0,3315609
+el1,2016-17,33,2017-02-18,FC Chesterfield,FC Bury,1,2,1,0,3315608
+el1,2016-17,33,2017-02-18,FC Port Vale,Bristol Rovers,1,1,0,0,3315611
+el1,2016-17,33,2017-02-18,FC Walsall,Peterborough United,2,0,0,0,3315617
+el1,2016-17,33,2017-02-18,Milton Keynes Dons,Fleetwood Town,0,1,0,0,3315610
+el1,2016-17,33,2017-02-18,Sheffield United,Scunthorpe United,1,1,0,0,3315613
+el1,2016-17,33,2017-02-18,Shrewsbury Town,AFC Wimbledon,2,1,0,0,3315614
+el1,2016-17,33,2017-02-18,Southend United,Northampton Town,2,2,2,2,3315615
+el1,2016-17,33,2017-02-18,Swindon Town,Oldham Athletic,0,0,0,0,3315616
+el1,2016-17,33,2017-02-21,Charlton Athletic,Oxford United,0,1,0,1,3315607
+el1,2016-17,33,2017-03-21,AFC Rochdale,FC Millwall,3,3,2,2,3315612
+el1,2016-17,34,2017-02-25,AFC Wimbledon,FC Walsall,1,0,0,0,3315618
+el1,2016-17,34,2017-02-25,Bristol Rovers,Scunthorpe United,1,1,1,0,3315619
+el1,2016-17,34,2017-02-25,Charlton Athletic,FC Bury,0,1,0,1,3315620
+el1,2016-17,34,2017-02-25,Coventry City,Swindon Town,1,3,0,2,3315622
+el1,2016-17,34,2017-02-25,FC Chesterfield,Oxford United,0,4,0,2,3315621
+el1,2016-17,34,2017-02-25,FC Gillingham,Southend United,2,1,2,0,3315624
+el1,2016-17,34,2017-02-25,FC Port Vale,Bradford City,1,2,0,1,3315628
+el1,2016-17,34,2017-02-25,Fleetwood Town,Northampton Town,3,0,1,0,3315623
+el1,2016-17,34,2017-02-25,Milton Keynes Dons,Shrewsbury Town,2,1,2,0,3315625
+el1,2016-17,34,2017-02-25,Oldham Athletic,FC Millwall,0,0,0,0,3315626
+el1,2016-17,34,2017-02-25,Peterborough United,AFC Rochdale,3,1,2,1,3315627
+el1,2016-17,34,2017-02-25,Sheffield United,Bolton Wanderers,2,0,1,0,3315629
+el1,2016-17,35,2017-01-07,Southend United,Sheffield United,2,4,1,2,3315638
+el1,2016-17,35,2017-02-28,Bolton Wanderers,Bristol Rovers,1,1,1,0,3315641
+el1,2016-17,35,2017-02-28,Bradford City,Milton Keynes Dons,2,2,2,2,3315630
+el1,2016-17,35,2017-02-28,FC Bury,Coventry City,2,1,2,0,3315631
+el1,2016-17,35,2017-02-28,FC Millwall,Peterborough United,1,0,0,0,3315632
+el1,2016-17,35,2017-02-28,Northampton Town,Oldham Athletic,1,2,0,1,3315633
+el1,2016-17,35,2017-02-28,Scunthorpe United,AFC Wimbledon,1,2,0,0,3315636
+el1,2016-17,35,2017-02-28,Shrewsbury Town,Charlton Athletic,4,3,1,2,3315637
+el1,2016-17,35,2017-02-28,Swindon Town,FC Gillingham,3,1,0,1,3315639
+el1,2016-17,35,2017-03-07,FC Walsall,FC Chesterfield,1,0,0,0,3315640
+el1,2016-17,35,2017-04-04,AFC Rochdale,FC Port Vale,3,0,3,0,3315635
+el1,2016-17,35,2017-04-05,Oxford United,Fleetwood Town,1,3,1,1,3315634
+el1,2016-17,36,2017-03-04,AFC Rochdale,Sheffield United,3,3,1,2,3315648
+el1,2016-17,36,2017-03-04,Bolton Wanderers,AFC Wimbledon,1,1,1,1,3315642
+el1,2016-17,36,2017-03-04,Bradford City,Peterborough United,1,0,1,0,3315643
+el1,2016-17,36,2017-03-04,FC Bury,FC Gillingham,1,2,0,1,3315644
+el1,2016-17,36,2017-03-04,FC Millwall,Milton Keynes Dons,2,1,1,1,3315645
+el1,2016-17,36,2017-03-04,FC Walsall,Oldham Athletic,2,0,0,0,3315653
+el1,2016-17,36,2017-03-04,Northampton Town,Charlton Athletic,2,1,1,1,3315646
+el1,2016-17,36,2017-03-04,Oxford United,Bristol Rovers,0,2,0,2,3315647
+el1,2016-17,36,2017-03-04,Scunthorpe United,Fleetwood Town,0,2,0,1,3315649
+el1,2016-17,36,2017-03-04,Shrewsbury Town,Coventry City,0,0,0,0,3315650
+el1,2016-17,36,2017-03-04,Southend United,FC Port Vale,1,1,0,0,3315651
+el1,2016-17,36,2017-03-04,Swindon Town,FC Chesterfield,0,1,0,0,3315652
+el1,2016-17,37,2017-03-11,AFC Wimbledon,Northampton Town,0,1,0,0,3315654
+el1,2016-17,37,2017-03-11,Bristol Rovers,Southend United,2,0,2,0,3315655
+el1,2016-17,37,2017-03-11,Charlton Athletic,FC Walsall,1,1,0,1,3315656
+el1,2016-17,37,2017-03-11,Coventry City,Bradford City,0,2,0,0,3315658
+el1,2016-17,37,2017-03-11,FC Chesterfield,Shrewsbury Town,1,1,1,1,3315657
+el1,2016-17,37,2017-03-11,FC Gillingham,Scunthorpe United,3,2,0,1,3315660
+el1,2016-17,37,2017-03-11,FC Port Vale,Swindon Town,3,2,1,1,3315664
+el1,2016-17,37,2017-03-11,Fleetwood Town,Bolton Wanderers,2,4,1,2,3315659
+el1,2016-17,37,2017-03-11,Milton Keynes Dons,AFC Rochdale,2,2,0,1,3315661
+el1,2016-17,37,2017-03-11,Oldham Athletic,FC Bury,0,0,0,0,3315662
+el1,2016-17,37,2017-03-11,Peterborough United,Oxford United,1,2,0,1,3315663
+el1,2016-17,37,2017-03-28,Sheffield United,FC Millwall,2,0,1,0,3315665
+el1,2016-17,38,2017-03-14,AFC Wimbledon,Milton Keynes Dons,2,0,0,0,3315666
+el1,2016-17,38,2017-03-14,Charlton Athletic,Bradford City,1,1,1,1,3315668
+el1,2016-17,38,2017-03-14,Coventry City,Southend United,0,2,0,2,3315670
+el1,2016-17,38,2017-03-14,FC Bury,Bristol Rovers,3,0,0,0,3315667
+el1,2016-17,38,2017-03-14,FC Chesterfield,Peterborough United,3,3,2,3,3315669
+el1,2016-17,38,2017-03-14,FC Gillingham,Bolton Wanderers,0,4,0,3,3315671
+el1,2016-17,38,2017-03-14,FC Walsall,Fleetwood Town,0,1,0,1,3315677
+el1,2016-17,38,2017-03-14,Northampton Town,FC Port Vale,2,1,0,0,3315672
+el1,2016-17,38,2017-03-14,Oldham Athletic,Oxford United,2,1,1,0,3315673
+el1,2016-17,38,2017-03-14,Scunthorpe United,AFC Rochdale,2,1,0,1,3315674
+el1,2016-17,38,2017-03-14,Swindon Town,Sheffield United,2,4,0,2,3315676
+el1,2016-17,38,2017-04-04,Shrewsbury Town,FC Millwall,1,2,0,1,3315675
+el1,2016-17,39,2017-03-17,FC Port Vale,Shrewsbury Town,2,1,0,0,3315686
+el1,2016-17,39,2017-03-18,AFC Rochdale,FC Gillingham,4,1,2,1,3315687
+el1,2016-17,39,2017-03-18,Bolton Wanderers,Northampton Town,2,1,0,0,3315678
+el1,2016-17,39,2017-03-18,Bradford City,Swindon Town,2,1,0,0,3315679
+el1,2016-17,39,2017-03-18,Bristol Rovers,FC Chesterfield,2,1,2,0,3315680
+el1,2016-17,39,2017-03-18,FC Millwall,FC Bury,0,0,0,0,3315682
+el1,2016-17,39,2017-03-18,Fleetwood Town,AFC Wimbledon,0,0,0,0,3315681
+el1,2016-17,39,2017-03-18,Milton Keynes Dons,Coventry City,1,0,0,0,3315683
+el1,2016-17,39,2017-03-18,Oxford United,Scunthorpe United,2,1,0,1,3315684
+el1,2016-17,39,2017-03-18,Peterborough United,Oldham Athletic,1,1,0,1,3315685
+el1,2016-17,39,2017-03-18,Sheffield United,Charlton Athletic,2,1,1,1,3315688
+el1,2016-17,39,2017-03-18,Southend United,FC Walsall,3,2,0,2,3315689
+el1,2016-17,40,2017-03-25,AFC Wimbledon,Southend United,0,2,0,1,3315690
+el1,2016-17,40,2017-03-25,Coventry City,Bristol Rovers,1,0,0,0,3315694
+el1,2016-17,40,2017-03-25,FC Bury,Fleetwood Town,0,0,0,0,3315691
+el1,2016-17,40,2017-03-25,FC Chesterfield,AFC Rochdale,1,3,0,3,3315693
+el1,2016-17,40,2017-03-25,FC Gillingham,Peterborough United,0,1,0,0,3315695
+el1,2016-17,40,2017-03-25,Northampton Town,Oxford United,0,0,0,0,3315696
+el1,2016-17,40,2017-03-25,Oldham Athletic,Sheffield United,1,1,1,0,3315697
+el1,2016-17,40,2017-03-25,Shrewsbury Town,Bolton Wanderers,0,2,0,0,3315699
+el1,2016-17,40,2017-03-25,Swindon Town,FC Millwall,1,0,0,0,3315700
+el1,2016-17,40,2017-03-26,Scunthorpe United,Bradford City,3,2,1,2,3315698
+el1,2016-17,40,2017-04-04,Charlton Athletic,Milton Keynes Dons,0,2,0,1,3315692
+el1,2016-17,40,2017-04-25,FC Walsall,FC Port Vale,0,1,0,0,3315701
+el1,2016-17,41,2017-03-28,Oxford United,FC Bury,5,1,3,0,3315708
+el1,2016-17,41,2017-04-01,AFC Rochdale,Northampton Town,1,1,0,0,3315711
+el1,2016-17,41,2017-04-01,Bolton Wanderers,FC Chesterfield,0,0,0,0,3315702
+el1,2016-17,41,2017-04-01,Bradford City,FC Walsall,1,0,0,0,3315703
+el1,2016-17,41,2017-04-01,Bristol Rovers,Shrewsbury Town,2,0,0,0,3315704
+el1,2016-17,41,2017-04-01,FC Millwall,Scunthorpe United,3,1,1,0,3315706
+el1,2016-17,41,2017-04-01,FC Port Vale,AFC Wimbledon,2,0,1,0,3315710
+el1,2016-17,41,2017-04-01,Fleetwood Town,Swindon Town,0,1,0,0,3315705
+el1,2016-17,41,2017-04-01,Milton Keynes Dons,FC Gillingham,3,2,2,0,3315707
+el1,2016-17,41,2017-04-01,Peterborough United,Charlton Athletic,2,0,0,0,3315709
+el1,2016-17,41,2017-04-01,Southend United,Oldham Athletic,3,0,0,0,3315713
+el1,2016-17,41,2017-04-05,Sheffield United,Coventry City,2,0,0,0,3315712
+el1,2016-17,42,2017-04-08,AFC Wimbledon,Bristol Rovers,0,1,0,1,3315714
+el1,2016-17,42,2017-04-08,Charlton Athletic,Southend United,2,1,1,1,3315716
+el1,2016-17,42,2017-04-08,Coventry City,Peterborough United,1,0,0,0,3315718
+el1,2016-17,42,2017-04-08,FC Bury,Bradford City,0,2,0,0,3315715
+el1,2016-17,42,2017-04-08,FC Chesterfield,FC Port Vale,1,0,0,0,3315717
+el1,2016-17,42,2017-04-08,FC Gillingham,FC Millwall,1,1,0,0,3315719
+el1,2016-17,42,2017-04-08,FC Walsall,Oxford United,1,1,0,0,3315725
+el1,2016-17,42,2017-04-08,Northampton Town,Sheffield United,1,2,1,0,3315720
+el1,2016-17,42,2017-04-08,Oldham Athletic,Fleetwood Town,2,0,1,0,3315721
+el1,2016-17,42,2017-04-08,Scunthorpe United,Bolton Wanderers,1,0,1,0,3315722
+el1,2016-17,42,2017-04-08,Shrewsbury Town,AFC Rochdale,1,0,1,0,3315723
+el1,2016-17,42,2017-04-08,Swindon Town,Milton Keynes Dons,1,1,0,1,3315724
+el1,2016-17,43,2017-04-13,FC Bury,AFC Rochdale,0,1,0,1,3315727
+el1,2016-17,43,2017-04-14,Bradford City,Oxford United,1,0,0,0,3315726
+el1,2016-17,43,2017-04-14,Coventry City,Charlton Athletic,1,1,1,0,3315729
+el1,2016-17,43,2017-04-14,FC Chesterfield,Southend United,0,4,0,1,3315728
+el1,2016-17,43,2017-04-14,FC Gillingham,Bristol Rovers,3,1,0,0,3315730
+el1,2016-17,43,2017-04-14,FC Millwall,Northampton Town,3,0,3,0,3315731
+el1,2016-17,43,2017-04-14,FC Port Vale,Sheffield United,0,3,0,2,3315735
+el1,2016-17,43,2017-04-14,Milton Keynes Dons,Scunthorpe United,0,1,0,1,3315732
+el1,2016-17,43,2017-04-14,Peterborough United,Fleetwood Town,1,2,0,2,3315734
+el1,2016-17,43,2017-04-14,Shrewsbury Town,FC Walsall,1,1,0,1,3315736
+el1,2016-17,43,2017-04-14,Swindon Town,AFC Wimbledon,0,0,0,0,3315737
+el1,2016-17,43,2017-04-15,Oldham Athletic,Bolton Wanderers,1,0,0,0,3315733
+el1,2016-17,44,2017-04-17,AFC Rochdale,Coventry City,2,0,1,0,3315745
+el1,2016-17,44,2017-04-17,AFC Wimbledon,Peterborough United,0,0,0,0,3315738
+el1,2016-17,44,2017-04-17,Bristol Rovers,Oldham Athletic,1,0,0,0,3315740
+el1,2016-17,44,2017-04-17,Charlton Athletic,FC Gillingham,3,0,2,0,3315741
+el1,2016-17,44,2017-04-17,FC Walsall,Swindon Town,1,0,0,0,3315749
+el1,2016-17,44,2017-04-17,Fleetwood Town,FC Millwall,1,0,1,0,3315742
+el1,2016-17,44,2017-04-17,Northampton Town,Shrewsbury Town,1,1,1,0,3315743
+el1,2016-17,44,2017-04-17,Oxford United,FC Port Vale,2,0,1,0,3315744
+el1,2016-17,44,2017-04-17,Scunthorpe United,FC Chesterfield,3,1,2,0,3315746
+el1,2016-17,44,2017-04-17,Sheffield United,Bradford City,3,0,3,0,3315747
+el1,2016-17,44,2017-04-17,Southend United,Milton Keynes Dons,1,2,0,0,3315748
+el1,2016-17,44,2017-04-18,Bolton Wanderers,FC Bury,0,0,0,0,3315739
+el1,2016-17,45,2017-04-22,Bradford City,AFC Wimbledon,3,0,2,0,3315750
+el1,2016-17,45,2017-04-22,Coventry City,FC Walsall,1,0,1,0,3315753
+el1,2016-17,45,2017-04-22,FC Bury,Northampton Town,3,0,1,0,3315751
+el1,2016-17,45,2017-04-22,FC Chesterfield,Charlton Athletic,1,2,0,1,3315752
+el1,2016-17,45,2017-04-22,FC Gillingham,Fleetwood Town,2,3,1,0,3315754
+el1,2016-17,45,2017-04-22,FC Millwall,Oxford United,0,3,0,2,3315755
+el1,2016-17,45,2017-04-22,FC Port Vale,Bolton Wanderers,0,2,0,0,3315759
+el1,2016-17,45,2017-04-22,Milton Keynes Dons,Sheffield United,0,3,0,1,3315756
+el1,2016-17,45,2017-04-22,Oldham Athletic,AFC Rochdale,1,1,0,1,3315757
+el1,2016-17,45,2017-04-22,Peterborough United,Bristol Rovers,4,2,2,0,3315758
+el1,2016-17,45,2017-04-22,Shrewsbury Town,Southend United,1,0,0,0,3315760
+el1,2016-17,45,2017-04-22,Swindon Town,Scunthorpe United,1,2,0,1,3315761
+el1,2016-17,46,2017-04-30,AFC Rochdale,Bradford City,1,1,0,1,3315769
+el1,2016-17,46,2017-04-30,AFC Wimbledon,Oldham Athletic,0,0,0,0,3315762
+el1,2016-17,46,2017-04-30,Bolton Wanderers,Peterborough United,3,0,1,0,3315763
+el1,2016-17,46,2017-04-30,Bristol Rovers,FC Millwall,3,4,2,3,3315764
+el1,2016-17,46,2017-04-30,Charlton Athletic,Swindon Town,3,0,2,0,3315765
+el1,2016-17,46,2017-04-30,FC Walsall,Milton Keynes Dons,1,4,0,2,3315773
+el1,2016-17,46,2017-04-30,Fleetwood Town,FC Port Vale,0,0,0,0,3315766
+el1,2016-17,46,2017-04-30,Northampton Town,FC Gillingham,0,0,0,0,3315767
+el1,2016-17,46,2017-04-30,Oxford United,Shrewsbury Town,2,0,2,0,3315768
+el1,2016-17,46,2017-04-30,Scunthorpe United,Coventry City,3,1,0,1,3315770
+el1,2016-17,46,2017-04-30,Sheffield United,FC Chesterfield,3,2,1,1,3315771
+el1,2016-17,46,2017-04-30,Southend United,FC Bury,1,0,1,0,3315772

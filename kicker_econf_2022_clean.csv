@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+econf,2022-23,1,2022-08-06,AFC Wrexham,FC Eastleigh,2,1,0,1,4799693
+econf,2022-23,1,2022-08-06,Aldershot Town,Solihull Moors,1,4,1,2,4799683
+econf,2022-23,1,2022-08-06,Dagenham & Redbridge,FC Gateshead,2,2,1,2,4799686
+econf,2022-23,1,2022-08-06,Dorking Wanderers FC,FC Chesterfield,2,2,0,2,4799687
+econf,2022-23,1,2022-08-06,FC Altrincham,Maidstone United,1,1,1,1,4799684
+econf,2022-23,1,2022-08-06,FC Barnet,Halifax Town,2,0,1,0,4799685
+econf,2022-23,1,2022-08-06,FC Wealdstone,FC Bromley,3,2,1,2,4799692
+econf,2022-23,1,2022-08-06,Notts County,Maidenhead United,3,0,2,0,4799688
+econf,2022-23,1,2022-08-06,Scunthorpe United,Yeovil Town,2,1,1,0,4799689
+econf,2022-23,1,2022-08-06,Southend United,Boreham Wood,0,1,0,1,4799690
+econf,2022-23,1,2022-08-06,Torquay United,Oldham Athletic,0,0,0,0,4799691
+econf,2022-23,1,2022-08-06,York City,FC Woking,2,0,1,0,4799694
+econf,2022-23,2,2022-08-13,Boreham Wood,Notts County,2,2,1,1,4799695
+econf,2022-23,2,2022-08-13,FC Bromley,FC Altrincham,0,0,0,0,4799696
+econf,2022-23,2,2022-08-13,FC Chesterfield,Aldershot Town,1,0,0,0,4799697
+econf,2022-23,2,2022-08-13,FC Eastleigh,FC Wealdstone,1,0,0,0,4799698
+econf,2022-23,2,2022-08-13,FC Gateshead,FC Barnet,2,2,0,2,4799700
+econf,2022-23,2,2022-08-13,FC Woking,Dagenham & Redbridge,2,0,2,0,4799705
+econf,2022-23,2,2022-08-13,Halifax Town,Torquay United,0,1,0,1,4799699
+econf,2022-23,2,2022-08-13,Maidenhead United,Scunthorpe United,3,2,3,0,4799701
+econf,2022-23,2,2022-08-13,Maidstone United,York City,2,1,0,1,4799702
+econf,2022-23,2,2022-08-13,Oldham Athletic,Dorking Wanderers FC,3,2,1,0,4799703
+econf,2022-23,2,2022-08-13,Solihull Moors,Southend United,1,1,1,0,4799704
+econf,2022-23,2,2022-08-13,Yeovil Town,AFC Wrexham,1,1,0,1,4799706
+econf,2022-23,3,2022-08-16,Boreham Wood,Aldershot Town,1,2,0,1,4799707
+econf,2022-23,3,2022-08-16,FC Bromley,Torquay United,1,0,0,0,4799708
+econf,2022-23,3,2022-08-16,FC Chesterfield,AFC Wrexham,2,0,2,0,4799709
+econf,2022-23,3,2022-08-16,FC Eastleigh,Dagenham & Redbridge,1,1,0,0,4799710
+econf,2022-23,3,2022-08-16,FC Gateshead,Notts County,1,1,0,0,4799712
+econf,2022-23,3,2022-08-16,FC Woking,Scunthorpe United,2,0,1,0,4799717
+econf,2022-23,3,2022-08-16,Halifax Town,Southend United,0,0,0,0,4799711
+econf,2022-23,3,2022-08-16,Maidenhead United,FC Altrincham,2,0,1,0,4799713
+econf,2022-23,3,2022-08-16,Maidstone United,Dorking Wanderers FC,2,4,1,1,4799714
+econf,2022-23,3,2022-08-16,Oldham Athletic,FC Wealdstone,1,2,0,2,4799715
+econf,2022-23,3,2022-08-16,Yeovil Town,FC Barnet,1,2,0,0,4799718
+econf,2022-23,3,2022-08-17,Solihull Moors,York City,1,1,0,0,4799716
+econf,2022-23,4,2022-08-20,AFC Wrexham,Maidstone United,5,0,3,0,4799729
+econf,2022-23,4,2022-08-20,Aldershot Town,FC Bromley,0,1,0,1,4799719
+econf,2022-23,4,2022-08-20,Dagenham & Redbridge,Maidenhead United,1,0,1,0,4799722
+econf,2022-23,4,2022-08-20,Dorking Wanderers FC,FC Gateshead,2,1,2,0,4799723
+econf,2022-23,4,2022-08-20,FC Altrincham,Yeovil Town,2,2,1,1,4799720
+econf,2022-23,4,2022-08-20,FC Barnet,FC Woking,2,0,1,0,4799721
+econf,2022-23,4,2022-08-20,FC Wealdstone,Halifax Town,1,0,1,0,4799728
+econf,2022-23,4,2022-08-20,Notts County,FC Chesterfield,2,2,0,1,4799724
+econf,2022-23,4,2022-08-20,Scunthorpe United,Solihull Moors,3,4,3,2,4799725
+econf,2022-23,4,2022-08-20,Southend United,Oldham Athletic,1,0,1,0,4799726
+econf,2022-23,4,2022-08-20,Torquay United,Boreham Wood,0,1,0,1,4799727
+econf,2022-23,4,2022-08-20,York City,FC Eastleigh,0,1,0,1,4799730
+econf,2022-23,5,2022-08-26,FC Chesterfield,FC Barnet,3,1,2,1,4799733
+econf,2022-23,5,2022-08-26,Oldham Athletic,Aldershot Town,2,1,1,1,4799739
+econf,2022-23,5,2022-08-27,Boreham Wood,FC Altrincham,1,1,0,1,4799731
+econf,2022-23,5,2022-08-27,FC Bromley,Scunthorpe United,1,0,0,0,4799732
+econf,2022-23,5,2022-08-27,FC Eastleigh,Southend United,2,1,0,1,4799734
+econf,2022-23,5,2022-08-27,FC Gateshead,FC Wealdstone,0,1,0,1,4799736
+econf,2022-23,5,2022-08-27,FC Woking,AFC Wrexham,2,3,0,1,4799741
+econf,2022-23,5,2022-08-27,Halifax Town,Notts County,1,4,0,2,4799735
+econf,2022-23,5,2022-08-27,Maidenhead United,York City,0,1,0,1,4799737
+econf,2022-23,5,2022-08-27,Maidstone United,Torquay United,1,0,0,0,4799738
+econf,2022-23,5,2022-08-27,Solihull Moors,Dorking Wanderers FC,3,0,2,0,4799740
+econf,2022-23,5,2022-08-27,Yeovil Town,Dagenham & Redbridge,1,0,1,0,4799742
+econf,2022-23,6,2022-08-29,Aldershot Town,Maidstone United,1,3,0,0,4799743
+econf,2022-23,6,2022-08-29,Dagenham & Redbridge,FC Bromley,4,1,3,0,4799746
+econf,2022-23,6,2022-08-29,Dorking Wanderers FC,Boreham Wood,1,4,1,0,4799747
+econf,2022-23,6,2022-08-29,FC Altrincham,FC Chesterfield,1,2,1,0,4799744
+econf,2022-23,6,2022-08-29,FC Barnet,FC Eastleigh,3,1,2,0,4799745
+econf,2022-23,6,2022-08-29,FC Wealdstone,Yeovil Town,0,0,0,0,4799752
+econf,2022-23,6,2022-08-29,Notts County,Solihull Moors,1,0,0,0,4799748
+econf,2022-23,6,2022-08-29,Scunthorpe United,Halifax Town,0,2,0,1,4799749
+econf,2022-23,6,2022-08-29,Southend United,Maidenhead United,2,0,1,0,4799750
+econf,2022-23,6,2022-08-29,Torquay United,FC Woking,1,3,0,0,4799751
+econf,2022-23,6,2022-08-29,York City,Oldham Athletic,1,1,0,0,4799754
+econf,2022-23,6,2022-08-30,AFC Wrexham,FC Gateshead,3,1,2,1,4799753
+econf,2022-23,7,2022-09-03,Aldershot Town,FC Barnet,3,1,1,1,4799755
+econf,2022-23,7,2022-09-03,Dagenham & Redbridge,Notts County,0,5,0,3,4799757
+econf,2022-23,7,2022-09-03,Dorking Wanderers FC,AFC Wrexham,0,5,0,3,4799758
+econf,2022-23,7,2022-09-03,FC Bromley,FC Eastleigh,2,1,1,1,4799756
+econf,2022-23,7,2022-09-03,FC Gateshead,Maidstone United,4,1,2,0,4799759
+econf,2022-23,7,2022-09-03,Maidenhead United,Halifax Town,1,1,1,0,4799760
+econf,2022-23,7,2022-09-03,Oldham Athletic,FC Chesterfield,0,2,0,2,4799761
+econf,2022-23,7,2022-09-03,Scunthorpe United,Boreham Wood,0,2,0,0,4799762
+econf,2022-23,7,2022-09-03,Solihull Moors,FC Altrincham,5,1,2,1,4799763
+econf,2022-23,7,2022-09-03,Southend United,Torquay United,1,2,0,1,4799764
+econf,2022-23,7,2022-09-03,Yeovil Town,York City,0,1,0,0,4799766
+econf,2022-23,7,2022-09-04,FC Wealdstone,FC Woking,1,1,1,1,4799765
+econf,2022-23,8,2022-10-11,York City,Dagenham & Redbridge,1,1,0,1,4799778
+econf,2022-23,8,2022-11-01,AFC Wrexham,Maidenhead United,1,0,1,0,4799777
+econf,2022-23,8,2022-11-01,FC Altrincham,FC Wealdstone,0,1,0,0,4799767
+econf,2022-23,8,2022-11-01,FC Barnet,Southend United,0,3,0,1,4799768
+econf,2022-23,8,2022-11-01,FC Chesterfield,FC Gateshead,2,1,1,1,4799770
+econf,2022-23,8,2022-11-01,FC Eastleigh,Scunthorpe United,2,0,0,0,4799771
+econf,2022-23,8,2022-11-01,FC Woking,Yeovil Town,1,0,0,0,4799776
+econf,2022-23,8,2022-11-01,Maidstone United,Solihull Moors,0,0,0,0,4799773
+econf,2022-23,8,2022-11-01,Notts County,FC Bromley,1,1,1,0,4799774
+econf,2022-23,8,2022-11-01,Torquay United,Aldershot Town,6,1,3,0,4799775
+econf,2022-23,8,2022-12-06,Boreham Wood,Oldham Athletic,2,1,0,0,4799769
+econf,2022-23,8,2022-12-06,Halifax Town,Dorking Wanderers FC,3,1,1,0,4799772
+econf,2022-23,9,2022-09-13,AFC Wrexham,Dagenham & Redbridge,4,1,2,0,4799789
+econf,2022-23,9,2022-09-13,Boreham Wood,Maidenhead United,1,0,0,0,4799781
+econf,2022-23,9,2022-09-13,FC Altrincham,Scunthorpe United,2,2,1,0,4799779
+econf,2022-23,9,2022-09-13,FC Barnet,Dorking Wanderers FC,0,1,0,1,4799780
+econf,2022-23,9,2022-09-13,FC Chesterfield,Southend United,3,2,1,1,4799782
+econf,2022-23,9,2022-09-13,FC Eastleigh,Yeovil Town,1,1,0,1,4799783
+econf,2022-23,9,2022-09-13,FC Woking,Oldham Athletic,3,0,2,0,4799788
+econf,2022-23,9,2022-09-13,Halifax Town,FC Gateshead,2,0,0,0,4799784
+econf,2022-23,9,2022-09-13,Maidstone United,FC Wealdstone,1,1,0,0,4799785
+econf,2022-23,9,2022-09-13,Notts County,Aldershot Town,2,0,0,0,4799786
+econf,2022-23,9,2022-09-13,Torquay United,Solihull Moors,1,4,1,2,4799787
+econf,2022-23,9,2022-09-13,York City,FC Bromley,2,1,0,1,4799790
+econf,2022-23,10,2022-09-17,Aldershot Town,Halifax Town,5,1,2,1,4799791
+econf,2022-23,10,2022-09-17,Dagenham & Redbridge,FC Altrincham,4,1,2,0,4799793
+econf,2022-23,10,2022-09-17,Dorking Wanderers FC,Notts County,3,1,1,0,4799794
+econf,2022-23,10,2022-09-17,FC Bromley,Maidstone United,3,0,2,0,4799792
+econf,2022-23,10,2022-09-17,FC Gateshead,Boreham Wood,1,1,1,0,4799795
+econf,2022-23,10,2022-09-17,FC Wealdstone,Torquay United,1,1,0,1,4799801
+econf,2022-23,10,2022-09-17,Maidenhead United,FC Woking,1,0,0,0,4799796
+econf,2022-23,10,2022-09-17,Oldham Athletic,FC Eastleigh,3,2,1,2,4799797
+econf,2022-23,10,2022-09-17,Scunthorpe United,York City,1,1,0,1,4799798
+econf,2022-23,10,2022-09-17,Solihull Moors,FC Barnet,1,1,1,1,4799799
+econf,2022-23,10,2022-09-17,Southend United,AFC Wrexham,0,0,0,0,4799800
+econf,2022-23,10,2022-09-17,Yeovil Town,FC Chesterfield,2,2,1,1,4799802
+econf,2022-23,11,2022-09-24,AFC Wrexham,Torquay United,6,0,3,0,4799812
+econf,2022-23,11,2022-09-24,Dagenham & Redbridge,FC Barnet,5,4,2,2,4799805
+econf,2022-23,11,2022-09-24,FC Altrincham,Aldershot Town,1,0,0,0,4799803
+econf,2022-23,11,2022-09-24,FC Bromley,Oldham Athletic,3,0,2,0,4799804
+econf,2022-23,11,2022-09-24,FC Eastleigh,Halifax Town,1,0,1,0,4799806
+econf,2022-23,11,2022-09-24,FC Wealdstone,Southend United,0,1,0,0,4799810
+econf,2022-23,11,2022-09-24,FC Woking,Solihull Moors,2,0,1,0,4799811
+econf,2022-23,11,2022-09-24,Maidenhead United,FC Gateshead,0,1,0,1,4799807
+econf,2022-23,11,2022-09-24,Maidstone United,FC Chesterfield,1,2,0,0,4799808
+econf,2022-23,11,2022-09-24,Scunthorpe United,Dorking Wanderers FC,3,2,0,2,4799809
+econf,2022-23,11,2022-09-24,Yeovil Town,Boreham Wood,1,1,1,1,4799813
+econf,2022-23,11,2022-09-24,York City,Notts County,1,3,1,2,4799814
+econf,2022-23,12,2022-10-01,Aldershot Town,FC Wealdstone,1,2,1,0,4799815
+econf,2022-23,12,2022-10-01,Boreham Wood,Maidstone United,3,1,1,1,4799817
+econf,2022-23,12,2022-10-01,Dorking Wanderers FC,Dagenham & Redbridge,5,1,2,0,4799819
+econf,2022-23,12,2022-10-01,FC Barnet,York City,0,5,0,2,4799816
+econf,2022-23,12,2022-10-01,FC Chesterfield,Maidenhead United,1,2,0,1,4799818
+econf,2022-23,12,2022-10-01,FC Gateshead,FC Eastleigh,1,1,0,1,4799821
+econf,2022-23,12,2022-10-01,Halifax Town,FC Woking,0,4,0,2,4799820
+econf,2022-23,12,2022-10-01,Notts County,FC Altrincham,3,1,2,0,4799822
+econf,2022-23,12,2022-10-01,Oldham Athletic,AFC Wrexham,1,2,1,0,4799823
+econf,2022-23,12,2022-10-01,Solihull Moors,FC Bromley,2,2,0,1,4799824
+econf,2022-23,12,2022-10-01,Southend United,Yeovil Town,1,0,1,0,4799825
+econf,2022-23,12,2022-10-01,Torquay United,Scunthorpe United,1,1,1,0,4799826
+econf,2022-23,13,2022-10-04,Aldershot Town,FC Eastleigh,0,0,0,0,4799827
+econf,2022-23,13,2022-10-04,Boreham Wood,FC Bromley,0,2,0,1,4799829
+econf,2022-23,13,2022-10-04,Dorking Wanderers FC,Yeovil Town,1,1,0,1,4799831
+econf,2022-23,13,2022-10-04,FC Barnet,Maidstone United,4,3,1,1,4799828
+econf,2022-23,13,2022-10-04,FC Chesterfield,Dagenham & Redbridge,2,3,0,3,4799830
+econf,2022-23,13,2022-10-04,FC Gateshead,FC Altrincham,1,3,1,2,4799833
+econf,2022-23,13,2022-10-04,Halifax Town,York City,1,0,1,0,4799832
+econf,2022-23,13,2022-10-04,Notts County,AFC Wrexham,1,0,1,0,4799834
+econf,2022-23,13,2022-10-04,Oldham Athletic,Scunthorpe United,2,2,1,2,4799835
+econf,2022-23,13,2022-10-04,Solihull Moors,FC Wealdstone,2,1,1,0,4799836
+econf,2022-23,13,2022-10-04,Southend United,FC Woking,1,1,0,1,4799837
+econf,2022-23,13,2022-10-04,Torquay United,Maidenhead United,2,3,2,2,4799838
+econf,2022-23,14,2022-10-08,AFC Wrexham,FC Barnet,7,5,3,2,4799848
+econf,2022-23,14,2022-10-08,Dagenham & Redbridge,Southend United,1,1,1,0,4799841
+econf,2022-23,14,2022-10-08,FC Altrincham,Dorking Wanderers FC,4,1,1,0,4799839
+econf,2022-23,14,2022-10-08,FC Bromley,FC Gateshead,1,1,0,0,4799840
+econf,2022-23,14,2022-10-08,FC Eastleigh,FC Chesterfield,2,1,1,0,4799842
+econf,2022-23,14,2022-10-08,FC Wealdstone,Boreham Wood,1,2,0,0,4799846
+econf,2022-23,14,2022-10-08,FC Woking,Notts County,2,3,1,3,4799847
+econf,2022-23,14,2022-10-08,Maidenhead United,Oldham Athletic,1,1,0,1,4799843
+econf,2022-23,14,2022-10-08,Maidstone United,Halifax Town,1,1,0,0,4799844
+econf,2022-23,14,2022-10-08,Scunthorpe United,Aldershot Town,3,3,3,1,4799845
+econf,2022-23,14,2022-10-08,Yeovil Town,Solihull Moors,1,0,0,0,4799849
+econf,2022-23,14,2022-10-08,York City,Torquay United,1,0,0,0,4799850
+econf,2022-23,15,2022-10-21,Notts County,Maidstone United,3,0,1,0,4799858
+econf,2022-23,15,2022-10-22,Aldershot Town,York City,2,1,1,0,4799851
+econf,2022-23,15,2022-10-22,Boreham Wood,AFC Wrexham,1,1,1,0,4799853
+econf,2022-23,15,2022-10-22,Dorking Wanderers FC,FC Wealdstone,3,1,1,0,4799855
+econf,2022-23,15,2022-10-22,FC Barnet,Maidenhead United,2,1,1,0,4799852
+econf,2022-23,15,2022-10-22,FC Chesterfield,FC Bromley,3,2,1,0,4799854
+econf,2022-23,15,2022-10-22,FC Gateshead,FC Woking,1,3,0,2,4799857
+econf,2022-23,15,2022-10-22,Halifax Town,Dagenham & Redbridge,2,0,0,0,4799856
+econf,2022-23,15,2022-10-22,Oldham Athletic,Yeovil Town,2,0,1,0,4799859
+econf,2022-23,15,2022-10-22,Solihull Moors,FC Eastleigh,3,0,1,0,4799860
+econf,2022-23,15,2022-10-22,Southend United,Scunthorpe United,3,0,1,0,4799861
+econf,2022-23,15,2022-10-22,Torquay United,FC Altrincham,4,4,0,2,4799862
+econf,2022-23,16,2022-10-25,AFC Wrexham,Halifax Town,3,1,0,1,4799872
+econf,2022-23,16,2022-10-25,Dagenham & Redbridge,Boreham Wood,1,1,0,0,4799865
+econf,2022-23,16,2022-10-25,FC Altrincham,Oldham Athletic,1,0,0,0,4799863
+econf,2022-23,16,2022-10-25,FC Bromley,FC Barnet,1,3,0,0,4799864
+econf,2022-23,16,2022-10-25,FC Eastleigh,Torquay United,1,0,1,0,4799866
+econf,2022-23,16,2022-10-25,FC Wealdstone,Notts County,1,6,0,4,4799870
+econf,2022-23,16,2022-10-25,FC Woking,Dorking Wanderers FC,3,3,1,1,4799871
+econf,2022-23,16,2022-10-25,Maidenhead United,Solihull Moors,0,2,0,1,4799867
+econf,2022-23,16,2022-10-25,Maidstone United,Southend United,0,3,0,2,4799868
+econf,2022-23,16,2022-10-25,Scunthorpe United,FC Gateshead,3,1,1,1,4799869
+econf,2022-23,16,2022-10-25,Yeovil Town,Aldershot Town,0,2,0,0,4799873
+econf,2022-23,16,2022-10-25,York City,FC Chesterfield,1,1,0,1,4799874
+econf,2022-23,17,2022-10-28,FC Barnet,Scunthorpe United,1,1,0,0,4799875
+econf,2022-23,17,2022-10-29,AFC Wrexham,FC Altrincham,4,0,2,0,4799885
+econf,2022-23,17,2022-10-29,Dagenham & Redbridge,FC Wealdstone,4,1,2,0,4799877
+econf,2022-23,17,2022-10-29,Dorking Wanderers FC,Aldershot Town,0,3,0,1,4799878
+econf,2022-23,17,2022-10-29,FC Chesterfield,Boreham Wood,2,0,1,0,4799876
+econf,2022-23,17,2022-10-29,FC Gateshead,Solihull Moors,1,1,1,0,4799880
+econf,2022-23,17,2022-10-29,FC Woking,FC Eastleigh,1,0,0,0,4799884
+econf,2022-23,17,2022-10-29,Halifax Town,Oldham Athletic,2,1,0,0,4799879
+econf,2022-23,17,2022-10-29,Maidenhead United,FC Bromley,1,0,0,0,4799881
+econf,2022-23,17,2022-10-29,Maidstone United,Yeovil Town,1,1,0,1,4799882
+econf,2022-23,17,2022-10-29,Notts County,Torquay United,4,0,2,0,4799883
+econf,2022-23,17,2022-10-29,York City,Southend United,0,2,0,1,4799886
+econf,2022-23,18,2022-11-08,Boreham Wood,York City,1,1,0,1,4799889
+econf,2022-23,18,2022-11-08,FC Altrincham,FC Barnet,0,2,0,1,4799888
+econf,2022-23,18,2022-11-08,FC Eastleigh,Maidstone United,5,2,1,2,4799891
+econf,2022-23,18,2022-11-08,Solihull Moors,Halifax Town,0,1,0,1,4799894
+econf,2022-23,18,2022-11-08,Southend United,Notts County,2,2,0,1,4799895
+econf,2022-23,18,2022-11-08,Yeovil Town,Maidenhead United,0,0,0,0,4799898
+econf,2022-23,18,2022-11-09,FC Bromley,FC Woking,0,2,0,0,4799890
+econf,2022-23,18,2022-11-09,Scunthorpe United,AFC Wrexham,1,3,1,2,4799893
+econf,2022-23,18,2022-11-09,Torquay United,Dorking Wanderers FC,3,3,1,1,4799896
+econf,2022-23,18,2023-01-10,Aldershot Town,Dagenham & Redbridge,0,2,0,1,4799887
+econf,2022-23,18,2023-02-14,Oldham Athletic,FC Gateshead,2,2,0,0,4799892
+econf,2022-23,18,2023-03-14,FC Wealdstone,FC Chesterfield,0,4,0,2,4799897
+econf,2022-23,19,2022-11-12,Aldershot Town,Maidenhead United,1,2,0,2,4799899
+econf,2022-23,19,2022-11-12,Boreham Wood,FC Woking,0,1,0,1,4799901
+econf,2022-23,19,2022-11-12,FC Altrincham,York City,2,1,0,1,4799900
+econf,2022-23,19,2022-11-12,FC Bromley,Halifax Town,1,1,0,0,4799902
+econf,2022-23,19,2022-11-12,FC Eastleigh,Notts County,0,2,0,0,4799903
+econf,2022-23,19,2022-11-12,FC Wealdstone,AFC Wrexham,0,0,0,0,4799909
+econf,2022-23,19,2022-11-12,Oldham Athletic,FC Barnet,0,2,0,0,4799904
+econf,2022-23,19,2022-11-12,Scunthorpe United,Maidstone United,0,2,0,0,4799905
+econf,2022-23,19,2022-11-12,Solihull Moors,Dagenham & Redbridge,0,3,0,1,4799906
+econf,2022-23,19,2022-11-12,Southend United,Dorking Wanderers FC,2,0,2,0,4799907
+econf,2022-23,19,2022-11-12,Torquay United,FC Chesterfield,1,5,1,1,4799908
+econf,2022-23,19,2022-11-12,Yeovil Town,FC Gateshead,3,1,1,1,4799910
+econf,2022-23,20,2022-11-19,AFC Wrexham,Aldershot Town,2,0,2,0,4799921
+econf,2022-23,20,2022-11-19,Dagenham & Redbridge,Scunthorpe United,2,1,1,1,4799913
+econf,2022-23,20,2022-11-19,Dorking Wanderers FC,FC Bromley,2,3,1,2,4799914
+econf,2022-23,20,2022-11-19,FC Barnet,Torquay United,1,0,1,0,4799911
+econf,2022-23,20,2022-11-19,FC Chesterfield,Solihull Moors,2,0,1,0,4799912
+econf,2022-23,20,2022-11-19,FC Gateshead,Southend United,3,1,0,0,4799916
+econf,2022-23,20,2022-11-19,FC Woking,FC Altrincham,1,1,0,0,4799920
+econf,2022-23,20,2022-11-19,Halifax Town,Boreham Wood,1,0,0,0,4799915
+econf,2022-23,20,2022-11-19,Maidenhead United,FC Eastleigh,2,1,1,1,4799917
+econf,2022-23,20,2022-11-19,Maidstone United,Oldham Athletic,0,0,0,0,4799918
+econf,2022-23,20,2022-11-19,Notts County,Yeovil Town,0,0,0,0,4799919
+econf,2022-23,20,2022-11-19,York City,FC Wealdstone,1,2,1,0,4799922
+econf,2022-23,21,2022-11-26,Aldershot Town,Southend United,2,0,1,0,4799923
+econf,2022-23,21,2022-11-26,Dorking Wanderers FC,York City,1,0,1,0,4799927
+econf,2022-23,21,2022-11-26,FC Altrincham,FC Eastleigh,2,1,1,0,4799924
+econf,2022-23,21,2022-11-26,FC Wealdstone,Scunthorpe United,3,1,1,1,4799932
+econf,2022-23,21,2022-11-26,Maidstone United,Maidenhead United,3,2,2,1,4799928
+econf,2022-23,21,2022-11-26,Torquay United,FC Gateshead,1,1,0,0,4799931
+econf,2022-23,21,2022-11-26,Yeovil Town,Halifax Town,1,0,1,0,4799934
+econf,2022-23,21,2023-01-10,AFC Wrexham,FC Bromley,2,1,1,1,4799933
+econf,2022-23,21,2023-02-07,FC Chesterfield,FC Woking,1,3,0,3,4799926
+econf,2022-23,21,2023-02-07,Oldham Athletic,Dagenham & Redbridge,4,2,0,1,4799930
+econf,2022-23,21,2023-02-14,Boreham Wood,Solihull Moors,1,1,1,0,4799925
+econf,2022-23,21,2023-02-14,Notts County,FC Barnet,4,1,0,1,4799929
+econf,2022-23,22,2022-12-03,Dagenham & Redbridge,Torquay United,0,1,0,1,4799937
+econf,2022-23,22,2022-12-03,FC Barnet,FC Wealdstone,2,0,1,0,4799935
+econf,2022-23,22,2022-12-03,FC Eastleigh,Boreham Wood,1,0,1,0,4799938
+econf,2022-23,22,2022-12-03,FC Gateshead,Aldershot Town,0,2,0,0,4799940
+econf,2022-23,22,2022-12-03,FC Woking,Maidstone United,3,1,0,1,4799945
+econf,2022-23,22,2022-12-03,Halifax Town,FC Chesterfield,1,0,0,0,4799939
+econf,2022-23,22,2022-12-03,Maidenhead United,Dorking Wanderers FC,1,1,0,1,4799941
+econf,2022-23,22,2022-12-03,Scunthorpe United,Notts County,1,4,1,3,4799942
+econf,2022-23,22,2022-12-03,Solihull Moors,Oldham Athletic,2,1,0,0,4799943
+econf,2022-23,22,2022-12-03,Southend United,FC Altrincham,2,2,2,1,4799944
+econf,2022-23,22,2022-12-03,York City,AFC Wrexham,1,1,0,0,4799946
+econf,2022-23,22,2023-01-14,FC Bromley,Yeovil Town,4,1,2,0,4799936
+econf,2022-23,23,2022-12-10,FC Bromley,FC Wealdstone,3,3,0,1,4799948
+econf,2022-23,23,2022-12-10,FC Chesterfield,Dorking Wanderers FC,3,1,1,0,4799949
+econf,2022-23,23,2022-12-10,FC Eastleigh,AFC Wrexham,0,2,0,2,4799950
+econf,2022-23,23,2022-12-10,FC Woking,York City,0,2,0,0,4799957
+econf,2022-23,23,2022-12-10,Maidenhead United,Notts County,3,4,1,3,4799953
+econf,2022-23,23,2022-12-10,Maidstone United,FC Altrincham,2,3,1,1,4799954
+econf,2022-23,23,2022-12-10,Yeovil Town,Scunthorpe United,0,0,0,0,4799958
+econf,2022-23,23,2022-12-11,Oldham Athletic,Torquay United,3,2,1,0,4799955
+econf,2022-23,23,2023-01-17,Solihull Moors,Aldershot Town,1,2,0,2,4799956
+econf,2022-23,23,2023-02-07,Halifax Town,FC Barnet,1,3,1,1,4799951
+econf,2022-23,23,2023-03-14,Boreham Wood,Southend United,1,0,0,0,4799947
+econf,2022-23,23,2023-03-28,FC Gateshead,Dagenham & Redbridge,3,0,2,0,4799952
+econf,2022-23,24,2022-12-13,Dorking Wanderers FC,Maidstone United,3,2,1,2,4799963
+econf,2022-23,24,2022-12-13,Notts County,FC Gateshead,2,0,1,0,4799964
+econf,2022-23,24,2023-01-14,Scunthorpe United,FC Woking,0,2,0,1,4799965
+econf,2022-23,24,2023-01-17,FC Altrincham,Maidenhead United,3,2,2,2,4799960
+econf,2022-23,24,2023-01-31,Aldershot Town,Boreham Wood,0,1,0,0,4799959
+econf,2022-23,24,2023-02-07,York City,Solihull Moors,2,3,1,0,4799970
+econf,2022-23,24,2023-02-14,Dagenham & Redbridge,FC Eastleigh,0,1,0,1,4799962
+econf,2022-23,24,2023-02-14,Southend United,Halifax Town,2,1,0,1,4799966
+econf,2022-23,24,2023-02-28,AFC Wrexham,FC Chesterfield,2,1,2,0,4799969
+econf,2022-23,24,2023-02-28,Torquay United,FC Bromley,1,2,0,1,4799967
+econf,2022-23,24,2023-03-14,FC Barnet,Yeovil Town,2,1,0,0,4799961
+econf,2022-23,24,2023-03-28,FC Wealdstone,Oldham Athletic,2,2,0,1,4799968
+econf,2022-23,25,2022-12-26,AFC Wrexham,Solihull Moors,5,0,1,0,4799981
+econf,2022-23,25,2022-12-26,Aldershot Town,FC Woking,1,2,0,1,4799971
+econf,2022-23,25,2022-12-26,Dagenham & Redbridge,Maidstone United,1,0,1,0,4799974
+econf,2022-23,25,2022-12-26,Dorking Wanderers FC,FC Eastleigh,1,1,0,1,4799975
+econf,2022-23,25,2022-12-26,FC Altrincham,Halifax Town,2,1,0,1,4799972
+econf,2022-23,25,2022-12-26,FC Barnet,Boreham Wood,2,1,0,0,4799973
+econf,2022-23,25,2022-12-26,FC Wealdstone,Maidenhead United,3,2,2,2,4799980
+econf,2022-23,25,2022-12-26,Notts County,Oldham Athletic,4,1,4,1,4799976
+econf,2022-23,25,2022-12-26,Scunthorpe United,FC Chesterfield,1,2,1,1,4799977
+econf,2022-23,25,2022-12-26,Southend United,FC Bromley,0,1,0,0,4799978
+econf,2022-23,25,2022-12-26,Torquay United,Yeovil Town,1,1,1,0,4799979
+econf,2022-23,25,2022-12-26,York City,FC Gateshead,0,3,0,1,4799982
+econf,2022-23,26,2023-01-01,FC Bromley,Southend United,0,0,0,0,4799984
+econf,2022-23,26,2023-01-01,FC Chesterfield,Scunthorpe United,4,1,2,1,4799985
+econf,2022-23,26,2023-01-01,FC Eastleigh,Dorking Wanderers FC,4,0,4,0,4799986
+econf,2022-23,26,2023-01-01,FC Woking,Aldershot Town,4,1,2,1,4799993
+econf,2022-23,26,2023-01-01,Halifax Town,FC Altrincham,2,2,0,1,4799987
+econf,2022-23,26,2023-01-01,Maidenhead United,FC Wealdstone,0,0,0,0,4799989
+econf,2022-23,26,2023-01-01,Oldham Athletic,Notts County,2,2,0,0,4799991
+econf,2022-23,26,2023-01-01,Yeovil Town,Torquay United,2,0,0,0,4799994
+econf,2022-23,26,2023-01-02,Boreham Wood,FC Barnet,1,1,1,0,4799983
+econf,2022-23,26,2023-01-02,FC Gateshead,York City,2,2,2,1,4799988
+econf,2022-23,26,2023-01-02,Maidstone United,Dagenham & Redbridge,0,1,0,0,4799990
+econf,2022-23,26,2023-01-02,Solihull Moors,AFC Wrexham,1,2,0,1,4799992
+econf,2022-23,27,2023-01-07,Dagenham & Redbridge,FC Woking,1,2,0,2,4799998
+econf,2022-23,27,2023-01-07,Dorking Wanderers FC,Oldham Athletic,1,5,1,3,4799999
+econf,2022-23,27,2023-01-07,FC Barnet,FC Gateshead,1,1,0,0,4799997
+econf,2022-23,27,2023-01-07,FC Wealdstone,FC Eastleigh,3,1,1,1,4800004
+econf,2022-23,27,2023-01-07,Scunthorpe United,Maidenhead United,3,0,1,0,4800001
+econf,2022-23,27,2023-01-07,Southend United,Solihull Moors,3,0,1,0,4800002
+econf,2022-23,27,2023-01-07,Torquay United,Halifax Town,1,0,0,0,4800003
+econf,2022-23,27,2023-01-07,York City,Maidstone United,4,1,3,1,4800006
+econf,2022-23,27,2023-01-10,Notts County,Boreham Wood,1,1,0,1,4800000
+econf,2022-23,27,2023-02-14,Aldershot Town,FC Chesterfield,1,1,1,0,4799995
+econf,2022-23,27,2023-02-14,FC Altrincham,FC Bromley,1,2,0,2,4799996
+econf,2022-23,27,2023-04-18,AFC Wrexham,Yeovil Town,3,0,0,0,4800005
+econf,2022-23,28,2023-01-21,FC Bromley,Aldershot Town,2,2,1,1,4800008
+econf,2022-23,28,2023-01-21,Maidstone United,AFC Wrexham,2,3,0,1,4800014
+econf,2022-23,28,2023-02-11,FC Chesterfield,Notts County,1,2,1,1,4800009
+econf,2022-23,28,2023-02-28,FC Eastleigh,York City,1,0,0,0,4800010
+econf,2022-23,28,2023-02-28,Halifax Town,FC Wealdstone,5,0,1,0,4800011
+econf,2022-23,28,2023-02-28,Maidenhead United,Dagenham & Redbridge,2,1,2,1,4800013
+econf,2022-23,28,2023-02-28,Yeovil Town,FC Altrincham,1,1,0,1,4800018
+econf,2022-23,28,2023-03-14,Solihull Moors,Scunthorpe United,3,1,1,1,4800016
+econf,2022-23,28,2023-03-28,Boreham Wood,Torquay United,0,1,0,1,4800007
+econf,2022-23,28,2023-03-28,FC Woking,FC Barnet,1,1,0,1,4800017
+econf,2022-23,28,2023-04-18,FC Gateshead,Dorking Wanderers FC,0,0,0,0,4800012
+econf,2022-23,28,2023-04-18,Oldham Athletic,Southend United,2,0,1,0,4800015
+econf,2022-23,29,2023-01-24,FC Bromley,Dagenham & Redbridge,1,1,0,1,4800020
+econf,2022-23,29,2023-01-24,FC Chesterfield,FC Altrincham,1,0,0,0,4800021
+econf,2022-23,29,2023-01-24,FC Gateshead,AFC Wrexham,0,3,0,0,4800024
+econf,2022-23,29,2023-01-24,Maidstone United,Aldershot Town,0,3,0,1,4800026
+econf,2022-23,29,2023-01-24,Oldham Athletic,York City,2,0,1,0,4800027
+econf,2022-23,29,2023-01-25,Halifax Town,Scunthorpe United,0,1,0,1,4800023
+econf,2022-23,29,2023-01-31,FC Eastleigh,FC Barnet,0,2,0,1,4800022
+econf,2022-23,29,2023-01-31,FC Woking,Torquay United,1,1,1,0,4800029
+econf,2022-23,29,2023-01-31,Solihull Moors,Notts County,1,2,1,1,4800028
+econf,2022-23,29,2023-01-31,Yeovil Town,FC Wealdstone,0,0,0,0,4800030
+econf,2022-23,29,2023-02-07,Maidenhead United,Southend United,1,2,1,1,4800025
+econf,2022-23,29,2023-02-28,Boreham Wood,Dorking Wanderers FC,1,0,1,0,4800019
+econf,2022-23,30,2023-01-28,Aldershot Town,Oldham Athletic,1,1,1,0,4800031
+econf,2022-23,30,2023-01-28,Dagenham & Redbridge,Yeovil Town,0,2,0,1,4800034
+econf,2022-23,30,2023-01-28,Dorking Wanderers FC,Solihull Moors,0,3,0,1,4800035
+econf,2022-23,30,2023-01-28,FC Altrincham,Boreham Wood,0,2,0,1,4800032
+econf,2022-23,30,2023-01-28,FC Barnet,FC Chesterfield,3,0,1,0,4800033
+econf,2022-23,30,2023-01-28,FC Wealdstone,FC Gateshead,1,2,1,0,4800040
+econf,2022-23,30,2023-01-28,Notts County,Halifax Town,1,0,1,0,4800036
+econf,2022-23,30,2023-01-28,Scunthorpe United,FC Bromley,1,1,0,0,4800037
+econf,2022-23,30,2023-01-28,Southend United,FC Eastleigh,1,3,0,1,4800038
+econf,2022-23,30,2023-01-28,Torquay United,Maidstone United,1,0,0,0,4800039
+econf,2022-23,30,2023-01-28,York City,Maidenhead United,1,2,0,1,4800042
+econf,2022-23,30,2023-02-14,AFC Wrexham,FC Woking,2,2,1,1,4800041
+econf,2022-23,31,2023-02-03,Scunthorpe United,FC Barnet,1,3,0,1,4800049
+econf,2022-23,31,2023-02-04,Aldershot Town,Dorking Wanderers FC,2,0,1,0,4800043
+econf,2022-23,31,2023-02-04,Boreham Wood,FC Chesterfield,1,0,0,0,4800045
+econf,2022-23,31,2023-02-04,FC Altrincham,AFC Wrexham,1,2,0,0,4800044
+econf,2022-23,31,2023-02-04,FC Bromley,Maidenhead United,1,1,0,0,4800046
+econf,2022-23,31,2023-02-04,FC Eastleigh,FC Woking,1,0,0,0,4800047
+econf,2022-23,31,2023-02-04,FC Wealdstone,Dagenham & Redbridge,1,0,1,0,4800053
+econf,2022-23,31,2023-02-04,Oldham Athletic,Halifax Town,0,1,0,0,4800048
+econf,2022-23,31,2023-02-04,Solihull Moors,FC Gateshead,0,2,0,1,4800050
+econf,2022-23,31,2023-02-04,Southend United,York City,2,0,0,0,4800051
+econf,2022-23,31,2023-02-04,Torquay United,Notts County,1,2,1,1,4800052
+econf,2022-23,31,2023-02-04,Yeovil Town,Maidstone United,2,2,0,1,4800054
+econf,2022-23,32,2023-02-11,AFC Wrexham,FC Wealdstone,3,1,1,0,4800065
+econf,2022-23,32,2023-02-11,Dagenham & Redbridge,Solihull Moors,2,1,1,1,4800057
+econf,2022-23,32,2023-02-11,FC Woking,Boreham Wood,2,2,0,1,4800064
+econf,2022-23,32,2023-02-28,FC Barnet,Oldham Athletic,1,3,1,1,4800055
+econf,2022-23,32,2023-02-28,Maidstone United,Scunthorpe United,1,1,1,0,4800062
+econf,2022-23,32,2023-03-14,Maidenhead United,Aldershot Town,1,1,1,1,4800061
+econf,2022-23,32,2023-03-14,Notts County,FC Eastleigh,3,1,0,1,4800063
+econf,2022-23,32,2023-03-14,York City,FC Altrincham,1,2,0,1,4800066
+econf,2022-23,32,2023-03-28,Dorking Wanderers FC,Southend United,1,0,1,0,4800058
+econf,2022-23,32,2023-04-04,FC Gateshead,Yeovil Town,4,0,2,0,4800060
+econf,2022-23,32,2023-04-18,FC Chesterfield,Torquay United,5,1,3,0,4800056
+econf,2022-23,32,2023-04-18,Halifax Town,FC Bromley,1,1,1,0,4800059
+econf,2022-23,33,2023-02-18,Aldershot Town,AFC Wrexham,3,4,2,3,4800067
+econf,2022-23,33,2023-02-18,Boreham Wood,Halifax Town,1,1,1,0,4800069
+econf,2022-23,33,2023-02-18,FC Altrincham,FC Woking,3,1,1,1,4800068
+econf,2022-23,33,2023-02-18,FC Bromley,Dorking Wanderers FC,2,0,1,0,4800070
+econf,2022-23,33,2023-02-18,FC Eastleigh,Maidenhead United,1,0,1,0,4800071
+econf,2022-23,33,2023-02-18,FC Wealdstone,York City,3,1,1,0,4800077
+econf,2022-23,33,2023-02-18,Oldham Athletic,Maidstone United,2,0,1,0,4800072
+econf,2022-23,33,2023-02-18,Scunthorpe United,Dagenham & Redbridge,3,2,2,1,4800073
+econf,2022-23,33,2023-02-18,Solihull Moors,FC Chesterfield,0,0,0,0,4800074
+econf,2022-23,33,2023-02-18,Southend United,FC Gateshead,1,0,1,0,4800075
+econf,2022-23,33,2023-02-18,Torquay United,FC Barnet,2,1,1,0,4800076
+econf,2022-23,33,2023-02-18,Yeovil Town,Notts County,1,4,0,1,4800078
+econf,2022-23,34,2023-02-21,AFC Wrexham,Scunthorpe United,2,0,1,0,4800089
+econf,2022-23,34,2023-02-21,Dagenham & Redbridge,Aldershot Town,2,1,1,0,4800081
+econf,2022-23,34,2023-02-21,Dorking Wanderers FC,Torquay United,3,2,1,1,4800082
+econf,2022-23,34,2023-02-21,FC Barnet,FC Altrincham,2,4,2,1,4800079
+econf,2022-23,34,2023-02-21,FC Chesterfield,FC Wealdstone,1,1,0,1,4800080
+econf,2022-23,34,2023-02-21,FC Gateshead,Oldham Athletic,2,1,1,0,4800084
+econf,2022-23,34,2023-02-21,FC Woking,FC Bromley,2,1,2,1,4800088
+econf,2022-23,34,2023-02-21,Halifax Town,Solihull Moors,1,1,0,1,4800083
+econf,2022-23,34,2023-02-21,Maidenhead United,Yeovil Town,2,0,1,0,4800085
+econf,2022-23,34,2023-02-21,Maidstone United,FC Eastleigh,1,3,0,1,4800086
+econf,2022-23,34,2023-02-21,Notts County,Southend United,4,0,2,0,4800087
+econf,2022-23,34,2023-02-21,York City,Boreham Wood,1,1,1,1,4800090
+econf,2022-23,35,2023-02-25,AFC Wrexham,Dorking Wanderers FC,3,1,2,0,4800101
+econf,2022-23,35,2023-02-25,Boreham Wood,Scunthorpe United,2,0,0,0,4800093
+econf,2022-23,35,2023-02-25,FC Altrincham,Solihull Moors,4,1,3,1,4800091
+econf,2022-23,35,2023-02-25,FC Barnet,Aldershot Town,4,1,1,0,4800092
+econf,2022-23,35,2023-02-25,FC Chesterfield,Oldham Athletic,0,1,0,1,4800094
+econf,2022-23,35,2023-02-25,FC Eastleigh,FC Bromley,0,0,0,0,4800095
+econf,2022-23,35,2023-02-25,FC Woking,FC Wealdstone,1,1,1,0,4800100
+econf,2022-23,35,2023-02-25,Halifax Town,Maidenhead United,0,1,0,1,4800096
+econf,2022-23,35,2023-02-25,Maidstone United,FC Gateshead,1,1,0,1,4800097
+econf,2022-23,35,2023-02-25,Notts County,Dagenham & Redbridge,1,2,1,1,4800098
+econf,2022-23,35,2023-02-25,Torquay United,Southend United,1,2,0,1,4800099
+econf,2022-23,35,2023-02-25,York City,Yeovil Town,2,1,1,0,4800102
+econf,2022-23,36,2023-03-03,Southend United,FC Barnet,0,1,0,0,4800112
+econf,2022-23,36,2023-03-04,Aldershot Town,Torquay United,1,1,1,1,4800103
+econf,2022-23,36,2023-03-04,Dagenham & Redbridge,York City,2,1,1,1,4800105
+econf,2022-23,36,2023-03-04,Dorking Wanderers FC,Halifax Town,0,0,0,0,4800106
+econf,2022-23,36,2023-03-04,FC Bromley,Notts County,1,1,1,0,4800104
+econf,2022-23,36,2023-03-04,FC Gateshead,FC Chesterfield,1,2,1,1,4800107
+econf,2022-23,36,2023-03-04,FC Wealdstone,FC Altrincham,4,0,2,0,4800113
+econf,2022-23,36,2023-03-04,Maidenhead United,AFC Wrexham,2,2,0,1,4800108
+econf,2022-23,36,2023-03-04,Oldham Athletic,Boreham Wood,0,2,0,0,4800109
+econf,2022-23,36,2023-03-04,Scunthorpe United,FC Eastleigh,0,1,0,1,4800110
+econf,2022-23,36,2023-03-04,Solihull Moors,Maidstone United,2,0,1,0,4800111
+econf,2022-23,36,2023-03-04,Yeovil Town,FC Woking,0,1,0,1,4800114
+econf,2022-23,37,2023-01-07,Aldershot Town,Notts County,0,3,0,1,4800115
+econf,2022-23,37,2023-03-07,Dagenham & Redbridge,AFC Wrexham,0,4,0,2,4800117
+econf,2022-23,37,2023-03-07,Dorking Wanderers FC,FC Barnet,2,1,1,1,4800118
+econf,2022-23,37,2023-03-07,FC Bromley,York City,0,3,0,1,4800116
+econf,2022-23,37,2023-03-07,FC Gateshead,Halifax Town,0,0,0,0,4800119
+econf,2022-23,37,2023-03-07,FC Wealdstone,Maidstone United,2,1,2,0,4800125
+econf,2022-23,37,2023-03-07,Maidenhead United,Boreham Wood,0,1,0,0,4800120
+econf,2022-23,37,2023-03-07,Oldham Athletic,FC Woking,1,0,0,0,4800121
+econf,2022-23,37,2023-03-07,Scunthorpe United,FC Altrincham,2,0,0,0,4800122
+econf,2022-23,37,2023-03-07,Solihull Moors,Torquay United,3,2,2,1,4800123
+econf,2022-23,37,2023-03-07,Southend United,FC Chesterfield,1,2,0,1,4800124
+econf,2022-23,37,2023-03-07,Yeovil Town,FC Eastleigh,1,0,0,0,4800126
+econf,2022-23,38,2023-03-11,AFC Wrexham,Southend United,1,0,1,0,4800137
+econf,2022-23,38,2023-03-11,FC Chesterfield,Yeovil Town,1,1,1,1,4800130
+econf,2022-23,38,2023-03-11,FC Eastleigh,Oldham Athletic,1,0,0,0,4800131
+econf,2022-23,38,2023-03-11,FC Woking,Maidenhead United,2,0,1,0,4800136
+econf,2022-23,38,2023-03-11,Notts County,Dorking Wanderers FC,3,1,1,1,4800134
+econf,2022-23,38,2023-03-11,Torquay United,FC Wealdstone,1,2,0,1,4800135
+econf,2022-23,38,2023-03-28,Halifax Town,Aldershot Town,2,0,0,0,4800132
+econf,2022-23,38,2023-03-28,Maidstone United,FC Bromley,2,3,1,2,4800133
+econf,2022-23,38,2023-03-28,York City,Scunthorpe United,0,0,0,0,4800138
+econf,2022-23,38,2023-04-18,FC Altrincham,Dagenham & Redbridge,2,2,0,1,4800127
+econf,2022-23,38,2023-04-18,FC Barnet,Solihull Moors,1,0,1,0,4800128
+econf,2022-23,38,2023-04-25,Boreham Wood,FC Gateshead,0,2,0,1,4800129
+econf,2022-23,39,2023-03-18,Dagenham & Redbridge,Oldham Athletic,1,1,1,0,4800141
+econf,2022-23,39,2023-03-18,FC Barnet,Notts County,1,1,1,1,4800139
+econf,2022-23,39,2023-03-18,FC Bromley,AFC Wrexham,1,2,0,0,4800140
+econf,2022-23,39,2023-03-18,FC Eastleigh,FC Altrincham,3,2,2,1,4800142
+econf,2022-23,39,2023-03-18,FC Gateshead,Torquay United,1,1,0,0,4800144
+econf,2022-23,39,2023-03-18,FC Woking,FC Chesterfield,0,1,0,1,4800149
+econf,2022-23,39,2023-03-18,Halifax Town,Yeovil Town,1,1,0,0,4800143
+econf,2022-23,39,2023-03-18,Maidenhead United,Maidstone United,2,1,2,0,4800145
+econf,2022-23,39,2023-03-18,Scunthorpe United,FC Wealdstone,4,1,2,0,4800146
+econf,2022-23,39,2023-03-18,Solihull Moors,Boreham Wood,2,0,0,0,4800147
+econf,2022-23,39,2023-03-18,Southend United,Aldershot Town,1,2,1,0,4800148
+econf,2022-23,39,2023-03-18,York City,Dorking Wanderers FC,2,1,1,0,4800150
+econf,2022-23,40,2023-03-25,AFC Wrexham,York City,3,0,1,0,4800161
+econf,2022-23,40,2023-03-25,Aldershot Town,FC Gateshead,2,3,1,1,4800151
+econf,2022-23,40,2023-03-25,Boreham Wood,FC Eastleigh,0,0,0,0,4800153
+econf,2022-23,40,2023-03-25,Dorking Wanderers FC,Maidenhead United,3,1,1,0,4800155
+econf,2022-23,40,2023-03-25,FC Altrincham,Southend United,1,0,0,0,4800152
+econf,2022-23,40,2023-03-25,FC Chesterfield,Halifax Town,2,0,1,0,4800154
+econf,2022-23,40,2023-03-25,FC Wealdstone,FC Barnet,0,2,0,0,4800160
+econf,2022-23,40,2023-03-25,Maidstone United,FC Woking,1,2,0,0,4800156
+econf,2022-23,40,2023-03-25,Notts County,Scunthorpe United,4,0,2,0,4800157
+econf,2022-23,40,2023-03-25,Oldham Athletic,Solihull Moors,1,1,1,0,4800158
+econf,2022-23,40,2023-03-25,Torquay United,Dagenham & Redbridge,1,2,1,0,4800159
+econf,2022-23,40,2023-03-25,Yeovil Town,FC Bromley,0,1,0,1,4800162
+econf,2022-23,41,2023-03-28,FC Altrincham,Notts County,0,2,0,1,4800163
+econf,2022-23,41,2023-04-01,AFC Wrexham,Oldham Athletic,5,1,2,1,4800172
+econf,2022-23,41,2023-04-01,Dagenham & Redbridge,Dorking Wanderers FC,0,2,0,0,4800165
+econf,2022-23,41,2023-04-01,FC Bromley,Solihull Moors,4,0,2,0,4800164
+econf,2022-23,41,2023-04-01,Maidenhead United,FC Chesterfield,0,0,0,0,4800167
+econf,2022-23,41,2023-04-01,Maidstone United,Boreham Wood,0,4,0,2,4800168
+econf,2022-23,41,2023-04-01,Scunthorpe United,Torquay United,0,1,0,0,4800169
+econf,2022-23,41,2023-04-01,Yeovil Town,Southend United,0,2,0,1,4800173
+econf,2022-23,41,2023-04-03,York City,FC Barnet,1,0,1,0,4800174
+econf,2022-23,41,2023-04-12,FC Eastleigh,FC Gateshead,2,5,1,2,4800166
+econf,2022-23,41,2023-04-18,FC Wealdstone,Aldershot Town,0,1,0,0,4800170
+econf,2022-23,41,2023-04-25,FC Woking,Halifax Town,0,1,0,1,4800171
+econf,2022-23,42,2023-04-07,Aldershot Town,Yeovil Town,1,1,0,0,4800175
+econf,2022-23,42,2023-04-07,Boreham Wood,Dagenham & Redbridge,0,1,0,1,4800177
+econf,2022-23,42,2023-04-07,Dorking Wanderers FC,FC Woking,1,2,0,0,4800179
+econf,2022-23,42,2023-04-07,FC Barnet,FC Bromley,1,1,1,0,4800176
+econf,2022-23,42,2023-04-07,FC Chesterfield,York City,1,3,1,1,4800178
+econf,2022-23,42,2023-04-07,FC Gateshead,Scunthorpe United,2,0,2,0,4800181
+econf,2022-23,42,2023-04-07,Halifax Town,AFC Wrexham,3,1,0,1,4800180
+econf,2022-23,42,2023-04-07,Notts County,FC Wealdstone,3,0,1,0,4800182
+econf,2022-23,42,2023-04-07,Oldham Athletic,FC Altrincham,2,2,1,0,4800183
+econf,2022-23,42,2023-04-07,Solihull Moors,Maidenhead United,1,1,1,0,4800184
+econf,2022-23,42,2023-04-07,Southend United,Maidstone United,2,0,1,0,4800185
+econf,2022-23,42,2023-04-07,Torquay United,FC Eastleigh,2,0,0,0,4800186
+econf,2022-23,43,2023-04-10,AFC Wrexham,Notts County,3,2,0,1,4800196
+econf,2022-23,43,2023-04-10,Dagenham & Redbridge,FC Chesterfield,0,1,0,0,4800189
+econf,2022-23,43,2023-04-10,FC Altrincham,FC Gateshead,0,1,0,1,4800187
+econf,2022-23,43,2023-04-10,FC Bromley,Boreham Wood,1,1,1,1,4800188
+econf,2022-23,43,2023-04-10,FC Eastleigh,Aldershot Town,3,3,3,1,4800190
+econf,2022-23,43,2023-04-10,FC Woking,Southend United,1,1,0,0,4800195
+econf,2022-23,43,2023-04-10,Maidenhead United,Torquay United,1,3,0,1,4800191
+econf,2022-23,43,2023-04-10,Maidstone United,FC Barnet,0,0,0,0,4800192
+econf,2022-23,43,2023-04-10,Scunthorpe United,Oldham Athletic,0,2,0,1,4800193
+econf,2022-23,43,2023-04-10,Yeovil Town,Dorking Wanderers FC,0,1,0,0,4800197
+econf,2022-23,43,2023-04-10,York City,Halifax Town,0,3,0,1,4800198
+econf,2022-23,43,2023-04-25,FC Wealdstone,Solihull Moors,3,0,2,0,4800194
+econf,2022-23,44,2023-04-15,Aldershot Town,Scunthorpe United,2,1,1,0,4800199
+econf,2022-23,44,2023-04-15,Boreham Wood,FC Wealdstone,1,0,1,0,4800201
+econf,2022-23,44,2023-04-15,Dorking Wanderers FC,FC Altrincham,3,2,1,2,4800203
+econf,2022-23,44,2023-04-15,FC Barnet,AFC Wrexham,0,0,0,0,4800200
+econf,2022-23,44,2023-04-15,FC Chesterfield,FC Eastleigh,3,2,0,2,4800202
+econf,2022-23,44,2023-04-15,FC Gateshead,FC Bromley,0,3,0,0,4800205
+econf,2022-23,44,2023-04-15,Halifax Town,Maidstone United,3,0,1,0,4800204
+econf,2022-23,44,2023-04-15,Notts County,FC Woking,3,0,0,0,4800206
+econf,2022-23,44,2023-04-15,Oldham Athletic,Maidenhead United,1,0,1,0,4800207
+econf,2022-23,44,2023-04-15,Solihull Moors,Yeovil Town,2,2,2,0,4800208
+econf,2022-23,44,2023-04-15,Southend United,Dagenham & Redbridge,2,0,0,0,4800209
+econf,2022-23,44,2023-04-15,Torquay United,York City,3,2,2,1,4800210
+econf,2022-23,45,2023-04-22,AFC Wrexham,Boreham Wood,3,1,1,1,4800220
+econf,2022-23,45,2023-04-22,Dagenham & Redbridge,Halifax Town,0,0,0,0,4800213
+econf,2022-23,45,2023-04-22,FC Altrincham,Torquay United,2,2,1,0,4800211
+econf,2022-23,45,2023-04-22,FC Bromley,FC Chesterfield,2,0,1,0,4800212
+econf,2022-23,45,2023-04-22,FC Eastleigh,Solihull Moors,0,0,0,0,4800214
+econf,2022-23,45,2023-04-22,FC Wealdstone,Dorking Wanderers FC,2,2,1,2,4800218
+econf,2022-23,45,2023-04-22,FC Woking,FC Gateshead,2,1,2,0,4800219
+econf,2022-23,45,2023-04-22,Maidenhead United,FC Barnet,1,1,0,0,4800215
+econf,2022-23,45,2023-04-22,Maidstone United,Notts County,2,5,0,2,4800216
+econf,2022-23,45,2023-04-22,Scunthorpe United,Southend United,1,3,0,1,4800217
+econf,2022-23,45,2023-04-22,Yeovil Town,Oldham Athletic,0,3,0,1,4800221
+econf,2022-23,45,2023-04-22,York City,Aldershot Town,2,2,0,1,4800222
+econf,2022-23,46,2023-04-29,Aldershot Town,FC Altrincham,1,1,0,0,4800223
+econf,2022-23,46,2023-04-29,Boreham Wood,Yeovil Town,1,0,1,0,4800225
+econf,2022-23,46,2023-04-29,Dorking Wanderers FC,Scunthorpe United,2,1,1,0,4800227
+econf,2022-23,46,2023-04-29,FC Barnet,Dagenham & Redbridge,0,2,0,0,4800224
+econf,2022-23,46,2023-04-29,FC Chesterfield,Maidstone United,4,0,0,0,4800226
+econf,2022-23,46,2023-04-29,FC Gateshead,Maidenhead United,4,0,3,0,4800229
+econf,2022-23,46,2023-04-29,Halifax Town,FC Eastleigh,1,1,0,1,4800228
+econf,2022-23,46,2023-04-29,Notts County,York City,1,1,1,0,4800230
+econf,2022-23,46,2023-04-29,Oldham Athletic,FC Bromley,1,1,1,0,4800231
+econf,2022-23,46,2023-04-29,Solihull Moors,FC Woking,0,1,0,0,4800232
+econf,2022-23,46,2023-04-29,Southend United,FC Wealdstone,2,1,0,1,4800233
+econf,2022-23,46,2023-04-29,Torquay United,AFC Wrexham,1,1,0,0,4800234
