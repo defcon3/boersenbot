@@ -29,6 +29,17 @@ _KEEP_AS_IS = {
     "Dover Athletic",
     # National League 2023/24
     "Oxford City",            # nicht zu "Oxford" (es gibt Oxford United in el1)
+    # National League 2015/16
+    "Welling United",         # DB hat "Welling United" (nicht zu "Welling")
+    # League One 2014/15
+    "Bristol City",           # DB hat "Bristol City" (nicht zu "Bristol")
+    # National League 2014/15
+    "Alfreton Town",          # DB hat "Alfreton Town"
+    "Nuneaton Town",          # DB hat "Nuneaton Town"
+    "Telford United",         # DB hat "Telford United"
+    # National League 2011/12
+    "Bath City",              # DB hat "Bath City"
+    "Kettering Town",         # DB hat "Kettering Town"
 }
 
 # Sonderschreibweisen, die fd kuerzer / anders abkuerzt als kicker.
@@ -60,6 +71,12 @@ _OVERRIDES = {
     "Kidderminster Harriers":   "Kidderminster",
     # National League 2024/25 (verifiziert)
     "Boston United":            "Boston Utd",
+    # League One 2014/15
+    "Preston North End":        "Preston",
+    # National League 2013/14
+    "FC Hyde":                  "Hyde United",
+    # National League 2010/11
+    "Rushden & Diamonds":       "Rushden & D",
     # Verlaeufige Sammlung weiterer EN-Edge-Cases (vorsorglich -
     # werden bei Bedarf gegen DB-Daten verifiziert):
     "Wycombe Wanderers":   "Wycombe",

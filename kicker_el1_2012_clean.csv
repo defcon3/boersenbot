@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el1,2012-13,1,2012-08-18,Crawley Town,Scunthorpe United,3,0,1,0,1437581
+el1,2012-13,1,2012-08-18,Crewe Alexandra,Notts County,1,2,0,1,1437579
+el1,2012-13,1,2012-08-18,FC Bury,FC Brentford,0,0,0,0,1437575
+el1,2012-13,1,2012-08-18,FC Portsmouth,AFC Bournemouth,1,1,1,0,1437582
+el1,2012-13,1,2012-08-18,FC Stevenage,Carlisle United,1,1,0,0,1437584
+el1,2012-13,1,2012-08-18,FC Walsall,Doncaster Rovers,0,3,0,2,1437586
+el1,2012-13,1,2012-08-18,Hartlepool United,Swindon Town,0,0,0,0,1437576
+el1,2012-13,1,2012-08-18,Milton Keynes Dons,Oldham Athletic,2,0,1,0,1437583
+el1,2012-13,1,2012-08-18,Preston North End,Colchester United,0,0,0,0,1437578
+el1,2012-13,1,2012-08-18,Sheffield United,Shrewsbury Town,1,0,1,0,1437577
+el1,2012-13,1,2012-08-18,Tranmere Rovers,Leyton Orient,3,1,1,0,1437585
+el1,2012-13,1,2012-08-18,Yeovil Town,Coventry City,1,1,1,1,1437580
+el1,2012-13,2,2012-08-21,AFC Bournemouth,Milton Keynes Dons,1,1,1,0,1437592
+el1,2012-13,2,2012-08-21,Carlisle United,Tranmere Rovers,0,3,0,2,1437596
+el1,2012-13,2,2012-08-21,Colchester United,FC Portsmouth,2,2,1,1,1437589
+el1,2012-13,2,2012-08-21,Coventry City,Sheffield United,1,1,0,0,1437587
+el1,2012-13,2,2012-08-21,Doncaster Rovers,FC Bury,2,1,1,1,1437598
+el1,2012-13,2,2012-08-21,FC Brentford,Yeovil Town,1,3,0,1,1437595
+el1,2012-13,2,2012-08-21,Leyton Orient,FC Stevenage,0,1,0,1,1437594
+el1,2012-13,2,2012-08-21,Notts County,Hartlepool United,2,0,1,0,1437590
+el1,2012-13,2,2012-08-21,Oldham Athletic,FC Walsall,1,1,1,0,1437597
+el1,2012-13,2,2012-08-21,Scunthorpe United,Crewe Alexandra,1,2,1,1,1437591
+el1,2012-13,2,2012-08-21,Shrewsbury Town,Preston North End,1,0,1,0,1437588
+el1,2012-13,2,2012-08-21,Swindon Town,Crawley Town,3,0,2,0,1437593
+el1,2012-13,3,2012-08-25,AFC Bournemouth,Preston North End,1,1,0,0,1437605
+el1,2012-13,3,2012-08-25,Carlisle United,FC Portsmouth,4,2,1,0,1437600
+el1,2012-13,3,2012-08-25,Colchester United,Sheffield United,1,1,0,1,1437606
+el1,2012-13,3,2012-08-25,Coventry City,FC Bury,2,2,2,0,1437607
+el1,2012-13,3,2012-08-25,Doncaster Rovers,Crawley Town,0,1,0,0,1437604
+el1,2012-13,3,2012-08-25,FC Brentford,Crewe Alexandra,5,1,3,0,1437602
+el1,2012-13,3,2012-08-25,Notts County,FC Walsall,0,1,0,0,1437610
+el1,2012-13,3,2012-08-25,Oldham Athletic,FC Stevenage,0,1,0,1,1437608
+el1,2012-13,3,2012-08-25,Scunthorpe United,Yeovil Town,0,4,0,1,1437599
+el1,2012-13,3,2012-08-25,Shrewsbury Town,Tranmere Rovers,1,1,1,0,1437603
+el1,2012-13,3,2012-08-25,Swindon Town,Milton Keynes Dons,1,0,1,0,1437609
+el1,2012-13,3,2012-10-16,Leyton Orient,Hartlepool United,1,0,0,0,1437601
+el1,2012-13,4,2012-09-01,Crawley Town,Leyton Orient,1,0,0,0,1437620
+el1,2012-13,4,2012-09-01,Crewe Alexandra,Coventry City,1,0,1,0,1437611
+el1,2012-13,4,2012-09-01,FC Bury,Notts County,0,2,0,1,1437619
+el1,2012-13,4,2012-09-01,FC Portsmouth,Oldham Athletic,0,1,0,0,1437615
+el1,2012-13,4,2012-09-01,FC Stevenage,Shrewsbury Town,1,1,1,1,1437616
+el1,2012-13,4,2012-09-01,FC Walsall,FC Brentford,2,2,2,0,1437617
+el1,2012-13,4,2012-09-01,Hartlepool United,Scunthorpe United,2,0,1,0,1437621
+el1,2012-13,4,2012-09-01,Milton Keynes Dons,Carlisle United,2,0,1,0,1437613
+el1,2012-13,4,2012-09-01,Sheffield United,AFC Bournemouth,5,3,3,1,1437612
+el1,2012-13,4,2012-09-01,Tranmere Rovers,Colchester United,4,0,1,0,1437618
+el1,2012-13,4,2012-09-01,Yeovil Town,Doncaster Rovers,2,1,0,0,1437614
+el1,2012-13,4,2012-09-02,Preston North End,Swindon Town,4,1,3,0,1437622
+el1,2012-13,5,2012-09-08,Crewe Alexandra,Tranmere Rovers,0,0,0,0,1437634
+el1,2012-13,5,2012-09-08,FC Brentford,Colchester United,1,0,0,0,1437631
+el1,2012-13,5,2012-09-08,FC Bury,Preston North End,1,2,0,1,1437628
+el1,2012-13,5,2012-09-08,FC Walsall,Milton Keynes Dons,1,0,1,0,1437630
+el1,2012-13,5,2012-09-08,Hartlepool United,Carlisle United,1,2,1,0,1437625
+el1,2012-13,5,2012-09-08,Notts County,Shrewsbury Town,3,2,0,0,1437633
+el1,2012-13,5,2012-09-08,Scunthorpe United,Sheffield United,1,1,0,0,1437629
+el1,2012-13,5,2012-09-08,Swindon Town,Leyton Orient,0,1,0,0,1437632
+el1,2012-13,5,2012-09-08,Yeovil Town,AFC Bournemouth,0,1,0,1,1437624
+el1,2012-13,5,2012-09-09,Coventry City,FC Stevenage,1,2,1,1,1437623
+el1,2012-13,5,2012-09-09,Crawley Town,FC Portsmouth,0,3,0,0,1437627
+el1,2012-13,5,2012-11-27,Doncaster Rovers,Oldham Athletic,1,0,0,0,1437626
+el1,2012-13,6,2012-09-13,Leyton Orient,FC Brentford,1,0,0,0,1437643
+el1,2012-13,6,2012-09-15,AFC Bournemouth,Hartlepool United,1,1,0,0,1437637
+el1,2012-13,6,2012-09-15,Carlisle United,Swindon Town,2,2,2,2,1437644
+el1,2012-13,6,2012-09-15,Colchester United,Doncaster Rovers,1,2,1,1,1437641
+el1,2012-13,6,2012-09-15,FC Portsmouth,FC Walsall,1,2,0,0,1437636
+el1,2012-13,6,2012-09-15,FC Stevenage,Crewe Alexandra,2,2,1,2,1437645
+el1,2012-13,6,2012-09-15,Milton Keynes Dons,Yeovil Town,1,0,0,0,1437635
+el1,2012-13,6,2012-09-15,Oldham Athletic,Notts County,2,2,0,0,1437642
+el1,2012-13,6,2012-09-15,Preston North End,Crawley Town,1,2,0,0,1437640
+el1,2012-13,6,2012-09-15,Sheffield United,FC Bury,1,1,1,1,1437646
+el1,2012-13,6,2012-09-15,Shrewsbury Town,Scunthorpe United,0,1,0,1,1437639
+el1,2012-13,6,2012-09-15,Tranmere Rovers,Coventry City,2,0,0,0,1437638
+el1,2012-13,7,2012-09-18,AFC Bournemouth,FC Brentford,2,2,2,1,1437657
+el1,2012-13,7,2012-09-18,Carlisle United,Crewe Alexandra,0,0,0,0,1437652
+el1,2012-13,7,2012-09-18,Colchester United,Crawley Town,1,1,0,0,1437647
+el1,2012-13,7,2012-09-18,FC Portsmouth,Swindon Town,1,2,0,1,1437655
+el1,2012-13,7,2012-09-18,FC Stevenage,FC Walsall,3,1,1,0,1437653
+el1,2012-13,7,2012-09-18,Leyton Orient,Yeovil Town,4,1,2,0,1437648
+el1,2012-13,7,2012-09-18,Milton Keynes Dons,Notts County,1,1,0,1,1437650
+el1,2012-13,7,2012-09-18,Oldham Athletic,Scunthorpe United,1,1,1,1,1437658
+el1,2012-13,7,2012-09-18,Preston North End,Hartlepool United,5,0,2,0,1437649
+el1,2012-13,7,2012-09-18,Sheffield United,Doncaster Rovers,0,0,0,0,1437651
+el1,2012-13,7,2012-09-18,Shrewsbury Town,Coventry City,4,1,2,0,1437654
+el1,2012-13,7,2012-09-18,Tranmere Rovers,FC Bury,3,0,1,0,1437656
+el1,2012-13,8,2012-09-22,Coventry City,Carlisle United,1,2,1,1,1437664
+el1,2012-13,8,2012-09-22,Crawley Town,Tranmere Rovers,2,5,2,2,1437661
+el1,2012-13,8,2012-09-22,Crewe Alexandra,Leyton Orient,1,1,1,1,1437669
+el1,2012-13,8,2012-09-22,Doncaster Rovers,FC Stevenage,1,1,0,1,1437666
+el1,2012-13,8,2012-09-22,FC Brentford,Oldham Athletic,1,0,1,0,1437663
+el1,2012-13,8,2012-09-22,FC Bury,Milton Keynes Dons,1,4,0,1,1437659
+el1,2012-13,8,2012-09-22,FC Walsall,Preston North End,3,1,1,1,1437667
+el1,2012-13,8,2012-09-22,Hartlepool United,Shrewsbury Town,2,2,1,1,1437668
+el1,2012-13,8,2012-09-22,Notts County,FC Portsmouth,3,0,1,0,1437662
+el1,2012-13,8,2012-09-22,Scunthorpe United,Colchester United,1,0,0,0,1437670
+el1,2012-13,8,2012-09-22,Swindon Town,AFC Bournemouth,4,0,2,0,1437665
+el1,2012-13,8,2012-09-22,Yeovil Town,Sheffield United,0,1,0,0,1437660
+el1,2012-13,9,2012-09-29,AFC Bournemouth,FC Walsall,1,2,0,1,1437682
+el1,2012-13,9,2012-09-29,Carlisle United,Crawley Town,0,2,0,0,1437678
+el1,2012-13,9,2012-09-29,Colchester United,Hartlepool United,3,1,2,1,1437671
+el1,2012-13,9,2012-09-29,FC Portsmouth,Scunthorpe United,2,1,1,1,1437679
+el1,2012-13,9,2012-09-29,FC Stevenage,FC Bury,2,2,0,1,1437676
+el1,2012-13,9,2012-09-29,Leyton Orient,Doncaster Rovers,0,2,0,2,1437673
+el1,2012-13,9,2012-09-29,Milton Keynes Dons,Crewe Alexandra,1,0,1,0,1437674
+el1,2012-13,9,2012-09-29,Oldham Athletic,Coventry City,0,1,0,0,1437675
+el1,2012-13,9,2012-09-29,Preston North End,Yeovil Town,3,2,0,1,1437677
+el1,2012-13,9,2012-09-29,Sheffield United,Notts County,1,1,0,0,1437672
+el1,2012-13,9,2012-09-29,Shrewsbury Town,Swindon Town,0,1,0,0,1437680
+el1,2012-13,9,2012-09-29,Tranmere Rovers,FC Brentford,1,1,0,0,1437681
+el1,2012-13,10,2012-10-02,Coventry City,Milton Keynes Dons,1,1,1,1,1437689
+el1,2012-13,10,2012-10-02,Crawley Town,AFC Bournemouth,3,1,2,0,1437694
+el1,2012-13,10,2012-10-02,Crewe Alexandra,Oldham Athletic,0,2,0,0,1437692
+el1,2012-13,10,2012-10-02,Doncaster Rovers,Preston North End,1,3,1,1,1437684
+el1,2012-13,10,2012-10-02,FC Brentford,Shrewsbury Town,0,0,0,0,1437686
+el1,2012-13,10,2012-10-02,FC Walsall,Leyton Orient,1,2,0,2,1437687
+el1,2012-13,10,2012-10-02,Hartlepool United,Sheffield United,1,2,0,1,1437690
+el1,2012-13,10,2012-10-02,Notts County,FC Stevenage,1,2,0,0,1437683
+el1,2012-13,10,2012-10-02,Scunthorpe United,Tranmere Rovers,1,3,1,0,1437685
+el1,2012-13,10,2012-10-02,Swindon Town,Colchester United,0,1,0,0,1437688
+el1,2012-13,10,2012-10-02,Yeovil Town,FC Portsmouth,1,2,0,1,1437691
+el1,2012-13,10,2012-10-16,FC Bury,Carlisle United,1,1,1,0,1437693
+el1,2012-13,11,2012-10-06,Coventry City,AFC Bournemouth,1,0,0,0,1437704
+el1,2012-13,11,2012-10-06,Crewe Alexandra,Hartlepool United,2,1,1,1,1437701
+el1,2012-13,11,2012-10-06,Doncaster Rovers,Shrewsbury Town,1,0,1,0,1437706
+el1,2012-13,11,2012-10-06,FC Brentford,Crawley Town,2,1,1,0,1437700
+el1,2012-13,11,2012-10-06,FC Bury,Swindon Town,0,1,0,1,1437702
+el1,2012-13,11,2012-10-06,FC Stevenage,Scunthorpe United,1,0,0,0,1437705
+el1,2012-13,11,2012-10-06,FC Walsall,Carlisle United,1,2,1,1,1437703
+el1,2012-13,11,2012-10-06,Leyton Orient,Sheffield United,0,1,0,0,1437695
+el1,2012-13,11,2012-10-06,Milton Keynes Dons,FC Portsmouth,2,2,1,2,1437698
+el1,2012-13,11,2012-10-06,Notts County,Tranmere Rovers,0,1,0,1,1437696
+el1,2012-13,11,2012-10-06,Oldham Athletic,Preston North End,3,1,1,0,1437697
+el1,2012-13,11,2012-10-06,Yeovil Town,Colchester United,3,1,2,1,1437699
+el1,2012-13,12,2012-10-13,AFC Bournemouth,Leyton Orient,2,0,0,0,1437718
+el1,2012-13,12,2012-10-13,Carlisle United,Notts County,0,4,0,2,1437716
+el1,2012-13,12,2012-10-13,Colchester United,FC Stevenage,1,0,0,0,1437708
+el1,2012-13,12,2012-10-13,Crawley Town,FC Bury,3,2,1,0,1437715
+el1,2012-13,12,2012-10-13,FC Portsmouth,Crewe Alexandra,2,0,2,0,1437710
+el1,2012-13,12,2012-10-13,Hartlepool United,Doncaster Rovers,1,1,0,0,1437711
+el1,2012-13,12,2012-10-13,Scunthorpe United,FC Brentford,1,1,0,1,1437714
+el1,2012-13,12,2012-10-13,Sheffield United,Oldham Athletic,1,1,0,0,1437712
+el1,2012-13,12,2012-10-13,Swindon Town,Coventry City,2,2,0,2,1437709
+el1,2012-13,12,2012-10-13,Tranmere Rovers,Yeovil Town,3,2,1,2,1437707
+el1,2012-13,12,2012-10-14,Preston North End,Milton Keynes Dons,0,0,0,0,1437713
+el1,2012-13,12,2012-10-14,Shrewsbury Town,FC Walsall,1,0,1,0,1437717
+el1,2012-13,13,2012-10-20,AFC Bournemouth,Tranmere Rovers,3,1,0,1,1437721
+el1,2012-13,13,2012-10-20,Colchester United,Carlisle United,2,0,2,0,1437725
+el1,2012-13,13,2012-10-20,Coventry City,Notts County,1,2,0,1,1437729
+el1,2012-13,13,2012-10-20,Doncaster Rovers,FC Brentford,2,1,0,1,1437726
+el1,2012-13,13,2012-10-20,FC Portsmouth,Shrewsbury Town,3,1,0,0,1437719
+el1,2012-13,13,2012-10-20,FC Walsall,Crewe Alexandra,2,2,2,1,1437728
+el1,2012-13,13,2012-10-20,Hartlepool United,Crawley Town,0,1,0,1,1437723
+el1,2012-13,13,2012-10-20,Milton Keynes Dons,FC Stevenage,0,1,0,1,1437724
+el1,2012-13,13,2012-10-20,Oldham Athletic,Leyton Orient,2,0,0,0,1437730
+el1,2012-13,13,2012-10-20,Preston North End,Sheffield United,0,1,0,1,1437722
+el1,2012-13,13,2012-10-20,Swindon Town,Scunthorpe United,1,1,1,0,1437720
+el1,2012-13,13,2012-10-20,Yeovil Town,FC Bury,2,1,1,0,1437727
+el1,2012-13,14,2012-10-23,Carlisle United,Oldham Athletic,3,1,0,0,1437742
+el1,2012-13,14,2012-10-23,Crawley Town,Milton Keynes Dons,2,0,1,0,1437736
+el1,2012-13,14,2012-10-23,Crewe Alexandra,Swindon Town,2,1,2,1,1437741
+el1,2012-13,14,2012-10-23,FC Brentford,Coventry City,2,1,1,1,1437734
+el1,2012-13,14,2012-10-23,FC Bury,Hartlepool United,2,1,1,0,1437731
+el1,2012-13,14,2012-10-23,FC Stevenage,FC Portsmouth,2,1,1,0,1437735
+el1,2012-13,14,2012-10-23,Leyton Orient,Colchester United,0,2,0,1,1437737
+el1,2012-13,14,2012-10-23,Notts County,AFC Bournemouth,3,3,2,0,1437733
+el1,2012-13,14,2012-10-23,Scunthorpe United,Preston North End,2,3,1,3,1437732
+el1,2012-13,14,2012-10-23,Sheffield United,FC Walsall,1,0,1,0,1437740
+el1,2012-13,14,2012-10-23,Shrewsbury Town,Yeovil Town,1,3,0,1,1437738
+el1,2012-13,14,2012-10-23,Tranmere Rovers,Doncaster Rovers,1,2,0,0,1437739
+el1,2012-13,15,2012-10-27,Carlisle United,AFC Bournemouth,2,4,1,2,1437752
+el1,2012-13,15,2012-10-27,Crawley Town,Oldham Athletic,1,1,0,0,1437749
+el1,2012-13,15,2012-10-27,Crewe Alexandra,Yeovil Town,0,1,0,1,1437754
+el1,2012-13,15,2012-10-27,FC Brentford,Hartlepool United,2,2,1,1,1437750
+el1,2012-13,15,2012-10-27,FC Bury,FC Walsall,1,1,1,1,1437743
+el1,2012-13,15,2012-10-27,FC Stevenage,Swindon Town,0,4,0,3,1437746
+el1,2012-13,15,2012-10-27,Leyton Orient,Coventry City,0,1,0,1,1437753
+el1,2012-13,15,2012-10-27,Notts County,Doncaster Rovers,0,2,0,0,1437751
+el1,2012-13,15,2012-10-27,Scunthorpe United,Milton Keynes Dons,0,3,0,2,1437745
+el1,2012-13,15,2012-10-27,Shrewsbury Town,Colchester United,2,2,0,1,1437744
+el1,2012-13,15,2012-10-27,Tranmere Rovers,Preston North End,1,1,0,0,1437747
+el1,2012-13,15,2012-10-29,Sheffield United,FC Portsmouth,1,0,0,0,1437748
+el1,2012-13,16,2012-11-06,AFC Bournemouth,Shrewsbury Town,2,1,2,1,1437759
+el1,2012-13,16,2012-11-06,Colchester United,Notts County,0,2,0,2,1437764
+el1,2012-13,16,2012-11-06,Coventry City,Crawley Town,3,1,2,0,1437761
+el1,2012-13,16,2012-11-06,Doncaster Rovers,Crewe Alexandra,0,2,0,1,1437765
+el1,2012-13,16,2012-11-06,FC Portsmouth,FC Brentford,0,1,0,1,1437755
+el1,2012-13,16,2012-11-06,FC Walsall,Scunthorpe United,1,4,0,2,1437762
+el1,2012-13,16,2012-11-06,Oldham Athletic,FC Bury,1,2,0,1,1437760
+el1,2012-13,16,2012-11-06,Preston North End,Carlisle United,1,1,0,1,1437758
+el1,2012-13,16,2012-11-06,Swindon Town,Sheffield United,0,0,0,0,1437766
+el1,2012-13,16,2012-11-06,Yeovil Town,FC Stevenage,1,3,1,1,1437756
+el1,2012-13,16,2012-11-07,Hartlepool United,Tranmere Rovers,0,2,0,0,1437757
+el1,2012-13,16,2012-11-07,Milton Keynes Dons,Leyton Orient,1,0,1,0,1437763
+el1,2012-13,17,2012-11-10,Coventry City,Scunthorpe United,1,2,1,1,1437770
+el1,2012-13,17,2012-11-10,Crewe Alexandra,Colchester United,3,2,0,2,1437771
+el1,2012-13,17,2012-11-10,Doncaster Rovers,AFC Bournemouth,0,1,0,1,1437777
+el1,2012-13,17,2012-11-10,FC Brentford,Carlisle United,2,1,1,1,1437778
+el1,2012-13,17,2012-11-10,FC Bury,FC Portsmouth,2,0,1,0,1437775
+el1,2012-13,17,2012-11-10,FC Stevenage,Preston North End,1,4,1,2,1437774
+el1,2012-13,17,2012-11-10,FC Walsall,Swindon Town,0,2,0,1,1437772
+el1,2012-13,17,2012-11-10,Leyton Orient,Shrewsbury Town,2,1,1,0,1437769
+el1,2012-13,17,2012-11-10,Milton Keynes Dons,Sheffield United,1,0,0,0,1437773
+el1,2012-13,17,2012-11-10,Notts County,Crawley Town,1,1,1,1,1437767
+el1,2012-13,17,2012-11-10,Oldham Athletic,Tranmere Rovers,0,1,0,0,1437768
+el1,2012-13,17,2012-11-10,Yeovil Town,Hartlepool United,1,0,1,0,1437776
+el1,2012-13,18,2012-11-16,Tranmere Rovers,Milton Keynes Dons,0,1,0,0,1437783
+el1,2012-13,18,2012-11-17,AFC Bournemouth,Oldham Athletic,4,1,0,0,1437782
+el1,2012-13,18,2012-11-17,Carlisle United,Leyton Orient,1,4,1,4,1437788
+el1,2012-13,18,2012-11-17,Colchester United,FC Bury,2,0,0,0,1437785
+el1,2012-13,18,2012-11-17,Crawley Town,FC Walsall,2,2,1,1,1437787
+el1,2012-13,18,2012-11-17,FC Portsmouth,Doncaster Rovers,0,1,0,1,1437781
+el1,2012-13,18,2012-11-17,Hartlepool United,Coventry City,0,5,0,0,1437779
+el1,2012-13,18,2012-11-17,Preston North End,FC Brentford,1,1,0,0,1437784
+el1,2012-13,18,2012-11-17,Scunthorpe United,Notts County,2,2,2,1,1437786
+el1,2012-13,18,2012-11-17,Sheffield United,FC Stevenage,4,1,1,1,1437790
+el1,2012-13,18,2012-11-17,Shrewsbury Town,Crewe Alexandra,1,0,1,0,1437780
+el1,2012-13,18,2012-11-17,Swindon Town,Yeovil Town,4,1,3,1,1437789
+el1,2012-13,19,2012-11-20,AFC Bournemouth,FC Stevenage,1,1,0,1,1437793
+el1,2012-13,19,2012-11-20,Carlisle United,Doncaster Rovers,1,3,0,2,1437792
+el1,2012-13,19,2012-11-20,Colchester United,Coventry City,1,3,0,2,1437801
+el1,2012-13,19,2012-11-20,Crawley Town,Yeovil Town,0,1,0,0,1437796
+el1,2012-13,19,2012-11-20,FC Portsmouth,Leyton Orient,2,3,0,1,1437799
+el1,2012-13,19,2012-11-20,Hartlepool United,Oldham Athletic,1,2,0,1,1437798
+el1,2012-13,19,2012-11-20,Preston North End,Notts County,0,0,0,0,1437791
+el1,2012-13,19,2012-11-20,Scunthorpe United,FC Bury,1,2,0,1,1437800
+el1,2012-13,19,2012-11-20,Sheffield United,Crewe Alexandra,3,3,2,2,1437795
+el1,2012-13,19,2012-11-20,Shrewsbury Town,Milton Keynes Dons,2,2,0,1,1437794
+el1,2012-13,19,2012-11-20,Swindon Town,FC Brentford,0,1,0,0,1437802
+el1,2012-13,19,2012-11-20,Tranmere Rovers,FC Walsall,0,0,0,0,1437797
+el1,2012-13,20,2012-11-24,Coventry City,FC Portsmouth,1,1,1,0,1437811
+el1,2012-13,20,2012-11-24,Crewe Alexandra,Crawley Town,2,0,0,0,1437808
+el1,2012-13,20,2012-11-24,Doncaster Rovers,Scunthorpe United,4,0,1,0,1437810
+el1,2012-13,20,2012-11-24,FC Brentford,Sheffield United,2,0,2,0,1437814
+el1,2012-13,20,2012-11-24,FC Bury,AFC Bournemouth,2,2,1,0,1437807
+el1,2012-13,20,2012-11-24,FC Stevenage,Tranmere Rovers,1,1,0,0,1437804
+el1,2012-13,20,2012-11-24,FC Walsall,Hartlepool United,1,1,0,1,1437803
+el1,2012-13,20,2012-11-24,Leyton Orient,Preston North End,2,0,1,0,1437812
+el1,2012-13,20,2012-11-24,Milton Keynes Dons,Colchester United,5,1,2,0,1437809
+el1,2012-13,20,2012-11-24,Notts County,Swindon Town,1,0,1,0,1437813
+el1,2012-13,20,2012-11-24,Oldham Athletic,Shrewsbury Town,1,0,1,0,1437805
+el1,2012-13,20,2012-11-24,Yeovil Town,Carlisle United,1,3,0,1,1437806
+el1,2012-13,21,2012-12-08,Carlisle United,Sheffield United,1,3,0,2,1437815
+el1,2012-13,21,2012-12-08,Colchester United,Oldham Athletic,0,2,0,1,1437817
+el1,2012-13,21,2012-12-08,Coventry City,FC Walsall,5,1,3,1,1437824
+el1,2012-13,21,2012-12-08,Crawley Town,Shrewsbury Town,2,2,1,2,1437822
+el1,2012-13,21,2012-12-08,FC Brentford,Milton Keynes Dons,3,2,1,1,1437826
+el1,2012-13,21,2012-12-08,FC Bury,Leyton Orient,0,2,0,1,1437823
+el1,2012-13,21,2012-12-08,Hartlepool United,FC Stevenage,0,2,0,1,1437821
+el1,2012-13,21,2012-12-08,Preston North End,Crewe Alexandra,1,3,0,1,1437819
+el1,2012-13,21,2012-12-08,Scunthorpe United,AFC Bournemouth,1,2,0,2,1437820
+el1,2012-13,21,2012-12-08,Swindon Town,Doncaster Rovers,1,1,1,1,1437818
+el1,2012-13,21,2012-12-08,Tranmere Rovers,FC Portsmouth,2,2,1,0,1437816
+el1,2012-13,21,2012-12-08,Yeovil Town,Notts County,0,0,0,0,1437825
+el1,2012-13,22,2012-12-15,AFC Bournemouth,Colchester United,1,0,1,0,1437838
+el1,2012-13,22,2012-12-15,Crewe Alexandra,FC Bury,1,0,0,0,1437830
+el1,2012-13,22,2012-12-15,Doncaster Rovers,Coventry City,1,4,0,2,1437829
+el1,2012-13,22,2012-12-15,FC Portsmouth,Preston North End,0,0,0,0,1437832
+el1,2012-13,22,2012-12-15,FC Stevenage,Crawley Town,1,2,0,0,1437831
+el1,2012-13,22,2012-12-15,FC Walsall,Yeovil Town,2,2,1,0,1437834
+el1,2012-13,22,2012-12-15,Leyton Orient,Scunthorpe United,1,3,0,0,1437833
+el1,2012-13,22,2012-12-15,Milton Keynes Dons,Hartlepool United,1,0,1,0,1437836
+el1,2012-13,22,2012-12-15,Notts County,FC Brentford,1,2,1,1,1437827
+el1,2012-13,22,2012-12-15,Oldham Athletic,Swindon Town,0,2,0,2,1437837
+el1,2012-13,22,2012-12-15,Sheffield United,Tranmere Rovers,0,0,0,0,1437835
+el1,2012-13,22,2012-12-15,Shrewsbury Town,Carlisle United,2,1,1,1,1437828
+el1,2012-13,23,2012-12-21,FC Bury,Shrewsbury Town,2,2,1,1,1437839
+el1,2012-13,23,2012-12-21,Swindon Town,Tranmere Rovers,5,0,4,0,1437840
+el1,2012-13,23,2012-12-22,Coventry City,Preston North End,1,1,1,0,1437846
+el1,2012-13,23,2012-12-22,Crawley Town,Sheffield United,0,2,0,1,1437847
+el1,2012-13,23,2012-12-22,FC Walsall,Colchester United,1,0,0,0,1437849
+el1,2012-13,23,2012-12-22,Yeovil Town,Oldham Athletic,4,1,2,1,1437844
+el1,2012-13,23,2013-02-12,Crewe Alexandra,AFC Bournemouth,1,2,0,0,1437842
+el1,2012-13,23,2013-02-12,Doncaster Rovers,Milton Keynes Dons,0,0,0,0,1437848
+el1,2012-13,23,2013-02-12,FC Brentford,FC Stevenage,2,0,1,0,1437841
+el1,2012-13,23,2013-02-12,Hartlepool United,FC Portsmouth,0,0,0,0,1437845
+el1,2012-13,23,2013-02-12,Scunthorpe United,Carlisle United,3,1,2,1,1437843
+el1,2012-13,23,2013-03-06,Notts County,Leyton Orient,1,1,1,0,1437850
+el1,2012-13,24,2012-12-26,AFC Bournemouth,Yeovil Town,3,0,1,0,1437859
+el1,2012-13,24,2012-12-26,Carlisle United,Hartlepool United,3,0,2,0,1437861
+el1,2012-13,24,2012-12-26,Colchester United,FC Brentford,1,3,1,2,1437857
+el1,2012-13,24,2012-12-26,FC Portsmouth,Crawley Town,1,2,1,1,1437855
+el1,2012-13,24,2012-12-26,FC Stevenage,Coventry City,1,3,1,0,1437856
+el1,2012-13,24,2012-12-26,Milton Keynes Dons,FC Walsall,2,4,2,3,1437851
+el1,2012-13,24,2012-12-26,Oldham Athletic,Doncaster Rovers,1,2,1,1,1437852
+el1,2012-13,24,2012-12-26,Preston North End,FC Bury,0,0,0,0,1437862
+el1,2012-13,24,2012-12-26,Sheffield United,Scunthorpe United,3,0,1,0,1437854
+el1,2012-13,24,2012-12-26,Shrewsbury Town,Notts County,2,2,1,2,1437853
+el1,2012-13,24,2012-12-26,Tranmere Rovers,Crewe Alexandra,2,1,0,1,1437858
+el1,2012-13,24,2013-01-29,Leyton Orient,Swindon Town,0,0,0,0,1437860
+el1,2012-13,25,2012-12-29,AFC Bournemouth,Crawley Town,3,0,2,0,1437872
+el1,2012-13,25,2012-12-29,Carlisle United,FC Bury,2,1,2,0,1437865
+el1,2012-13,25,2012-12-29,FC Portsmouth,Yeovil Town,1,2,0,2,1437874
+el1,2012-13,25,2012-12-29,Leyton Orient,FC Walsall,2,1,1,0,1437863
+el1,2012-13,25,2012-12-29,Milton Keynes Dons,Coventry City,2,3,2,1,1437871
+el1,2012-13,25,2012-12-29,Oldham Athletic,Crewe Alexandra,1,2,0,0,1437870
+el1,2012-13,25,2012-12-29,Preston North End,Doncaster Rovers,0,3,0,2,1437869
+el1,2012-13,25,2012-12-29,Sheffield United,Hartlepool United,2,3,1,1,1437868
+el1,2012-13,25,2012-12-29,Shrewsbury Town,FC Brentford,0,0,0,0,1437866
+el1,2012-13,25,2012-12-29,Tranmere Rovers,Scunthorpe United,1,0,0,0,1437873
+el1,2012-13,25,2013-02-05,Colchester United,Swindon Town,0,1,0,0,1437867
+el1,2012-13,25,2013-02-05,FC Stevenage,Notts County,2,0,1,0,1437864
+el1,2012-13,26,2013-01-01,Coventry City,Shrewsbury Town,0,1,0,0,1437878
+el1,2012-13,26,2013-01-01,Crawley Town,Colchester United,3,0,1,0,1437875
+el1,2012-13,26,2013-01-01,Crewe Alexandra,Carlisle United,1,0,1,0,1437881
+el1,2012-13,26,2013-01-01,Doncaster Rovers,Sheffield United,2,2,1,0,1437886
+el1,2012-13,26,2013-01-01,FC Brentford,AFC Bournemouth,0,0,0,0,1437880
+el1,2012-13,26,2013-01-01,FC Bury,Tranmere Rovers,0,1,0,0,1437879
+el1,2012-13,26,2013-01-01,FC Walsall,FC Stevenage,1,0,0,0,1437884
+el1,2012-13,26,2013-01-01,Hartlepool United,Preston North End,0,1,0,1,1437882
+el1,2012-13,26,2013-01-01,Notts County,Milton Keynes Dons,1,2,0,2,1437877
+el1,2012-13,26,2013-01-01,Scunthorpe United,Oldham Athletic,2,2,2,1,1437885
+el1,2012-13,26,2013-01-01,Swindon Town,FC Portsmouth,5,0,0,0,1437883
+el1,2012-13,26,2013-01-01,Yeovil Town,Leyton Orient,3,0,1,0,1437876
+el1,2012-13,27,2013-01-04,FC Walsall,FC Portsmouth,2,0,2,0,1437895
+el1,2012-13,27,2013-01-05,Crewe Alexandra,FC Stevenage,1,2,1,0,1437887
+el1,2012-13,27,2013-01-05,Doncaster Rovers,Colchester United,1,0,0,0,1437898
+el1,2012-13,27,2013-01-05,Scunthorpe United,Shrewsbury Town,0,0,0,0,1437889
+el1,2012-13,27,2013-01-05,Swindon Town,Carlisle United,4,0,2,0,1437890
+el1,2012-13,27,2013-01-16,Coventry City,Tranmere Rovers,1,0,1,0,1437888
+el1,2012-13,27,2013-01-22,FC Brentford,Leyton Orient,2,2,2,1,1437897
+el1,2012-13,27,2013-01-22,Hartlepool United,AFC Bournemouth,1,2,0,1,1437891
+el1,2012-13,27,2013-01-22,Notts County,Oldham Athletic,1,0,1,0,1437896
+el1,2012-13,27,2013-01-29,Yeovil Town,Milton Keynes Dons,2,1,1,1,1437892
+el1,2012-13,27,2013-02-12,FC Bury,Sheffield United,0,2,0,1,1437893
+el1,2012-13,27,2013-04-23,Crawley Town,Preston North End,1,0,1,0,1437894
+el1,2012-13,28,2013-01-12,AFC Bournemouth,Swindon Town,1,1,1,0,1437906
+el1,2012-13,28,2013-01-12,Colchester United,Scunthorpe United,1,2,0,1,1437910
+el1,2012-13,28,2013-01-12,FC Stevenage,Doncaster Rovers,1,2,0,0,1437905
+el1,2012-13,28,2013-01-12,Leyton Orient,Crewe Alexandra,1,1,1,1,1437908
+el1,2012-13,28,2013-01-12,Milton Keynes Dons,FC Bury,1,1,1,0,1437902
+el1,2012-13,28,2013-01-12,Oldham Athletic,FC Brentford,0,2,0,1,1437901
+el1,2012-13,28,2013-01-12,Sheffield United,Yeovil Town,0,2,0,0,1437907
+el1,2012-13,28,2013-01-12,Shrewsbury Town,Hartlepool United,1,1,1,0,1437909
+el1,2012-13,28,2013-01-12,Tranmere Rovers,Crawley Town,2,0,2,0,1437900
+el1,2012-13,28,2013-01-13,Carlisle United,Coventry City,1,0,1,0,1437904
+el1,2012-13,28,2013-01-13,Preston North End,FC Walsall,1,3,0,2,1437899
+el1,2012-13,28,2013-01-29,FC Portsmouth,Notts County,0,2,0,0,1437903
+el1,2012-13,29,2013-01-19,Coventry City,Oldham Athletic,2,1,0,0,1437922
+el1,2012-13,29,2013-01-19,Doncaster Rovers,Leyton Orient,2,0,1,0,1437912
+el1,2012-13,29,2013-01-19,FC Brentford,Tranmere Rovers,1,2,0,1,1437913
+el1,2012-13,29,2013-01-19,FC Walsall,AFC Bournemouth,3,1,2,0,1437921
+el1,2012-13,29,2013-01-19,Notts County,Sheffield United,1,1,0,1,1437916
+el1,2012-13,29,2013-01-19,Swindon Town,Shrewsbury Town,2,0,0,0,1437918
+el1,2012-13,29,2013-02-05,Scunthorpe United,FC Portsmouth,2,1,1,1,1437917
+el1,2012-13,29,2013-02-12,Yeovil Town,Preston North End,3,1,0,1,1437920
+el1,2012-13,29,2013-03-05,Crawley Town,Carlisle United,1,1,0,1,1437911
+el1,2012-13,29,2013-03-05,Hartlepool United,Colchester United,0,0,0,0,1437919
+el1,2012-13,29,2013-03-19,Crewe Alexandra,Milton Keynes Dons,2,1,1,1,1437915
+el1,2012-13,29,2013-03-19,FC Bury,FC Stevenage,2,0,0,0,1437914
+el1,2012-13,30,2013-01-26,AFC Bournemouth,Crewe Alexandra,3,1,1,0,1437932
+el1,2012-13,30,2013-01-26,Carlisle United,Scunthorpe United,1,1,0,0,1437925
+el1,2012-13,30,2013-01-26,Colchester United,FC Walsall,2,0,0,0,1437924
+el1,2012-13,30,2013-01-26,FC Portsmouth,Hartlepool United,1,3,0,1,1437923
+el1,2012-13,30,2013-01-26,Leyton Orient,Notts County,2,1,0,0,1437934
+el1,2012-13,30,2013-01-26,Preston North End,Coventry City,2,2,1,1,1437929
+el1,2012-13,30,2013-01-26,Shrewsbury Town,FC Bury,0,0,0,0,1437927
+el1,2012-13,30,2013-02-19,Tranmere Rovers,Swindon Town,1,3,0,0,1437931
+el1,2012-13,30,2013-03-05,FC Stevenage,FC Brentford,1,0,0,0,1437933
+el1,2012-13,30,2013-03-05,Milton Keynes Dons,Doncaster Rovers,3,0,1,0,1437930
+el1,2012-13,30,2013-04-09,Sheffield United,Crawley Town,0,2,0,0,1437928
+el1,2012-13,30,2013-04-16,Oldham Athletic,Yeovil Town,1,0,1,0,1437926
+el1,2012-13,31,2013-02-01,Sheffield United,Coventry City,1,2,0,1,1437945
+el1,2012-13,31,2013-02-02,Crawley Town,Swindon Town,1,1,1,0,1437946
+el1,2012-13,31,2013-02-02,Crewe Alexandra,Scunthorpe United,1,0,0,0,1437943
+el1,2012-13,31,2013-02-02,FC Bury,Doncaster Rovers,2,0,2,0,1437942
+el1,2012-13,31,2013-02-02,FC Portsmouth,Colchester United,2,3,1,3,1437938
+el1,2012-13,31,2013-02-02,FC Stevenage,Leyton Orient,0,1,0,1,1437940
+el1,2012-13,31,2013-02-02,FC Walsall,Oldham Athletic,3,1,1,1,1437936
+el1,2012-13,31,2013-02-02,Hartlepool United,Notts County,2,1,1,0,1437935
+el1,2012-13,31,2013-02-02,Milton Keynes Dons,AFC Bournemouth,0,3,0,2,1437937
+el1,2012-13,31,2013-02-02,Preston North End,Shrewsbury Town,1,2,1,0,1437939
+el1,2012-13,31,2013-02-02,Tranmere Rovers,Carlisle United,0,1,0,1,1437941
+el1,2012-13,31,2013-02-02,Yeovil Town,FC Brentford,3,0,2,0,1437944
+el1,2012-13,32,2013-02-09,AFC Bournemouth,FC Portsmouth,2,0,0,0,1437956
+el1,2012-13,32,2013-02-09,Carlisle United,FC Stevenage,2,1,2,1,1437952
+el1,2012-13,32,2013-02-09,Colchester United,Preston North End,1,0,0,0,1437957
+el1,2012-13,32,2013-02-09,Coventry City,Yeovil Town,0,1,0,1,1437953
+el1,2012-13,32,2013-02-09,Doncaster Rovers,FC Walsall,1,2,1,1,1437955
+el1,2012-13,32,2013-02-09,FC Brentford,FC Bury,2,2,0,0,1437949
+el1,2012-13,32,2013-02-09,Leyton Orient,Tranmere Rovers,2,1,1,0,1437947
+el1,2012-13,32,2013-02-09,Notts County,Crewe Alexandra,1,1,0,1,1437954
+el1,2012-13,32,2013-02-09,Oldham Athletic,Milton Keynes Dons,3,1,2,1,1437950
+el1,2012-13,32,2013-02-09,Scunthorpe United,Crawley Town,2,1,0,0,1437951
+el1,2012-13,32,2013-02-09,Shrewsbury Town,Sheffield United,1,2,0,0,1437948
+el1,2012-13,32,2013-02-09,Swindon Town,Hartlepool United,1,1,1,0,1437958
+el1,2012-13,33,2013-02-15,Tranmere Rovers,Shrewsbury Town,0,2,0,1,1437965
+el1,2012-13,33,2013-02-16,FC Bury,Coventry City,0,2,0,1,1437969
+el1,2012-13,33,2013-02-16,FC Portsmouth,Carlisle United,1,1,0,0,1437967
+el1,2012-13,33,2013-02-16,FC Walsall,Notts County,1,1,1,0,1437961
+el1,2012-13,33,2013-02-16,Hartlepool United,Leyton Orient,2,1,0,1,1437960
+el1,2012-13,33,2013-02-16,Preston North End,AFC Bournemouth,2,0,2,0,1437968
+el1,2012-13,33,2013-02-16,Sheffield United,Colchester United,3,0,1,0,1437962
+el1,2012-13,33,2013-02-16,Yeovil Town,Scunthorpe United,3,0,1,0,1437959
+el1,2012-13,33,2013-02-18,Crawley Town,Doncaster Rovers,1,1,1,1,1437966
+el1,2012-13,33,2013-02-19,FC Stevenage,Oldham Athletic,1,2,1,0,1437964
+el1,2012-13,33,2013-04-09,Milton Keynes Dons,Swindon Town,2,0,0,0,1437970
+el1,2012-13,33,2013-04-10,Crewe Alexandra,FC Brentford,0,2,0,1,1437963
+el1,2012-13,34,2013-02-22,Notts County,FC Bury,4,1,0,1,1437971
+el1,2012-13,34,2013-02-23,AFC Bournemouth,Sheffield United,0,1,0,1,1437977
+el1,2012-13,34,2013-02-23,Carlisle United,Milton Keynes Dons,1,1,0,1,1437976
+el1,2012-13,34,2013-02-23,Colchester United,Tranmere Rovers,1,5,1,2,1437981
+el1,2012-13,34,2013-02-23,Coventry City,Crewe Alexandra,1,2,1,1,1437982
+el1,2012-13,34,2013-02-23,Doncaster Rovers,Yeovil Town,1,1,1,1,1437978
+el1,2012-13,34,2013-02-23,FC Brentford,FC Walsall,0,0,0,0,1437974
+el1,2012-13,34,2013-02-23,Leyton Orient,Crawley Town,0,1,0,1,1437973
+el1,2012-13,34,2013-02-23,Oldham Athletic,FC Portsmouth,1,0,1,0,1437972
+el1,2012-13,34,2013-02-23,Scunthorpe United,Hartlepool United,1,2,0,2,1437979
+el1,2012-13,34,2013-02-23,Shrewsbury Town,FC Stevenage,2,1,1,1,1437980
+el1,2012-13,34,2013-02-23,Swindon Town,Preston North End,1,1,0,0,1437975
+el1,2012-13,35,2013-02-26,AFC Bournemouth,Coventry City,0,2,0,1,1437988
+el1,2012-13,35,2013-02-26,Carlisle United,FC Walsall,0,3,0,1,1437984
+el1,2012-13,35,2013-02-26,Colchester United,Yeovil Town,2,0,1,0,1437986
+el1,2012-13,35,2013-02-26,Crawley Town,FC Brentford,1,2,0,2,1437990
+el1,2012-13,35,2013-02-26,FC Portsmouth,Milton Keynes Dons,1,1,1,1,1437991
+el1,2012-13,35,2013-02-26,Hartlepool United,Crewe Alexandra,3,0,2,0,1437985
+el1,2012-13,35,2013-02-26,Scunthorpe United,FC Stevenage,1,0,0,0,1437994
+el1,2012-13,35,2013-02-26,Sheffield United,Leyton Orient,0,0,0,0,1437987
+el1,2012-13,35,2013-02-26,Shrewsbury Town,Doncaster Rovers,1,2,0,0,1437989
+el1,2012-13,35,2013-02-26,Swindon Town,FC Bury,0,1,0,1,1437992
+el1,2012-13,35,2013-02-26,Tranmere Rovers,Notts County,1,1,1,0,1437993
+el1,2012-13,35,2013-04-09,Preston North End,Oldham Athletic,2,0,0,0,1437983
+el1,2012-13,36,2013-03-02,Coventry City,Swindon Town,1,2,1,0,1438000
+el1,2012-13,36,2013-03-02,Crewe Alexandra,FC Portsmouth,1,2,0,2,1438003
+el1,2012-13,36,2013-03-02,Doncaster Rovers,Hartlepool United,3,0,1,0,1437997
+el1,2012-13,36,2013-03-02,FC Brentford,Scunthorpe United,1,0,0,0,1437995
+el1,2012-13,36,2013-03-02,FC Bury,Crawley Town,0,2,0,1,1438005
+el1,2012-13,36,2013-03-02,FC Stevenage,Colchester United,0,2,0,0,1438004
+el1,2012-13,36,2013-03-02,FC Walsall,Shrewsbury Town,3,1,1,0,1437996
+el1,2012-13,36,2013-03-02,Leyton Orient,AFC Bournemouth,3,1,1,0,1437999
+el1,2012-13,36,2013-03-02,Milton Keynes Dons,Preston North End,1,1,1,1,1438002
+el1,2012-13,36,2013-03-02,Notts County,Carlisle United,1,0,1,0,1437998
+el1,2012-13,36,2013-03-02,Oldham Athletic,Sheffield United,0,2,0,0,1438001
+el1,2012-13,36,2013-03-02,Yeovil Town,Tranmere Rovers,1,0,0,0,1438006
+el1,2012-13,37,2013-03-09,AFC Bournemouth,Doncaster Rovers,1,2,0,0,1438011
+el1,2012-13,37,2013-03-09,Carlisle United,FC Brentford,2,0,1,0,1438013
+el1,2012-13,37,2013-03-09,Colchester United,Crewe Alexandra,1,2,1,1,1438014
+el1,2012-13,37,2013-03-09,Crawley Town,Notts County,0,0,0,0,1438010
+el1,2012-13,37,2013-03-09,FC Portsmouth,FC Bury,2,0,0,0,1438018
+el1,2012-13,37,2013-03-09,Hartlepool United,Yeovil Town,0,0,0,0,1438016
+el1,2012-13,37,2013-03-09,Preston North End,FC Stevenage,2,0,2,0,1438015
+el1,2012-13,37,2013-03-09,Scunthorpe United,Coventry City,1,2,1,1,1438017
+el1,2012-13,37,2013-03-09,Sheffield United,Milton Keynes Dons,0,0,0,0,1438007
+el1,2012-13,37,2013-03-09,Shrewsbury Town,Leyton Orient,0,2,0,1,1438008
+el1,2012-13,37,2013-03-09,Swindon Town,FC Walsall,2,2,1,1,1438009
+el1,2012-13,37,2013-03-09,Tranmere Rovers,Oldham Athletic,1,0,0,0,1438012
+el1,2012-13,38,2013-03-12,Coventry City,Colchester United,2,2,0,1,1438023
+el1,2012-13,38,2013-03-12,FC Brentford,Swindon Town,2,1,0,1,1438027
+el1,2012-13,38,2013-03-12,FC Stevenage,AFC Bournemouth,0,1,0,1,1438028
+el1,2012-13,38,2013-03-12,FC Walsall,Tranmere Rovers,2,0,0,0,1438021
+el1,2012-13,38,2013-03-12,Leyton Orient,FC Portsmouth,1,0,0,0,1438024
+el1,2012-13,38,2013-03-12,Milton Keynes Dons,Shrewsbury Town,2,3,1,2,1438020
+el1,2012-13,38,2013-03-12,Notts County,Preston North End,0,1,0,1,1438025
+el1,2012-13,38,2013-03-12,Yeovil Town,Crawley Town,2,2,2,0,1438022
+el1,2012-13,38,2013-03-19,Oldham Athletic,Hartlepool United,3,0,2,0,1438030
+el1,2012-13,38,2013-04-09,Doncaster Rovers,Carlisle United,0,2,0,1,1438029
+el1,2012-13,38,2013-04-16,FC Bury,Scunthorpe United,2,1,0,1,1438019
+el1,2012-13,38,2013-04-23,Crewe Alexandra,Sheffield United,1,0,0,0,1438026
+el1,2012-13,39,2013-03-16,Coventry City,Hartlepool United,1,0,1,0,1438038
+el1,2012-13,39,2013-03-16,Crewe Alexandra,Shrewsbury Town,1,1,1,1,1438035
+el1,2012-13,39,2013-03-16,Doncaster Rovers,FC Portsmouth,1,1,1,0,1438033
+el1,2012-13,39,2013-03-16,FC Brentford,Preston North End,1,0,0,0,1438032
+el1,2012-13,39,2013-03-16,FC Bury,Colchester United,1,2,1,2,1438039
+el1,2012-13,39,2013-03-16,FC Stevenage,Sheffield United,4,0,1,0,1438031
+el1,2012-13,39,2013-03-16,FC Walsall,Crawley Town,2,2,0,0,1438040
+el1,2012-13,39,2013-03-16,Leyton Orient,Carlisle United,4,1,2,0,1438042
+el1,2012-13,39,2013-03-16,Milton Keynes Dons,Tranmere Rovers,3,0,2,0,1438041
+el1,2012-13,39,2013-03-16,Notts County,Scunthorpe United,1,0,0,0,1438037
+el1,2012-13,39,2013-03-16,Oldham Athletic,AFC Bournemouth,0,1,0,1,1438036
+el1,2012-13,39,2013-03-19,Yeovil Town,Swindon Town,0,2,0,0,1438034
+el1,2012-13,40,2013-03-23,AFC Bournemouth,FC Bury,4,1,1,1,1438052
+el1,2012-13,40,2013-03-23,Carlisle United,Yeovil Town,3,3,1,1,1438046
+el1,2012-13,40,2013-03-23,FC Portsmouth,Coventry City,2,0,1,0,1438051
+el1,2012-13,40,2013-03-23,Hartlepool United,FC Walsall,0,0,0,0,1438047
+el1,2012-13,40,2013-03-23,Preston North End,Leyton Orient,0,0,0,0,1438045
+el1,2012-13,40,2013-03-23,Scunthorpe United,Doncaster Rovers,2,3,1,2,1438054
+el1,2012-13,40,2013-03-23,Swindon Town,Notts County,0,0,0,0,1438048
+el1,2012-13,40,2013-03-24,Tranmere Rovers,FC Stevenage,3,1,3,1,1438043
+el1,2012-13,40,2013-03-26,Crawley Town,Crewe Alexandra,2,0,0,0,1438053
+el1,2012-13,40,2013-04-16,Colchester United,Milton Keynes Dons,0,2,0,1,1438049
+el1,2012-13,40,2013-04-16,Sheffield United,FC Brentford,2,2,0,1,1438050
+el1,2012-13,40,2013-04-23,Shrewsbury Town,Oldham Athletic,1,0,0,0,1438044
+el1,2012-13,41,2013-03-29,Carlisle United,Shrewsbury Town,2,2,0,0,1438066
+el1,2012-13,41,2013-03-29,Colchester United,AFC Bournemouth,0,1,0,1,1438057
+el1,2012-13,41,2013-03-29,Coventry City,Doncaster Rovers,1,0,1,0,1438055
+el1,2012-13,41,2013-03-29,Crawley Town,FC Stevenage,1,1,0,1,1438065
+el1,2012-13,41,2013-03-29,FC Brentford,Notts County,2,1,1,0,1438064
+el1,2012-13,41,2013-03-29,FC Bury,Crewe Alexandra,2,2,0,1,1438056
+el1,2012-13,41,2013-03-29,Hartlepool United,Milton Keynes Dons,0,2,0,1,1438058
+el1,2012-13,41,2013-03-29,Preston North End,FC Portsmouth,1,1,0,1,1438060
+el1,2012-13,41,2013-03-29,Scunthorpe United,Leyton Orient,2,1,2,1,1438062
+el1,2012-13,41,2013-03-29,Swindon Town,Oldham Athletic,1,1,0,0,1438061
+el1,2012-13,41,2013-03-29,Tranmere Rovers,Sheffield United,0,1,0,1,1438059
+el1,2012-13,41,2013-03-29,Yeovil Town,FC Walsall,0,0,0,0,1438063
+el1,2012-13,42,2013-04-01,AFC Bournemouth,Scunthorpe United,1,0,1,0,1438070
+el1,2012-13,42,2013-04-01,Crewe Alexandra,Preston North End,1,0,1,0,1438075
+el1,2012-13,42,2013-04-01,Doncaster Rovers,Swindon Town,1,0,0,0,1438078
+el1,2012-13,42,2013-04-01,FC Portsmouth,Tranmere Rovers,1,0,0,0,1438073
+el1,2012-13,42,2013-04-01,FC Stevenage,Hartlepool United,1,0,0,0,1438068
+el1,2012-13,42,2013-04-01,FC Walsall,Coventry City,4,0,1,0,1438071
+el1,2012-13,42,2013-04-01,Leyton Orient,FC Bury,2,0,2,0,1438072
+el1,2012-13,42,2013-04-01,Milton Keynes Dons,FC Brentford,2,0,1,0,1438067
+el1,2012-13,42,2013-04-01,Notts County,Yeovil Town,1,2,0,1,1438076
+el1,2012-13,42,2013-04-01,Oldham Athletic,Colchester United,1,1,0,1,1438077
+el1,2012-13,42,2013-04-01,Sheffield United,Carlisle United,0,0,0,0,1438074
+el1,2012-13,42,2013-04-01,Shrewsbury Town,Crawley Town,3,0,0,0,1438069
+el1,2012-13,43,2013-04-06,AFC Bournemouth,Notts County,3,1,2,1,1438088
+el1,2012-13,43,2013-04-06,Colchester United,Leyton Orient,2,1,2,1,1438087
+el1,2012-13,43,2013-04-06,Coventry City,FC Brentford,1,1,1,0,1438090
+el1,2012-13,43,2013-04-06,Doncaster Rovers,Tranmere Rovers,1,0,0,0,1438081
+el1,2012-13,43,2013-04-06,FC Portsmouth,FC Stevenage,0,0,0,0,1438080
+el1,2012-13,43,2013-04-06,FC Walsall,Sheffield United,1,1,1,0,1438086
+el1,2012-13,43,2013-04-06,Hartlepool United,FC Bury,2,0,1,0,1438089
+el1,2012-13,43,2013-04-06,Milton Keynes Dons,Crawley Town,0,0,0,0,1438079
+el1,2012-13,43,2013-04-06,Oldham Athletic,Carlisle United,1,2,0,2,1438085
+el1,2012-13,43,2013-04-06,Preston North End,Scunthorpe United,3,0,1,0,1438083
+el1,2012-13,43,2013-04-06,Yeovil Town,Shrewsbury Town,2,1,2,1,1438082
+el1,2012-13,43,2013-04-16,Swindon Town,Crewe Alexandra,4,1,3,0,1438084
+el1,2012-13,44,2013-04-13,Carlisle United,Preston North End,1,1,1,1,1438093
+el1,2012-13,44,2013-04-13,Crawley Town,Coventry City,2,0,1,0,1438098
+el1,2012-13,44,2013-04-13,Crewe Alexandra,Doncaster Rovers,1,2,0,0,1438092
+el1,2012-13,44,2013-04-13,FC Brentford,FC Portsmouth,3,2,1,1,1438101
+el1,2012-13,44,2013-04-13,FC Bury,Oldham Athletic,0,1,0,0,1438099
+el1,2012-13,44,2013-04-13,FC Stevenage,Yeovil Town,0,2,0,0,1438094
+el1,2012-13,44,2013-04-13,Leyton Orient,Milton Keynes Dons,2,0,0,0,1438100
+el1,2012-13,44,2013-04-13,Notts County,Colchester United,3,1,1,1,1438097
+el1,2012-13,44,2013-04-13,Scunthorpe United,FC Walsall,1,1,0,0,1438091
+el1,2012-13,44,2013-04-13,Sheffield United,Swindon Town,2,0,1,0,1438096
+el1,2012-13,44,2013-04-13,Shrewsbury Town,AFC Bournemouth,0,3,0,1,1438102
+el1,2012-13,44,2013-04-13,Tranmere Rovers,Hartlepool United,0,1,0,1,1438095
+el1,2012-13,45,2013-04-20,AFC Bournemouth,Carlisle United,3,1,1,0,1438109
+el1,2012-13,45,2013-04-20,Colchester United,Shrewsbury Town,0,0,0,0,1438113
+el1,2012-13,45,2013-04-20,Coventry City,Leyton Orient,0,1,0,1,1438104
+el1,2012-13,45,2013-04-20,Doncaster Rovers,Notts County,0,1,0,1,1438107
+el1,2012-13,45,2013-04-20,FC Portsmouth,Sheffield United,3,0,3,0,1438103
+el1,2012-13,45,2013-04-20,FC Walsall,FC Bury,1,1,1,0,1438111
+el1,2012-13,45,2013-04-20,Hartlepool United,FC Brentford,1,1,1,1,1438108
+el1,2012-13,45,2013-04-20,Milton Keynes Dons,Scunthorpe United,0,1,0,1,1438105
+el1,2012-13,45,2013-04-20,Oldham Athletic,Crawley Town,2,1,0,0,1438106
+el1,2012-13,45,2013-04-20,Preston North End,Tranmere Rovers,1,0,1,0,1438114
+el1,2012-13,45,2013-04-20,Swindon Town,FC Stevenage,3,0,1,0,1438110
+el1,2012-13,45,2013-04-20,Yeovil Town,Crewe Alexandra,1,0,1,0,1438112
+el1,2012-13,46,2013-04-27,Carlisle United,Colchester United,0,2,0,0,1438126
+el1,2012-13,46,2013-04-27,Crawley Town,Hartlepool United,2,2,0,0,1438118
+el1,2012-13,46,2013-04-27,Crewe Alexandra,FC Walsall,2,0,0,0,1438117
+el1,2012-13,46,2013-04-27,FC Brentford,Doncaster Rovers,0,1,0,0,1438116
+el1,2012-13,46,2013-04-27,FC Bury,Yeovil Town,3,2,3,0,1438124
+el1,2012-13,46,2013-04-27,FC Stevenage,Milton Keynes Dons,0,2,0,1,1438123
+el1,2012-13,46,2013-04-27,Leyton Orient,Oldham Athletic,1,1,1,0,1438121
+el1,2012-13,46,2013-04-27,Notts County,Coventry City,2,2,1,0,1438119
+el1,2012-13,46,2013-04-27,Scunthorpe United,Swindon Town,3,1,0,0,1438120
+el1,2012-13,46,2013-04-27,Sheffield United,Preston North End,0,0,0,0,1438125
+el1,2012-13,46,2013-04-27,Shrewsbury Town,FC Portsmouth,3,2,2,0,1438122
+el1,2012-13,46,2013-04-27,Tranmere Rovers,AFC Bournemouth,0,0,0,0,1438115

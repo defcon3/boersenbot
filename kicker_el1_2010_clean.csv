@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el1,2010-11,1,2010-08-07,AFC Rochdale,Hartlepool United,0,0,0,0,1006541
+el1,2010-11,1,2010-08-07,Carlisle United,FC Brentford,2,0,2,0,1006536
+el1,2010-11,1,2010-08-07,Charlton Athletic,AFC Bournemouth,1,0,1,0,1006537
+el1,2010-11,1,2010-08-07,Exeter City,Colchester United,2,2,1,2,1006538
+el1,2010-11,1,2010-08-07,FC Southampton,Plymouth Argyle,0,1,0,0,1006543
+el1,2010-11,1,2010-08-07,FC Walsall,Milton Keynes Dons,1,2,0,1,1006546
+el1,2010-11,1,2010-08-07,Notts County,Huddersfield Town,0,3,0,2,1006539
+el1,2010-11,1,2010-08-07,Peterborough United,Bristol Rovers,3,0,0,0,1006540
+el1,2010-11,1,2010-08-07,Sheffield Wednesday,Dagenham & Redbridge,2,0,2,0,1006542
+el1,2010-11,1,2010-08-07,Swindon Town,Brighton & Hove Albion,1,2,0,1,1006544
+el1,2010-11,1,2010-08-07,Tranmere Rovers,Oldham Athletic,1,2,0,1,1006545
+el1,2010-11,1,2010-08-07,Yeovil Town,Leyton Orient,2,1,2,1,1006547
+el1,2010-11,2,2010-08-13,Leyton Orient,Charlton Athletic,1,3,0,1,1006556
+el1,2010-11,2,2010-08-14,AFC Bournemouth,Peterborough United,5,1,2,0,1006548
+el1,2010-11,2,2010-08-14,Brighton & Hove Albion,AFC Rochdale,2,2,0,0,1006550
+el1,2010-11,2,2010-08-14,Bristol Rovers,Yeovil Town,2,1,1,0,1006551
+el1,2010-11,2,2010-08-14,Colchester United,Sheffield Wednesday,1,1,0,0,1006552
+el1,2010-11,2,2010-08-14,FC Brentford,FC Walsall,1,2,1,1,1006549
+el1,2010-11,2,2010-08-14,Hartlepool United,Swindon Town,2,2,2,0,1006554
+el1,2010-11,2,2010-08-14,Huddersfield Town,Tranmere Rovers,0,0,0,0,1006555
+el1,2010-11,2,2010-08-14,Oldham Athletic,Notts County,3,0,1,0,1006558
+el1,2010-11,2,2010-08-14,Plymouth Argyle,Carlisle United,1,1,0,0,1006559
+el1,2010-11,2,2010-09-15,Milton Keynes Dons,FC Southampton,2,0,0,0,1006557
+el1,2010-11,2,2010-09-21,Dagenham & Redbridge,Exeter City,1,1,0,1,1006553
+el1,2010-11,3,2010-08-21,AFC Rochdale,Colchester United,1,2,0,1,1006565
+el1,2010-11,3,2010-08-21,Carlisle United,Milton Keynes Dons,4,1,2,0,1006560
+el1,2010-11,3,2010-08-21,Charlton Athletic,Oldham Athletic,1,1,1,1,1006561
+el1,2010-11,3,2010-08-21,Exeter City,Bristol Rovers,2,2,1,1,1006562
+el1,2010-11,3,2010-08-21,FC Southampton,Leyton Orient,1,1,1,1,1006567
+el1,2010-11,3,2010-08-21,FC Walsall,Plymouth Argyle,2,1,0,1,1006570
+el1,2010-11,3,2010-08-21,Notts County,Dagenham & Redbridge,1,0,0,0,1006563
+el1,2010-11,3,2010-08-21,Peterborough United,Huddersfield Town,4,2,1,2,1006564
+el1,2010-11,3,2010-08-21,Sheffield Wednesday,Brighton & Hove Albion,1,0,1,0,1006566
+el1,2010-11,3,2010-08-21,Swindon Town,FC Brentford,1,1,1,1,1006568
+el1,2010-11,3,2010-08-21,Tranmere Rovers,AFC Bournemouth,0,3,0,2,1006569
+el1,2010-11,3,2010-08-21,Yeovil Town,Hartlepool United,0,2,0,1,1006571
+el1,2010-11,4,2010-08-27,Colchester United,Carlisle United,1,1,1,0,1006576
+el1,2010-11,4,2010-08-28,AFC Bournemouth,Notts County,3,3,3,1,1006572
+el1,2010-11,4,2010-08-28,Brighton & Hove Albion,FC Walsall,2,1,0,0,1006574
+el1,2010-11,4,2010-08-28,Bristol Rovers,FC Southampton,0,4,0,2,1006575
+el1,2010-11,4,2010-08-28,Dagenham & Redbridge,Tranmere Rovers,2,2,0,0,1006577
+el1,2010-11,4,2010-08-28,FC Brentford,AFC Rochdale,1,3,1,1,1006573
+el1,2010-11,4,2010-08-28,Hartlepool United,Sheffield Wednesday,0,5,0,3,1006578
+el1,2010-11,4,2010-08-28,Huddersfield Town,Charlton Athletic,3,1,2,0,1006579
+el1,2010-11,4,2010-08-28,Leyton Orient,Exeter City,3,0,1,0,1006580
+el1,2010-11,4,2010-08-28,Milton Keynes Dons,Swindon Town,2,1,0,1,1006581
+el1,2010-11,4,2010-08-28,Oldham Athletic,Yeovil Town,0,0,0,0,1006582
+el1,2010-11,4,2010-08-28,Plymouth Argyle,Peterborough United,0,3,0,0,1006583
+el1,2010-11,5,2010-09-04,Carlisle United,Swindon Town,0,0,0,0,1006585
+el1,2010-11,5,2010-09-04,Dagenham & Redbridge,Leyton Orient,2,0,1,0,1006586
+el1,2010-11,5,2010-09-04,Exeter City,Charlton Athletic,1,0,0,0,1006587
+el1,2010-11,5,2010-09-04,FC Southampton,AFC Rochdale,0,2,0,1,1006593
+el1,2010-11,5,2010-09-04,FC Walsall,Colchester United,0,1,0,0,1006595
+el1,2010-11,5,2010-09-04,Huddersfield Town,AFC Bournemouth,2,2,1,1,1006588
+el1,2010-11,5,2010-09-04,Milton Keynes Dons,Hartlepool United,1,0,0,0,1006589
+el1,2010-11,5,2010-09-04,Notts County,Yeovil Town,4,0,3,0,1006590
+el1,2010-11,5,2010-09-04,Oldham Athletic,Bristol Rovers,1,1,1,1,1006591
+el1,2010-11,5,2010-09-04,Tranmere Rovers,Peterborough United,1,0,1,0,1006594
+el1,2010-11,5,2010-09-05,FC Brentford,Sheffield Wednesday,1,0,1,0,1006584
+el1,2010-11,5,2010-09-21,Plymouth Argyle,Brighton & Hove Albion,0,2,0,2,1006592
+el1,2010-11,6,2010-09-11,AFC Bournemouth,Dagenham & Redbridge,3,0,2,0,1006596
+el1,2010-11,6,2010-09-11,AFC Rochdale,FC Walsall,3,2,2,2,1006604
+el1,2010-11,6,2010-09-11,Brighton & Hove Albion,Milton Keynes Dons,2,0,0,0,1006597
+el1,2010-11,6,2010-09-11,Bristol Rovers,FC Brentford,0,0,0,0,1006598
+el1,2010-11,6,2010-09-11,Charlton Athletic,Notts County,1,0,0,0,1006599
+el1,2010-11,6,2010-09-11,Colchester United,Plymouth Argyle,1,1,1,0,1006600
+el1,2010-11,6,2010-09-11,Hartlepool United,Exeter City,2,3,2,1,1006601
+el1,2010-11,6,2010-09-11,Leyton Orient,Huddersfield Town,1,2,0,1,1006602
+el1,2010-11,6,2010-09-11,Peterborough United,Oldham Athletic,5,2,1,2,1006603
+el1,2010-11,6,2010-09-11,Sheffield Wednesday,Carlisle United,0,1,0,1,1006605
+el1,2010-11,6,2010-09-11,Swindon Town,FC Southampton,1,0,0,0,1006606
+el1,2010-11,6,2010-09-11,Yeovil Town,Tranmere Rovers,3,1,3,0,1006607
+el1,2010-11,7,2010-09-18,Carlisle United,Brighton & Hove Albion,0,0,0,0,1006609
+el1,2010-11,7,2010-09-18,Dagenham & Redbridge,Bristol Rovers,0,3,0,2,1006610
+el1,2010-11,7,2010-09-18,Exeter City,Peterborough United,2,2,0,1,1006611
+el1,2010-11,7,2010-09-18,FC Brentford,Hartlepool United,0,0,0,0,1006608
+el1,2010-11,7,2010-09-18,FC Southampton,Colchester United,0,0,0,0,1006617
+el1,2010-11,7,2010-09-18,FC Walsall,Swindon Town,1,2,0,1,1006619
+el1,2010-11,7,2010-09-18,Huddersfield Town,Yeovil Town,4,2,0,2,1006612
+el1,2010-11,7,2010-09-18,Milton Keynes Dons,AFC Rochdale,1,1,1,1,1006613
+el1,2010-11,7,2010-09-18,Notts County,Leyton Orient,3,2,2,1,1006614
+el1,2010-11,7,2010-09-18,Oldham Athletic,AFC Bournemouth,2,1,0,1,1006615
+el1,2010-11,7,2010-09-18,Plymouth Argyle,Sheffield Wednesday,3,2,1,1,1006616
+el1,2010-11,7,2010-09-18,Tranmere Rovers,Charlton Athletic,1,1,0,1,1006618
+el1,2010-11,8,2010-09-24,Leyton Orient,FC Brentford,1,0,1,0,1006626
+el1,2010-11,8,2010-09-25,AFC Bournemouth,Carlisle United,2,0,0,0,1006620
+el1,2010-11,8,2010-09-25,AFC Rochdale,Plymouth Argyle,1,1,0,1,1006628
+el1,2010-11,8,2010-09-25,Brighton & Hove Albion,Oldham Athletic,2,1,1,1,1006621
+el1,2010-11,8,2010-09-25,Bristol Rovers,Notts County,2,1,1,0,1006622
+el1,2010-11,8,2010-09-25,Charlton Athletic,Dagenham & Redbridge,2,2,1,1,1006623
+el1,2010-11,8,2010-09-25,Colchester United,Tranmere Rovers,3,1,3,0,1006624
+el1,2010-11,8,2010-09-25,Hartlepool United,FC Walsall,2,1,1,1,1006625
+el1,2010-11,8,2010-09-25,Peterborough United,Milton Keynes Dons,2,1,1,1,1006627
+el1,2010-11,8,2010-09-25,Sheffield Wednesday,FC Southampton,0,1,0,0,1006629
+el1,2010-11,8,2010-09-25,Swindon Town,Huddersfield Town,1,0,0,0,1006630
+el1,2010-11,8,2010-09-25,Yeovil Town,Exeter City,1,3,0,1,1006631
+el1,2010-11,9,2010-09-28,AFC Bournemouth,Exeter City,3,0,2,0,1006632
+el1,2010-11,9,2010-09-28,AFC Rochdale,Huddersfield Town,3,0,1,0,1006640
+el1,2010-11,9,2010-09-28,Brighton & Hove Albion,FC Brentford,1,0,0,0,1006633
+el1,2010-11,9,2010-09-28,Bristol Rovers,Tranmere Rovers,0,1,0,1,1006634
+el1,2010-11,9,2010-09-28,Charlton Athletic,Milton Keynes Dons,1,0,0,0,1006635
+el1,2010-11,9,2010-09-28,Colchester United,Dagenham & Redbridge,2,2,1,1,1006636
+el1,2010-11,9,2010-09-28,Hartlepool United,Carlisle United,0,4,0,3,1006637
+el1,2010-11,9,2010-09-28,Leyton Orient,FC Walsall,0,0,0,0,1006638
+el1,2010-11,9,2010-09-28,Peterborough United,Notts County,2,3,1,3,1006639
+el1,2010-11,9,2010-09-28,Sheffield Wednesday,Oldham Athletic,0,0,0,0,1006641
+el1,2010-11,9,2010-09-28,Swindon Town,Plymouth Argyle,2,3,1,2,1006642
+el1,2010-11,9,2010-09-28,Yeovil Town,FC Southampton,1,1,0,0,1006643
+el1,2010-11,10,2010-10-02,Carlisle United,Peterborough United,0,1,0,1,1006645
+el1,2010-11,10,2010-10-02,Dagenham & Redbridge,Swindon Town,2,1,0,1,1006646
+el1,2010-11,10,2010-10-02,Exeter City,AFC Rochdale,1,0,0,0,1006647
+el1,2010-11,10,2010-10-02,FC Brentford,Charlton Athletic,2,1,2,0,1006644
+el1,2010-11,10,2010-10-02,FC Southampton,AFC Bournemouth,2,0,1,0,1006653
+el1,2010-11,10,2010-10-02,FC Walsall,Yeovil Town,0,1,0,0,1006655
+el1,2010-11,10,2010-10-02,Huddersfield Town,Bristol Rovers,0,1,0,0,1006648
+el1,2010-11,10,2010-10-02,Milton Keynes Dons,Colchester United,1,1,0,1,1006649
+el1,2010-11,10,2010-10-02,Notts County,Sheffield Wednesday,0,2,0,0,1006650
+el1,2010-11,10,2010-10-02,Oldham Athletic,Leyton Orient,1,1,1,0,1006651
+el1,2010-11,10,2010-10-02,Plymouth Argyle,Hartlepool United,0,1,0,0,1006652
+el1,2010-11,10,2010-10-02,Tranmere Rovers,Brighton & Hove Albion,1,1,0,1,1006654
+el1,2010-11,11,2010-10-09,AFC Rochdale,Yeovil Town,0,1,0,0,1006663
+el1,2010-11,11,2010-10-09,Brighton & Hove Albion,AFC Bournemouth,1,1,0,0,1006657
+el1,2010-11,11,2010-10-09,Carlisle United,Notts County,1,0,0,0,1006658
+el1,2010-11,11,2010-10-09,Colchester United,Huddersfield Town,0,3,0,2,1006659
+el1,2010-11,11,2010-10-09,FC Brentford,Oldham Athletic,1,3,1,1,1006656
+el1,2010-11,11,2010-10-09,FC Southampton,Tranmere Rovers,2,0,1,0,1006665
+el1,2010-11,11,2010-10-09,FC Walsall,Exeter City,2,1,2,0,1006667
+el1,2010-11,11,2010-10-09,Hartlepool United,Peterborough United,2,0,1,0,1006660
+el1,2010-11,11,2010-10-09,Milton Keynes Dons,Dagenham & Redbridge,2,0,0,0,1006661
+el1,2010-11,11,2010-10-09,Plymouth Argyle,Charlton Athletic,2,2,1,1,1006662
+el1,2010-11,11,2010-10-09,Sheffield Wednesday,Leyton Orient,1,0,0,0,1006664
+el1,2010-11,11,2010-10-11,Swindon Town,Bristol Rovers,2,1,1,0,1006666
+el1,2010-11,12,2010-10-16,AFC Bournemouth,Milton Keynes Dons,3,2,0,1,1006668
+el1,2010-11,12,2010-10-16,Bristol Rovers,AFC Rochdale,2,1,1,0,1006669
+el1,2010-11,12,2010-10-16,Charlton Athletic,Brighton & Hove Albion,0,4,0,1,1006670
+el1,2010-11,12,2010-10-16,Dagenham & Redbridge,FC Walsall,1,1,1,0,1006671
+el1,2010-11,12,2010-10-16,Exeter City,Carlisle United,2,1,2,0,1006672
+el1,2010-11,12,2010-10-16,Huddersfield Town,FC Southampton,2,0,2,0,1006673
+el1,2010-11,12,2010-10-16,Leyton Orient,Hartlepool United,1,0,0,0,1006674
+el1,2010-11,12,2010-10-16,Notts County,Plymouth Argyle,2,0,1,0,1006675
+el1,2010-11,12,2010-10-16,Oldham Athletic,Colchester United,0,0,0,0,1006676
+el1,2010-11,12,2010-10-16,Peterborough United,Swindon Town,5,4,3,3,1006677
+el1,2010-11,12,2010-10-16,Tranmere Rovers,FC Brentford,0,3,0,1,1006678
+el1,2010-11,12,2010-10-16,Yeovil Town,Sheffield Wednesday,0,2,0,0,1006679
+el1,2010-11,13,2010-10-23,AFC Rochdale,Dagenham & Redbridge,3,2,2,0,1006687
+el1,2010-11,13,2010-10-23,Brighton & Hove Albion,Yeovil Town,2,0,1,0,1006681
+el1,2010-11,13,2010-10-23,Carlisle United,Charlton Athletic,3,4,0,2,1006682
+el1,2010-11,13,2010-10-23,Colchester United,Notts County,2,1,0,1,1006683
+el1,2010-11,13,2010-10-23,FC Brentford,Peterborough United,2,1,1,1,1006680
+el1,2010-11,13,2010-10-23,FC Southampton,Oldham Athletic,2,1,1,1,1006689
+el1,2010-11,13,2010-10-23,FC Walsall,Tranmere Rovers,1,4,0,1,1006691
+el1,2010-11,13,2010-10-23,Hartlepool United,Bristol Rovers,2,2,1,0,1006684
+el1,2010-11,13,2010-10-23,Milton Keynes Dons,Exeter City,1,0,0,0,1006685
+el1,2010-11,13,2010-10-23,Plymouth Argyle,Huddersfield Town,2,1,1,1,1006686
+el1,2010-11,13,2010-10-23,Sheffield Wednesday,AFC Bournemouth,1,1,0,1,1006688
+el1,2010-11,13,2010-10-23,Swindon Town,Leyton Orient,2,2,0,0,1006690
+el1,2010-11,14,2010-10-30,AFC Bournemouth,Colchester United,1,2,0,1,1006692
+el1,2010-11,14,2010-10-30,Bristol Rovers,Carlisle United,1,1,0,0,1006693
+el1,2010-11,14,2010-10-30,Charlton Athletic,Sheffield Wednesday,1,0,1,0,1006694
+el1,2010-11,14,2010-10-30,Dagenham & Redbridge,Hartlepool United,1,1,0,0,1006695
+el1,2010-11,14,2010-10-30,Exeter City,FC Brentford,2,4,1,1,1006696
+el1,2010-11,14,2010-10-30,Huddersfield Town,FC Walsall,1,0,1,0,1006697
+el1,2010-11,14,2010-10-30,Leyton Orient,AFC Rochdale,2,1,0,1,1006698
+el1,2010-11,14,2010-10-30,Notts County,FC Southampton,1,3,1,0,1006699
+el1,2010-11,14,2010-10-30,Oldham Athletic,Plymouth Argyle,4,2,1,1,1006700
+el1,2010-11,14,2010-10-30,Peterborough United,Brighton & Hove Albion,0,3,0,2,1006701
+el1,2010-11,14,2010-10-30,Tranmere Rovers,Milton Keynes Dons,4,2,3,1,1006702
+el1,2010-11,14,2010-10-30,Yeovil Town,Swindon Town,3,3,1,1,1006703
+el1,2010-11,15,2010-11-02,Brighton & Hove Albion,Exeter City,3,0,2,0,1006705
+el1,2010-11,15,2010-11-02,Carlisle United,Tranmere Rovers,2,0,1,0,1006706
+el1,2010-11,15,2010-11-02,Colchester United,Leyton Orient,3,2,2,2,1006707
+el1,2010-11,15,2010-11-02,FC Brentford,AFC Bournemouth,1,1,0,0,1006704
+el1,2010-11,15,2010-11-02,FC Southampton,Dagenham & Redbridge,4,0,2,0,1006713
+el1,2010-11,15,2010-11-02,FC Walsall,Peterborough United,1,3,0,2,1006715
+el1,2010-11,15,2010-11-02,Milton Keynes Dons,Yeovil Town,3,2,1,1,1006709
+el1,2010-11,15,2010-11-02,Plymouth Argyle,Bristol Rovers,3,1,0,0,1006710
+el1,2010-11,15,2010-11-02,Sheffield Wednesday,Huddersfield Town,0,2,0,2,1006712
+el1,2010-11,15,2010-11-02,Swindon Town,Charlton Athletic,0,3,0,1,1006714
+el1,2010-11,15,2010-11-27,AFC Rochdale,Oldham Athletic,1,1,1,1,1006711
+el1,2010-11,15,2011-01-25,Hartlepool United,Notts County,1,1,1,0,1006708
+el1,2010-11,16,2010-11-13,AFC Bournemouth,FC Walsall,3,0,1,0,1006716
+el1,2010-11,16,2010-11-13,Bristol Rovers,Leyton Orient,0,3,0,2,1006718
+el1,2010-11,16,2010-11-13,Carlisle United,FC Southampton,3,2,2,0,1006719
+el1,2010-11,16,2010-11-13,Exeter City,Notts County,3,1,2,1,1006720
+el1,2010-11,16,2010-11-13,FC Brentford,Milton Keynes Dons,0,2,0,0,1006717
+el1,2010-11,16,2010-11-13,Hartlepool United,Brighton & Hove Albion,3,1,1,0,1006721
+el1,2010-11,16,2010-11-13,Oldham Athletic,Huddersfield Town,1,0,1,0,1006722
+el1,2010-11,16,2010-11-13,Peterborough United,Charlton Athletic,1,5,0,4,1006723
+el1,2010-11,16,2010-11-13,Sheffield Wednesday,AFC Rochdale,2,0,0,0,1006724
+el1,2010-11,16,2010-11-13,Swindon Town,Colchester United,2,1,1,1,1006725
+el1,2010-11,16,2010-11-13,Tranmere Rovers,Plymouth Argyle,1,0,0,0,1006726
+el1,2010-11,16,2010-11-13,Yeovil Town,Dagenham & Redbridge,1,3,1,1,1006727
+el1,2010-11,17,2010-11-20,AFC Rochdale,Swindon Town,3,3,1,1,1006737
+el1,2010-11,17,2010-11-20,Brighton & Hove Albion,Bristol Rovers,2,2,0,1,1006728
+el1,2010-11,17,2010-11-20,Charlton Athletic,Yeovil Town,3,2,2,1,1006729
+el1,2010-11,17,2010-11-20,Colchester United,Hartlepool United,3,2,0,1,1006730
+el1,2010-11,17,2010-11-20,Dagenham & Redbridge,Oldham Athletic,0,1,0,0,1006731
+el1,2010-11,17,2010-11-20,FC Southampton,Peterborough United,4,1,1,0,1006738
+el1,2010-11,17,2010-11-20,FC Walsall,Carlisle United,2,1,1,1,1006739
+el1,2010-11,17,2010-11-20,Huddersfield Town,Exeter City,0,1,0,1,1006732
+el1,2010-11,17,2010-11-20,Leyton Orient,AFC Bournemouth,2,2,0,1,1006733
+el1,2010-11,17,2010-11-20,Milton Keynes Dons,Sheffield Wednesday,1,4,1,2,1006734
+el1,2010-11,17,2010-11-20,Notts County,Tranmere Rovers,0,1,0,0,1006735
+el1,2010-11,17,2010-11-20,Plymouth Argyle,FC Brentford,1,2,1,1,1006736
+el1,2010-11,18,2010-11-23,AFC Bournemouth,Yeovil Town,2,0,2,0,1006740
+el1,2010-11,18,2010-11-23,Carlisle United,AFC Rochdale,1,1,1,0,1006741
+el1,2010-11,18,2010-11-23,Charlton Athletic,Bristol Rovers,1,1,0,0,1006742
+el1,2010-11,18,2010-11-23,Colchester United,FC Brentford,0,2,0,1,1006743
+el1,2010-11,18,2010-11-23,FC Southampton,Brighton & Hove Albion,0,0,0,0,1006750
+el1,2010-11,18,2010-11-23,Huddersfield Town,Milton Keynes Dons,4,1,2,0,1006744
+el1,2010-11,18,2010-11-23,Notts County,Swindon Town,1,0,0,0,1006745
+el1,2010-11,18,2010-11-23,Oldham Athletic,Exeter City,3,3,3,0,1006746
+el1,2010-11,18,2010-11-23,Peterborough United,Leyton Orient,2,2,1,1,1006747
+el1,2010-11,18,2010-11-23,Plymouth Argyle,Dagenham & Redbridge,2,1,0,1,1006748
+el1,2010-11,18,2010-11-23,Sheffield Wednesday,FC Walsall,3,0,1,0,1006749
+el1,2010-11,18,2010-11-23,Tranmere Rovers,Hartlepool United,0,1,0,0,1006751
+el1,2010-11,19,2010-12-04,Swindon Town,Sheffield Wednesday,2,1,1,1,1006761
+el1,2010-11,19,2011-01-18,Milton Keynes Dons,Plymouth Argyle,1,3,1,2,1006759
+el1,2010-11,19,2011-01-25,Brighton & Hove Albion,Colchester United,2,0,1,0,1006753
+el1,2010-11,19,2011-01-25,FC Walsall,Oldham Athletic,1,1,0,1,1006762
+el1,2010-11,19,2011-02-15,Yeovil Town,Peterborough United,0,2,0,0,1006763
+el1,2010-11,19,2011-02-22,Dagenham & Redbridge,Huddersfield Town,1,1,0,1,1006755
+el1,2010-11,19,2011-02-22,Hartlepool United,FC Southampton,0,0,0,0,1006757
+el1,2010-11,19,2011-03-01,Exeter City,Tranmere Rovers,1,1,0,1,1006756
+el1,2010-11,19,2011-03-01,FC Brentford,Notts County,1,1,0,1,1006752
+el1,2010-11,19,2011-03-29,AFC Rochdale,Charlton Athletic,2,0,1,0,1006760
+el1,2010-11,19,2011-04-05,Bristol Rovers,AFC Bournemouth,1,0,1,0,1006754
+el1,2010-11,19,2011-04-12,Leyton Orient,Carlisle United,0,0,0,0,1006758
+el1,2010-11,20,2010-12-10,Peterborough United,AFC Rochdale,2,1,1,0,1006771
+el1,2010-11,20,2010-12-11,AFC Bournemouth,Hartlepool United,0,1,0,1,1006764
+el1,2010-11,20,2010-12-11,Carlisle United,Dagenham & Redbridge,0,2,0,0,1006765
+el1,2010-11,20,2010-12-11,Colchester United,Yeovil Town,0,0,0,0,1006767
+el1,2010-11,20,2010-12-11,FC Southampton,FC Brentford,0,2,0,2,1006774
+el1,2010-11,20,2010-12-11,Huddersfield Town,Brighton & Hove Albion,2,1,0,0,1006768
+el1,2010-11,20,2010-12-11,Notts County,Milton Keynes Dons,2,0,0,0,1006769
+el1,2010-11,20,2010-12-11,Plymouth Argyle,Exeter City,2,0,1,0,1006772
+el1,2010-11,20,2010-12-11,Sheffield Wednesday,Bristol Rovers,6,2,4,1,1006773
+el1,2010-11,20,2010-12-11,Tranmere Rovers,Leyton Orient,1,2,0,2,1006775
+el1,2010-11,20,2010-12-12,Charlton Athletic,FC Walsall,0,1,0,0,1006766
+el1,2010-11,20,2011-01-08,Oldham Athletic,Swindon Town,2,0,1,0,1006770
+el1,2010-11,21,2010-12-18,Exeter City,Sheffield Wednesday,5,1,1,1,1006780
+el1,2010-11,21,2011-01-18,AFC Rochdale,AFC Bournemouth,0,0,0,0,1006784
+el1,2010-11,21,2011-01-25,Swindon Town,Tranmere Rovers,0,0,0,0,1006785
+el1,2010-11,21,2011-02-15,Hartlepool United,Charlton Athletic,2,1,1,0,1006781
+el1,2010-11,21,2011-02-22,Milton Keynes Dons,Oldham Athletic,0,0,0,0,1006783
+el1,2010-11,21,2011-03-01,Bristol Rovers,Colchester United,0,1,0,1,1006778
+el1,2010-11,21,2011-03-01,FC Walsall,FC Southampton,1,0,0,0,1006786
+el1,2010-11,21,2011-03-15,FC Brentford,Huddersfield Town,0,1,0,0,1006776
+el1,2010-11,21,2011-03-22,Brighton & Hove Albion,Notts County,1,0,0,0,1006777
+el1,2010-11,21,2011-03-29,Yeovil Town,Carlisle United,1,0,0,0,1006787
+el1,2010-11,21,2011-04-05,Dagenham & Redbridge,Peterborough United,0,2,0,2,1006779
+el1,2010-11,21,2011-04-05,Leyton Orient,Plymouth Argyle,2,0,2,0,1006782
+el1,2010-11,22,2010-12-26,Huddersfield Town,Hartlepool United,0,1,0,1,1006793
+el1,2010-11,22,2011-01-08,AFC Bournemouth,Plymouth Argyle,3,0,2,0,1006788
+el1,2010-11,22,2011-01-08,Yeovil Town,FC Brentford,2,0,1,0,1006799
+el1,2010-11,22,2011-01-11,Bristol Rovers,FC Walsall,2,2,0,1,1006789
+el1,2010-11,22,2011-01-25,Leyton Orient,Milton Keynes Dons,2,2,2,1,1006794
+el1,2010-11,22,2011-02-15,Oldham Athletic,Carlisle United,0,1,0,0,1006796
+el1,2010-11,22,2011-02-15,Tranmere Rovers,Sheffield Wednesday,3,0,0,0,1006798
+el1,2010-11,22,2011-02-22,Peterborough United,Colchester United,1,1,1,1,1006797
+el1,2010-11,22,2011-03-22,Charlton Athletic,FC Southampton,1,1,0,0,1006790
+el1,2010-11,22,2011-03-29,Dagenham & Redbridge,Brighton & Hove Albion,0,1,0,0,1006791
+el1,2010-11,22,2011-03-29,Exeter City,Swindon Town,1,0,0,0,1006792
+el1,2010-11,22,2011-04-05,Notts County,AFC Rochdale,1,2,0,2,1006795
+el1,2010-11,23,2010-12-28,FC Southampton,Huddersfield Town,4,1,2,1,1006809
+el1,2010-11,23,2010-12-28,Milton Keynes Dons,AFC Bournemouth,2,0,1,0,1006805
+el1,2010-11,23,2010-12-28,Plymouth Argyle,Notts County,1,1,1,1,1006806
+el1,2010-11,23,2010-12-28,Swindon Town,Peterborough United,1,1,0,1,1006810
+el1,2010-11,23,2010-12-29,Brighton & Hove Albion,Charlton Athletic,1,1,1,1,1006801
+el1,2010-11,23,2011-01-25,Sheffield Wednesday,Yeovil Town,2,2,1,1,1006808
+el1,2010-11,23,2011-02-08,AFC Rochdale,Bristol Rovers,3,1,0,0,1006807
+el1,2010-11,23,2011-02-15,FC Walsall,Dagenham & Redbridge,1,0,0,0,1006811
+el1,2010-11,23,2011-02-22,Carlisle United,Exeter City,2,2,2,2,1006802
+el1,2010-11,23,2011-02-22,FC Brentford,Tranmere Rovers,2,1,1,0,1006800
+el1,2010-11,23,2011-03-15,Hartlepool United,Leyton Orient,0,1,0,1,1006804
+el1,2010-11,23,2011-03-22,Colchester United,Oldham Athletic,1,0,0,0,1006803
+el1,2010-11,24,2011-01-01,AFC Rochdale,Tranmere Rovers,3,2,2,1,1006819
+el1,2010-11,24,2011-01-01,Brighton & Hove Albion,Leyton Orient,5,0,2,0,1006813
+el1,2010-11,24,2011-01-01,Carlisle United,Huddersfield Town,2,2,0,1,1006814
+el1,2010-11,24,2011-01-01,Colchester United,Charlton Athletic,3,3,2,2,1006815
+el1,2010-11,24,2011-01-01,FC Brentford,Dagenham & Redbridge,2,1,1,1,1006812
+el1,2010-11,24,2011-01-01,FC Southampton,Exeter City,4,0,1,0,1006821
+el1,2010-11,24,2011-01-01,FC Walsall,Notts County,0,3,0,2,1006823
+el1,2010-11,24,2011-01-01,Hartlepool United,Oldham Athletic,4,2,2,1,1006816
+el1,2010-11,24,2011-01-01,Milton Keynes Dons,Bristol Rovers,2,0,2,0,1006817
+el1,2010-11,24,2011-01-01,Plymouth Argyle,Yeovil Town,0,0,0,0,1006818
+el1,2010-11,24,2011-01-01,Swindon Town,AFC Bournemouth,1,2,1,1,1006822
+el1,2010-11,24,2011-03-15,Sheffield Wednesday,Peterborough United,1,4,0,3,1006820
+el1,2010-11,25,2011-01-03,AFC Bournemouth,FC Brentford,3,1,1,0,1006824
+el1,2010-11,25,2011-01-03,Charlton Athletic,Swindon Town,2,4,1,1,1006826
+el1,2010-11,25,2011-01-03,Dagenham & Redbridge,FC Southampton,1,3,0,0,1006827
+el1,2010-11,25,2011-01-03,Exeter City,Brighton & Hove Albion,1,2,1,0,1006828
+el1,2010-11,25,2011-01-03,Huddersfield Town,Sheffield Wednesday,1,0,1,0,1006829
+el1,2010-11,25,2011-01-03,Leyton Orient,Colchester United,4,2,1,0,1006830
+el1,2010-11,25,2011-01-03,Notts County,Hartlepool United,3,0,1,0,1006831
+el1,2010-11,25,2011-01-03,Oldham Athletic,AFC Rochdale,1,2,0,0,1006832
+el1,2010-11,25,2011-01-03,Peterborough United,FC Walsall,4,1,1,1,1006833
+el1,2010-11,25,2011-01-03,Tranmere Rovers,Carlisle United,2,1,1,0,1006834
+el1,2010-11,25,2011-01-03,Yeovil Town,Milton Keynes Dons,1,0,1,0,1006835
+el1,2010-11,25,2011-01-04,Bristol Rovers,Plymouth Argyle,2,3,2,0,1006825
+el1,2010-11,26,2011-01-08,Dagenham & Redbridge,AFC Rochdale,0,1,0,0,1006839
+el1,2010-11,26,2011-01-08,Exeter City,Milton Keynes Dons,1,1,1,0,1006840
+el1,2010-11,26,2011-01-08,Tranmere Rovers,FC Walsall,3,3,2,1,1006846
+el1,2010-11,26,2011-01-11,Huddersfield Town,Plymouth Argyle,3,2,3,2,1006841
+el1,2010-11,26,2011-01-11,Oldham Athletic,FC Southampton,0,6,0,2,1006844
+el1,2010-11,26,2011-01-11,Peterborough United,FC Brentford,2,1,1,0,1006845
+el1,2010-11,26,2011-01-18,Bristol Rovers,Hartlepool United,0,0,0,0,1006837
+el1,2010-11,26,2011-02-08,Leyton Orient,Swindon Town,3,0,3,0,1006842
+el1,2010-11,26,2011-02-15,Notts County,Colchester United,2,0,2,0,1006843
+el1,2010-11,26,2011-02-22,AFC Bournemouth,Sheffield Wednesday,0,0,0,0,1006836
+el1,2010-11,26,2011-03-01,Charlton Athletic,Carlisle United,1,3,1,1,1006838
+el1,2010-11,26,2011-03-01,Yeovil Town,Brighton & Hove Albion,0,1,0,1,1006847
+el1,2010-11,27,2011-01-14,Colchester United,AFC Bournemouth,2,1,0,0,1006851
+el1,2010-11,27,2011-01-14,FC Brentford,Exeter City,1,1,0,1,1006848
+el1,2010-11,27,2011-01-15,AFC Rochdale,Leyton Orient,1,1,1,0,1006855
+el1,2010-11,27,2011-01-15,Brighton & Hove Albion,Peterborough United,3,1,2,0,1006849
+el1,2010-11,27,2011-01-15,Carlisle United,Bristol Rovers,4,0,1,0,1006850
+el1,2010-11,27,2011-01-15,FC Southampton,Notts County,0,0,0,0,1006857
+el1,2010-11,27,2011-01-15,FC Walsall,Huddersfield Town,2,4,1,2,1006859
+el1,2010-11,27,2011-01-15,Hartlepool United,Dagenham & Redbridge,0,1,0,0,1006852
+el1,2010-11,27,2011-01-15,Milton Keynes Dons,Tranmere Rovers,2,0,0,0,1006853
+el1,2010-11,27,2011-01-15,Plymouth Argyle,Oldham Athletic,0,2,0,0,1006854
+el1,2010-11,27,2011-01-15,Sheffield Wednesday,Charlton Athletic,2,2,0,2,1006856
+el1,2010-11,27,2011-01-15,Swindon Town,Yeovil Town,0,1,0,0,1006858
+el1,2010-11,28,2011-01-22,AFC Bournemouth,Brighton & Hove Albion,1,0,0,0,1006860
+el1,2010-11,28,2011-01-22,Bristol Rovers,Swindon Town,3,1,1,0,1006861
+el1,2010-11,28,2011-01-22,Charlton Athletic,Plymouth Argyle,2,0,0,0,1006862
+el1,2010-11,28,2011-01-22,Dagenham & Redbridge,Milton Keynes Dons,0,1,0,0,1006863
+el1,2010-11,28,2011-01-22,Exeter City,FC Walsall,2,1,1,0,1006864
+el1,2010-11,28,2011-01-22,Huddersfield Town,Colchester United,0,0,0,0,1006865
+el1,2010-11,28,2011-01-22,Leyton Orient,Sheffield Wednesday,4,0,0,0,1006866
+el1,2010-11,28,2011-01-22,Notts County,Carlisle United,0,1,0,0,1006867
+el1,2010-11,28,2011-01-22,Oldham Athletic,FC Brentford,2,1,1,0,1006868
+el1,2010-11,28,2011-01-22,Peterborough United,Hartlepool United,4,0,0,0,1006869
+el1,2010-11,28,2011-01-22,Tranmere Rovers,FC Southampton,2,0,1,0,1006870
+el1,2010-11,28,2011-01-22,Yeovil Town,AFC Rochdale,0,1,0,1,1006871
+el1,2010-11,29,2011-01-28,Colchester United,Peterborough United,2,1,1,1,1006875
+el1,2010-11,29,2011-01-29,Carlisle United,Oldham Athletic,2,2,0,2,1006874
+el1,2010-11,29,2011-01-29,FC Brentford,Yeovil Town,1,2,1,1,1006872
+el1,2010-11,29,2011-01-29,FC Walsall,Bristol Rovers,6,1,3,0,1006883
+el1,2010-11,29,2011-01-29,Plymouth Argyle,AFC Bournemouth,1,2,0,1,1006878
+el1,2010-11,29,2011-01-29,Swindon Town,Exeter City,0,0,0,0,1006882
+el1,2010-11,29,2011-02-15,Milton Keynes Dons,Leyton Orient,2,3,2,2,1006877
+el1,2010-11,29,2011-03-01,Hartlepool United,Huddersfield Town,0,1,0,1,1006876
+el1,2010-11,29,2011-03-15,AFC Rochdale,Notts County,1,0,0,0,1006879
+el1,2010-11,29,2011-04-05,FC Southampton,Charlton Athletic,2,0,1,0,1006881
+el1,2010-11,29,2011-04-05,Sheffield Wednesday,Tranmere Rovers,4,0,3,0,1006880
+el1,2010-11,29,2011-04-12,Brighton & Hove Albion,Dagenham & Redbridge,4,3,2,1,1006873
+el1,2010-11,30,2011-02-01,AFC Bournemouth,Swindon Town,3,2,2,1,1006884
+el1,2010-11,30,2011-02-01,Charlton Athletic,Colchester United,1,0,0,0,1006886
+el1,2010-11,30,2011-02-01,Dagenham & Redbridge,FC Brentford,4,1,1,0,1006887
+el1,2010-11,30,2011-02-01,Exeter City,FC Southampton,1,2,1,0,1006888
+el1,2010-11,30,2011-02-01,Huddersfield Town,Carlisle United,2,0,2,0,1006889
+el1,2010-11,30,2011-02-01,Leyton Orient,Brighton & Hove Albion,0,0,0,0,1006890
+el1,2010-11,30,2011-02-01,Oldham Athletic,Hartlepool United,4,0,1,0,1006892
+el1,2010-11,30,2011-02-01,Peterborough United,Sheffield Wednesday,5,3,2,3,1006893
+el1,2010-11,30,2011-02-01,Tranmere Rovers,AFC Rochdale,1,1,1,0,1006894
+el1,2010-11,30,2011-02-01,Yeovil Town,Plymouth Argyle,1,0,0,0,1006895
+el1,2010-11,30,2011-02-02,Bristol Rovers,Milton Keynes Dons,1,2,0,1,1006885
+el1,2010-11,30,2011-02-02,Notts County,FC Walsall,1,1,0,0,1006891
+el1,2010-11,31,2011-02-05,AFC Bournemouth,Leyton Orient,1,1,1,0,1006896
+el1,2010-11,31,2011-02-05,Bristol Rovers,Brighton & Hove Albion,2,4,1,1,1006898
+el1,2010-11,31,2011-02-05,Carlisle United,FC Walsall,1,3,0,1,1006899
+el1,2010-11,31,2011-02-05,Exeter City,Huddersfield Town,1,4,0,0,1006900
+el1,2010-11,31,2011-02-05,FC Brentford,Plymouth Argyle,2,0,1,0,1006897
+el1,2010-11,31,2011-02-05,Hartlepool United,Colchester United,1,0,0,0,1006901
+el1,2010-11,31,2011-02-05,Oldham Athletic,Dagenham & Redbridge,1,1,0,0,1006902
+el1,2010-11,31,2011-02-05,Peterborough United,FC Southampton,4,4,2,2,1006903
+el1,2010-11,31,2011-02-05,Sheffield Wednesday,Milton Keynes Dons,2,2,0,2,1006904
+el1,2010-11,31,2011-02-05,Swindon Town,AFC Rochdale,1,1,0,0,1006905
+el1,2010-11,31,2011-02-05,Yeovil Town,Charlton Athletic,0,1,0,0,1006907
+el1,2010-11,31,2011-04-19,Tranmere Rovers,Notts County,0,1,0,1,1006906
+el1,2010-11,32,2011-02-12,AFC Rochdale,Sheffield Wednesday,2,1,2,0,1006917
+el1,2010-11,32,2011-02-12,Brighton & Hove Albion,Hartlepool United,4,1,2,0,1006908
+el1,2010-11,32,2011-02-12,Charlton Athletic,Peterborough United,3,2,0,1,1006909
+el1,2010-11,32,2011-02-12,Colchester United,Swindon Town,2,1,1,0,1006910
+el1,2010-11,32,2011-02-12,Dagenham & Redbridge,Yeovil Town,2,1,1,1,1006911
+el1,2010-11,32,2011-02-12,FC Southampton,Carlisle United,1,0,1,0,1006918
+el1,2010-11,32,2011-02-12,FC Walsall,AFC Bournemouth,0,1,0,0,1006919
+el1,2010-11,32,2011-02-12,Huddersfield Town,Oldham Athletic,0,0,0,0,1006912
+el1,2010-11,32,2011-02-12,Leyton Orient,Bristol Rovers,4,1,2,0,1006913
+el1,2010-11,32,2011-02-12,Milton Keynes Dons,FC Brentford,1,1,0,0,1006914
+el1,2010-11,32,2011-02-12,Notts County,Exeter City,0,2,0,0,1006915
+el1,2010-11,32,2011-02-12,Plymouth Argyle,Tranmere Rovers,1,3,0,1,1006916
+el1,2010-11,33,2011-02-19,AFC Bournemouth,Huddersfield Town,1,1,0,0,1006920
+el1,2010-11,33,2011-02-19,Bristol Rovers,Oldham Athletic,1,0,0,0,1006922
+el1,2010-11,33,2011-02-19,Charlton Athletic,Exeter City,1,3,0,0,1006923
+el1,2010-11,33,2011-02-19,Colchester United,FC Walsall,2,0,1,0,1006924
+el1,2010-11,33,2011-02-19,Hartlepool United,Milton Keynes Dons,0,1,0,1,1006925
+el1,2010-11,33,2011-02-19,Peterborough United,Tranmere Rovers,2,1,0,1,1006927
+el1,2010-11,33,2011-02-19,Swindon Town,Carlisle United,0,1,0,1,1006930
+el1,2010-11,33,2011-02-22,Brighton & Hove Albion,Plymouth Argyle,4,0,2,0,1006921
+el1,2010-11,33,2011-03-22,Leyton Orient,Dagenham & Redbridge,1,1,0,1,1006926
+el1,2010-11,33,2011-03-29,Sheffield Wednesday,FC Brentford,1,3,1,2,1006929
+el1,2010-11,33,2011-04-12,AFC Rochdale,FC Southampton,2,0,2,0,1006928
+el1,2010-11,33,2011-04-12,Yeovil Town,Notts County,2,1,1,0,1006931
+el1,2010-11,34,2011-02-25,Notts County,Charlton Athletic,1,0,0,0,1006938
+el1,2010-11,34,2011-02-26,Carlisle United,Sheffield Wednesday,0,1,0,1,1006933
+el1,2010-11,34,2011-02-26,Dagenham & Redbridge,AFC Bournemouth,1,2,0,0,1006934
+el1,2010-11,34,2011-02-26,Exeter City,Hartlepool United,1,2,0,2,1006935
+el1,2010-11,34,2011-02-26,FC Brentford,Bristol Rovers,1,0,1,0,1006932
+el1,2010-11,34,2011-02-26,FC Southampton,Swindon Town,4,1,1,0,1006941
+el1,2010-11,34,2011-02-26,FC Walsall,AFC Rochdale,0,0,0,0,1006943
+el1,2010-11,34,2011-02-26,Huddersfield Town,Leyton Orient,2,2,1,0,1006936
+el1,2010-11,34,2011-02-26,Milton Keynes Dons,Brighton & Hove Albion,1,0,1,0,1006937
+el1,2010-11,34,2011-02-26,Oldham Athletic,Peterborough United,0,5,0,0,1006939
+el1,2010-11,34,2011-02-26,Plymouth Argyle,Colchester United,2,1,1,1,1006940
+el1,2010-11,34,2011-02-26,Tranmere Rovers,Yeovil Town,0,1,0,0,1006942
+el1,2010-11,35,2011-03-05,AFC Bournemouth,Oldham Athletic,3,0,1,0,1006944
+el1,2010-11,35,2011-03-05,AFC Rochdale,Milton Keynes Dons,1,4,0,3,1006952
+el1,2010-11,35,2011-03-05,Brighton & Hove Albion,Carlisle United,4,3,1,1,1006945
+el1,2010-11,35,2011-03-05,Bristol Rovers,Dagenham & Redbridge,0,2,0,1,1006946
+el1,2010-11,35,2011-03-05,Charlton Athletic,Tranmere Rovers,1,1,0,1,1006947
+el1,2010-11,35,2011-03-05,Colchester United,FC Southampton,0,2,0,1,1006948
+el1,2010-11,35,2011-03-05,Hartlepool United,FC Brentford,3,0,1,0,1006949
+el1,2010-11,35,2011-03-05,Leyton Orient,Notts County,2,0,1,0,1006950
+el1,2010-11,35,2011-03-05,Peterborough United,Exeter City,3,0,1,0,1006951
+el1,2010-11,35,2011-03-05,Sheffield Wednesday,Plymouth Argyle,2,4,0,2,1006953
+el1,2010-11,35,2011-03-05,Swindon Town,FC Walsall,0,0,0,0,1006954
+el1,2010-11,35,2011-03-05,Yeovil Town,Huddersfield Town,1,1,1,0,1006955
+el1,2010-11,36,2011-03-08,Carlisle United,Hartlepool United,1,0,0,0,1006957
+el1,2010-11,36,2011-03-08,Dagenham & Redbridge,Colchester United,1,0,1,0,1006958
+el1,2010-11,36,2011-03-08,Exeter City,AFC Bournemouth,2,0,1,0,1006959
+el1,2010-11,36,2011-03-08,FC Brentford,Brighton & Hove Albion,0,1,0,0,1006956
+el1,2010-11,36,2011-03-08,FC Southampton,Yeovil Town,3,0,1,0,1006965
+el1,2010-11,36,2011-03-08,FC Walsall,Leyton Orient,0,2,0,1,1006967
+el1,2010-11,36,2011-03-08,Huddersfield Town,AFC Rochdale,2,1,2,0,1006960
+el1,2010-11,36,2011-03-08,Milton Keynes Dons,Charlton Athletic,2,0,0,0,1006961
+el1,2010-11,36,2011-03-08,Notts County,Peterborough United,0,1,0,0,1006962
+el1,2010-11,36,2011-03-08,Oldham Athletic,Sheffield Wednesday,2,3,2,2,1006963
+el1,2010-11,36,2011-03-08,Plymouth Argyle,Swindon Town,1,0,1,0,1006964
+el1,2010-11,36,2011-03-08,Tranmere Rovers,Bristol Rovers,0,1,0,1,1006966
+el1,2010-11,37,2011-03-12,AFC Bournemouth,FC Southampton,1,3,1,1,1006968
+el1,2010-11,37,2011-03-12,AFC Rochdale,Exeter City,0,1,0,1,1006976
+el1,2010-11,37,2011-03-12,Brighton & Hove Albion,Tranmere Rovers,2,0,0,0,1006969
+el1,2010-11,37,2011-03-12,Bristol Rovers,Huddersfield Town,0,1,0,1,1006970
+el1,2010-11,37,2011-03-12,Charlton Athletic,FC Brentford,0,1,0,0,1006971
+el1,2010-11,37,2011-03-12,Colchester United,Milton Keynes Dons,1,3,1,0,1006972
+el1,2010-11,37,2011-03-12,Hartlepool United,Plymouth Argyle,2,0,1,0,1006973
+el1,2010-11,37,2011-03-12,Leyton Orient,Oldham Athletic,1,0,0,0,1006974
+el1,2010-11,37,2011-03-12,Peterborough United,Carlisle United,6,0,3,0,1006975
+el1,2010-11,37,2011-03-12,Sheffield Wednesday,Notts County,0,1,0,1,1006977
+el1,2010-11,37,2011-03-12,Swindon Town,Dagenham & Redbridge,1,1,1,0,1006978
+el1,2010-11,37,2011-03-12,Yeovil Town,FC Walsall,1,1,1,1,1006979
+el1,2010-11,38,2011-03-19,Carlisle United,AFC Bournemouth,1,0,1,0,1006981
+el1,2010-11,38,2011-03-19,Dagenham & Redbridge,Charlton Athletic,2,1,1,0,1006982
+el1,2010-11,38,2011-03-19,Exeter City,Yeovil Town,2,3,2,1,1006983
+el1,2010-11,38,2011-03-19,FC Brentford,Leyton Orient,2,1,2,0,1006980
+el1,2010-11,38,2011-03-19,FC Southampton,Sheffield Wednesday,2,0,0,0,1006989
+el1,2010-11,38,2011-03-19,FC Walsall,Hartlepool United,5,2,0,1,1006991
+el1,2010-11,38,2011-03-19,Huddersfield Town,Swindon Town,0,0,0,0,1006984
+el1,2010-11,38,2011-03-19,Notts County,Bristol Rovers,0,1,0,0,1006986
+el1,2010-11,38,2011-03-19,Oldham Athletic,Brighton & Hove Albion,0,1,0,0,1006987
+el1,2010-11,38,2011-03-19,Plymouth Argyle,AFC Rochdale,0,1,0,0,1006988
+el1,2010-11,38,2011-03-19,Tranmere Rovers,Colchester United,1,0,0,0,1006990
+el1,2010-11,38,2011-03-21,Milton Keynes Dons,Peterborough United,1,0,0,0,1006985
+el1,2010-11,39,2011-03-25,Bristol Rovers,Peterborough United,2,2,1,1,1006995
+el1,2010-11,39,2011-03-25,FC Brentford,Carlisle United,2,1,0,0,1006993
+el1,2010-11,39,2011-03-25,Hartlepool United,AFC Rochdale,0,2,0,1,1006998
+el1,2010-11,39,2011-03-25,Milton Keynes Dons,FC Walsall,1,1,0,1,1007001
+el1,2010-11,39,2011-03-26,AFC Bournemouth,Charlton Athletic,2,2,1,1,1006992
+el1,2010-11,39,2011-03-26,Brighton & Hove Albion,Swindon Town,2,1,1,1,1006994
+el1,2010-11,39,2011-03-26,Colchester United,Exeter City,5,1,1,1,1006996
+el1,2010-11,39,2011-03-26,Dagenham & Redbridge,Sheffield Wednesday,1,1,0,1,1006997
+el1,2010-11,39,2011-03-26,Leyton Orient,Yeovil Town,1,5,0,3,1007000
+el1,2010-11,39,2011-03-27,Huddersfield Town,Notts County,3,0,1,0,1006999
+el1,2010-11,39,2011-03-28,Oldham Athletic,Tranmere Rovers,0,0,0,0,1007002
+el1,2010-11,39,2011-05-02,Plymouth Argyle,FC Southampton,1,3,0,1,1007003
+el1,2010-11,40,2011-03-15,Carlisle United,Plymouth Argyle,1,1,1,0,1007004
+el1,2010-11,40,2011-04-01,Peterborough United,AFC Bournemouth,3,3,3,1,1007008
+el1,2010-11,40,2011-04-02,AFC Rochdale,Brighton & Hove Albion,2,2,1,1,1007009
+el1,2010-11,40,2011-04-02,Charlton Athletic,Leyton Orient,3,1,0,1,1007005
+el1,2010-11,40,2011-04-02,Exeter City,Dagenham & Redbridge,2,1,0,0,1007006
+el1,2010-11,40,2011-04-02,FC Southampton,Milton Keynes Dons,3,2,0,1,1007011
+el1,2010-11,40,2011-04-02,Notts County,Oldham Athletic,0,2,0,0,1007007
+el1,2010-11,40,2011-04-02,Sheffield Wednesday,Colchester United,2,1,1,0,1007010
+el1,2010-11,40,2011-04-02,Swindon Town,Hartlepool United,1,1,0,1,1007012
+el1,2010-11,40,2011-04-02,Tranmere Rovers,Huddersfield Town,0,2,0,1,1007013
+el1,2010-11,40,2011-04-02,Yeovil Town,Bristol Rovers,0,1,0,0,1007015
+el1,2010-11,40,2011-04-12,FC Walsall,FC Brentford,3,2,1,1,1007014
+el1,2010-11,41,2011-04-09,AFC Bournemouth,Tranmere Rovers,1,2,0,1,1007016
+el1,2010-11,41,2011-04-09,Brighton & Hove Albion,Sheffield Wednesday,2,0,1,0,1007018
+el1,2010-11,41,2011-04-09,Bristol Rovers,Exeter City,0,2,0,0,1007019
+el1,2010-11,41,2011-04-09,Colchester United,AFC Rochdale,1,0,0,0,1007020
+el1,2010-11,41,2011-04-09,Dagenham & Redbridge,Notts County,3,1,3,0,1007021
+el1,2010-11,41,2011-04-09,FC Brentford,Swindon Town,0,1,0,0,1007017
+el1,2010-11,41,2011-04-09,Hartlepool United,Yeovil Town,3,1,1,1,1007022
+el1,2010-11,41,2011-04-09,Huddersfield Town,Peterborough United,1,1,0,1,1007023
+el1,2010-11,41,2011-04-09,Leyton Orient,FC Southampton,0,2,0,1,1007024
+el1,2010-11,41,2011-04-09,Milton Keynes Dons,Carlisle United,3,2,1,1,1007025
+el1,2010-11,41,2011-04-09,Oldham Athletic,Charlton Athletic,0,0,0,0,1007026
+el1,2010-11,41,2011-04-09,Plymouth Argyle,FC Walsall,2,0,0,0,1007027
+el1,2010-11,42,2011-04-16,AFC Rochdale,FC Brentford,0,1,0,0,1007033
+el1,2010-11,42,2011-04-16,Carlisle United,Colchester United,4,1,3,0,1007028
+el1,2010-11,42,2011-04-16,Charlton Athletic,Huddersfield Town,0,1,0,0,1007029
+el1,2010-11,42,2011-04-16,Exeter City,Leyton Orient,2,1,1,1,1007030
+el1,2010-11,42,2011-04-16,FC Southampton,Bristol Rovers,1,0,0,0,1007035
+el1,2010-11,42,2011-04-16,FC Walsall,Brighton & Hove Albion,1,3,1,1,1007038
+el1,2010-11,42,2011-04-16,Notts County,AFC Bournemouth,0,2,0,0,1007031
+el1,2010-11,42,2011-04-16,Peterborough United,Plymouth Argyle,2,1,0,1,1007032
+el1,2010-11,42,2011-04-16,Sheffield Wednesday,Hartlepool United,2,0,1,0,1007034
+el1,2010-11,42,2011-04-16,Swindon Town,Milton Keynes Dons,0,1,0,1,1007036
+el1,2010-11,42,2011-04-16,Tranmere Rovers,Dagenham & Redbridge,2,0,2,0,1007037
+el1,2010-11,42,2011-04-16,Yeovil Town,Oldham Athletic,1,1,0,1,1007039
+el1,2010-11,43,2011-04-22,Dagenham & Redbridge,Plymouth Argyle,0,1,0,0,1007043
+el1,2010-11,43,2011-04-22,Exeter City,Oldham Athletic,2,0,2,0,1007044
+el1,2010-11,43,2011-04-22,FC Brentford,Colchester United,1,1,0,1,1007040
+el1,2010-11,43,2011-04-22,Hartlepool United,Tranmere Rovers,1,1,1,0,1007045
+el1,2010-11,43,2011-04-22,Leyton Orient,Peterborough United,2,1,0,0,1007046
+el1,2010-11,43,2011-04-22,Milton Keynes Dons,Huddersfield Town,1,3,0,2,1007047
+el1,2010-11,43,2011-04-23,AFC Rochdale,Carlisle United,2,3,1,1,1007048
+el1,2010-11,43,2011-04-23,Brighton & Hove Albion,FC Southampton,1,2,1,0,1007041
+el1,2010-11,43,2011-04-23,Bristol Rovers,Charlton Athletic,2,2,0,1,1007042
+el1,2010-11,43,2011-04-23,FC Walsall,Sheffield Wednesday,1,1,1,1,1007050
+el1,2010-11,43,2011-04-23,Swindon Town,Notts County,1,2,1,0,1007049
+el1,2010-11,43,2011-04-23,Yeovil Town,AFC Bournemouth,2,2,0,0,1007051
+el1,2010-11,44,2011-04-25,AFC Bournemouth,Bristol Rovers,2,1,0,1,1007052
+el1,2010-11,44,2011-04-25,Carlisle United,Leyton Orient,0,1,0,1,1007053
+el1,2010-11,44,2011-04-25,Charlton Athletic,AFC Rochdale,3,1,1,0,1007054
+el1,2010-11,44,2011-04-25,Colchester United,Brighton & Hove Albion,1,1,1,0,1007055
+el1,2010-11,44,2011-04-25,FC Southampton,Hartlepool United,2,0,0,0,1007062
+el1,2010-11,44,2011-04-25,Huddersfield Town,Dagenham & Redbridge,2,1,2,1,1007056
+el1,2010-11,44,2011-04-25,Notts County,FC Brentford,1,1,0,0,1007057
+el1,2010-11,44,2011-04-25,Oldham Athletic,FC Walsall,1,1,0,0,1007058
+el1,2010-11,44,2011-04-25,Peterborough United,Yeovil Town,2,2,0,1,1007059
+el1,2010-11,44,2011-04-25,Plymouth Argyle,Milton Keynes Dons,1,0,1,0,1007060
+el1,2010-11,44,2011-04-25,Sheffield Wednesday,Swindon Town,3,1,2,1,1007061
+el1,2010-11,44,2011-04-25,Tranmere Rovers,Exeter City,4,0,1,0,1007063
+el1,2010-11,45,2011-04-30,AFC Rochdale,Peterborough United,2,2,1,1,1007072
+el1,2010-11,45,2011-04-30,Brighton & Hove Albion,Huddersfield Town,2,3,0,1,1007065
+el1,2010-11,45,2011-04-30,Bristol Rovers,Sheffield Wednesday,1,1,1,1,1007066
+el1,2010-11,45,2011-04-30,Dagenham & Redbridge,Carlisle United,3,0,2,0,1007067
+el1,2010-11,45,2011-04-30,Exeter City,Plymouth Argyle,1,0,0,0,1007068
+el1,2010-11,45,2011-04-30,FC Brentford,FC Southampton,0,3,0,2,1007064
+el1,2010-11,45,2011-04-30,FC Walsall,Charlton Athletic,2,0,1,0,1007074
+el1,2010-11,45,2011-04-30,Hartlepool United,AFC Bournemouth,2,2,0,2,1007069
+el1,2010-11,45,2011-04-30,Leyton Orient,Tranmere Rovers,0,3,0,2,1007070
+el1,2010-11,45,2011-04-30,Milton Keynes Dons,Notts County,2,1,0,0,1007071
+el1,2010-11,45,2011-04-30,Swindon Town,Oldham Athletic,0,2,0,1,1007073
+el1,2010-11,45,2011-04-30,Yeovil Town,Colchester United,4,2,3,1,1007075
+el1,2010-11,46,2011-05-07,AFC Bournemouth,AFC Rochdale,1,2,1,1,1007076
+el1,2010-11,46,2011-05-07,Carlisle United,Yeovil Town,0,2,0,1,1007077
+el1,2010-11,46,2011-05-07,Charlton Athletic,Hartlepool United,0,0,0,0,1007078
+el1,2010-11,46,2011-05-07,Colchester United,Bristol Rovers,2,1,2,0,1007079
+el1,2010-11,46,2011-05-07,FC Southampton,FC Walsall,3,1,2,1,1007086
+el1,2010-11,46,2011-05-07,Huddersfield Town,FC Brentford,4,4,2,1,1007080
+el1,2010-11,46,2011-05-07,Notts County,Brighton & Hove Albion,1,1,1,1,1007081
+el1,2010-11,46,2011-05-07,Oldham Athletic,Milton Keynes Dons,1,2,1,1,1007082
+el1,2010-11,46,2011-05-07,Peterborough United,Dagenham & Redbridge,5,0,1,0,1007083
+el1,2010-11,46,2011-05-07,Plymouth Argyle,Leyton Orient,1,4,0,2,1007084
+el1,2010-11,46,2011-05-07,Sheffield Wednesday,Exeter City,1,2,1,0,1007085
+el1,2010-11,46,2011-05-07,Tranmere Rovers,Swindon Town,0,2,0,2,1007087

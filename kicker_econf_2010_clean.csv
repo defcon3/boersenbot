@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+econf,2010-11,1,2010-08-14,AFC Wrexham,Cambridge United,1,0,1,0,1013843
+econf,2010-11,1,2010-08-14,Crawley Town,Grimsby Town,0,1,0,1,1013833
+econf,2010-11,1,2010-08-14,FC Darlington,Newport County,1,0,1,0,1013834
+econf,2010-11,1,2010-08-14,FC Gateshead,Kettering Town,0,0,0,0,1013835
+econf,2010-11,1,2010-08-14,FC Histon,AFC Barrow,3,1,2,1,1013837
+econf,2010-11,1,2010-08-14,FC Southport,AFC Wimbledon,0,1,0,0,1013841
+econf,2010-11,1,2010-08-14,FC Tamworth,Eastbourne Borough,4,2,3,0,1013842
+econf,2010-11,1,2010-08-14,Hayes & Yeading United,Bath City,2,1,0,0,1013836
+econf,2010-11,1,2010-08-14,Luton Town,FC Altrincham,2,1,1,0,1013838
+econf,2010-11,1,2010-08-14,Mansfield Town,Forest Green Rovers,3,1,0,0,1013839
+econf,2010-11,1,2010-08-14,Rushden & Diamonds,Fleetwood Town,1,1,0,1,1013840
+econf,2010-11,1,2010-08-14,York City,Kidderminster Harriers,1,2,0,1,1013844
+econf,2010-11,2,2010-08-17,AFC Barrow,FC Gateshead,1,3,1,1,1013847
+econf,2010-11,2,2010-08-17,AFC Wimbledon,FC Histon,2,0,0,0,1013845
+econf,2010-11,2,2010-08-17,Bath City,Rushden & Diamonds,2,1,0,1,1013848
+econf,2010-11,2,2010-08-17,Cambridge United,Crawley Town,2,2,2,2,1013849
+econf,2010-11,2,2010-08-17,Eastbourne Borough,Hayes & Yeading United,5,0,2,0,1013850
+econf,2010-11,2,2010-08-17,FC Altrincham,FC Darlington,2,2,0,0,1013846
+econf,2010-11,2,2010-08-17,Fleetwood Town,Mansfield Town,3,0,3,0,1013851
+econf,2010-11,2,2010-08-17,Forest Green Rovers,AFC Wrexham,3,0,1,0,1013852
+econf,2010-11,2,2010-08-17,Grimsby Town,York City,0,0,0,0,1013853
+econf,2010-11,2,2010-08-17,Kettering Town,Luton Town,1,3,1,1,1013854
+econf,2010-11,2,2010-08-17,Kidderminster Harriers,FC Southport,3,4,1,1,1013855
+econf,2010-11,2,2010-08-17,Newport County,FC Tamworth,1,1,0,1,1013856
+econf,2010-11,3,2010-08-21,AFC Barrow,Rushden & Diamonds,2,0,0,0,1013859
+econf,2010-11,3,2010-08-21,AFC Wimbledon,FC Tamworth,3,0,1,0,1013857
+econf,2010-11,3,2010-08-21,Bath City,York City,2,2,1,1,1013860
+econf,2010-11,3,2010-08-21,Cambridge United,FC Southport,0,0,0,0,1013861
+econf,2010-11,3,2010-08-21,Eastbourne Borough,AFC Wrexham,4,3,2,2,1013862
+econf,2010-11,3,2010-08-21,FC Altrincham,Crawley Town,0,1,0,0,1013858
+econf,2010-11,3,2010-08-21,Fleetwood Town,Luton Town,0,3,0,2,1013863
+econf,2010-11,3,2010-08-21,Forest Green Rovers,FC Gateshead,1,1,1,0,1013864
+econf,2010-11,3,2010-08-21,Grimsby Town,Hayes & Yeading United,1,2,0,1,1013865
+econf,2010-11,3,2010-08-21,Kettering Town,FC Darlington,0,0,0,0,1013866
+econf,2010-11,3,2010-08-21,Kidderminster Harriers,Mansfield Town,1,3,1,0,1013867
+econf,2010-11,3,2010-08-21,Newport County,FC Histon,2,2,2,1,1013868
+econf,2010-11,4,2010-08-24,AFC Wrexham,Kidderminster Harriers,2,2,2,1,1013879
+econf,2010-11,4,2010-08-24,Crawley Town,Bath City,2,1,2,0,1013869
+econf,2010-11,4,2010-08-24,FC Darlington,Grimsby Town,0,1,0,0,1013870
+econf,2010-11,4,2010-08-24,FC Gateshead,Fleetwood Town,0,2,0,2,1013871
+econf,2010-11,4,2010-08-24,FC Histon,Eastbourne Borough,1,1,0,1,1013873
+econf,2010-11,4,2010-08-24,FC Southport,FC Altrincham,1,0,0,0,1013877
+econf,2010-11,4,2010-08-24,FC Tamworth,Cambridge United,1,1,0,0,1013878
+econf,2010-11,4,2010-08-24,Hayes & Yeading United,Forest Green Rovers,3,4,1,1,1013872
+econf,2010-11,4,2010-08-24,Luton Town,Newport County,1,1,1,1,1013874
+econf,2010-11,4,2010-08-24,Mansfield Town,Kettering Town,1,1,1,0,1013875
+econf,2010-11,4,2010-08-24,Rushden & Diamonds,AFC Wimbledon,1,0,0,0,1013876
+econf,2010-11,4,2010-08-24,York City,AFC Barrow,0,0,0,0,1013880
+econf,2010-11,5,2010-08-28,AFC Wrexham,AFC Barrow,1,1,0,1,1013891
+econf,2010-11,5,2010-08-28,Eastbourne Borough,AFC Wimbledon,2,3,0,1,1013882
+econf,2010-11,5,2010-08-28,FC Darlington,FC Gateshead,2,0,1,0,1013881
+econf,2010-11,5,2010-08-28,FC Histon,Kettering Town,0,3,0,1,1013885
+econf,2010-11,5,2010-08-28,FC Southport,Fleetwood Town,1,0,1,0,1013889
+econf,2010-11,5,2010-08-28,FC Tamworth,Luton Town,3,1,1,0,1013890
+econf,2010-11,5,2010-08-28,Forest Green Rovers,Bath City,0,0,0,0,1013883
+econf,2010-11,5,2010-08-28,Hayes & Yeading United,Crawley Town,0,3,0,2,1013884
+econf,2010-11,5,2010-08-28,Mansfield Town,Cambridge United,1,0,0,0,1013886
+econf,2010-11,5,2010-08-28,Newport County,Kidderminster Harriers,3,0,2,0,1013887
+econf,2010-11,5,2010-08-28,Rushden & Diamonds,Grimsby Town,4,1,1,0,1013888
+econf,2010-11,5,2010-08-28,York City,FC Altrincham,3,0,0,0,1013892
+econf,2010-11,6,2010-08-30,AFC Barrow,FC Darlington,1,1,0,0,1013895
+econf,2010-11,6,2010-08-30,AFC Wimbledon,Newport County,2,2,1,1,1013893
+econf,2010-11,6,2010-08-30,Bath City,AFC Wrexham,0,2,0,1,1013896
+econf,2010-11,6,2010-08-30,Cambridge United,Eastbourne Borough,2,0,2,0,1013897
+econf,2010-11,6,2010-08-30,Crawley Town,Forest Green Rovers,1,0,0,0,1013898
+econf,2010-11,6,2010-08-30,FC Altrincham,Mansfield Town,0,4,0,2,1013894
+econf,2010-11,6,2010-08-30,Fleetwood Town,York City,2,1,1,0,1013899
+econf,2010-11,6,2010-08-30,Grimsby Town,FC Histon,2,1,1,1,1013901
+econf,2010-11,6,2010-08-30,Kettering Town,Rushden & Diamonds,0,1,0,1,1013902
+econf,2010-11,6,2010-08-30,Kidderminster Harriers,FC Tamworth,2,2,1,1,1013903
+econf,2010-11,6,2010-08-30,Luton Town,Hayes & Yeading United,1,1,0,0,1013904
+econf,2010-11,6,2010-09-07,FC Gateshead,FC Southport,1,0,0,0,1013900
+econf,2010-11,7,2010-09-04,Bath City,AFC Barrow,1,1,0,1,1013906
+econf,2010-11,7,2010-09-04,Cambridge United,FC Gateshead,5,0,1,0,1013907
+econf,2010-11,7,2010-09-04,Crawley Town,Fleetwood Town,1,1,1,1,1013908
+econf,2010-11,7,2010-09-04,Eastbourne Borough,FC Darlington,1,1,0,1,1013909
+econf,2010-11,7,2010-09-04,FC Altrincham,Kidderminster Harriers,1,2,0,0,1013905
+econf,2010-11,7,2010-09-04,Forest Green Rovers,FC Southport,0,0,0,0,1013910
+econf,2010-11,7,2010-09-04,Grimsby Town,Luton Town,2,0,1,0,1013911
+econf,2010-11,7,2010-09-04,Hayes & Yeading United,FC Histon,1,2,1,1,1013912
+econf,2010-11,7,2010-09-04,Kettering Town,AFC Wimbledon,1,2,1,1,1013913
+econf,2010-11,7,2010-09-04,Mansfield Town,FC Tamworth,0,1,0,1,1013914
+econf,2010-11,7,2010-09-04,York City,Rushden & Diamonds,2,0,0,0,1013916
+econf,2010-11,7,2010-09-05,Newport County,AFC Wrexham,1,1,0,1,1013915
+econf,2010-11,8,2010-09-11,AFC Barrow,Eastbourne Borough,4,0,1,0,1013918
+econf,2010-11,8,2010-09-11,AFC Wimbledon,Bath City,4,0,2,0,1013917
+econf,2010-11,8,2010-09-11,AFC Wrexham,York City,1,1,1,1,1013928
+econf,2010-11,8,2010-09-11,FC Darlington,Forest Green Rovers,3,0,2,0,1013919
+econf,2010-11,8,2010-09-11,FC Gateshead,FC Altrincham,2,0,1,0,1013921
+econf,2010-11,8,2010-09-11,FC Histon,Crawley Town,0,2,0,2,1013922
+econf,2010-11,8,2010-09-11,FC Southport,Mansfield Town,1,2,0,2,1013926
+econf,2010-11,8,2010-09-11,FC Tamworth,Grimsby Town,2,1,2,0,1013927
+econf,2010-11,8,2010-09-11,Fleetwood Town,Kettering Town,4,1,1,1,1013920
+econf,2010-11,8,2010-09-11,Kidderminster Harriers,Hayes & Yeading United,3,1,1,1,1013923
+econf,2010-11,8,2010-09-11,Luton Town,Cambridge United,2,0,2,0,1013924
+econf,2010-11,8,2010-09-11,Rushden & Diamonds,Newport County,0,1,0,1,1013925
+econf,2010-11,9,2010-09-17,Luton Town,AFC Wimbledon,3,0,2,0,1013937
+econf,2010-11,9,2010-09-18,AFC Barrow,Forest Green Rovers,3,0,2,0,1013929
+econf,2010-11,9,2010-09-18,Bath City,FC Darlington,2,2,0,1,1013930
+econf,2010-11,9,2010-09-18,Crawley Town,FC Gateshead,2,1,0,0,1013931
+econf,2010-11,9,2010-09-18,Eastbourne Borough,FC Altrincham,5,0,3,0,1013932
+econf,2010-11,9,2010-09-18,FC Histon,FC Tamworth,1,2,1,0,1013934
+econf,2010-11,9,2010-09-18,FC Southport,Rushden & Diamonds,2,2,1,0,1013939
+econf,2010-11,9,2010-09-18,Grimsby Town,Fleetwood Town,1,2,0,1,1013933
+econf,2010-11,9,2010-09-18,Kettering Town,AFC Wrexham,1,1,0,1,1013935
+econf,2010-11,9,2010-09-18,Kidderminster Harriers,Cambridge United,0,0,0,0,1013936
+econf,2010-11,9,2010-09-18,Newport County,Mansfield Town,1,0,0,0,1013938
+econf,2010-11,9,2010-09-18,York City,Hayes & Yeading United,2,0,0,0,1013940
+econf,2010-11,10,2010-09-21,AFC Wrexham,FC Southport,2,1,2,0,1013952
+econf,2010-11,10,2010-09-21,Cambridge United,Kettering Town,3,0,0,0,1013943
+econf,2010-11,10,2010-09-21,FC Altrincham,AFC Barrow,2,0,0,0,1013942
+econf,2010-11,10,2010-09-21,FC Darlington,Luton Town,2,2,1,1,1013944
+econf,2010-11,10,2010-09-21,FC Gateshead,Grimsby Town,0,0,0,0,1013947
+econf,2010-11,10,2010-09-21,FC Tamworth,Bath City,2,2,1,2,1013951
+econf,2010-11,10,2010-09-21,Fleetwood Town,Kidderminster Harriers,1,1,1,0,1013945
+econf,2010-11,10,2010-09-21,Forest Green Rovers,Eastbourne Borough,3,4,3,3,1013946
+econf,2010-11,10,2010-09-21,Hayes & Yeading United,Newport County,1,2,1,0,1013948
+econf,2010-11,10,2010-09-21,Mansfield Town,York City,5,0,1,0,1013949
+econf,2010-11,10,2010-09-21,Rushden & Diamonds,FC Histon,2,0,0,0,1013950
+econf,2010-11,10,2010-09-23,AFC Wimbledon,Crawley Town,2,1,0,1,1013941
+econf,2010-11,11,2010-09-25,AFC Wrexham,FC Histon,4,0,3,0,1013964
+econf,2010-11,11,2010-09-25,Cambridge United,Newport County,0,1,0,1,1013954
+econf,2010-11,11,2010-09-25,FC Altrincham,Grimsby Town,2,2,0,1,1013953
+econf,2010-11,11,2010-09-25,FC Darlington,FC Southport,1,0,0,0,1013955
+econf,2010-11,11,2010-09-25,FC Gateshead,Luton Town,1,0,1,0,1013958
+econf,2010-11,11,2010-09-25,FC Tamworth,York City,1,3,0,1,1013963
+econf,2010-11,11,2010-09-25,Fleetwood Town,Bath City,2,1,1,0,1013956
+econf,2010-11,11,2010-09-25,Forest Green Rovers,Kettering Town,0,2,0,1,1013957
+econf,2010-11,11,2010-09-25,Hayes & Yeading United,AFC Barrow,2,0,1,0,1013959
+econf,2010-11,11,2010-09-25,Mansfield Town,Eastbourne Borough,4,0,2,0,1013961
+econf,2010-11,11,2010-09-26,Kidderminster Harriers,AFC Wimbledon,2,0,1,0,1013960
+econf,2010-11,11,2010-09-26,Rushden & Diamonds,Crawley Town,0,1,0,1,1013962
+econf,2010-11,12,2010-09-27,York City,FC Darlington,0,0,0,0,1013976
+econf,2010-11,12,2010-09-28,AFC Barrow,Fleetwood Town,0,2,0,2,1013966
+econf,2010-11,12,2010-09-28,Bath City,Kidderminster Harriers,2,0,2,0,1013967
+econf,2010-11,12,2010-09-28,FC Histon,FC Gateshead,1,3,0,2,1013971
+econf,2010-11,12,2010-09-28,FC Southport,Hayes & Yeading United,0,0,0,0,1013975
+econf,2010-11,12,2010-09-28,Grimsby Town,AFC Wrexham,2,1,1,0,1013970
+econf,2010-11,12,2010-09-28,Kettering Town,FC Altrincham,3,3,2,2,1013972
+econf,2010-11,12,2010-09-28,Luton Town,Mansfield Town,2,0,0,0,1013973
+econf,2010-11,12,2010-09-28,Newport County,Forest Green Rovers,3,1,2,1,1013974
+econf,2010-11,12,2010-09-29,AFC Wimbledon,Cambridge United,3,0,0,0,1013965
+econf,2010-11,12,2010-09-29,Crawley Town,FC Tamworth,3,1,1,1,1013968
+econf,2010-11,12,2010-09-29,Eastbourne Borough,Rushden & Diamonds,0,2,0,2,1013969
+econf,2010-11,13,2010-10-02,AFC Barrow,Luton Town,0,1,0,1,1013979
+econf,2010-11,13,2010-10-02,AFC Wimbledon,Forest Green Rovers,1,1,0,1,1013977
+econf,2010-11,13,2010-10-02,Cambridge United,Bath City,1,2,1,1,1013980
+econf,2010-11,13,2010-10-02,Crawley Town,Kidderminster Harriers,2,0,0,0,1013981
+econf,2010-11,13,2010-10-02,Eastbourne Borough,York City,2,1,1,0,1013983
+econf,2010-11,13,2010-10-02,FC Altrincham,Rushden & Diamonds,2,2,1,1,1013978
+econf,2010-11,13,2010-10-02,FC Darlington,AFC Wrexham,0,1,0,0,1013982
+econf,2010-11,13,2010-10-02,FC Gateshead,Mansfield Town,1,1,0,1,1013985
+econf,2010-11,13,2010-10-02,FC Southport,FC Tamworth,2,1,2,1,1013988
+econf,2010-11,13,2010-10-02,Fleetwood Town,FC Histon,1,1,0,0,1013984
+econf,2010-11,13,2010-10-02,Grimsby Town,Newport County,2,0,1,0,1013986
+econf,2010-11,13,2010-10-02,Kettering Town,Hayes & Yeading United,2,1,1,1,1013987
+econf,2010-11,14,2010-10-05,AFC Wrexham,Fleetwood Town,0,0,0,0,1013999
+econf,2010-11,14,2010-10-05,FC Histon,FC Southport,2,1,2,1,1013992
+econf,2010-11,14,2010-10-05,FC Tamworth,AFC Barrow,2,2,1,1,1013998
+econf,2010-11,14,2010-10-05,Hayes & Yeading United,Cambridge United,2,0,1,0,1013991
+econf,2010-11,14,2010-10-05,Kidderminster Harriers,FC Gateshead,2,1,0,1,1013993
+econf,2010-11,14,2010-10-05,Luton Town,Crawley Town,1,2,0,0,1013994
+econf,2010-11,14,2010-10-05,Mansfield Town,AFC Wimbledon,2,5,1,3,1013995
+econf,2010-11,14,2010-10-05,Newport County,Eastbourne Borough,3,3,2,1,1013996
+econf,2010-11,14,2010-10-05,Rushden & Diamonds,FC Darlington,2,1,0,1,1013997
+econf,2010-11,14,2010-10-05,York City,Kettering Town,0,1,0,0,1014000
+econf,2010-11,14,2010-10-07,Forest Green Rovers,Grimsby Town,3,3,2,1,1013990
+econf,2010-11,14,2010-11-06,Bath City,FC Altrincham,2,2,0,1,1013989
+econf,2010-11,15,2010-10-09,AFC Barrow,Crawley Town,1,1,0,1,1014001
+econf,2010-11,15,2010-10-09,AFC Wrexham,AFC Wimbledon,1,2,1,0,1014012
+econf,2010-11,15,2010-10-09,Bath City,Eastbourne Borough,1,1,1,0,1014002
+econf,2010-11,15,2010-10-09,FC Darlington,Hayes & Yeading United,0,1,0,0,1014003
+econf,2010-11,15,2010-10-09,FC Gateshead,FC Tamworth,3,1,2,1,1014005
+econf,2010-11,15,2010-10-09,FC Histon,FC Altrincham,3,0,1,0,1014006
+econf,2010-11,15,2010-10-09,FC Southport,Kettering Town,1,2,0,2,1014011
+econf,2010-11,15,2010-10-09,Newport County,York City,4,0,2,0,1014009
+econf,2010-11,15,2010-10-09,Rushden & Diamonds,Mansfield Town,1,0,1,0,1014010
+econf,2010-11,15,2010-10-10,Fleetwood Town,Cambridge United,2,2,1,1,1014004
+econf,2010-11,15,2010-10-10,Kidderminster Harriers,Grimsby Town,3,2,3,1,1014007
+econf,2010-11,15,2010-10-19,Luton Town,Forest Green Rovers,6,1,3,1,1014008
+econf,2010-11,16,2010-10-16,AFC Wimbledon,FC Gateshead,1,0,0,0,1014013
+econf,2010-11,16,2010-10-16,Cambridge United,AFC Barrow,3,1,2,0,1014015
+econf,2010-11,16,2010-10-16,Crawley Town,Newport County,2,3,2,2,1014016
+econf,2010-11,16,2010-10-16,Eastbourne Borough,Luton Town,2,4,1,1,1014017
+econf,2010-11,16,2010-10-16,FC Altrincham,Fleetwood Town,1,0,0,0,1014014
+econf,2010-11,16,2010-10-16,FC Tamworth,Rushden & Diamonds,1,2,1,1,1014023
+econf,2010-11,16,2010-10-16,Forest Green Rovers,FC Histon,0,1,0,0,1014018
+econf,2010-11,16,2010-10-16,Grimsby Town,FC Southport,1,1,0,1,1014019
+econf,2010-11,16,2010-10-16,Hayes & Yeading United,AFC Wrexham,0,3,0,0,1014020
+econf,2010-11,16,2010-10-16,Kettering Town,Kidderminster Harriers,1,1,1,0,1014021
+econf,2010-11,16,2010-10-16,Mansfield Town,FC Darlington,1,1,1,0,1014022
+econf,2010-11,16,2010-10-16,York City,Bath City,1,1,1,0,1014024
+econf,2010-11,17,2010-10-29,FC Southport,Kidderminster Harriers,2,2,2,0,1014035
+econf,2010-11,17,2010-10-30,AFC Wimbledon,FC Darlington,0,2,0,1,1014025
+econf,2010-11,17,2010-10-30,FC Gateshead,Cambridge United,2,3,1,3,1014027
+econf,2010-11,17,2010-10-30,FC Histon,AFC Wrexham,1,1,0,0,1014030
+econf,2010-11,17,2010-10-30,FC Tamworth,Fleetwood Town,0,2,0,1,1014036
+econf,2010-11,17,2010-10-30,Forest Green Rovers,York City,2,1,1,0,1014026
+econf,2010-11,17,2010-10-30,Grimsby Town,Eastbourne Borough,2,2,1,0,1014028
+econf,2010-11,17,2010-10-30,Hayes & Yeading United,FC Altrincham,0,1,0,0,1014029
+econf,2010-11,17,2010-10-30,Luton Town,Bath City,3,1,3,0,1014031
+econf,2010-11,17,2010-10-30,Mansfield Town,Crawley Town,1,4,1,1,1014032
+econf,2010-11,17,2010-10-30,Newport County,Kettering Town,1,2,1,1,1014033
+econf,2010-11,17,2010-10-30,Rushden & Diamonds,AFC Barrow,5,0,3,0,1014034
+econf,2010-11,18,2010-11-06,AFC Barrow,Newport County,2,1,0,1,1014038
+econf,2010-11,18,2010-11-09,Bath City,Hayes & Yeading United,3,1,1,0,1014039
+econf,2010-11,18,2010-11-09,Cambridge United,Grimsby Town,1,1,1,1,1014040
+econf,2010-11,18,2010-11-09,Eastbourne Borough,Forest Green Rovers,0,0,0,0,1014042
+econf,2010-11,18,2010-11-09,FC Altrincham,AFC Wimbledon,0,2,0,2,1014037
+econf,2010-11,18,2010-11-09,FC Darlington,FC Tamworth,1,0,1,0,1014041
+econf,2010-11,18,2010-11-09,Fleetwood Town,FC Gateshead,0,0,0,0,1014043
+econf,2010-11,18,2010-11-09,Kettering Town,Mansfield Town,0,2,0,0,1014044
+econf,2010-11,18,2010-11-09,Kidderminster Harriers,Rushden & Diamonds,1,0,1,0,1014045
+econf,2010-11,18,2010-11-11,AFC Wrexham,Luton Town,1,0,1,0,1014046
+econf,2010-11,18,2010-11-13,FC Altrincham,Luton Town,0,1,0,0,1014048
+econf,2010-11,18,2010-11-23,York City,FC Southport,2,0,0,0,1014047
+econf,2010-11,19,2010-11-13,AFC Barrow,AFC Wimbledon,2,0,1,0,1014049
+econf,2010-11,19,2010-11-13,Eastbourne Borough,Newport County,0,0,0,0,1014051
+econf,2010-11,19,2010-11-13,FC Darlington,Crawley Town,1,1,1,1,1014050
+econf,2010-11,19,2010-11-13,FC Histon,Kidderminster Harriers,0,1,0,1,1014055
+econf,2010-11,19,2010-11-13,FC Southport,Bath City,2,3,2,0,1014057
+econf,2010-11,19,2010-11-13,FC Tamworth,FC Gateshead,1,1,1,0,1014058
+econf,2010-11,19,2010-11-13,Fleetwood Town,Rushden & Diamonds,1,1,1,0,1014052
+econf,2010-11,19,2010-11-13,Forest Green Rovers,Mansfield Town,2,1,1,0,1014053
+econf,2010-11,19,2010-11-13,Hayes & Yeading United,Grimsby Town,0,3,0,2,1014054
+econf,2010-11,19,2010-11-13,Kettering Town,Cambridge United,2,2,0,2,1014056
+econf,2010-11,19,2010-11-14,York City,AFC Wrexham,1,1,0,1,1014059
+econf,2010-11,19,2010-11-21,AFC Wimbledon,Kettering Town,3,2,3,0,1014060
+econf,2010-11,20,2010-11-20,AFC Wrexham,FC Darlington,2,1,1,0,1014071
+econf,2010-11,20,2010-11-20,Bath City,Fleetwood Town,1,1,1,0,1014061
+econf,2010-11,20,2010-11-20,Cambridge United,FC Tamworth,3,3,0,2,1014062
+econf,2010-11,20,2010-11-20,Crawley Town,FC Altrincham,7,0,4,0,1014063
+econf,2010-11,20,2010-11-20,FC Gateshead,Forest Green Rovers,1,1,1,0,1014064
+econf,2010-11,20,2010-11-20,Grimsby Town,AFC Barrow,1,1,0,0,1014065
+econf,2010-11,20,2010-11-20,Kidderminster Harriers,Eastbourne Borough,2,1,1,0,1014066
+econf,2010-11,20,2010-11-20,Luton Town,FC Histon,5,1,3,1,1014067
+econf,2010-11,20,2010-11-20,Mansfield Town,Hayes & Yeading United,3,2,1,2,1014068
+econf,2010-11,20,2010-11-20,Newport County,FC Southport,2,0,0,0,1014069
+econf,2010-11,20,2010-11-20,Rushden & Diamonds,York City,0,4,0,3,1014070
+econf,2010-11,20,2011-01-15,AFC Barrow,Kidderminster Harriers,2,1,1,0,1014072
+econf,2010-11,21,2010-11-25,FC Histon,Bath City,1,2,0,1,1014078
+econf,2010-11,21,2010-11-27,AFC Wrexham,Mansfield Town,1,1,1,1,1014082
+econf,2010-11,21,2010-11-27,Cambridge United,FC Altrincham,4,0,2,0,1014073
+econf,2010-11,21,2010-11-27,Forest Green Rovers,Rushden & Diamonds,2,2,2,0,1014077
+econf,2010-11,21,2010-11-27,Newport County,Hayes & Yeading United,2,1,1,0,1014081
+econf,2010-11,21,2011-01-11,York City,Grimsby Town,1,0,1,0,1014083
+econf,2010-11,21,2011-01-12,AFC Wimbledon,Luton Town,0,0,0,0,1014084
+econf,2010-11,21,2011-01-18,Fleetwood Town,AFC Wimbledon,1,1,1,1,1014076
+econf,2010-11,21,2011-01-25,Eastbourne Borough,FC Tamworth,1,4,0,1,1014075
+econf,2010-11,21,2011-02-01,Luton Town,FC Darlington,4,0,0,0,1014080
+econf,2010-11,21,2011-02-22,Crawley Town,FC Southport,1,0,0,0,1014074
+econf,2010-11,21,2011-02-22,Kettering Town,FC Gateshead,1,4,1,2,1014079
+econf,2010-11,22,2010-11-30,Kidderminster Harriers,York City,0,0,0,0,1014091
+econf,2010-11,22,2010-12-07,Hayes & Yeading United,Eastbourne Borough,2,1,2,0,1014090
+econf,2010-11,22,2011-01-11,FC Darlington,FC Histon,3,1,1,0,1014087
+econf,2010-11,22,2011-01-11,FC Tamworth,Newport County,3,2,0,1,1014095
+econf,2010-11,22,2011-01-11,Mansfield Town,Fleetwood Town,2,5,1,1,1014092
+econf,2010-11,22,2011-01-18,Bath City,Crawley Town,0,2,0,1,1014086
+econf,2010-11,22,2011-01-18,FC Gateshead,AFC Barrow,3,0,1,0,1014088
+econf,2010-11,22,2011-01-18,FC Southport,AFC Wrexham,0,1,0,1,1014094
+econf,2010-11,22,2011-01-18,Grimsby Town,Kettering Town,2,1,1,1,1014089
+econf,2010-11,22,2011-02-01,Rushden & Diamonds,Cambridge United,2,1,0,1,1014093
+econf,2010-11,22,2011-02-22,FC Darlington,Kidderminster Harriers,1,1,0,1,1014096
+econf,2010-11,22,2011-03-15,FC Altrincham,Forest Green Rovers,2,1,0,1,1014085
+econf,2010-11,23,2011-01-18,FC Tamworth,FC Altrincham,1,1,0,1,1014105
+econf,2010-11,23,2011-01-18,Hayes & Yeading United,Rushden & Diamonds,3,3,2,0,1014099
+econf,2010-11,23,2011-02-01,Eastbourne Borough,FC Gateshead,0,3,0,2,1014097
+econf,2010-11,23,2011-02-01,FC Histon,Fleetwood Town,1,0,1,0,1014100
+econf,2010-11,23,2011-02-01,FC Southport,Grimsby Town,2,2,2,0,1014104
+econf,2010-11,23,2011-02-01,York City,AFC Wimbledon,4,1,2,0,1014107
+econf,2010-11,23,2011-02-15,AFC Wrexham,Crawley Town,0,0,0,0,1014106
+econf,2010-11,23,2011-02-15,Kettering Town,Bath City,2,1,1,1,1014101
+econf,2010-11,23,2011-02-22,AFC Wimbledon,AFC Wrexham,0,1,0,0,1014108
+econf,2010-11,23,2011-03-01,Forest Green Rovers,Luton Town,0,1,0,1,1014098
+econf,2010-11,23,2011-03-01,Newport County,Cambridge United,1,1,0,1,1014103
+econf,2010-11,23,2011-04-12,Mansfield Town,AFC Barrow,1,1,0,0,1014102
+econf,2010-11,24,2010-12-18,Fleetwood Town,Newport County,1,1,1,0,1014114
+econf,2010-11,24,2011-01-11,Kidderminster Harriers,Kettering Town,4,1,1,0,1014117
+econf,2010-11,24,2011-01-18,Luton Town,York City,5,0,4,0,1014118
+econf,2010-11,24,2011-02-15,Cambridge United,FC Darlington,0,1,0,0,1014112
+econf,2010-11,24,2011-02-15,FC Altrincham,FC Histon,0,3,0,0,1014109
+econf,2010-11,24,2011-02-15,FC Gateshead,Hayes & Yeading United,1,0,1,0,1014115
+econf,2010-11,24,2011-02-22,AFC Barrow,FC Tamworth,0,2,0,1,1014110
+econf,2010-11,24,2011-02-22,Grimsby Town,Forest Green Rovers,1,1,1,1,1014116
+econf,2010-11,24,2011-02-22,Rushden & Diamonds,Eastbourne Borough,2,0,1,0,1014119
+econf,2010-11,24,2011-02-26,Bath City,FC Southport,2,1,1,1,1014111
+econf,2010-11,24,2011-03-01,FC Darlington,Fleetwood Town,4,0,2,0,1014120
+econf,2010-11,24,2011-03-29,Crawley Town,Mansfield Town,2,0,1,0,1014113
+econf,2010-11,25,2010-12-28,AFC Wimbledon,Eastbourne Borough,3,0,1,0,1014132
+econf,2010-11,25,2011-01-25,Forest Green Rovers,Kidderminster Harriers,1,1,1,0,1014122
+econf,2010-11,25,2011-02-01,AFC Wrexham,FC Altrincham,2,1,1,0,1014130
+econf,2010-11,25,2011-02-22,Bath City,Newport County,2,2,2,2,1014126
+econf,2010-11,25,2011-02-22,FC Histon,Cambridge United,0,2,0,1,1014124
+econf,2010-11,25,2011-03-01,Hayes & Yeading United,AFC Wimbledon,0,0,0,0,1014123
+econf,2010-11,25,2011-03-01,York City,FC Gateshead,2,1,1,0,1014131
+econf,2010-11,25,2011-03-02,FC Tamworth,Kettering Town,3,1,3,0,1014129
+econf,2010-11,25,2011-03-15,FC Southport,AFC Barrow,2,4,0,1,1014128
+econf,2010-11,25,2011-03-22,Eastbourne Borough,Crawley Town,1,2,0,1,1014121
+econf,2010-11,25,2011-03-22,Rushden & Diamonds,Luton Town,0,1,0,1,1014127
+econf,2010-11,25,2011-04-19,Mansfield Town,Grimsby Town,0,2,0,1,1014125
+econf,2010-11,26,2010-12-28,Bath City,Forest Green Rovers,2,4,1,3,1014135
+econf,2010-11,26,2010-12-28,Cambridge United,Mansfield Town,1,5,0,2,1014136
+econf,2010-11,26,2010-12-28,Fleetwood Town,FC Southport,2,0,1,0,1014138
+econf,2010-11,26,2010-12-28,Kidderminster Harriers,Newport County,2,3,0,2,1014142
+econf,2010-11,26,2011-01-01,AFC Wimbledon,Hayes & Yeading United,3,1,0,0,1014144
+econf,2010-11,26,2011-02-05,AFC Barrow,AFC Wrexham,0,1,0,0,1014134
+econf,2010-11,26,2011-02-22,FC Altrincham,York City,0,0,0,0,1014133
+econf,2010-11,26,2011-03-08,FC Gateshead,FC Darlington,2,2,0,2,1014139
+econf,2010-11,26,2011-03-08,Luton Town,FC Tamworth,2,0,1,0,1014143
+econf,2010-11,26,2011-03-15,Crawley Town,Hayes & Yeading United,5,2,2,2,1014137
+econf,2010-11,26,2011-03-15,Kettering Town,FC Histon,4,3,1,3,1014141
+econf,2010-11,26,2011-04-13,Grimsby Town,Rushden & Diamonds,1,1,1,1,1014140
+econf,2010-11,27,2011-01-01,AFC Barrow,FC Southport,1,1,0,0,1014146
+econf,2010-11,27,2011-01-01,Cambridge United,FC Histon,0,0,0,0,1014148
+econf,2010-11,27,2011-01-01,Crawley Town,Eastbourne Borough,3,1,2,0,1014149
+econf,2010-11,27,2011-01-01,FC Altrincham,AFC Wrexham,0,0,0,0,1014145
+econf,2010-11,27,2011-01-01,FC Gateshead,York City,0,3,0,0,1014151
+econf,2010-11,27,2011-01-01,Fleetwood Town,FC Darlington,1,0,1,0,1014150
+econf,2010-11,27,2011-01-01,Grimsby Town,Mansfield Town,7,2,2,1,1014152
+econf,2010-11,27,2011-01-01,Kettering Town,FC Tamworth,0,1,0,0,1014153
+econf,2010-11,27,2011-01-01,Kidderminster Harriers,Forest Green Rovers,1,0,0,0,1014154
+econf,2010-11,27,2011-01-01,Luton Town,Rushden & Diamonds,3,0,1,0,1014155
+econf,2010-11,27,2011-01-01,Newport County,Bath City,1,2,0,0,1014147
+econf,2010-11,27,2011-01-03,FC Darlington,AFC Barrow,3,1,2,0,1014156
+econf,2010-11,28,2011-01-03,AFC Wrexham,Bath City,2,0,1,0,1014166
+econf,2010-11,28,2011-01-03,Eastbourne Borough,Cambridge United,0,2,0,2,1014157
+econf,2010-11,28,2011-01-03,FC Histon,Grimsby Town,1,6,0,1,1014160
+econf,2010-11,28,2011-01-03,FC Southport,FC Gateshead,5,1,0,1,1014164
+econf,2010-11,28,2011-01-03,FC Tamworth,Kidderminster Harriers,2,2,2,2,1014165
+econf,2010-11,28,2011-01-03,Forest Green Rovers,Crawley Town,0,3,0,1,1014158
+econf,2010-11,28,2011-01-03,Mansfield Town,FC Altrincham,0,1,0,0,1014161
+econf,2010-11,28,2011-01-03,Newport County,AFC Wimbledon,3,3,3,1,1014162
+econf,2010-11,28,2011-01-03,Rushden & Diamonds,Kettering Town,1,2,0,1,1014163
+econf,2010-11,28,2011-01-04,Hayes & Yeading United,Luton Town,0,1,0,0,1014159
+econf,2010-11,28,2011-01-08,AFC Barrow,Cambridge United,1,2,0,1,1014168
+econf,2010-11,28,2011-02-15,York City,Fleetwood Town,1,0,0,0,1014167
+econf,2010-11,29,2011-01-08,AFC Wrexham,Grimsby Town,2,0,0,0,1014179
+econf,2010-11,29,2011-01-08,Bath City,Luton Town,0,0,0,0,1014169
+econf,2010-11,29,2011-01-08,Eastbourne Borough,Mansfield Town,1,3,0,1,1014172
+econf,2010-11,29,2011-01-08,FC Darlington,AFC Wimbledon,0,0,0,0,1014171
+econf,2010-11,29,2011-01-08,FC Gateshead,Kidderminster Harriers,2,2,1,2,1014174
+econf,2010-11,29,2011-01-08,FC Southport,Newport County,2,1,0,1,1014178
+econf,2010-11,29,2011-01-08,Forest Green Rovers,Fleetwood Town,1,0,0,0,1014173
+econf,2010-11,29,2011-01-08,Hayes & Yeading United,FC Tamworth,2,1,1,0,1014175
+econf,2010-11,29,2011-01-08,Rushden & Diamonds,FC Altrincham,1,2,1,1,1014177
+econf,2010-11,29,2011-01-15,Crawley Town,Kettering Town,2,1,0,1,1014170
+econf,2010-11,29,2011-01-15,FC Histon,York City,1,2,1,0,1014176
+econf,2010-11,29,2011-01-22,AFC Wimbledon,FC Southport,5,0,1,0,1014180
+econf,2010-11,30,2011-01-22,Cambridge United,AFC Wrexham,1,3,0,3,1014182
+econf,2010-11,30,2011-01-22,FC Altrincham,Bath City,0,3,0,1,1014181
+econf,2010-11,30,2011-01-22,FC Tamworth,FC Darlington,1,1,0,0,1014190
+econf,2010-11,30,2011-01-22,Fleetwood Town,Hayes & Yeading United,1,1,1,1,1014183
+econf,2010-11,30,2011-01-22,Grimsby Town,Crawley Town,0,0,0,0,1014184
+econf,2010-11,30,2011-01-22,Kettering Town,Eastbourne Borough,3,0,1,0,1014185
+econf,2010-11,30,2011-01-22,Kidderminster Harriers,AFC Barrow,2,0,1,0,1014186
+econf,2010-11,30,2011-01-22,Luton Town,FC Gateshead,2,2,2,2,1014187
+econf,2010-11,30,2011-01-22,Mansfield Town,FC Histon,1,0,0,0,1014188
+econf,2010-11,30,2011-01-22,Newport County,Rushden & Diamonds,1,3,1,2,1014189
+econf,2010-11,30,2011-01-22,York City,Forest Green Rovers,2,1,0,0,1014191
+econf,2010-11,30,2011-01-25,FC Altrincham,Hayes & Yeading United,4,2,1,1,1014192
+econf,2010-11,31,2011-01-25,AFC Barrow,FC Histon,1,1,0,1,1014193
+econf,2010-11,31,2011-01-25,Bath City,AFC Wimbledon,2,2,0,2,1014194
+econf,2010-11,31,2011-01-25,Crawley Town,Cambridge United,3,0,0,0,1014195
+econf,2010-11,31,2011-01-25,FC Darlington,Mansfield Town,0,0,0,0,1014196
+econf,2010-11,31,2011-01-25,Kettering Town,Fleetwood Town,2,1,0,0,1014197
+econf,2010-11,31,2011-01-25,Luton Town,Grimsby Town,1,0,1,0,1014199
+econf,2010-11,31,2011-03-01,FC Southport,FC Histon,3,1,0,0,1014202
+econf,2010-11,31,2011-03-08,Kidderminster Harriers,Crawley Town,0,0,0,0,1014198
+econf,2010-11,31,2011-03-08,Rushden & Diamonds,Forest Green Rovers,2,2,1,0,1014201
+econf,2010-11,31,2011-03-12,York City,Eastbourne Borough,1,0,1,0,1014204
+econf,2010-11,31,2011-03-29,FC Tamworth,AFC Wrexham,1,1,0,0,1014203
+econf,2010-11,31,2011-03-29,Newport County,FC Gateshead,2,1,1,0,1014200
+econf,2010-11,32,2011-01-28,FC Gateshead,AFC Wimbledon,0,2,0,0,1014211
+econf,2010-11,32,2011-01-29,Bath City,Cambridge United,4,0,0,0,1014206
+econf,2010-11,32,2011-01-29,Eastbourne Borough,Grimsby Town,2,3,1,1,1014209
+econf,2010-11,32,2011-01-29,FC Histon,Newport County,0,0,0,0,1014213
+econf,2010-11,32,2011-01-29,FC Southport,York City,4,0,3,0,1014216
+econf,2010-11,32,2011-01-29,Fleetwood Town,Forest Green Rovers,2,0,0,0,1014210
+econf,2010-11,32,2011-01-29,Hayes & Yeading United,Kidderminster Harriers,0,4,0,1,1014212
+econf,2010-11,32,2011-01-29,Mansfield Town,AFC Wrexham,2,3,2,1,1014214
+econf,2010-11,32,2011-01-29,Rushden & Diamonds,FC Tamworth,1,1,0,0,1014215
+econf,2010-11,32,2011-03-08,AFC Barrow,FC Altrincham,1,0,0,0,1014205
+econf,2010-11,32,2011-03-22,FC Darlington,Kettering Town,1,1,1,1,1014208
+econf,2010-11,32,2011-04-12,Crawley Town,Luton Town,1,1,1,1,1014207
+econf,2010-11,33,2011-02-03,Kettering Town,Crawley Town,0,0,0,0,1014222
+econf,2010-11,33,2011-02-05,AFC Wimbledon,Fleetwood Town,1,0,0,0,1014217
+econf,2010-11,33,2011-02-05,Cambridge United,Rushden & Diamonds,0,2,0,2,1014219
+econf,2010-11,33,2011-02-05,FC Tamworth,FC Histon,0,1,0,1,1014226
+econf,2010-11,33,2011-02-05,Forest Green Rovers,Hayes & Yeading United,1,0,0,0,1014220
+econf,2010-11,33,2011-02-05,Kidderminster Harriers,Bath City,1,0,1,0,1014223
+econf,2010-11,33,2011-03-08,AFC Wrexham,Eastbourne Borough,2,1,2,1,1014227
+econf,2010-11,33,2011-03-15,York City,Mansfield Town,2,1,0,1,1014228
+econf,2010-11,33,2011-03-22,Grimsby Town,FC Gateshead,2,2,2,0,1014221
+econf,2010-11,33,2011-03-29,FC Altrincham,FC Southport,1,1,1,0,1014218
+econf,2010-11,33,2011-03-29,Luton Town,AFC Barrow,0,0,0,0,1014224
+econf,2010-11,33,2011-04-05,Newport County,FC Darlington,2,1,2,0,1014225
+econf,2010-11,34,2011-02-12,AFC Wimbledon,York City,1,0,1,0,1014229
+econf,2010-11,34,2011-02-12,Bath City,FC Tamworth,2,0,0,0,1014230
+econf,2010-11,34,2011-02-12,Crawley Town,AFC Wrexham,3,2,0,2,1014231
+econf,2010-11,34,2011-02-12,FC Darlington,Eastbourne Borough,6,1,5,0,1014232
+econf,2010-11,34,2011-02-12,FC Histon,Hayes & Yeading United,0,1,0,1,1014235
+econf,2010-11,34,2011-02-12,FC Southport,Forest Green Rovers,4,0,3,0,1014240
+econf,2010-11,34,2011-02-12,Grimsby Town,Cambridge United,1,1,1,0,1014234
+econf,2010-11,34,2011-02-12,Kettering Town,AFC Barrow,1,1,0,1,1014236
+econf,2010-11,34,2011-02-12,Kidderminster Harriers,FC Altrincham,2,1,2,1,1014237
+econf,2010-11,34,2011-02-12,Luton Town,Fleetwood Town,1,3,1,1,1014238
+econf,2010-11,34,2011-02-12,Mansfield Town,Newport County,3,3,3,3,1014239
+econf,2010-11,34,2011-04-16,FC Gateshead,Rushden & Diamonds,2,2,2,1,1014233
+econf,2010-11,35,2011-02-18,Cambridge United,Kidderminster Harriers,1,2,0,1,1014243
+econf,2010-11,35,2011-02-18,Newport County,Luton Town,1,1,0,1,1014248
+econf,2010-11,35,2011-02-19,AFC Barrow,Mansfield Town,2,2,1,0,1014242
+econf,2010-11,35,2011-02-19,AFC Wrexham,FC Gateshead,2,7,1,5,1014251
+econf,2010-11,35,2011-02-19,Eastbourne Borough,FC Histon,2,2,0,1,1014244
+econf,2010-11,35,2011-02-19,FC Altrincham,Kettering Town,3,2,1,2,1014241
+econf,2010-11,35,2011-02-19,FC Tamworth,AFC Wimbledon,2,5,0,1,1014250
+econf,2010-11,35,2011-02-19,Fleetwood Town,Grimsby Town,3,0,1,0,1014245
+econf,2010-11,35,2011-02-19,Forest Green Rovers,FC Darlington,1,1,0,0,1014246
+econf,2010-11,35,2011-02-19,Hayes & Yeading United,FC Southport,1,0,1,0,1014247
+econf,2010-11,35,2011-03-01,Rushden & Diamonds,Bath City,5,1,4,1,1014249
+econf,2010-11,35,2011-04-05,York City,Crawley Town,1,1,1,0,1014252
+econf,2010-11,36,2011-02-26,AFC Wimbledon,FC Altrincham,4,1,2,0,1014253
+econf,2010-11,36,2011-02-26,Crawley Town,AFC Barrow,3,2,2,2,1014255
+econf,2010-11,36,2011-02-26,Fleetwood Town,Eastbourne Borough,0,1,0,0,1014256
+econf,2010-11,36,2011-02-26,Forest Green Rovers,FC Tamworth,4,0,1,0,1014257
+econf,2010-11,36,2011-02-26,Hayes & Yeading United,York City,1,2,0,1,1014260
+econf,2010-11,36,2011-02-26,Kettering Town,Newport County,2,0,2,0,1014262
+econf,2010-11,36,2011-02-26,Kidderminster Harriers,AFC Wrexham,1,0,1,0,1014263
+econf,2010-11,36,2011-03-15,Cambridge United,Luton Town,0,0,0,0,1014254
+econf,2010-11,36,2011-03-29,Grimsby Town,FC Darlington,0,1,0,1,1014259
+econf,2010-11,36,2011-04-04,FC Gateshead,Bath City,1,1,1,0,1014258
+econf,2010-11,36,2011-04-05,FC Histon,Rushden & Diamonds,0,2,0,0,1014261
+econf,2010-11,36,2011-04-05,Mansfield Town,FC Southport,2,2,2,0,1014264
+econf,2010-11,37,2011-03-05,AFC Barrow,York City,0,0,0,0,1014266
+econf,2010-11,37,2011-03-05,AFC Wrexham,Forest Green Rovers,2,1,2,0,1014276
+econf,2010-11,37,2011-03-05,Bath City,Kettering Town,1,1,0,1,1014267
+econf,2010-11,37,2011-03-05,Crawley Town,FC Histon,5,0,2,0,1014268
+econf,2010-11,37,2011-03-05,Eastbourne Borough,FC Southport,4,1,2,1,1014270
+econf,2010-11,37,2011-03-05,FC Altrincham,FC Gateshead,1,1,0,0,1014265
+econf,2010-11,37,2011-03-05,FC Darlington,Cambridge United,1,0,0,0,1014269
+econf,2010-11,37,2011-03-05,FC Tamworth,Mansfield Town,0,2,0,0,1014275
+econf,2010-11,37,2011-03-05,Grimsby Town,AFC Wimbledon,2,1,1,1,1014271
+econf,2010-11,37,2011-03-05,Luton Town,Kidderminster Harriers,1,1,1,0,1014272
+econf,2010-11,37,2011-03-05,Newport County,Fleetwood Town,1,3,0,1,1014273
+econf,2010-11,37,2011-03-05,Rushden & Diamonds,Hayes & Yeading United,1,1,1,1,1014274
+econf,2010-11,38,2011-03-12,AFC Wimbledon,Kidderminster Harriers,1,2,0,1,1014277
+econf,2010-11,38,2011-03-12,AFC Wrexham,Rushden & Diamonds,1,1,1,0,1014287
+econf,2010-11,38,2011-03-12,FC Southport,Cambridge United,1,1,0,0,1014285
+econf,2010-11,38,2011-03-12,FC Tamworth,Hayes & Yeading United,2,3,1,1,1014286
+econf,2010-11,38,2011-03-12,Fleetwood Town,Crawley Town,1,2,0,1,1014278
+econf,2010-11,38,2011-03-12,Forest Green Rovers,AFC Barrow,2,3,1,1,1014279
+econf,2010-11,38,2011-03-12,Kettering Town,Grimsby Town,1,2,1,0,1014282
+econf,2010-11,38,2011-03-12,Newport County,FC Altrincham,2,1,1,1,1014284
+econf,2010-11,38,2011-04-12,FC Gateshead,Eastbourne Borough,3,0,0,0,1014280
+econf,2010-11,38,2011-04-12,FC Histon,FC Darlington,0,1,0,0,1014281
+econf,2010-11,38,2011-04-14,Mansfield Town,Bath City,2,0,0,0,1014283
+econf,2010-11,38,2011-04-19,York City,Luton Town,1,0,0,0,1014288
+econf,2010-11,39,2011-03-18,Crawley Town,AFC Wimbledon,3,1,2,1,1014292
+econf,2010-11,39,2011-03-19,Bath City,Grimsby Town,2,1,1,0,1014290
+econf,2010-11,39,2011-03-19,Cambridge United,York City,2,1,1,1,1014291
+econf,2010-11,39,2011-03-19,Eastbourne Borough,AFC Barrow,0,2,0,0,1014293
+econf,2010-11,39,2011-03-19,FC Altrincham,FC Tamworth,2,0,1,0,1014289
+econf,2010-11,39,2011-03-19,Fleetwood Town,AFC Wrexham,1,0,0,0,1014294
+econf,2010-11,39,2011-03-19,Forest Green Rovers,Newport County,0,0,0,0,1014295
+econf,2010-11,39,2011-03-19,Rushden & Diamonds,FC Southport,2,2,1,1,1014300
+econf,2010-11,39,2011-03-22,FC Histon,Mansfield Town,2,3,2,0,1014297
+econf,2010-11,39,2011-04-05,Luton Town,Kettering Town,2,2,1,0,1014299
+econf,2010-11,39,2011-04-19,Hayes & Yeading United,FC Gateshead,3,1,1,0,1014296
+econf,2010-11,39,2011-04-19,Kidderminster Harriers,FC Darlington,1,2,1,0,1014298
+econf,2010-11,40,2011-03-26,AFC Barrow,Bath City,0,1,0,1,1014302
+econf,2010-11,40,2011-03-26,AFC Wimbledon,Rushden & Diamonds,1,0,1,0,1014301
+econf,2010-11,40,2011-03-26,Cambridge United,Forest Green Rovers,1,1,1,0,1014303
+econf,2010-11,40,2011-03-26,Eastbourne Borough,Kettering Town,1,3,0,1,1014305
+econf,2010-11,40,2011-03-26,FC Darlington,FC Altrincham,0,1,0,0,1014304
+econf,2010-11,40,2011-03-26,FC Gateshead,Crawley Town,0,0,0,0,1014306
+econf,2010-11,40,2011-03-26,FC Southport,Luton Town,2,1,0,0,1014310
+econf,2010-11,40,2011-03-26,Grimsby Town,FC Tamworth,2,2,1,0,1014307
+econf,2010-11,40,2011-03-26,Hayes & Yeading United,Fleetwood Town,1,2,0,2,1014308
+econf,2010-11,40,2011-03-26,Mansfield Town,Kidderminster Harriers,1,2,0,1,1014309
+econf,2010-11,40,2011-03-26,York City,FC Histon,1,0,0,0,1014312
+econf,2010-11,40,2011-03-27,AFC Wrexham,Newport County,1,0,0,0,1014311
+econf,2010-11,41,2011-04-02,AFC Wimbledon,AFC Barrow,2,0,1,0,1014313
+econf,2010-11,41,2011-04-02,AFC Wrexham,Hayes & Yeading United,0,2,0,2,1014324
+econf,2010-11,41,2011-04-02,Bath City,FC Gateshead,1,0,0,0,1014315
+econf,2010-11,41,2011-04-02,Crawley Town,FC Darlington,1,0,0,0,1014316
+econf,2010-11,41,2011-04-02,FC Altrincham,Cambridge United,2,2,2,1,1014314
+econf,2010-11,41,2011-04-02,FC Histon,Forest Green Rovers,0,3,0,1,1014318
+econf,2010-11,41,2011-04-02,FC Southport,Eastbourne Borough,1,3,0,3,1014323
+econf,2010-11,41,2011-04-02,Fleetwood Town,FC Tamworth,2,1,1,0,1014317
+econf,2010-11,41,2011-04-02,Kettering Town,York City,1,1,0,1,1014319
+econf,2010-11,41,2011-04-02,Kidderminster Harriers,Luton Town,3,3,1,0,1014320
+econf,2010-11,41,2011-04-02,Mansfield Town,Rushden & Diamonds,2,1,1,1,1014321
+econf,2010-11,41,2011-04-02,Newport County,Grimsby Town,2,1,0,0,1014322
+econf,2010-11,42,2011-04-09,AFC Barrow,Kettering Town,5,0,0,0,1014325
+econf,2010-11,42,2011-04-09,Cambridge United,AFC Wimbledon,1,2,0,2,1014326
+econf,2010-11,42,2011-04-09,Eastbourne Borough,Fleetwood Town,0,6,0,2,1014328
+econf,2010-11,42,2011-04-09,FC Darlington,Bath City,3,1,3,0,1014327
+econf,2010-11,42,2011-04-09,FC Gateshead,FC Histon,2,0,1,0,1014330
+econf,2010-11,42,2011-04-09,FC Tamworth,Crawley Town,0,3,0,1,1014335
+econf,2010-11,42,2011-04-09,Forest Green Rovers,FC Altrincham,1,0,0,0,1014329
+econf,2010-11,42,2011-04-09,Grimsby Town,Kidderminster Harriers,3,3,1,2,1014331
+econf,2010-11,42,2011-04-09,Hayes & Yeading United,Mansfield Town,4,0,3,0,1014332
+econf,2010-11,42,2011-04-09,Luton Town,FC Southport,6,0,2,0,1014333
+econf,2010-11,42,2011-04-09,Rushden & Diamonds,AFC Wrexham,2,2,0,1,1014334
+econf,2010-11,42,2011-04-09,York City,Newport County,2,1,0,0,1014336
+econf,2010-11,43,2011-02-12,Rushden & Diamonds,FC Gateshead,0,2,0,1,1014345
+econf,2010-11,43,2011-04-16,AFC Wrexham,Kettering Town,2,0,0,0,1014347
+econf,2010-11,43,2011-04-16,Eastbourne Borough,Kidderminster Harriers,1,1,1,0,1014337
+econf,2010-11,43,2011-04-16,FC Histon,AFC Wimbledon,0,4,0,1,1014342
+econf,2010-11,43,2011-04-16,FC Southport,Crawley Town,0,4,0,2,1014346
+econf,2010-11,43,2011-04-16,Fleetwood Town,FC Altrincham,3,1,2,0,1014338
+econf,2010-11,43,2011-04-16,Forest Green Rovers,Cambridge United,1,1,1,1,1014339
+econf,2010-11,43,2011-04-16,Grimsby Town,Bath City,2,2,2,0,1014340
+econf,2010-11,43,2011-04-16,Hayes & Yeading United,FC Darlington,3,2,2,0,1014341
+econf,2010-11,43,2011-04-16,Mansfield Town,Luton Town,0,0,0,0,1014343
+econf,2010-11,43,2011-04-16,Newport County,AFC Barrow,5,0,4,0,1014344
+econf,2010-11,43,2011-04-16,York City,FC Tamworth,1,2,0,1,1014348
+econf,2010-11,44,2011-04-22,AFC Wimbledon,Mansfield Town,2,1,0,1,1014349
+econf,2010-11,44,2011-04-22,Crawley Town,Rushden & Diamonds,4,0,1,0,1014354
+econf,2010-11,44,2011-04-22,Kidderminster Harriers,Fleetwood Town,2,1,0,1,1014358
+econf,2010-11,44,2011-04-23,AFC Barrow,Grimsby Town,0,2,0,0,1014351
+econf,2010-11,44,2011-04-23,Bath City,FC Histon,2,1,1,0,1014352
+econf,2010-11,44,2011-04-23,Cambridge United,Hayes & Yeading United,1,0,0,0,1014353
+econf,2010-11,44,2011-04-23,FC Altrincham,Newport County,1,3,0,2,1014350
+econf,2010-11,44,2011-04-23,FC Darlington,York City,2,1,0,0,1014355
+econf,2010-11,44,2011-04-23,FC Gateshead,AFC Wrexham,0,1,0,0,1014356
+econf,2010-11,44,2011-04-23,FC Tamworth,FC Southport,0,1,0,0,1014360
+econf,2010-11,44,2011-04-23,Kettering Town,Forest Green Rovers,2,1,0,0,1014357
+econf,2010-11,44,2011-04-23,Luton Town,Eastbourne Borough,3,0,1,0,1014359
+econf,2010-11,45,2011-03-19,Hayes & Yeading United,Kettering Town,3,2,2,1,1014365
+econf,2010-11,45,2011-04-25,AFC Wrexham,FC Tamworth,4,2,1,0,1014371
+econf,2010-11,45,2011-04-25,Eastbourne Borough,Bath City,2,0,0,0,1014361
+econf,2010-11,45,2011-04-25,FC Histon,Luton Town,0,4,0,2,1014366
+econf,2010-11,45,2011-04-25,FC Southport,FC Darlington,1,1,1,0,1014370
+econf,2010-11,45,2011-04-25,Fleetwood Town,AFC Barrow,1,0,1,0,1014362
+econf,2010-11,45,2011-04-25,Forest Green Rovers,AFC Wimbledon,0,0,0,0,1014363
+econf,2010-11,45,2011-04-25,Grimsby Town,FC Altrincham,0,1,0,0,1014364
+econf,2010-11,45,2011-04-25,Mansfield Town,FC Gateshead,3,2,0,2,1014367
+econf,2010-11,45,2011-04-25,Newport County,Crawley Town,0,1,0,0,1014368
+econf,2010-11,45,2011-04-25,Rushden & Diamonds,Kidderminster Harriers,2,1,0,0,1014369
+econf,2010-11,45,2011-04-25,York City,Cambridge United,0,0,0,0,1014372
+econf,2010-11,46,2011-04-30,AFC Barrow,Hayes & Yeading United,2,0,0,0,1014375
+econf,2010-11,46,2011-04-30,AFC Wimbledon,Grimsby Town,2,1,1,1,1014373
+econf,2010-11,46,2011-04-30,Bath City,Mansfield Town,2,0,0,0,1014376
+econf,2010-11,46,2011-04-30,Cambridge United,Fleetwood Town,0,1,0,0,1014377
+econf,2010-11,46,2011-04-30,Crawley Town,York City,1,1,0,1,1014378
+econf,2010-11,46,2011-04-30,FC Altrincham,Eastbourne Borough,3,4,0,3,1014374
+econf,2010-11,46,2011-04-30,FC Darlington,Rushden & Diamonds,2,0,0,0,1014379
+econf,2010-11,46,2011-04-30,FC Gateshead,Newport County,1,7,1,2,1014380
+econf,2010-11,46,2011-04-30,FC Tamworth,Forest Green Rovers,2,1,1,0,1014384
+econf,2010-11,46,2011-04-30,Kettering Town,FC Southport,3,1,1,0,1014381
+econf,2010-11,46,2011-04-30,Kidderminster Harriers,FC Histon,2,2,0,1,1014382
+econf,2010-11,46,2011-04-30,Luton Town,AFC Wrexham,1,1,0,1,1014383

@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el1,2013-14,1,2013-08-02,Sheffield United,Notts County,2,1,1,0,1892953
+el1,2013-14,1,2013-08-03,Bristol City,Bradford City,2,2,1,1,1892945
+el1,2013-14,1,2013-08-03,Carlisle United,Leyton Orient,1,5,1,2,1892946
+el1,2013-14,1,2013-08-03,Crawley Town,Coventry City,3,2,2,0,1892947
+el1,2013-14,1,2013-08-03,Crewe Alexandra,Rotherham United,3,3,2,1,1892948
+el1,2013-14,1,2013-08-03,FC Gillingham,Colchester United,0,1,0,0,1892949
+el1,2013-14,1,2013-08-03,FC Port Vale,FC Brentford,1,1,1,1,1892951
+el1,2013-14,1,2013-08-03,FC Stevenage,Oldham Athletic,3,4,1,0,1892955
+el1,2013-14,1,2013-08-03,FC Walsall,Tranmere Rovers,3,1,2,1,1892956
+el1,2013-14,1,2013-08-03,Peterborough United,Swindon Town,1,0,1,0,1892950
+el1,2013-14,1,2013-08-03,Preston North End,Wolverhampton Wanderers,0,0,0,0,1892952
+el1,2013-14,1,2013-08-03,Shrewsbury Town,Milton Keynes Dons,0,0,0,0,1892954
+el1,2013-14,2,2013-08-10,Bradford City,Carlisle United,4,0,3,0,1892957
+el1,2013-14,2,2013-08-10,Colchester United,FC Port Vale,1,0,0,0,1892959
+el1,2013-14,2,2013-08-10,FC Brentford,Sheffield United,3,1,1,0,1892958
+el1,2013-14,2,2013-08-10,Leyton Orient,Shrewsbury Town,3,0,0,0,1892961
+el1,2013-14,2,2013-08-10,Milton Keynes Dons,Crewe Alexandra,1,0,1,0,1892962
+el1,2013-14,2,2013-08-10,Notts County,Peterborough United,2,4,1,1,1892963
+el1,2013-14,2,2013-08-10,Oldham Athletic,FC Walsall,0,1,0,1,1892964
+el1,2013-14,2,2013-08-10,Rotherham United,Preston North End,0,0,0,0,1892965
+el1,2013-14,2,2013-08-10,Swindon Town,FC Stevenage,1,0,1,0,1892966
+el1,2013-14,2,2013-08-10,Tranmere Rovers,Crawley Town,3,3,2,1,1892967
+el1,2013-14,2,2013-08-10,Wolverhampton Wanderers,FC Gillingham,4,0,3,0,1892968
+el1,2013-14,2,2013-08-11,Coventry City,Bristol City,5,4,3,0,1892960
+el1,2013-14,3,2013-08-17,Bristol City,Wolverhampton Wanderers,1,2,0,1,1892969
+el1,2013-14,3,2013-08-17,Carlisle United,Coventry City,0,4,0,3,1892970
+el1,2013-14,3,2013-08-17,Crawley Town,Rotherham United,1,2,1,1,1892971
+el1,2013-14,3,2013-08-17,Crewe Alexandra,Tranmere Rovers,2,1,1,0,1892972
+el1,2013-14,3,2013-08-17,FC Gillingham,FC Brentford,1,1,1,0,1892973
+el1,2013-14,3,2013-08-17,FC Port Vale,Bradford City,2,1,1,0,1892975
+el1,2013-14,3,2013-08-17,FC Stevenage,Leyton Orient,0,1,0,1,1892979
+el1,2013-14,3,2013-08-17,FC Walsall,Notts County,1,1,0,0,1892980
+el1,2013-14,3,2013-08-17,Peterborough United,Oldham Athletic,2,1,1,0,1892974
+el1,2013-14,3,2013-08-17,Preston North End,Milton Keynes Dons,2,2,2,1,1892976
+el1,2013-14,3,2013-08-17,Sheffield United,Colchester United,1,1,1,1,1892977
+el1,2013-14,3,2013-08-17,Shrewsbury Town,Swindon Town,2,0,1,0,1892978
+el1,2013-14,4,2013-08-23,Colchester United,Carlisle United,1,1,0,1,1892983
+el1,2013-14,4,2013-08-23,Wolverhampton Wanderers,Crawley Town,2,1,1,0,1892992
+el1,2013-14,4,2013-08-24,Bradford City,Sheffield United,2,0,1,0,1892981
+el1,2013-14,4,2013-08-24,FC Brentford,FC Walsall,1,0,1,0,1892982
+el1,2013-14,4,2013-08-24,Leyton Orient,Crewe Alexandra,2,0,2,0,1892985
+el1,2013-14,4,2013-08-24,Milton Keynes Dons,Bristol City,2,2,0,1,1892986
+el1,2013-14,4,2013-08-24,Notts County,FC Stevenage,0,1,0,0,1892987
+el1,2013-14,4,2013-08-24,Oldham Athletic,FC Port Vale,3,1,1,1,1892988
+el1,2013-14,4,2013-08-24,Rotherham United,Shrewsbury Town,2,2,0,1,1892989
+el1,2013-14,4,2013-08-24,Swindon Town,FC Gillingham,2,2,1,1,1892990
+el1,2013-14,4,2013-08-24,Tranmere Rovers,Peterborough United,0,5,0,3,1892991
+el1,2013-14,4,2013-08-25,Coventry City,Preston North End,4,4,1,1,1892984
+el1,2013-14,5,2013-08-31,Colchester United,Leyton Orient,1,2,1,1,1892994
+el1,2013-14,5,2013-08-31,FC Brentford,Carlisle United,0,0,0,0,1892993
+el1,2013-14,5,2013-08-31,FC Gillingham,Bristol City,1,1,1,1,1892995
+el1,2013-14,5,2013-08-31,FC Port Vale,Wolverhampton Wanderers,1,3,0,0,1892999
+el1,2013-14,5,2013-08-31,FC Stevenage,Bradford City,1,1,1,0,1893002
+el1,2013-14,5,2013-08-31,FC Walsall,Preston North End,0,3,0,1,1893004
+el1,2013-14,5,2013-08-31,Notts County,Rotherham United,0,1,0,1,1892996
+el1,2013-14,5,2013-08-31,Oldham Athletic,Tranmere Rovers,0,1,0,0,1892997
+el1,2013-14,5,2013-08-31,Peterborough United,Crawley Town,0,2,0,1,1892998
+el1,2013-14,5,2013-08-31,Sheffield United,Milton Keynes Dons,0,1,0,0,1893000
+el1,2013-14,5,2013-08-31,Shrewsbury Town,Coventry City,1,1,0,1,1893001
+el1,2013-14,5,2013-08-31,Swindon Town,Crewe Alexandra,5,0,2,0,1893003
+el1,2013-14,6,2013-09-07,Bradford City,FC Brentford,4,0,1,0,1893005
+el1,2013-14,6,2013-09-07,Carlisle United,FC Port Vale,0,1,0,0,1893007
+el1,2013-14,6,2013-09-07,Crawley Town,FC Gillingham,3,2,0,0,1893009
+el1,2013-14,6,2013-09-07,Crewe Alexandra,Peterborough United,2,2,2,1,1893010
+el1,2013-14,6,2013-09-07,Milton Keynes Dons,Swindon Town,1,1,0,1,1893012
+el1,2013-14,6,2013-09-07,Rotherham United,Sheffield United,3,1,0,1,1893014
+el1,2013-14,6,2013-09-07,Tranmere Rovers,FC Stevenage,0,0,0,0,1893015
+el1,2013-14,6,2013-09-08,Coventry City,Colchester United,2,0,1,0,1893008
+el1,2013-14,6,2013-09-09,Preston North End,Oldham Athletic,2,1,2,0,1893013
+el1,2013-14,6,2013-09-17,Bristol City,Shrewsbury Town,1,1,0,1,1893006
+el1,2013-14,6,2013-09-17,Leyton Orient,Notts County,5,1,2,0,1893011
+el1,2013-14,6,2013-09-17,Wolverhampton Wanderers,FC Walsall,0,1,0,0,1893016
+el1,2013-14,7,2013-09-14,Bradford City,Colchester United,2,2,1,2,1893017
+el1,2013-14,7,2013-09-14,Bristol City,Peterborough United,0,3,0,1,1893018
+el1,2013-14,7,2013-09-14,Carlisle United,Sheffield United,1,0,0,0,1893019
+el1,2013-14,7,2013-09-14,Crawley Town,Shrewsbury Town,1,1,0,0,1893021
+el1,2013-14,7,2013-09-14,Crewe Alexandra,FC Walsall,0,3,0,0,1893022
+el1,2013-14,7,2013-09-14,Leyton Orient,FC Port Vale,3,2,2,1,1893023
+el1,2013-14,7,2013-09-14,Milton Keynes Dons,Notts County,3,1,2,0,1893024
+el1,2013-14,7,2013-09-14,Preston North End,FC Stevenage,3,0,1,0,1893025
+el1,2013-14,7,2013-09-14,Rotherham United,Oldham Athletic,3,2,1,1,1893026
+el1,2013-14,7,2013-09-14,Tranmere Rovers,FC Brentford,3,4,1,2,1893027
+el1,2013-14,7,2013-09-14,Wolverhampton Wanderers,Swindon Town,3,2,2,0,1893028
+el1,2013-14,7,2013-09-15,Coventry City,FC Gillingham,2,1,1,1,1893020
+el1,2013-14,8,2013-09-21,Colchester United,Crawley Town,1,1,1,1,1893030
+el1,2013-14,8,2013-09-21,FC Gillingham,Bradford City,0,1,0,1,1893031
+el1,2013-14,8,2013-09-21,FC Port Vale,Coventry City,3,2,1,2,1893035
+el1,2013-14,8,2013-09-21,FC Stevenage,Carlisle United,1,3,0,1,1893038
+el1,2013-14,8,2013-09-21,FC Walsall,Rotherham United,1,1,1,1,1893040
+el1,2013-14,8,2013-09-21,Notts County,Tranmere Rovers,2,0,1,0,1893032
+el1,2013-14,8,2013-09-21,Oldham Athletic,Crewe Alexandra,1,1,0,1,1893033
+el1,2013-14,8,2013-09-21,Peterborough United,Milton Keynes Dons,2,1,2,0,1893034
+el1,2013-14,8,2013-09-21,Sheffield United,Preston North End,0,1,0,0,1893036
+el1,2013-14,8,2013-09-21,Shrewsbury Town,Wolverhampton Wanderers,0,1,0,0,1893037
+el1,2013-14,8,2013-09-21,Swindon Town,Bristol City,3,2,2,2,1893039
+el1,2013-14,8,2013-09-23,FC Brentford,Leyton Orient,0,2,0,0,1893029
+el1,2013-14,9,2013-09-28,Bradford City,Shrewsbury Town,2,1,0,1,1893041
+el1,2013-14,9,2013-09-28,Bristol City,Colchester United,1,1,0,1,1893042
+el1,2013-14,9,2013-09-28,Carlisle United,Notts County,2,1,1,1,1893043
+el1,2013-14,9,2013-09-28,Crawley Town,Oldham Athletic,1,0,1,0,1893045
+el1,2013-14,9,2013-09-28,Crewe Alexandra,FC Gillingham,0,3,0,1,1893046
+el1,2013-14,9,2013-09-28,Leyton Orient,FC Walsall,1,1,1,0,1893047
+el1,2013-14,9,2013-09-28,Milton Keynes Dons,FC Stevenage,4,1,3,1,1893048
+el1,2013-14,9,2013-09-28,Preston North End,Swindon Town,2,1,1,0,1893049
+el1,2013-14,9,2013-09-28,Rotherham United,Peterborough United,0,1,0,0,1893050
+el1,2013-14,9,2013-09-28,Tranmere Rovers,FC Port Vale,0,1,0,0,1893051
+el1,2013-14,9,2013-09-28,Wolverhampton Wanderers,Sheffield United,2,0,0,0,1893052
+el1,2013-14,9,2013-09-29,Coventry City,FC Brentford,0,2,0,1,1893044
+el1,2013-14,10,2013-10-04,Sheffield United,Crawley Town,1,1,0,1,1893060
+el1,2013-14,10,2013-10-05,Colchester United,Wolverhampton Wanderers,0,3,0,1,1893054
+el1,2013-14,10,2013-10-05,FC Brentford,Rotherham United,0,1,0,1,1893053
+el1,2013-14,10,2013-10-05,FC Gillingham,Milton Keynes Dons,3,2,2,2,1893055
+el1,2013-14,10,2013-10-05,FC Port Vale,Bristol City,1,1,0,0,1893059
+el1,2013-14,10,2013-10-05,FC Stevenage,Coventry City,0,1,0,1,1893062
+el1,2013-14,10,2013-10-05,FC Walsall,Bradford City,0,2,0,1,1893064
+el1,2013-14,10,2013-10-05,Notts County,Crewe Alexandra,4,0,2,0,1893056
+el1,2013-14,10,2013-10-05,Oldham Athletic,Leyton Orient,1,1,1,0,1893057
+el1,2013-14,10,2013-10-05,Peterborough United,Preston North End,2,0,2,0,1893058
+el1,2013-14,10,2013-10-05,Shrewsbury Town,Carlisle United,2,2,1,0,1893061
+el1,2013-14,10,2013-10-05,Swindon Town,Tranmere Rovers,1,0,1,0,1893063
+el1,2013-14,11,2013-10-12,Colchester United,FC Walsall,1,1,1,0,1893068
+el1,2013-14,11,2013-10-12,FC Port Vale,Peterborough United,0,1,0,0,1893072
+el1,2013-14,11,2013-10-12,FC Stevenage,FC Brentford,2,1,2,1,1893076
+el1,2013-14,11,2013-10-12,Leyton Orient,Milton Keynes Dons,2,1,1,1,1893070
+el1,2013-14,11,2013-10-12,Preston North End,Crewe Alexandra,0,2,0,1,1893073
+el1,2013-14,11,2013-10-12,Rotherham United,Swindon Town,0,4,0,2,1893074
+el1,2013-14,11,2013-10-12,Shrewsbury Town,FC Gillingham,2,0,1,0,1893075
+el1,2013-14,11,2013-10-13,Bradford City,Tranmere Rovers,0,1,0,0,1893065
+el1,2013-14,11,2013-10-13,Coventry City,Sheffield United,3,2,2,0,1893069
+el1,2013-14,11,2013-10-29,Notts County,Oldham Athletic,3,2,1,1,1893071
+el1,2013-14,11,2013-11-05,Bristol City,Crawley Town,2,0,0,0,1893066
+el1,2013-14,11,2013-11-05,Carlisle United,Wolverhampton Wanderers,2,2,1,2,1893067
+el1,2013-14,12,2013-10-18,Swindon Town,Notts County,2,0,2,0,1893085
+el1,2013-14,12,2013-10-19,Crawley Town,Bradford City,1,0,0,0,1893078
+el1,2013-14,12,2013-10-19,Crewe Alexandra,Bristol City,1,0,0,0,1893079
+el1,2013-14,12,2013-10-19,FC Brentford,Colchester United,3,1,0,0,1893077
+el1,2013-14,12,2013-10-19,FC Gillingham,Preston North End,1,2,0,0,1893080
+el1,2013-14,12,2013-10-19,FC Walsall,FC Stevenage,2,1,1,0,1893087
+el1,2013-14,12,2013-10-19,Milton Keynes Dons,Rotherham United,3,2,1,0,1893081
+el1,2013-14,12,2013-10-19,Oldham Athletic,Carlisle United,1,0,1,0,1893082
+el1,2013-14,12,2013-10-19,Peterborough United,Shrewsbury Town,1,0,0,0,1893083
+el1,2013-14,12,2013-10-19,Sheffield United,FC Port Vale,2,1,1,1,1893084
+el1,2013-14,12,2013-10-19,Tranmere Rovers,Leyton Orient,0,4,0,1,1893086
+el1,2013-14,12,2013-10-19,Wolverhampton Wanderers,Coventry City,1,1,0,0,1893088
+el1,2013-14,13,2013-10-22,Bristol City,FC Brentford,1,2,0,0,1893089
+el1,2013-14,13,2013-10-22,Coventry City,Leyton Orient,3,1,1,0,1893090
+el1,2013-14,13,2013-10-22,Crawley Town,FC Port Vale,0,3,0,2,1893091
+el1,2013-14,13,2013-10-22,Crewe Alexandra,FC Stevenage,0,3,0,3,1893092
+el1,2013-14,13,2013-10-22,FC Gillingham,Notts County,2,1,2,0,1893093
+el1,2013-14,13,2013-10-22,Milton Keynes Dons,Carlisle United,0,1,0,1,1893094
+el1,2013-14,13,2013-10-22,Peterborough United,Sheffield United,0,0,0,0,1893095
+el1,2013-14,13,2013-10-22,Preston North End,Bradford City,2,2,1,1,1893096
+el1,2013-14,13,2013-10-22,Rotherham United,Tranmere Rovers,1,1,0,0,1893097
+el1,2013-14,13,2013-10-22,Shrewsbury Town,Colchester United,1,1,1,1,1893098
+el1,2013-14,13,2013-10-22,Swindon Town,FC Walsall,1,3,0,1,1893099
+el1,2013-14,13,2013-10-22,Wolverhampton Wanderers,Oldham Athletic,2,0,0,0,1893100
+el1,2013-14,14,2013-10-26,Bradford City,Wolverhampton Wanderers,1,2,1,2,1893101
+el1,2013-14,14,2013-10-26,Carlisle United,Bristol City,2,4,1,0,1893103
+el1,2013-14,14,2013-10-26,Colchester United,Peterborough United,1,0,0,0,1893104
+el1,2013-14,14,2013-10-26,FC Brentford,Shrewsbury Town,1,0,1,0,1893102
+el1,2013-14,14,2013-10-26,FC Port Vale,FC Gillingham,2,1,0,1,1893108
+el1,2013-14,14,2013-10-26,FC Stevenage,Crawley Town,2,0,1,0,1893110
+el1,2013-14,14,2013-10-26,FC Walsall,Coventry City,0,1,0,0,1893112
+el1,2013-14,14,2013-10-26,Leyton Orient,Rotherham United,1,0,1,0,1893105
+el1,2013-14,14,2013-10-26,Notts County,Preston North End,0,1,0,0,1893106
+el1,2013-14,14,2013-10-26,Oldham Athletic,Swindon Town,2,1,1,0,1893107
+el1,2013-14,14,2013-10-26,Sheffield United,Crewe Alexandra,3,1,2,0,1893109
+el1,2013-14,14,2013-10-26,Tranmere Rovers,Milton Keynes Dons,3,2,1,1,1893111
+el1,2013-14,15,2013-11-02,Bristol City,Oldham Athletic,1,1,1,0,1893113
+el1,2013-14,15,2013-11-02,Coventry City,Notts County,3,0,0,0,1893114
+el1,2013-14,15,2013-11-02,Crawley Town,FC Brentford,0,1,0,1,1893115
+el1,2013-14,15,2013-11-02,Crewe Alexandra,Bradford City,0,0,0,0,1893116
+el1,2013-14,15,2013-11-02,FC Gillingham,Carlisle United,1,0,0,0,1893117
+el1,2013-14,15,2013-11-02,Milton Keynes Dons,FC Walsall,1,0,0,0,1893118
+el1,2013-14,15,2013-11-02,Peterborough United,Leyton Orient,1,3,1,1,1893119
+el1,2013-14,15,2013-11-02,Preston North End,Tranmere Rovers,1,1,0,0,1893120
+el1,2013-14,15,2013-11-02,Rotherham United,Colchester United,2,2,2,1,1893121
+el1,2013-14,15,2013-11-02,Shrewsbury Town,Sheffield United,2,0,1,0,1893122
+el1,2013-14,15,2013-11-02,Swindon Town,FC Port Vale,5,2,1,0,1893123
+el1,2013-14,15,2013-11-02,Wolverhampton Wanderers,FC Stevenage,2,0,1,0,1893124
+el1,2013-14,16,2013-11-16,Carlisle United,Crawley Town,1,1,0,0,1893127
+el1,2013-14,16,2013-11-16,Colchester United,Swindon Town,1,2,0,1,1893128
+el1,2013-14,16,2013-11-16,FC Brentford,Crewe Alexandra,5,0,1,0,1893126
+el1,2013-14,16,2013-11-16,FC Port Vale,Shrewsbury Town,3,1,2,0,1893132
+el1,2013-14,16,2013-11-16,FC Stevenage,Rotherham United,0,3,0,1,1893134
+el1,2013-14,16,2013-11-16,Leyton Orient,Preston North End,0,1,0,1,1893129
+el1,2013-14,16,2013-11-16,Notts County,Wolverhampton Wanderers,0,1,0,0,1893130
+el1,2013-14,16,2013-11-16,Sheffield United,FC Gillingham,1,2,1,1,1893133
+el1,2013-14,16,2013-11-16,Tranmere Rovers,Bristol City,1,1,1,1,1893135
+el1,2013-14,16,2013-11-17,Bradford City,Coventry City,3,3,2,3,1893125
+el1,2013-14,16,2013-11-18,FC Walsall,Peterborough United,2,0,1,0,1893136
+el1,2013-14,16,2014-02-25,Oldham Athletic,Milton Keynes Dons,1,2,0,2,1893131
+el1,2013-14,17,2013-11-23,Bristol City,Sheffield United,0,1,0,0,1893137
+el1,2013-14,17,2013-11-23,Coventry City,Tranmere Rovers,1,5,0,3,1893138
+el1,2013-14,17,2013-11-23,Crawley Town,FC Walsall,0,0,0,0,1893139
+el1,2013-14,17,2013-11-23,Crewe Alexandra,FC Port Vale,1,2,1,1,1893140
+el1,2013-14,17,2013-11-23,FC Gillingham,Oldham Athletic,0,1,0,0,1893141
+el1,2013-14,17,2013-11-23,Milton Keynes Dons,Bradford City,2,3,1,2,1893142
+el1,2013-14,17,2013-11-23,Peterborough United,FC Stevenage,0,1,0,1,1893143
+el1,2013-14,17,2013-11-23,Preston North End,Colchester United,1,1,1,0,1893144
+el1,2013-14,17,2013-11-23,Rotherham United,Carlisle United,0,0,0,0,1893145
+el1,2013-14,17,2013-11-23,Shrewsbury Town,Notts County,1,0,0,0,1893146
+el1,2013-14,17,2013-11-23,Swindon Town,Leyton Orient,1,3,1,2,1893147
+el1,2013-14,17,2013-11-23,Wolverhampton Wanderers,FC Brentford,0,0,0,0,1893148
+el1,2013-14,18,2013-11-26,Bradford City,Notts County,1,1,0,1,1893149
+el1,2013-14,18,2013-11-26,Bristol City,Leyton Orient,2,2,0,1,1893151
+el1,2013-14,18,2013-11-26,Carlisle United,Crewe Alexandra,2,1,2,0,1893152
+el1,2013-14,18,2013-11-26,Colchester United,Milton Keynes Dons,3,1,2,0,1893153
+el1,2013-14,18,2013-11-26,Coventry City,Rotherham United,0,3,0,0,1893154
+el1,2013-14,18,2013-11-26,Crawley Town,Swindon Town,0,0,0,0,1893155
+el1,2013-14,18,2013-11-26,FC Brentford,Peterborough United,3,2,1,0,1893150
+el1,2013-14,18,2013-11-26,FC Gillingham,FC Stevenage,3,2,0,1,1893156
+el1,2013-14,18,2013-11-26,FC Port Vale,Preston North End,0,2,0,1,1893157
+el1,2013-14,18,2013-11-26,Sheffield United,FC Walsall,1,1,1,0,1893158
+el1,2013-14,18,2013-11-26,Shrewsbury Town,Oldham Athletic,1,2,1,1,1893159
+el1,2013-14,18,2013-11-26,Wolverhampton Wanderers,Tranmere Rovers,2,0,2,0,1893160
+el1,2013-14,19,2013-11-30,Crewe Alexandra,Crawley Town,1,0,0,0,1893161
+el1,2013-14,19,2013-11-30,FC Stevenage,Shrewsbury Town,1,3,1,2,1893169
+el1,2013-14,19,2013-11-30,FC Walsall,FC Port Vale,0,2,0,1,1893172
+el1,2013-14,19,2013-11-30,Leyton Orient,Sheffield United,1,1,0,0,1893162
+el1,2013-14,19,2013-11-30,Milton Keynes Dons,Coventry City,1,3,1,0,1893163
+el1,2013-14,19,2013-11-30,Notts County,FC Brentford,0,1,0,1,1893164
+el1,2013-14,19,2013-11-30,Peterborough United,Wolverhampton Wanderers,1,0,0,0,1893166
+el1,2013-14,19,2013-11-30,Preston North End,Bristol City,1,0,1,0,1893167
+el1,2013-14,19,2013-11-30,Rotherham United,FC Gillingham,4,1,3,0,1893168
+el1,2013-14,19,2013-11-30,Swindon Town,Carlisle United,3,1,1,0,1893170
+el1,2013-14,19,2013-11-30,Tranmere Rovers,Colchester United,2,1,1,0,1893171
+el1,2013-14,19,2013-12-01,Oldham Athletic,Bradford City,1,1,1,1,1893165
+el1,2013-14,20,2013-12-14,Bradford City,Leyton Orient,1,1,0,1,1893173
+el1,2013-14,20,2013-12-14,Bristol City,Rotherham United,1,2,0,2,1893175
+el1,2013-14,20,2013-12-14,Carlisle United,Tranmere Rovers,4,1,1,0,1893176
+el1,2013-14,20,2013-12-14,Colchester United,Notts County,0,4,0,2,1893177
+el1,2013-14,20,2013-12-14,Coventry City,Crewe Alexandra,2,2,1,1,1893178
+el1,2013-14,20,2013-12-14,Crawley Town,Preston North End,2,2,0,2,1893179
+el1,2013-14,20,2013-12-14,FC Brentford,Oldham Athletic,1,0,0,0,1893174
+el1,2013-14,20,2013-12-14,FC Gillingham,Peterborough United,2,2,0,1,1893180
+el1,2013-14,20,2013-12-14,FC Port Vale,FC Stevenage,2,2,1,2,1893181
+el1,2013-14,20,2013-12-14,Sheffield United,Swindon Town,1,0,0,0,1893182
+el1,2013-14,20,2013-12-14,Shrewsbury Town,FC Walsall,0,1,0,0,1893183
+el1,2013-14,20,2013-12-14,Wolverhampton Wanderers,Milton Keynes Dons,0,2,0,1,1893184
+el1,2013-14,21,2013-12-20,Tranmere Rovers,FC Gillingham,1,2,0,1,1893195
+el1,2013-14,21,2013-12-21,Crewe Alexandra,Shrewsbury Town,1,1,1,0,1893185
+el1,2013-14,21,2013-12-21,FC Stevenage,Sheffield United,0,0,0,0,1893193
+el1,2013-14,21,2013-12-21,FC Walsall,Carlisle United,2,0,1,0,1893196
+el1,2013-14,21,2013-12-21,Leyton Orient,Crawley Town,2,3,1,2,1893186
+el1,2013-14,21,2013-12-21,Milton Keynes Dons,FC Port Vale,3,0,3,0,1893187
+el1,2013-14,21,2013-12-21,Notts County,Bristol City,1,1,0,1,1893188
+el1,2013-14,21,2013-12-21,Oldham Athletic,Colchester United,0,2,0,2,1893189
+el1,2013-14,21,2013-12-21,Peterborough United,Bradford City,2,1,2,0,1893190
+el1,2013-14,21,2013-12-21,Preston North End,FC Brentford,0,3,0,2,1893191
+el1,2013-14,21,2013-12-21,Rotherham United,Wolverhampton Wanderers,3,3,2,1,1893192
+el1,2013-14,21,2013-12-21,Swindon Town,Coventry City,2,1,0,0,1893194
+el1,2013-14,22,2013-12-26,Bradford City,Rotherham United,0,1,0,1,1893197
+el1,2013-14,22,2013-12-26,Bristol City,FC Walsall,1,0,1,0,1893199
+el1,2013-14,22,2013-12-26,Carlisle United,Preston North End,0,1,0,1,1893200
+el1,2013-14,22,2013-12-26,Colchester United,FC Stevenage,4,0,3,0,1893201
+el1,2013-14,22,2013-12-26,Coventry City,Peterborough United,4,2,1,2,1893202
+el1,2013-14,22,2013-12-26,Crawley Town,Milton Keynes Dons,0,2,0,1,1893203
+el1,2013-14,22,2013-12-26,FC Brentford,Swindon Town,3,2,1,1,1893198
+el1,2013-14,22,2013-12-26,FC Gillingham,Leyton Orient,1,2,1,0,1893204
+el1,2013-14,22,2013-12-26,FC Port Vale,Notts County,2,1,1,1,1893205
+el1,2013-14,22,2013-12-26,Sheffield United,Oldham Athletic,1,1,0,1,1893206
+el1,2013-14,22,2013-12-26,Shrewsbury Town,Tranmere Rovers,0,1,0,1,1893207
+el1,2013-14,22,2013-12-26,Wolverhampton Wanderers,Crewe Alexandra,2,0,1,0,1893208
+el1,2013-14,23,2013-12-29,Bradford City,Swindon Town,1,1,1,0,1893209
+el1,2013-14,23,2013-12-29,Bristol City,FC Stevenage,4,1,2,0,1893211
+el1,2013-14,23,2013-12-29,Carlisle United,Peterborough United,2,1,0,0,1893212
+el1,2013-14,23,2013-12-29,Colchester United,Crewe Alexandra,1,2,1,0,1893213
+el1,2013-14,23,2013-12-29,Coventry City,Oldham Athletic,1,1,0,1,1893214
+el1,2013-14,23,2013-12-29,Crawley Town,Notts County,1,0,0,0,1893215
+el1,2013-14,23,2013-12-29,FC Brentford,Milton Keynes Dons,3,1,1,0,1893210
+el1,2013-14,23,2013-12-29,FC Gillingham,FC Walsall,2,2,0,0,1893216
+el1,2013-14,23,2013-12-29,FC Port Vale,Rotherham United,2,0,1,0,1893217
+el1,2013-14,23,2013-12-29,Sheffield United,Tranmere Rovers,3,1,1,0,1893218
+el1,2013-14,23,2013-12-29,Shrewsbury Town,Preston North End,0,1,0,0,1893219
+el1,2013-14,23,2013-12-29,Wolverhampton Wanderers,Leyton Orient,1,1,1,0,1893220
+el1,2013-14,24,2014-01-01,Crewe Alexandra,Carlisle United,2,1,0,0,1893221
+el1,2013-14,24,2014-01-01,FC Walsall,Sheffield United,2,1,0,1,1893232
+el1,2013-14,24,2014-01-01,Milton Keynes Dons,Colchester United,0,0,0,0,1893223
+el1,2013-14,24,2014-01-01,Notts County,Bradford City,3,0,1,0,1893224
+el1,2013-14,24,2014-01-01,Oldham Athletic,Shrewsbury Town,1,2,1,1,1893225
+el1,2013-14,24,2014-01-01,Peterborough United,FC Brentford,1,3,1,2,1893226
+el1,2013-14,24,2014-01-01,Preston North End,FC Port Vale,3,2,1,0,1893227
+el1,2013-14,24,2014-01-01,Rotherham United,Coventry City,1,3,1,0,1893228
+el1,2013-14,24,2014-01-01,Tranmere Rovers,Wolverhampton Wanderers,1,1,1,0,1893231
+el1,2013-14,24,2014-02-04,FC Stevenage,FC Gillingham,3,1,2,0,1893229
+el1,2013-14,24,2014-02-11,Leyton Orient,Bristol City,1,3,1,2,1893222
+el1,2013-14,24,2014-02-25,Swindon Town,Crawley Town,1,1,0,0,1893230
+el1,2013-14,25,2014-01-03,FC Gillingham,Wolverhampton Wanderers,1,0,0,0,1893237
+el1,2013-14,25,2014-01-07,Shrewsbury Town,Leyton Orient,0,2,0,1,1893242
+el1,2013-14,25,2014-01-14,FC Stevenage,Swindon Town,2,0,1,0,1893243
+el1,2013-14,25,2014-01-14,FC Walsall,Oldham Athletic,1,0,0,0,1893244
+el1,2013-14,25,2014-01-21,Crewe Alexandra,Milton Keynes Dons,2,0,1,0,1893236
+el1,2013-14,25,2014-01-21,Peterborough United,Notts County,4,3,1,2,1893238
+el1,2013-14,25,2014-02-04,Bristol City,Coventry City,1,2,0,2,1893233
+el1,2013-14,25,2014-02-11,Carlisle United,Bradford City,1,0,1,0,1893234
+el1,2013-14,25,2014-02-11,FC Port Vale,Colchester United,2,0,1,0,1893239
+el1,2013-14,25,2014-02-25,Preston North End,Rotherham United,3,3,1,2,1893240
+el1,2013-14,25,2014-04-01,Sheffield United,FC Brentford,0,0,0,0,1893241
+el1,2013-14,25,2014-04-15,Crawley Town,Tranmere Rovers,2,0,1,0,1893235
+el1,2013-14,26,2014-01-11,Bradford City,Bristol City,1,1,1,1,1893245
+el1,2013-14,26,2014-01-11,Colchester United,FC Gillingham,3,0,0,0,1893247
+el1,2013-14,26,2014-01-11,FC Brentford,FC Port Vale,2,0,1,0,1893246
+el1,2013-14,26,2014-01-11,Leyton Orient,Carlisle United,4,0,1,0,1893249
+el1,2013-14,26,2014-01-11,Milton Keynes Dons,Shrewsbury Town,3,2,2,1,1893250
+el1,2013-14,26,2014-01-11,Notts County,Sheffield United,2,1,1,1,1893251
+el1,2013-14,26,2014-01-11,Oldham Athletic,FC Stevenage,1,0,1,0,1893252
+el1,2013-14,26,2014-01-11,Rotherham United,Crewe Alexandra,4,2,1,1,1893253
+el1,2013-14,26,2014-01-11,Swindon Town,Peterborough United,2,1,1,0,1893254
+el1,2013-14,26,2014-01-11,Tranmere Rovers,FC Walsall,1,1,0,1,1893255
+el1,2013-14,26,2014-01-11,Wolverhampton Wanderers,Preston North End,2,0,1,0,1893256
+el1,2013-14,26,2014-01-12,Coventry City,Crawley Town,2,2,1,0,1893248
+el1,2013-14,27,2014-01-18,Bristol City,Milton Keynes Dons,2,2,0,2,1893257
+el1,2013-14,27,2014-01-18,Carlisle United,Colchester United,2,4,1,2,1893258
+el1,2013-14,27,2014-01-18,Crewe Alexandra,Leyton Orient,1,2,0,0,1893260
+el1,2013-14,27,2014-01-18,FC Gillingham,Swindon Town,2,0,1,0,1893261
+el1,2013-14,27,2014-01-18,FC Port Vale,Oldham Athletic,1,0,0,0,1893263
+el1,2013-14,27,2014-01-18,FC Stevenage,Notts County,0,1,0,1,1893267
+el1,2013-14,27,2014-01-18,FC Walsall,FC Brentford,1,1,1,1,1893268
+el1,2013-14,27,2014-01-18,Peterborough United,Tranmere Rovers,3,0,1,0,1893262
+el1,2013-14,27,2014-01-18,Preston North End,Coventry City,1,1,0,0,1893264
+el1,2013-14,27,2014-01-18,Sheffield United,Bradford City,2,2,2,0,1893265
+el1,2013-14,27,2014-01-18,Shrewsbury Town,Rotherham United,0,3,0,3,1893266
+el1,2013-14,27,2014-03-18,Crawley Town,Wolverhampton Wanderers,2,1,2,1,1893259
+el1,2013-14,28,2014-01-24,FC Brentford,FC Gillingham,2,1,1,0,1893270
+el1,2013-14,28,2014-01-25,Notts County,FC Walsall,1,5,0,3,1893275
+el1,2013-14,28,2014-01-25,Oldham Athletic,Peterborough United,5,4,0,3,1893276
+el1,2013-14,28,2014-01-25,Rotherham United,Crawley Town,2,2,1,1,1893277
+el1,2013-14,28,2014-01-25,Swindon Town,Shrewsbury Town,3,1,1,1,1893278
+el1,2013-14,28,2014-01-25,Tranmere Rovers,Crewe Alexandra,1,0,1,0,1893279
+el1,2013-14,28,2014-01-25,Wolverhampton Wanderers,Bristol City,3,1,2,1,1893280
+el1,2013-14,28,2014-02-18,Bradford City,FC Port Vale,1,0,0,0,1893269
+el1,2013-14,28,2014-02-18,Coventry City,Carlisle United,1,2,1,0,1893272
+el1,2013-14,28,2014-02-18,Leyton Orient,FC Stevenage,2,0,2,0,1893273
+el1,2013-14,28,2014-02-18,Milton Keynes Dons,Preston North End,0,0,0,0,1893274
+el1,2013-14,28,2014-02-25,Colchester United,Sheffield United,0,1,0,0,1893271
+el1,2013-14,29,2013-12-07,Notts County,FC Gillingham,3,1,1,0,1893286
+el1,2013-14,29,2014-01-28,Bradford City,Preston North End,0,0,0,0,1893281
+el1,2013-14,29,2014-01-28,Carlisle United,Milton Keynes Dons,3,0,2,0,1893283
+el1,2013-14,29,2014-01-28,FC Brentford,Bristol City,3,1,3,1,1893282
+el1,2013-14,29,2014-01-28,FC Walsall,Swindon Town,1,1,1,0,1893292
+el1,2013-14,29,2014-01-28,Leyton Orient,Coventry City,2,0,0,0,1893285
+el1,2013-14,29,2014-01-28,Oldham Athletic,Wolverhampton Wanderers,0,3,0,0,1893287
+el1,2013-14,29,2014-01-28,Tranmere Rovers,Rotherham United,1,2,0,1,1893291
+el1,2013-14,29,2014-02-25,FC Stevenage,Crewe Alexandra,1,0,1,0,1893290
+el1,2013-14,29,2014-03-04,Sheffield United,Peterborough United,2,0,0,0,1893289
+el1,2013-14,29,2014-03-18,Colchester United,Shrewsbury Town,1,0,0,0,1893284
+el1,2013-14,29,2014-04-01,FC Port Vale,Crawley Town,2,1,0,1,1893288
+el1,2013-14,30,2014-02-01,Bristol City,Carlisle United,2,1,0,1,1893293
+el1,2013-14,30,2014-02-01,Crewe Alexandra,Sheffield United,3,0,2,0,1893296
+el1,2013-14,30,2014-02-01,FC Gillingham,FC Port Vale,3,2,1,0,1893297
+el1,2013-14,30,2014-02-01,Milton Keynes Dons,Tranmere Rovers,0,1,0,0,1893298
+el1,2013-14,30,2014-02-01,Preston North End,Notts County,2,0,0,0,1893300
+el1,2013-14,30,2014-02-01,Rotherham United,Leyton Orient,2,1,1,0,1893301
+el1,2013-14,30,2014-02-01,Shrewsbury Town,FC Brentford,1,1,0,0,1893302
+el1,2013-14,30,2014-02-01,Swindon Town,Oldham Athletic,0,1,0,0,1893303
+el1,2013-14,30,2014-02-01,Wolverhampton Wanderers,Bradford City,2,0,1,0,1893304
+el1,2013-14,30,2014-03-04,Crawley Town,FC Stevenage,1,1,0,1,1893295
+el1,2013-14,30,2014-03-05,Coventry City,FC Walsall,2,1,1,0,1893294
+el1,2013-14,30,2014-04-02,Peterborough United,Colchester United,2,0,1,0,1893299
+el1,2013-14,31,2014-02-08,Bradford City,Crewe Alexandra,3,3,0,1,1893305
+el1,2013-14,31,2014-02-08,Carlisle United,FC Gillingham,1,2,0,1,1893307
+el1,2013-14,31,2014-02-08,FC Port Vale,Swindon Town,2,3,2,0,1893312
+el1,2013-14,31,2014-02-08,FC Walsall,Milton Keynes Dons,0,3,0,2,1893316
+el1,2013-14,31,2014-02-08,Leyton Orient,Peterborough United,1,2,0,0,1893309
+el1,2013-14,31,2014-02-08,Notts County,Coventry City,3,0,2,0,1893310
+el1,2013-14,31,2014-02-08,Oldham Athletic,Bristol City,1,1,1,1,1893311
+el1,2013-14,31,2014-02-08,Sheffield United,Shrewsbury Town,2,0,2,0,1893313
+el1,2013-14,31,2014-02-08,Tranmere Rovers,Preston North End,1,2,1,1,1893315
+el1,2013-14,31,2014-03-04,Colchester United,Rotherham United,0,0,0,0,1893308
+el1,2013-14,31,2014-04-01,FC Stevenage,Wolverhampton Wanderers,0,0,0,0,1893314
+el1,2013-14,31,2014-04-08,FC Brentford,Crawley Town,1,0,0,0,1893306
+el1,2013-14,32,2014-02-14,Peterborough United,FC Walsall,0,0,0,0,1893323
+el1,2013-14,32,2014-02-14,Swindon Town,Colchester United,0,0,0,0,1893327
+el1,2013-14,32,2014-02-15,Bristol City,Tranmere Rovers,2,2,1,1,1893317
+el1,2013-14,32,2014-02-15,Crewe Alexandra,FC Brentford,1,3,0,1,1893320
+el1,2013-14,32,2014-02-15,Milton Keynes Dons,Oldham Athletic,2,1,0,1,1893322
+el1,2013-14,32,2014-02-15,Preston North End,Leyton Orient,1,1,0,1,1893324
+el1,2013-14,32,2014-02-15,Rotherham United,FC Stevenage,2,1,1,0,1893325
+el1,2013-14,32,2014-02-15,Shrewsbury Town,FC Port Vale,0,0,0,0,1893326
+el1,2013-14,32,2014-02-15,Wolverhampton Wanderers,Notts County,2,0,1,0,1893328
+el1,2013-14,32,2014-02-19,FC Gillingham,Sheffield United,0,1,0,1,1893321
+el1,2013-14,32,2014-04-01,Coventry City,Bradford City,0,0,0,0,1893318
+el1,2013-14,32,2014-04-29,Crawley Town,Carlisle United,0,0,0,0,1893319
+el1,2013-14,33,2014-02-22,Bradford City,Milton Keynes Dons,1,0,0,0,1893329
+el1,2013-14,33,2014-02-22,Carlisle United,Rotherham United,1,2,1,1,1893331
+el1,2013-14,33,2014-02-22,Colchester United,Preston North End,1,2,0,1,1893332
+el1,2013-14,33,2014-02-22,FC Brentford,Wolverhampton Wanderers,0,3,0,1,1893330
+el1,2013-14,33,2014-02-22,FC Port Vale,Crewe Alexandra,1,3,0,1,1893336
+el1,2013-14,33,2014-02-22,FC Stevenage,Peterborough United,0,1,0,0,1893338
+el1,2013-14,33,2014-02-22,FC Walsall,Crawley Town,1,2,0,1,1893340
+el1,2013-14,33,2014-02-22,Leyton Orient,Swindon Town,2,0,1,0,1893333
+el1,2013-14,33,2014-02-22,Notts County,Shrewsbury Town,2,3,2,1,1893334
+el1,2013-14,33,2014-02-22,Oldham Athletic,FC Gillingham,1,0,1,0,1893335
+el1,2013-14,33,2014-02-22,Sheffield United,Bristol City,3,0,1,0,1893337
+el1,2013-14,33,2014-02-22,Tranmere Rovers,Coventry City,3,1,1,0,1893339
+el1,2013-14,34,2014-03-01,Bradford City,FC Stevenage,2,3,2,1,1893341
+el1,2013-14,34,2014-03-01,Bristol City,FC Gillingham,2,1,1,0,1893342
+el1,2013-14,34,2014-03-01,Carlisle United,FC Brentford,0,0,0,0,1893343
+el1,2013-14,34,2014-03-01,Crawley Town,Peterborough United,1,0,0,0,1893345
+el1,2013-14,34,2014-03-01,Crewe Alexandra,Swindon Town,1,1,0,0,1893346
+el1,2013-14,34,2014-03-01,Leyton Orient,Colchester United,2,1,1,0,1893347
+el1,2013-14,34,2014-03-01,Milton Keynes Dons,Sheffield United,0,1,0,1,1893348
+el1,2013-14,34,2014-03-01,Preston North End,FC Walsall,2,1,2,1,1893349
+el1,2013-14,34,2014-03-01,Rotherham United,Notts County,6,0,4,0,1893350
+el1,2013-14,34,2014-03-01,Tranmere Rovers,Oldham Athletic,2,2,1,1,1893351
+el1,2013-14,34,2014-03-01,Wolverhampton Wanderers,FC Port Vale,3,0,0,0,1893352
+el1,2013-14,34,2014-03-02,Coventry City,Shrewsbury Town,0,0,0,0,1893344
+el1,2013-14,35,2014-03-08,Colchester United,Coventry City,2,1,2,1,1893354
+el1,2013-14,35,2014-03-08,FC Brentford,Bradford City,2,0,0,0,1893353
+el1,2013-14,35,2014-03-08,FC Gillingham,Crawley Town,1,0,0,0,1893355
+el1,2013-14,35,2014-03-08,FC Port Vale,Carlisle United,2,1,0,1,1893359
+el1,2013-14,35,2014-03-08,FC Stevenage,Tranmere Rovers,3,1,1,0,1893362
+el1,2013-14,35,2014-03-08,FC Walsall,Wolverhampton Wanderers,0,3,0,1,1893364
+el1,2013-14,35,2014-03-08,Notts County,Leyton Orient,0,0,0,0,1893356
+el1,2013-14,35,2014-03-08,Oldham Athletic,Preston North End,1,3,0,1,1893357
+el1,2013-14,35,2014-03-08,Peterborough United,Crewe Alexandra,4,2,2,1,1893358
+el1,2013-14,35,2014-03-08,Shrewsbury Town,Bristol City,2,3,1,1,1893361
+el1,2013-14,35,2014-03-08,Swindon Town,Milton Keynes Dons,1,2,1,0,1893363
+el1,2013-14,35,2014-04-08,Sheffield United,Rotherham United,1,0,0,0,1893360
+el1,2013-14,36,2014-03-11,Colchester United,Bradford City,0,2,0,1,1893366
+el1,2013-14,36,2014-03-11,FC Brentford,Tranmere Rovers,2,0,0,0,1893365
+el1,2013-14,36,2014-03-11,FC Gillingham,Coventry City,4,2,1,0,1893367
+el1,2013-14,36,2014-03-11,FC Port Vale,Leyton Orient,0,2,0,1,1893371
+el1,2013-14,36,2014-03-11,FC Stevenage,Preston North End,1,1,0,1,1893374
+el1,2013-14,36,2014-03-11,FC Walsall,Crewe Alexandra,1,1,0,0,1893376
+el1,2013-14,36,2014-03-11,Notts County,Milton Keynes Dons,1,3,0,1,1893368
+el1,2013-14,36,2014-03-11,Oldham Athletic,Rotherham United,0,2,0,1,1893369
+el1,2013-14,36,2014-03-11,Peterborough United,Bristol City,1,2,1,2,1893370
+el1,2013-14,36,2014-03-11,Shrewsbury Town,Crawley Town,1,1,0,1,1893373
+el1,2013-14,36,2014-03-11,Swindon Town,Wolverhampton Wanderers,1,4,0,3,1893375
+el1,2013-14,36,2014-03-12,Sheffield United,Carlisle United,1,0,1,0,1893372
+el1,2013-14,37,2014-03-15,Bradford City,FC Gillingham,1,1,1,0,1893377
+el1,2013-14,37,2014-03-15,Bristol City,Swindon Town,0,0,0,0,1893378
+el1,2013-14,37,2014-03-15,Carlisle United,FC Stevenage,0,0,0,0,1893379
+el1,2013-14,37,2014-03-15,Crawley Town,Colchester United,1,0,1,0,1893381
+el1,2013-14,37,2014-03-15,Crewe Alexandra,Oldham Athletic,1,1,0,0,1893382
+el1,2013-14,37,2014-03-15,Leyton Orient,FC Brentford,0,1,0,1,1893383
+el1,2013-14,37,2014-03-15,Milton Keynes Dons,Peterborough United,0,2,0,0,1893384
+el1,2013-14,37,2014-03-15,Rotherham United,FC Walsall,1,1,0,1,1893386
+el1,2013-14,37,2014-03-15,Tranmere Rovers,Notts County,3,2,2,1,1893387
+el1,2013-14,37,2014-03-15,Wolverhampton Wanderers,Shrewsbury Town,0,0,0,0,1893388
+el1,2013-14,37,2014-03-16,Coventry City,FC Port Vale,2,2,0,1,1893380
+el1,2013-14,37,2014-03-17,Preston North End,Sheffield United,0,0,0,0,1893385
+el1,2013-14,38,2014-03-22,Colchester United,Bristol City,2,2,0,1,1893390
+el1,2013-14,38,2014-03-22,FC Brentford,Coventry City,3,1,2,1,1893389
+el1,2013-14,38,2014-03-22,FC Gillingham,Crewe Alexandra,1,3,1,1,1893391
+el1,2013-14,38,2014-03-22,FC Port Vale,Tranmere Rovers,3,2,1,0,1893395
+el1,2013-14,38,2014-03-22,FC Stevenage,Milton Keynes Dons,2,3,2,0,1893398
+el1,2013-14,38,2014-03-22,FC Walsall,Leyton Orient,1,1,1,0,1893400
+el1,2013-14,38,2014-03-22,Notts County,Carlisle United,4,1,2,0,1893392
+el1,2013-14,38,2014-03-22,Oldham Athletic,Crawley Town,1,0,1,0,1893393
+el1,2013-14,38,2014-03-22,Peterborough United,Rotherham United,0,1,0,1,1893394
+el1,2013-14,38,2014-03-22,Sheffield United,Wolverhampton Wanderers,0,2,0,1,1893396
+el1,2013-14,38,2014-03-22,Shrewsbury Town,Bradford City,2,1,0,0,1893397
+el1,2013-14,38,2014-03-22,Swindon Town,Preston North End,1,0,0,0,1893399
+el1,2013-14,39,2014-03-25,Bradford City,FC Walsall,0,2,0,0,1893401
+el1,2013-14,39,2014-03-25,Bristol City,FC Port Vale,5,0,4,0,1893402
+el1,2013-14,39,2014-03-25,Carlisle United,Shrewsbury Town,0,0,0,0,1893403
+el1,2013-14,39,2014-03-25,Crawley Town,Sheffield United,0,2,0,1,1893405
+el1,2013-14,39,2014-03-25,Crewe Alexandra,Notts County,1,3,0,1,1893406
+el1,2013-14,39,2014-03-25,Leyton Orient,Oldham Athletic,1,1,1,0,1893407
+el1,2013-14,39,2014-03-25,Milton Keynes Dons,FC Gillingham,0,1,0,0,1893408
+el1,2013-14,39,2014-03-25,Preston North End,Peterborough United,3,1,1,1,1893409
+el1,2013-14,39,2014-03-25,Rotherham United,FC Brentford,3,0,2,0,1893410
+el1,2013-14,39,2014-03-25,Tranmere Rovers,Swindon Town,1,2,1,1,1893411
+el1,2013-14,39,2014-03-25,Wolverhampton Wanderers,Colchester United,4,2,3,0,1893412
+el1,2013-14,39,2014-03-26,Coventry City,FC Stevenage,1,0,0,0,1893404
+el1,2013-14,40,2014-03-29,Crewe Alexandra,Coventry City,1,2,0,1,1893413
+el1,2013-14,40,2014-03-29,FC Stevenage,FC Port Vale,1,1,0,0,1893421
+el1,2013-14,40,2014-03-29,FC Walsall,Shrewsbury Town,1,0,1,0,1893424
+el1,2013-14,40,2014-03-29,Leyton Orient,Bradford City,0,1,0,1,1893414
+el1,2013-14,40,2014-03-29,Milton Keynes Dons,Wolverhampton Wanderers,0,1,0,0,1893415
+el1,2013-14,40,2014-03-29,Notts County,Colchester United,2,0,2,0,1893416
+el1,2013-14,40,2014-03-29,Oldham Athletic,FC Brentford,0,0,0,0,1893417
+el1,2013-14,40,2014-03-29,Preston North End,Crawley Town,1,0,1,0,1893419
+el1,2013-14,40,2014-03-29,Rotherham United,Bristol City,2,1,1,0,1893420
+el1,2013-14,40,2014-03-29,Swindon Town,Sheffield United,2,1,1,0,1893422
+el1,2013-14,40,2014-03-29,Tranmere Rovers,Carlisle United,0,0,0,0,1893423
+el1,2013-14,40,2014-04-08,Peterborough United,FC Gillingham,2,0,1,0,1893418
+el1,2013-14,41,2014-04-05,Bradford City,Oldham Athletic,2,3,1,2,1893425
+el1,2013-14,41,2014-04-05,Bristol City,Preston North End,1,1,0,0,1893427
+el1,2013-14,41,2014-04-05,Carlisle United,Swindon Town,1,0,1,0,1893428
+el1,2013-14,41,2014-04-05,Colchester United,Tranmere Rovers,1,2,1,1,1893429
+el1,2013-14,41,2014-04-05,Coventry City,Milton Keynes Dons,1,2,0,1,1893430
+el1,2013-14,41,2014-04-05,Crawley Town,Crewe Alexandra,1,2,0,1,1893431
+el1,2013-14,41,2014-04-05,FC Brentford,Notts County,3,1,2,0,1893426
+el1,2013-14,41,2014-04-05,FC Gillingham,Rotherham United,3,4,1,1,1893432
+el1,2013-14,41,2014-04-05,FC Port Vale,FC Walsall,1,0,0,0,1893433
+el1,2013-14,41,2014-04-05,Sheffield United,Leyton Orient,1,1,0,1,1893434
+el1,2013-14,41,2014-04-05,Shrewsbury Town,FC Stevenage,1,0,0,0,1893435
+el1,2013-14,41,2014-04-05,Wolverhampton Wanderers,Peterborough United,2,0,0,0,1893436
+el1,2013-14,42,2014-04-11,Rotherham United,Bradford City,0,0,0,0,1893444
+el1,2013-14,42,2014-04-12,Crewe Alexandra,Wolverhampton Wanderers,0,2,0,1,1893437
+el1,2013-14,42,2014-04-12,FC Stevenage,Colchester United,2,3,1,1,1893445
+el1,2013-14,42,2014-04-12,FC Walsall,Bristol City,0,1,0,1,1893448
+el1,2013-14,42,2014-04-12,Leyton Orient,FC Gillingham,5,1,4,0,1893438
+el1,2013-14,42,2014-04-12,Milton Keynes Dons,Crawley Town,0,2,0,2,1893439
+el1,2013-14,42,2014-04-12,Notts County,FC Port Vale,4,2,2,2,1893440
+el1,2013-14,42,2014-04-12,Peterborough United,Coventry City,1,0,1,0,1893442
+el1,2013-14,42,2014-04-12,Preston North End,Carlisle United,6,1,2,1,1893443
+el1,2013-14,42,2014-04-12,Swindon Town,FC Brentford,1,0,1,0,1893446
+el1,2013-14,42,2014-04-12,Tranmere Rovers,Shrewsbury Town,2,1,1,0,1893447
+el1,2013-14,42,2014-04-29,Oldham Athletic,Sheffield United,1,1,1,0,1893441
+el1,2013-14,43,2014-04-18,Bradford City,Peterborough United,1,0,1,0,1893449
+el1,2013-14,43,2014-04-18,Bristol City,Notts County,2,1,1,1,1893451
+el1,2013-14,43,2014-04-18,Carlisle United,FC Walsall,1,1,1,0,1893452
+el1,2013-14,43,2014-04-18,Colchester United,Oldham Athletic,0,1,0,1,1893453
+el1,2013-14,43,2014-04-18,Coventry City,Swindon Town,1,2,1,1,1893454
+el1,2013-14,43,2014-04-18,Crawley Town,Leyton Orient,2,1,1,1,1893455
+el1,2013-14,43,2014-04-18,FC Brentford,Preston North End,1,0,1,0,1893450
+el1,2013-14,43,2014-04-18,FC Gillingham,Tranmere Rovers,2,0,0,0,1893456
+el1,2013-14,43,2014-04-18,FC Port Vale,Milton Keynes Dons,1,0,0,0,1893457
+el1,2013-14,43,2014-04-18,Sheffield United,FC Stevenage,1,0,1,0,1893458
+el1,2013-14,43,2014-04-18,Shrewsbury Town,Crewe Alexandra,1,3,0,1,1893459
+el1,2013-14,43,2014-04-18,Wolverhampton Wanderers,Rotherham United,6,4,3,1,1893460
+el1,2013-14,44,2014-04-21,Crewe Alexandra,Colchester United,0,0,0,0,1893461
+el1,2013-14,44,2014-04-21,FC Stevenage,Bristol City,1,3,0,1,1893469
+el1,2013-14,44,2014-04-21,FC Walsall,FC Gillingham,1,1,0,0,1893472
+el1,2013-14,44,2014-04-21,Leyton Orient,Wolverhampton Wanderers,1,3,0,2,1893462
+el1,2013-14,44,2014-04-21,Milton Keynes Dons,FC Brentford,2,2,0,1,1893463
+el1,2013-14,44,2014-04-21,Notts County,Crawley Town,1,0,1,0,1893464
+el1,2013-14,44,2014-04-21,Oldham Athletic,Coventry City,0,0,0,0,1893465
+el1,2013-14,44,2014-04-21,Peterborough United,Carlisle United,4,1,1,0,1893466
+el1,2013-14,44,2014-04-21,Preston North End,Shrewsbury Town,5,2,2,1,1893467
+el1,2013-14,44,2014-04-21,Rotherham United,FC Port Vale,1,0,0,0,1893468
+el1,2013-14,44,2014-04-21,Swindon Town,Bradford City,1,0,0,0,1893470
+el1,2013-14,44,2014-04-21,Tranmere Rovers,Sheffield United,0,0,0,0,1893471
+el1,2013-14,45,2014-04-25,FC Port Vale,Sheffield United,1,2,0,0,1893480
+el1,2013-14,45,2014-04-26,Bradford City,Crawley Town,2,1,0,0,1893473
+el1,2013-14,45,2014-04-26,Bristol City,Crewe Alexandra,0,0,0,0,1893474
+el1,2013-14,45,2014-04-26,Carlisle United,Oldham Athletic,0,1,0,0,1893475
+el1,2013-14,45,2014-04-26,Colchester United,FC Brentford,4,1,3,1,1893476
+el1,2013-14,45,2014-04-26,Coventry City,Wolverhampton Wanderers,1,1,0,0,1893477
+el1,2013-14,45,2014-04-26,FC Stevenage,FC Walsall,3,2,1,0,1893484
+el1,2013-14,45,2014-04-26,Leyton Orient,Tranmere Rovers,2,0,1,0,1893478
+el1,2013-14,45,2014-04-26,Notts County,Swindon Town,2,0,1,0,1893479
+el1,2013-14,45,2014-04-26,Preston North End,FC Gillingham,3,1,1,1,1893481
+el1,2013-14,45,2014-04-26,Rotherham United,Milton Keynes Dons,2,2,0,1,1893482
+el1,2013-14,45,2014-04-26,Shrewsbury Town,Peterborough United,2,4,2,3,1893483
+el1,2013-14,46,2014-05-03,Crawley Town,Bristol City,1,1,1,0,1893486
+el1,2013-14,46,2014-05-03,Crewe Alexandra,Preston North End,2,1,1,0,1893487
+el1,2013-14,46,2014-05-03,FC Brentford,FC Stevenage,2,0,0,0,1893485
+el1,2013-14,46,2014-05-03,FC Gillingham,Shrewsbury Town,1,1,0,0,1893488
+el1,2013-14,46,2014-05-03,FC Walsall,Colchester United,0,1,0,0,1893495
+el1,2013-14,46,2014-05-03,Milton Keynes Dons,Leyton Orient,1,3,0,2,1893489
+el1,2013-14,46,2014-05-03,Oldham Athletic,Notts County,1,1,0,0,1893490
+el1,2013-14,46,2014-05-03,Peterborough United,FC Port Vale,0,0,0,0,1893491
+el1,2013-14,46,2014-05-03,Sheffield United,Coventry City,2,1,0,1,1893492
+el1,2013-14,46,2014-05-03,Swindon Town,Rotherham United,1,2,0,2,1893493
+el1,2013-14,46,2014-05-03,Tranmere Rovers,Bradford City,1,2,1,0,1893494
+el1,2013-14,46,2014-05-03,Wolverhampton Wanderers,Carlisle United,3,0,2,0,1893496

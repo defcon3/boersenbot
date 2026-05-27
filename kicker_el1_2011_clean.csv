@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el1,2011-12,1,2011-08-06,Carlisle United,Notts County,0,3,0,3,1143774
+el1,2011-12,1,2011-08-06,Charlton Athletic,AFC Bournemouth,3,0,1,0,1143775
+el1,2011-12,1,2011-08-06,FC Brentford,Yeovil Town,2,0,1,0,1143773
+el1,2011-12,1,2011-08-06,FC Stevenage,Exeter City,0,0,0,0,1143781
+el1,2011-12,1,2011-08-06,FC Walsall,Leyton Orient,1,0,1,0,1143783
+el1,2011-12,1,2011-08-06,Huddersfield Town,FC Bury,1,1,0,0,1143776
+el1,2011-12,1,2011-08-06,Milton Keynes Dons,Hartlepool United,2,2,0,1,1143777
+el1,2011-12,1,2011-08-06,Oldham Athletic,Sheffield United,0,2,0,0,1143778
+el1,2011-12,1,2011-08-06,Preston North End,Colchester United,2,4,0,1,1143779
+el1,2011-12,1,2011-08-06,Sheffield Wednesday,AFC Rochdale,2,0,1,0,1143780
+el1,2011-12,1,2011-08-06,Tranmere Rovers,FC Chesterfield,1,0,0,0,1143782
+el1,2011-12,1,2011-08-06,Wycombe Wanderers,Scunthorpe United,1,1,1,1,1143784
+el1,2011-12,2,2011-08-13,AFC Bournemouth,Sheffield Wednesday,2,0,1,0,1143785
+el1,2011-12,2,2011-08-13,AFC Rochdale,Huddersfield Town,2,2,1,1,1143793
+el1,2011-12,2,2011-08-13,Colchester United,Wycombe Wanderers,1,1,1,0,1143788
+el1,2011-12,2,2011-08-13,Exeter City,Milton Keynes Dons,0,2,0,1,1143789
+el1,2011-12,2,2011-08-13,FC Bury,Carlisle United,0,2,0,0,1143786
+el1,2011-12,2,2011-08-13,FC Chesterfield,FC Stevenage,1,1,0,1,1143787
+el1,2011-12,2,2011-08-13,Hartlepool United,FC Walsall,1,1,1,1,1143790
+el1,2011-12,2,2011-08-13,Leyton Orient,Tranmere Rovers,0,1,0,0,1143791
+el1,2011-12,2,2011-08-13,Notts County,Charlton Athletic,1,2,0,2,1143792
+el1,2011-12,2,2011-08-13,Scunthorpe United,Preston North End,1,1,0,1,1143794
+el1,2011-12,2,2011-08-13,Sheffield United,FC Brentford,2,0,0,0,1143795
+el1,2011-12,2,2011-08-13,Yeovil Town,Oldham Athletic,3,1,0,0,1143796
+el1,2011-12,3,2011-08-16,AFC Bournemouth,FC Stevenage,1,3,0,1,1143797
+el1,2011-12,3,2011-08-16,AFC Rochdale,Carlisle United,0,0,0,0,1143805
+el1,2011-12,3,2011-08-16,Colchester United,Charlton Athletic,0,2,0,2,1143800
+el1,2011-12,3,2011-08-16,Exeter City,FC Brentford,1,2,0,2,1143801
+el1,2011-12,3,2011-08-16,FC Bury,Sheffield Wednesday,2,1,2,0,1143798
+el1,2011-12,3,2011-08-16,FC Chesterfield,Preston North End,0,2,0,1,1143799
+el1,2011-12,3,2011-08-16,Hartlepool United,Huddersfield Town,0,0,0,0,1143802
+el1,2011-12,3,2011-08-16,Leyton Orient,Wycombe Wanderers,1,3,1,2,1143803
+el1,2011-12,3,2011-08-16,Notts County,Tranmere Rovers,3,2,0,1,1143804
+el1,2011-12,3,2011-08-16,Scunthorpe United,Oldham Athletic,1,2,0,1,1143806
+el1,2011-12,3,2011-08-16,Sheffield United,FC Walsall,3,2,0,0,1143807
+el1,2011-12,3,2011-08-16,Yeovil Town,Milton Keynes Dons,0,1,0,1,1143808
+el1,2011-12,4,2011-08-20,Carlisle United,AFC Bournemouth,2,1,0,0,1143810
+el1,2011-12,4,2011-08-20,Charlton Athletic,Scunthorpe United,2,2,1,0,1143811
+el1,2011-12,4,2011-08-20,FC Brentford,Leyton Orient,5,0,1,0,1143809
+el1,2011-12,4,2011-08-20,FC Stevenage,Hartlepool United,2,2,0,2,1143817
+el1,2011-12,4,2011-08-20,FC Walsall,Yeovil Town,1,1,1,1,1143819
+el1,2011-12,4,2011-08-20,Huddersfield Town,Colchester United,3,2,1,2,1143812
+el1,2011-12,4,2011-08-20,Milton Keynes Dons,FC Chesterfield,6,2,1,1,1143813
+el1,2011-12,4,2011-08-20,Oldham Athletic,AFC Rochdale,2,0,2,0,1143814
+el1,2011-12,4,2011-08-20,Preston North End,Exeter City,1,0,1,0,1143815
+el1,2011-12,4,2011-08-20,Sheffield Wednesday,Notts County,2,1,0,1,1143816
+el1,2011-12,4,2011-08-20,Tranmere Rovers,Sheffield United,1,1,0,1,1143818
+el1,2011-12,4,2011-08-20,Wycombe Wanderers,FC Bury,0,2,0,1,1143820
+el1,2011-12,5,2011-08-27,AFC Bournemouth,FC Walsall,0,2,0,1,1143821
+el1,2011-12,5,2011-08-27,AFC Rochdale,Hartlepool United,1,3,1,1,1143830
+el1,2011-12,5,2011-08-27,Colchester United,Oldham Athletic,4,1,2,1,1143824
+el1,2011-12,5,2011-08-27,Exeter City,FC Chesterfield,2,1,1,1,1143825
+el1,2011-12,5,2011-08-27,FC Brentford,Tranmere Rovers,0,2,0,1,1143822
+el1,2011-12,5,2011-08-27,FC Bury,Charlton Athletic,1,2,1,0,1143823
+el1,2011-12,5,2011-08-27,Huddersfield Town,Wycombe Wanderers,3,0,0,0,1143826
+el1,2011-12,5,2011-08-27,Leyton Orient,Carlisle United,1,2,0,0,1143827
+el1,2011-12,5,2011-08-27,Milton Keynes Dons,FC Stevenage,1,0,0,0,1143828
+el1,2011-12,5,2011-08-27,Preston North End,Notts County,2,0,0,0,1143829
+el1,2011-12,5,2011-08-27,Sheffield Wednesday,Scunthorpe United,3,2,2,0,1143831
+el1,2011-12,5,2011-08-27,Yeovil Town,Sheffield United,0,1,0,1,1143832
+el1,2011-12,6,2011-09-03,Carlisle United,Milton Keynes Dons,1,3,0,1,1143833
+el1,2011-12,6,2011-09-03,FC Chesterfield,Leyton Orient,0,0,0,0,1143835
+el1,2011-12,6,2011-09-03,FC Stevenage,AFC Rochdale,4,2,3,1,1143841
+el1,2011-12,6,2011-09-03,FC Walsall,FC Brentford,0,1,0,1,1143843
+el1,2011-12,6,2011-09-03,Hartlepool United,Exeter City,2,0,1,0,1143836
+el1,2011-12,6,2011-09-03,Notts County,AFC Bournemouth,3,1,1,0,1143837
+el1,2011-12,6,2011-09-03,Oldham Athletic,Huddersfield Town,1,1,1,1,1143838
+el1,2011-12,6,2011-09-03,Scunthorpe United,Colchester United,1,1,1,0,1143839
+el1,2011-12,6,2011-09-03,Sheffield United,FC Bury,4,0,1,0,1143840
+el1,2011-12,6,2011-09-03,Tranmere Rovers,Yeovil Town,0,0,0,0,1143842
+el1,2011-12,6,2011-09-05,Charlton Athletic,Sheffield Wednesday,1,1,1,0,1143834
+el1,2011-12,6,2011-09-27,Wycombe Wanderers,Preston North End,3,4,3,2,1143844
+el1,2011-12,7,2011-09-09,Preston North End,Yeovil Town,4,3,1,1,1143853
+el1,2011-12,7,2011-09-10,AFC Bournemouth,FC Chesterfield,0,3,0,1,1143845
+el1,2011-12,7,2011-09-10,Carlisle United,Hartlepool United,1,2,0,2,1143847
+el1,2011-12,7,2011-09-10,Charlton Athletic,Exeter City,2,0,1,0,1143848
+el1,2011-12,7,2011-09-10,Colchester United,Leyton Orient,1,1,1,0,1143849
+el1,2011-12,7,2011-09-10,FC Bury,AFC Rochdale,2,4,1,3,1143846
+el1,2011-12,7,2011-09-10,Huddersfield Town,Tranmere Rovers,2,0,1,0,1143850
+el1,2011-12,7,2011-09-10,Notts County,FC Walsall,2,1,1,0,1143851
+el1,2011-12,7,2011-09-10,Oldham Athletic,FC Stevenage,1,1,1,1,1143852
+el1,2011-12,7,2011-09-10,Scunthorpe United,Sheffield United,1,1,1,0,1143854
+el1,2011-12,7,2011-09-10,Sheffield Wednesday,Milton Keynes Dons,3,1,0,0,1143855
+el1,2011-12,7,2011-09-10,Wycombe Wanderers,FC Brentford,0,1,0,1,1143856
+el1,2011-12,8,2011-09-13,AFC Rochdale,Scunthorpe United,1,0,0,0,1143863
+el1,2011-12,8,2011-09-13,Exeter City,Notts County,1,1,1,1,1143859
+el1,2011-12,8,2011-09-13,FC Brentford,Colchester United,1,1,0,0,1143857
+el1,2011-12,8,2011-09-13,FC Chesterfield,FC Bury,1,0,0,0,1143858
+el1,2011-12,8,2011-09-13,FC Stevenage,Sheffield Wednesday,5,1,4,0,1143865
+el1,2011-12,8,2011-09-13,FC Walsall,Oldham Athletic,0,1,0,1,1143867
+el1,2011-12,8,2011-09-13,Leyton Orient,AFC Bournemouth,1,3,1,1,1143861
+el1,2011-12,8,2011-09-13,Sheffield United,Huddersfield Town,0,3,0,3,1143864
+el1,2011-12,8,2011-09-13,Tranmere Rovers,Carlisle United,1,2,0,2,1143866
+el1,2011-12,8,2011-09-13,Yeovil Town,Wycombe Wanderers,1,0,1,0,1143868
+el1,2011-12,8,2011-09-27,Milton Keynes Dons,Charlton Athletic,1,1,1,0,1143862
+el1,2011-12,8,2011-11-29,Hartlepool United,Preston North End,0,1,0,1,1143860
+el1,2011-12,9,2011-09-17,AFC Rochdale,Charlton Athletic,2,3,0,2,1143875
+el1,2011-12,9,2011-09-17,Exeter City,AFC Bournemouth,0,2,0,1,1143871
+el1,2011-12,9,2011-09-17,FC Brentford,Preston North End,1,3,1,2,1143869
+el1,2011-12,9,2011-09-17,FC Chesterfield,Carlisle United,4,1,2,1,1143870
+el1,2011-12,9,2011-09-17,FC Stevenage,Notts County,0,2,0,1,1143877
+el1,2011-12,9,2011-09-17,FC Walsall,Scunthorpe United,2,2,1,0,1143879
+el1,2011-12,9,2011-09-17,Hartlepool United,FC Bury,3,0,1,0,1143872
+el1,2011-12,9,2011-09-17,Leyton Orient,Oldham Athletic,1,3,1,0,1143873
+el1,2011-12,9,2011-09-17,Milton Keynes Dons,Huddersfield Town,1,1,0,1,1143874
+el1,2011-12,9,2011-09-17,Sheffield United,Colchester United,3,0,2,0,1143876
+el1,2011-12,9,2011-09-17,Tranmere Rovers,Wycombe Wanderers,2,0,1,0,1143878
+el1,2011-12,9,2011-09-17,Yeovil Town,Sheffield Wednesday,2,3,2,1,1143880
+el1,2011-12,10,2011-09-24,AFC Bournemouth,Hartlepool United,1,2,1,1,1143881
+el1,2011-12,10,2011-09-24,Carlisle United,FC Stevenage,1,0,1,0,1143883
+el1,2011-12,10,2011-09-24,Charlton Athletic,FC Chesterfield,3,1,2,0,1143884
+el1,2011-12,10,2011-09-24,Colchester United,FC Walsall,1,0,1,0,1143885
+el1,2011-12,10,2011-09-24,FC Bury,Milton Keynes Dons,0,0,0,0,1143882
+el1,2011-12,10,2011-09-24,Huddersfield Town,Leyton Orient,2,2,1,0,1143886
+el1,2011-12,10,2011-09-24,Notts County,AFC Rochdale,2,0,1,0,1143887
+el1,2011-12,10,2011-09-24,Oldham Athletic,FC Brentford,0,2,0,1,1143888
+el1,2011-12,10,2011-09-24,Preston North End,Tranmere Rovers,2,1,1,0,1143889
+el1,2011-12,10,2011-09-24,Scunthorpe United,Yeovil Town,2,1,1,1,1143890
+el1,2011-12,10,2011-09-24,Sheffield Wednesday,Exeter City,3,0,2,0,1143891
+el1,2011-12,10,2011-09-24,Wycombe Wanderers,Sheffield United,1,0,1,0,1143892
+el1,2011-12,11,2011-10-01,AFC Rochdale,Wycombe Wanderers,2,1,1,1,1143899
+el1,2011-12,11,2011-10-01,Exeter City,Oldham Athletic,2,0,1,0,1143895
+el1,2011-12,11,2011-10-01,FC Brentford,Huddersfield Town,0,4,0,1,1143893
+el1,2011-12,11,2011-10-01,FC Chesterfield,Colchester United,0,1,0,1,1143894
+el1,2011-12,11,2011-10-01,FC Stevenage,Scunthorpe United,1,2,0,1,1143901
+el1,2011-12,11,2011-10-01,FC Walsall,Carlisle United,1,1,1,0,1143903
+el1,2011-12,11,2011-10-01,Hartlepool United,Sheffield Wednesday,0,1,0,1,1143896
+el1,2011-12,11,2011-10-01,Leyton Orient,Preston North End,2,1,2,1,1143897
+el1,2011-12,11,2011-10-01,Milton Keynes Dons,Notts County,3,0,1,0,1143898
+el1,2011-12,11,2011-10-01,Sheffield United,Charlton Athletic,0,2,0,0,1143900
+el1,2011-12,11,2011-10-01,Tranmere Rovers,AFC Bournemouth,0,0,0,0,1143902
+el1,2011-12,11,2011-10-01,Yeovil Town,FC Bury,1,3,1,1,1143904
+el1,2011-12,12,2011-10-08,AFC Bournemouth,AFC Rochdale,1,1,0,1,1143905
+el1,2011-12,12,2011-10-08,Carlisle United,FC Brentford,2,2,1,1,1143907
+el1,2011-12,12,2011-10-08,Charlton Athletic,Tranmere Rovers,1,1,0,1,1143908
+el1,2011-12,12,2011-10-08,Colchester United,Yeovil Town,2,2,1,1,1143909
+el1,2011-12,12,2011-10-08,FC Bury,Exeter City,2,0,1,0,1143906
+el1,2011-12,12,2011-10-08,Huddersfield Town,FC Stevenage,2,1,1,0,1143910
+el1,2011-12,12,2011-10-08,Scunthorpe United,Leyton Orient,2,3,1,0,1143914
+el1,2011-12,12,2011-10-08,Sheffield Wednesday,FC Chesterfield,3,1,1,0,1143915
+el1,2011-12,12,2011-10-08,Wycombe Wanderers,FC Walsall,1,1,0,0,1143916
+el1,2011-12,12,2011-10-09,Notts County,Hartlepool United,3,0,1,0,1143911
+el1,2011-12,12,2011-10-10,Oldham Athletic,Milton Keynes Dons,2,1,1,0,1143912
+el1,2011-12,12,2011-10-19,Preston North End,Sheffield United,2,4,1,2,1143913
+el1,2011-12,13,2011-10-15,AFC Rochdale,Colchester United,2,2,1,2,1143923
+el1,2011-12,13,2011-10-15,Exeter City,Huddersfield Town,0,4,0,2,1143919
+el1,2011-12,13,2011-10-15,FC Brentford,Scunthorpe United,0,0,0,0,1143917
+el1,2011-12,13,2011-10-15,FC Chesterfield,Notts County,1,3,0,2,1143918
+el1,2011-12,13,2011-10-15,FC Stevenage,Charlton Athletic,1,0,1,0,1143925
+el1,2011-12,13,2011-10-15,FC Walsall,Preston North End,1,0,1,0,1143927
+el1,2011-12,13,2011-10-15,Hartlepool United,Wycombe Wanderers,1,3,0,2,1143920
+el1,2011-12,13,2011-10-15,Leyton Orient,FC Bury,1,0,1,0,1143921
+el1,2011-12,13,2011-10-15,Milton Keynes Dons,AFC Bournemouth,2,2,1,0,1143922
+el1,2011-12,13,2011-10-15,Tranmere Rovers,Oldham Athletic,1,0,1,0,1143926
+el1,2011-12,13,2011-10-15,Yeovil Town,Carlisle United,0,3,0,0,1143928
+el1,2011-12,13,2011-10-16,Sheffield United,Sheffield Wednesday,2,2,2,0,1143924
+el1,2011-12,14,2011-10-22,AFC Bournemouth,FC Bury,1,2,1,1,1143929
+el1,2011-12,14,2011-10-22,Charlton Athletic,Carlisle United,4,0,3,0,1143930
+el1,2011-12,14,2011-10-22,Exeter City,AFC Rochdale,3,1,1,1,1143932
+el1,2011-12,14,2011-10-22,FC Chesterfield,Hartlepool United,2,3,1,2,1143931
+el1,2011-12,14,2011-10-22,FC Stevenage,Yeovil Town,0,0,0,0,1143939
+el1,2011-12,14,2011-10-22,Huddersfield Town,Preston North End,3,1,2,0,1143933
+el1,2011-12,14,2011-10-22,Leyton Orient,Sheffield United,1,1,0,0,1143934
+el1,2011-12,14,2011-10-22,Milton Keynes Dons,Scunthorpe United,0,0,0,0,1143935
+el1,2011-12,14,2011-10-22,Notts County,FC Brentford,1,1,1,0,1143936
+el1,2011-12,14,2011-10-22,Oldham Athletic,Wycombe Wanderers,2,0,0,0,1143937
+el1,2011-12,14,2011-10-22,Sheffield Wednesday,Colchester United,2,0,0,0,1143938
+el1,2011-12,14,2011-10-22,Tranmere Rovers,FC Walsall,2,1,0,0,1143940
+el1,2011-12,15,2011-10-25,AFC Rochdale,FC Chesterfield,1,1,0,1,1143947
+el1,2011-12,15,2011-10-25,Carlisle United,Sheffield Wednesday,3,2,0,1,1143943
+el1,2011-12,15,2011-10-25,Colchester United,AFC Bournemouth,1,1,0,1,1143944
+el1,2011-12,15,2011-10-25,FC Brentford,FC Stevenage,0,1,0,0,1143941
+el1,2011-12,15,2011-10-25,FC Bury,Notts County,2,2,1,1,1143942
+el1,2011-12,15,2011-10-25,FC Walsall,Exeter City,1,2,1,1,1143950
+el1,2011-12,15,2011-10-25,Hartlepool United,Tranmere Rovers,0,2,0,0,1143945
+el1,2011-12,15,2011-10-25,Preston North End,Oldham Athletic,3,3,2,2,1143946
+el1,2011-12,15,2011-10-25,Scunthorpe United,Huddersfield Town,2,2,1,1,1143948
+el1,2011-12,15,2011-10-25,Sheffield United,Milton Keynes Dons,2,1,1,0,1143949
+el1,2011-12,15,2011-10-25,Wycombe Wanderers,Charlton Athletic,1,2,0,2,1143951
+el1,2011-12,15,2011-10-25,Yeovil Town,Leyton Orient,2,2,2,1,1143952
+el1,2011-12,16,2011-10-29,AFC Rochdale,Leyton Orient,0,2,0,1,1143959
+el1,2011-12,16,2011-10-29,Carlisle United,Oldham Athletic,3,3,1,3,1143955
+el1,2011-12,16,2011-10-29,Colchester United,Notts County,4,2,0,0,1143956
+el1,2011-12,16,2011-10-29,FC Brentford,FC Chesterfield,2,1,1,1,1143953
+el1,2011-12,16,2011-10-29,FC Bury,FC Stevenage,1,2,0,1,1143954
+el1,2011-12,16,2011-10-29,FC Walsall,Milton Keynes Dons,0,2,0,2,1143962
+el1,2011-12,16,2011-10-29,Hartlepool United,Charlton Athletic,0,4,0,2,1143957
+el1,2011-12,16,2011-10-29,Preston North End,AFC Bournemouth,1,3,1,0,1143958
+el1,2011-12,16,2011-10-29,Scunthorpe United,Tranmere Rovers,4,2,2,2,1143960
+el1,2011-12,16,2011-10-29,Sheffield United,Exeter City,4,4,1,2,1143961
+el1,2011-12,16,2011-10-29,Wycombe Wanderers,Sheffield Wednesday,1,2,1,2,1143963
+el1,2011-12,16,2011-10-29,Yeovil Town,Huddersfield Town,0,1,0,0,1143964
+el1,2011-12,17,2011-11-05,AFC Bournemouth,Scunthorpe United,2,0,1,0,1143965
+el1,2011-12,17,2011-11-05,Charlton Athletic,Preston North End,5,2,4,0,1143966
+el1,2011-12,17,2011-11-05,Exeter City,Carlisle United,0,0,0,0,1143968
+el1,2011-12,17,2011-11-05,FC Chesterfield,Yeovil Town,2,2,1,1,1143967
+el1,2011-12,17,2011-11-05,FC Stevenage,Sheffield United,2,1,1,0,1143975
+el1,2011-12,17,2011-11-05,Huddersfield Town,FC Walsall,1,1,0,0,1143969
+el1,2011-12,17,2011-11-05,Leyton Orient,Hartlepool United,1,1,1,0,1143970
+el1,2011-12,17,2011-11-05,Milton Keynes Dons,AFC Rochdale,3,1,3,1,1143971
+el1,2011-12,17,2011-11-05,Notts County,Wycombe Wanderers,1,1,1,0,1143972
+el1,2011-12,17,2011-11-05,Oldham Athletic,FC Bury,0,2,0,2,1143973
+el1,2011-12,17,2011-11-05,Sheffield Wednesday,FC Brentford,0,0,0,0,1143974
+el1,2011-12,17,2011-11-05,Tranmere Rovers,Colchester United,0,0,0,0,1143976
+el1,2011-12,18,2011-11-19,Colchester United,Milton Keynes Dons,1,5,1,2,1143978
+el1,2011-12,18,2011-11-19,FC Brentford,Charlton Athletic,0,1,0,0,1143977
+el1,2011-12,18,2011-11-19,FC Walsall,FC Bury,2,4,1,1,1143986
+el1,2011-12,18,2011-11-19,Huddersfield Town,Notts County,2,1,0,0,1143979
+el1,2011-12,18,2011-11-19,Leyton Orient,FC Stevenage,0,0,0,0,1143980
+el1,2011-12,18,2011-11-19,Oldham Athletic,FC Chesterfield,5,2,4,1,1143981
+el1,2011-12,18,2011-11-19,Preston North End,AFC Rochdale,0,1,0,0,1143982
+el1,2011-12,18,2011-11-19,Scunthorpe United,Hartlepool United,0,2,0,1,1143983
+el1,2011-12,18,2011-11-19,Sheffield United,Carlisle United,1,0,1,0,1143984
+el1,2011-12,18,2011-11-19,Tranmere Rovers,Sheffield Wednesday,1,2,1,1,1143985
+el1,2011-12,18,2011-11-19,Wycombe Wanderers,AFC Bournemouth,0,1,0,1,1143987
+el1,2011-12,18,2011-11-19,Yeovil Town,Exeter City,2,2,1,2,1143988
+el1,2011-12,19,2011-11-26,AFC Bournemouth,Oldham Athletic,0,0,0,0,1143989
+el1,2011-12,19,2011-11-26,AFC Rochdale,FC Brentford,1,2,0,1,1143998
+el1,2011-12,19,2011-11-26,Carlisle United,Colchester United,1,0,1,0,1143991
+el1,2011-12,19,2011-11-26,Exeter City,Tranmere Rovers,3,0,1,0,1143994
+el1,2011-12,19,2011-11-26,FC Bury,Preston North End,1,0,1,0,1143990
+el1,2011-12,19,2011-11-26,FC Chesterfield,Sheffield United,0,1,0,0,1143993
+el1,2011-12,19,2011-11-26,FC Stevenage,FC Walsall,0,0,0,0,1144000
+el1,2011-12,19,2011-11-26,Hartlepool United,Yeovil Town,0,1,0,1,1143995
+el1,2011-12,19,2011-11-26,Milton Keynes Dons,Wycombe Wanderers,4,3,1,0,1143996
+el1,2011-12,19,2011-11-26,Notts County,Scunthorpe United,3,2,1,1,1143997
+el1,2011-12,19,2011-11-26,Sheffield Wednesday,Leyton Orient,1,0,1,0,1143999
+el1,2011-12,19,2011-11-28,Charlton Athletic,Huddersfield Town,2,0,2,0,1143992
+el1,2011-12,20,2011-12-10,Colchester United,FC Bury,4,1,3,0,1144002
+el1,2011-12,20,2011-12-10,FC Brentford,Hartlepool United,2,1,0,0,1144001
+el1,2011-12,20,2011-12-10,FC Walsall,Charlton Athletic,1,1,1,1,1144010
+el1,2011-12,20,2011-12-10,Huddersfield Town,AFC Bournemouth,0,1,0,1,1144003
+el1,2011-12,20,2011-12-10,Leyton Orient,Exeter City,3,0,0,0,1144004
+el1,2011-12,20,2011-12-10,Oldham Athletic,Sheffield Wednesday,0,2,0,0,1144005
+el1,2011-12,20,2011-12-10,Preston North End,FC Stevenage,0,0,0,0,1144006
+el1,2011-12,20,2011-12-10,Scunthorpe United,Carlisle United,1,2,1,0,1144007
+el1,2011-12,20,2011-12-10,Sheffield United,AFC Rochdale,3,0,1,0,1144008
+el1,2011-12,20,2011-12-10,Tranmere Rovers,Milton Keynes Dons,0,2,0,1,1144009
+el1,2011-12,20,2011-12-10,Wycombe Wanderers,FC Chesterfield,3,2,1,1,1144011
+el1,2011-12,20,2011-12-10,Yeovil Town,Notts County,1,0,0,0,1144012
+el1,2011-12,21,2011-12-17,AFC Bournemouth,Sheffield United,0,2,0,1,1144013
+el1,2011-12,21,2011-12-17,AFC Rochdale,Yeovil Town,0,0,0,0,1144022
+el1,2011-12,21,2011-12-17,Carlisle United,Wycombe Wanderers,2,2,1,2,1144015
+el1,2011-12,21,2011-12-17,Charlton Athletic,Oldham Athletic,1,1,0,0,1144016
+el1,2011-12,21,2011-12-17,Exeter City,Scunthorpe United,0,0,0,0,1144018
+el1,2011-12,21,2011-12-17,FC Bury,FC Brentford,1,1,0,0,1144014
+el1,2011-12,21,2011-12-17,FC Chesterfield,FC Walsall,1,1,0,1,1144017
+el1,2011-12,21,2011-12-17,FC Stevenage,Tranmere Rovers,2,1,1,0,1144024
+el1,2011-12,21,2011-12-17,Hartlepool United,Colchester United,0,1,0,1,1144019
+el1,2011-12,21,2011-12-17,Milton Keynes Dons,Preston North End,0,1,0,1,1144020
+el1,2011-12,21,2011-12-17,Notts County,Leyton Orient,1,2,0,1,1144021
+el1,2011-12,21,2011-12-17,Sheffield Wednesday,Huddersfield Town,4,4,2,2,1144023
+el1,2011-12,22,2011-12-26,Colchester United,FC Stevenage,1,6,0,2,1144026
+el1,2011-12,22,2011-12-26,FC Brentford,AFC Bournemouth,1,1,0,1,1144025
+el1,2011-12,22,2011-12-26,FC Walsall,Sheffield Wednesday,2,1,0,0,1144034
+el1,2011-12,22,2011-12-26,Huddersfield Town,FC Chesterfield,1,0,1,0,1144027
+el1,2011-12,22,2011-12-26,Leyton Orient,Milton Keynes Dons,0,3,0,1,1144028
+el1,2011-12,22,2011-12-26,Oldham Athletic,Hartlepool United,0,1,0,1,1144029
+el1,2011-12,22,2011-12-26,Preston North End,Carlisle United,3,3,2,2,1144030
+el1,2011-12,22,2011-12-26,Scunthorpe United,FC Bury,1,3,1,0,1144031
+el1,2011-12,22,2011-12-26,Wycombe Wanderers,Exeter City,3,1,2,1,1144035
+el1,2011-12,22,2011-12-26,Yeovil Town,Charlton Athletic,2,3,1,1,1144036
+el1,2011-12,22,2011-12-27,Sheffield United,Notts County,2,1,1,1,1144032
+el1,2011-12,22,2012-01-17,Tranmere Rovers,AFC Rochdale,0,0,0,0,1144033
+el1,2011-12,23,2011-12-30,Huddersfield Town,Carlisle United,1,1,1,1,1144039
+el1,2011-12,23,2011-12-30,Tranmere Rovers,FC Bury,2,0,1,0,1144045
+el1,2011-12,23,2011-12-31,Colchester United,Exeter City,2,0,1,0,1144038
+el1,2011-12,23,2011-12-31,FC Brentford,Milton Keynes Dons,3,3,0,3,1144037
+el1,2011-12,23,2011-12-31,FC Walsall,AFC Rochdale,0,0,0,0,1144046
+el1,2011-12,23,2011-12-31,Leyton Orient,Charlton Athletic,1,0,1,0,1144040
+el1,2011-12,23,2011-12-31,Oldham Athletic,Notts County,3,2,1,2,1144041
+el1,2011-12,23,2011-12-31,Preston North End,Sheffield Wednesday,0,2,0,2,1144042
+el1,2011-12,23,2011-12-31,Scunthorpe United,FC Chesterfield,2,2,1,0,1144043
+el1,2011-12,23,2011-12-31,Sheffield United,Hartlepool United,3,1,3,0,1144044
+el1,2011-12,23,2011-12-31,Wycombe Wanderers,FC Stevenage,0,1,0,0,1144047
+el1,2011-12,23,2011-12-31,Yeovil Town,AFC Bournemouth,1,3,0,2,1144048
+el1,2011-12,24,2012-01-02,AFC Bournemouth,Wycombe Wanderers,2,0,1,0,1144049
+el1,2011-12,24,2012-01-02,AFC Rochdale,Preston North End,1,1,1,1,1144058
+el1,2011-12,24,2012-01-02,Carlisle United,Sheffield United,3,2,2,2,1144051
+el1,2011-12,24,2012-01-02,Charlton Athletic,FC Brentford,2,0,1,0,1144052
+el1,2011-12,24,2012-01-02,Exeter City,Yeovil Town,1,1,0,1,1144054
+el1,2011-12,24,2012-01-02,FC Bury,FC Walsall,2,1,2,1,1144050
+el1,2011-12,24,2012-01-02,FC Chesterfield,Oldham Athletic,1,1,1,1,1144053
+el1,2011-12,24,2012-01-02,FC Stevenage,Leyton Orient,0,1,0,1,1144060
+el1,2011-12,24,2012-01-02,Hartlepool United,Scunthorpe United,1,2,0,1,1144055
+el1,2011-12,24,2012-01-02,Milton Keynes Dons,Colchester United,1,0,0,0,1144056
+el1,2011-12,24,2012-01-02,Notts County,Huddersfield Town,2,2,0,0,1144057
+el1,2011-12,24,2012-01-02,Sheffield Wednesday,Tranmere Rovers,2,1,2,0,1144059
+el1,2011-12,25,2012-01-06,Wycombe Wanderers,Huddersfield Town,0,6,0,3,1144072
+el1,2011-12,25,2012-01-07,Carlisle United,Leyton Orient,4,1,3,0,1144061
+el1,2011-12,25,2012-01-07,FC Chesterfield,Exeter City,0,2,0,0,1144063
+el1,2011-12,25,2012-01-07,FC Walsall,AFC Bournemouth,2,2,2,0,1144071
+el1,2011-12,25,2012-01-07,Hartlepool United,AFC Rochdale,2,0,0,0,1144064
+el1,2011-12,25,2012-01-07,Tranmere Rovers,FC Brentford,2,2,1,2,1144070
+el1,2011-12,25,2012-01-10,Sheffield United,Yeovil Town,4,0,2,0,1144068
+el1,2011-12,25,2012-01-24,FC Stevenage,Milton Keynes Dons,4,2,1,1,1144069
+el1,2011-12,25,2012-01-24,Notts County,Preston North End,0,0,0,0,1144065
+el1,2011-12,25,2012-01-24,Scunthorpe United,Sheffield Wednesday,1,3,0,2,1144067
+el1,2011-12,25,2012-01-31,Charlton Athletic,FC Bury,1,1,0,1,1144062
+el1,2011-12,25,2012-02-28,Oldham Athletic,Colchester United,1,1,1,0,1144066
+el1,2011-12,26,2012-01-14,AFC Bournemouth,Notts County,2,1,1,1,1144073
+el1,2011-12,26,2012-01-14,AFC Rochdale,FC Stevenage,1,5,0,1,1144082
+el1,2011-12,26,2012-01-14,Colchester United,Scunthorpe United,1,1,1,1,1144076
+el1,2011-12,26,2012-01-14,Exeter City,Hartlepool United,0,0,0,0,1144077
+el1,2011-12,26,2012-01-14,FC Brentford,FC Walsall,0,0,0,0,1144074
+el1,2011-12,26,2012-01-14,FC Bury,Sheffield United,0,3,0,0,1144075
+el1,2011-12,26,2012-01-14,Huddersfield Town,Oldham Athletic,1,0,0,0,1144078
+el1,2011-12,26,2012-01-14,Leyton Orient,FC Chesterfield,1,1,1,0,1144079
+el1,2011-12,26,2012-01-14,Preston North End,Wycombe Wanderers,3,2,1,1,1144081
+el1,2011-12,26,2012-01-14,Sheffield Wednesday,Charlton Athletic,0,1,0,1,1144083
+el1,2011-12,26,2012-01-14,Yeovil Town,Tranmere Rovers,2,1,1,1,1144084
+el1,2011-12,26,2012-03-27,Milton Keynes Dons,Carlisle United,1,2,0,0,1144080
+el1,2011-12,27,2012-01-21,AFC Bournemouth,Tranmere Rovers,2,1,2,1,1144085
+el1,2011-12,27,2012-01-21,Carlisle United,FC Walsall,1,1,1,0,1144087
+el1,2011-12,27,2012-01-21,Charlton Athletic,Sheffield United,1,0,1,0,1144088
+el1,2011-12,27,2012-01-21,Colchester United,FC Chesterfield,1,2,1,2,1144089
+el1,2011-12,27,2012-01-21,FC Bury,Yeovil Town,3,2,3,1,1144086
+el1,2011-12,27,2012-01-21,Huddersfield Town,FC Brentford,3,2,2,2,1144090
+el1,2011-12,27,2012-01-21,Notts County,Milton Keynes Dons,1,1,0,1,1144091
+el1,2011-12,27,2012-01-21,Oldham Athletic,Exeter City,0,0,0,0,1144092
+el1,2011-12,27,2012-01-21,Preston North End,Leyton Orient,0,2,0,0,1144093
+el1,2011-12,27,2012-01-21,Scunthorpe United,FC Stevenage,1,1,0,0,1144094
+el1,2011-12,27,2012-01-21,Sheffield Wednesday,Hartlepool United,2,2,0,0,1144095
+el1,2011-12,27,2012-01-21,Wycombe Wanderers,AFC Rochdale,3,0,1,0,1144096
+el1,2011-12,28,2012-01-27,FC Chesterfield,AFC Bournemouth,1,0,0,0,1144098
+el1,2011-12,28,2012-01-28,AFC Rochdale,FC Bury,3,0,2,0,1144103
+el1,2011-12,28,2012-01-28,Exeter City,Charlton Athletic,0,1,0,0,1144099
+el1,2011-12,28,2012-01-28,FC Brentford,Wycombe Wanderers,5,2,3,0,1144097
+el1,2011-12,28,2012-01-28,Hartlepool United,Carlisle United,4,0,2,0,1144100
+el1,2011-12,28,2012-01-28,Leyton Orient,Colchester United,0,1,0,1,1144101
+el1,2011-12,28,2012-01-28,Tranmere Rovers,Huddersfield Town,1,1,0,0,1144106
+el1,2011-12,28,2012-01-28,Yeovil Town,Preston North End,2,1,1,0,1144108
+el1,2011-12,28,2012-01-31,FC Walsall,Notts County,0,1,0,1,1144107
+el1,2011-12,28,2012-01-31,Milton Keynes Dons,Sheffield Wednesday,1,1,1,1,1144102
+el1,2011-12,28,2012-02-29,Sheffield United,Scunthorpe United,2,1,0,1,1144104
+el1,2011-12,28,2012-03-13,FC Stevenage,Oldham Athletic,1,0,0,0,1144105
+el1,2011-12,29,2012-02-04,Carlisle United,FC Chesterfield,2,1,0,1,1144111
+el1,2011-12,29,2012-02-04,Huddersfield Town,Milton Keynes Dons,1,1,1,0,1144114
+el1,2011-12,29,2012-02-04,Sheffield Wednesday,Yeovil Town,2,1,0,1,1144119
+el1,2011-12,29,2012-02-04,Wycombe Wanderers,Tranmere Rovers,2,1,2,1,1144120
+el1,2011-12,29,2012-02-07,AFC Bournemouth,Exeter City,2,0,0,0,1144109
+el1,2011-12,29,2012-02-21,Charlton Athletic,AFC Rochdale,1,1,0,0,1144112
+el1,2011-12,29,2012-02-21,Scunthorpe United,FC Walsall,0,1,0,1,1144118
+el1,2011-12,29,2012-02-22,Notts County,FC Stevenage,1,0,0,0,1144115
+el1,2011-12,29,2012-02-28,FC Bury,Hartlepool United,1,2,0,1,1144110
+el1,2011-12,29,2012-03-13,Colchester United,Sheffield United,1,1,0,1,1144113
+el1,2011-12,29,2012-03-27,Oldham Athletic,Leyton Orient,0,1,0,0,1144116
+el1,2011-12,29,2012-03-27,Preston North End,FC Brentford,1,3,1,2,1144117
+el1,2011-12,30,2012-02-11,Exeter City,Sheffield Wednesday,2,1,0,0,1144123
+el1,2011-12,30,2012-02-11,Hartlepool United,AFC Bournemouth,0,0,0,0,1144124
+el1,2011-12,30,2012-02-11,Sheffield United,Wycombe Wanderers,3,0,0,0,1144128
+el1,2011-12,30,2012-02-21,Milton Keynes Dons,FC Bury,2,1,2,1,1144126
+el1,2011-12,30,2012-02-28,AFC Rochdale,Notts County,0,1,0,1,1144127
+el1,2011-12,30,2012-02-28,FC Chesterfield,Charlton Athletic,0,4,0,1,1144122
+el1,2011-12,30,2012-03-13,Tranmere Rovers,Preston North End,2,1,1,1,1144130
+el1,2011-12,30,2012-03-13,Yeovil Town,Scunthorpe United,2,2,1,0,1144132
+el1,2011-12,30,2012-03-27,FC Walsall,Colchester United,3,1,2,1,1144131
+el1,2011-12,30,2012-04-03,FC Brentford,Oldham Athletic,2,0,1,0,1144121
+el1,2011-12,30,2012-04-03,Leyton Orient,Huddersfield Town,1,3,1,2,1144125
+el1,2011-12,30,2012-04-17,FC Stevenage,Carlisle United,1,0,0,0,1144129
+el1,2011-12,31,2012-02-14,AFC Bournemouth,Leyton Orient,1,2,1,1,1144133
+el1,2011-12,31,2012-02-14,Carlisle United,Tranmere Rovers,0,0,0,0,1144135
+el1,2011-12,31,2012-02-14,Charlton Athletic,Milton Keynes Dons,2,1,2,0,1144136
+el1,2011-12,31,2012-02-14,Colchester United,FC Brentford,2,1,0,0,1144137
+el1,2011-12,31,2012-02-14,FC Bury,FC Chesterfield,1,1,0,1,1144134
+el1,2011-12,31,2012-02-14,Huddersfield Town,Sheffield United,0,1,0,1,1144138
+el1,2011-12,31,2012-02-14,Notts County,Exeter City,2,1,2,1,1144139
+el1,2011-12,31,2012-02-14,Oldham Athletic,FC Walsall,2,1,2,0,1144140
+el1,2011-12,31,2012-02-14,Preston North End,Hartlepool United,1,0,0,0,1144141
+el1,2011-12,31,2012-02-14,Scunthorpe United,AFC Rochdale,1,0,0,0,1144142
+el1,2011-12,31,2012-02-14,Sheffield Wednesday,FC Stevenage,0,1,0,1,1144143
+el1,2011-12,31,2012-02-14,Wycombe Wanderers,Yeovil Town,2,3,1,0,1144144
+el1,2011-12,32,2012-02-18,AFC Rochdale,AFC Bournemouth,1,0,0,0,1144151
+el1,2011-12,32,2012-02-18,Exeter City,FC Bury,3,2,3,1,1144147
+el1,2011-12,32,2012-02-18,FC Chesterfield,Sheffield Wednesday,1,0,0,0,1144146
+el1,2011-12,32,2012-02-18,FC Walsall,Wycombe Wanderers,2,0,0,0,1144155
+el1,2011-12,32,2012-02-18,Hartlepool United,Notts County,3,0,1,0,1144148
+el1,2011-12,32,2012-02-18,Leyton Orient,Scunthorpe United,1,3,1,0,1144149
+el1,2011-12,32,2012-02-18,Milton Keynes Dons,Oldham Athletic,5,0,1,0,1144150
+el1,2011-12,32,2012-02-18,Sheffield United,Preston North End,2,1,1,1,1144152
+el1,2011-12,32,2012-02-18,Tranmere Rovers,Charlton Athletic,1,1,1,0,1144154
+el1,2011-12,32,2012-02-18,Yeovil Town,Colchester United,3,2,0,1,1144156
+el1,2011-12,32,2012-02-20,FC Brentford,Carlisle United,4,0,3,0,1144145
+el1,2011-12,32,2012-02-28,FC Stevenage,Huddersfield Town,2,2,0,0,1144153
+el1,2011-12,33,2012-02-25,AFC Bournemouth,Milton Keynes Dons,0,1,0,1,1144157
+el1,2011-12,33,2012-02-25,Carlisle United,Yeovil Town,3,2,1,0,1144159
+el1,2011-12,33,2012-02-25,Charlton Athletic,FC Stevenage,2,0,0,0,1144160
+el1,2011-12,33,2012-02-25,Colchester United,AFC Rochdale,0,0,0,0,1144161
+el1,2011-12,33,2012-02-25,FC Bury,Leyton Orient,1,1,0,1,1144158
+el1,2011-12,33,2012-02-25,Huddersfield Town,Exeter City,2,0,1,0,1144162
+el1,2011-12,33,2012-02-25,Notts County,FC Chesterfield,1,0,0,0,1144163
+el1,2011-12,33,2012-02-25,Oldham Athletic,Tranmere Rovers,1,0,0,0,1144164
+el1,2011-12,33,2012-02-25,Preston North End,FC Walsall,0,0,0,0,1144165
+el1,2011-12,33,2012-02-25,Scunthorpe United,FC Brentford,0,0,0,0,1144166
+el1,2011-12,33,2012-02-25,Wycombe Wanderers,Hartlepool United,5,0,3,0,1144168
+el1,2011-12,33,2012-02-26,Sheffield Wednesday,Sheffield United,1,0,0,0,1144167
+el1,2011-12,34,2012-03-03,AFC Bournemouth,Charlton Athletic,0,1,0,0,1144169
+el1,2011-12,34,2012-03-03,AFC Rochdale,Sheffield Wednesday,0,0,0,0,1144177
+el1,2011-12,34,2012-03-03,Colchester United,Preston North End,3,0,1,0,1144172
+el1,2011-12,34,2012-03-03,Exeter City,FC Stevenage,1,1,1,0,1144173
+el1,2011-12,34,2012-03-03,FC Bury,Huddersfield Town,3,3,1,3,1144170
+el1,2011-12,34,2012-03-03,FC Chesterfield,Tranmere Rovers,1,0,0,0,1144171
+el1,2011-12,34,2012-03-03,Hartlepool United,Milton Keynes Dons,1,1,1,0,1144174
+el1,2011-12,34,2012-03-03,Leyton Orient,FC Walsall,1,1,1,0,1144175
+el1,2011-12,34,2012-03-03,Notts County,Carlisle United,2,0,2,0,1144176
+el1,2011-12,34,2012-03-03,Scunthorpe United,Wycombe Wanderers,4,1,2,0,1144178
+el1,2011-12,34,2012-03-03,Sheffield United,Oldham Athletic,2,3,2,0,1144179
+el1,2011-12,34,2012-03-03,Yeovil Town,FC Brentford,2,1,0,1,1144180
+el1,2011-12,35,2012-03-06,Carlisle United,AFC Rochdale,2,1,0,0,1144182
+el1,2011-12,35,2012-03-06,Charlton Athletic,Colchester United,0,2,0,1,1144183
+el1,2011-12,35,2012-03-06,FC Brentford,Exeter City,2,0,1,0,1144181
+el1,2011-12,35,2012-03-06,FC Walsall,Sheffield United,3,2,0,0,1144191
+el1,2011-12,35,2012-03-06,Huddersfield Town,Hartlepool United,1,0,0,0,1144184
+el1,2011-12,35,2012-03-06,Milton Keynes Dons,Yeovil Town,0,1,0,1,1144185
+el1,2011-12,35,2012-03-06,Oldham Athletic,Scunthorpe United,1,2,0,0,1144186
+el1,2011-12,35,2012-03-06,Preston North End,FC Chesterfield,0,0,0,0,1144187
+el1,2011-12,35,2012-03-06,Sheffield Wednesday,FC Bury,4,1,1,0,1144188
+el1,2011-12,35,2012-03-06,Tranmere Rovers,Notts County,1,1,0,1,1144190
+el1,2011-12,35,2012-03-06,Wycombe Wanderers,Leyton Orient,4,2,4,0,1144192
+el1,2011-12,35,2012-03-27,FC Stevenage,AFC Bournemouth,2,2,2,2,1144189
+el1,2011-12,36,2012-03-10,Carlisle United,FC Bury,4,1,1,1,1144194
+el1,2011-12,36,2012-03-10,Charlton Athletic,Notts County,2,4,0,4,1144195
+el1,2011-12,36,2012-03-10,FC Brentford,Sheffield United,0,2,0,1,1144193
+el1,2011-12,36,2012-03-10,FC Stevenage,FC Chesterfield,2,2,0,2,1144201
+el1,2011-12,36,2012-03-10,FC Walsall,Hartlepool United,0,0,0,0,1144203
+el1,2011-12,36,2012-03-10,Huddersfield Town,AFC Rochdale,2,2,1,1,1144196
+el1,2011-12,36,2012-03-10,Milton Keynes Dons,Exeter City,3,0,2,0,1144197
+el1,2011-12,36,2012-03-10,Oldham Athletic,Yeovil Town,1,2,0,1,1144198
+el1,2011-12,36,2012-03-10,Preston North End,Scunthorpe United,0,0,0,0,1144199
+el1,2011-12,36,2012-03-10,Sheffield Wednesday,AFC Bournemouth,3,0,3,0,1144200
+el1,2011-12,36,2012-03-10,Tranmere Rovers,Leyton Orient,2,0,2,0,1144202
+el1,2011-12,36,2012-03-10,Wycombe Wanderers,Colchester United,0,0,0,0,1144204
+el1,2011-12,37,2012-03-17,AFC Bournemouth,Carlisle United,1,1,0,1,1144205
+el1,2011-12,37,2012-03-17,AFC Rochdale,Oldham Athletic,3,2,1,1,1144213
+el1,2011-12,37,2012-03-17,Colchester United,Huddersfield Town,1,1,1,0,1144208
+el1,2011-12,37,2012-03-17,Exeter City,Preston North End,1,2,0,1,1144209
+el1,2011-12,37,2012-03-17,FC Bury,Wycombe Wanderers,1,4,1,2,1144206
+el1,2011-12,37,2012-03-17,FC Chesterfield,Milton Keynes Dons,1,1,1,0,1144207
+el1,2011-12,37,2012-03-17,Hartlepool United,FC Stevenage,0,0,0,0,1144210
+el1,2011-12,37,2012-03-17,Leyton Orient,FC Brentford,2,0,2,0,1144211
+el1,2011-12,37,2012-03-17,Notts County,Sheffield Wednesday,1,2,0,0,1144212
+el1,2011-12,37,2012-03-17,Scunthorpe United,Charlton Athletic,1,1,1,1,1144214
+el1,2011-12,37,2012-03-17,Sheffield United,Tranmere Rovers,1,1,1,0,1144215
+el1,2011-12,37,2012-03-17,Yeovil Town,FC Walsall,2,1,0,1,1144216
+el1,2011-12,38,2012-03-20,AFC Bournemouth,FC Brentford,1,0,1,0,1144217
+el1,2011-12,38,2012-03-20,AFC Rochdale,Tranmere Rovers,0,2,0,1,1144226
+el1,2011-12,38,2012-03-20,Carlisle United,Preston North End,0,0,0,0,1144219
+el1,2011-12,38,2012-03-20,Charlton Athletic,Yeovil Town,3,0,1,0,1144220
+el1,2011-12,38,2012-03-20,Exeter City,Wycombe Wanderers,1,3,0,0,1144222
+el1,2011-12,38,2012-03-20,FC Bury,Scunthorpe United,0,0,0,0,1144218
+el1,2011-12,38,2012-03-20,FC Chesterfield,Huddersfield Town,0,2,0,2,1144221
+el1,2011-12,38,2012-03-20,FC Stevenage,Colchester United,0,0,0,0,1144228
+el1,2011-12,38,2012-03-20,Hartlepool United,Oldham Athletic,0,1,0,1,1144223
+el1,2011-12,38,2012-03-20,Milton Keynes Dons,Leyton Orient,4,1,2,1,1144224
+el1,2011-12,38,2012-03-20,Notts County,Sheffield United,2,5,0,4,1144225
+el1,2011-12,38,2012-03-20,Sheffield Wednesday,FC Walsall,2,2,0,0,1144227
+el1,2011-12,39,2012-03-24,Colchester United,Carlisle United,1,1,0,0,1144230
+el1,2011-12,39,2012-03-24,FC Brentford,AFC Rochdale,2,0,1,0,1144229
+el1,2011-12,39,2012-03-24,FC Walsall,FC Stevenage,1,1,1,0,1144238
+el1,2011-12,39,2012-03-24,Huddersfield Town,Charlton Athletic,1,0,1,0,1144231
+el1,2011-12,39,2012-03-24,Leyton Orient,Sheffield Wednesday,0,1,0,0,1144232
+el1,2011-12,39,2012-03-24,Oldham Athletic,AFC Bournemouth,1,0,0,0,1144233
+el1,2011-12,39,2012-03-24,Preston North End,FC Bury,1,1,0,0,1144234
+el1,2011-12,39,2012-03-24,Scunthorpe United,Notts County,0,0,0,0,1144235
+el1,2011-12,39,2012-03-24,Tranmere Rovers,Exeter City,2,0,0,0,1144237
+el1,2011-12,39,2012-03-24,Wycombe Wanderers,Milton Keynes Dons,1,1,0,0,1144239
+el1,2011-12,39,2012-03-24,Yeovil Town,Hartlepool United,0,1,0,0,1144240
+el1,2011-12,39,2012-03-28,Sheffield United,FC Chesterfield,4,1,1,1,1144236
+el1,2011-12,40,2012-03-31,AFC Bournemouth,Yeovil Town,0,0,0,0,1144241
+el1,2011-12,40,2012-03-31,AFC Rochdale,FC Walsall,3,3,0,2,1144250
+el1,2011-12,40,2012-03-31,Carlisle United,Huddersfield Town,2,1,0,0,1144243
+el1,2011-12,40,2012-03-31,Charlton Athletic,Leyton Orient,2,0,1,0,1144244
+el1,2011-12,40,2012-03-31,Exeter City,Colchester United,1,1,0,1,1144246
+el1,2011-12,40,2012-03-31,FC Bury,Tranmere Rovers,2,0,0,0,1144242
+el1,2011-12,40,2012-03-31,FC Chesterfield,Scunthorpe United,1,4,1,1,1144245
+el1,2011-12,40,2012-03-31,FC Stevenage,Wycombe Wanderers,1,1,0,0,1144252
+el1,2011-12,40,2012-03-31,Hartlepool United,Sheffield United,0,1,0,0,1144247
+el1,2011-12,40,2012-03-31,Milton Keynes Dons,FC Brentford,1,2,0,2,1144248
+el1,2011-12,40,2012-03-31,Notts County,Oldham Athletic,1,0,0,0,1144249
+el1,2011-12,40,2012-03-31,Sheffield Wednesday,Preston North End,2,0,0,0,1144251
+el1,2011-12,41,2012-04-06,Colchester United,Hartlepool United,1,1,0,1,1144254
+el1,2011-12,41,2012-04-06,Leyton Orient,Notts County,0,3,0,0,1144256
+el1,2011-12,41,2012-04-06,Scunthorpe United,Exeter City,1,0,0,0,1144259
+el1,2011-12,41,2012-04-06,Tranmere Rovers,FC Stevenage,3,0,2,0,1144261
+el1,2011-12,41,2012-04-06,Wycombe Wanderers,Carlisle United,1,1,0,0,1144263
+el1,2011-12,41,2012-04-07,FC Brentford,FC Bury,3,0,1,0,1144253
+el1,2011-12,41,2012-04-07,FC Walsall,FC Chesterfield,3,2,2,1,1144262
+el1,2011-12,41,2012-04-07,Huddersfield Town,Sheffield Wednesday,0,2,0,0,1144255
+el1,2011-12,41,2012-04-07,Oldham Athletic,Charlton Athletic,0,1,0,0,1144257
+el1,2011-12,41,2012-04-07,Preston North End,Milton Keynes Dons,1,1,0,1,1144258
+el1,2011-12,41,2012-04-07,Sheffield United,AFC Bournemouth,2,1,1,0,1144260
+el1,2011-12,41,2012-04-07,Yeovil Town,AFC Rochdale,3,1,2,0,1144264
+el1,2011-12,42,2012-04-09,AFC Bournemouth,Huddersfield Town,2,0,0,0,1144265
+el1,2011-12,42,2012-04-09,Carlisle United,Scunthorpe United,0,0,0,0,1144267
+el1,2011-12,42,2012-04-09,Charlton Athletic,FC Walsall,1,0,1,0,1144268
+el1,2011-12,42,2012-04-09,Exeter City,Leyton Orient,3,0,1,0,1144270
+el1,2011-12,42,2012-04-09,FC Bury,Colchester United,4,1,2,0,1144266
+el1,2011-12,42,2012-04-09,FC Chesterfield,Wycombe Wanderers,4,0,1,0,1144269
+el1,2011-12,42,2012-04-09,FC Stevenage,Preston North End,1,1,0,0,1144276
+el1,2011-12,42,2012-04-09,Hartlepool United,FC Brentford,0,0,0,0,1144271
+el1,2011-12,42,2012-04-09,Milton Keynes Dons,Tranmere Rovers,3,0,2,0,1144272
+el1,2011-12,42,2012-04-09,Notts County,Yeovil Town,3,1,1,0,1144273
+el1,2011-12,42,2012-04-09,Sheffield Wednesday,Oldham Athletic,3,0,1,0,1144275
+el1,2011-12,42,2012-04-10,AFC Rochdale,Sheffield United,2,5,1,4,1144274
+el1,2011-12,43,2012-04-14,AFC Rochdale,Exeter City,3,2,0,1,1144283
+el1,2011-12,43,2012-04-14,Carlisle United,Charlton Athletic,0,1,0,0,1144279
+el1,2011-12,43,2012-04-14,Colchester United,Sheffield Wednesday,1,1,1,0,1144280
+el1,2011-12,43,2012-04-14,FC Brentford,Notts County,0,0,0,0,1144277
+el1,2011-12,43,2012-04-14,FC Bury,AFC Bournemouth,1,0,1,0,1144278
+el1,2011-12,43,2012-04-14,FC Walsall,Tranmere Rovers,0,1,0,0,1144286
+el1,2011-12,43,2012-04-14,Hartlepool United,FC Chesterfield,1,2,1,0,1144281
+el1,2011-12,43,2012-04-14,Preston North End,Huddersfield Town,1,0,0,0,1144282
+el1,2011-12,43,2012-04-14,Scunthorpe United,Milton Keynes Dons,0,3,0,1,1144284
+el1,2011-12,43,2012-04-14,Sheffield United,Leyton Orient,3,1,1,1,1144285
+el1,2011-12,43,2012-04-14,Wycombe Wanderers,Oldham Athletic,2,2,1,1,1144287
+el1,2011-12,43,2012-04-14,Yeovil Town,FC Stevenage,0,6,0,2,1144288
+el1,2011-12,44,2012-04-21,AFC Bournemouth,Colchester United,1,1,1,0,1144289
+el1,2011-12,44,2012-04-21,Charlton Athletic,Wycombe Wanderers,2,1,1,1,1144290
+el1,2011-12,44,2012-04-21,Exeter City,FC Walsall,4,2,0,1,1144292
+el1,2011-12,44,2012-04-21,FC Chesterfield,AFC Rochdale,2,1,0,0,1144291
+el1,2011-12,44,2012-04-21,FC Stevenage,FC Brentford,2,1,0,0,1144299
+el1,2011-12,44,2012-04-21,Huddersfield Town,Scunthorpe United,1,0,0,0,1144293
+el1,2011-12,44,2012-04-21,Leyton Orient,Yeovil Town,2,2,1,0,1144294
+el1,2011-12,44,2012-04-21,Milton Keynes Dons,Sheffield United,1,0,1,0,1144295
+el1,2011-12,44,2012-04-21,Notts County,FC Bury,2,4,0,1,1144296
+el1,2011-12,44,2012-04-21,Oldham Athletic,Preston North End,1,1,0,0,1144297
+el1,2011-12,44,2012-04-21,Sheffield Wednesday,Carlisle United,2,1,1,0,1144298
+el1,2011-12,44,2012-04-21,Tranmere Rovers,Hartlepool United,1,1,1,0,1144300
+el1,2011-12,45,2012-04-28,AFC Rochdale,Milton Keynes Dons,1,2,0,1,1144307
+el1,2011-12,45,2012-04-28,Carlisle United,Exeter City,4,1,2,1,1144303
+el1,2011-12,45,2012-04-28,Colchester United,Tranmere Rovers,4,2,1,0,1144304
+el1,2011-12,45,2012-04-28,FC Brentford,Sheffield Wednesday,1,2,0,1,1144301
+el1,2011-12,45,2012-04-28,FC Bury,Oldham Athletic,0,0,0,0,1144302
+el1,2011-12,45,2012-04-28,FC Walsall,Huddersfield Town,1,1,0,1,1144310
+el1,2011-12,45,2012-04-28,Hartlepool United,Leyton Orient,2,1,1,1,1144305
+el1,2011-12,45,2012-04-28,Preston North End,Charlton Athletic,2,2,0,2,1144306
+el1,2011-12,45,2012-04-28,Scunthorpe United,AFC Bournemouth,1,1,0,1,1144308
+el1,2011-12,45,2012-04-28,Sheffield United,FC Stevenage,2,2,0,1,1144309
+el1,2011-12,45,2012-04-28,Wycombe Wanderers,Notts County,3,4,2,2,1144311
+el1,2011-12,45,2012-04-28,Yeovil Town,FC Chesterfield,3,2,1,1,1144312
+el1,2011-12,46,2012-05-05,AFC Bournemouth,Preston North End,1,0,0,0,1144313
+el1,2011-12,46,2012-05-05,Charlton Athletic,Hartlepool United,3,2,0,1,1144314
+el1,2011-12,46,2012-05-05,Exeter City,Sheffield United,2,2,1,1,1144316
+el1,2011-12,46,2012-05-05,FC Chesterfield,FC Brentford,2,3,0,1,1144315
+el1,2011-12,46,2012-05-05,FC Stevenage,FC Bury,3,0,1,0,1144323
+el1,2011-12,46,2012-05-05,Huddersfield Town,Yeovil Town,2,0,1,0,1144317
+el1,2011-12,46,2012-05-05,Leyton Orient,AFC Rochdale,2,1,2,0,1144318
+el1,2011-12,46,2012-05-05,Milton Keynes Dons,FC Walsall,0,1,0,1,1144319
+el1,2011-12,46,2012-05-05,Notts County,Colchester United,4,1,3,0,1144320
+el1,2011-12,46,2012-05-05,Oldham Athletic,Carlisle United,2,1,0,0,1144321
+el1,2011-12,46,2012-05-05,Sheffield Wednesday,Wycombe Wanderers,2,0,1,0,1144322
+el1,2011-12,46,2012-05-05,Tranmere Rovers,Scunthorpe United,1,1,1,0,1144324

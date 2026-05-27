@@ -1,0 +1,553 @@
+league,season,matchday,date,home,away,fth,fta,hth,hta,match_id
+el2,2011-12,1,2011-08-06,AFC Wimbledon,Bristol Rovers,2,3,1,2,1144325
+el2,2011-12,1,2011-08-06,Bradford City,Aldershot Town,1,2,0,2,1144326
+el2,2011-12,1,2011-08-06,FC Gillingham,Cheltenham Town,1,0,1,0,1144327
+el2,2011-12,1,2011-08-06,FC Morecambe,FC Barnet,0,1,0,0,1144329
+el2,2011-12,1,2011-08-06,FC Port Vale,Crawley Town,2,2,1,1,1144331
+el2,2011-12,1,2011-08-06,Macclesfield Town,Dagenham & Redbridge,0,1,0,0,1144328
+el2,2011-12,1,2011-08-06,Northampton Town,Accrington Stanley,0,0,0,0,1144330
+el2,2011-12,1,2011-08-06,Rotherham United,Oxford United,1,0,0,0,1144332
+el2,2011-12,1,2011-08-06,Shrewsbury Town,Plymouth Argyle,1,1,0,0,1144333
+el2,2011-12,1,2011-08-06,Southend United,Hereford United,1,0,1,0,1144334
+el2,2011-12,1,2011-08-06,Swindon Town,Crewe Alexandra,3,0,1,0,1144335
+el2,2011-12,1,2011-08-06,Torquay United,Burton Albion,2,2,0,0,1144336
+el2,2011-12,2,2011-08-13,Accrington Stanley,Southend United,1,2,1,1,1144337
+el2,2011-12,2,2011-08-13,Aldershot Town,Northampton Town,0,1,0,1,1144338
+el2,2011-12,2,2011-08-13,Bristol Rovers,Torquay United,1,2,0,2,1144340
+el2,2011-12,2,2011-08-13,Burton Albion,Shrewsbury Town,1,1,1,0,1144341
+el2,2011-12,2,2011-08-13,Cheltenham Town,Swindon Town,1,0,0,0,1144342
+el2,2011-12,2,2011-08-13,Crawley Town,Macclesfield Town,2,0,0,0,1144343
+el2,2011-12,2,2011-08-13,Crewe Alexandra,FC Gillingham,1,2,0,2,1144344
+el2,2011-12,2,2011-08-13,Dagenham & Redbridge,AFC Wimbledon,0,2,0,1,1144345
+el2,2011-12,2,2011-08-13,FC Barnet,FC Port Vale,1,3,0,2,1144339
+el2,2011-12,2,2011-08-13,Hereford United,FC Morecambe,0,3,0,2,1144346
+el2,2011-12,2,2011-08-13,Oxford United,Bradford City,1,1,1,0,1144347
+el2,2011-12,2,2011-08-13,Plymouth Argyle,Rotherham United,1,4,0,0,1144348
+el2,2011-12,3,2011-08-16,Accrington Stanley,Bradford City,1,0,0,0,1144349
+el2,2011-12,3,2011-08-16,Aldershot Town,Torquay United,0,1,0,1,1144350
+el2,2011-12,3,2011-08-16,Bristol Rovers,Northampton Town,2,1,1,0,1144352
+el2,2011-12,3,2011-08-16,Burton Albion,FC Port Vale,1,1,1,1,1144353
+el2,2011-12,3,2011-08-16,Cheltenham Town,FC Morecambe,1,2,0,0,1144354
+el2,2011-12,3,2011-08-16,Crawley Town,Southend United,3,0,0,0,1144355
+el2,2011-12,3,2011-08-16,Crewe Alexandra,Rotherham United,1,2,0,1,1144356
+el2,2011-12,3,2011-08-16,Dagenham & Redbridge,Swindon Town,1,0,0,0,1144357
+el2,2011-12,3,2011-08-16,FC Barnet,FC Gillingham,2,2,0,1,1144351
+el2,2011-12,3,2011-08-16,Hereford United,Macclesfield Town,0,4,0,0,1144358
+el2,2011-12,3,2011-08-16,Oxford United,Shrewsbury Town,2,0,1,0,1144359
+el2,2011-12,3,2011-08-16,Plymouth Argyle,AFC Wimbledon,0,2,0,0,1144360
+el2,2011-12,4,2011-08-20,AFC Wimbledon,Hereford United,1,1,1,1,1144361
+el2,2011-12,4,2011-08-20,Bradford City,Dagenham & Redbridge,0,1,0,1,1144362
+el2,2011-12,4,2011-08-20,FC Gillingham,Plymouth Argyle,3,0,0,0,1144363
+el2,2011-12,4,2011-08-20,FC Morecambe,Aldershot Town,2,0,1,0,1144365
+el2,2011-12,4,2011-08-20,FC Port Vale,Accrington Stanley,4,1,4,0,1144367
+el2,2011-12,4,2011-08-20,Macclesfield Town,Bristol Rovers,0,0,0,0,1144364
+el2,2011-12,4,2011-08-20,Northampton Town,Cheltenham Town,2,3,1,1,1144366
+el2,2011-12,4,2011-08-20,Rotherham United,FC Barnet,2,2,0,1,1144368
+el2,2011-12,4,2011-08-20,Shrewsbury Town,Crewe Alexandra,2,0,1,0,1144369
+el2,2011-12,4,2011-08-20,Southend United,Burton Albion,0,1,0,1,1144370
+el2,2011-12,4,2011-08-20,Torquay United,Crawley Town,1,3,0,2,1144372
+el2,2011-12,4,2011-08-21,Swindon Town,Oxford United,1,2,1,2,1144371
+el2,2011-12,5,2011-08-27,Accrington Stanley,Burton Albion,2,1,0,1,1144373
+el2,2011-12,5,2011-08-27,Bradford City,FC Barnet,4,2,1,1,1144374
+el2,2011-12,5,2011-08-27,Bristol Rovers,Hereford United,0,0,0,0,1144375
+el2,2011-12,5,2011-08-27,Cheltenham Town,Crawley Town,3,1,3,0,1144376
+el2,2011-12,5,2011-08-27,Dagenham & Redbridge,Torquay United,1,1,1,0,1144377
+el2,2011-12,5,2011-08-27,FC Port Vale,Southend United,2,3,1,3,1144382
+el2,2011-12,5,2011-08-27,Macclesfield Town,AFC Wimbledon,4,0,2,0,1144378
+el2,2011-12,5,2011-08-27,Northampton Town,FC Morecambe,0,2,0,2,1144379
+el2,2011-12,5,2011-08-27,Oxford United,Aldershot Town,1,1,1,0,1144380
+el2,2011-12,5,2011-08-27,Plymouth Argyle,Crewe Alexandra,0,1,0,1,1144381
+el2,2011-12,5,2011-08-27,Rotherham United,FC Gillingham,3,0,0,0,1144383
+el2,2011-12,5,2011-08-27,Shrewsbury Town,Swindon Town,2,1,0,1,1144384
+el2,2011-12,6,2011-09-03,AFC Wimbledon,FC Port Vale,3,2,1,0,1144385
+el2,2011-12,6,2011-09-03,Aldershot Town,Cheltenham Town,1,0,0,0,1144386
+el2,2011-12,6,2011-09-03,Burton Albion,Plymouth Argyle,2,1,1,0,1144388
+el2,2011-12,6,2011-09-03,Crawley Town,Bristol Rovers,4,1,2,0,1144389
+el2,2011-12,6,2011-09-03,Crewe Alexandra,Oxford United,3,1,2,0,1144390
+el2,2011-12,6,2011-09-03,FC Barnet,Accrington Stanley,0,0,0,0,1144387
+el2,2011-12,6,2011-09-03,FC Gillingham,Shrewsbury Town,0,1,0,0,1144391
+el2,2011-12,6,2011-09-03,FC Morecambe,Bradford City,1,1,0,0,1144393
+el2,2011-12,6,2011-09-03,Hereford United,Dagenham & Redbridge,1,0,0,0,1144392
+el2,2011-12,6,2011-09-03,Southend United,Northampton Town,2,2,1,0,1144394
+el2,2011-12,6,2011-09-03,Swindon Town,Rotherham United,3,2,1,1,1144395
+el2,2011-12,6,2011-09-03,Torquay United,Macclesfield Town,3,0,0,0,1144396
+el2,2011-12,7,2011-09-10,Aldershot Town,AFC Wimbledon,1,1,0,1,1144397
+el2,2011-12,7,2011-09-10,Bradford City,Bristol Rovers,2,2,1,0,1144398
+el2,2011-12,7,2011-09-10,Cheltenham Town,Macclesfield Town,2,0,1,0,1144399
+el2,2011-12,7,2011-09-10,Crewe Alexandra,FC Barnet,3,1,1,0,1144400
+el2,2011-12,7,2011-09-10,FC Gillingham,Accrington Stanley,1,1,0,0,1144401
+el2,2011-12,7,2011-09-10,FC Morecambe,Crawley Town,6,0,2,0,1144402
+el2,2011-12,7,2011-09-10,Northampton Town,Torquay United,0,0,0,0,1144403
+el2,2011-12,7,2011-09-10,Oxford United,Burton Albion,2,2,1,0,1144404
+el2,2011-12,7,2011-09-10,Plymouth Argyle,FC Port Vale,0,2,0,1,1144405
+el2,2011-12,7,2011-09-10,Rotherham United,Dagenham & Redbridge,3,1,3,1,1144406
+el2,2011-12,7,2011-09-10,Shrewsbury Town,Hereford United,3,1,1,0,1144407
+el2,2011-12,7,2011-09-10,Swindon Town,Southend United,2,0,1,0,1144408
+el2,2011-12,8,2011-09-13,AFC Wimbledon,Northampton Town,0,3,0,1,1144409
+el2,2011-12,8,2011-09-13,Accrington Stanley,Rotherham United,1,1,0,1,1144410
+el2,2011-12,8,2011-09-13,Bristol Rovers,Shrewsbury Town,1,0,1,0,1144412
+el2,2011-12,8,2011-09-13,Burton Albion,Crewe Alexandra,1,0,1,0,1144413
+el2,2011-12,8,2011-09-13,Crawley Town,Swindon Town,0,3,0,1,1144414
+el2,2011-12,8,2011-09-13,Dagenham & Redbridge,Oxford United,0,1,0,1,1144415
+el2,2011-12,8,2011-09-13,FC Barnet,Plymouth Argyle,2,0,1,0,1144411
+el2,2011-12,8,2011-09-13,FC Port Vale,Bradford City,3,2,2,1,1144418
+el2,2011-12,8,2011-09-13,Hereford United,Aldershot Town,0,2,0,1,1144416
+el2,2011-12,8,2011-09-13,Macclesfield Town,FC Morecambe,1,1,1,1,1144417
+el2,2011-12,8,2011-09-13,Southend United,FC Gillingham,1,0,0,0,1144419
+el2,2011-12,8,2011-09-13,Torquay United,Cheltenham Town,2,2,1,2,1144420
+el2,2011-12,9,2011-09-17,AFC Wimbledon,Cheltenham Town,4,1,2,0,1144421
+el2,2011-12,9,2011-09-17,Accrington Stanley,Crewe Alexandra,0,2,0,2,1144422
+el2,2011-12,9,2011-09-17,Bristol Rovers,Aldershot Town,0,1,0,1,1144424
+el2,2011-12,9,2011-09-17,Burton Albion,Swindon Town,2,0,1,0,1144425
+el2,2011-12,9,2011-09-17,Crawley Town,Bradford City,3,1,0,1,1144426
+el2,2011-12,9,2011-09-17,Dagenham & Redbridge,FC Morecambe,1,2,0,0,1144427
+el2,2011-12,9,2011-09-17,FC Barnet,Oxford United,0,2,0,2,1144423
+el2,2011-12,9,2011-09-17,FC Port Vale,Shrewsbury Town,2,3,1,2,1144430
+el2,2011-12,9,2011-09-17,Hereford United,FC Gillingham,1,6,0,3,1144428
+el2,2011-12,9,2011-09-17,Macclesfield Town,Northampton Town,3,1,1,1,1144429
+el2,2011-12,9,2011-09-17,Southend United,Plymouth Argyle,2,0,0,0,1144431
+el2,2011-12,9,2011-09-17,Torquay United,Rotherham United,3,3,2,3,1144432
+el2,2011-12,10,2011-09-24,Aldershot Town,Crawley Town,0,1,0,0,1144433
+el2,2011-12,10,2011-09-24,Bradford City,AFC Wimbledon,1,2,1,1,1144434
+el2,2011-12,10,2011-09-24,Cheltenham Town,Hereford United,0,0,0,0,1144435
+el2,2011-12,10,2011-09-24,Crewe Alexandra,FC Port Vale,1,1,0,0,1144436
+el2,2011-12,10,2011-09-24,FC Gillingham,Burton Albion,3,1,1,1,1144437
+el2,2011-12,10,2011-09-24,FC Morecambe,Bristol Rovers,2,3,0,1,1144438
+el2,2011-12,10,2011-09-24,Northampton Town,Dagenham & Redbridge,2,1,1,0,1144439
+el2,2011-12,10,2011-09-24,Oxford United,Accrington Stanley,1,1,1,0,1144440
+el2,2011-12,10,2011-09-24,Plymouth Argyle,Macclesfield Town,2,0,1,0,1144441
+el2,2011-12,10,2011-09-24,Rotherham United,Southend United,0,4,0,1,1144442
+el2,2011-12,10,2011-09-24,Shrewsbury Town,Torquay United,2,0,1,0,1144443
+el2,2011-12,10,2011-09-24,Swindon Town,FC Barnet,4,0,3,0,1144444
+el2,2011-12,11,2011-09-30,Macclesfield Town,Swindon Town,2,0,0,0,1144453
+el2,2011-12,11,2011-09-30,Southend United,Shrewsbury Town,3,0,1,0,1144455
+el2,2011-12,11,2011-10-01,AFC Wimbledon,FC Gillingham,3,1,3,0,1144445
+el2,2011-12,11,2011-10-01,Accrington Stanley,Aldershot Town,3,2,1,2,1144446
+el2,2011-12,11,2011-10-01,Bristol Rovers,Cheltenham Town,1,3,0,2,1144448
+el2,2011-12,11,2011-10-01,Burton Albion,Bradford City,2,2,2,2,1144449
+el2,2011-12,11,2011-10-01,Crawley Town,Plymouth Argyle,2,0,1,0,1144450
+el2,2011-12,11,2011-10-01,Dagenham & Redbridge,Crewe Alexandra,2,1,0,0,1144451
+el2,2011-12,11,2011-10-01,FC Barnet,Northampton Town,1,2,1,0,1144447
+el2,2011-12,11,2011-10-01,FC Port Vale,Rotherham United,2,0,2,0,1144454
+el2,2011-12,11,2011-10-01,Hereford United,Oxford United,0,1,0,1,1144452
+el2,2011-12,11,2011-10-01,Torquay United,FC Morecambe,1,1,0,0,1144456
+el2,2011-12,12,2011-10-08,Aldershot Town,Macclesfield Town,1,2,1,0,1144457
+el2,2011-12,12,2011-10-08,Bradford City,Torquay United,1,0,1,0,1144458
+el2,2011-12,12,2011-10-08,Cheltenham Town,Dagenham & Redbridge,2,1,1,1,1144459
+el2,2011-12,12,2011-10-08,Crewe Alexandra,Southend United,1,3,0,1,1144460
+el2,2011-12,12,2011-10-08,FC Gillingham,FC Port Vale,1,1,0,1,1144461
+el2,2011-12,12,2011-10-08,FC Morecambe,AFC Wimbledon,1,2,1,1,1144462
+el2,2011-12,12,2011-10-08,Northampton Town,Crawley Town,0,1,0,1,1144463
+el2,2011-12,12,2011-10-08,Oxford United,Bristol Rovers,3,0,1,0,1144464
+el2,2011-12,12,2011-10-08,Plymouth Argyle,Accrington Stanley,2,2,2,0,1144465
+el2,2011-12,12,2011-10-08,Rotherham United,Burton Albion,0,1,0,1,1144466
+el2,2011-12,12,2011-10-08,Shrewsbury Town,FC Barnet,3,2,2,0,1144467
+el2,2011-12,12,2011-10-08,Swindon Town,Hereford United,3,3,2,0,1144468
+el2,2011-12,13,2011-10-14,Bristol Rovers,Rotherham United,5,2,3,1,1144472
+el2,2011-12,13,2011-10-14,Burton Albion,Cheltenham Town,0,2,0,0,1144473
+el2,2011-12,13,2011-10-14,FC Port Vale,Northampton Town,3,0,3,0,1144478
+el2,2011-12,13,2011-10-15,AFC Wimbledon,Crewe Alexandra,1,3,0,0,1144469
+el2,2011-12,13,2011-10-15,Accrington Stanley,Swindon Town,0,2,0,1,1144470
+el2,2011-12,13,2011-10-15,Crawley Town,Shrewsbury Town,2,1,2,0,1144474
+el2,2011-12,13,2011-10-15,Dagenham & Redbridge,Plymouth Argyle,2,3,0,1,1144475
+el2,2011-12,13,2011-10-15,FC Barnet,Aldershot Town,2,1,0,1,1144471
+el2,2011-12,13,2011-10-15,Hereford United,Bradford City,2,0,0,0,1144476
+el2,2011-12,13,2011-10-15,Macclesfield Town,Oxford United,1,1,0,0,1144477
+el2,2011-12,13,2011-10-15,Southend United,FC Morecambe,1,1,0,0,1144479
+el2,2011-12,13,2011-10-15,Torquay United,FC Gillingham,2,5,0,2,1144480
+el2,2011-12,14,2011-10-21,Accrington Stanley,Cheltenham Town,0,1,0,1,1144482
+el2,2011-12,14,2011-10-22,AFC Wimbledon,Crawley Town,2,5,2,2,1144481
+el2,2011-12,14,2011-10-22,Bradford City,Northampton Town,2,1,0,0,1144483
+el2,2011-12,14,2011-10-22,Burton Albion,Bristol Rovers,2,1,2,1,1144484
+el2,2011-12,14,2011-10-22,Crewe Alexandra,Macclesfield Town,0,1,0,1,1144485
+el2,2011-12,14,2011-10-22,Dagenham & Redbridge,Aldershot Town,2,5,1,4,1144486
+el2,2011-12,14,2011-10-22,FC Gillingham,Oxford United,1,0,1,0,1144487
+el2,2011-12,14,2011-10-22,FC Port Vale,FC Morecambe,0,4,0,2,1144490
+el2,2011-12,14,2011-10-22,Hereford United,FC Barnet,1,0,0,0,1144488
+el2,2011-12,14,2011-10-22,Plymouth Argyle,Swindon Town,0,1,0,0,1144489
+el2,2011-12,14,2011-10-22,Rotherham United,Shrewsbury Town,1,1,1,1,1144491
+el2,2011-12,14,2011-10-22,Southend United,Torquay United,4,1,0,0,1144492
+el2,2011-12,15,2011-10-25,Bristol Rovers,FC Port Vale,0,3,0,2,1144495
+el2,2011-12,15,2011-10-25,Cheltenham Town,Crewe Alexandra,0,1,0,0,1144496
+el2,2011-12,15,2011-10-25,Crawley Town,Dagenham & Redbridge,3,1,2,1,1144497
+el2,2011-12,15,2011-10-25,FC Barnet,Southend United,0,3,0,2,1144494
+el2,2011-12,15,2011-10-25,FC Morecambe,Rotherham United,3,3,3,1,1144499
+el2,2011-12,15,2011-10-25,Macclesfield Town,Bradford City,1,0,0,0,1144498
+el2,2011-12,15,2011-10-25,Northampton Town,Hereford United,1,3,0,2,1144500
+el2,2011-12,15,2011-10-25,Oxford United,Plymouth Argyle,5,1,1,0,1144501
+el2,2011-12,15,2011-10-25,Shrewsbury Town,Accrington Stanley,1,0,1,0,1144502
+el2,2011-12,15,2011-10-25,Swindon Town,FC Gillingham,2,0,0,0,1144503
+el2,2011-12,15,2011-10-25,Torquay United,AFC Wimbledon,4,0,3,0,1144504
+el2,2011-12,15,2011-11-01,Aldershot Town,Burton Albion,2,0,2,0,1144493
+el2,2011-12,16,2011-10-29,Aldershot Town,Crewe Alexandra,3,1,1,1,1144505
+el2,2011-12,16,2011-10-29,Bristol Rovers,Dagenham & Redbridge,2,0,0,0,1144507
+el2,2011-12,16,2011-10-29,Cheltenham Town,Plymouth Argyle,2,1,0,1,1144508
+el2,2011-12,16,2011-10-29,Crawley Town,Accrington Stanley,1,1,0,1,1144509
+el2,2011-12,16,2011-10-29,FC Barnet,Burton Albion,3,6,1,2,1144506
+el2,2011-12,16,2011-10-29,FC Morecambe,FC Gillingham,2,1,1,0,1144511
+el2,2011-12,16,2011-10-29,Macclesfield Town,Southend United,0,2,0,1,1144510
+el2,2011-12,16,2011-10-29,Northampton Town,Rotherham United,1,1,1,1,1144512
+el2,2011-12,16,2011-10-29,Oxford United,FC Port Vale,2,1,1,0,1144513
+el2,2011-12,16,2011-10-29,Shrewsbury Town,AFC Wimbledon,0,0,0,0,1144514
+el2,2011-12,16,2011-10-29,Swindon Town,Bradford City,0,0,0,0,1144515
+el2,2011-12,16,2011-10-29,Torquay United,Hereford United,2,0,2,0,1144516
+el2,2011-12,17,2011-11-05,AFC Wimbledon,FC Barnet,1,1,0,1,1144517
+el2,2011-12,17,2011-11-05,Accrington Stanley,Bristol Rovers,2,1,2,0,1144518
+el2,2011-12,17,2011-11-05,Bradford City,Cheltenham Town,0,1,0,1,1144519
+el2,2011-12,17,2011-11-05,Burton Albion,Macclesfield Town,1,0,1,0,1144520
+el2,2011-12,17,2011-11-05,Crewe Alexandra,Torquay United,0,3,0,1,1144521
+el2,2011-12,17,2011-11-05,Dagenham & Redbridge,Shrewsbury Town,0,2,0,1,1144522
+el2,2011-12,17,2011-11-05,FC Gillingham,Northampton Town,4,3,3,1,1144523
+el2,2011-12,17,2011-11-05,FC Port Vale,Swindon Town,0,2,0,1,1144526
+el2,2011-12,17,2011-11-05,Hereford United,Crawley Town,1,1,1,1,1144524
+el2,2011-12,17,2011-11-05,Plymouth Argyle,FC Morecambe,1,1,1,0,1144525
+el2,2011-12,17,2011-11-05,Rotherham United,Aldershot Town,2,0,2,0,1144527
+el2,2011-12,17,2011-11-05,Southend United,Oxford United,2,1,1,0,1144528
+el2,2011-12,18,2011-11-19,AFC Wimbledon,Swindon Town,1,1,1,0,1144529
+el2,2011-12,18,2011-11-19,Aldershot Town,FC Gillingham,1,2,0,2,1144530
+el2,2011-12,18,2011-11-19,Bradford City,Rotherham United,2,3,1,1,1144531
+el2,2011-12,18,2011-11-19,Bristol Rovers,FC Barnet,0,2,0,1,1144532
+el2,2011-12,18,2011-11-19,Cheltenham Town,FC Port Vale,2,0,0,0,1144533
+el2,2011-12,18,2011-11-19,Crawley Town,Oxford United,4,1,3,1,1144534
+el2,2011-12,18,2011-11-19,Dagenham & Redbridge,Southend United,2,3,1,2,1144535
+el2,2011-12,18,2011-11-19,FC Morecambe,Crewe Alexandra,1,2,0,0,1144538
+el2,2011-12,18,2011-11-19,Hereford United,Burton Albion,2,3,2,1,1144536
+el2,2011-12,18,2011-11-19,Macclesfield Town,Accrington Stanley,1,1,1,0,1144537
+el2,2011-12,18,2011-11-19,Northampton Town,Shrewsbury Town,2,7,0,3,1144539
+el2,2011-12,18,2011-11-19,Torquay United,Plymouth Argyle,3,1,0,0,1144540
+el2,2011-12,19,2011-11-25,FC Barnet,Macclesfield Town,2,1,2,0,1144542
+el2,2011-12,19,2011-11-25,FC Port Vale,Torquay United,0,0,0,0,1144548
+el2,2011-12,19,2011-11-26,Accrington Stanley,Dagenham & Redbridge,3,0,0,0,1144541
+el2,2011-12,19,2011-11-26,Burton Albion,AFC Wimbledon,3,2,2,1,1144543
+el2,2011-12,19,2011-11-26,Crewe Alexandra,Hereford United,1,0,0,0,1144544
+el2,2011-12,19,2011-11-26,FC Gillingham,Bradford City,0,0,0,0,1144545
+el2,2011-12,19,2011-11-26,Oxford United,Cheltenham Town,1,3,0,1,1144546
+el2,2011-12,19,2011-11-26,Plymouth Argyle,Northampton Town,4,1,4,0,1144547
+el2,2011-12,19,2011-11-26,Rotherham United,Crawley Town,1,2,1,0,1144549
+el2,2011-12,19,2011-11-26,Shrewsbury Town,FC Morecambe,2,0,1,0,1144550
+el2,2011-12,19,2011-11-26,Southend United,Bristol Rovers,1,1,0,0,1144551
+el2,2011-12,19,2011-11-26,Swindon Town,Aldershot Town,2,0,0,0,1144552
+el2,2011-12,20,2011-12-09,Torquay United,FC Barnet,1,0,0,0,1144564
+el2,2011-12,20,2011-12-10,AFC Wimbledon,Accrington Stanley,0,2,0,2,1144553
+el2,2011-12,20,2011-12-10,Aldershot Town,Shrewsbury Town,1,0,0,0,1144554
+el2,2011-12,20,2011-12-10,Bradford City,Plymouth Argyle,1,1,0,0,1144555
+el2,2011-12,20,2011-12-10,Bristol Rovers,Swindon Town,1,1,0,1,1144556
+el2,2011-12,20,2011-12-10,Cheltenham Town,Southend United,3,0,1,0,1144557
+el2,2011-12,20,2011-12-10,Crawley Town,Burton Albion,3,0,1,0,1144558
+el2,2011-12,20,2011-12-10,Dagenham & Redbridge,FC Port Vale,1,2,1,1,1144559
+el2,2011-12,20,2011-12-10,FC Morecambe,Oxford United,0,0,0,0,1144562
+el2,2011-12,20,2011-12-10,Hereford United,Rotherham United,2,3,2,2,1144560
+el2,2011-12,20,2011-12-10,Macclesfield Town,FC Gillingham,0,0,0,0,1144561
+el2,2011-12,20,2011-12-10,Northampton Town,Crewe Alexandra,1,1,1,0,1144563
+el2,2011-12,21,2011-12-16,FC Barnet,Cheltenham Town,2,2,1,2,1144566
+el2,2011-12,21,2011-12-16,Southend United,Bradford City,0,1,0,0,1144575
+el2,2011-12,21,2011-12-17,Accrington Stanley,Torquay United,3,1,1,0,1144565
+el2,2011-12,21,2011-12-17,Burton Albion,Dagenham & Redbridge,1,1,0,1,1144567
+el2,2011-12,21,2011-12-17,Crewe Alexandra,Crawley Town,1,1,1,1,1144568
+el2,2011-12,21,2011-12-17,FC Gillingham,Bristol Rovers,4,1,2,0,1144569
+el2,2011-12,21,2011-12-17,FC Port Vale,Aldershot Town,4,0,1,0,1144572
+el2,2011-12,21,2011-12-17,Oxford United,Northampton Town,2,0,0,0,1144570
+el2,2011-12,21,2011-12-17,Plymouth Argyle,Hereford United,1,1,0,0,1144571
+el2,2011-12,21,2011-12-17,Rotherham United,AFC Wimbledon,1,0,0,0,1144573
+el2,2011-12,21,2011-12-17,Shrewsbury Town,Macclesfield Town,1,0,0,0,1144574
+el2,2011-12,21,2011-12-17,Swindon Town,FC Morecambe,3,0,2,0,1144576
+el2,2011-12,22,2011-12-26,AFC Wimbledon,Oxford United,0,2,0,2,1144577
+el2,2011-12,22,2011-12-26,Bradford City,Crewe Alexandra,3,0,1,0,1144579
+el2,2011-12,22,2011-12-26,Bristol Rovers,Plymouth Argyle,2,3,2,0,1144580
+el2,2011-12,22,2011-12-26,Cheltenham Town,Shrewsbury Town,0,0,0,0,1144581
+el2,2011-12,22,2011-12-26,Crawley Town,FC Gillingham,1,2,1,0,1144582
+el2,2011-12,22,2011-12-26,Dagenham & Redbridge,FC Barnet,3,0,2,0,1144583
+el2,2011-12,22,2011-12-26,FC Morecambe,Accrington Stanley,1,2,0,1,1144586
+el2,2011-12,22,2011-12-26,Hereford United,FC Port Vale,1,2,0,0,1144584
+el2,2011-12,22,2011-12-26,Macclesfield Town,Rotherham United,0,0,0,0,1144585
+el2,2011-12,22,2011-12-26,Northampton Town,Burton Albion,2,3,2,1,1144587
+el2,2011-12,22,2011-12-26,Torquay United,Swindon Town,1,0,1,0,1144588
+el2,2011-12,22,2012-02-21,Aldershot Town,Southend United,2,0,1,0,1144578
+el2,2011-12,23,2011-12-30,Cheltenham Town,Rotherham United,1,0,1,0,1144593
+el2,2011-12,23,2011-12-30,Crawley Town,FC Barnet,1,0,1,0,1144594
+el2,2011-12,23,2011-12-30,Dagenham & Redbridge,FC Gillingham,2,1,1,1,1144595
+el2,2011-12,23,2011-12-30,Hereford United,Accrington Stanley,1,1,1,0,1144596
+el2,2011-12,23,2011-12-31,AFC Wimbledon,Southend United,1,4,1,1,1144589
+el2,2011-12,23,2011-12-31,Aldershot Town,Plymouth Argyle,0,0,0,0,1144590
+el2,2011-12,23,2011-12-31,Bradford City,Shrewsbury Town,3,1,2,0,1144591
+el2,2011-12,23,2011-12-31,Bristol Rovers,Crewe Alexandra,2,5,1,4,1144592
+el2,2011-12,23,2011-12-31,FC Morecambe,Burton Albion,2,2,1,1,1144598
+el2,2011-12,23,2011-12-31,Macclesfield Town,FC Port Vale,2,1,1,0,1144597
+el2,2011-12,23,2011-12-31,Northampton Town,Swindon Town,1,2,1,0,1144599
+el2,2011-12,23,2011-12-31,Torquay United,Oxford United,0,0,0,0,1144600
+el2,2011-12,24,2012-01-02,Accrington Stanley,Macclesfield Town,4,0,2,0,1144601
+el2,2011-12,24,2012-01-02,Burton Albion,Hereford United,0,2,0,1,1144603
+el2,2011-12,24,2012-01-02,Crewe Alexandra,FC Morecambe,0,1,0,1,1144604
+el2,2011-12,24,2012-01-02,FC Barnet,Bristol Rovers,2,0,0,0,1144602
+el2,2011-12,24,2012-01-02,FC Gillingham,Aldershot Town,1,0,0,0,1144605
+el2,2011-12,24,2012-01-02,FC Port Vale,Cheltenham Town,1,2,0,0,1144608
+el2,2011-12,24,2012-01-02,Oxford United,Crawley Town,1,1,0,0,1144606
+el2,2011-12,24,2012-01-02,Plymouth Argyle,Torquay United,1,2,0,0,1144607
+el2,2011-12,24,2012-01-02,Rotherham United,Bradford City,3,0,0,0,1144609
+el2,2011-12,24,2012-01-02,Shrewsbury Town,Northampton Town,1,1,1,1,1144610
+el2,2011-12,24,2012-01-02,Southend United,Dagenham & Redbridge,1,1,1,0,1144611
+el2,2011-12,24,2012-01-02,Swindon Town,AFC Wimbledon,2,0,0,0,1144612
+el2,2011-12,25,2012-01-06,Burton Albion,Accrington Stanley,0,2,0,1,1144616
+el2,2011-12,25,2012-01-07,Aldershot Town,Oxford United,0,3,0,3,1144614
+el2,2011-12,25,2012-01-07,Crewe Alexandra,Plymouth Argyle,3,2,2,0,1144618
+el2,2011-12,25,2012-01-07,FC Morecambe,Northampton Town,1,2,0,1,1144621
+el2,2011-12,25,2012-01-07,Southend United,FC Port Vale,3,0,2,0,1144622
+el2,2011-12,25,2012-01-10,Hereford United,Bristol Rovers,1,2,0,1,1144620
+el2,2011-12,25,2012-01-24,AFC Wimbledon,Macclesfield Town,2,1,0,0,1144613
+el2,2011-12,25,2012-01-24,Torquay United,Dagenham & Redbridge,1,0,1,0,1144624
+el2,2011-12,25,2012-02-07,Crawley Town,Cheltenham Town,4,2,3,1,1144617
+el2,2011-12,25,2012-02-21,FC Gillingham,Rotherham United,0,0,0,0,1144619
+el2,2011-12,25,2012-02-21,Swindon Town,Shrewsbury Town,2,1,0,1,1144623
+el2,2011-12,25,2012-02-28,FC Barnet,Bradford City,0,4,0,2,1144615
+el2,2011-12,26,2012-01-14,Accrington Stanley,FC Barnet,0,3,0,2,1144625
+el2,2011-12,26,2012-01-14,Bradford City,FC Morecambe,2,2,0,0,1144626
+el2,2011-12,26,2012-01-14,Bristol Rovers,Crawley Town,0,0,0,0,1144627
+el2,2011-12,26,2012-01-14,Cheltenham Town,Aldershot Town,2,0,1,0,1144628
+el2,2011-12,26,2012-01-14,Dagenham & Redbridge,Hereford United,0,1,0,1,1144629
+el2,2011-12,26,2012-01-14,FC Port Vale,AFC Wimbledon,1,2,1,1,1144634
+el2,2011-12,26,2012-01-14,Macclesfield Town,Torquay United,1,2,0,0,1144630
+el2,2011-12,26,2012-01-14,Northampton Town,Southend United,2,5,2,1,1144631
+el2,2011-12,26,2012-01-14,Oxford United,Crewe Alexandra,0,1,0,0,1144632
+el2,2011-12,26,2012-01-14,Plymouth Argyle,Burton Albion,2,1,0,0,1144633
+el2,2011-12,26,2012-01-14,Rotherham United,Swindon Town,1,2,0,2,1144635
+el2,2011-12,26,2012-01-14,Shrewsbury Town,FC Gillingham,2,0,1,0,1144636
+el2,2011-12,27,2012-01-21,Aldershot Town,Accrington Stanley,0,0,0,0,1144637
+el2,2011-12,27,2012-01-21,Bradford City,Burton Albion,1,1,1,0,1144638
+el2,2011-12,27,2012-01-21,Cheltenham Town,Bristol Rovers,0,2,0,0,1144639
+el2,2011-12,27,2012-01-21,Crewe Alexandra,Dagenham & Redbridge,4,1,1,1,1144640
+el2,2011-12,27,2012-01-21,FC Gillingham,AFC Wimbledon,3,4,1,0,1144641
+el2,2011-12,27,2012-01-21,FC Morecambe,Torquay United,1,2,0,1,1144642
+el2,2011-12,27,2012-01-21,Northampton Town,FC Barnet,1,2,1,0,1144643
+el2,2011-12,27,2012-01-21,Oxford United,Hereford United,2,2,1,1,1144644
+el2,2011-12,27,2012-01-21,Plymouth Argyle,Crawley Town,1,1,0,1,1144645
+el2,2011-12,27,2012-01-21,Rotherham United,FC Port Vale,0,1,0,0,1144646
+el2,2011-12,27,2012-01-21,Shrewsbury Town,Southend United,2,1,0,0,1144647
+el2,2011-12,27,2012-01-21,Swindon Town,Macclesfield Town,1,0,0,0,1144648
+el2,2011-12,28,2012-01-28,AFC Wimbledon,Aldershot Town,1,2,1,1,1144649
+el2,2011-12,28,2012-01-28,Accrington Stanley,FC Gillingham,4,3,4,1,1144650
+el2,2011-12,28,2012-01-28,Bristol Rovers,Bradford City,2,1,1,0,1144652
+el2,2011-12,28,2012-01-28,Dagenham & Redbridge,Rotherham United,3,2,0,1,1144655
+el2,2011-12,28,2012-01-28,FC Barnet,Crewe Alexandra,2,0,1,0,1144651
+el2,2011-12,28,2012-01-28,FC Port Vale,Plymouth Argyle,1,0,0,0,1144658
+el2,2011-12,28,2012-01-28,Hereford United,Shrewsbury Town,0,2,0,2,1144656
+el2,2011-12,28,2012-01-28,Macclesfield Town,Cheltenham Town,1,3,1,1,1144657
+el2,2011-12,28,2012-01-28,Torquay United,Northampton Town,1,0,0,0,1144660
+el2,2011-12,28,2012-01-29,Burton Albion,Oxford United,1,1,1,0,1144653
+el2,2011-12,28,2012-01-31,Southend United,Swindon Town,1,4,1,3,1144659
+el2,2011-12,28,2012-02-22,Crawley Town,FC Morecambe,1,1,0,1,1144654
+el2,2011-12,29,2012-02-04,Plymouth Argyle,Southend United,2,2,0,2,1144669
+el2,2011-12,29,2012-02-21,Cheltenham Town,AFC Wimbledon,0,0,0,0,1144663
+el2,2011-12,29,2012-02-21,Crewe Alexandra,Accrington Stanley,2,0,0,0,1144664
+el2,2011-12,29,2012-02-21,Northampton Town,Macclesfield Town,3,2,2,1,1144667
+el2,2011-12,29,2012-02-21,Oxford United,FC Barnet,2,1,1,1,1144668
+el2,2011-12,29,2012-02-28,FC Gillingham,Hereford United,5,4,1,2,1144665
+el2,2011-12,29,2012-02-28,FC Morecambe,Dagenham & Redbridge,1,2,1,1,1144666
+el2,2011-12,29,2012-02-28,Swindon Town,Burton Albion,2,0,0,0,1144672
+el2,2011-12,29,2012-03-13,Rotherham United,Torquay United,0,1,0,1,1144670
+el2,2011-12,29,2012-03-27,Aldershot Town,Bristol Rovers,1,0,1,0,1144661
+el2,2011-12,29,2012-03-27,Bradford City,Crawley Town,1,2,0,0,1144662
+el2,2011-12,29,2012-04-17,Shrewsbury Town,FC Port Vale,1,0,0,0,1144671
+el2,2011-12,30,2012-02-10,Southend United,Rotherham United,0,2,0,1,1144683
+el2,2011-12,30,2012-02-11,Bristol Rovers,FC Morecambe,2,1,0,0,1144676
+el2,2011-12,30,2012-02-11,Hereford United,Cheltenham Town,1,1,1,0,1144680
+el2,2011-12,30,2012-02-11,Torquay United,Shrewsbury Town,1,0,0,0,1144684
+el2,2011-12,30,2012-02-28,FC Port Vale,Crewe Alexandra,1,1,0,0,1144682
+el2,2011-12,30,2012-02-28,Macclesfield Town,Plymouth Argyle,1,1,0,0,1144681
+el2,2011-12,30,2012-03-13,AFC Wimbledon,Bradford City,3,1,1,1,1144673
+el2,2011-12,30,2012-03-13,Crawley Town,Aldershot Town,2,2,1,1,1144678
+el2,2011-12,30,2012-03-13,Dagenham & Redbridge,Northampton Town,0,1,0,0,1144679
+el2,2011-12,30,2012-03-27,Accrington Stanley,Oxford United,0,2,0,1,1144674
+el2,2011-12,30,2012-03-27,Burton Albion,FC Gillingham,1,0,0,0,1144677
+el2,2011-12,30,2012-04-03,FC Barnet,Swindon Town,0,2,0,2,1144675
+el2,2011-12,31,2012-02-13,FC Gillingham,Southend United,1,2,0,2,1144689
+el2,2011-12,31,2012-02-14,Aldershot Town,Hereford United,1,0,0,0,1144685
+el2,2011-12,31,2012-02-14,Bradford City,FC Port Vale,1,1,0,1,1144686
+el2,2011-12,31,2012-02-14,Cheltenham Town,Torquay United,0,1,0,1,1144687
+el2,2011-12,31,2012-02-14,Crewe Alexandra,Burton Albion,3,2,1,0,1144688
+el2,2011-12,31,2012-02-14,FC Morecambe,Macclesfield Town,1,0,0,0,1144690
+el2,2011-12,31,2012-02-14,Northampton Town,AFC Wimbledon,1,0,0,0,1144691
+el2,2011-12,31,2012-02-14,Oxford United,Dagenham & Redbridge,2,1,0,0,1144692
+el2,2011-12,31,2012-02-14,Plymouth Argyle,FC Barnet,0,0,0,0,1144693
+el2,2011-12,31,2012-02-14,Rotherham United,Accrington Stanley,1,0,1,0,1144694
+el2,2011-12,31,2012-02-14,Shrewsbury Town,Bristol Rovers,1,0,0,0,1144695
+el2,2011-12,31,2012-02-14,Swindon Town,Crawley Town,3,0,1,0,1144696
+el2,2011-12,32,2012-02-18,AFC Wimbledon,FC Morecambe,1,1,0,0,1144697
+el2,2011-12,32,2012-02-18,Accrington Stanley,Plymouth Argyle,0,4,0,2,1144698
+el2,2011-12,32,2012-02-18,Bristol Rovers,Oxford United,0,0,0,0,1144700
+el2,2011-12,32,2012-02-18,Burton Albion,Rotherham United,1,1,1,0,1144701
+el2,2011-12,32,2012-02-18,Dagenham & Redbridge,Cheltenham Town,0,5,0,3,1144703
+el2,2011-12,32,2012-02-18,FC Barnet,Shrewsbury Town,1,2,0,1,1144699
+el2,2011-12,32,2012-02-18,FC Port Vale,FC Gillingham,2,1,0,1,1144706
+el2,2011-12,32,2012-02-18,Hereford United,Swindon Town,1,2,0,1,1144704
+el2,2011-12,32,2012-02-18,Macclesfield Town,Aldershot Town,0,1,0,0,1144705
+el2,2011-12,32,2012-02-18,Southend United,Crewe Alexandra,1,0,0,0,1144707
+el2,2011-12,32,2012-02-18,Torquay United,Bradford City,1,2,1,2,1144708
+el2,2011-12,32,2012-04-17,Crawley Town,Northampton Town,3,1,3,0,1144702
+el2,2011-12,33,2012-02-25,Aldershot Town,FC Barnet,4,1,3,0,1144709
+el2,2011-12,33,2012-02-25,Bradford City,Hereford United,1,1,0,0,1144710
+el2,2011-12,33,2012-02-25,Cheltenham Town,Burton Albion,2,0,1,0,1144711
+el2,2011-12,33,2012-02-25,Crewe Alexandra,AFC Wimbledon,3,3,3,1,1144712
+el2,2011-12,33,2012-02-25,FC Gillingham,Torquay United,2,0,0,0,1144713
+el2,2011-12,33,2012-02-25,FC Morecambe,Southend United,1,0,0,0,1144714
+el2,2011-12,33,2012-02-25,Northampton Town,FC Port Vale,1,2,0,1,1144715
+el2,2011-12,33,2012-02-25,Oxford United,Macclesfield Town,1,1,1,1,1144716
+el2,2011-12,33,2012-02-25,Plymouth Argyle,Dagenham & Redbridge,0,0,0,0,1144717
+el2,2011-12,33,2012-02-25,Rotherham United,Bristol Rovers,0,1,0,0,1144718
+el2,2011-12,33,2012-02-25,Swindon Town,Accrington Stanley,2,0,2,0,1144720
+el2,2011-12,33,2012-02-27,Shrewsbury Town,Crawley Town,2,1,1,1,1144719
+el2,2011-12,34,2012-03-03,Accrington Stanley,FC Port Vale,2,2,1,1,1144721
+el2,2011-12,34,2012-03-03,Aldershot Town,FC Morecambe,1,0,1,0,1144722
+el2,2011-12,34,2012-03-03,Bristol Rovers,Macclesfield Town,0,0,0,0,1144724
+el2,2011-12,34,2012-03-03,Burton Albion,Southend United,0,2,0,0,1144725
+el2,2011-12,34,2012-03-03,Cheltenham Town,Northampton Town,2,2,0,2,1144726
+el2,2011-12,34,2012-03-03,Crawley Town,Torquay United,0,1,0,0,1144727
+el2,2011-12,34,2012-03-03,Crewe Alexandra,Shrewsbury Town,1,1,1,1,1144728
+el2,2011-12,34,2012-03-03,Dagenham & Redbridge,Bradford City,1,0,0,0,1144729
+el2,2011-12,34,2012-03-03,FC Barnet,Rotherham United,1,1,1,0,1144723
+el2,2011-12,34,2012-03-03,Hereford United,AFC Wimbledon,2,1,2,0,1144730
+el2,2011-12,34,2012-03-03,Oxford United,Swindon Town,2,0,2,0,1144731
+el2,2011-12,34,2012-03-03,Plymouth Argyle,FC Gillingham,0,1,0,1,1144732
+el2,2011-12,35,2012-03-05,Southend United,Crawley Town,0,0,0,0,1144742
+el2,2011-12,35,2012-03-06,AFC Wimbledon,Plymouth Argyle,1,2,1,1,1144733
+el2,2011-12,35,2012-03-06,Bradford City,Accrington Stanley,1,1,0,0,1144734
+el2,2011-12,35,2012-03-06,FC Gillingham,FC Barnet,3,1,0,1,1144735
+el2,2011-12,35,2012-03-06,FC Morecambe,Cheltenham Town,3,1,1,1,1144737
+el2,2011-12,35,2012-03-06,FC Port Vale,Burton Albion,3,0,1,0,1144739
+el2,2011-12,35,2012-03-06,Macclesfield Town,Hereford United,2,2,0,2,1144736
+el2,2011-12,35,2012-03-06,Northampton Town,Bristol Rovers,3,2,3,0,1144738
+el2,2011-12,35,2012-03-06,Rotherham United,Crewe Alexandra,1,1,0,1,1144740
+el2,2011-12,35,2012-03-06,Shrewsbury Town,Oxford United,2,2,0,2,1144741
+el2,2011-12,35,2012-03-06,Swindon Town,Dagenham & Redbridge,4,0,1,0,1144743
+el2,2011-12,35,2012-03-06,Torquay United,Aldershot Town,1,0,1,0,1144744
+el2,2011-12,36,2012-03-10,AFC Wimbledon,Dagenham & Redbridge,2,1,0,0,1144745
+el2,2011-12,36,2012-03-10,Bradford City,Oxford United,2,1,0,0,1144746
+el2,2011-12,36,2012-03-10,FC Gillingham,Crewe Alexandra,3,4,0,1,1144747
+el2,2011-12,36,2012-03-10,FC Morecambe,Hereford United,0,1,0,1,1144749
+el2,2011-12,36,2012-03-10,FC Port Vale,FC Barnet,1,2,0,0,1144751
+el2,2011-12,36,2012-03-10,Macclesfield Town,Crawley Town,2,2,0,1,1144748
+el2,2011-12,36,2012-03-10,Northampton Town,Aldershot Town,3,1,2,0,1144750
+el2,2011-12,36,2012-03-10,Rotherham United,Plymouth Argyle,1,0,0,0,1144752
+el2,2011-12,36,2012-03-10,Shrewsbury Town,Burton Albion,1,0,0,0,1144753
+el2,2011-12,36,2012-03-10,Southend United,Accrington Stanley,2,2,0,1,1144754
+el2,2011-12,36,2012-03-10,Swindon Town,Cheltenham Town,1,0,1,0,1144755
+el2,2011-12,36,2012-03-10,Torquay United,Bristol Rovers,2,2,0,1,1144756
+el2,2011-12,37,2012-03-17,Accrington Stanley,Northampton Town,2,1,1,0,1144757
+el2,2011-12,37,2012-03-17,Aldershot Town,Bradford City,1,0,0,0,1144758
+el2,2011-12,37,2012-03-17,Bristol Rovers,AFC Wimbledon,1,0,1,0,1144760
+el2,2011-12,37,2012-03-17,Burton Albion,Torquay United,1,4,0,2,1144761
+el2,2011-12,37,2012-03-17,Cheltenham Town,FC Gillingham,0,3,0,1,1144762
+el2,2011-12,37,2012-03-17,Crawley Town,FC Port Vale,3,2,1,1,1144763
+el2,2011-12,37,2012-03-17,Crewe Alexandra,Swindon Town,2,0,1,0,1144764
+el2,2011-12,37,2012-03-17,Dagenham & Redbridge,Macclesfield Town,2,0,1,0,1144765
+el2,2011-12,37,2012-03-17,FC Barnet,FC Morecambe,0,2,0,1,1144759
+el2,2011-12,37,2012-03-17,Hereford United,Southend United,2,3,1,2,1144766
+el2,2011-12,37,2012-03-17,Oxford United,Rotherham United,2,1,1,0,1144767
+el2,2011-12,37,2012-03-17,Plymouth Argyle,Shrewsbury Town,1,0,1,0,1144768
+el2,2011-12,38,2012-03-20,Accrington Stanley,FC Morecambe,1,1,1,0,1144769
+el2,2011-12,38,2012-03-20,Burton Albion,Northampton Town,0,1,0,0,1144771
+el2,2011-12,38,2012-03-20,Crewe Alexandra,Bradford City,1,0,1,0,1144772
+el2,2011-12,38,2012-03-20,FC Barnet,Dagenham & Redbridge,2,2,1,1,1144770
+el2,2011-12,38,2012-03-20,FC Gillingham,Crawley Town,0,1,0,0,1144773
+el2,2011-12,38,2012-03-20,FC Port Vale,Hereford United,1,0,0,0,1144776
+el2,2011-12,38,2012-03-20,Oxford United,AFC Wimbledon,1,0,0,0,1144774
+el2,2011-12,38,2012-03-20,Plymouth Argyle,Bristol Rovers,1,1,0,1,1144775
+el2,2011-12,38,2012-03-20,Rotherham United,Macclesfield Town,4,2,1,0,1144777
+el2,2011-12,38,2012-03-20,Shrewsbury Town,Cheltenham Town,2,0,1,0,1144778
+el2,2011-12,38,2012-03-20,Southend United,Aldershot Town,0,1,0,0,1144779
+el2,2011-12,38,2012-03-20,Swindon Town,Torquay United,2,0,1,0,1144780
+el2,2011-12,39,2012-03-23,Macclesfield Town,FC Barnet,0,0,0,0,1144789
+el2,2011-12,39,2012-03-24,AFC Wimbledon,Burton Albion,4,0,1,0,1144781
+el2,2011-12,39,2012-03-24,Bradford City,FC Gillingham,2,2,0,1,1144783
+el2,2011-12,39,2012-03-24,Bristol Rovers,Southend United,1,0,0,0,1144784
+el2,2011-12,39,2012-03-24,Cheltenham Town,Oxford United,0,0,0,0,1144785
+el2,2011-12,39,2012-03-24,Crawley Town,Rotherham United,3,0,1,0,1144786
+el2,2011-12,39,2012-03-24,Dagenham & Redbridge,Accrington Stanley,2,1,0,1,1144787
+el2,2011-12,39,2012-03-24,FC Morecambe,Shrewsbury Town,0,1,0,0,1144790
+el2,2011-12,39,2012-03-24,Hereford United,Crewe Alexandra,0,1,0,0,1144788
+el2,2011-12,39,2012-03-24,Northampton Town,Plymouth Argyle,0,0,0,0,1144791
+el2,2011-12,39,2012-03-24,Torquay United,FC Port Vale,2,1,0,1,1144792
+el2,2011-12,39,2012-04-17,Aldershot Town,Swindon Town,2,1,1,0,1144782
+el2,2011-12,40,2012-03-30,FC Barnet,Torquay United,0,1,0,0,1144794
+el2,2011-12,40,2012-03-30,Southend United,Cheltenham Town,4,0,2,0,1144803
+el2,2011-12,40,2012-03-31,Accrington Stanley,AFC Wimbledon,2,1,1,1,1144793
+el2,2011-12,40,2012-03-31,Burton Albion,Crawley Town,0,0,0,0,1144795
+el2,2011-12,40,2012-03-31,Crewe Alexandra,Northampton Town,1,1,1,0,1144796
+el2,2011-12,40,2012-03-31,FC Gillingham,Macclesfield Town,2,0,0,0,1144797
+el2,2011-12,40,2012-03-31,FC Port Vale,Dagenham & Redbridge,0,1,0,0,1144800
+el2,2011-12,40,2012-03-31,Oxford United,FC Morecambe,1,2,1,1,1144798
+el2,2011-12,40,2012-03-31,Plymouth Argyle,Bradford City,1,0,1,0,1144799
+el2,2011-12,40,2012-03-31,Rotherham United,Hereford United,1,0,1,0,1144801
+el2,2011-12,40,2012-03-31,Shrewsbury Town,Aldershot Town,1,1,0,0,1144802
+el2,2011-12,40,2012-03-31,Swindon Town,Bristol Rovers,0,0,0,0,1144804
+el2,2011-12,41,2012-04-06,AFC Wimbledon,Rotherham United,1,2,0,1,1144805
+el2,2011-12,41,2012-04-06,Aldershot Town,FC Port Vale,1,2,0,1,1144806
+el2,2011-12,41,2012-04-06,Bradford City,Southend United,2,0,1,0,1144807
+el2,2011-12,41,2012-04-06,Bristol Rovers,FC Gillingham,2,2,0,0,1144808
+el2,2011-12,41,2012-04-06,Cheltenham Town,FC Barnet,2,0,0,0,1144809
+el2,2011-12,41,2012-04-06,Crawley Town,Crewe Alexandra,1,1,0,1,1144810
+el2,2011-12,41,2012-04-06,Dagenham & Redbridge,Burton Albion,1,1,0,0,1144811
+el2,2011-12,41,2012-04-06,FC Morecambe,Swindon Town,0,1,0,0,1144814
+el2,2011-12,41,2012-04-06,Hereford United,Plymouth Argyle,1,1,0,1,1144812
+el2,2011-12,41,2012-04-06,Macclesfield Town,Shrewsbury Town,1,3,0,1,1144813
+el2,2011-12,41,2012-04-06,Northampton Town,Oxford United,2,1,1,0,1144815
+el2,2011-12,41,2012-04-06,Torquay United,Accrington Stanley,1,0,0,0,1144816
+el2,2011-12,42,2012-04-09,Accrington Stanley,Hereford United,2,1,0,0,1144817
+el2,2011-12,42,2012-04-09,Burton Albion,FC Morecambe,3,2,2,1,1144819
+el2,2011-12,42,2012-04-09,Crewe Alexandra,Bristol Rovers,3,0,2,0,1144820
+el2,2011-12,42,2012-04-09,FC Barnet,Crawley Town,1,2,1,0,1144818
+el2,2011-12,42,2012-04-09,FC Gillingham,Dagenham & Redbridge,1,2,0,1,1144821
+el2,2011-12,42,2012-04-09,FC Port Vale,Macclesfield Town,1,0,0,0,1144824
+el2,2011-12,42,2012-04-09,Oxford United,Torquay United,2,2,0,1,1144822
+el2,2011-12,42,2012-04-09,Plymouth Argyle,Aldershot Town,1,0,1,0,1144823
+el2,2011-12,42,2012-04-09,Rotherham United,Cheltenham Town,1,0,0,0,1144825
+el2,2011-12,42,2012-04-09,Shrewsbury Town,Bradford City,1,0,1,0,1144826
+el2,2011-12,42,2012-04-09,Southend United,AFC Wimbledon,2,0,0,0,1144827
+el2,2011-12,42,2012-04-09,Swindon Town,Northampton Town,1,0,0,0,1144828
+el2,2011-12,43,2012-04-13,FC Barnet,Hereford United,1,1,1,1,1144830
+el2,2011-12,43,2012-04-14,Aldershot Town,Dagenham & Redbridge,1,1,0,0,1144829
+el2,2011-12,43,2012-04-14,Bristol Rovers,Burton Albion,7,1,1,0,1144831
+el2,2011-12,43,2012-04-14,Cheltenham Town,Accrington Stanley,4,1,1,0,1144832
+el2,2011-12,43,2012-04-14,Crawley Town,AFC Wimbledon,1,1,0,0,1144833
+el2,2011-12,43,2012-04-14,FC Morecambe,FC Port Vale,0,0,0,0,1144835
+el2,2011-12,43,2012-04-14,Macclesfield Town,Crewe Alexandra,2,2,1,1,1144834
+el2,2011-12,43,2012-04-14,Northampton Town,Bradford City,1,3,0,2,1144836
+el2,2011-12,43,2012-04-14,Oxford United,FC Gillingham,0,0,0,0,1144837
+el2,2011-12,43,2012-04-14,Shrewsbury Town,Rotherham United,3,1,1,1,1144838
+el2,2011-12,43,2012-04-14,Swindon Town,Plymouth Argyle,1,0,0,0,1144839
+el2,2011-12,43,2012-04-14,Torquay United,Southend United,0,0,0,0,1144840
+el2,2011-12,44,2012-04-20,Southend United,FC Barnet,3,0,3,0,1144852
+el2,2011-12,44,2012-04-21,AFC Wimbledon,Torquay United,2,0,0,0,1144841
+el2,2011-12,44,2012-04-21,Accrington Stanley,Shrewsbury Town,1,1,0,1,1144842
+el2,2011-12,44,2012-04-21,Bradford City,Macclesfield Town,1,0,0,0,1144843
+el2,2011-12,44,2012-04-21,Burton Albion,Aldershot Town,0,4,0,1,1144844
+el2,2011-12,44,2012-04-21,Crewe Alexandra,Cheltenham Town,1,0,1,0,1144845
+el2,2011-12,44,2012-04-21,Dagenham & Redbridge,Crawley Town,1,1,1,1,1144846
+el2,2011-12,44,2012-04-21,FC Gillingham,Swindon Town,3,1,1,0,1144847
+el2,2011-12,44,2012-04-21,FC Port Vale,Bristol Rovers,1,0,1,0,1144850
+el2,2011-12,44,2012-04-21,Hereford United,Northampton Town,0,0,0,0,1144848
+el2,2011-12,44,2012-04-21,Plymouth Argyle,Oxford United,1,1,1,1,1144849
+el2,2011-12,44,2012-04-21,Rotherham United,FC Morecambe,3,2,1,1,1144851
+el2,2011-12,45,2012-04-28,Aldershot Town,Rotherham United,2,2,1,2,1144853
+el2,2011-12,45,2012-04-28,Bristol Rovers,Accrington Stanley,5,1,3,1,1144855
+el2,2011-12,45,2012-04-28,Cheltenham Town,Bradford City,3,1,0,1,1144856
+el2,2011-12,45,2012-04-28,Crawley Town,Hereford United,0,3,0,0,1144857
+el2,2011-12,45,2012-04-28,FC Barnet,AFC Wimbledon,4,0,1,0,1144854
+el2,2011-12,45,2012-04-28,FC Morecambe,Plymouth Argyle,2,2,0,1,1144859
+el2,2011-12,45,2012-04-28,Macclesfield Town,Burton Albion,0,2,0,0,1144858
+el2,2011-12,45,2012-04-28,Northampton Town,FC Gillingham,1,1,1,0,1144860
+el2,2011-12,45,2012-04-28,Oxford United,Southend United,0,2,0,2,1144861
+el2,2011-12,45,2012-04-28,Shrewsbury Town,Dagenham & Redbridge,1,0,1,0,1144862
+el2,2011-12,45,2012-04-28,Swindon Town,FC Port Vale,5,0,1,0,1144863
+el2,2011-12,45,2012-04-28,Torquay United,Crewe Alexandra,1,1,0,0,1144864
+el2,2011-12,46,2012-05-05,AFC Wimbledon,Shrewsbury Town,3,1,0,0,1144865
+el2,2011-12,46,2012-05-05,Accrington Stanley,Crawley Town,0,1,0,0,1144866
+el2,2011-12,46,2012-05-05,Bradford City,Swindon Town,0,0,0,0,1144867
+el2,2011-12,46,2012-05-05,Burton Albion,FC Barnet,1,2,1,1,1144868
+el2,2011-12,46,2012-05-05,Crewe Alexandra,Aldershot Town,2,2,1,2,1144869
+el2,2011-12,46,2012-05-05,Dagenham & Redbridge,Bristol Rovers,4,0,1,0,1144870
+el2,2011-12,46,2012-05-05,FC Gillingham,FC Morecambe,2,0,1,0,1144871
+el2,2011-12,46,2012-05-05,FC Port Vale,Oxford United,3,0,1,0,1144874
+el2,2011-12,46,2012-05-05,Hereford United,Torquay United,3,2,3,0,1144872
+el2,2011-12,46,2012-05-05,Plymouth Argyle,Cheltenham Town,1,2,0,1,1144873
+el2,2011-12,46,2012-05-05,Rotherham United,Northampton Town,1,1,1,0,1144875
+el2,2011-12,46,2012-05-05,Southend United,Macclesfield Town,2,0,1,0,1144876
