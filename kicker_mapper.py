@@ -40,6 +40,9 @@ _KEEP_AS_IS = {
     # National League 2011/12
     "Bath City",              # DB hat "Bath City"
     "Kettering Town",         # DB hat "Kettering Town"
+    # Eredivisie (nl1): fd behaelt hier das "FC" (nicht zu "Emmen" strippen)
+    "FC Emmen",
+    "Go Ahead Eagles",        # DB hat "Go Ahead Eagles"
 }
 
 # Sonderschreibweisen, die fd kuerzer / anders abkuerzt als kicker.
@@ -77,6 +80,30 @@ _OVERRIDES = {
     "FC Hyde":                  "Hyde United",
     # National League 2010/11
     "Rushden & Diamonds":       "Rushden & D",
+    # ── Eredivisie (nl1) ── kicker -> football-data (DB-Schreibweise)
+    # Verifiziert gegen DB 2017 (SeasonID 106). Zusaetze fuer 2010/2013/2020
+    # (Cambuur/Sittard/Graafschap/Nijmegen/Waalwijk) je Saison per Self-Test
+    # bestaetigen.
+    "ADO Den Haag":         "Den Haag",
+    "Ajax Amsterdam":       "Ajax",
+    "Excelsior Rotterdam":  "Excelsior",
+    "Feyenoord Rotterdam":  "Feyenoord",
+    "Heracles Almelo":      "Heracles",
+    "PEC Zwolle":           "Zwolle",
+    "Roda Kerkrade":        "Roda",
+    "SC Heerenveen":        "Heerenveen",
+    "Twente Enschede":      "Twente",
+    "VVV-Venlo":            "VVV Venlo",
+    "Vitesse Arnheim":      "Vitesse",
+    "Willem II Tilburg":    "Willem II",
+    "SC Cambuur":               "Cambuur",
+    "Cambuur Leeuwarden":       "Cambuur",      # Kicker-Variante mit Stadt (2013)
+    "Fortuna Sittard":          "For Sittard",
+    "De Graafschap":            "Graafschap",
+    "De Graafschap Doetinchem": "Graafschap",   # Kicker-Variante mit Stadt (2010)
+    "Go Ahead Eagles Deventer": "Go Ahead Eagles",  # Kicker-Variante mit Stadt (2013)
+    "NEC Nijmegen":             "Nijmegen",
+    "RKC Waalwijk":             "Waalwijk",
     # Verlaeufige Sammlung weiterer EN-Edge-Cases (vorsorglich -
     # werden bei Bedarf gegen DB-Daten verifiziert):
     "Wycombe Wanderers":   "Wycombe",
