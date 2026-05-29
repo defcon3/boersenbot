@@ -37,6 +37,12 @@ button.btn-primary{background:linear-gradient(135deg,#00d4ff,#0077aa);color:#000
 button.btn-secondary{background:transparent;border:1px solid #00d4ff;color:#00d4ff;
   padding:8px 14px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer}
 button:hover{opacity:.85}
+/* alt/neu Segment-Toggle */
+.seg-toggle{display:flex;border:1px solid #1e3a5f;border-radius:5px;overflow:hidden}
+.seg-toggle button{background:transparent;border:none;color:#8aa;padding:7px 12px;
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;cursor:pointer}
+.seg-toggle button.active{background:linear-gradient(135deg,#00d4ff,#0077aa);color:#000}
+.seg-toggle button:not(.active):hover{color:#00d4ff;opacity:1}
 
 /* indicator bar */
 .ind-bar{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
@@ -137,7 +143,7 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
 
 <header>
   <h1>📊 Kaggle Data Explorer</h1>
-  <p>Interaktive Analyse von 1-Minuten-Handelsdaten</p>
+  <p>Interaktive Analyse von 1-Minuten-Handelsdaten · Kaggle (Mai 2023) + eigene Live-Historie (ab Mai 2026, UTC) · umschaltbar via alt/neu</p>
 </header>
 <nav class="topnav">
   <a href="/">📊 Dashboard</a>
@@ -146,7 +152,8 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
   <a href="/analysis/crossover">📈 MA-Crossover</a>
   <a href="/analysis/streak">🔻 Streak-Mean-Rev</a>
   <a href="/fazit">📋 Fazit</a>
-  <a href="/optionen">⚖️ Optionsscheine</a>
+  <a href="/done">⚰️ Done</a>
+      <a href="/optionen">⚖️ Optionsscheine</a>
 </nav>
 
 <!-- Controls -->
@@ -156,8 +163,20 @@ tbody tr:hover{background:rgba(0,212,255,.05)}
     <select id="symbol">{% for s in symbols %}<option>{{ s }}</option>{% endfor %}</select>
   </div>
   <div class="ctrl">
+    <label>Datensatz</label>
+    <div class="seg-toggle">
+      <button id="segAlt" onclick="applySplit('alt')">alt · Kaggle '23</button>
+      <button id="segNeu" class="active" onclick="applySplit('neu')">neu · Live</button>
+    </div>
+  </div>
+  <div class="ctrl">
+    <label>Trenndatum</label>
+    <input type="date" id="splitDate" value="{{ split_default }}"
+           min="{{ min_date }}" max="{{ max_date }}" onchange="applySplit()">
+  </div>
+  <div class="ctrl">
     <label>Von</label>
-    <input type="date" id="startDate" value="{{ min_date }}">
+    <input type="date" id="startDate" value="{{ split_default }}">
   </div>
   <div class="ctrl">
     <label>Bis</label>
@@ -700,16 +719,36 @@ function switchTab(name,btn) {
   btn.classList.add('active');
 }
 
+// alt/neu-Umschaltung um ein frei waehlbares Trenndatum.
+//   neu  = Live-Block  (Timestamp >= Trenndatum)
+//   alt  = Kaggle-Block (Timestamp <  Trenndatum -> bis Vortag, da load_data
+//                        end-inklusiv filtert)
+let SPLIT_MODE='neu';
+function applySplit(mode){
+  if(mode) SPLIT_MODE=mode;
+  const split=document.getElementById('splitDate').value || '{{ split_default }}';
+  if(SPLIT_MODE==='alt'){
+    const d=new Date(split); d.setDate(d.getDate()-1);
+    document.getElementById('startDate').value='{{ min_date }}';
+    document.getElementById('endDate').value=d.toISOString().slice(0,10);
+  }else{
+    document.getElementById('startDate').value=split;
+    document.getElementById('endDate').value='{{ max_date }}';
+  }
+  document.getElementById('segAlt').classList.toggle('active',SPLIT_MODE==='alt');
+  document.getElementById('segNeu').classList.toggle('active',SPLIT_MODE==='neu');
+  loadChart();
+}
+
 function resetAll() {
-  document.getElementById('startDate').value='{{ min_date }}';
-  document.getElementById('endDate').value='{{ max_date }}';
+  document.getElementById('splitDate').value='{{ split_default }}';
   ACTIVE=[
     {id:'ind_sig', type:'SIG', param:null,color:'#26a69a'},
     {id:'ind_rsi', type:'RSI', param:null,color:'#ff9800'},
     {id:'ind_macd',type:'MACD',param:null,color:'#2196f3'},
     {id:'ind_bb',  type:'BB', param:null,color:'rgba(255,120,120,0.6)'},
   ];
-  loadChart();
+  applySplit('neu');
 }
 
 window.addEventListener('load',loadChart);

@@ -18,10 +18,16 @@ DB_CONFIG = {
 def get_db():
     return pymssql.connect(**DB_CONFIG)
 
+# Vereinte Minuten-Quelle: Kaggle-Block (Mai 2023, ET→UTC harmonisiert) UNION
+# Live-yfinance-Block (ab 2026-05-11, UTC, waechst taeglich). Beide Bloecke
+# haben identisches Schema + 5 Symbole; die Source-Spalte unterscheidet
+# 'Kaggle' vs 'Live'. Definition: View [326773].bb_StockPrices_1min_Combined.
+DATA_SOURCE = 'bb_StockPrices_1min_Combined'
+
 def get_available_symbols():
     try:
         conn = get_db()
-        df = pd.read_sql("SELECT DISTINCT Symbol FROM bb_StockPrices_1min_Kaggle ORDER BY Symbol", conn)
+        df = pd.read_sql(f"SELECT DISTINCT Symbol FROM {DATA_SOURCE} ORDER BY Symbol", conn)
         conn.close()
         return df['Symbol'].tolist() if not df.empty else []
     except:
@@ -30,13 +36,27 @@ def get_available_symbols():
 def get_date_range():
     try:
         conn = get_db()
-        df = pd.read_sql("SELECT MIN([Timestamp]) as mn, MAX([Timestamp]) as mx FROM bb_StockPrices_1min_Kaggle", conn)
+        df = pd.read_sql(f"SELECT MIN([Timestamp]) as mn, MAX([Timestamp]) as mx FROM {DATA_SOURCE}", conn)
         conn.close()
         if not df.empty and df['mn'].iloc[0]:
             return df['mn'].iloc[0].strftime('%Y-%m-%d'), df['mx'].iloc[0].strftime('%Y-%m-%d')
     except:
         pass
-    return '2023-05-15', '2023-05-23'
+    return '2023-05-15', '2026-05-28'
+
+def get_split_default():
+    """Natuerliche alt/neu-Grenze = erster Live-Zeitstempel (Beginn der eigenen
+    Historie). Davor = Kaggle-Block, ab da = Live. Frei ueberschreibbar im UI."""
+    try:
+        conn = get_db()
+        df = pd.read_sql(
+            f"SELECT MIN([Timestamp]) AS mn FROM {DATA_SOURCE} WHERE Source='Live'", conn)
+        conn.close()
+        if not df.empty and df['mn'].iloc[0]:
+            return df['mn'].iloc[0].strftime('%Y-%m-%d')
+    except:
+        pass
+    return '2026-05-11'
 
 # ── Indicator calculations ──────────────────────────────────────────────────
 
@@ -139,7 +159,7 @@ def load_data(symbol, start_date=None, end_date=None):
         if end_date:   where += f" AND [Timestamp] <= '{end_date} 23:59:59'"
         df = pd.read_sql(
             f"SELECT Timestamp, OpenPrice, HighPrice, LowPrice, ClosePrice, Volume "
-            f"FROM bb_StockPrices_1min_Kaggle WHERE {where} ORDER BY Timestamp", conn)
+            f"FROM {DATA_SOURCE} WHERE {where} ORDER BY Timestamp", conn)
         conn.close()
     except Exception as e:
         print(f"DB error: {e}")
@@ -336,7 +356,10 @@ def build_payload(df):
 def index():
     symbols = get_available_symbols()
     min_date, max_date = get_date_range()
-    return render_template('analysis.html', symbols=symbols, min_date=min_date, max_date=max_date)
+    split_default = get_split_default()
+    return render_template('analysis.html', symbols=symbols,
+                           min_date=min_date, max_date=max_date,
+                           split_default=split_default)
 
 @app.route('/api/chart', methods=['POST'])
 def api_chart():
