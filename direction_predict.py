@@ -3,10 +3,11 @@
 RICHTUNGS-VORHERSAGE (Backlog-Idee 4) — 6 Klassifikatoren, 3 Horizonte.
 
 Voll nachvollziehbar:
-  1. yfinance laedt Tages-OHLCV des gewaehlten Symbols -> SQLite-Tabelle ohlcv_raw.
-  2. EIN SQL-SELECT (geschichtete CTEs, Window-Funktionen) erzeugt die komplette
+  1. Datenquelle: Centron-DB dbdata, Tabelle bb_StockPrices (taeglich von Yahoo
+     befuellte Tages-OHLCV, kompletter S&P 500). Symbol via Dropdown.
+  2. EIN T-SQL-SELECT (geschichtete CTEs, Window-Funktionen) erzeugt die komplette
      Feature-+-Label-Grundtabelle. Dieses SELECT wird auf der Web-Seite woertlich
-     angezeigt -> der User kann es 1:1 selbst gegen die DB ausfuehren.
+     angezeigt -> der User kann es 1:1 selbst gegen Centron ausfuehren.
   3. Walk-Forward (expanding window, Refit alle 21 Handelstage, Scaler NUR auf
      Train) liefert ehrliche OOS-Metriken. Kein Lookahead.
   4. Live-Vorhersage: Modell auf voller (gelabelter) Historie -> P fuer den
@@ -16,11 +17,10 @@ Modelle: Logit, KNN, Decision Tree, Random Forest, SVM (RBF), LDA.
 Features (17, alle kausal, nur Vergangenheit bis Tag t): siehe GRUND_SELECT.
 Labels: y_h = 1 wenn Close(t+h) > Close(t), h in {5,10,15}.
 """
-import os
-import sqlite3
+import re
 import numpy as np
 import pandas as pd
-import yfinance as yf
+import pymssql
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
@@ -32,12 +32,18 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import (accuracy_score, precision_score, recall_score,
                              f1_score, roc_auc_score)
 
-DB_PATH = os.environ.get("PREDICT_DB",
-                         os.path.join(os.path.dirname(__file__), "ohlcv_daily.db"))
+# Centron-DB (dieselbe Quelle wie die uebrigen /analysis-Seiten). Tabelle
+# bb_StockPrices: taeglich von Yahoo befuellte Tages-OHLCV, 504 S&P-500-Symbole.
+DB_CONFIG = {
+    "server": "158.181.48.77",
+    "database": "dbdata",
+    "user": "326773",
+    "password": "Extaler11!",
+}
+TABLE = "bb_StockPrices"
 HORIZONS = [5, 10, 15]
 REFIT_EVERY = 21
 MIN_TRAIN = 252          # >=1 Jahr bevor die erste Vorhersage faellt
-YEARS = 8
 
 # ── Feature-Liste (Name -> Klartext fuer die natuerlichsprachliche Erklaerung)
 FEATURES = [
@@ -47,83 +53,79 @@ FEATURES = [
     "rsi14", "stoch14", "vol10", "vol20", "range_rel",
 ]
 
-# ── DAS Grund-SELECT ─────────────────────────────────────────────────────────
-# Erzeugt aus ohlcv_raw (ein Symbol) die Feature-+-Label-Grundtabelle.
-# Geschichtete CTEs, damit jeder Rechenschritt sichtbar ist:
+# ── DAS Grund-SELECT (T-SQL gegen Centron bb_StockPrices) ────────────────────
+# Erzeugt aus der Tages-OHLCV-Tabelle (ein Symbol) die Feature-+-Label-
+# Grundtabelle. Geschichtete CTEs, jeder Rechenschritt sichtbar:
 #   base : Tagesrendite + Roh-Lags (LAG)
-#   win  : Fenster-Aggregate (AVG/MIN/MAX + E[r^2] fuer die Volatilitaet)
-#   feat : finale Features (Verhaeltnisse, RSI, Stochastik, Vol = sqrt(E[r^2]-E[r]^2))
+#   win  : Fenster-Aggregate (AVG/MIN/MAX + STDEV nativ fuer die Volatilitaet)
+#   feat : finale Features (Verhaeltnisse, RSI, Stochastik, Vola)
 #   final: Features + Zukunfts-Labels (LEAD) -> Richtung in 5/10/15 Tagen
-GRUND_SELECT = """
-WITH base AS (
-  SELECT d, open, high, low, close, volume,
-         close / LAG(close,1) OVER w - 1.0                      AS ret1,
-         LAG(close,1) OVER w AS c1, LAG(close,2) OVER w AS c2,
-         LAG(close,3) OVER w AS c3, LAG(close,5) OVER w AS c5,
-         LAG(close,6) OVER w AS c6, LAG(close,10) OVER w AS c10,
-         LAG(close,20) OVER w AS c20
-  FROM ohlcv_raw
-  WHERE symbol = :sym
-  WINDOW w AS (ORDER BY d)
+# {sym} wird vor Ausfuehrung durch das (validierte) Symbol ersetzt -> die auf
+# der Seite angezeigte Query ist exakt die ausgefuehrte, 1:1 selbst pruefbar.
+GRUND_SELECT = """WITH base AS (
+  SELECT Date AS d, ClosePrice AS cl, HighPrice AS hi, LowPrice AS lo,
+         ClosePrice / LAG(ClosePrice,1) OVER (ORDER BY Date) - 1.0 AS ret1,
+         LAG(ClosePrice,1) OVER (ORDER BY Date) AS c1,
+         LAG(ClosePrice,2) OVER (ORDER BY Date) AS c2,
+         LAG(ClosePrice,3) OVER (ORDER BY Date) AS c3,
+         LAG(ClosePrice,4) OVER (ORDER BY Date) AS c4,
+         LAG(ClosePrice,5) OVER (ORDER BY Date) AS c5,
+         LAG(ClosePrice,6) OVER (ORDER BY Date) AS c6,
+         LAG(ClosePrice,10) OVER (ORDER BY Date) AS c10,
+         LAG(ClosePrice,20) OVER (ORDER BY Date) AS c20
+  FROM {table}
+  WHERE Symbol = '{sym}'
 ),
 win AS (
   SELECT *,
-    AVG(close) OVER (ORDER BY d ROWS 4  PRECEDING)  AS sma5,
-    AVG(close) OVER (ORDER BY d ROWS 9  PRECEDING)  AS sma10,
-    AVG(close) OVER (ORDER BY d ROWS 19 PRECEDING)  AS sma20,
-    AVG(close) OVER (ORDER BY d ROWS 49 PRECEDING)  AS sma50,
-    MIN(low)   OVER (ORDER BY d ROWS 13 PRECEDING)  AS ll14,
-    MAX(high)  OVER (ORDER BY d ROWS 13 PRECEDING)  AS hh14,
+    AVG(cl) OVER (ORDER BY d ROWS BETWEEN 4  PRECEDING AND CURRENT ROW) AS sma5,
+    AVG(cl) OVER (ORDER BY d ROWS BETWEEN 9  PRECEDING AND CURRENT ROW) AS sma10,
+    AVG(cl) OVER (ORDER BY d ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS sma20,
+    AVG(cl) OVER (ORDER BY d ROWS BETWEEN 49 PRECEDING AND CURRENT ROW) AS sma50,
+    MIN(lo) OVER (ORDER BY d ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) AS ll14,
+    MAX(hi) OVER (ORDER BY d ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) AS hh14,
     -- RSI(14), SMA-Variante: durchschnittl. Gewinn/Verlust ueber 14 Tage
-    AVG(CASE WHEN ret1 > 0 THEN ret1 ELSE 0 END) OVER (ORDER BY d ROWS 13 PRECEDING) AS avg_gain,
-    AVG(CASE WHEN ret1 < 0 THEN -ret1 ELSE 0 END) OVER (ORDER BY d ROWS 13 PRECEDING) AS avg_loss,
-    -- E[r] und E[r^2] ueber 10/20 Tage -> Vola = sqrt(E[r^2]-E[r]^2)
-    AVG(ret1)        OVER (ORDER BY d ROWS 9  PRECEDING) AS m1_10,
-    AVG(ret1*ret1)   OVER (ORDER BY d ROWS 9  PRECEDING) AS m2_10,
-    AVG(ret1)        OVER (ORDER BY d ROWS 19 PRECEDING) AS m1_20,
-    AVG(ret1*ret1)   OVER (ORDER BY d ROWS 19 PRECEDING) AS m2_20,
-    COUNT(*)         OVER (ORDER BY d ROWS 49 PRECEDING) AS n_hist
+    AVG(CASE WHEN ret1 > 0 THEN ret1 ELSE 0 END) OVER (ORDER BY d ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) AS avg_gain,
+    AVG(CASE WHEN ret1 < 0 THEN -ret1 ELSE 0 END) OVER (ORDER BY d ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) AS avg_loss,
+    -- Volatilitaet = Standardabweichung der Tagesrendite (STDEV nativ)
+    STDEV(ret1) OVER (ORDER BY d ROWS BETWEEN 9  PRECEDING AND CURRENT ROW) AS vol10,
+    STDEV(ret1) OVER (ORDER BY d ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS vol20,
+    COUNT(*)    OVER (ORDER BY d ROWS BETWEEN 49 PRECEDING AND CURRENT ROW) AS n_hist
   FROM base
 ),
 feat AS (
-  SELECT d, close,
-    c1/c2  - 1.0 AS ret_lag1,
-    c2/c3  - 1.0 AS ret_lag2,
-    c3/LAG(close,4) OVER (ORDER BY d) - 1.0 AS ret_lag3,
-    c5/c6  - 1.0 AS ret_lag5,
-    close/c5  - 1.0 AS roc5,
-    close/c10 - 1.0 AS roc10,
-    close/c20 - 1.0 AS roc20,
-    close/sma5  - 1.0 AS ma5_dist,
-    close/sma10 - 1.0 AS ma10_dist,
-    close/sma20 - 1.0 AS ma20_dist,
-    close/sma50 - 1.0 AS ma50_dist,
-    sma5/sma20  - 1.0 AS sma5_20,
+  SELECT d, cl, hi, lo,
+    c1/c2 - 1.0 AS ret_lag1,
+    c2/c3 - 1.0 AS ret_lag2,
+    c3/c4 - 1.0 AS ret_lag3,
+    c5/c6 - 1.0 AS ret_lag5,
+    cl/c5  - 1.0 AS roc5,
+    cl/c10 - 1.0 AS roc10,
+    cl/c20 - 1.0 AS roc20,
+    cl/sma5  - 1.0 AS ma5_dist,
+    cl/sma10 - 1.0 AS ma10_dist,
+    cl/sma20 - 1.0 AS ma20_dist,
+    cl/sma50 - 1.0 AS ma50_dist,
+    sma5/sma20 - 1.0 AS sma5_20,
     100.0 - 100.0/(1.0 + avg_gain/NULLIF(avg_loss,0)) AS rsi14,
-    (close - ll14)/NULLIF(hh14 - ll14, 0)             AS stoch14,
-    CASE WHEN m2_10 - m1_10*m1_10 > 0 THEN sqrt(m2_10 - m1_10*m1_10) END AS vol10,
-    CASE WHEN m2_20 - m1_20*m1_20 > 0 THEN sqrt(m2_20 - m1_20*m1_20) END AS vol20,
-    (high - low)/close AS range_rel,
+    (cl - ll14)/NULLIF(hh14 - ll14, 0)                AS stoch14,
+    vol10, vol20,
+    (hi - lo)/cl AS range_rel,
     n_hist
   FROM win
 )
 SELECT
-  f.d, f.close,
+  d, cl AS [close],
   ret_lag1, ret_lag2, ret_lag3, ret_lag5,
   roc5, roc10, roc20,
   ma5_dist, ma10_dist, ma20_dist, ma50_dist, sma5_20,
   rsi14, stoch14, vol10, vol20, range_rel,
-  CASE WHEN LEAD(close,5)  OVER o > close THEN 1 ELSE 0 END AS y5,
-  CASE WHEN LEAD(close,10) OVER o > close THEN 1 ELSE 0 END AS y10,
-  CASE WHEN LEAD(close,15) OVER o > close THEN 1 ELSE 0 END AS y15,
-  LEAD(close,5)  OVER o AS fut5,
-  LEAD(close,10) OVER o AS fut10,
-  LEAD(close,15) OVER o AS fut15
-FROM feat f
+  CASE WHEN LEAD(cl,5)  OVER (ORDER BY d) > cl THEN 1 ELSE 0 END AS y5,
+  CASE WHEN LEAD(cl,10) OVER (ORDER BY d) > cl THEN 1 ELSE 0 END AS y10,
+  CASE WHEN LEAD(cl,15) OVER (ORDER BY d) > cl THEN 1 ELSE 0 END AS y15
+FROM feat
 WHERE n_hist >= 50          -- erst wenn SMA50 & ROC20 voll definiert sind
-WINDOW o AS (ORDER BY f.d)
-ORDER BY f.d
-"""
+ORDER BY d"""
 
 
 def models():
@@ -139,38 +141,46 @@ def models():
     }
 
 
-# ── Daten laden ──────────────────────────────────────────────────────────────
-def load_symbol(symbol, years=YEARS):
-    """yfinance -> SQLite ohlcv_raw (nur dieses Symbol, frisch)."""
-    df = yf.download(symbol, period=f"{years}y", auto_adjust=True, progress=False)
+# ── Daten laden (Centron) ────────────────────────────────────────────────────
+def get_conn():
+    return pymssql.connect(**DB_CONFIG)
+
+
+def get_symbols():
+    """Liste der waehlbaren S&P-500-Symbole (Symbol, CompanyName) fuer Dropdown."""
+    try:
+        conn = get_conn()
+        df = pd.read_sql("SELECT Symbol, CompanyName FROM bb_Stocks ORDER BY Symbol", conn)
+        conn.close()
+        df["CompanyName"] = df["CompanyName"].fillna("")
+        return list(df.itertuples(index=False, name=None))
+    except Exception:
+        return [("AAPL", "Apple"), ("MSFT", "Microsoft")]
+
+
+def _safe_symbol(symbol):
+    """Nur erlaubte Ticker-Zeichen — verhindert SQL-Injection beim Inlinen."""
+    s = (symbol or "").strip().upper()
+    if not re.fullmatch(r"[A-Z0-9.\-]{1,12}", s):
+        raise ValueError(f"Ungueltiges Symbol: {symbol!r}")
+    return s
+
+
+def query_for(symbol):
+    """Das ausfuehrbare/anzeigbare Grund-SELECT mit eingesetztem Symbol."""
+    return GRUND_SELECT.format(table=TABLE, sym=_safe_symbol(symbol))
+
+
+def build_dataset(symbol, conn=None):
+    """Fuehrt das Grund-SELECT gegen Centron aus -> DataFrame (Features+Labels)."""
+    own = conn is None
+    if own:
+        conn = get_conn()
+    df = pd.read_sql(query_for(symbol), conn)
+    if own:
+        conn.close()
     if df.empty:
-        raise ValueError(f"Keine Daten fuer Symbol '{symbol}'")
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.get_level_values(0)
-    df = df.reset_index()[["Date", "Open", "High", "Low", "Close", "Volume"]]
-    df.columns = ["d", "open", "high", "low", "close", "volume"]
-    df["d"] = pd.to_datetime(df["d"]).dt.strftime("%Y-%m-%d")
-    df["symbol"] = symbol
-    con = sqlite3.connect(DB_PATH)
-    con.execute("CREATE TABLE IF NOT EXISTS ohlcv_raw "
-                "(symbol TEXT, d TEXT, open REAL, high REAL, low REAL, "
-                " close REAL, volume REAL, PRIMARY KEY(symbol,d))")
-    con.execute("DELETE FROM ohlcv_raw WHERE symbol=?", (symbol,))
-    df[["symbol", "d", "open", "high", "low", "close", "volume"]].to_sql(
-        "ohlcv_raw", con, if_exists="append", index=False)
-    con.commit()
-    return con
-
-
-def build_dataset(symbol, con=None):
-    """Fuehrt das Grund-SELECT aus -> DataFrame (Features + Labels)."""
-    own = con is None
-    if own:
-        con = sqlite3.connect(DB_PATH)
-    con.create_function("sqrt", 1, lambda x: np.sqrt(x) if x is not None else None)
-    df = pd.read_sql(GRUND_SELECT, con, params={"sym": symbol})
-    if own:
-        con.close()
+        raise ValueError(f"Keine Daten fuer Symbol '{symbol}' in {TABLE}")
     return df
 
 
@@ -239,9 +249,10 @@ def live_predict(df, make_model, label):
 
 # ── Orchestrierung (eine komplette Analyse je Symbol) ────────────────────────
 def analyze(symbol):
-    con = load_symbol(symbol)
-    df = build_dataset(symbol, con)
-    con.close()
+    symbol = _safe_symbol(symbol)
+    conn = get_conn()
+    df = build_dataset(symbol, conn)
+    conn.close()
     out = {"symbol": symbol, "n_rows": len(df),
            "date_from": str(df["d"].iloc[0]), "date_to": str(df["d"].iloc[-1]),
            "last_close": float(df["close"].iloc[-1]), "models": {}}
@@ -259,15 +270,10 @@ def analyze(symbol):
     out["ensemble"] = ensemble_vote(out)
     out["ensemble_explain"] = {h: explain_ensemble(h, out["ensemble"][h])
                                for h in HORIZONS}
-    out["select_sql"] = select_for_display(symbol)
+    out["select_sql"] = query_for(symbol)
     out["features"] = FEATURES
     out["horizons"] = HORIZONS
     return out
-
-
-def select_for_display(symbol):
-    """Das Grund-SELECT mit eingesetztem Symbol — 1:1 gegen die DB ausfuehrbar."""
-    return GRUND_SELECT.replace(":sym", f"'{symbol}'").strip()
 
 
 def explain_prediction(model_name, h, mt, lv):

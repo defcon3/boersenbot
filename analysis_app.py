@@ -692,6 +692,7 @@ def predict_view():
     """ML-Richtungsvorhersage: 6 Klassifikatoren x 3 Horizonte, Walk-Forward.
     GET zeigt das Eingabeformular, POST rechnet das gewaehlte Symbol live."""
     import direction_predict as dp
+    symbols = dp.get_symbols()
     symbol, result, error = None, None, None
     if request.method == 'POST':
         symbol = (request.form.get('symbol') or '').strip().upper()
@@ -700,7 +701,10 @@ def predict_view():
                 result = dp.analyze(symbol)
             except Exception as e:
                 error = str(e)
-    return render_template('predict.html', symbol=symbol, result=result, error=error)
+    if not symbol and symbols:
+        symbol = symbols[0][0]      # Vorauswahl im Dropdown
+    return render_template('predict.html', symbols=symbols, symbol=symbol,
+                           result=result, error=error)
 
 
 if __name__ == '__main__':

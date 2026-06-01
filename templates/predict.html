@@ -28,9 +28,11 @@ h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;
 form.bar{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
 .ctrl label{display:block;color:#9fb3c8;font-size:11px;letter-spacing:.6px;
   text-transform:uppercase;margin-bottom:6px}
-.ctrl input{background:#0a0a18;color:#e0e0e0;border:1px solid #1e3a5f;border-radius:6px;
-  padding:9px 12px;font-size:15px;width:180px;text-transform:uppercase}
-.ctrl input:focus{outline:none;border-color:#00d4ff}
+.ctrl input,.ctrl select{background:#0a0a18;color:#e0e0e0;border:1px solid #1e3a5f;border-radius:6px;
+  padding:9px 12px;font-size:15px}
+.ctrl input{width:180px;text-transform:uppercase}
+.ctrl select{width:340px}
+.ctrl input:focus,.ctrl select:focus{outline:none;border-color:#00d4ff}
 button{background:#00d4ff;color:#0d0d1a;border:none;border-radius:6px;padding:10px 22px;
   font-size:14px;font-weight:700;cursor:pointer}
 button:hover{background:#33ddff}
@@ -103,11 +105,15 @@ details summary{cursor:pointer;color:#00d4ff;font-size:13px;margin-bottom:8px}
 <div class="panel">
   <form class="bar" method="POST" action="/analysis/predict" onsubmit="document.getElementById('overlay').classList.add('on')">
     <div class="ctrl">
-      <label>Symbol (Yahoo-Ticker, frei wählbar)</label>
-      <input name="symbol" value="{{ symbol or '' }}" placeholder="z. B. AAPL, MSFT, ^GDAXI, BTC-USD" required>
+      <label>Symbol (S&amp;P 500, aus Centron bb_StockPrices)</label>
+      <select name="symbol" required>
+        {% for sym, cname in symbols %}
+        <option value="{{ sym }}" {{ 'selected' if sym == symbol else '' }}>{{ sym }}{% if cname %} — {{ cname }}{% endif %}</option>
+        {% endfor %}
+      </select>
     </div>
     <button type="submit">Vorhersage rechnen</button>
-    <span class="sub" style="margin:0">8 Jahre Tagesdaten · Refit alle 21 Handelstage · Scaler nur auf Train</span>
+    <span class="sub" style="margin:0">Tagesdaten 2020–heute · Refit alle 21 Handelstage · Scaler nur auf Train</span>
   </form>
 </div>
 
@@ -192,14 +198,14 @@ details summary{cursor:pointer;color:#00d4ff;font-size:13px;margin-bottom:8px}
 </div>
 
 <h2 id="sqlbox">Grund-SELECT — die komplette Datenbasis</h2>
-<p class="sub">Alle 6 Verfahren nutzen <b>dieselbe</b> Grundtabelle, daher ein gemeinsames SELECT. Du kannst es 1:1 gegen die SQLite-DB <code>ohlcv_daily.db</code> ausführen. Jeder Rechenschritt ist als CTE sichtbar.</p>
+<p class="sub">Alle 6 Verfahren nutzen <b>dieselbe</b> Grundtabelle, daher ein gemeinsames SELECT. Du kannst es 1:1 gegen die Centron-DB <code>dbdata</code> (Tabelle <code>bb_StockPrices</code>) ausführen. Jeder Rechenschritt ist als CTE sichtbar.</p>
 <pre>{{ r.select_sql }}</pre>
 
 <h2>Wie die Zahlen entstehen — jeder Schritt offen</h2>
 <div class="panel">
   <div class="step">
-    <p><b>1. Rohdaten:</b> <code>yfinance</code> lädt 8 Jahre Tages-OHLCV (auto-adjustiert) → SQLite-Tabelle <code>ohlcv_raw</code>.</p>
-    <p><b>2. Features (17, alle nur aus Vergangenheit bis Tag t):</b> Return-Lags (t-1…t-5), Momentum (ROC 5/10/20), MA-Abstände (5/10/20/50 + 5-zu-20), RSI(14), Stochastik(14), Volatilität (10/20) und Tagesrange. Berechnung komplett im SELECT oben — Vola als <code>√(E[r²]−E[r]²)</code>, RSI über AVG-Gewinne/-Verluste.</p>
+    <p><b>1. Rohdaten:</b> Centron-Tabelle <code>bb_StockPrices</code> — täglich von Yahoo befüllte Tages-OHLCV, kompletter S&amp;P 500, 2020–heute.</p>
+    <p><b>2. Features (17, alle nur aus Vergangenheit bis Tag t):</b> Return-Lags (t-1…t-5), Momentum (ROC 5/10/20), MA-Abstände (5/10/20/50 + 5-zu-20), RSI(14), Stochastik(14), Volatilität (10/20) und Tagesrange. Berechnung komplett im SELECT oben — Vola als <code>STDEV</code> der Tagesrendite, RSI über AVG-Gewinne/-Verluste.</p>
     <p><b>3. Label:</b> <code>y_h = 1 falls Close(t+h) &gt; Close(t)</code> für h = 5/10/15 (LEAD), sonst 0.</p>
     <p><b>4. Standardisierung:</b> StandardScaler, <b>nur auf dem Trainfenster gefittet</b> und auf Test angewandt — kein Leak.</p>
     <p><b>5. Walk-Forward:</b> expanding window, Start nach 252 Tagen, <b>Refit alle 21 Handelstage</b>; getestet wird immer nur der noch ungesehene nächste Block. Alle OOS-Vorhersagen ergeben Accuracy/Precision/Recall/F1/ROC-AUC.</p>
