@@ -687,5 +687,21 @@ def streak_view():
         data_json=json.dumps(data))
 
 
+@app.route('/predict', methods=['GET', 'POST'])
+def predict_view():
+    """ML-Richtungsvorhersage: 6 Klassifikatoren x 3 Horizonte, Walk-Forward.
+    GET zeigt das Eingabeformular, POST rechnet das gewaehlte Symbol live."""
+    import direction_predict as dp
+    symbol, result, error = None, None, None
+    if request.method == 'POST':
+        symbol = (request.form.get('symbol') or '').strip().upper()
+        if symbol:
+            try:
+                result = dp.analyze(symbol)
+            except Exception as e:
+                error = str(e)
+    return render_template('predict.html', symbol=symbol, result=result, error=error)
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=False)

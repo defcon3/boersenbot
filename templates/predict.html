@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML-Richtungsvorhersage — Börsenbot</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:20px}
+.container{max-width:1850px;margin:0 auto}
+header{border-bottom:2px solid #00d4ff;padding-bottom:12px;margin-bottom:10px}
+header h1{color:#00d4ff;font-size:24px}
+header p{color:#888;font-size:12px;margin-top:2px}
+a{color:#00d4ff}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.topnav a{color:#9aa5b1;text-decoration:none;font-size:12px;font-weight:600;
+  letter-spacing:.5px;padding:6px 14px;border:1px solid transparent;border-radius:14px;
+  transition:color .15s,border-color .15s,background .15s}
+.topnav a:hover{color:#00d4ff;border-color:#1e3a5f}
+.topnav a.active{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.08)}
+.caveat{background:rgba(255,170,0,.10);border:1px solid #ffaa00;border-radius:8px;
+  padding:12px 16px;margin-bottom:14px;font-size:13px;color:#ffd27f;line-height:1.5}
+.caveat b{color:#ffaa00}
+h2{color:#00d4ff;font-size:16px;margin:22px 0 4px;border-left:3px solid #00d4ff;padding-left:10px}
+.sub{color:#888;font-size:12px;margin:0 0 12px 13px}
+.panel{background:rgba(15,15,35,.95);border:1px solid #1e3a5f;border-radius:8px;
+  padding:16px;margin-bottom:14px}
+form.bar{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.ctrl label{display:block;color:#9fb3c8;font-size:11px;letter-spacing:.6px;
+  text-transform:uppercase;margin-bottom:6px}
+.ctrl input{background:#0a0a18;color:#e0e0e0;border:1px solid #1e3a5f;border-radius:6px;
+  padding:9px 12px;font-size:15px;width:180px;text-transform:uppercase}
+.ctrl input:focus{outline:none;border-color:#00d4ff}
+button{background:#00d4ff;color:#0d0d1a;border:none;border-radius:6px;padding:10px 22px;
+  font-size:14px;font-weight:700;cursor:pointer}
+button:hover{background:#33ddff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:4px}
+.stat{background:rgba(10,10,24,.7);border:1px solid #1e3a5f;border-radius:6px;padding:10px 12px}
+.stat .lbl{color:#8aa;font-size:10px;text-transform:uppercase;letter-spacing:.6px}
+.stat .val{color:#e0e0e0;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.tblwrap{overflow-x:auto;border:1px solid #1e3a5f;border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{padding:7px 9px;text-align:center;border-bottom:1px solid #14233a;white-space:nowrap}
+th{background:#0a0a18;color:#9fb3c8;font-size:10px;text-transform:uppercase;letter-spacing:.4px;
+  position:sticky;top:0;border-bottom:1px solid #1e3a5f}
+td.meth{text-align:left;font-weight:700;color:#cfe;white-space:nowrap}
+td.interp{text-align:left;white-space:normal;min-width:260px;max-width:340px;
+  font-size:11px;color:#b8c4d0;line-height:1.4}
+tr:hover td{background:rgba(0,212,255,.04)}
+.up{color:#00ff9c;font-weight:700}.down{color:#ff5577;font-weight:700}
+.metric small{display:block;font-size:10px;color:#8aa;font-variant-numeric:tabular-nums}
+.metric small b{color:#cfe;font-weight:600}
+.conf-bar{height:6px;background:#14233a;border-radius:3px;overflow:hidden;margin-top:3px}
+.conf-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffaa00,#00d4ff)}
+.sqlbtn{background:none;border:1px solid #1e3a5f;color:#9aa5b1;font-size:11px;padding:3px 8px;
+  border-radius:5px;cursor:pointer}.sqlbtn:hover{border-color:#00d4ff;color:#00d4ff}
+pre{background:#070710;border:1px solid #1e3a5f;border-radius:8px;padding:14px;overflow-x:auto;
+  font-size:12px;color:#b8e0d0;line-height:1.45;font-family:'Consolas',monospace}
+.feat{font-size:11px;color:#9aa5b1;text-align:left;white-space:normal;max-width:200px;line-height:1.4}
+.ens .stat .val{font-size:22px}
+.explain{font-size:13px;color:#c6d2de;line-height:1.6;margin:6px 0 0}
+.explain li{margin:5px 0;list-style:none;padding-left:16px;position:relative}
+.explain li::before{content:'▸';position:absolute;left:0;color:#00d4ff}
+#overlay{display:none;position:fixed;inset:0;background:rgba(5,5,15,.82);z-index:99;
+  align-items:center;justify-content:center;flex-direction:column;gap:18px}
+#overlay.on{display:flex}
+.spin{width:46px;height:46px;border:4px solid #1e3a5f;border-top-color:#00d4ff;
+  border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+details summary{cursor:pointer;color:#00d4ff;font-size:13px;margin-bottom:8px}
+.step{font-size:12px;color:#9fb3c8;line-height:1.7;margin-left:14px}
+.step code{background:#070710;padding:1px 5px;border-radius:4px;color:#b8e0d0}
+</style>
+</head>
+<body>
+<div id="overlay"><div class="spin"></div>
+  <div style="color:#9fb3c8;font-size:13px">Rechne 6 Modelle × 3 Horizonte im Walk-Forward … (kann ~1 Min dauern)</div></div>
+<div class="container">
+<header>
+  <h1>🤖 ML-Richtungsvorhersage</h1>
+  <p>6 Klassifikatoren sagen die Kursrichtung in 5/10/15 Handelstagen — voll nachvollziehbar, Walk-Forward-validiert, kein Lookahead.</p>
+</header>
+
+<nav class="topnav">
+  <a href="/">📊 Dashboard</a>
+  <a href="/analysis">🔬 Kaggle Explorer</a>
+  <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+  <a href="/analysis/crossover">📈 MA-Crossover</a>
+  <a href="/analysis/streak">🔻 Streak-Mean-Rev</a>
+  <a href="/analysis/predict" class="active">🤖 ML-Vorhersage</a>
+  <a href="/fazit">📋 Fazit</a>
+  <a href="/optionen">⚖️ Optionsscheine</a>
+</nav>
+
+<div class="caveat">
+  <b>Ehrliche Einordnung:</b> Tägliche Richtungsvorhersage von Kursen ist nahe am Münzwurf.
+  Die ROC-AUC liegt erfahrungsgemäß knapp über 0,50 — eine hohe „Accuracy" entsteht meist
+  nur, weil Aktien öfter steigen als fallen (Basisrate). Diese Seite zeigt die Modelle
+  <b>vollständig transparent</b>, damit du das selbst prüfst — sie ist ein Analyse-Werkzeug,
+  <b>kein Handelssignal</b>.
+</div>
+
+<div class="panel">
+  <form class="bar" method="POST" action="/analysis/predict" onsubmit="document.getElementById('overlay').classList.add('on')">
+    <div class="ctrl">
+      <label>Symbol (Yahoo-Ticker, frei wählbar)</label>
+      <input name="symbol" value="{{ symbol or '' }}" placeholder="z. B. AAPL, MSFT, ^GDAXI, BTC-USD" required>
+    </div>
+    <button type="submit">Vorhersage rechnen</button>
+    <span class="sub" style="margin:0">8 Jahre Tagesdaten · Refit alle 21 Handelstage · Scaler nur auf Train</span>
+  </form>
+</div>
+
+{% if error %}
+  <div class="caveat" style="border-color:#ff5577;color:#ff9ab0;background:rgba(255,85,119,.1)">
+    <b>Fehler:</b> {{ error }}
+  </div>
+{% endif %}
+
+{% if result %}
+{% set r = result %}
+<div class="panel">
+  <div class="stats">
+    <div class="stat"><div class="lbl">Symbol</div><div class="val">{{ r.symbol }}</div></div>
+    <div class="stat"><div class="lbl">Datensatz</div><div class="val">{{ r.n_rows }} Tage</div></div>
+    <div class="stat"><div class="lbl">Zeitraum</div><div class="val" style="font-size:13px">{{ r.date_from }} – {{ r.date_to }}</div></div>
+    <div class="stat"><div class="lbl">Letzter Close</div><div class="val">{{ '%.2f'|format(r.last_close) }}</div></div>
+  </div>
+</div>
+
+<h2>Modell-Vorhersagen</h2>
+<p class="sub">Eine Zeile je Verfahren. Vorhersage/Wahrscheinlichkeit je Horizont; Gütemetriken zeigen alle drei Horizonte (5/10/15) gestapelt — nichts wird zusammengefasst weggekürzt.</p>
+<div class="tblwrap">
+<table>
+<thead><tr>
+  <th>Verfahren</th><th>SQL</th><th>Features</th>
+  <th>Vorh. 5T</th><th>P 5T</th><th>Vorh. 10T</th><th>P 10T</th><th>Vorh. 15T</th><th>P 15T</th>
+  <th>Accuracy<br><small>5/10/15</small></th><th>Precision<br><small>5/10/15</small></th>
+  <th>Recall<br><small>5/10/15</small></th><th>F1<br><small>5/10/15</small></th>
+  <th>ROC-AUC<br><small>5/10/15</small></th><th>Sicherheit<br><small>Ø</small></th><th>Interpretation</th>
+</tr></thead>
+<tbody>
+{% for name, per_h in r.models.items() %}
+{% set m5 = per_h[5] %}{% set m10 = per_h[10] %}{% set m15 = per_h[15] %}
+<tr>
+  <td class="meth">{{ name }}</td>
+  <td><button class="sqlbtn" onclick="document.getElementById('sqlbox').scrollIntoView({behavior:'smooth'})">SELECT ▾</button></td>
+  <td class="feat">{{ r.features|join(', ') }}</td>
+  {% for mh in [m5, m10, m15] %}
+  <td class="{{ 'up' if mh.live and mh.live.direction else 'down' }}">{{ '▲ STEIGT' if mh.live and mh.live.direction else '▼ FÄLLT' }}</td>
+  <td class="metric">{{ '%.0f%%'|format(mh.live.proba*100) if mh.live else '—' }}</td>
+  {% endfor %}
+  <td class="metric"><small><b>{{ '%.3f'|format(m5.metrics.accuracy) }}</b></small><small>{{ '%.3f'|format(m10.metrics.accuracy) }}</small><small>{{ '%.3f'|format(m15.metrics.accuracy) }}</small></td>
+  <td class="metric"><small><b>{{ '%.3f'|format(m5.metrics.precision) }}</b></small><small>{{ '%.3f'|format(m10.metrics.precision) }}</small><small>{{ '%.3f'|format(m15.metrics.precision) }}</small></td>
+  <td class="metric"><small><b>{{ '%.3f'|format(m5.metrics.recall) }}</b></small><small>{{ '%.3f'|format(m10.metrics.recall) }}</small><small>{{ '%.3f'|format(m15.metrics.recall) }}</small></td>
+  <td class="metric"><small><b>{{ '%.3f'|format(m5.metrics.f1) }}</b></small><small>{{ '%.3f'|format(m10.metrics.f1) }}</small><small>{{ '%.3f'|format(m15.metrics.f1) }}</small></td>
+  <td class="metric"><small><b>{{ '%.3f'|format(m5.metrics.roc_auc) }}</b></small><small>{{ '%.3f'|format(m10.metrics.roc_auc) }}</small><small>{{ '%.3f'|format(m15.metrics.roc_auc) }}</small></td>
+  {% set avgc = ((m5.live.confidence if m5.live else 0)+(m10.live.confidence if m10.live else 0)+(m15.live.confidence if m15.live else 0))/3 %}
+  <td class="metric">{{ '%.0f%%'|format(avgc*100) }}<div class="conf-bar"><i style="width:{{ '%.0f'|format(avgc*100) }}%"></i></div></td>
+  <td class="interp">{{ m15.explain }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<h2>Ensemble-Voting (Konsens aller 6 Modelle)</h2>
+<p class="sub">Mehrheitsvotum je Horizont; Durchschnitts-Wahrscheinlichkeit über alle Modelle.</p>
+<div class="stats ens">
+{% for h in r.horizons %}{% set e = r.ensemble[h] %}
+<div class="stat">
+  <div class="lbl">{{ h }} Handelstage</div>
+  {% if e %}
+  <div class="val {{ 'up' if e.direction else 'down' }}">{{ '▲ STEIGT' if e.direction else '▼ FÄLLT' }}</div>
+  <div class="sub" style="margin:4px 0 0">{{ e.up_votes }}↑ : {{ e.down_votes }}↓ · Konsens {{ '%.0f%%'|format(e.consensus*100) }} · ØP {{ '%.0f%%'|format(e.avg_proba*100) }}</div>
+  {% else %}<div class="val">—</div>{% endif %}
+</div>
+{% endfor %}
+</div>
+
+<h2>Vorhersagen in Worten</h2>
+<div class="panel">
+  <ul class="explain">
+  {% for h in r.horizons %}<li><b>Ensemble {{ h }}T:</b> {{ r.ensemble_explain[h] }}</li>{% endfor %}
+  </ul>
+  <details style="margin-top:12px">
+    <summary>Erklärung jeder einzelnen Modell-Vorhersage (15-Tage-Horizont)</summary>
+    <ul class="explain">
+    {% for name, per_h in r.models.items() %}<li>{{ per_h[15].explain }}</li>{% endfor %}
+    </ul>
+  </details>
+</div>
+
+<h2 id="sqlbox">Grund-SELECT — die komplette Datenbasis</h2>
+<p class="sub">Alle 6 Verfahren nutzen <b>dieselbe</b> Grundtabelle, daher ein gemeinsames SELECT. Du kannst es 1:1 gegen die SQLite-DB <code>ohlcv_daily.db</code> ausführen. Jeder Rechenschritt ist als CTE sichtbar.</p>
+<pre>{{ r.select_sql }}</pre>
+
+<h2>Wie die Zahlen entstehen — jeder Schritt offen</h2>
+<div class="panel">
+  <div class="step">
+    <p><b>1. Rohdaten:</b> <code>yfinance</code> lädt 8 Jahre Tages-OHLCV (auto-adjustiert) → SQLite-Tabelle <code>ohlcv_raw</code>.</p>
+    <p><b>2. Features (17, alle nur aus Vergangenheit bis Tag t):</b> Return-Lags (t-1…t-5), Momentum (ROC 5/10/20), MA-Abstände (5/10/20/50 + 5-zu-20), RSI(14), Stochastik(14), Volatilität (10/20) und Tagesrange. Berechnung komplett im SELECT oben — Vola als <code>√(E[r²]−E[r]²)</code>, RSI über AVG-Gewinne/-Verluste.</p>
+    <p><b>3. Label:</b> <code>y_h = 1 falls Close(t+h) &gt; Close(t)</code> für h = 5/10/15 (LEAD), sonst 0.</p>
+    <p><b>4. Standardisierung:</b> StandardScaler, <b>nur auf dem Trainfenster gefittet</b> und auf Test angewandt — kein Leak.</p>
+    <p><b>5. Walk-Forward:</b> expanding window, Start nach 252 Tagen, <b>Refit alle 21 Handelstage</b>; getestet wird immer nur der noch ungesehene nächste Block. Alle OOS-Vorhersagen ergeben Accuracy/Precision/Recall/F1/ROC-AUC.</p>
+    <p><b>6. Live-Vorhersage:</b> Modell auf gesamter gelabelter Historie trainiert → Wahrscheinlichkeit für den jüngsten Tag. <b>Sicherheit = |P − 0,5| × 2</b> (0 = Münzwurf, 1 = maximal sicher).</p>
+    <p><b>7. Ensemble:</b> Mehrheitsvotum der 6 Modelle je Horizont + Durchschnitts-Wahrscheinlichkeit.</p>
+  </div>
+</div>
+{% endif %}
+
+</div>
+</body>
+</html>
