@@ -175,7 +175,36 @@
         </section>
 
         <section>
-            <h2>5 · Fazit</h2>
+            <h2>5 · Sensitivität: Ist das nur Dividende?</h2>
+            <p>Naheliegende Reviewer-Frage: Die adjustierte Zerlegung
+               (<code>auto_adjust=True</code>) ist eine <strong>Total-Return</strong>-Zerlegung
+               und schreibt Ex-Div-Kurssprünge dem Overnight-Bucket zu. Wie viel der
+               Overnight-Dominanz ist also bloß Dividende? Gegenrechnung mit
+               <strong>price-only</strong>-Kursen (Dividende komplett raus):</p>
+            <table>
+                <thead><tr><th>Bucket</th><th class="num">Adjusted (Total-Return)</th>
+                    <th class="num">Price-only</th><th class="num">Differenz = Dividende</th></tr></thead>
+                <tbody id="sensBody"></tbody>
+            </table>
+            <div class="info-box info">
+                <strong id="sensVerdict"></strong>
+                <ul style="margin-top:8px;">
+                    <li><strong>Methodik-Validierung:</strong> Intraday ist in beiden Varianten
+                        <em>bit-identisch</em> (Differenz 0,0 pp) — die Dividenden-Adjustierung
+                        berührt den Same-Day-Quotienten Close/Open nicht. Der gesamte
+                        Dividendeneffekt landet ausschließlich über Nacht (Ex-Div-Sprung zur
+                        Eröffnung). Starker interner Beleg, dass die Zerlegung sauber ist.</li>
+                    <li><strong>Split-Voraussetzung:</strong> Confound-frei nur, weil
+                        <strong>SPY nie gesplittet hat</strong> — hier ist der einzige Unterschied
+                        zwischen <code>auto_adjust</code> True/False die Dividende. Bei
+                        Split-Aktien müsste man split-bereinigte Rohpreise nutzen.</li>
+                </ul>
+                Reproduzierbar via <code>overnight_intraday_sensitivity.py</code>.
+            </div>
+        </section>
+
+        <section>
+            <h2>6 · Fazit</h2>
             <ul>
                 <li><strong>Deskriptiv robust:</strong> Die SPY-Risikoprämie ist
                     überwiegend ein Overnight-Phänomen — sauber reproduziert, beide Hälften.</li>
@@ -1534,7 +1563,7 @@
       850.5,
       939.8,
       989.3,
-      986.2
+      986.3
     ]
   },
   "subperiods": [
@@ -1543,7 +1572,7 @@
       "n": 6895,
       "overnight": 753.3,
       "intraday": 15.6,
-      "total": 886.2
+      "total": 886.3
     },
     {
       "label": "H1 bis 2012-09-14",
@@ -1557,12 +1586,12 @@
       "n": 3448,
       "overnight": 229.4,
       "intraday": 98.6,
-      "total": 554.2
+      "total": 554.3
     }
   ],
   "strat": {
     "Buy&Hold": {
-      "cagr": 8.72,
+      "cagr": 8.73,
       "sharpe": 0.53,
       "maxdd": -55.2
     },
@@ -1620,7 +1649,16 @@
       "overnight": 70.5,
       "intraday": 479.2
     }
-  ]
+  ],
+  "sensitivity": {
+    "overnight_adj": 753.3,
+    "overnight_raw": 430.4,
+    "intraday_adj": 15.6,
+    "intraday_raw": 15.6,
+    "div_share_pct": 43,
+    "price_share_pct": 57,
+    "still_dominates": true
+  }
 };
 
     document.getElementById('ndays').textContent = DATA.n_days.toLocaleString('de-DE');
@@ -1680,6 +1718,25 @@
         barmode: 'group',
         legend: {orientation: 'h', y: -0.15},
     }, {responsive: true, displayModeBar: false});
+
+    // Sensitivität: adjusted vs price-only
+    const s = DATA.sensitivity;
+    const sensRows = [
+        ['Overnight', s.overnight_adj, s.overnight_raw],
+        ['Intraday', s.intraday_adj, s.intraday_raw],
+    ];
+    document.getElementById('sensBody').innerHTML = sensRows.map(([lbl, a, p]) => {
+        const diff = Math.round((a - p) * 10) / 10;
+        return `<tr><td>${lbl}</td><td class="num">+${a}%</td>
+            <td class="num">+${p}%</td>
+            <td class="num ${diff > 0.05 ? '' : ''}">${diff > 0 ? '+' : ''}${diff}%</td></tr>`;
+    }).join('');
+    document.getElementById('sensVerdict').textContent = s.still_dominates
+        ? `Auch ohne Dividende dominiert Overnight (+${s.overnight_raw}%) weiter klar über `
+          + `Intraday (+${s.intraday_raw}%) — der Effekt ist KEIN Dividenden-Artefakt. `
+          + `~${s.price_share_pct}% reine Preis-Drift, ~${s.div_share_pct}% Dividende.`
+        : `Die Overnight-Dominanz verschwindet ohne Dividende — sie war größtenteils ein `
+          + `Dividenden-Artefakt.`;
     </script>
 </body>
 </html>

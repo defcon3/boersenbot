@@ -103,6 +103,28 @@ for nm in NAMES:
                  "overnight": round(cum(d, "overnight") * 100, 1),
                  "intraday": round(cum(d, "intraday") * 100, 1)})
 
+# Sensitivitaet: adjusted (Total-Return) vs price-only (Dividende raus).
+# SPY hat nie gesplittet -> auto_adjust=False unterscheidet sich von True NUR
+# durch die Dividende (kein Split-Confound). Siehe overnight_intraday_sensitivity.py.
+print("Sensitivitaet adjusted vs price-only (SPY)...", flush=True)
+raw = yf.download(PRIMARY, start=START, end=END, interval="1d",
+                  progress=False, auto_adjust=False)
+if isinstance(raw.columns, pd.MultiIndex):
+    raw.columns = raw.columns.get_level_values(0)
+draw = decompose(raw[["Open", "Close"]].dropna())
+sidx = dec.index.intersection(draw.index)
+on_adj = float(np.prod(1 + dec.loc[sidx, "overnight"]) - 1) * 100
+on_raw = float(np.prod(1 + draw.loc[sidx, "overnight"]) - 1) * 100
+id_adj = float(np.prod(1 + dec.loc[sidx, "intraday"]) - 1) * 100
+id_raw = float(np.prod(1 + draw.loc[sidx, "intraday"]) - 1) * 100
+sensitivity = {
+    "overnight_adj": round(on_adj, 1), "overnight_raw": round(on_raw, 1),
+    "intraday_adj": round(id_adj, 1), "intraday_raw": round(id_raw, 1),
+    "div_share_pct": round((on_adj - on_raw) / on_adj * 100),   # % der adj-Overnight = Dividende
+    "price_share_pct": round(on_raw / on_adj * 100),
+    "still_dominates": bool(on_raw > id_raw),
+}
+
 data = {
     "generated": pd.Timestamp.now().strftime("%Y-%m-%d"),
     "n_days": int(len(dec)),
@@ -113,6 +135,7 @@ data = {
     "bh_sharpe": round(bh_sharpe, 2),
     "netcost": netcost,
     "xsec": xsec,
+    "sensitivity": sensitivity,
 }
 with open("overnight_intraday_data.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
