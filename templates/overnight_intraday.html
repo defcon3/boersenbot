@@ -92,13 +92,14 @@
                 <span class="bad">+15,6 %</span> intraday (Open→Close). Stabil in beiden
                 Zeit-Hälften. <strong>Aber:</strong> eine „Nur-Overnight"-Strategie
                 handelt 2× pro Tag — bei 5 bps/Leg sind das ~25 % Kostendrag pro Jahr,
-                der Edge ist weg. Und cross-sectional gilt das Muster nur für Growth/Tech,
-                nicht für Dividenden-Werte.
+                der Edge ist weg. Cross-sectional ist der Effekt zwar <strong>breit</strong>
+                (66 % der Index-Mitglieder, Point-in-Time gemessen), aber auf
+                Equal-Weight-Portfolio-Ebene regimeabhängig.
             </div>
             <p>
                 <span class="badge green">G1 PASS</span> deskriptiv stabil (beide Subperioden)
                 <span class="badge red">G2 FAIL</span> nicht handelbar nach Kosten
-                <span class="badge red">G3 FAIL</span> nicht universell (2/5 Einzelnamen)
+                <span class="badge yellow">G3 (PIT)</span> breit (66 % der Mitglieder), aber regimeabhängig
             </p>
         </section>
 
@@ -164,14 +165,38 @@
         </section>
 
         <section>
-            <h2>4 · Cross-Section: nicht universell</h2>
-            <p>Die Overnight-Dominanz ist <strong>kein Aktien-Gesetz</strong>, sondern auf
-               Growth/Tech konzentriert. Bei Dividenden-/Value-Werten dominiert umgekehrt
-               der Handelstag:</p>
+            <h2>4 · Cross-Section: breit, aber regimeabhängig</h2>
+            <h3>Naiver Erstversuch: 5 handverlesene Namen</h3>
+            <p>Ein erster Blick auf fünf bekannte Aktien legte nahe, der Effekt sei auf
+               Growth/Tech beschränkt — bei AAPL/MSFT dominiert die Nacht, bei
+               JNJ/KO/XOM der Handelstag:</p>
             <div id="xsecChart" class="chart sm"></div>
-            <p style="font-size:0.9em;color:#7f8c8d;">AAPL/MSFT: Nacht weit voraus.
-               JNJ/KO/XOM: Intraday voraus. Daher G3 (Mehrheit der Einzelnamen) FAIL —
-               das Stylized Fact ist ein Index- und Growth-Phänomen, kein universelles.</p>
+            <div class="info-box warn">
+                <strong>Das ist methodisch schwach:</strong> 5 per Hand gewählte
+                <em>Überlebende</em> sind kein Test — die Auswahl entscheidet das Ergebnis.
+                Sauber braucht es die <strong>historische Index-Zusammensetzung</strong>
+                (jede Aktie nur an den Tagen, an denen sie wirklich im S&amp;P 500 war).
+            </div>
+
+            <h3>Robuster Test: Point-in-Time-Mitgliedschaft (S&amp;P 500, 2010–2026)</h3>
+            <p>Tagesgenaue Index-Mitgliedschaft aus öffentlichem Constituents-Dataset;
+               857 je gelistete Ticker, 662 (77 %) bei yfinance abrufbar.
+               <strong>Coverage der Mitglieds-Slots: 85,7 %</strong> — die fehlenden 14,3 %
+               (delistet/übernommen) sind der ehrlich nicht eliminierbare Survivorship-Rest.</p>
+            <table>
+                <thead><tr><th>Auswertung</th><th class="num">Overnight</th>
+                    <th class="num">Intraday</th><th>on&gt;id?</th></tr></thead>
+                <tbody id="pitBody"></tbody>
+            </table>
+            <div class="info-box info">
+                <strong>Befund:</strong> Bei <strong>66 % aller Index-Mitglieder</strong>
+                (616 getestete Aktien) dominiert die Nacht — der Effekt ist also <strong>breit</strong>,
+                <em>nicht</em> auf Growth/Tech beschränkt. Der 5-Namen-Eindruck war ein
+                Selektions-Artefakt. <strong>Aber:</strong> das gleichgewichtete Portfolio ist
+                regimeabhängig — 2010–2018 lag intraday vorne, erst 2018–2026 overnight. Der
+                strikte Pre-Reg-Gate (beide Hälften <em>und</em> Mehrheit) ist daher FAIL.
+                Reproduzierbar via <code>overnight_intraday_g3_pit.py</code>.
+            </div>
         </section>
 
         <section>
@@ -210,8 +235,10 @@
                     überwiegend ein Overnight-Phänomen — sauber reproduziert, beide Hälften.</li>
                 <li><strong>Nicht handelbar:</strong> Tägliche Round-Trip-Kosten löschen
                     jeden Edge (Sharpe +0,76 → −1,50 bei 5 bps/Leg).</li>
-                <li><strong>Nicht universell:</strong> Effekt nur bei Growth/Tech, nicht bei
-                    Dividenden-Werten.</li>
+                <li><strong>Breit, aber regimeabhängig:</strong> Point-in-Time über die
+                    S&amp;P-500-Mitgliedschaft dominiert die Nacht bei 66 % der Aktien (kein
+                    Growth/Tech-Sonderfall) — das gleichgewichtete Portfolio ist jedoch
+                    regimeabhängig (2010–2018 intraday voraus).</li>
             </ul>
             <div class="info-box info">
                 Eingereiht in den <a href="/done">Friedhof falsifizierter Hypothesen</a>:
@@ -1718,6 +1745,44 @@
         barmode: 'group',
         legend: {orientation: 'h', y: -0.15},
     }, {responsive: true, displayModeBar: false});
+
+    // G3 Point-in-Time: Tabelle rendern
+    const PIT = {
+  "union": 857,
+  "fetched": 662,
+  "coverage_pct": 85.7,
+  "missing_slots": 289088,
+  "basket_avg": 430,
+  "port_overnight_pct": 276.8,
+  "port_intraday_pct": 114.4,
+  "port_sharpe_on": 0.79,
+  "port_sharpe_id": 0.42,
+  "h1_on_pct": 69.0,
+  "h1_id_pct": 94.6,
+  "h2_on_pct": 123.0,
+  "h2_id_pct": 10.2,
+  "split_date": "2018-01-05",
+  "h1_on_gt_id": false,
+  "h2_on_gt_id": true,
+  "stock_winrate_pct": 66.1,
+  "stock_winrate_wd_pct": 64.6,
+  "stocks_tested": 616,
+  "g3_pit_pass": false
+};
+    const pitRows = [
+        [`Portfolio GESAMT (2010–${PIT.split_date.slice(0,4)}+)`, PIT.port_overnight_pct, PIT.port_intraday_pct],
+        [`Portfolio H1 (2010–${PIT.split_date})`, PIT.h1_on_pct, PIT.h1_id_pct],
+        [`Portfolio H2 (${PIT.split_date}–heute)`, PIT.h2_on_pct, PIT.h2_id_pct],
+    ];
+    let pitHtml = pitRows.map(([lbl, a, p]) => {
+        const win = a > p;
+        return `<tr><td>${lbl}</td><td class="num">+${a}%</td><td class="num">+${p}%</td>`
+            + `<td>${win ? '<span class="ok">JA</span>' : '<span class="bad">NEIN</span>'}</td></tr>`;
+    }).join('');
+    pitHtml += `<tr><td>Portfolio Sharpe (annualisiert)</td>`
+        + `<td class="num">${PIT.port_sharpe_on}</td><td class="num">${PIT.port_sharpe_id}</td>`
+        + `<td><span class="ok">JA</span></td></tr>`;
+    document.getElementById('pitBody').innerHTML = pitHtml;
 
     // Sensitivität: adjusted vs price-only
     const s = DATA.sensitivity;
