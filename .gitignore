@@ -36,3 +36,11 @@ today_signal.json
 hyg_today_signal.json
 .last_report_state.json
 *.bak
+
+# Overnight/Intraday + G3-PIT: reproduzierbar via die *.py
+overnight_intraday_data.json
+overnight_intraday_g3_pit.json
+sp500_hist_components.csv
+g3_pit_ohlc.pkl
+sector_momentum_ohlc.pkl
+sector_momentum_results.csv
