@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividend-Watch — Börsenbot</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1419; color: #e0e6ed; line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        header h1 { font-size: 28px; margin-bottom: 5px; }
+        header p { font-size: 14px; opacity: 0.9; }
+        .topnav {
+            background: #0a0d12; border-bottom: 1px solid #2a2e37;
+            padding: 8px 20px; display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .topnav a {
+            color: #9aa5b1; text-decoration: none; font-size: 12px; font-weight: 600;
+            letter-spacing: .5px; padding: 6px 14px; border: 1px solid transparent;
+            border-radius: 14px; transition: color .15s, border-color .15s, background .15s;
+        }
+        .topnav a:hover { color: #00d4ff; border-color: #1e3a5f; }
+        .topnav a.active { color: #00d4ff; border-color: #00d4ff; background: rgba(0,212,255,.08); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .disclaimer {
+            background: #3a2a14; border: 1px solid #b45309; color: #fcd9a8;
+            padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;
+        }
+        .disclaimer strong { color: #fbbf24; }
+        .disclaimer a { color: #fcd34d; }
+        .card {
+            background: #1a1e27; border: 1px solid #2a2e37; border-radius: 8px;
+            padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 16px; margin-bottom: 15px; color: #667eea;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #2a2e37; }
+        th {
+            color: #9aa5b1; text-transform: uppercase; font-size: 11px;
+            letter-spacing: .5px; cursor: default;
+        }
+        td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+        tbody tr:hover { background: #20242e; }
+        .ticker { font-weight: 600; color: #00d4ff; }
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 10px;
+            font-size: 11px; font-weight: 600;
+        }
+        .badge.soon { background: #7f1d1d; color: #fecaca; }
+        .badge.upcoming { background: #1e3a5f; color: #93c5fd; }
+        .badge.past { background: #2a2e37; color: #9ca3af; }
+        .muted { color: #6b7280; }
+        .chart-box { margin-bottom: 28px; }
+        .chart-box h3 {
+            font-size: 14px; color: #e0e6ed; margin-bottom: 4px;
+        }
+        .chart-box .sub { font-size: 12px; color: #9ca3af; margin-bottom: 8px; }
+        .plot { width: 100%; height: 360px; }
+        .footer {
+            text-align: center; padding: 20px; color: #666; font-size: 12px;
+            border-top: 1px solid #2a2e37; margin-top: 40px;
+        }
+        .empty { color: #9ca3af; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💶 Dividend-Watch</h1>
+        <p>Ex-Tag-Events DE (DAX/MDAX/SDAX) — Aktien- &amp; Optionsschein-Kursverlauf, reine Beobachtung</p>
+    </header>
+    <nav class="topnav">
+        <a href="/">📊 Dashboard</a>
+        <a href="/analysis">🔬 Kaggle Explorer</a>
+        <a href="/analysis/som">🗺️ SOM-Marktregime</a>
+        <a href="/analysis/crossover">📈 MA-Crossover</a>
+        <a href="/analysis/streak">🔻 Streak-Mean-Rev</a>
+        <a href="/analysis/predict">🤖 ML-Vorhersage</a>
+        <a href="/overnight-intraday">🌙 Overnight</a>
+        <a href="/dividend-watch" class="active">💶 Dividend-Watch</a>
+        <a href="/fazit">📋 Fazit</a>
+        <a href="/optionen">⚖️ Optionsscheine</a>
+    </nav>
+
+    <div class="container">
+        <div class="disclaimer">
+            <strong>⚠️ Keine Empfehlung.</strong> Dividend-Capture (#11), Optionsschein-vor-Dividende (#12)
+            und selektives Capture (#13) wurden empirisch <strong>falsifiziert</strong>
+            (<a href="/done">Details auf /done</a>). Diese Seite sammelt ausschließlich Live-Daten
+            zur späteren Auswertung — kein Trading-Signal.
+        </div>
+
+        <div class="card">
+            <h2>📋 Ex-Tag-Events ({{ events|length }})</h2>
+            {% if events %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Name</th>
+                        <th>Ex-Tag</th>
+                        <th class="num">Brutto-Div</th>
+                        <th class="num">Tage&nbsp;bis&nbsp;Ex</th>
+                        <th class="num">Warrants</th>
+                        <th class="num">Snap-Tage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in events %}
+                    <tr>
+                        <td class="ticker">{{ e.ticker }}</td>
+                        <td>{{ e.name }}</td>
+                        <td>{{ e.ex_date }}</td>
+                        <td class="num">{{ '%.2f'|format(e.gross_div) }} {{ e.currency }}</td>
+                        <td class="num">
+                            {% if e.days_to_ex is none %}
+                                <span class="muted">–</span>
+                            {% elif e.days_to_ex < 0 %}
+                                <span class="badge past">{{ e.days_to_ex }}</span>
+                            {% elif e.days_to_ex <= 2 %}
+                                <span class="badge soon">+{{ e.days_to_ex }}</span>
+                            {% else %}
+                                <span class="badge upcoming">+{{ e.days_to_ex }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="num">{{ e.n_warrants }}</td>
+                        <td class="num">
+                            {% if e.has_chart %}{{ e.n_stock_days }}{% else %}<span class="muted">{{ e.n_stock_days }}</span>{% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty">Noch keine Events erfasst.</div>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>📈 Kursverlauf je Event (Aktie vs. Optionsschein-Mid)</h2>
+            <p class="sub muted" style="font-size:12px;margin-bottom:16px;">
+                Nur Events mit ≥2 Snapshot-Tagen. Linke Achse: Aktien-Schlusskurs (€),
+                rechte Achse: Optionsschein-Mid (€). Gestrichelte Linie = Ex-Tag.
+            </p>
+            <div id="charts"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Börsenbot · Dividend-Watch · Daten: yfinance (Aktien) + comdirect-Finder (Optionsscheine) ·
+        Snapshot Mo–Fr 18:30 · reine Beobachtung
+    </div>
+
+    <script>
+        const CHARTS = {{ charts_json|safe }};
+        const PALETTE = ['#f59e0b', '#10b981', '#ec4899', '#a78bfa', '#f87171', '#38bdf8'];
+        const container = document.getElementById('charts');
+
+        if (!CHARTS.length) {
+            container.innerHTML = '<div class="empty">Noch keine Events mit ≥2 Snapshot-Tagen. ' +
+                'Sobald über mehrere Tage gesammelt wurde, erscheinen hier die Kurven.</div>';
+        }
+
+        CHARTS.forEach((c, idx) => {
+            const box = document.createElement('div');
+            box.className = 'chart-box';
+            const h3 = document.createElement('h3');
+            h3.textContent = `${c.name} (${c.ticker})`;
+            const sub = document.createElement('div');
+            sub.className = 'sub';
+            sub.textContent = `Ex-Tag ${c.ex_date} · Brutto-Dividende ${c.gross_div.toFixed(2)} ${c.currency}`;
+            const plot = document.createElement('div');
+            plot.className = 'plot';
+            plot.id = 'plot-' + c.event_id;
+            box.appendChild(h3); box.appendChild(sub); box.appendChild(plot);
+            container.appendChild(box);
+
+            const traces = [];
+            // Aktien-Close (linke Achse)
+            traces.push({
+                x: c.stock.map(p => p.date),
+                y: c.stock.map(p => p.close),
+                name: 'Aktie (€)',
+                mode: 'lines+markers',
+                line: { color: '#00d4ff', width: 2.5 },
+                marker: { size: 6 },
+                yaxis: 'y',
+            });
+            // Optionsscheine (rechte Achse)
+            c.warrants.forEach((w, wi) => {
+                const lbl = `${w.wkn}${w.opt_type ? ' ' + w.opt_type : ''}${w.strike ? ' @' + w.strike : ''}`;
+                traces.push({
+                    x: w.points.map(p => p.date),
+                    y: w.points.map(p => p.mid),
+                    name: lbl,
+                    mode: 'lines+markers',
+                    line: { color: PALETTE[wi % PALETTE.length], width: 1.6, dash: 'dot' },
+                    marker: { size: 4 },
+                    yaxis: 'y2',
+                });
+            });
+
+            const layout = {
+                paper_bgcolor: '#1a1e27',
+                plot_bgcolor: '#1a1e27',
+                font: { color: '#e0e6ed', size: 11 },
+                margin: { l: 55, r: 55, t: 10, b: 40 },
+                showlegend: true,
+                legend: { orientation: 'h', y: -0.2, font: { size: 10 } },
+                xaxis: { gridcolor: '#2a2e37', type: 'date' },
+                yaxis: { title: 'Aktie €', gridcolor: '#2a2e37', zeroline: false },
+                yaxis2: {
+                    title: 'Schein €', overlaying: 'y', side: 'right',
+                    showgrid: false, zeroline: false,
+                },
+                shapes: [{
+                    type: 'line', x0: c.ex_date, x1: c.ex_date, xref: 'x',
+                    y0: 0, y1: 1, yref: 'paper',
+                    line: { color: '#ef4444', width: 1.5, dash: 'dash' },
+                }],
+                annotations: [{
+                    x: c.ex_date, xref: 'x', y: 1, yref: 'paper',
+                    text: 'Ex-Tag', showarrow: false,
+                    font: { color: '#ef4444', size: 10 }, yanchor: 'bottom',
+                }],
+            };
+            Plotly.newPlot(plot.id, traces, layout, { displayModeBar: false, responsive: true });
+        });
+    </script>
+</body>
+</html>

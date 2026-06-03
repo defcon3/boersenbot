@@ -6,14 +6,26 @@ Monitors data collection, streaming status, portfolio, and trading signals
 
 from flask import Flask, render_template, jsonify, request
 import pymssql
+import sqlite3
 import subprocess
 import os
 import json
+from collections import defaultdict
 from datetime import datetime, timedelta
 import sys
 import timeutil
 
 app = Flask(__name__)
+
+# Dividend-Tracker (eigene SQLite-DB, reine Beobachtung — KEINE Empfehlung,
+# #11/#12/#13 falsifiziert, siehe veitluther.de/done)
+DIVIDEND_DB = '/home/veit/boersenbot/dividend_tracker.db'
+
+def get_dividend_db():
+    """SQLite-Verbindung zur Dividend-Tracker-DB."""
+    conn = sqlite3.connect(DIVIDEND_DB)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 # Database config
 DB_CONFIG = {
@@ -220,6 +232,101 @@ def control_streaming(action):
 def index():
     """Main dashboard"""
     return render_template('index.html')
+
+@app.route('/fazit')
+def fazit_seite():
+    """Boersenbot Fazit-Seite (Ergebnisse + Architektur)"""
+    return render_template('fazit.html')
+
+@app.route('/done')
+def done_seite():
+    return render_template('done.html')
+
+@app.route('/overnight-intraday')
+def overnight_intraday_seite():
+    """Show-Data: Overnight-vs-Intraday-Zerlegung (YELLOW, nicht handelbar)."""
+    return render_template('overnight_intraday.html')
+
+@app.route('/dividend-watch')
+def dividend_watch():
+    """Dividend-Tracker-Dashboard: Ex-Tag-Events + Kursverlauf Aktie vs. Optionsschein.
+
+    Reine Daten-Sammlung NACH Falsifikation von #11/#12/#13 — kein Trading-Signal.
+    """
+    conn = get_dividend_db()
+    events = conn.execute("""
+        SELECT e.event_id, e.ticker, e.name, e.ex_date, e.gross_div, e.currency,
+               COUNT(DISTINCT w.warrant_id) AS n_warrants
+        FROM events e
+        LEFT JOIN warrants w ON w.event_id = e.event_id
+        GROUP BY e.event_id, e.ticker, e.name, e.ex_date, e.gross_div, e.currency
+        ORDER BY e.ex_date DESC, e.ticker
+    """).fetchall()
+
+    stock_rows = conn.execute("""
+        SELECT event_id, snapshot_date, days_to_ex, stock_close
+        FROM stock_snapshots
+        WHERE stock_close IS NOT NULL
+        ORDER BY snapshot_date
+    """).fetchall()
+
+    warr_rows = conn.execute("""
+        SELECT w.event_id, w.wkn, w.issuer, w.opt_type, w.strike,
+               ws.snapshot_date, ws.mid, ws.hebel
+        FROM warrant_snapshots ws
+        JOIN warrants w ON w.warrant_id = ws.warrant_id
+        WHERE ws.mid IS NOT NULL
+        ORDER BY ws.snapshot_date
+    """).fetchall()
+    conn.close()
+
+    stock_by_ev = defaultdict(list)
+    for r in stock_rows:
+        stock_by_ev[r['event_id']].append(
+            {'date': r['snapshot_date'], 'close': r['stock_close'], 'dte': r['days_to_ex']})
+
+    warr_by_ev = defaultdict(lambda: defaultdict(list))
+    warr_meta = {}
+    for r in warr_rows:
+        warr_by_ev[r['event_id']][r['wkn']].append(
+            {'date': r['snapshot_date'], 'mid': r['mid'], 'hebel': r['hebel']})
+        warr_meta[(r['event_id'], r['wkn'])] = {
+            'issuer': r['issuer'], 'opt_type': r['opt_type'], 'strike': r['strike']}
+
+    today = datetime.now().date()
+    events_out, charts = [], []
+    for e in events:
+        try:
+            dte = (datetime.strptime(e['ex_date'], '%Y-%m-%d').date() - today).days
+        except (ValueError, TypeError):
+            dte = None
+        sdata = sorted(stock_by_ev.get(e['event_id'], []), key=lambda x: x['date'])
+        uniq_days = sorted({s['date'] for s in sdata})
+        events_out.append({
+            'event_id': e['event_id'], 'ticker': e['ticker'], 'name': e['name'],
+            'ex_date': e['ex_date'], 'gross_div': e['gross_div'],
+            'currency': e['currency'] or 'EUR', 'n_warrants': e['n_warrants'],
+            'days_to_ex': dte, 'n_stock_days': len(uniq_days),
+            'has_chart': len(uniq_days) >= 2,
+        })
+        if len(uniq_days) >= 2:
+            warrants = []
+            for wkn, pts in warr_by_ev.get(e['event_id'], {}).items():
+                m = warr_meta.get((e['event_id'], wkn), {})
+                warrants.append({
+                    'wkn': wkn, 'issuer': m.get('issuer'),
+                    'opt_type': m.get('opt_type'), 'strike': m.get('strike'),
+                    'points': sorted(pts, key=lambda x: x['date']),
+                })
+            charts.append({
+                'event_id': e['event_id'], 'ticker': e['ticker'], 'name': e['name'],
+                'ex_date': e['ex_date'], 'gross_div': e['gross_div'],
+                'currency': e['currency'] or 'EUR',
+                'stock': sdata, 'warrants': warrants,
+            })
+
+    return render_template('dividend_watch.html',
+                           events=events_out, charts_json=json.dumps(charts))
 
 @app.route('/api/stats')
 def api_stats():
