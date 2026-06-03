@@ -3,7 +3,7 @@ Description=Börsenbot Flask Dashboard
 After=network.target
 
 [Service]
-Type=notify
+Type=simple
 User=veit
 WorkingDirectory=/home/veit/boersenbot
 ExecStart=/home/veit/boersenbot/venv/bin/gunicorn --workers 2 --bind 127.0.0.1:5000 --timeout 120 app:app

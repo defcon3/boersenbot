@@ -1,0 +1,14 @@
+[Unit]
+Description=Börsenbot Alpaca Streaming
+After=network.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python3 alpaca_streaming_simple.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

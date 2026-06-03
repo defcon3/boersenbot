@@ -1,0 +1,15 @@
+[Unit]
+Description=Boersenbot Optionsschein-Vergleich (Playwright/Flask)
+After=network.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+Environment="PATH=/home/veit/boersenbot/venv/bin"
+ExecStart=/home/veit/boersenbot/venv/bin/gunicorn --workers 2 --bind 127.0.0.1:5051 --timeout 120 optionen_vergleich:app
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
