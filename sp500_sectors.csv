@@ -1,0 +1,504 @@
+symbol,name,gics_sector,sector_class
+MMM,3M,Industrials,ZYKLISCH
+AOS,A. O. Smith,Industrials,ZYKLISCH
+ABT,Abbott Laboratories,Health Care,DEFENSIV
+ABBV,AbbVie,Health Care,DEFENSIV
+ACN,Accenture,Information Technology,TECH
+ADBE,Adobe Inc.,Information Technology,TECH
+AMD,Advanced Micro Devices,Information Technology,TECH
+AES,AES Corporation,Utilities,DEFENSIV
+AFL,Aflac,Financials,ZYKLISCH
+A,Agilent Technologies,Health Care,DEFENSIV
+APD,Air Products,Materials,ZYKLISCH
+ABNB,Airbnb,Consumer Discretionary,ZYKLISCH
+AKAM,Akamai Technologies,Information Technology,TECH
+ALB,Albemarle Corporation,Materials,ZYKLISCH
+ARE,Alexandria Real Estate Equities,Real Estate,DEFENSIV
+ALGN,Align Technology,Health Care,DEFENSIV
+ALLE,Allegion,Industrials,ZYKLISCH
+LNT,Alliant Energy,Utilities,DEFENSIV
+ALL,Allstate,Financials,ZYKLISCH
+GOOGL,Alphabet Inc. (Class A),Communication Services,TECH
+GOOG,Alphabet Inc. (Class C),Communication Services,TECH
+MO,Altria,Consumer Staples,DEFENSIV
+AMZN,Amazon,Consumer Discretionary,ZYKLISCH
+AMCR,Amcor,Materials,ZYKLISCH
+AEE,Ameren,Utilities,DEFENSIV
+AEP,American Electric Power,Utilities,DEFENSIV
+AXP,American Express,Financials,ZYKLISCH
+AIG,American International Group,Financials,ZYKLISCH
+AMT,American Tower,Real Estate,DEFENSIV
+AWK,American Water Works,Utilities,DEFENSIV
+AMP,Ameriprise Financial,Financials,ZYKLISCH
+AME,Ametek,Industrials,ZYKLISCH
+AMGN,Amgen,Health Care,DEFENSIV
+APH,Amphenol,Information Technology,TECH
+ADI,Analog Devices,Information Technology,TECH
+AON,Aon plc,Financials,ZYKLISCH
+APA,APA Corporation,Energy,ZYKLISCH
+APO,Apollo Global Management,Financials,ZYKLISCH
+AAPL,Apple Inc.,Information Technology,TECH
+AMAT,Applied Materials,Information Technology,TECH
+APP,AppLovin,Information Technology,TECH
+APTV,Aptiv,Consumer Discretionary,ZYKLISCH
+ACGL,Arch Capital Group,Financials,ZYKLISCH
+ADM,Archer Daniels Midland,Consumer Staples,DEFENSIV
+ARES,Ares Management,Financials,ZYKLISCH
+ANET,Arista Networks,Information Technology,TECH
+AJG,Arthur J. Gallagher & Co.,Financials,ZYKLISCH
+AIZ,Assurant,Financials,ZYKLISCH
+T,AT&T,Communication Services,TECH
+ATO,Atmos Energy,Utilities,DEFENSIV
+ADSK,Autodesk,Information Technology,TECH
+ADP,Automatic Data Processing,Industrials,ZYKLISCH
+AZO,AutoZone,Consumer Discretionary,ZYKLISCH
+AVB,AvalonBay Communities,Real Estate,DEFENSIV
+AVY,Avery Dennison,Materials,ZYKLISCH
+AXON,Axon Enterprise,Industrials,ZYKLISCH
+BKR,Baker Hughes,Energy,ZYKLISCH
+BALL,Ball Corporation,Materials,ZYKLISCH
+BAC,Bank of America,Financials,ZYKLISCH
+BAX,Baxter International,Health Care,DEFENSIV
+BDX,Becton Dickinson,Health Care,DEFENSIV
+BRK-B,Berkshire Hathaway,Financials,ZYKLISCH
+BBY,Best Buy,Consumer Discretionary,ZYKLISCH
+TECH,Bio-Techne,Health Care,DEFENSIV
+BIIB,Biogen,Health Care,DEFENSIV
+BLK,BlackRock,Financials,ZYKLISCH
+BX,Blackstone Inc.,Financials,ZYKLISCH
+XYZ,"Block, Inc.",Financials,ZYKLISCH
+BNY,BNY Mellon,Financials,ZYKLISCH
+BA,Boeing,Industrials,ZYKLISCH
+BKNG,Booking Holdings,Consumer Discretionary,ZYKLISCH
+BSX,Boston Scientific,Health Care,DEFENSIV
+BMY,Bristol Myers Squibb,Health Care,DEFENSIV
+AVGO,Broadcom,Information Technology,TECH
+BR,Broadridge Financial Solutions,Industrials,ZYKLISCH
+BRO,Brown & Brown,Financials,ZYKLISCH
+BF-B,Brown–Forman,Consumer Staples,DEFENSIV
+BLDR,Builders FirstSource,Industrials,ZYKLISCH
+BG,Bunge Global,Consumer Staples,DEFENSIV
+BXP,"BXP, Inc.",Real Estate,DEFENSIV
+CHRW,C.H. Robinson,Industrials,ZYKLISCH
+CDNS,Cadence Design Systems,Information Technology,TECH
+CPT,Camden Property Trust,Real Estate,DEFENSIV
+CPB,Campbell's Company (The),Consumer Staples,DEFENSIV
+COF,Capital One,Financials,ZYKLISCH
+CAH,Cardinal Health,Health Care,DEFENSIV
+CCL,Carnival Corporation,Consumer Discretionary,ZYKLISCH
+CARR,Carrier Global,Industrials,ZYKLISCH
+CVNA,Carvana,Consumer Discretionary,ZYKLISCH
+CASY,Casey's,Consumer Staples,DEFENSIV
+CAT,Caterpillar Inc.,Industrials,ZYKLISCH
+CBOE,Cboe Global Markets,Financials,ZYKLISCH
+CBRE,CBRE Group,Real Estate,DEFENSIV
+CDW,CDW Corporation,Information Technology,TECH
+COR,Cencora,Health Care,DEFENSIV
+CNC,Centene Corporation,Health Care,DEFENSIV
+CNP,CenterPoint Energy,Utilities,DEFENSIV
+CF,CF Industries,Materials,ZYKLISCH
+CRL,Charles River Laboratories,Health Care,DEFENSIV
+SCHW,Charles Schwab Corporation,Financials,ZYKLISCH
+CHTR,Charter Communications,Communication Services,TECH
+CVX,Chevron Corporation,Energy,ZYKLISCH
+CMG,Chipotle Mexican Grill,Consumer Discretionary,ZYKLISCH
+CB,Chubb Limited,Financials,ZYKLISCH
+CHD,Church & Dwight,Consumer Staples,DEFENSIV
+CIEN,Ciena,Information Technology,TECH
+CI,Cigna,Health Care,DEFENSIV
+CINF,Cincinnati Financial,Financials,ZYKLISCH
+CTAS,Cintas,Industrials,ZYKLISCH
+CSCO,Cisco,Information Technology,TECH
+C,Citigroup,Financials,ZYKLISCH
+CFG,Citizens Financial Group,Financials,ZYKLISCH
+CLX,Clorox,Consumer Staples,DEFENSIV
+CME,CME Group,Financials,ZYKLISCH
+CMS,CMS Energy,Utilities,DEFENSIV
+KO,Coca-Cola Company (The),Consumer Staples,DEFENSIV
+CTSH,Cognizant,Information Technology,TECH
+COHR,Coherent Corp.,Information Technology,TECH
+COIN,Coinbase,Financials,ZYKLISCH
+CL,Colgate-Palmolive,Consumer Staples,DEFENSIV
+CMCSA,Comcast,Communication Services,TECH
+FIX,Comfort Systems USA,Industrials,ZYKLISCH
+CAG,Conagra Brands,Consumer Staples,DEFENSIV
+COP,ConocoPhillips,Energy,ZYKLISCH
+ED,Consolidated Edison,Utilities,DEFENSIV
+STZ,Constellation Brands,Consumer Staples,DEFENSIV
+CEG,Constellation Energy,Utilities,DEFENSIV
+COO,Cooper Companies (The),Health Care,DEFENSIV
+CPRT,Copart,Industrials,ZYKLISCH
+GLW,Corning Inc.,Information Technology,TECH
+CPAY,Corpay,Financials,ZYKLISCH
+CTVA,Corteva,Materials,ZYKLISCH
+CSGP,CoStar Group,Real Estate,DEFENSIV
+COST,Costco,Consumer Staples,DEFENSIV
+CRH,CRH plc,Materials,ZYKLISCH
+CRWD,CrowdStrike,Information Technology,TECH
+CCI,Crown Castle,Real Estate,DEFENSIV
+CSX,CSX Corporation,Industrials,ZYKLISCH
+CMI,Cummins,Industrials,ZYKLISCH
+CVS,CVS Health,Health Care,DEFENSIV
+DHR,Danaher Corporation,Health Care,DEFENSIV
+DRI,Darden Restaurants,Consumer Discretionary,ZYKLISCH
+DDOG,Datadog,Information Technology,TECH
+DVA,DaVita,Health Care,DEFENSIV
+DECK,Deckers Brands,Consumer Discretionary,ZYKLISCH
+DE,Deere & Company,Industrials,ZYKLISCH
+DELL,Dell Technologies,Information Technology,TECH
+DAL,Delta Air Lines,Industrials,ZYKLISCH
+DVN,Devon Energy,Energy,ZYKLISCH
+DXCM,Dexcom,Health Care,DEFENSIV
+FANG,Diamondback Energy,Energy,ZYKLISCH
+DLR,Digital Realty,Real Estate,DEFENSIV
+DG,Dollar General,Consumer Staples,DEFENSIV
+DLTR,Dollar Tree,Consumer Staples,DEFENSIV
+D,Dominion Energy,Utilities,DEFENSIV
+DPZ,Domino's,Consumer Discretionary,ZYKLISCH
+DASH,DoorDash,Consumer Discretionary,ZYKLISCH
+DOV,Dover Corporation,Industrials,ZYKLISCH
+DOW,Dow Inc.,Materials,ZYKLISCH
+DHI,D. R. Horton,Consumer Discretionary,ZYKLISCH
+DTE,DTE Energy,Utilities,DEFENSIV
+DUK,Duke Energy,Utilities,DEFENSIV
+DD,DuPont,Materials,ZYKLISCH
+ETN,Eaton Corporation,Industrials,ZYKLISCH
+EBAY,eBay Inc.,Consumer Discretionary,ZYKLISCH
+SATS,EchoStar,Communication Services,TECH
+ECL,Ecolab,Materials,ZYKLISCH
+EIX,Edison International,Utilities,DEFENSIV
+EW,Edwards Lifesciences,Health Care,DEFENSIV
+EA,Electronic Arts,Communication Services,TECH
+ELV,Elevance Health,Health Care,DEFENSIV
+EME,Emcor,Industrials,ZYKLISCH
+EMR,Emerson Electric,Industrials,ZYKLISCH
+ETR,Entergy,Utilities,DEFENSIV
+EOG,EOG Resources,Energy,ZYKLISCH
+EPAM,EPAM Systems,Information Technology,TECH
+EQT,EQT Corporation,Energy,ZYKLISCH
+EFX,Equifax,Industrials,ZYKLISCH
+EQIX,Equinix,Real Estate,DEFENSIV
+EQR,Equity Residential,Real Estate,DEFENSIV
+ERIE,Erie Indemnity,Financials,ZYKLISCH
+ESS,Essex Property Trust,Real Estate,DEFENSIV
+EL,Estée Lauder Companies (The),Consumer Staples,DEFENSIV
+EG,Everest Group,Financials,ZYKLISCH
+EVRG,Evergy,Utilities,DEFENSIV
+ES,Eversource Energy,Utilities,DEFENSIV
+EXC,Exelon,Utilities,DEFENSIV
+EXE,Expand Energy,Energy,ZYKLISCH
+EXPE,Expedia Group,Consumer Discretionary,ZYKLISCH
+EXPD,Expeditors International,Industrials,ZYKLISCH
+EXR,Extra Space Storage,Real Estate,DEFENSIV
+XOM,ExxonMobil,Energy,ZYKLISCH
+FFIV,"F5, Inc.",Information Technology,TECH
+FDS,FactSet,Financials,ZYKLISCH
+FICO,Fair Isaac,Information Technology,TECH
+FAST,Fastenal,Industrials,ZYKLISCH
+FRT,Federal Realty Investment Trust,Real Estate,DEFENSIV
+FDX,FedEx,Industrials,ZYKLISCH
+FIS,Fidelity National Information Services,Financials,ZYKLISCH
+FITB,Fifth Third Bancorp,Financials,ZYKLISCH
+FSLR,First Solar,Information Technology,TECH
+FE,FirstEnergy,Utilities,DEFENSIV
+FISV,Fiserv,Financials,ZYKLISCH
+F,Ford Motor Company,Consumer Discretionary,ZYKLISCH
+FTNT,Fortinet,Information Technology,TECH
+FTV,Fortive,Industrials,ZYKLISCH
+FOXA,Fox Corporation (Class A),Communication Services,TECH
+FOX,Fox Corporation (Class B),Communication Services,TECH
+BEN,Franklin Resources,Financials,ZYKLISCH
+FCX,Freeport-McMoRan,Materials,ZYKLISCH
+GRMN,Garmin,Consumer Discretionary,ZYKLISCH
+IT,Gartner,Information Technology,TECH
+GE,GE Aerospace,Industrials,ZYKLISCH
+GEHC,GE HealthCare,Health Care,DEFENSIV
+GEV,GE Vernova,Industrials,ZYKLISCH
+GEN,Gen Digital,Information Technology,TECH
+GNRC,Generac,Industrials,ZYKLISCH
+GD,General Dynamics,Industrials,ZYKLISCH
+GIS,General Mills,Consumer Staples,DEFENSIV
+GM,General Motors,Consumer Discretionary,ZYKLISCH
+GPC,Genuine Parts Company,Consumer Discretionary,ZYKLISCH
+GILD,Gilead Sciences,Health Care,DEFENSIV
+GPN,Global Payments,Financials,ZYKLISCH
+GL,Globe Life,Financials,ZYKLISCH
+GDDY,GoDaddy,Information Technology,TECH
+GS,Goldman Sachs,Financials,ZYKLISCH
+HAL,Halliburton,Energy,ZYKLISCH
+HIG,Hartford (The),Financials,ZYKLISCH
+HAS,Hasbro,Consumer Discretionary,ZYKLISCH
+HCA,HCA Healthcare,Health Care,DEFENSIV
+DOC,Healthpeak Properties,Real Estate,DEFENSIV
+HSIC,Henry Schein,Health Care,DEFENSIV
+HSY,Hershey Company (The),Consumer Staples,DEFENSIV
+HPE,Hewlett Packard Enterprise,Information Technology,TECH
+HLT,Hilton Worldwide,Consumer Discretionary,ZYKLISCH
+HD,Home Depot (The),Consumer Discretionary,ZYKLISCH
+HON,Honeywell,Industrials,ZYKLISCH
+HRL,Hormel Foods,Consumer Staples,DEFENSIV
+HST,Host Hotels & Resorts,Real Estate,DEFENSIV
+HWM,Howmet Aerospace,Industrials,ZYKLISCH
+HPQ,HP Inc.,Information Technology,TECH
+HUBB,Hubbell Incorporated,Industrials,ZYKLISCH
+HUM,Humana,Health Care,DEFENSIV
+HBAN,Huntington Bancshares,Financials,ZYKLISCH
+HII,Huntington Ingalls Industries,Industrials,ZYKLISCH
+IBM,IBM,Information Technology,TECH
+IEX,IDEX Corporation,Industrials,ZYKLISCH
+IDXX,Idexx Laboratories,Health Care,DEFENSIV
+ITW,Illinois Tool Works,Industrials,ZYKLISCH
+INCY,Incyte,Health Care,DEFENSIV
+IR,Ingersoll Rand,Industrials,ZYKLISCH
+PODD,Insulet Corporation,Health Care,DEFENSIV
+INTC,Intel,Information Technology,TECH
+IBKR,Interactive Brokers,Financials,ZYKLISCH
+ICE,Intercontinental Exchange,Financials,ZYKLISCH
+IFF,International Flavors & Fragrances,Materials,ZYKLISCH
+IP,International Paper,Materials,ZYKLISCH
+INTU,Intuit,Information Technology,TECH
+ISRG,Intuitive Surgical,Health Care,DEFENSIV
+IVZ,Invesco,Financials,ZYKLISCH
+INVH,Invitation Homes,Real Estate,DEFENSIV
+IQV,IQVIA,Health Care,DEFENSIV
+IRM,Iron Mountain,Real Estate,DEFENSIV
+JBHT,J.B. Hunt,Industrials,ZYKLISCH
+JBL,Jabil,Information Technology,TECH
+JKHY,Jack Henry & Associates,Financials,ZYKLISCH
+J,Jacobs Solutions,Industrials,ZYKLISCH
+JNJ,Johnson & Johnson,Health Care,DEFENSIV
+JCI,Johnson Controls,Industrials,ZYKLISCH
+JPM,JPMorgan Chase,Financials,ZYKLISCH
+KVUE,Kenvue,Consumer Staples,DEFENSIV
+KDP,Keurig Dr Pepper,Consumer Staples,DEFENSIV
+KEY,KeyCorp,Financials,ZYKLISCH
+KEYS,Keysight Technologies,Information Technology,TECH
+KMB,Kimberly-Clark,Consumer Staples,DEFENSIV
+KIM,Kimco Realty,Real Estate,DEFENSIV
+KMI,Kinder Morgan,Energy,ZYKLISCH
+KKR,KKR & Co.,Financials,ZYKLISCH
+KLAC,KLA Corporation,Information Technology,TECH
+KHC,Kraft Heinz,Consumer Staples,DEFENSIV
+KR,Kroger,Consumer Staples,DEFENSIV
+LHX,L3Harris,Industrials,ZYKLISCH
+LH,Labcorp,Health Care,DEFENSIV
+LRCX,Lam Research,Information Technology,TECH
+LVS,Las Vegas Sands,Consumer Discretionary,ZYKLISCH
+LDOS,Leidos,Industrials,ZYKLISCH
+LEN,Lennar,Consumer Discretionary,ZYKLISCH
+LII,Lennox International,Industrials,ZYKLISCH
+LLY,Lilly (Eli),Health Care,DEFENSIV
+LIN,Linde plc,Materials,ZYKLISCH
+LYV,Live Nation Entertainment,Communication Services,TECH
+LMT,Lockheed Martin,Industrials,ZYKLISCH
+L,Loews Corporation,Financials,ZYKLISCH
+LOW,Lowe's,Consumer Discretionary,ZYKLISCH
+LULU,Lululemon Athletica,Consumer Discretionary,ZYKLISCH
+LITE,Lumentum,Information Technology,TECH
+LYB,LyondellBasell,Materials,ZYKLISCH
+MTB,M&T Bank,Financials,ZYKLISCH
+MPC,Marathon Petroleum,Energy,ZYKLISCH
+MAR,Marriott International,Consumer Discretionary,ZYKLISCH
+MRSH,Marsh McLennan,Financials,ZYKLISCH
+MLM,Martin Marietta Materials,Materials,ZYKLISCH
+MAS,Masco,Industrials,ZYKLISCH
+MA,Mastercard,Financials,ZYKLISCH
+MKC,McCormick & Company,Consumer Staples,DEFENSIV
+MCD,McDonald's,Consumer Discretionary,ZYKLISCH
+MCK,McKesson Corporation,Health Care,DEFENSIV
+MDT,Medtronic,Health Care,DEFENSIV
+MRK,Merck & Co.,Health Care,DEFENSIV
+META,Meta Platforms,Communication Services,TECH
+MET,MetLife,Financials,ZYKLISCH
+MTD,Mettler Toledo,Health Care,DEFENSIV
+MGM,MGM Resorts,Consumer Discretionary,ZYKLISCH
+MCHP,Microchip Technology,Information Technology,TECH
+MU,Micron Technology,Information Technology,TECH
+MSFT,Microsoft,Information Technology,TECH
+MAA,Mid-America Apartment Communities,Real Estate,DEFENSIV
+MRNA,Moderna,Health Care,DEFENSIV
+TAP,Molson Coors Beverage Company,Consumer Staples,DEFENSIV
+MDLZ,Mondelez International,Consumer Staples,DEFENSIV
+MPWR,Monolithic Power Systems,Information Technology,TECH
+MNST,Monster Beverage,Consumer Staples,DEFENSIV
+MCO,Moody's Corporation,Financials,ZYKLISCH
+MS,Morgan Stanley,Financials,ZYKLISCH
+MOS,Mosaic Company (The),Materials,ZYKLISCH
+MSI,Motorola Solutions,Information Technology,TECH
+MSCI,MSCI Inc.,Financials,ZYKLISCH
+NDAQ,"Nasdaq, Inc.",Financials,ZYKLISCH
+NTAP,NetApp,Information Technology,TECH
+NFLX,Netflix,Communication Services,TECH
+NEM,Newmont,Materials,ZYKLISCH
+NWSA,News Corp (Class A),Communication Services,TECH
+NWS,News Corp (Class B),Communication Services,TECH
+NEE,NextEra Energy,Utilities,DEFENSIV
+NKE,"Nike, Inc.",Consumer Discretionary,ZYKLISCH
+NI,NiSource,Utilities,DEFENSIV
+NDSN,Nordson Corporation,Industrials,ZYKLISCH
+NSC,Norfolk Southern,Industrials,ZYKLISCH
+NTRS,Northern Trust,Financials,ZYKLISCH
+NOC,Northrop Grumman,Industrials,ZYKLISCH
+NCLH,Norwegian Cruise Line Holdings,Consumer Discretionary,ZYKLISCH
+NRG,NRG Energy,Utilities,DEFENSIV
+NUE,Nucor,Materials,ZYKLISCH
+NVDA,Nvidia,Information Technology,TECH
+NVR,"NVR, Inc.",Consumer Discretionary,ZYKLISCH
+NXPI,NXP Semiconductors,Information Technology,TECH
+ORLY,O’Reilly Automotive,Consumer Discretionary,ZYKLISCH
+OXY,Occidental Petroleum,Energy,ZYKLISCH
+ODFL,Old Dominion,Industrials,ZYKLISCH
+OMC,Omnicom Group,Communication Services,TECH
+ON,ON Semiconductor,Information Technology,TECH
+OKE,Oneok,Energy,ZYKLISCH
+ORCL,Oracle Corporation,Information Technology,TECH
+OTIS,Otis Worldwide,Industrials,ZYKLISCH
+PCAR,Paccar,Industrials,ZYKLISCH
+PKG,Packaging Corporation of America,Materials,ZYKLISCH
+PLTR,Palantir Technologies,Information Technology,TECH
+PANW,Palo Alto Networks,Information Technology,TECH
+PSKY,Paramount Skydance Corporation,Communication Services,TECH
+PH,Parker Hannifin,Industrials,ZYKLISCH
+PAYX,Paychex,Industrials,ZYKLISCH
+PYPL,PayPal,Financials,ZYKLISCH
+PNR,Pentair,Industrials,ZYKLISCH
+PEP,PepsiCo,Consumer Staples,DEFENSIV
+PFE,Pfizer,Health Care,DEFENSIV
+PCG,PG&E Corporation,Utilities,DEFENSIV
+PM,Philip Morris International,Consumer Staples,DEFENSIV
+PSX,Phillips 66,Energy,ZYKLISCH
+PNW,Pinnacle West Capital,Utilities,DEFENSIV
+PNC,PNC Financial Services,Financials,ZYKLISCH
+POOL,Pool Corporation,Consumer Discretionary,ZYKLISCH
+PPG,PPG Industries,Materials,ZYKLISCH
+PPL,PPL Corporation,Utilities,DEFENSIV
+PFG,Principal Financial Group,Financials,ZYKLISCH
+PG,Procter & Gamble,Consumer Staples,DEFENSIV
+PGR,Progressive Corporation,Financials,ZYKLISCH
+PLD,Prologis,Real Estate,DEFENSIV
+PRU,Prudential Financial,Financials,ZYKLISCH
+PEG,Public Service Enterprise Group,Utilities,DEFENSIV
+PTC,PTC Inc.,Information Technology,TECH
+PSA,Public Storage,Real Estate,DEFENSIV
+PHM,PulteGroup,Consumer Discretionary,ZYKLISCH
+PWR,Quanta Services,Industrials,ZYKLISCH
+QCOM,Qualcomm,Information Technology,TECH
+DGX,Quest Diagnostics,Health Care,DEFENSIV
+Q,Qnity Electronics,Information Technology,TECH
+RL,Ralph Lauren Corporation,Consumer Discretionary,ZYKLISCH
+RJF,Raymond James Financial,Financials,ZYKLISCH
+RTX,RTX Corporation,Industrials,ZYKLISCH
+O,Realty Income,Real Estate,DEFENSIV
+REG,Regency Centers,Real Estate,DEFENSIV
+REGN,Regeneron Pharmaceuticals,Health Care,DEFENSIV
+RF,Regions Financial Corporation,Financials,ZYKLISCH
+RSG,Republic Services,Industrials,ZYKLISCH
+RMD,ResMed,Health Care,DEFENSIV
+RVTY,Revvity,Health Care,DEFENSIV
+HOOD,Robinhood Markets,Financials,ZYKLISCH
+ROK,Rockwell Automation,Industrials,ZYKLISCH
+ROL,"Rollins, Inc.",Industrials,ZYKLISCH
+ROP,Roper Technologies,Information Technology,TECH
+ROST,Ross Stores,Consumer Discretionary,ZYKLISCH
+RCL,Royal Caribbean Group,Consumer Discretionary,ZYKLISCH
+SPGI,S&P Global,Financials,ZYKLISCH
+CRM,Salesforce,Information Technology,TECH
+SNDK,Sandisk,Information Technology,TECH
+SBAC,SBA Communications,Real Estate,DEFENSIV
+SLB,Schlumberger,Energy,ZYKLISCH
+STX,Seagate Technology,Information Technology,TECH
+SRE,Sempra,Utilities,DEFENSIV
+NOW,ServiceNow,Information Technology,TECH
+SHW,Sherwin-Williams,Materials,ZYKLISCH
+SPG,Simon Property Group,Real Estate,DEFENSIV
+SWKS,Skyworks Solutions,Information Technology,TECH
+SJM,J.M. Smucker Company (The),Consumer Staples,DEFENSIV
+SW,Smurfit Westrock,Materials,ZYKLISCH
+SNA,Snap-on,Industrials,ZYKLISCH
+SOLV,Solventum,Health Care,DEFENSIV
+SO,Southern Company,Utilities,DEFENSIV
+LUV,Southwest Airlines,Industrials,ZYKLISCH
+SWK,Stanley Black & Decker,Industrials,ZYKLISCH
+SBUX,Starbucks,Consumer Discretionary,ZYKLISCH
+STT,State Street Corporation,Financials,ZYKLISCH
+STLD,Steel Dynamics,Materials,ZYKLISCH
+STE,Steris,Health Care,DEFENSIV
+SYK,Stryker Corporation,Health Care,DEFENSIV
+SMCI,Supermicro,Information Technology,TECH
+SYF,Synchrony Financial,Financials,ZYKLISCH
+SNPS,Synopsys,Information Technology,TECH
+SYY,Sysco,Consumer Staples,DEFENSIV
+TMUS,T-Mobile US,Communication Services,TECH
+TROW,T. Rowe Price,Financials,ZYKLISCH
+TTWO,Take-Two Interactive,Communication Services,TECH
+TPR,"Tapestry, Inc.",Consumer Discretionary,ZYKLISCH
+TRGP,Targa Resources,Energy,ZYKLISCH
+TGT,Target Corporation,Consumer Staples,DEFENSIV
+TEL,TE Connectivity,Information Technology,TECH
+TDY,Teledyne Technologies,Information Technology,TECH
+TER,Teradyne,Information Technology,TECH
+TSLA,"Tesla, Inc.",Consumer Discretionary,ZYKLISCH
+TXN,Texas Instruments,Information Technology,TECH
+TPL,Texas Pacific Land Corporation,Energy,ZYKLISCH
+TXT,Textron,Industrials,ZYKLISCH
+TMO,Thermo Fisher Scientific,Health Care,DEFENSIV
+TJX,TJX Companies,Consumer Discretionary,ZYKLISCH
+TKO,TKO Group Holdings,Communication Services,TECH
+TTD,Trade Desk (The),Communication Services,TECH
+TSCO,Tractor Supply,Consumer Discretionary,ZYKLISCH
+TT,Trane Technologies,Industrials,ZYKLISCH
+TDG,TransDigm Group,Industrials,ZYKLISCH
+TRV,Travelers Companies (The),Financials,ZYKLISCH
+TRMB,Trimble Inc.,Information Technology,TECH
+TFC,Truist Financial,Financials,ZYKLISCH
+TYL,Tyler Technologies,Information Technology,TECH
+TSN,Tyson Foods,Consumer Staples,DEFENSIV
+USB,U.S. Bancorp,Financials,ZYKLISCH
+UBER,Uber,Industrials,ZYKLISCH
+UDR,"UDR, Inc.",Real Estate,DEFENSIV
+ULTA,Ulta Beauty,Consumer Discretionary,ZYKLISCH
+UNP,Union Pacific Corporation,Industrials,ZYKLISCH
+UAL,United Airlines Holdings,Industrials,ZYKLISCH
+UPS,United Parcel Service,Industrials,ZYKLISCH
+URI,United Rentals,Industrials,ZYKLISCH
+UNH,UnitedHealth Group,Health Care,DEFENSIV
+UHS,Universal Health Services,Health Care,DEFENSIV
+VLO,Valero Energy,Energy,ZYKLISCH
+VEEV,Veeva Systems,Health Care,DEFENSIV
+VTR,Ventas,Real Estate,DEFENSIV
+VLTO,Veralto,Industrials,ZYKLISCH
+VRSN,Verisign,Information Technology,TECH
+VRSK,Verisk Analytics,Industrials,ZYKLISCH
+VZ,Verizon,Communication Services,TECH
+VRTX,Vertex Pharmaceuticals,Health Care,DEFENSIV
+VRT,Vertiv,Industrials,ZYKLISCH
+VTRS,Viatris,Health Care,DEFENSIV
+VICI,Vici Properties,Real Estate,DEFENSIV
+V,Visa Inc.,Financials,ZYKLISCH
+VST,Vistra Corp.,Utilities,DEFENSIV
+VMC,Vulcan Materials Company,Materials,ZYKLISCH
+WRB,W. R. Berkley Corporation,Financials,ZYKLISCH
+GWW,W. W. Grainger,Industrials,ZYKLISCH
+WAB,Wabtec,Industrials,ZYKLISCH
+WMT,Walmart,Consumer Staples,DEFENSIV
+DIS,Walt Disney Company (The),Communication Services,TECH
+WBD,Warner Bros. Discovery,Communication Services,TECH
+WM,Waste Management,Industrials,ZYKLISCH
+WAT,Waters Corporation,Health Care,DEFENSIV
+WEC,WEC Energy Group,Utilities,DEFENSIV
+WFC,Wells Fargo,Financials,ZYKLISCH
+WELL,Welltower,Real Estate,DEFENSIV
+WST,West Pharmaceutical Services,Health Care,DEFENSIV
+WDC,Western Digital,Information Technology,TECH
+WY,Weyerhaeuser,Real Estate,DEFENSIV
+WSM,"Williams-Sonoma, Inc.",Consumer Discretionary,ZYKLISCH
+WMB,Williams Companies,Energy,ZYKLISCH
+WTW,Willis Towers Watson,Financials,ZYKLISCH
+WDAY,"Workday, Inc.",Information Technology,TECH
+WYNN,Wynn Resorts,Consumer Discretionary,ZYKLISCH
+XEL,Xcel Energy,Utilities,DEFENSIV
+XYL,Xylem Inc.,Industrials,ZYKLISCH
+YUM,Yum! Brands,Consumer Discretionary,ZYKLISCH
+ZBRA,Zebra Technologies,Information Technology,TECH
+ZBH,Zimmer Biomet,Health Care,DEFENSIV
+ZTS,Zoetis,Health Care,DEFENSIV
