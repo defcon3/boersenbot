@@ -47,3 +47,5 @@ spy_overnight_ohlc.pkl
 es_futures_ohlc.pkl
 sector_momentum_ohlc.pkl
 sector_momentum_results.csv
+gold_sleeve_ohlc.pkl
+gold_sleeve_results.json

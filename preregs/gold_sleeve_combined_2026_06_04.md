@@ -104,6 +104,60 @@ Wenn beim Coding eine Annahme bricht (z. B. GLD-Datenlücke), wird die Pre-Reg *
 
 ---
 
-## Ergebnisse
+## Ergebnisse (Lauf 2026-06-04)
 
-*(noch nicht ausgeführt — wird nach dem Lauf hier ergänzt)*
+**Verdict: RED — G5 FAIL. Genau das vorab benannte Muster (G1–G4 pass, G5 wackelt).**
+Der OOS-„Nutzen" war größtenteils Golds Bull-Beta 2019–2025, nicht reine Diversifikation. Ohne das held-out Gold-Bären-Fenster hätte das wie ein Free Lunch ausgesehen — der Pre-Reg-Mechanismus hat genau seinen Zweck erfüllt.
+
+### Performance über die drei Fenster
+
+**OOS 2019–2025 ohne COVID (Haupt):**
+
+| Variante | AnnRet | Vol | Sharpe | Sortino | MaxDD |
+|---|---|---|---|---|---|
+| Combined (g=0) | +9,17 % | 7,23 % | 1,27 | 1,69 | −9,50 % |
+| +Gold 10 % | +10,14 % | 6,84 % | 1,48 | 2,01 | −8,50 % |
+| **+Gold 20 %** | +11,09 % | 6,81 % | **1,63** | 2,26 | −8,24 % |
+| +Gold 30 % | +12,03 % | 7,16 % | 1,68 | 2,36 | −8,72 % |
+
+**KONTROLLE 2013–2018 (Gold-Bärenmarkt, held-out):**
+
+| Variante | AnnRet | Vol | Sharpe | Sortino | MaxDD |
+|---|---|---|---|---|---|
+| Combined (g=0) | +5,99 % | 6,55 % | **0,91** | 1,18 | −11,37 % |
+| +Gold 10 % | +4,98 % | 6,02 % | 0,83 | 1,07 | −10,55 % |
+| **+Gold 20 %** | +3,97 % | 5,92 % | **0,67** | 0,87 | −10,47 % |
+| +Gold 30 % | +2,93 % | 6,28 % | 0,47 | 0,61 | −10,72 % |
+
+### Gate-Check
+
+| Gate | Ergebnis | Status |
+|---|---|---|
+| G1 Risk-adj Lift (g=20, OOS) | Sharpe 1,63 vs 1,27; Sortino 2,26 vs 1,69 | ✅ PASS |
+| G2 Kein DD-Schaden | MaxDD −8,2 % vs −9,5 % | ✅ PASS |
+| G3 Gewichts-Robustheit | Lift bei 10 % und 30 % | ✅ PASS |
+| G4 Echte Diversifikation | Korr +0,11 < 0,40; COVID-DD ok | ✅ PASS |
+| **G5 Gold-Bär-Kontrolle** | **Sharpe 0,67 vs 0,91 = −0,24 (Tol −0,15)** | ❌ **FAIL** |
+
+Bootstrap-KI des primären Sharpe-Lifts (g=20 %, OOS o. COVID): **+0,36, 95%-KI [−0,03, +0,66], p=0,072** — der Lift ist nicht einmal im gold-freundlichen Fenster sauber signifikant (KI streift die 0).
+
+### Lehre
+
+1. **G5 ist der ganze Punkt.** OHNE das Bärenfenster: G1–G4 alle grün, Sharpe 1,27→1,63, kleinerer Drawdown — ein scheinbarer Slam-Dunk. MIT Bärenfenster: der Lift kollabiert (Sharpe −0,24), weil er substanziell Golds Bull-Run 2019–2025 war. Period-Mining sauber entlarvt.
+2. **Diversifikation ist TEILWEISE real, aber nicht gratis.** Korrelation echt niedrig (+0,11), und selbst im Bärenmarkt senkt Gold Vol (6,55→5,92 %) und Drawdown (−11,4→−10,5 %). Gold *reduziert Risiko* — aber wenn Gold selbst fällt, bezahlt man mit Rendite, und der Sharpe leidet. Kein Free Lunch.
+3. **Versuchung korrekt widerstanden:** g=10 % läge mit −0,08 *innerhalb* der G5-Toleranz. Das nachträglich zum „Pass" zu erklären, wäre exakt der in §6/§7 verbotene „bestes-g-nach-dem-Lauf"-Bruch. Ein kleinerer, regime-robusterer Sleeve wäre eine **neue Pre-Reg** (mit g vorab fixiert), kein Patch dieser hier.
+
+### Einordnung in die done-Liste
+
+| Spalte | Wert |
+|---|---|
+| Hypothese | Gold-Sleeve (g=20 %) auf Combined 50/50 |
+| Observed Effect | OOS-Sharpe +0,36 (p=0,072), aber Bärenmarkt −0,24 |
+| Power Level | Mittel (4.817 Combined-Tage, 3 vorregistrierte Fenster) |
+| Verdict Type | **Sauber falsifiziert via held-out Kontrolle** (Bull-Beta statt Diversifikation) |
+| Kommentar | Diversifikation teilweise real (Korr +0,11, Vol/DD runter), aber regimeabhängig; OOS-Lift war Gold-Bull-Beta |
+
+### Code-Referenz
+
+- `gold_sleeve_test.py`, `gold_sleeve_results.json`
+- Pre-Reg-Commit-Anchor: `f3692f51`
