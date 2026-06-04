@@ -197,3 +197,104 @@ Alpaca Account:
 3. Strategie optimieren (RSI thresholds anpassen)
 4. Risk Management verbessern (Position Sizing, Drawdown limits)
 5. Optional: Alpaca Kaggle 1-Min Daten integrieren
+
+---
+
+> **Lücke 2026-05-16 … 2026-06-03 (Edge-Such-Kampagne).** In diesem Zeitraum
+> verschob sich das Projekt vom RSI-Trading-Agent zu disziplinierter
+> Edge-Forschung mit Pre-Reg-Gates (G1–G5), Bonferroni, OOS-Tests. ~60
+> Hypothesen getestet, die meisten OOS falsifiziert; deployed wurden Hybrid-SPY
+> + HYG-Stress-Buy (Combined). Nicht hier protokolliert — siehe
+> `FINAL_STATUS.md`, `EDGE_SEARCH_MASTER_PLAN.md`, `EXTERNAL_SIGNALS_ROADMAP.md`,
+> die `preregs/` und das Git-Log.
+
+---
+
+## Session 2026-06-04 — Grok-Review-Runde: Overnight robust geschlossen + Leverage-Sackgasse
+
+**Teilnehmer:** Nutzer (veit), Claude Opus 4.8
+
+**Ausgangspunkt:** Externes Review (Grok) zur Fazit-Seite und zur
+Overnight/Intraday-Analyse. Zwei konkrete Vorschläge wurden umgesetzt
+(Rolling/Bootstrap-Robustheit, ES-Futures-Handelbarkeit) plus die
+Leverage/Combined-Idee als Zusatz.
+
+### Was wurde gemacht
+
+1. **CLAUDE.md an realen Projektstand angepasst**
+   - Von „Initial setup / Yahoo-Scraper" → Quant-Edge-Research + Flask-Webstack
+   - Methodik (G1–G5, Bonferroni, OOS, PIT), Centron-SQL-Server, Web-Services,
+     reale Repo-Struktur, SSH-Key statt Klartext-Passwort dokumentiert
+   - Secrets-Hinweis als **bewusst akzeptiert** markiert (keine .env-Umstellung)
+
+2. **Overnight/Intraday — Robustheit (Grok-Vorschlag 1)**
+   - `overnight_intraday_rolling_bootstrap.py`: ersetzt den schwachen
+     1-Median-Split durch Rolling-Fenster (3J/5J), Stationary-Bootstrap-KIs
+     und sup-Wald/QLR-Strukturbruchtest mit Block-Bootstrap-Kritikwerten
+   - Befund: deskriptiv robust (on>id in 89,5 % der 5J-Fenster, Sharpe-Diff
+     +0,65, p=0,015), aber mittleres d_t grenzwertig (p=0,059); Strukturbruch
+     2008 **nicht** signifikant (p≈0,20)
+   - **Patton-Politis-White** automatische Blocklänge als Robustheits-Check
+     (selbst implementiert, kein `arch`): p 0,059→0,050, Schluss STABIL
+
+3. **ES-Futures — Handelbarkeit (Grok-Vorschlag 2)**
+   - Pre-Reg `preregs/overnight_es_futures_2026_06_04.md` (bewusst als
+     gefährlichste Hypothese markiert: Gate-Hacking-Risiko, Daten-K.o. G0)
+   - `overnight_es_futures_g0check.py`: **G0 FAIL** — yfinance `ES=F` ist nicht
+     session-sauber (Globex-Vollsession; ES=F-„Overnight" −35,9 % vs Intraday
+     +954,9 %; Overnight-Korr zu SPY nur +0,24), freie Intraday-Historie zu kurz
+   - Pre-Reg diszipliniert verworfen statt mit Approximation zu rechnen
+
+4. **Overnight-Strang YELLOW final geschlossen + deployed**
+   - `templates/overnight_intraday.html`: neue Sektion „6 · Robustheit &
+     finaler Abschluss" + YELLOW-Schließungsbox
+   - Auf VPS deployed (Backup → scp → `systemctl restart boersenbot_dashboard`),
+     live verifiziert (veitluther.de/overnight-intraday, HTTP 200)
+
+5. **Leverage/Combined (Grok-Vorschlag 3) — Sackgasse, sauber belegt**
+   - `combined_leverage_test.py`: konstante Leverage 1,25–2× auf Combined 50/50
+     mit Financing. Selbst ×2 schlägt SPY nicht (+14,1 % vs +20,8 %), Sharpe
+     sinkt (1,31→0,98), COVID-Tail bläht DD auf −44 %
+   - `combined_voltarget_test.py`: Vol-Targeting rettet Sharpe **nicht** (bei
+     gleicher Vol 0,74 vs konstant 0,96 — nachlaufende Vol delevert zu spät);
+     einzige Stärke Tail-Kontrolle, die unleveraged ohnehin besser ist
+   - Fazit: unleveraged Combined-Sleeve (Sharpe 1,31, MaxDD −9,5 %) ist der
+     Sweet Spot; Leverage-Strang geschlossen
+
+6. **Infrastruktur**
+   - `fred_helper.py`: hartkodierter Windows-Pfad → repo-relativ (portabel,
+     auch Linux-VPS), Env-Override `FRED_KEY_FILE`/`FRED_CACHE_DIR`
+   - Combined-Tests + `fred_helper.py` + `.fred_key` (chmod 600) auf VPS
+     deployed; Verifikationslauf erfolgreich
+
+7. **Grok-Kommunikation** (User hat kein Bezahl-Abo)
+   - Zwei Copy-Paste-Review-Dokumente auf dem Desktop aufbereitet
+     (`review-fuer-grok.md`, `review-fuer-grok-2.md`) mit Methoden, exakten
+     Zahlen und gezielten Rückfragen
+
+### Commits (diese Session)
+
+- `7a5f3e47` CLAUDE.md an realen Projektstand angepasst
+- `60fdee1c` CLAUDE.md: Secrets-Hinweis als bewusst akzeptiert
+- `97b3b371` Rolling-Stabilität + Bootstrap-KI + Strukturbruchtest
+- `0c6b0487` Pre-Reg-Anchor ES-Futures (vorsichtig)
+- `c21ce7ce` PW-Robustheit + ES G0-FAIL + YELLOW-Schließung
+- `1eace7fc` Combined-Leverage-Test (Grok-Vermutung nicht bestätigt)
+- `5049debe` fred_helper: Pfade repo-relativ
+- `05c51509` Combined-Vol-Targeting-Test
+
+### Beschlüsse & Festlegungen
+
+- **Overnight-Effekt:** reales Stylized Fact, aber kein handelbarer Edge —
+  YELLOW, Strang abgeschlossen (auch Futures-Weg an Datenrealität gescheitert)
+- **Leverage:** erzeugt keinen Edge, opfert nur den Downside-Schutz der
+  Combined — als Sackgasse abgehakt
+- **Secrets:** bewusst hartkodiert/auf VPS akzeptiert, keine .env-Umstellung
+- **Pre-Reg-Disziplin:** G0-Vorab-K.o. hat funktioniert (kein Rechnen mit
+  kaputter Approximation)
+
+### Offene Punkte
+
+- Grok-Rückmeldung zu `review-fuer-grok-2.md` (60d-Vol/Vol-of-Vol als
+  allerletzter Rest-Check des Vol-Targetings) — optional
+- True-OOS 2026+ bleibt der entscheidende Test für die deployten Strategien
