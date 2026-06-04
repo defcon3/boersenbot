@@ -40,7 +40,10 @@ hyg_today_signal.json
 # Overnight/Intraday + G3-PIT: reproduzierbar via die *.py
 overnight_intraday_data.json
 overnight_intraday_g3_pit.json
+overnight_intraday_rolling_bootstrap.json
 sp500_hist_components.csv
 g3_pit_ohlc.pkl
+spy_overnight_ohlc.pkl
+es_futures_ohlc.pkl
 sector_momentum_ohlc.pkl
 sector_momentum_results.csv
