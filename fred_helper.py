@@ -17,9 +17,12 @@ import requests
 from pathlib import Path
 from datetime import datetime
 
-KEY_FILE = Path(r"C:\Users\defco\boersenbot\.fred_key")
-CACHE_DIR = Path(r"C:\Users\defco\boersenbot\.fred_cache")
-CACHE_DIR.mkdir(exist_ok=True)
+# Pfade repo-relativ (zum Speicherort dieser Datei) statt hartkodiert —
+# portabel ueber Maschinen/OS (auch Linux-VPS). Env-Overrides moeglich.
+_REPO = Path(__file__).resolve().parent
+KEY_FILE = Path(os.environ.get("FRED_KEY_FILE", _REPO / ".fred_key"))
+CACHE_DIR = Path(os.environ.get("FRED_CACHE_DIR", _REPO / ".fred_cache"))
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_key():
