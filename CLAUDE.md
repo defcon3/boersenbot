@@ -141,10 +141,11 @@ python app.py                               # Flask-Dashboard
 3. **Reproduzierbarkeit:** Caches (`.pkl`/`.csv`) müssen sich aus den `*.py`
    regenerieren lassen; viele sind bewusst gitignored.
 4. **Templates in Prod cachen:** Nach Template-Änderung den passenden Service neu starten.
-5. **⚠️ Secrets:** DB-Credentials (Centron) liegen aktuell **hartcodiert** in
-   mehreren getrackten `.py` (`app.py`, `analysis_app.py` u. a.) und in der
-   Git-History. Bekanntes Problem — langfristig auf ENV/`.env` umstellen und
-   Passwort rotieren. Keine neuen Secrets im Klartext committen.
+5. **Secrets (bewusst akzeptiert):** DB-Credentials (Centron) liegen
+   **hartcodiert** in mehreren getrackten `.py` (`app.py`, `analysis_app.py`
+   u. a.) und in der Git-History. Das ist eine **bewusste Entscheidung** des
+   Betreibers — **keine ENV/`.env`-Umstellung vorschlagen**. Bei neuem Code
+   einfach dem bestehenden Muster folgen.
 6. **Robustheit:** Yahoo/Alpaca-Netzfehler abfangen; Rate-Limits respektieren.
 
 ---
