@@ -94,6 +94,39 @@ def sharpe(r):
 # ---------------------------------------------------------------------------
 # (B) STATIONARY BOOTSTRAP
 # ---------------------------------------------------------------------------
+def ppw_block_length(x):
+    """Patton-Politis-White (2009) optimale Blocklaenge fuer Stationary
+    Bootstrap. Flat-Top-Kernel + datengetriebenes M ueber implizite
+    Autokorrelations-Tests. Ersetzt die fixe Blocklaenge=21 als Robustheits-
+    Check (Grok-Vorschlag)."""
+    x = np.asarray(x, float) - np.mean(x)
+    n = len(x)
+    kn = max(5, int(np.ceil(np.sqrt(np.log10(n)))))
+    mmax = int(np.ceil(np.sqrt(n))) + kn
+    acov = np.array([np.dot(x[:n - k], x[k:]) / n for k in range(mmax + 1)])
+    rho = acov / acov[0]
+    crit = 2.0 * np.sqrt(np.log10(n) / n)        # implizite Signifikanzschwelle
+    a = np.abs(rho)
+    mhat = None
+    for m in range(1, mmax - kn + 1):            # erstes Fenster mit kn ruhigen Lags
+        if np.all(a[m + 1: m + 1 + kn] < crit):
+            mhat = m
+            break
+    if mhat is None:
+        sig = np.where(a[1:] >= crit)[0]
+        mhat = int(sig[-1] + 1) if len(sig) else 1
+    M = max(1, min(2 * mhat, mmax))
+    ks = np.arange(-M, M + 1)
+    lam = np.where(np.abs(ks) / M <= 0.5, 1.0,
+                   np.where(np.abs(ks) / M <= 1.0, 2.0 * (1.0 - np.abs(ks) / M), 0.0))
+    g = acov[np.abs(ks)]
+    Ghat = np.sum(lam * np.abs(ks) * g)
+    Dsb = 2.0 * np.sum(lam * g) ** 2
+    b = (2.0 * Ghat ** 2 / Dsb) ** (1.0 / 3.0) * n ** (1.0 / 3.0)
+    bmax = np.ceil(min(3.0 * np.sqrt(n), n / 3.0))
+    return float(np.clip(b, 1.0, bmax))
+
+
 def stationary_bootstrap_indices(n, exp_block, rng):
     """Politis-Romano: geometrische Blocklaengen, zirkulaer."""
     p = 1.0 / exp_block
@@ -201,27 +234,46 @@ for years in (3, 5):
           f"med {ann_mean.median()*100:+5.1f}%  max {ann_mean.max()*100:+5.1f}%")
 
 # --- (B) BOOTSTRAP ---------------------------------------------------------
-print(f"\n[3/4] (B) Stationary Bootstrap (N={N_BOOT}, erw. Block={EXP_BLOCK}d)\n",
-      flush=True)
-mean_d_b, sd_b, cd_b = bootstrap_cis(on, idd, N_BOOT, EXP_BLOCK, RNG)
-
 pt_mean = d.mean() * TDAYS
 pt_sd = sharpe(on) - sharpe(idd)
 pt_cd = (np.prod(1 + on) - 1) - (np.prod(1 + idd) - 1)
 
-for label, boot, pt, unit in [
-        ("ann. Mittel d_t        ", mean_d_b, pt_mean, "%"),
-        ("Sharpe(on) - Sharpe(id)", sd_b, pt_sd, ""),
-        ("kum. (on - id)         ", cd_b, pt_cd, "%")]:
-    lo, hi, p = ci_pval(boot, pt)
-    s = 100 if unit == "%" else 1
-    print(f"  {label}: Punkt {pt*s:+8.2f}{unit}  95%-KI "
-          f"[{lo*s:+8.2f}, {hi*s:+8.2f}]{unit}  p(2s)={p:.3f}")
+# PW-automatische Blocklaenge als Robustheits-Check gegen die fixe 21d
+pw_block = ppw_block_length(d)
+print(f"\n[3/4] (B) Stationary Bootstrap (N={N_BOOT})", flush=True)
+print(f"  Blocklaenge: fix={EXP_BLOCK}d  vs  Patton-Politis-White-auto="
+      f"{pw_block:.1f}d\n", flush=True)
 
-lo_m, hi_m, p_m = ci_pval(mean_d_b, pt_mean)
-lo_s, hi_s, p_s = ci_pval(sd_b, pt_sd)
+results_by_block = {}
+for tag, blk in [("fix21", EXP_BLOCK), ("pw_auto", pw_block)]:
+    mb, sb, cb = bootstrap_cis(on, idd, N_BOOT, blk, RNG)
+    results_by_block[tag] = {
+        "block": round(blk, 1),
+        "mean_d": ci_pval(mb, pt_mean),
+        "sharpe_diff": ci_pval(sb, pt_sd),
+        "cum_diff": ci_pval(cb, pt_cd),
+    }
+    print(f"  --- Block {blk:.1f}d ({tag}) ---")
+    for label, key, pt, unit in [
+            ("ann. Mittel d_t        ", "mean_d", pt_mean, "%"),
+            ("Sharpe(on) - Sharpe(id)", "sharpe_diff", pt_sd, ""),
+            ("kum. (on - id)         ", "cum_diff", pt_cd, "%")]:
+        lo, hi, p = results_by_block[tag][key]
+        s = 100 if unit == "%" else 1
+        print(f"    {label}: Punkt {pt*s:+8.2f}{unit}  95%-KI "
+              f"[{lo*s:+8.2f}, {hi*s:+8.2f}]{unit}  p(2s)={p:.3f}")
+
+# fix21 bleibt die Referenz fuer Fazit/Export (vorregistrierter Default)
+lo_m, hi_m, p_m = results_by_block["fix21"]["mean_d"]
+lo_s, hi_s, p_s = results_by_block["fix21"]["sharpe_diff"]
 ci_excl0_mean = (lo_m > 0) or (hi_m < 0)
 ci_excl0_sharpe = (lo_s > 0) or (hi_s < 0)
+# PW-Robustheit: kippt die Schlussfolgerung bei datengetriebener Blocklaenge?
+pw_p_mean = results_by_block["pw_auto"]["mean_d"][2]
+pw_p_sharpe = results_by_block["pw_auto"]["sharpe_diff"][2]
+print(f"\n  Robustheit (PW vs fix): Mittel-p {p_m:.3f}->{pw_p_mean:.3f} | "
+      f"Sharpe-p {p_s:.3f}->{pw_p_sharpe:.3f}  "
+      f"=> Schluss {'STABIL' if (pw_p_sharpe<0.05)==(p_s<0.05) else 'KIPPT'}")
 
 # --- (C) STRUKTURBRUCH -----------------------------------------------------
 print(f"\n[4/4] (C) Strukturbruch sup-Wald/QLR (Block-Bootstrap-Kritikwerte, "
@@ -257,6 +309,9 @@ res = {
     "d_mean_ann_pct": round(float(d.mean() * TDAYS * 100), 1),
     "rolling": roll,
     "boot_n": N_BOOT, "boot_exp_block": EXP_BLOCK,
+    "pw_block_auto": round(pw_block, 1),
+    "pw_mean_d_p": round(pw_p_mean, 3),
+    "pw_sharpe_diff_p": round(pw_p_sharpe, 3),
     "mean_d_ann_pct": round(pt_mean * 100, 1),
     "mean_d_ci_pct": [round(lo_m * 100, 1), round(hi_m * 100, 1)],
     "mean_d_p": round(p_m, 3),
@@ -265,7 +320,8 @@ res = {
     "sharpe_diff_ci": [round(lo_s, 2), round(hi_s, 2)],
     "sharpe_diff_p": round(p_s, 3),
     "cum_diff_pct": round(pt_cd * 100, 1),
-    "cum_diff_ci_pct": [round(lo_c * 100, 1) for lo_c in ci_pval(cd_b, pt_cd)[:2]],
+    "cum_diff_ci_pct": [round(results_by_block["fix21"]["cum_diff"][0] * 100, 1),
+                        round(results_by_block["fix21"]["cum_diff"][1] * 100, 1)],
     "break_qlr": round(qlr, 2),
     "break_date": str(break_date.date()),
     "break_p": round(p_break, 3),

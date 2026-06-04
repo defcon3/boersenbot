@@ -107,6 +107,42 @@ Wenn beim Coding herauskommt, dass G0 nicht erfüllbar ist (Gratis-Daten trennen
 
 ---
 
-## Ergebnisse
+## Ergebnisse (G0-Datencheck 2026-06-04)
 
-*(noch nicht ausgeführt — wird nach dem Lauf hier ergänzt)*
+**Verdict: G0 FAIL — Pre-Reg dokumentiert VERWORFEN. Nicht testbar mit Gratis-Daten.**
+
+Wie in §0/§3 als Vorab-K.o. angekündigt, wurde zuerst nur die Daten-Validität geprüft (`overnight_es_futures_g0check.py`). Sie scheitert eindeutig — es wurde **bewusst kein** Overnight-Backtest gerechnet.
+
+### Beleg (1): yfinance `ES=F`-Tagesbars sind NICHT cash-aligned
+
+4.126 gemeinsame Handelstage (2010-01-05 … 2026-06-03):
+
+| Instrument | Overnight (kum.) | Intraday (kum.) | on>id |
+|---|---|---|---|
+| SPY (Cash-ETF) | **+183,8 %** | +133,8 % | JA |
+| ES=F (Futures) | **−35,9 %** | +954,9 % | NEIN |
+
+Die ES=F-Zerlegung **reproduziert die Cash-Overnight-Dominanz nicht** — sie kehrt sie sogar um. Grund: die yfinance-`ES=F`-Tagesbar deckt die **volle Globex-Session** ab (Open ≈ Globex-Reopen ~18:00 ET, nicht Cash-Open 09:30 ET). Die `Close→Open`-Lücke misst damit nur den winzigen Globex-Reopen-Gap; die eigentliche Cash-Overnight-Strecke landet im „Intraday"-Bucket (daher die absurden +954,9 %).
+
+**Korrelation SPY↔ES=F der Tages-Returns:** Overnight nur **+0,24**, Intraday **+0,77**. Wären die Sessions cash-aligned, müssten beide ~0,9 sein. Die niedrige Overnight-Korrelation beweist: ES=F-„Overnight" ist eine **andere Strecke** als SPY-Overnight.
+
+### Beleg (2): Freie Intraday-Historie reicht nicht
+
+| Intervall | Bars | Historie |
+|---|---|---|
+| 1h | 13.701 | nur bis 2024-01 (~875 Tage) |
+| 5m | 13.403 | ~71 Tage |
+| 1m | — | nur 8 Tage/Request (Yahoo-Limit) |
+
+Für einen session-sauberen Test ab 2010 bräuchte es ~10+ Jahre Intraday-Bars mit RTH/ETH-Flag. Gratis-yfinance liefert das nicht.
+
+### Lehre & Einordnung
+
+1. **G0 hat funktioniert wie gedacht.** Der Vorab-K.o. hat verhindert, dass mit einer kaputten Session-Approximation ein „Ergebnis" produziert wird. Genau die in §0 markierte Selbsttäuschungs-Gefahr wurde durch die Disziplin abgefangen.
+2. **Saubere Sessions brauchen bezahlte Intraday-Daten** (Polygon.io, CME Datamine, KIBOT/TickData). Erst damit wäre eine **neue** Pre-Reg sinnvoll — diese hier bleibt verworfen.
+3. **Konsequenz für den Overnight-Strang:** Der „letzte Nagel" via Futures lässt sich mit den vorhandenen Mitteln nicht setzen. Der Strang wird auf Basis von Teil 1 (deskriptiv robust, aber handelsuntauglich) als **YELLOW final** geschlossen — siehe `overnight_intraday_rolling_bootstrap.py`.
+
+### Code-Referenz
+
+- `overnight_es_futures_g0check.py`
+- Pre-Reg-Commit-Anchor: `0c6b0487`

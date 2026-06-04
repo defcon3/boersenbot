@@ -229,7 +229,66 @@
         </section>
 
         <section>
-            <h2>6 · Fazit</h2>
+            <h2>6 · Robustheit &amp; finaler Abschluss</h2>
+            <p>Auf Reviewer-Nachfrage (Grok, 2026-06-04) wurde der deskriptive Befund
+               härter geprüft als nur über den 1-fachen Median-Split — und der
+               Handelbarkeits-Strang ein letztes Mal über ein billigeres Instrument
+               getestet.</p>
+
+            <h3>Rolling-Stabilität statt Einzel-Split</h3>
+            <p>Auf dem Tagesunterschied <code>d_t = overnight − intraday</code> (SPY,
+               6.895 Tage): Über alle gleitenden Fenster dominiert die Nacht
+               <strong>in 89,5 % der 5-Jahres-Fenster</strong> (72,8 % der 3-Jahres-Fenster).
+               Der Effekt ist also keine Artefakt eines einzelnen Split-Zeitpunkts.</p>
+
+            <h3>Bootstrap-Konfidenzintervalle (Stationary Bootstrap)</h3>
+            <table>
+                <thead><tr><th>Größe</th><th class="num">Punkt</th>
+                    <th class="num">95%-KI</th><th class="num">p (2-seitig)</th></tr></thead>
+                <tbody>
+                    <tr><td>ann. Mittel d_t</td><td class="num">+6,7 %</td>
+                        <td class="num">[−0,2 %, +13,4 %]</td><td class="num">0,059</td></tr>
+                    <tr><td>Sharpe(on) − Sharpe(id)</td><td class="num ok">+0,65</td>
+                        <td class="num">[+0,10, +1,19]</td><td class="num ok">0,015</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box info">
+                <strong>Ehrliche Nuance:</strong> Die <em>risikoadjustierte</em> Differenz
+                (Sharpe) ist klar signifikant (p=0,015), das <em>absolute</em> mittlere
+                Niveau aber nur grenzwertig (p=0,059, KI streift die 0). Robustheits-Check
+                mit datengetriebener Blocklänge (Patton-Politis-White, 5,4 statt 21 Tage):
+                Mittel-p 0,059→<strong>0,050</strong>, Sharpe-p bleibt 0,015 — die
+                Schlussfolgerung ist <strong>stabil</strong>. Reproduzierbar via
+                <code>overnight_intraday_rolling_bootstrap.py</code>.
+            </div>
+
+            <h3>Strukturbruch-Test (sup-Wald / QLR)</h3>
+            <p>Quandt-Andrews-Test auf einen unbekannten Bruch im Mittel von
+               <code>d_t</code>, kritische Werte per Block-Bootstrap (Autokorrelation
+               korrekt im Null-Modell): Kandidat ist die Finanzkrise
+               (<strong>2008-10</strong>, ann. d_t davor +17,4 %, danach +0,8 %) — der
+               Bruch ist aber <strong>nicht signifikant</strong> (p≈0,20). Der scheinbare
+               „Zerfall nach 2008" ist ökonomisch auffällig, statistisch jedoch nicht
+               belegbar.</p>
+
+            <h3>Letzter Handelbarkeits-Versuch: ES-Index-Futures (verworfen)</h3>
+            <div class="info-box danger">
+                <strong>G0 FAIL — nicht testbar mit Gratis-Daten.</strong> Idee: ES-Futures
+                haben ~20× niedrigere Round-Trip-Kosten als der SPY-ETF — könnte das den
+                Kosten-Killer (G2) überleben? Der <strong>Vorab-Datencheck</strong> scheitert
+                eindeutig: yfinance-<code>ES=F</code>-Tagesbars decken die volle Globex-Session
+                ab, nicht die Cash-Overnight-Strecke. Folge: ES=F-„Overnight" = −35,9 % vs
+                Intraday +954,9 % (Korrelation zur SPY-Overnight nur +0,24). Freie Intraday-Bars
+                reichen nur ~875 Tage zurück. Saubere Sessions bräuchten bezahlte Daten —
+                <strong>die Pre-Reg wurde diszipliniert verworfen</strong>, statt mit einer
+                kaputten Approximation ein Scheinergebnis zu erzeugen. Reproduzierbar via
+                <code>overnight_es_futures_g0check.py</code>, Pre-Reg unter
+                <code>preregs/overnight_es_futures_2026_06_04.md</code>.
+            </div>
+        </section>
+
+        <section>
+            <h2>7 · Fazit</h2>
             <ul>
                 <li><strong>Deskriptiv robust:</strong> Die SPY-Risikoprämie ist
                     überwiegend ein Overnight-Phänomen — sauber reproduziert, beide Hälften.</li>
@@ -246,6 +305,14 @@
                 handelbarer Vorteil entsteht daraus nicht. Reproduzierbar via
                 <code>overnight_intraday_test.py</code> (Gates) und
                 <code>overnight_intraday_export.py</code> (diese Daten).
+            </div>
+            <div class="info-box warn">
+                <strong>Strang geschlossen (2026-06-04).</strong> Nach Rolling/Bootstrap
+                (deskriptiv robust bestätigt), Strukturbruch-Test (kein signifikanter Bruch)
+                und dem verworfenen ES-Futures-Versuch (G0 FAIL) ist der Overnight-Effekt
+                abschließend bewertet: <strong>reales Stylized Fact, aber kein handelbarer
+                Edge</strong> — mit den verfügbaren Mitteln nicht weiter verfolgbar.
+                Endstand <span class="badge yellow">YELLOW</span>.
             </div>
         </section>
 
