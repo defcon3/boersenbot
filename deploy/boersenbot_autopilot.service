@@ -1,0 +1,17 @@
+[Unit]
+Description=Jupiter Prediction Autopilot (Lay-the-Draw Take-Profit +10%)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/autopilot.py --profit 0.10 --interval 10
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/veit/boersenbot/logs/autopilot_service.log
+StandardError=append:/home/veit/boersenbot/logs/autopilot_service.log
+
+[Install]
+WantedBy=multi-user.target

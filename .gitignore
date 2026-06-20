@@ -10,6 +10,14 @@ data/
 .fred_key
 .fred_cache/
 
+# === HOT WALLET / SECRETS — NIEMALS committen! ===
+# Solana-Keypair des Trading-Bots (Private Key = Vollzugriff aufs Geld)
+hot_wallet/
+*.keypair.json
+*phantom_import*
+jupiter_api_key.txt
+.jupiter_api_key
+
 # Logs
 *.log
 
@@ -49,3 +57,15 @@ sector_momentum_ohlc.pkl
 sector_momentum_results.csv
 gold_sleeve_ohlc.pkl
 gold_sleeve_results.json
+
+# Prediction-Market / Arbitrage: generierte Daten (reproduzierbar via die *.py)
+arbitrage_results/
+odds_api_raw/
+bookmaker_raw/
+jupag_raw/
+polymarket_raw/
+jupag_extracted/
+wm_matches_data/
+
+# Debug-HTML-Dumps (Scraper-Diagnose)
+*_debug.html
