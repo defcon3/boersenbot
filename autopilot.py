@@ -119,6 +119,21 @@ def notify_fail(title, reason):
            html, f"Verkauf fehlgeschlagen: {title}\nGrund: {reason}\nBot versucht weiter.")
 
 
+def notify_claimable(title, side, payout, auto):
+    """Markt aufgelöst & GEWONNEN -> Auszahlung abholbar."""
+    aktion = ("Der Bot versucht jetzt automatisch zu claimen."
+              if auto else
+              "Auto-Claim ist noch nicht aktiviert — bitte manuell in Jupiter claimen "
+              "(oder warten, bis der Endpoint verifiziert ist).")
+    html = (f'<div style="font-family:Segoe UI,Arial;max-width:480px;margin:auto;">'
+            f'<div style="background:#2e7d32;color:#fff;padding:18px;text-align:center;'
+            f'border-radius:10px 10px 0 0;font-size:18px;font-weight:800;">🏆 Gewonnen — abholbar!</div>'
+            f'<div style="padding:18px;background:#fff;color:#333;font-size:15px;line-height:1.7;">'
+            f'{title} [{side}]<br>Auszahlung: <b>{payout:.2f}</b> USDC<br><br>{aktion}</div></div>')
+    notify(f"🏆 Jupiter Bot: {title} gewonnen ({payout:.2f} USDC abholbar)",
+           html, f"GEWONNEN: {title} [{side}] — {payout:.2f} USDC abholbar.\n{aktion}")
+
+
 class RateLimited(Exception):
     """429 von der Jupiter-API. retry_after = empfohlene Wartezeit (s) oder None."""
     def __init__(self, retry_after: float | None = None):
@@ -160,6 +175,8 @@ def run(args):
     polls = 0
     sold_markets: set[str] = set()
     notified_fail: set[str] = set()
+    notified_claimable: set[str] = set()
+    closed_logged: set[str] = set()
     while True:
         polls += 1
         try:
@@ -187,10 +204,41 @@ def run(args):
             time.sleep(args.idle_interval)
             continue
 
+        now = time.time()
         for p in positions:
             mid = p.get("marketId")
             if mid in sold_markets:
                 continue
+            mm = p.get("marketMetadata", {}) or {}
+            title = mm.get("title", "?")
+            ev_title = (p.get("eventMetadata", {}) or {}).get("title", "") or title
+            side = "NO" if not p.get("isYes") else "YES"
+
+            # (1) Markt aufgelöst & GEWONNEN -> Auszahlung abholbar (Claim).
+            if p.get("claimable"):
+                payout = int(p.get("payoutUsd", 0)) / 1e6
+                # TODO Auto-Claim: signierenden Claim-Call einbauen, sobald der
+                # Jupiter-Claim-Endpoint an einer echten claimable-Position
+                # verifiziert ist (analog jupiter_sell.py). Bis dahin: alarmieren.
+                if mid not in notified_claimable:
+                    log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC "
+                                f"— Auto-Claim noch nicht aktiv, bitte manuell claimen.")
+                    notify_claimable(ev_title, side, payout, auto=False)
+                    notified_claimable.add(mid)
+                continue
+
+            # (2) Markt geschlossen / nicht mehr handelbar -> NICHT verkaufen,
+            #     auf Auflösung/Claim warten (verhindert Endlos-Fehlversuche).
+            closeTime = int(mm.get("closeTime", 0) or 0)
+            tradable = mm.get("status") == "open" and (closeTime == 0 or now < closeTime)
+            if not tradable:
+                if mid not in closed_logged:
+                    log.info(f"{ev_title} [{side}] {mid}: Markt geschlossen "
+                             f"(status={mm.get('status')}) — kein Verkauf, warte auf Auflösung/Claim.")
+                    closed_logged.add(mid)
+                continue
+
+            # (3) Markt offen -> normale Take-Profit-Verkaufslogik.
             avg = int(p.get("avgPriceUsd", 0)) / 1e6
             sellp = int(p.get("sellPriceUsd", 0)) / 1e6
             if avg <= 0:
@@ -201,8 +249,6 @@ def run(args):
                 contracts = 0.0
             target = avg * (1 + args.profit)
             pnl = (sellp / avg - 1) * 100
-            title = p.get("marketMetadata", {}).get("title", "?")
-            side = "NO" if not p.get("isYes") else "YES"
             log.info(f"{title} [{side}] {mid}: Einstieg={avg:.3f} sell={sellp:.3f} "
                      f"PnL={pnl:+.1f}% Ziel≥{target:.3f}")
 
