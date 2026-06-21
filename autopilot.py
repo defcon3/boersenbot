@@ -15,7 +15,11 @@ Für den VPS gedacht (systemd, läuft 24/7, auch bei ausgeschaltetem PC).
 Aufruf:
   python autopilot.py            # ECHT (verkauft autonom)
   python autopilot.py --dry      # Dry-Run (loggt, verkauft nicht)
-  python autopilot.py --profit 0.10 --interval 10
+  python autopilot.py --profit 0.10 --interval 20 --idle-interval 90
+
+Rate-Limit (429) der öffentlichen Jupiter-API: adaptives Polling — bei OFFENER
+Position schnell (--interval), sonst langsam (--idle-interval); bei 429
+exponentielles Backoff (respektiert Retry-After).
 """
 
 import argparse
@@ -115,9 +119,19 @@ def notify_fail(title, reason):
            html, f"Verkauf fehlgeschlagen: {title}\nGrund: {reason}\nBot versucht weiter.")
 
 
+class RateLimited(Exception):
+    """429 von der Jupiter-API. retry_after = empfohlene Wartezeit (s) oder None."""
+    def __init__(self, retry_after: float | None = None):
+        super().__init__("rate limit exceeded")
+        self.retry_after = retry_after
+
+
 def get_open_positions(owner: str) -> list[dict]:
     """Alle offenen (nicht geschlossenen/geclaimten) Positionen der Wallet."""
     r = requests.get(f"{API}/positions", params={"ownerPubkey": owner}, timeout=12)
+    if r.status_code == 429:
+        ra = r.headers.get("Retry-After", "")
+        raise RateLimited(float(ra) if ra.replace(".", "", 1).isdigit() else None)
     r.raise_for_status()
     out = []
     for p in r.json().get("data", []):
@@ -137,9 +151,11 @@ def run(args):
     log.info("=" * 68)
     log.info(f"AUTOPILOT  |  {'DRY-RUN' if args.dry else 'LIVE (verkauft autonom)'}")
     log.info(f"Wallet {owner}")
-    log.info(f"Take-Profit: +{args.profit*100:.0f}%  |  Poll alle {args.interval}s  |  kein Stop-Loss")
+    log.info(f"Take-Profit: +{args.profit*100:.0f}%  |  Poll: {args.interval}s aktiv / "
+             f"{args.idle_interval}s idle  |  kein Stop-Loss")
     log.info("=" * 68)
 
+    MAX_BACKOFF = 300  # s
     fails = 0
     polls = 0
     sold_markets: set[str] = set()
@@ -149,19 +165,26 @@ def run(args):
         try:
             positions = get_open_positions(owner)
             fails = 0
+        except RateLimited as e:
+            fails += 1
+            # Retry-After respektieren, sonst exponentiell ab idle_interval
+            wait = e.retry_after or min(args.idle_interval * 2 ** min(fails, 4), MAX_BACKOFF)
+            log.warning(f"Rate-Limit (429) #{fails} — warte {wait:.0f}s")
+            time.sleep(wait)
+            continue
         except Exception as e:
             fails += 1
-            log.warning(f"Positions-Abruf fehlgeschlagen ({fails}): {e}")
-            if fails >= 20:
-                log.error("Zu viele Fehler in Folge. Beende.")
-                return
-            time.sleep(args.interval)
+            wait = min(args.interval * 2 ** min(fails, 5), MAX_BACKOFF)
+            log.warning(f"Positions-Abruf fehlgeschlagen ({fails}): {e} — warte {wait:.0f}s")
+            time.sleep(wait)
             continue
 
+        # Adaptiv: keine offene Position -> langsam pollen (schont Rate-Limit);
+        # sobald eine Position läuft -> schnell pollen (Exit nicht verpassen).
         if not positions:
-            if polls % 30 == 1:  # Heartbeat ~alle 30 Polls
-                log.info("Keine offene Position — warte.")
-            time.sleep(args.interval)
+            if polls % 10 == 1:  # Heartbeat
+                log.info(f"Keine offene Position — warte ({args.idle_interval}s).")
+            time.sleep(args.idle_interval)
             continue
 
         for p in positions:
@@ -205,7 +228,10 @@ def run(args):
 def main():
     ap = argparse.ArgumentParser(description="Autonomer Take-Profit-Exit (Jupiter Prediction)")
     ap.add_argument("--profit", type=float, default=0.10, help="Take-Profit-Schwelle (default 0.10 = 10%%)")
-    ap.add_argument("--interval", type=int, default=10, help="Poll-Intervall in Sekunden (default 10)")
+    ap.add_argument("--interval", type=int, default=20,
+                    help="Poll-Intervall bei OFFENER Position, Sekunden (default 20)")
+    ap.add_argument("--idle-interval", type=int, default=90,
+                    help="Poll-Intervall OHNE offene Position, Sekunden (default 90)")
     ap.add_argument("--dry", action="store_true", help="Dry-Run: loggt, verkauft NICHT")
     run(ap.parse_args())
 

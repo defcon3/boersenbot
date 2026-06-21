@@ -50,8 +50,16 @@ def load_keypair() -> Keypair:
 
 
 def get_position(owner: str, market_id: str) -> dict | None:
-    """Findet die offene Position im Markt."""
-    r = requests.get(f"{API}/positions", params={"ownerPubkey": owner}, timeout=10)
+    """Findet die offene Position im Markt. Retry bei 429 (öffentliche API)."""
+    r = None
+    for attempt in range(4):
+        r = requests.get(f"{API}/positions", params={"ownerPubkey": owner}, timeout=10)
+        if r.status_code != 429:
+            break
+        ra = r.headers.get("Retry-After", "")
+        wait = float(ra) if ra.replace(".", "", 1).isdigit() else 5 * 2 ** attempt
+        log.warning(f"get_position 429 (#{attempt + 1}) — warte {wait:.0f}s")
+        time.sleep(wait)
     r.raise_for_status()
     for p in r.json().get("data", []):
         if p.get("marketId") == market_id and str(p.get("contracts", "0")) not in ("0", ""):
