@@ -159,6 +159,20 @@ def get_open_positions(owner: str) -> list[dict]:
     return out
 
 
+def is_imminent(p: dict, now: float, near_seconds: float) -> bool:
+    """True, wenn der Markt OFFEN ist und bald schließt (laufendes Spiel) → schnell
+    pollen. Eine langlaufende Position (z. B. Politik-Markt mit closeTime in Monaten)
+    ist NICHT imminent → langsam pollen, schont das Rate-Limit-Budget.
+    closeTime unbekannt (0) → sicherheitshalber als imminent behandeln."""
+    mm = p.get("marketMetadata", {}) or {}
+    if mm.get("status") != "open":
+        return False
+    ct = int(mm.get("closeTime", 0) or 0)
+    if ct <= 0:
+        return True
+    return now < ct and (ct - now) <= near_seconds
+
+
 def run(args):
     kp = load_keypair()
     owner = str(kp.pubkey())
@@ -166,8 +180,9 @@ def run(args):
     log.info("=" * 68)
     log.info(f"AUTOPILOT  |  {'DRY-RUN' if args.dry else 'LIVE (verkauft autonom)'}")
     log.info(f"Wallet {owner}")
-    log.info(f"Take-Profit: +{args.profit*100:.0f}%  |  Poll: {args.interval}s aktiv / "
-             f"{args.idle_interval}s idle  |  kein Stop-Loss")
+    log.info(f"Take-Profit: +{args.profit*100:.0f}%  |  Poll: {args.interval}s nah / "
+             f"{args.far_interval}s fern / {args.idle_interval}s idle  "
+             f"(nah = <{args.near_hours:g}h vor Schluss)  |  kein Stop-Loss")
     log.info("=" * 68)
 
     MAX_BACKOFF = 300  # s
@@ -181,7 +196,7 @@ def run(args):
         polls += 1
         try:
             positions = get_open_positions(owner)
-            fails = 0
+            fails = max(0, fails - 1)  # sticky: Drosselung wirkt nach, kein harter Reset auf 0
         except RateLimited as e:
             fails += 1
             # Retry-After respektieren, sonst exponentiell ab idle_interval
@@ -268,7 +283,15 @@ def run(args):
                             notify_fail(title, res.get("reason"))
                             notified_fail.add(mid)
 
-        time.sleep(args.interval)
+        # Kadenz an Zeit-bis-Marktschluss koppeln: schnell pollen NUR, wenn ein Markt
+        # bald schließt (laufendes Spiel). Eine langlaufende Position (Politik-Markt,
+        # closeTime in Monaten) pollt langsam und sprengt so nicht das Rate-Limit-Budget.
+        now = time.time()
+        near_seconds = args.near_hours * 3600
+        if any(is_imminent(p, now, near_seconds) for p in positions):
+            time.sleep(args.interval)
+        else:
+            time.sleep(args.far_interval)
 
 
 def main():
@@ -278,6 +301,10 @@ def main():
                     help="Poll-Intervall bei OFFENER Position, Sekunden (default 20)")
     ap.add_argument("--idle-interval", type=int, default=90,
                     help="Poll-Intervall OHNE offene Position, Sekunden (default 90)")
+    ap.add_argument("--far-interval", type=int, default=180,
+                    help="Poll-Intervall bei offener, aber NICHT bald schließender Position (default 180)")
+    ap.add_argument("--near-hours", type=float, default=3.0,
+                    help="Markt gilt als 'nah' (schnell pollen), wenn closeTime < near-hours entfernt (default 3)")
     ap.add_argument("--dry", action="store_true", help="Dry-Run: loggt, verkauft NICHT")
     run(ap.parse_args())
 
