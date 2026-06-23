@@ -104,3 +104,43 @@ Das ist selten und ein gutes Zeichen dass das System robust ist.
 **Risk:** 🟡 Monitor needed (watch for parameter-drift, slippage)
 **Confidence:** 🟡 Moderate (OOS looks good, but real trading may diverge)
 
+---
+
+## SESSION-UPDATE 2026-06-23 (Intraday-/Overnight-Strukturen)
+
+Ausgehend von einer Beobachtung (Intraday-Volumen-U-Form) fünf Edge-Hypothesen
+vorregistriert und getestet. **Alle handelbaren Edges falsifiziert** — bestätigt
+die Kampagnen-Learnings (Markt zu effizient). Voller Detail-Log:
+`SESSION_2026_06_23.md` (gitignored), Pre-Regs unter `preregs/`.
+
+| Hypothese | Daten | Verdict | Kernzahl |
+|---|---|---|---|
+| Ex-Tag-Rebound „Kauf die Delle" (DE) | DAX40+MDAX50, 1095 Events | ✗ **RED** | „Rebound" = Markt-Beta; Excess OOS bestes t=0.42 |
+| Intraday-Volumen-Profil | Kaggle 2023 + YFinance 2026 | ◻ deskriptiv | 1. 2 h = ~45 % Volumen; Mittagsdelle −30 % |
+| Intraday-Momentum (1.→letzte Halbstunde) | SPY SIP 30-Min 2016–26 | ✗ **RED** | β≈0 (OOS t=−0.65); publizierter Effekt wegarbitriert |
+| Execution-Overlay (Schlussauktion) | SPY 30-Min + Hybrid-Turnover | ◻ kein Edge | Ersparnis ~0 €/J (Privat); MOC nur Benchmark-Treue |
+| Minuten-Richtung / Cross-Session | YFinance-Min + SPY SIP 2630 Nächte | ✗ kein Signal | 50/50; Nachm.→Folge-Vorm. corr −0.015 |
+| Overnight-Edge (Close→Open vs Intraday) | SPY/QQQ/IWM 2010–26 | ✗ **RED** | deskriptiv real (IWM Intraday ×0.77!), G2/G3 FAIL |
+
+**Neue Learnings (ergänzen die Liste oben):**
+5. **Auch Intraday/Overnight effizient:** Weder Momentum, Mittags-Reversion,
+   Cross-Session-Carry noch die Overnight-Prämie sind **netto erntbar** auf SPY.
+6. **Deskriptiv ≠ handelbar:** Volumen-U-Form und Overnight-Prämie sind *real*,
+   aber Liquiditätskarten/Buchhaltung — kein Alpha. Overnight-only schlägt
+   Buy&Hold nie netto (tägliche Round-Trips ~5 %/J).
+7. **Publizierte Edges decayen:** Gao/Han/Li/Zhou-Intraday-Momentum (2018) im
+   Post-Publikations-Sample verschwunden. Pre-Reg verhindert Post-hoc-Fishing.
+
+**Infrastruktur-Gewinn:** `fetch_spy_30min.py` — Alpaca-SIP-Bars (Vollmarkt, gratis
+>15 min, ab 2016; Qualität 0.998 ggü. yfinance). Hebt die yfinance-30-Tage-Grenze
+für künftige Intraday-Backtests auf. Plus eigener Newey-West-HAC (ohne statsmodels).
+
+**Code-Artefakte (neu):** `intraday_volume_profile.py`, `exday_rebound_test.py`,
+`intraday_momentum_test.py`, `fetch_spy_30min.py`, `execution_overlay_analysis.py`,
+`minute_direction_analysis.py`, `cross_session_test.py`, `overnight_edge_test.py`;
+Pre-Regs `exday_rebound_de_2026_06_23_FAIL.md`, `intraday_momentum_spy_2026_06_23.md`,
+`overnight_intraday_2026_06_23.md`.
+
+**Fazit unverändert:** Einziger deployter, handelbarer Gewinner bleibt das
+**Hybrid-Risk-System**. Die Kampagne sammelt weiter ehrliche FAILs — das ist die Substanz.
+
