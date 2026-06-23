@@ -7,8 +7,17 @@ Neueste oben. Erledigtes nach unten in „## Erledigt / verworfen" oder löschen
 
 ## Offen
 
+_(derzeit keine offenen Einträge)_
+
+---
+
+## Erledigt / verworfen
+
 ### Overnight-Edge auf SIP-30-Min-Datensatz neu testen
-**Hinzugefügt:** 2026-06-23 · **Status:** BACKLOG, nicht begonnen · **Priorität:** mittel
+**Hinzugefügt:** 2026-06-23 · **Status:** ✅ ERLEDIGT 2026-06-23 — **RED** (per Pre-Reg,
+SPY primär): G2 OOS + G3 handelbar gescheitert. Phänomen deskriptiv real (QQQ/IWM),
+aber Overnight-only schlägt Buy&Hold nie netto → keine Gelddruckmaschine. Details:
+`preregs/overnight_intraday_2026_06_23.md`, Test `overnight_edge_test.py`.
 
 **Idee:** Die Zerlegung der SPY-Tagesrendite in **Overnight** (Close→Open) vs.
 **Intraday** (Open→Close) erneut auf sauberen Vollmarkt-Daten prüfen. Bekannter
