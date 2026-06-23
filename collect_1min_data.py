@@ -26,7 +26,10 @@ total_errors = 0
 
 for symbol in symbols:
     try:
-        df = yf.download(symbol, start=start_date.date(), end=end_date.date(), interval='1m', progress=False)
+        # yfinance behandelt end EXKLUSIV -> +1 Tag, sonst faellt der laufende
+        # Handelstag immer raus (1-Tag-Dauerlag, ueber Feiertag/Wochenende stapelt
+        # er sich zu sichtbar veralteten Daten auf der Seite)
+        df = yf.download(symbol, start=start_date.date(), end=(end_date + timedelta(days=1)).date(), interval='1m', progress=False)
 
         if df is None or len(df) == 0:
             logging.warning(symbol + ': No data')
