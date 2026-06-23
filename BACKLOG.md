@@ -7,28 +7,25 @@ Neueste oben. Erledigtes nach unten in „## Erledigt / verworfen" oder löschen
 
 ## Offen
 
-### VRP-Sleeve mit Hybrid-Risk-System kombinieren
-**Hinzugefügt:** 2026-06-23 · **Status:** offen · **Priorität:** mittel-hoch
-
-Aus dem VRP-Befund (`preregs/vrp_sleeve_2026_06_23.md`, YELLOW): Die
-Volatilitäts-Risikoprämie ist die erste *reale* Prämie mit echtem Sleeve-Wert
-(corr ≈ 0 zu SPY, GESAMT-Combo-Sharpe 1,08 vs SPY 0,65). Frage: hebt eine
-Kombination **Hybrid (MA50/200+VIX) + VRP-Sleeve** den Portfolio-Sharpe real —
-auch OOS (wo VRP nur 0,44 Sharpe hat und der Combo-Vorteil kleiner wird: 0,88 vs 0,81)?
-
-**Nächste Schritte:** (1) monatliche Hybrid-Renditen-Reihe aus `hybrid_simple.py`
-ziehen; (2) mit VRP-gemanagt (VIX-Filter) als 2-Sleeve-Portfolio testen, OOS-Sharpe
-+ MaxDD + Tail; (3) VRP-Approx validieren — Straddle-Approximation gegen **echte**
-SPY/SPX-Options-Daten (Spreads, Slippage) prüfen, bevor irgendetwas live geht;
-(4) ehrlich: OOS-VRP-Decay (Crowding) heißt, der Sleeve-Vorteil könnte weiter schrumpfen.
-
----
-
-_(keine weiteren offenen Einträge)_
+_(derzeit keine offenen Einträge)_
 
 ---
 
 ## Erledigt / verworfen
+
+### VRP-Sleeve mit Hybrid-Risk-System kombinieren
+**Status:** ✅ ERLEDIGT 2026-06-23 — **GREEN (qualifiziert)**. `vrp_hybrid_combo.py`:
+VRP-gemanagt + Hybrid, monatlich, gemeinsames Fenster 2006–2026, Gewichte auf IS
+gewählt / OOS evaluiert, lookahead-freier Hybrid. corr(Hybrid, VRP) OOS −0,10.
+**OOS-Gewichts-Sweep:** mit steigendem VRP-Anteil sinkt MaxDD monoton
+(−18,5 % → −12,0 % @50 %), Sharpe steigt (0,75 → 0,86), aber Rendite fällt
+(9,8 % → 6,2 %). Diversifikation real & robust (nicht knife-edge).
+**Caveats:** (a) De-Risking, kein Rendite-Boost; (b) schlägt OOS NICHT die nackte
+SPY-Sharpe (0,91 — nur deren MaxDD −24 %); (c) IS-optimales Gewicht 60 % ist
+overfit-anfällig (50/50 war OOS besser) → **modestes VRP-Gewicht ~25–40 % empfohlen**;
+(d) Skew verschlechtert sich (Short-Vol-Charakter bleibt). Fazit: VRP **validiert als
+diversifizierender Drawdown-Dämpfer** für den Hybrid, nicht als Rendite-Maschine.
+Vor Live: Straddle-Approximation gegen echte Options-Daten prüfen. Test `vrp_hybrid_combo.py`.
 
 ### Overnight-Edge auf SIP-30-Min-Datensatz neu testen
 **Hinzugefügt:** 2026-06-23 · **Status:** ✅ ERLEDIGT 2026-06-23 — **RED** (per Pre-Reg,

@@ -145,7 +145,9 @@ Pre-Regs `exday_rebound_de_2026_06_23_FAIL.md`, `intraday_momentum_spy_2026_06_2
 
 **Fazit:** Einziger deployter, handelbarer Gewinner bleibt das **Hybrid-Risk-System**.
 Neu: die **VRP** ist die erste *reale* (wenn auch OOS-verwässerte) Prämie mit echtem
-Sleeve-Wert (corr~0 zu SPY) — Kandidat für eine Diversifikations-Kombination mit dem
-Hybrid (Backlog-würdig), nicht als Solo-Maschine. Die Kampagne sammelt weiter ehrliche
-Befunde — das ist die Substanz.
+Sleeve-Wert (corr~0 zu SPY). **Kombination Hybrid+VRP getestet** (`vrp_hybrid_combo.py`):
+senkt OOS den MaxDD (−18,5 %→−12 %) und hebt Sharpe (0,75→0,86) — ein diversifizierender
+**Drawdown-Dämpfer** (modestes VRP-Gewicht ~25–40 %), kein Rendite-Boost und schlägt
+nicht die nackte SPY-Sharpe (0,91). Die Kampagne sammelt weiter ehrliche Befunde —
+das ist die Substanz.
 
