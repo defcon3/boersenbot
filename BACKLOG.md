@@ -7,7 +7,24 @@ Neueste oben. Erledigtes nach unten in „## Erledigt / verworfen" oder löschen
 
 ## Offen
 
-_(derzeit keine offenen Einträge)_
+### VRP-Sleeve mit Hybrid-Risk-System kombinieren
+**Hinzugefügt:** 2026-06-23 · **Status:** offen · **Priorität:** mittel-hoch
+
+Aus dem VRP-Befund (`preregs/vrp_sleeve_2026_06_23.md`, YELLOW): Die
+Volatilitäts-Risikoprämie ist die erste *reale* Prämie mit echtem Sleeve-Wert
+(corr ≈ 0 zu SPY, GESAMT-Combo-Sharpe 1,08 vs SPY 0,65). Frage: hebt eine
+Kombination **Hybrid (MA50/200+VIX) + VRP-Sleeve** den Portfolio-Sharpe real —
+auch OOS (wo VRP nur 0,44 Sharpe hat und der Combo-Vorteil kleiner wird: 0,88 vs 0,81)?
+
+**Nächste Schritte:** (1) monatliche Hybrid-Renditen-Reihe aus `hybrid_simple.py`
+ziehen; (2) mit VRP-gemanagt (VIX-Filter) als 2-Sleeve-Portfolio testen, OOS-Sharpe
++ MaxDD + Tail; (3) VRP-Approx validieren — Straddle-Approximation gegen **echte**
+SPY/SPX-Options-Daten (Spreads, Slippage) prüfen, bevor irgendetwas live geht;
+(4) ehrlich: OOS-VRP-Decay (Crowding) heißt, der Sleeve-Vorteil könnte weiter schrumpfen.
+
+---
+
+_(keine weiteren offenen Einträge)_
 
 ---
 

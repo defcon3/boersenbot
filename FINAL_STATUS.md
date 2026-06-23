@@ -109,9 +109,10 @@ Das ist selten und ein gutes Zeichen dass das System robust ist.
 ## SESSION-UPDATE 2026-06-23 (Intraday-/Overnight-Strukturen)
 
 Ausgehend von einer Beobachtung (Intraday-Volumen-U-Form) fünf Edge-Hypothesen
-vorregistriert und getestet. **Alle handelbaren Edges falsifiziert** — bestätigt
-die Kampagnen-Learnings (Markt zu effizient). Voller Detail-Log:
-`SESSION_2026_06_23.md` (gitignored), Pre-Regs unter `preregs/`.
+vorregistriert und getestet. **Alle handelbaren Richtungs-Edges falsifiziert** —
+einzige Ausnahme: die **Volatilitäts-Risikoprämie (VRP)** ist real, aber
+OOS-verwässert (YELLOW). Bestätigt die Kampagnen-Learnings (Markt zu effizient).
+Voller Detail-Log: `SESSION_2026_06_23.md` (gitignored), Pre-Regs unter `preregs/`.
 
 | Hypothese | Daten | Verdict | Kernzahl |
 |---|---|---|---|
@@ -121,6 +122,7 @@ die Kampagnen-Learnings (Markt zu effizient). Voller Detail-Log:
 | Execution-Overlay (Schlussauktion) | SPY 30-Min + Hybrid-Turnover | ◻ kein Edge | Ersparnis ~0 €/J (Privat); MOC nur Benchmark-Treue |
 | Minuten-Richtung / Cross-Session | YFinance-Min + SPY SIP 2630 Nächte | ✗ kein Signal | 50/50; Nachm.→Folge-Vorm. corr −0.015 |
 | Overnight-Edge (Close→Open vs Intraday) | SPY/QQQ/IWM 2010–26 | ✗ **RED** | deskriptiv real (IWM Intraday ×0.77!), G2/G3 FAIL |
+| **Volatilitäts-Risikoprämie (VRP-Sleeve)** | SPY+VIX 2006–26 | ⚠ **YELLOW** | Prämie real (IS Sharpe 1.75, t=7.99), OOS-verwässert (0.44); corr~0 = bester Diversifier, kein Blowup unleveraged |
 
 **Neue Learnings (ergänzen die Liste oben):**
 5. **Auch Intraday/Overnight effizient:** Weder Momentum, Mittags-Reversion,
@@ -141,6 +143,9 @@ für künftige Intraday-Backtests auf. Plus eigener Newey-West-HAC (ohne statsmo
 Pre-Regs `exday_rebound_de_2026_06_23_FAIL.md`, `intraday_momentum_spy_2026_06_23.md`,
 `overnight_intraday_2026_06_23.md`.
 
-**Fazit unverändert:** Einziger deployter, handelbarer Gewinner bleibt das
-**Hybrid-Risk-System**. Die Kampagne sammelt weiter ehrliche FAILs — das ist die Substanz.
+**Fazit:** Einziger deployter, handelbarer Gewinner bleibt das **Hybrid-Risk-System**.
+Neu: die **VRP** ist die erste *reale* (wenn auch OOS-verwässerte) Prämie mit echtem
+Sleeve-Wert (corr~0 zu SPY) — Kandidat für eine Diversifikations-Kombination mit dem
+Hybrid (Backlog-würdig), nicht als Solo-Maschine. Die Kampagne sammelt weiter ehrliche
+Befunde — das ist die Substanz.
 
