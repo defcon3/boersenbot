@@ -57,6 +57,7 @@ sector_momentum_ohlc.pkl
 sector_momentum_results.csv
 gold_sleeve_ohlc.pkl
 gold_sleeve_results.json
+exday_rebound_paths.csv
 
 # Prediction-Market / Arbitrage: generierte Daten (reproduzierbar via die *.py)
 arbitrage_results/
