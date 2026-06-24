@@ -123,6 +123,13 @@ DDL = [
         edge            FLOAT         NULL,        -- max(fair_a-price_a, fair_b-price_b)
         actual_winner   NVARCHAR(8)   NULL,        -- A|B (nach Auflösung)
         settled         BIT           NOT NULL DEFAULT 0,
+        -- Recherche-/Paper-Trade-Felder (Auto-Zeilen lassen diese leer; source='elo_auto')
+        source          NVARCHAR(32)  NOT NULL DEFAULT 'elo_auto',  -- elo_auto | manual_research
+        bet_side        NVARCHAR(8)   NULL,        -- A|B: tatsaechlich gesetzte Seite (nur Manual)
+        entry_price     FLOAT         NULL,        -- Kaufkurs der gesetzten Seite
+        stake_usd       FLOAT         NULL,        -- Einsatz (Paper)
+        pnl_usd         FLOAT         NULL,        -- realisierter P&L nach Auflösung
+        note            NVARCHAR(1000) NULL,       -- Recherche-Begruendung
         logged_utc      DATETIME      NOT NULL DEFAULT GETUTCDATE(),
         updated_utc     DATETIME      NOT NULL DEFAULT GETUTCDATE()
     )
@@ -303,29 +310,53 @@ def run_log(conn, args):
 def run_settle(conn, args):
     """Sieger beendeter Matches aus Jupiters market.result nachtragen."""
     cur = conn.cursor()
-    cur.execute("SELECT event_id, player_a, player_b, begin_utc FROM bb_TennisPaperBets WHERE settled=0")
+    cur.execute("SELECT event_id, slug, player_a, player_b, begin_utc, bet_side, entry_price, stake_usd "
+                "FROM bb_TennisPaperBets WHERE settled=0")
     pending = cur.fetchall()
     log.info(f"Settle: {len(pending)} offene Matches.")
     now = datetime.now(timezone.utc)
     idx = None
     n = 0
-    for event_id, pa, pb, begin in pending:
+    for event_id, slug, pa, pb, begin, bet_side, entry, stake in pending:
         if begin is not None and begin.replace(tzinfo=timezone.utc) > now:
             continue   # noch nicht gespielt
         if idx is None:                       # Inventory erst ziehen, wenn wirklich nötig
             idx = fetch_inventory_index()
-        ev = idx.get(event_id)
+        # Manual-Research-Zeilen liegen unter eigenem event_id ('MR-…'); zum Auflösen
+        # nutzen wir den Original-Slug-Eintrag aus dem Inventory.
+        ev = idx.get(event_id) or _find_by_slug(idx, slug)
         if ev is None:
             continue
         winner = _winner_side(ev)
         if winner is None:
             continue
+        pnl = _paper_pnl(bet_side, entry, stake, winner)
         if not args.dry:
-            cur.execute("UPDATE bb_TennisPaperBets SET actual_winner=%s, settled=1, updated_utc=GETUTCDATE() "
-                        "WHERE event_id=%s", (winner, event_id))
-        log.info(f"  aufgelöst {pa} vs {pb}: Sieger {winner}")
+            cur.execute("UPDATE bb_TennisPaperBets SET actual_winner=%s, pnl_usd=%s, settled=1, "
+                        "updated_utc=GETUTCDATE() WHERE event_id=%s", (winner, pnl, event_id))
+        extra = f"  P&L {pnl:+.2f} USD" if pnl is not None else ""
+        log.info(f"  aufgelöst {pa} vs {pb}: Sieger {winner}{extra}")
         n += 1
     log.info(f"Settle fertig: {n} Matches aufgelöst.")
+
+
+def _find_by_slug(idx, slug):
+    if not slug:
+        return None
+    for ev in idx.values():
+        if ev.get("slug") == slug:
+            return ev
+    return None
+
+
+def _paper_pnl(bet_side, entry, stake, winner):
+    """Realisierter Paper-P&L: Kauf der gesetzten Seite zu 'entry', Auszahlung 1.0 bei Sieg.
+    None, wenn keine echte Wette gesetzt war (Auto-Signal-Zeilen)."""
+    if not bet_side or entry in (None, 0) or stake in (None, 0):
+        return None
+    if bet_side == winner:
+        return round(stake * (1.0 / entry - 1.0), 4)   # Gewinn = Einsatz·(1/Kurs − 1)
+    return round(-stake, 4)
 
 
 def _winner_side(ev):
