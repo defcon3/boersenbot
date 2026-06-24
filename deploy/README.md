@@ -13,6 +13,29 @@ den Börsenbot-Webstack. Alle Services laufen als User `veit`, WorkingDir
 | `boersenbot_optionen.service`  | 5051 | `optionen_vergleich:app` | `/optionen` |
 | `boersenbot_streaming.service` | –    | `alpaca_streaming_simple.py` | kein HTTP (Alpaca-Stream) |
 
+## Hintergrund-Jobs (kein HTTP)
+
+| Unit | Typ | Was |
+|------|-----|-----|
+| `boersenbot_autopilot.service` | simple/Loop | Jupiter-Positionsüberwachung + Auto-Claim |
+| `boersenbot_football_odds.service` | simple/Loop | minütliche Polymarket-Quoten → `bb_FootballOdds_1min` |
+| `boersenbot_football_backfill.service` | simple/Loop | Endstände → `bb_FootballMatches` |
+| `boersenbot_tennis_paper.timer` | **Timer** (30 min) | Pre-Match-Snapshot ATP/WTA → `bb_TennisPaperBets` |
+| `boersenbot_tennis_settle.timer` | **Timer** (alle 6h) | Sieger nachtragen (Jupiter-Events fallen nach ~1–2 Tagen raus) |
+
+**Tennis-Timer aktivieren** (oneshot-Service + Timer, beide hochladen):
+```bash
+scp -i ~/.ssh/boersenbot_key deploy/boersenbot_tennis_paper.{service,timer} \
+    deploy/boersenbot_tennis_settle.{service,timer} veit@144.91.98.234:/tmp/
+ssh -i ~/.ssh/boersenbot_key veit@144.91.98.234 '
+  sudo mv /tmp/boersenbot_tennis_*.{service,timer} /etc/systemd/system/ &&
+  sudo systemctl daemon-reload &&
+  sudo systemctl enable --now boersenbot_tennis_paper.timer boersenbot_tennis_settle.timer &&
+  systemctl list-timers "boersenbot_tennis_*"'
+```
+Logs: `logs/tennis_paper.log`, `logs/tennis_settle.log`. Einmaliger Direkt-Test:
+`sudo systemctl start boersenbot_tennis_paper.service` (läuft `--once`, beendet sich).
+
 ## nginx-Routing (Kurzform)
 
 ```nginx

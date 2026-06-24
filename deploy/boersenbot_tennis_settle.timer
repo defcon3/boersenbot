@@ -1,0 +1,11 @@
+[Unit]
+Description=Tennis Paper-Test Settle alle 6h (Ergebnisse nachtragen, bevor Events aus Jupiters Liste fallen)
+
+[Timer]
+# 4x taeglich. WICHTIG: beendete Jupiter-Events bleiben nur ~1-2 Tage gelistet,
+# darum oefter als taeglich settlen, sonst geht das Ergebnis verloren.
+OnCalendar=*-*-* 00,06,12,18:20:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

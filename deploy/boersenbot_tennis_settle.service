@@ -1,0 +1,12 @@
+[Unit]
+Description=Tennis Paper-Test Settle (Sieger aus Jupiter market.result -> bb_TennisPaperBets)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/tennis_paper_logger.py --settle --once
+StandardOutput=append:/home/veit/boersenbot/logs/tennis_settle.log
+StandardError=append:/home/veit/boersenbot/logs/tennis_settle.log

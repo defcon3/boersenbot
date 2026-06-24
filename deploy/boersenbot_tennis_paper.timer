@@ -1,0 +1,11 @@
+[Unit]
+Description=Tennis Paper-Test Logger alle 30 min (Pre-Match-Snapshots der ATP/WTA-Singles)
+
+[Timer]
+# Erster Lauf 3 min nach Boot, danach alle 30 min; verpasste Läufe nachholen.
+OnBootSec=3min
+OnUnitActiveSec=30min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Tennis Paper-Test Logger (Jupiter ATP/WTA fair-vs-market -> bb_TennisPaperBets)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/tennis_paper_logger.py --once
+StandardOutput=append:/home/veit/boersenbot/logs/tennis_paper.log
+StandardError=append:/home/veit/boersenbot/logs/tennis_paper.log

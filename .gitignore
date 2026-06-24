@@ -71,3 +71,7 @@ wm_matches_data/
 # Debug-HTML-Dumps (Scraper-Diagnose)
 *_debug.html
 spy_30min_sip_2016_2026.pkl
+
+# Tennis-Elo-Cache (reproduzierbar via tennis_elo_model.py aus tennisabstract.com)
+tennis_elo_atp.csv
+tennis_elo_wta.csv
