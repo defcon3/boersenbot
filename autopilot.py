@@ -33,7 +33,7 @@ from pathlib import Path
 
 import requests
 
-from jupiter_sell import load_keypair, sell_position, API
+from jupiter_sell import load_keypair, sell_position, claim_position, API
 
 # Mail-Benachrichtigung (GMX, hardcoded wie im Projekt üblich)
 MAIL_HOST, MAIL_PORT = "mail.gmx.net", 587
@@ -134,6 +134,28 @@ def notify_claimable(title, side, payout, auto):
            html, f"GEWONNEN: {title} [{side}] — {payout:.2f} USDC abholbar.\n{aktion}")
 
 
+def notify_claimed(title, side, payout, sig):
+    """Auszahlung erfolgreich eingelöst (on-chain bestätigt)."""
+    link = f"https://solscan.io/tx/{sig}" if sig else "#"
+    html = f"""\
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:480px;margin:auto;border-radius:12px;overflow:hidden;border:1px solid #eee;">
+  <div style="background:linear-gradient(135deg,#2e7d32,#43a047);padding:20px;text-align:center;color:#fff;">
+    <div style="font-size:20px;font-weight:800;">🏆 Gewinn eingelöst</div>
+    <div style="font-size:14px;opacity:.9;">{title} &middot; {side}</div>
+  </div>
+  <div style="padding:20px;background:#fff;color:#333;font-size:15px;line-height:1.8;">
+    Auszahlung: <span style="font-size:22px;font-weight:800;color:#2e7d32;">+{payout:.2f} USDC</span><br>
+    <div style="margin-top:16px;padding:14px;background:#e8f5e9;border-radius:8px;text-align:center;font-size:18px;font-weight:800;color:#2e7d32;">
+      🎉 Du bist der Geilste überhaupt.</div>
+    <div style="margin-top:14px;"><a href="{link}" style="color:#667eea;font-size:12px;">🔗 Transaktion (Solscan)</a></div>
+  </div>
+</div>"""
+    text = (f"Gewinn eingeloest: {title} [{side}]\n"
+            f"Auszahlung +{payout:.2f} USDC (on-chain bestaetigt)\n"
+            f"Tx: {link}\n\nDu bist der Geilste ueberhaupt.")
+    notify(f"🏆 Jupiter Bot: {title} eingelöst (+{payout:.2f} USDC)", html, text)
+
+
 class RateLimited(Exception):
     """429 von der Jupiter-API. retry_after = empfohlene Wartezeit (s) oder None."""
     def __init__(self, retry_after: float | None = None):
@@ -189,8 +211,10 @@ def run(args):
     fails = 0
     polls = 0
     sold_markets: set[str] = set()
+    claimed_markets: set[str] = set()
     notified_fail: set[str] = set()
     notified_claimable: set[str] = set()
+    notified_claim_fail: set[str] = set()
     closed_logged: set[str] = set()
     while True:
         polls += 1
@@ -222,24 +246,37 @@ def run(args):
         now = time.time()
         for p in positions:
             mid = p.get("marketId")
-            if mid in sold_markets:
+            if mid in sold_markets or mid in claimed_markets:
                 continue
             mm = p.get("marketMetadata", {}) or {}
             title = mm.get("title", "?")
             ev_title = (p.get("eventMetadata", {}) or {}).get("title", "") or title
             side = "NO" if not p.get("isYes") else "YES"
 
-            # (1) Markt aufgelöst & GEWONNEN -> Auszahlung abholbar (Claim).
+            # (1) Markt aufgelöst & GEWONNEN -> Auszahlung autonom einlösen (Claim).
+            #     Claim-Endpoint verifiziert 2026-06-23; signierender Call in
+            #     jupiter_sell.claim_position() (nur Owner-Signatur nötig).
             if p.get("claimable"):
                 payout = int(p.get("payoutUsd", 0)) / 1e6
-                # TODO Auto-Claim: signierenden Claim-Call einbauen, sobald der
-                # Jupiter-Claim-Endpoint an einer echten claimable-Position
-                # verifiziert ist (analog jupiter_sell.py). Bis dahin: alarmieren.
-                if mid not in notified_claimable:
-                    log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC "
-                                f"— Auto-Claim noch nicht aktiv, bitte manuell claimen.")
-                    notify_claimable(ev_title, side, payout, auto=False)
-                    notified_claimable.add(mid)
+                if args.dry:
+                    if mid not in notified_claimable:
+                        log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC "
+                                    f"— DRY-RUN: würde jetzt claimen.")
+                        notify_claimable(ev_title, side, payout, auto=True)
+                        notified_claimable.add(mid)
+                    continue
+                log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC — claime autonom…")
+                res = claim_position(owner, p["pubkey"], kp, send=True)
+                if res.get("ok"):
+                    claimed_markets.add(mid)
+                    log.info(f"✅ Eingelöst: {ev_title}  sig={res.get('signature')}  status={res.get('status')}")
+                    if not res.get("already"):
+                        notify_claimed(ev_title, side, payout, res.get("signature"))
+                else:
+                    log.error(f"❌ Claim fehlgeschlagen für {ev_title}: {res.get('reason')} — Retry nächster Poll.")
+                    if mid not in notified_claim_fail:
+                        notify_claimable(ev_title, side, payout, auto=True)
+                        notified_claim_fail.add(mid)
                 continue
 
             # (2) Markt geschlossen / nicht mehr handelbar -> NICHT verkaufen,
