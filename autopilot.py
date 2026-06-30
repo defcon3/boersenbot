@@ -291,8 +291,8 @@ def run(args):
                 continue
 
             # (3) Markt offen -> normale Take-Profit-Verkaufslogik.
-            avg = int(p.get("avgPriceUsd", 0)) / 1e6
-            sellp = int(p.get("sellPriceUsd", 0)) / 1e6
+            avg = int(p.get("avgPriceUsd") or 0) / 1e6
+            sellp = int(p.get("sellPriceUsd") or 0) / 1e6
             if avg <= 0:
                 continue
             try:
