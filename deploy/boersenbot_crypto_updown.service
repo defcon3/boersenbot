@@ -1,0 +1,17 @@
+[Unit]
+Description=Crypto Up/Down 15m Tick Logger (Jupiter BTC/ETH/SOL/DOGE/BNB -> Centron bb_CryptoUpDown15m)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/crypto_updown_logger.py --loop --interval 30
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/crypto_updown.log
+StandardError=append:/home/veit/boersenbot/logs/crypto_updown.log
+
+[Install]
+WantedBy=multi-user.target
