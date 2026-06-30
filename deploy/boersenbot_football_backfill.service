@@ -1,0 +1,17 @@
+[Unit]
+Description=Football Results Backfill (Polymarket resolution -> bb_FootballMatches, ended_0_0)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/backfill_football_results.py --loop --interval 3600 --grace-hours 3
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/football_backfill_service.log
+StandardError=append:/home/veit/boersenbot/logs/football_backfill_service.log
+
+[Install]
+WantedBy=multi-user.target

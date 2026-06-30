@@ -1,0 +1,17 @@
+[Unit]
+Description=Football Odds Collector (Polymarket 3-way, minute snapshots -> Centron)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/poll_football_odds.py --interval 60 --pre-min 15 --post-min 135
+Restart=always
+RestartSec=15
+StandardOutput=append:/home/veit/boersenbot/logs/football_odds_service.log
+StandardError=append:/home/veit/boersenbot/logs/football_odds_service.log
+
+[Install]
+WantedBy=multi-user.target
