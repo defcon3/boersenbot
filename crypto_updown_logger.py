@@ -53,6 +53,11 @@ JUP = "https://prediction-market-api.jup.ag/api/v1"
 EVENTS = f"{JUP}/events"
 ASSETS = ["btc", "eth", "sol", "doge", "bnb"]
 
+# Binance-Spot als Proxy für die Chainlink-Auflösungsquelle (price_to_beat + laufender Spot).
+# Reicht als ERKLÄRENDE Variable — das echte Ergebnis kommt exakt aus Jupiters result-Feld.
+BINANCE = "https://api.binance.com"
+SYMBOL = {"btc": "BTCUSDT", "eth": "ETHUSDT", "sol": "SOLUSDT", "doge": "DOGEUSDT", "bnb": "BNBUSDT"}
+
 # Discovery-Fenster: ein Markt ist "aktiv" zu loggen, sobald seine 15-Min-Range
 # bald startet/läuft, bis kurz nach Schluss (um result einzufangen).
 HORIZON_MIN = 22       # nächste Range IM VORAUS tracken (frische Range steht erst spät in der Liste)
@@ -101,6 +106,15 @@ DDL = [
     IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name='ix_cryptoud_asset')
     CREATE INDEX ix_cryptoud_asset ON bb_CryptoUpDown15m(asset, range_end_utc)
     """,
+    # Binance-Spot-Felder (nachträglich ergänzt, idempotent):
+    """
+    IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE name='spot' AND object_id=OBJECT_ID('bb_CryptoUpDown15m'))
+    ALTER TABLE bb_CryptoUpDown15m ADD spot FLOAT NULL
+    """,
+    """
+    IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE name='price_to_beat' AND object_id=OBJECT_ID('bb_CryptoUpDown15m'))
+    ALTER TABLE bb_CryptoUpDown15m ADD price_to_beat FLOAT NULL
+    """,
 ]
 
 
@@ -135,6 +149,55 @@ def _map_result(up_result):
     if up_result == "no":
         return "Down"
     return None
+
+
+# ---------------------------------------------------------------- Binance-Spot (Proxy)
+
+def fetch_spots(assets):
+    """Aktuelle Spot-Preise aller Assets in EINEM Binance-Batch-Request -> {asset: float}.
+    Fehler sind nicht fatal (Tick wird dann mit spot=None geschrieben)."""
+    syms = [SYMBOL[a] for a in assets if a in SYMBOL]
+    try:
+        import json as _json
+        r = requests.get(f"{BINANCE}/api/v3/ticker/price",
+                         params={"symbols": _json.dumps(syms, separators=(",", ":"))}, timeout=10)
+        r.raise_for_status()
+        by_sym = {x["symbol"]: float(x["price"]) for x in r.json()}
+        return {a: by_sym.get(SYMBOL[a]) for a in assets if a in SYMBOL}
+    except Exception as e:
+        log.warning(f"Binance-Spot Fehler ({e})")
+        return {}
+
+
+def fetch_price_to_beat(asset, epoch, cache):
+    """Asset-Spot zum Range-Start (= price to beat): Binance-1m-Kline OPEN zur Sekunde `epoch`.
+    Pro (asset, epoch) gecacht -> nur ein Request je Range."""
+    key = (asset, epoch)
+    if key in cache:
+        return cache[key]
+    sym = SYMBOL.get(asset)
+    val = None
+    if sym and epoch:
+        try:
+            r = requests.get(f"{BINANCE}/api/v3/klines",
+                             params={"symbol": sym, "interval": "1m",
+                                     "startTime": int(epoch) * 1000, "limit": 1}, timeout=10)
+            r.raise_for_status()
+            kl = r.json()
+            if kl:
+                val = float(kl[0][1])   # [openTime, OPEN, high, low, close, ...]
+        except Exception as e:
+            log.warning(f"Binance-Kline {asset}@{epoch} Fehler ({e})")
+    cache[key] = val
+    return val
+
+
+def _epoch_from_slug(slug):
+    """range_start-Epoch aus '{asset}-updown-15m-{epoch}' ziehen."""
+    try:
+        return int(str(slug).rsplit("-", 1)[-1])
+    except (ValueError, AttributeError):
+        return None
 
 
 def get_events_page(subcat, start, end, retries=3):
@@ -202,7 +265,7 @@ def fetch_event(event_id, retries=3):
     return None
 
 
-def snapshot(asset, e, now):
+def snapshot(asset, e, now, spot=None, p2b=None):
     up, down = _market(e, "Up"), _market(e, "Down")
     pu, pd = up.get("pricing", {}), down.get("pricing", {})
     ct = up.get("closeTime") or 0
@@ -220,6 +283,8 @@ def snapshot(asset, e, now):
         "down_buy": (pd.get("buyYesPriceUsd") or 0) / 1e6,
         "down_sell": (pd.get("sellYesPriceUsd") or 0) / 1e6,
         "result": _map_result(up.get("result")),
+        "spot": spot,
+        "price_to_beat": p2b,
     }
 
 
@@ -230,11 +295,12 @@ def insert_tick(conn, snap):
     cur.execute(
         """INSERT INTO bb_CryptoUpDown15m
            (asset, event_id, slug, range_start_utc, range_end_utc, ts_utc, secs_to_close,
-            up_buy, up_sell, down_buy, down_sell)
-           VALUES (%s,%s,%s,%s,%s,GETUTCDATE(),%s,%s,%s,%s,%s)""",
+            up_buy, up_sell, down_buy, down_sell, spot, price_to_beat)
+           VALUES (%s,%s,%s,%s,%s,GETUTCDATE(),%s,%s,%s,%s,%s,%s,%s)""",
         (snap["asset"], snap["event_id"], snap["slug"], snap["range_start_utc"],
          snap["range_end_utc"], snap["secs_to_close"],
-         snap["up_buy"], snap["up_sell"], snap["down_buy"], snap["down_sell"]),
+         snap["up_buy"], snap["up_sell"], snap["down_buy"], snap["down_sell"],
+         snap["spot"], snap["price_to_beat"]),
     )
 
 
@@ -273,14 +339,41 @@ def backfill(conn, dry):
     log.info(f"Backfill fertig: {done} gesettled, {pending} noch offen, {gone} nicht mehr abrufbar.")
 
 
+def backfill_price_to_beat(conn, dry):
+    """price_to_beat (Binance-1m-Open zum Range-Start) für bestehende Ranges nachtragen.
+    Der range_start-Epoch steckt im Slug -> ein Kline-Request je Range, in alle Ticks geschrieben."""
+    cur = conn.cursor(as_dict=True)
+    cur.execute("""SELECT DISTINCT event_id, asset, slug FROM bb_CryptoUpDown15m
+                   WHERE price_to_beat IS NULL""")
+    rows = cur.fetchall()
+    log.info(f"Backfill price_to_beat: {len(rows)} Ranges.")
+    cache, done, miss = {}, 0, 0
+    for r in rows:
+        p2b = fetch_price_to_beat(r["asset"], _epoch_from_slug(r["slug"]), cache)
+        if p2b is None:
+            miss += 1
+            continue
+        if dry:
+            log.info(f"[dry] {r['asset']:5} {r['event_id']} price_to_beat={p2b}")
+        else:
+            c2 = conn.cursor()
+            c2.execute("UPDATE bb_CryptoUpDown15m SET price_to_beat=%s WHERE event_id=%s",
+                       (p2b, r["event_id"]))
+        done += 1
+    log.info(f"Backfill price_to_beat fertig: {done} Ranges gesetzt, {miss} ohne Kline.")
+
+
 # ---------------------------------------------------------------- Lauf
 
-def poll_tick(conn, dry, tracked, settled_cache):
+def poll_tick(conn, dry, tracked, settled_cache, p2b_cache):
     """Häufiger, billiger Poll: jedes getrackte Event dessen Range läuft gezielt holen,
     Tick schreiben bzw. nach Auflösung settlen. Räumt erledigte/abgelaufene Events auf."""
     now = int(time.time())
     ticks, settles = 0, 0
     per_asset = {}
+    # aktuelle Spot-Preise der gerade aktiven Assets in EINEM Binance-Batch
+    active_assets = sorted({m["asset"] for m in tracked.values()})
+    spots = fetch_spots(active_assets) if active_assets else {}
     for eid in list(tracked.keys()):
         meta = tracked[eid]
         ct = meta["end"]
@@ -294,7 +387,9 @@ def poll_tick(conn, dry, tracked, settled_cache):
         ev = fetch_event(eid)
         if not ev:
             continue
-        snap = snapshot(meta["asset"], ev, now)
+        epoch = _epoch_from_slug(meta.get("slug")) or (ct - 900)
+        p2b = fetch_price_to_beat(meta["asset"], epoch, p2b_cache)
+        snap = snapshot(meta["asset"], ev, now, spot=spots.get(meta["asset"]), p2b=p2b)
         if snap["result"] in ("Up", "Down"):
             if eid not in settled_cache:
                 if not dry:
@@ -307,9 +402,10 @@ def poll_tick(conn, dry, tracked, settled_cache):
         if snap["secs_to_close"] is not None and snap["secs_to_close"] <= 0:
             continue
         if dry:
+            sp = snap['spot']; p2 = snap['price_to_beat']
+            dist = f"{sp - p2:+.2f}" if (sp is not None and p2 is not None) else "?"
             log.info(f"[dry] {meta['asset']:4} {eid} t={snap['secs_to_close']:>4}s  "
-                     f"Up {snap['up_buy']:.3f}/{snap['up_sell']:.3f}  "
-                     f"Down {snap['down_buy']:.3f}/{snap['down_sell']:.3f}")
+                     f"Up {snap['up_buy']:.3f}  spot={sp} beat={p2} (Δ{dist})")
         else:
             insert_tick(conn, snap)
         ticks += 1
@@ -327,6 +423,7 @@ def main():
                     help="Discovery-Intervall in s (teure Pagination, findet neue Events)")
     ap.add_argument("--assets", default=",".join(ASSETS), help="Komma-Liste, default alle")
     ap.add_argument("--backfill", action="store_true", help="ungesettlete Events nachträglich auflösen und beenden")
+    ap.add_argument("--backfill-beat", action="store_true", help="price_to_beat (Binance) für bestehende Ranges nachtragen und beenden")
     ap.add_argument("--dry", action="store_true", help="nur zeigen, nicht schreiben")
     args = ap.parse_args()
 
@@ -340,8 +437,11 @@ def main():
     if args.backfill:
         backfill(conn if not args.dry else get_conn(), args.dry)
         return
+    if args.backfill_beat:
+        backfill_price_to_beat(conn if not args.dry else get_conn(), args.dry)
+        return
 
-    tracked, settled_cache = {}, set()
+    tracked, settled_cache, p2b_cache = {}, set(), {}
     if args.loop:
         log.info(f"Loop-Start (Poll {args.interval}s, Discovery {args.discover_interval}s, "
                  f"Assets {assets}). Strg+C zum Beenden.")
@@ -353,11 +453,13 @@ def main():
                 if time.time() - last_discover >= args.discover_interval:
                     discover(int(time.time()), assets, tracked)
                     last_discover = time.time()
-                poll_tick(conn, args.dry, tracked, settled_cache)
+                poll_tick(conn, args.dry, tracked, settled_cache, p2b_cache)
                 # Sicherheitsnetz: verpasste Live-Settles alle ~5 min nachtragen
                 if not args.dry and time.time() - last_backfill >= 300:
                     backfill(conn, dry=False)
                     last_backfill = time.time()
+                if len(p2b_cache) > 2000:
+                    p2b_cache.clear()
             except Exception as e:
                 log.error(f"Loop-Fehler: {e}")
             if len(settled_cache) > 1000:
@@ -367,7 +469,7 @@ def main():
     else:
         # --once: einmal entdecken + einmal pollen (für Test/Cron)
         discover(int(time.time()), assets, tracked)
-        poll_tick(conn, args.dry, tracked, settled_cache)
+        poll_tick(conn, args.dry, tracked, settled_cache, p2b_cache)
 
 
 if __name__ == "__main__":
