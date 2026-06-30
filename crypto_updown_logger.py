@@ -55,9 +55,9 @@ ASSETS = ["btc", "eth", "sol", "doge", "bnb"]
 
 # Discovery-Fenster: ein Markt ist "aktiv" zu loggen, sobald seine 15-Min-Range
 # bald startet/läuft, bis kurz nach Schluss (um result einzufangen).
-HORIZON_MIN = 16
+HORIZON_MIN = 22       # nächste Range IM VORAUS tracken (frische Range steht erst spät in der Liste)
 LOOKBACK_MIN = 4
-DISCOVER_PAGES = 3      # Seiten je Asset/Discovery (aktiver 15m-Markt steht volumenbedingt weit oben)
+DISCOVER_PAGES = 8     # tief genug paginieren, damit auch die volumenarme nächste Range gefunden wird
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s",
                     handlers=[logging.StreamHandler()])
@@ -145,9 +145,10 @@ def get_events_page(subcat, start, end, retries=3):
     return []
 
 
-def discover_active(now, assets):
-    """Alle aktiven 15m-Events (closeTime im Fenster) über alle Assets -> {event_id: (asset, ev)}."""
-    active = {}
+def discover(now, assets, tracked):
+    """Paginiert je Asset, fügt neue 15m-Events (closeTime im Fenster) zu `tracked`.
+    Teuer (Pagination) -> selten aufrufen; das eigentliche Tick-Polling holt die
+    Events danach gezielt per fetch_event()."""
     for asset in assets:
         for s in range(0, DISCOVER_PAGES * 10, 10):
             page = get_events_page(asset, s, s + 10)
@@ -159,9 +160,36 @@ def discover_active(now, assets):
                 ct = _market(e, "Up").get("closeTime") or 0
                 if not ct:
                     continue
+                # Tracken sobald die Range bald startet bzw. läuft (bis kurz nach Schluss).
                 if now - LOOKBACK_MIN * 60 <= ct <= now + HORIZON_MIN * 60:
-                    active[e.get("eventId")] = (asset, e)
-    return active
+                    eid = e.get("eventId")
+                    if eid not in tracked:
+                        tracked[eid] = {"asset": asset, "slug": e.get("metadata", {}).get("slug"),
+                                        "end": ct}
+    return tracked
+
+
+def fetch_event(event_id, retries=3):
+    """Einzelnes Event gezielt per eventId holen (billig, 1 Request) -> ev-dict oder None.
+
+    /events/{id} liefert das Event-Objekt DIREKT zurück (nicht in 'data'), Struktur
+    wie in der Pagination (metadata, markets[].pricing/result)."""
+    for attempt in range(retries):
+        try:
+            r = requests.get(f"{JUP}/events/{event_id}", timeout=12)
+            if r.status_code == 429:
+                wait = float(r.headers.get("Retry-After", "") or 3 * (attempt + 1))
+                log.warning(f"429 fetch {event_id} — warte {wait:.0f}s")
+                time.sleep(wait)
+                continue
+            if r.status_code == 404:
+                return None
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException as e:
+            log.warning(f"fetch {event_id} Fehler ({e}), Versuch {attempt + 1}")
+            time.sleep(1.5)
+    return None
 
 
 def snapshot(asset, e, now):
@@ -209,43 +237,56 @@ def settle_event(conn, event_id, result):
 
 # ---------------------------------------------------------------- Lauf
 
-def run_once(conn, dry, assets, settled_cache):
+def poll_tick(conn, dry, tracked, settled_cache):
+    """Häufiger, billiger Poll: jedes getrackte Event dessen Range läuft gezielt holen,
+    Tick schreiben bzw. nach Auflösung settlen. Räumt erledigte/abgelaufene Events auf."""
     now = int(time.time())
-    active = discover_active(now, assets)
-    if not active:
-        log.info("Keine aktiven 15m-Märkte im Fenster.")
-        return
     ticks, settles = 0, 0
     per_asset = {}
-    for eid, (asset, e) in active.items():
-        snap = snapshot(asset, e, now)
+    for eid in list(tracked.keys()):
+        meta = tracked[eid]
+        ct = meta["end"]
+        # Aufräumen: lange nach Schluss + nicht mehr brauchbar -> verwerfen
+        if now > ct + LOOKBACK_MIN * 60 + 30:
+            tracked.pop(eid, None)
+            continue
+        # Range noch nicht gestartet (Referenzpreis nicht fixiert) -> noch nicht pollen
+        if now < ct - 900 - 15:
+            continue
+        ev = fetch_event(eid)
+        if not ev:
+            continue
+        snap = snapshot(meta["asset"], ev, now)
         if snap["result"] in ("Up", "Down"):
             if eid not in settled_cache:
                 if not dry:
                     settle_event(conn, eid, snap["result"])
                 settled_cache.add(eid)
                 settles += 1
+            tracked.pop(eid, None)
             continue
         # Range vorbei, aber result noch nicht da -> Preise degenerieren -> kein Tick
         if snap["secs_to_close"] is not None and snap["secs_to_close"] <= 0:
             continue
         if dry:
-            log.info(f"[dry] {asset:4} {eid} t={snap['secs_to_close']:>4}s  "
+            log.info(f"[dry] {meta['asset']:4} {eid} t={snap['secs_to_close']:>4}s  "
                      f"Up {snap['up_buy']:.3f}/{snap['up_sell']:.3f}  "
                      f"Down {snap['down_buy']:.3f}/{snap['down_sell']:.3f}")
         else:
             insert_tick(conn, snap)
         ticks += 1
-        per_asset[asset] = per_asset.get(asset, 0) + 1
-    log.info(f"Durchlauf: {ticks} Ticks {dict(per_asset)}, {settles} Settles, "
-             f"{len(active)} aktive Märkte.")
+        per_asset[meta["asset"]] = per_asset.get(meta["asset"], 0) + 1
+    log.info(f"Poll: {ticks} Ticks {dict(per_asset)}, {settles} Settles, "
+             f"{len(tracked)} getrackt.")
 
 
 def main():
     ap = argparse.ArgumentParser(description="Multi-Asset Tick-Logger für Jupiter 15m Up/Down.")
     ap.add_argument("--once", action="store_true")
     ap.add_argument("--loop", action="store_true")
-    ap.add_argument("--interval", type=int, default=30, help="Poll-Intervall in s (Loop)")
+    ap.add_argument("--interval", type=int, default=10, help="Poll-Intervall in s (Loop, gezieltes fetch)")
+    ap.add_argument("--discover-interval", type=int, default=180,
+                    help="Discovery-Intervall in s (teure Pagination, findet neue Events)")
     ap.add_argument("--assets", default=",".join(ASSETS), help="Komma-Liste, default alle")
     ap.add_argument("--dry", action="store_true", help="nur zeigen, nicht schreiben")
     args = ap.parse_args()
@@ -257,19 +298,28 @@ def main():
         conn = get_conn()
         ensure_tables(conn)
 
-    settled_cache = set()
+    tracked, settled_cache = {}, set()
     if args.loop:
-        log.info(f"Loop-Start (Intervall {args.interval}s, Assets {assets}). Strg+C zum Beenden.")
+        log.info(f"Loop-Start (Poll {args.interval}s, Discovery {args.discover_interval}s, "
+                 f"Assets {assets}). Strg+C zum Beenden.")
+        last_discover = 0.0
         while True:
+            t0 = time.time()
             try:
-                run_once(conn, args.dry, assets, settled_cache)
+                if time.time() - last_discover >= args.discover_interval:
+                    discover(int(time.time()), assets, tracked)
+                    last_discover = time.time()
+                poll_tick(conn, args.dry, tracked, settled_cache)
             except Exception as e:
-                log.error(f"Durchlauf-Fehler: {e}")
+                log.error(f"Loop-Fehler: {e}")
             if len(settled_cache) > 1000:
                 settled_cache = set(list(settled_cache)[-300:])
-            time.sleep(args.interval)
+            # Fetch-/Discovery-Dauer vom Intervall abziehen -> echter ~interval-Zyklus
+            time.sleep(max(1.0, args.interval - (time.time() - t0)))
     else:
-        run_once(conn, args.dry, assets, settled_cache)
+        # --once: einmal entdecken + einmal pollen (für Test/Cron)
+        discover(int(time.time()), assets, tracked)
+        poll_tick(conn, args.dry, tracked, settled_cache)
 
 
 if __name__ == "__main__":
