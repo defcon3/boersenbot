@@ -25,6 +25,7 @@ Aufruf:
 import argparse
 import logging
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 
@@ -218,10 +219,12 @@ def get_events_page(subcat, start, end, retries=3):
     return []
 
 
-def discover(now, assets, tracked):
-    """Paginiert je Asset, fügt neue 15m-Events (closeTime im Fenster) zu `tracked`.
-    Teuer (Pagination) -> selten aufrufen; das eigentliche Tick-Polling holt die
-    Events danach gezielt per fetch_event()."""
+def discover(now, assets):
+    """Paginiert je Asset -> dict {event_id: meta} aller 15m-Events im Fenster.
+    Teuer (Pagination); gibt die Funde zurück, der Aufrufer merged sie (thread-safe)
+    in das geteilte `tracked`. Das eigentliche Tick-Polling holt die Events danach
+    gezielt per fetch_event()."""
+    found = {}
     for asset in assets:
         for s in range(0, DISCOVER_PAGES * 10, 10):
             page = get_events_page(asset, s, s + 10)
@@ -235,11 +238,24 @@ def discover(now, assets, tracked):
                     continue
                 # Tracken sobald die Range bald startet bzw. läuft (bis kurz nach Schluss).
                 if now - LOOKBACK_MIN * 60 <= ct <= now + HORIZON_MIN * 60:
-                    eid = e.get("eventId")
+                    found[e.get("eventId")] = {"asset": asset,
+                                               "slug": e.get("metadata", {}).get("slug"), "end": ct}
+    return found
+
+
+def discover_loop(stop_event, assets, interval, tracked, lock):
+    """Hintergrund-Thread: ruft discover() periodisch auf und merged thread-safe in
+    `tracked`, ohne den Poll-Loop zu blockieren (Pagination dauert ~20-30 s)."""
+    while not stop_event.is_set():
+        try:
+            found = discover(int(time.time()), assets)
+            with lock:
+                for eid, meta in found.items():
                     if eid not in tracked:
-                        tracked[eid] = {"asset": asset, "slug": e.get("metadata", {}).get("slug"),
-                                        "end": ct}
-    return tracked
+                        tracked[eid] = meta
+        except Exception as e:
+            log.error(f"Discovery-Thread-Fehler: {e}")
+        stop_event.wait(interval)
 
 
 def fetch_event(event_id, retries=3):
@@ -365,21 +381,30 @@ def backfill_price_to_beat(conn, dry):
 
 # ---------------------------------------------------------------- Lauf
 
-def poll_tick(conn, dry, tracked, settled_cache, p2b_cache):
+def poll_tick(conn, dry, tracked, settled_cache, p2b_cache, lock=None):
     """Häufiger, billiger Poll: jedes getrackte Event dessen Range läuft gezielt holen,
-    Tick schreiben bzw. nach Auflösung settlen. Räumt erledigte/abgelaufene Events auf."""
+    Tick schreiben bzw. nach Auflösung settlen. Räumt erledigte/abgelaufene Events auf.
+    Thread-safe: liest `tracked` als Snapshot unter `lock`, fetcht lock-frei, entfernt am Ende."""
     now = int(time.time())
     ticks, settles = 0, 0
     per_asset = {}
+
+    def _snapshot_tracked():
+        if lock:
+            with lock:
+                return list(tracked.items())
+        return list(tracked.items())
+
+    items = _snapshot_tracked()
     # aktuelle Spot-Preise der gerade aktiven Assets in EINEM Binance-Batch
-    active_assets = sorted({m["asset"] for m in tracked.values()})
+    active_assets = sorted({m["asset"] for _, m in items})
     spots = fetch_spots(active_assets) if active_assets else {}
-    for eid in list(tracked.keys()):
-        meta = tracked[eid]
+    to_remove = []
+    for eid, meta in items:
         ct = meta["end"]
         # Aufräumen: lange nach Schluss + nicht mehr brauchbar -> verwerfen
         if now > ct + LOOKBACK_MIN * 60 + 30:
-            tracked.pop(eid, None)
+            to_remove.append(eid)
             continue
         # Range noch nicht gestartet (Referenzpreis nicht fixiert) -> noch nicht pollen
         if now < ct - 900 - 15:
@@ -396,7 +421,7 @@ def poll_tick(conn, dry, tracked, settled_cache, p2b_cache):
                     settle_event(conn, eid, snap["result"])
                 settled_cache.add(eid)
                 settles += 1
-            tracked.pop(eid, None)
+            to_remove.append(eid)
             continue
         # Range vorbei, aber result noch nicht da -> Preise degenerieren -> kein Tick
         if snap["secs_to_close"] is not None and snap["secs_to_close"] <= 0:
@@ -410,6 +435,14 @@ def poll_tick(conn, dry, tracked, settled_cache, p2b_cache):
             insert_tick(conn, snap)
         ticks += 1
         per_asset[meta["asset"]] = per_asset.get(meta["asset"], 0) + 1
+    if to_remove:
+        if lock:
+            with lock:
+                for eid in to_remove:
+                    tracked.pop(eid, None)
+        else:
+            for eid in to_remove:
+                tracked.pop(eid, None)
     log.info(f"Poll: {ticks} Ticks {dict(per_asset)}, {settles} Settles, "
              f"{len(tracked)} getrackt.")
 
@@ -443,32 +476,39 @@ def main():
 
     tracked, settled_cache, p2b_cache = {}, set(), {}
     if args.loop:
-        log.info(f"Loop-Start (Poll {args.interval}s, Discovery {args.discover_interval}s, "
-                 f"Assets {assets}). Strg+C zum Beenden.")
-        last_discover = 0.0
+        log.info(f"Loop-Start (Poll {args.interval}s, Discovery {args.discover_interval}s im "
+                 f"Hintergrund-Thread, Assets {assets}). Strg+C zum Beenden.")
+        lock = threading.Lock()
+        stop_event = threading.Event()
+        # Discovery läuft im Thread (erster Durchlauf sofort) -> Start blockiert nicht;
+        # die ersten ~30 s ist `tracked` noch leer/teilbefüllt, dann läuft es normal.
+        dt = threading.Thread(target=discover_loop,
+                              args=(stop_event, assets, args.discover_interval, tracked, lock),
+                              daemon=True)
+        dt.start()
         last_backfill = 0.0
-        while True:
-            t0 = time.time()
-            try:
-                if time.time() - last_discover >= args.discover_interval:
-                    discover(int(time.time()), assets, tracked)
-                    last_discover = time.time()
-                poll_tick(conn, args.dry, tracked, settled_cache, p2b_cache)
-                # Sicherheitsnetz: verpasste Live-Settles alle ~5 min nachtragen
-                if not args.dry and time.time() - last_backfill >= 300:
-                    backfill(conn, dry=False)
-                    last_backfill = time.time()
-                if len(p2b_cache) > 2000:
-                    p2b_cache.clear()
-            except Exception as e:
-                log.error(f"Loop-Fehler: {e}")
-            if len(settled_cache) > 1000:
-                settled_cache = set(list(settled_cache)[-300:])
-            # Fetch-/Discovery-Dauer vom Intervall abziehen -> echter ~interval-Zyklus
-            time.sleep(max(1.0, args.interval - (time.time() - t0)))
+        try:
+            while True:
+                t0 = time.time()
+                try:
+                    poll_tick(conn, args.dry, tracked, settled_cache, p2b_cache, lock)
+                    # Sicherheitsnetz: verpasste Live-Settles alle ~5 min nachtragen
+                    if not args.dry and time.time() - last_backfill >= 300:
+                        backfill(conn, dry=False)
+                        last_backfill = time.time()
+                    if len(p2b_cache) > 2000:
+                        p2b_cache.clear()
+                except Exception as e:
+                    log.error(f"Poll-Loop-Fehler: {e}")
+                if len(settled_cache) > 1000:
+                    settled_cache = set(list(settled_cache)[-300:])
+                # nur die Poll-Dauer abziehen -> echter ~interval-Zyklus (Discovery blockt nicht mehr)
+                time.sleep(max(1.0, args.interval - (time.time() - t0)))
+        finally:
+            stop_event.set()
     else:
         # --once: einmal entdecken + einmal pollen (für Test/Cron)
-        discover(int(time.time()), assets, tracked)
+        tracked.update(discover(int(time.time()), assets))
         poll_tick(conn, args.dry, tracked, settled_cache, p2b_cache)
 
 
