@@ -1,0 +1,17 @@
+[Unit]
+Description=Tennis Paper Settler (Wikipedia winner backfill -> bb_TennisPaperBets, settled)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/backfill_tennis_results.py --loop --interval 21600 --grace-hours 3
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/tennis_backfill_service.log
+StandardError=append:/home/veit/boersenbot/logs/tennis_backfill_service.log
+
+[Install]
+WantedBy=multi-user.target
