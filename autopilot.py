@@ -305,7 +305,26 @@ def run(args):
                      f"PnL={pnl:+.1f}% Ziel≥{target:.3f}")
 
             if sellp >= target:
-                log.warning(f"🎯 TRIGGER {title}: PnL {pnl:+.1f}% ≥ +{args.profit*100:.0f}%")
+                # Brutto-Bedingung erreicht (billiger Vorfilter, da netto <= brutto).
+                # Vor dem Verkauf NETTO prüfen: Orderbuch-Walk (Slippage bei Größe)
+                # + Fee-Schätzung. Nur verkaufen, wenn netto noch >= Ziel.
+                if args.net_check:
+                    est = estimate_net_exit(mid, bool(p.get("isYes")), contracts, avg, args.fee_rate)
+                    if est is None:
+                        log.warning(f"⏸️ {title}: Brutto-Trigger (+{pnl:.1f}%), aber Orderbuch nicht "
+                                    f"abrufbar — kein Verkauf, Retry nächster Poll.")
+                        continue
+                    net_pct = est["net_pnl"] * 100
+                    if est["net_pnl"] < args.profit:
+                        log.warning(f"⏸️ {title}: brutto +{pnl:.1f}% ABER netto {net_pct:+.1f}% "
+                                    f"(Fill~{est['est_fill']:.3f}, Fee~{est['est_fee']:.2f}, "
+                                    f"fill {100*est['fill_ratio']:.0f}%) < Ziel +{args.profit*100:.0f}% "
+                                    f"— Slippage/Fee zu hoch, kein Verkauf.")
+                        continue
+                    log.warning(f"🎯 TRIGGER {title}: brutto +{pnl:.1f}% / NETTO {net_pct:+.1f}% "
+                                f"(Fill~{est['est_fill']:.3f}) ≥ +{args.profit*100:.0f}%")
+                else:
+                    log.warning(f"🎯 TRIGGER {title}: PnL {pnl:+.1f}% ≥ +{args.profit*100:.0f}% (Netto-Check AUS)")
                 if args.dry:
                     log.info("DRY-RUN: würde jetzt verkaufen (nichts gesendet).")
                 else:
@@ -331,9 +350,51 @@ def run(args):
             time.sleep(args.far_interval)
 
 
+def estimate_net_exit(market_id, held_is_yes, contracts, avg, fee_rate):
+    """Schätzt den NETTO-Erlös eines Marktverkaufs der vollen Position.
+
+    Zieht das Orderbuch und simuliert den Verkauf von `contracts` durch die
+    Bid-Leiter der gehaltenen Seite (höchster Bid zuerst) -> realistischer
+    Durchschnitts-Fill inkl. Slippage. Fee aus Audit-Modell (~fee_rate * Stück *
+    min(p,1-p)). Orderbuch-Semantik verifiziert 2026-06-30: ob[side] = Bids dieser
+    Seite, Preis in Cent, bester Bid = höchster Preis (= sellPriceUsd).
+    Rückgabe dict oder None bei Abruf-Fehler.
+    """
+    side = "yes" if held_is_yes else "no"
+    try:
+        r = requests.get(f"{API}/orderbook/{market_id}", timeout=10)
+        r.raise_for_status()
+        ob = r.json()
+    except Exception:
+        return None
+    bids = sorted((b for b in ob.get(side, []) if b and len(b) >= 2),
+                  key=lambda x: x[0], reverse=True)
+    remaining, proceeds = contracts, 0.0
+    for price_c, size in bids:
+        take = min(remaining, float(size or 0))
+        proceeds += take * (price_c / 100.0)
+        remaining -= take
+        if remaining <= 1e-9:
+            break
+    filled = contracts - max(0.0, remaining)
+    if filled <= 0 or avg <= 0:
+        return {"net_pnl": -1.0, "est_fill": 0.0, "est_fee": 0.0, "fill_ratio": 0.0}
+    est_fill = proceeds / filled
+    est_fee = fee_rate * filled * min(est_fill, 1.0 - est_fill)
+    net_pnl = (proceeds - est_fee) / (contracts * avg) - 1.0
+    return {"net_pnl": net_pnl, "est_fill": est_fill, "est_fee": est_fee,
+            "fill_ratio": filled / contracts}
+
+
 def main():
     ap = argparse.ArgumentParser(description="Autonomer Take-Profit-Exit (Jupiter Prediction)")
-    ap.add_argument("--profit", type=float, default=0.10, help="Take-Profit-Schwelle (default 0.10 = 10%%)")
+    ap.add_argument("--profit", type=float, default=0.10,
+                    help="Take-Profit-Schwelle, jetzt NETTO nach Fee+Slippage (default 0.10 = 10%%)")
+    ap.add_argument("--fee-rate", type=float, default=0.07,
+                    help="Fee-Schätzrate für Netto-Check: Fee ~ rate*Stück*min(p,1-p) (default 0.07)")
+    ap.add_argument("--no-net-check", dest="net_check", action="store_false",
+                    help="Netto-Check (Orderbuch-Slippage+Fee) AUS -> alter Brutto-Trigger")
+    ap.set_defaults(net_check=True)
     ap.add_argument("--interval", type=int, default=20,
                     help="Poll-Intervall bei OFFENER Position, Sekunden (default 20)")
     ap.add_argument("--idle-interval", type=int, default=90,
