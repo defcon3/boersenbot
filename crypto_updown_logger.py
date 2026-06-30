@@ -127,6 +127,16 @@ def _market(ev, title):
     return {}
 
 
+def _map_result(up_result):
+    """Das 'result' des Up-Markts ist 'yes'/'no' (NICHT 'Up'/'Down'):
+    'yes' = Up gewann, 'no' = Down gewann. -> Event-Ausgang 'Up'/'Down' oder None."""
+    if up_result == "yes":
+        return "Up"
+    if up_result == "no":
+        return "Down"
+    return None
+
+
 def get_events_page(subcat, start, end, retries=3):
     for attempt in range(retries):
         try:
@@ -209,7 +219,7 @@ def snapshot(asset, e, now):
         "up_sell": (pu.get("sellYesPriceUsd") or 0) / 1e6,
         "down_buy": (pd.get("buyYesPriceUsd") or 0) / 1e6,
         "down_sell": (pd.get("sellYesPriceUsd") or 0) / 1e6,
-        "result": up.get("result"),
+        "result": _map_result(up.get("result")),
     }
 
 
@@ -233,6 +243,34 @@ def settle_event(conn, event_id, result):
     cur.execute("UPDATE bb_CryptoUpDown15m SET result=%s, settled=1 WHERE event_id=%s",
                 (result, event_id))
     return cur.rowcount
+
+
+def backfill(conn, dry):
+    """Alle noch ungesettleten, längst beendeten Events nachträglich auflösen:
+    result via /events/{id} holen (solange Event abrufbar) und in alle Ticks schreiben.
+    Robust gegen verpasste Live-Settles und Logger-Neustarts."""
+    cur = conn.cursor(as_dict=True)
+    cur.execute("""SELECT DISTINCT event_id FROM bb_CryptoUpDown15m
+                   WHERE settled=0 AND range_end_utc < DATEADD(minute,-1,GETUTCDATE())""")
+    eids = [r["event_id"] for r in cur.fetchall()]
+    log.info(f"Backfill: {len(eids)} ungesettlete Events zu prüfen.")
+    done, gone, pending = 0, 0, 0
+    for eid in eids:
+        ev = fetch_event(eid)
+        if ev is None:
+            gone += 1
+            continue
+        res = _map_result(_market(ev, "Up").get("result"))
+        if res is None:
+            pending += 1
+            continue
+        if dry:
+            log.info(f"[dry] backfill {eid} -> {res}")
+        else:
+            n = settle_event(conn, eid, res)
+            log.info(f"backfill {eid} -> {res} ({n} Ticks)")
+        done += 1
+    log.info(f"Backfill fertig: {done} gesettled, {pending} noch offen, {gone} nicht mehr abrufbar.")
 
 
 # ---------------------------------------------------------------- Lauf
@@ -288,6 +326,7 @@ def main():
     ap.add_argument("--discover-interval", type=int, default=180,
                     help="Discovery-Intervall in s (teure Pagination, findet neue Events)")
     ap.add_argument("--assets", default=",".join(ASSETS), help="Komma-Liste, default alle")
+    ap.add_argument("--backfill", action="store_true", help="ungesettlete Events nachträglich auflösen und beenden")
     ap.add_argument("--dry", action="store_true", help="nur zeigen, nicht schreiben")
     args = ap.parse_args()
 
@@ -298,11 +337,16 @@ def main():
         conn = get_conn()
         ensure_tables(conn)
 
+    if args.backfill:
+        backfill(conn if not args.dry else get_conn(), args.dry)
+        return
+
     tracked, settled_cache = {}, set()
     if args.loop:
         log.info(f"Loop-Start (Poll {args.interval}s, Discovery {args.discover_interval}s, "
                  f"Assets {assets}). Strg+C zum Beenden.")
         last_discover = 0.0
+        last_backfill = 0.0
         while True:
             t0 = time.time()
             try:
@@ -310,6 +354,10 @@ def main():
                     discover(int(time.time()), assets, tracked)
                     last_discover = time.time()
                 poll_tick(conn, args.dry, tracked, settled_cache)
+                # Sicherheitsnetz: verpasste Live-Settles alle ~5 min nachtragen
+                if not args.dry and time.time() - last_backfill >= 300:
+                    backfill(conn, dry=False)
+                    last_backfill = time.time()
             except Exception as e:
                 log.error(f"Loop-Fehler: {e}")
             if len(settled_cache) > 1000:
