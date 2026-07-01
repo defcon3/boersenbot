@@ -1,0 +1,17 @@
+[Unit]
+Description=Weather Reprice-Latency Logger (Jupiter Highest-Temp Maerkte -> Centron bb_WeatherLatency)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/weather_latency_logger.py --loop --interval 120
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/weather_latency.log
+StandardError=append:/home/veit/boersenbot/logs/weather_latency.log
+
+[Install]
+WantedBy=multi-user.target
