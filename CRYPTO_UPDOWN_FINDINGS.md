@@ -59,6 +59,32 @@ IS je Ask-Band +1…+3 % ROI (t < 1, Rauschen), **OOS dreht jedes Band negativ**
   Die Sinus-Optik existiert (46 % mit ≥3 Wechseln), ist aber ex ante wertlos, weil
   der Preis dabei kalibriert bleibt.
 
+## Ergebnis 5 — Streak-/Persistenz-Addendum (02.07. abends, `crypto_updown_streaks.py`)
+
+Nutzerfrage: „Wie oft in Folge kam dieselbe Richtung?" — plus die Edge-Frage dahinter
+(Serien-Abhängigkeit über Ranges hinweg, und preist der Markt sie ein?). Explorativ,
+1.060 Events / 1.050 lückenlose 15-Min-Nachbar-Paare.
+
+- **Streak-Verteilung (gepoolt ×5 Assets, ~80 % synchron):** 237× L1, 122× L2, 61× L3,
+  41× L4, 15× L5, 10× L6, 4× L7, 1× L8, 2× L9, 1× L10, 3× L11. **Längste Serie: 11**
+  (btc/eth/sol — dieselbe synchrone Episode; Shuffle-Erwartung für das Maximum ~8).
+  Je Asset einzeln kein Permutations-p < 0.05 (min. 0.061) → **im Zufallsrahmen**.
+- **Scheinbare Anomalie:** Nach Up-Ranges startete die Folge-Range mit Up-Mid **0.475**
+  (Markt erwartet Reversal), real kam Up in **56.9 %** (+9.4 Pkt). Reversal-Regel
+  verlor entsprechend signifikant (netto t=−4.5), Momentum-Regel nominal +2…+8 % ROI
+  (Cluster-t ≤ 1.1, Hälften instabil).
+- **Auflösung durch den 60-Tage-Binance-Anker (5.760 15m-Kerzen/Asset):** langfristige
+  Fortsetzungsrate **0.474–0.490** (z bis −4.0: leichte ANTI-Persistenz), AC(1) −0.01…−0.02.
+  Die Jupiter-Start-Quoten preisen die Fortsetzungs-Seite mit Mid **0.475–0.491** —
+  **der Markt ist auf der Serien-Ebene fast exakt auf die 60-Tage-Realität kalibriert.**
+  Nur unser 2-Tage-Fenster war eine Momentum-Welle (Fortsetzung 0.53–0.57, daher die
+  11er-Streaks und die Scheinkante). Klassische Nichtstationaritäts-Falle.
+- **Konsequenz:** Kein handelbarer Streak-Edge. Der langfristigen Reversal-Tendenz zu
+  folgen ist eingepreist (Brutto-Edge ~0) und stirbt an Fee (~3.5 Pkt); auf Momentum-
+  Fortsetzung zu wetten widerspricht dem 60-Tage-Anker. Einzige saubere Resttür:
+  Momentum-Regel („nach Up → Up kaufen") als Pre-Reg einfrieren und im Forward-Fenster
+  03.–10.07. konfirmieren (Logger läuft bis dahin) — Erwartung ehrlicherweise negativ.
+
 ## Fazit & Konsequenz
 
 **These falsifiziert — keine Paper-/Live-Stufe.** Alle drei vorab notierten Einwände
