@@ -48,6 +48,31 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 
+def compute_hedge(avg, n_held, profit, n_hedge=None, limit_override=None):
+    """Reine Hedge-Mathematik (keine API-Calls) — Single Source of Truth für CLI
+    UND Daemon (green_up_daemon.py). Limit b = 1 - avg - profit (auf Cent gefloort,
+    sichert >= profit); bei M=N identischer Gewinn N*(1-avg-b) auf beiden Seiten.
+
+    Rückgabe: {"ok": False, "reason": "lock_impossible"|"below_min_order", ...}
+    ODER {"ok": True, "b", "n_hedge", "locked", "deposit", "cost_leg1"}.
+    """
+    if n_hedge is None:
+        n_hedge = n_held
+    if limit_override is not None:
+        b = limit_override
+    else:
+        b = math.floor((1.0 - avg - profit) * 100) / 100.0
+    if b < 0.01:
+        return {"ok": False, "reason": "lock_impossible", "b": b}
+    b = min(b, 0.99)
+    deposit = n_hedge * b
+    if deposit < 5.0:
+        return {"ok": False, "reason": "below_min_order", "b": b, "deposit": deposit}
+    return {"ok": True, "b": b, "n_hedge": n_hedge,
+            "locked": n_hedge * (1.0 - avg - b), "deposit": deposit,
+            "cost_leg1": n_held * avg}
+
+
 def main():
     ap = argparse.ArgumentParser(description="Green-up: garantierte-Gewinn-Gegenwette per Limit.")
     ap.add_argument("--market", required=True, help="marketId von Leg 1, z. B. POLY-2734938-0")
@@ -81,27 +106,22 @@ def main():
     hedge_is_yes = not held_is_yes
     hedge_lbl = "YES/Up" if hedge_is_yes else "NO/Down"
 
-    # Limit der Gegenseite: b = 1 - a - p, auf Cent ABGERUNDET (sichert >= p)
-    if args.limit is not None:
-        b = args.limit
-    else:
-        b = math.floor((1.0 - avg - args.profit) * 100) / 100.0
-
     print("=" * 66)
     print(f"GREEN-UP  |  {owner[:10]}…  |  {args.market}")
     print(f"Markt     : {title}")
     print(f"Leg 1 hält: {n_held:g} Kontrakte {held_lbl} @ Schnitt {avg:.3f}")
     print("=" * 66)
 
-    if b < 0.01:
+    r = compute_hedge(avg, n_held, args.profit, n_hedge=n_hedge, limit_override=args.limit)
+    if not r["ok"] and r["reason"] == "lock_impossible":
+        b = r["b"]
         print(f"❌ Lock unmöglich: Limit b = 1 - {avg:.3f} - {args.profit:.3f} = {b:.3f} < 0.01.")
         print(f"   Leg 1 liegt noch nicht weit genug im Gewinn, um {args.profit:.2f}/Kontrakt zu sichern.")
         print(f"   Nötig wäre Einstieg+Profit < 0.99 — entweder günstigeren Einstieg oder kleineres --profit.")
         sys.exit(2)
-    if b > 0.99:
-        b = 0.99
 
-    locked = n_hedge * (1.0 - avg - b)  # bei M=N identisch auf beiden Seiten
+    b = r["b"]
+    locked = n_hedge * (1.0 - avg - b)  # bei M=N identisch auf beiden Seiten (Anzeige, s. u.)
     deposit = n_hedge * b
     cost_leg1 = n_held * avg
 

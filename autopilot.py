@@ -34,6 +34,7 @@ from pathlib import Path
 import requests
 
 from jupiter_sell import load_keypair, sell_position, claim_position, API
+import green_up_state
 
 # Mail-Benachrichtigung (GMX, hardcoded wie im Projekt üblich)
 MAIL_HOST, MAIL_PORT = "mail.gmx.net", 587
@@ -216,6 +217,9 @@ def run(args):
     notified_claimable: set[str] = set()
     notified_claim_fail: set[str] = set()
     closed_logged: set[str] = set()
+    green_up_logged: set[str] = set()
+    green_up_markets: set[str] = set()
+    last_green_up_refresh = 0.0
     while True:
         polls += 1
         try:
@@ -244,6 +248,10 @@ def run(args):
             continue
 
         now = time.time()
+        if now - last_green_up_refresh >= 60:
+            green_up_markets = green_up_state.get_active_markets()  # fail-open bei DB-Fehler
+            last_green_up_refresh = now
+
         for p in positions:
             mid = p.get("marketId")
             if mid in sold_markets or mid in claimed_markets:
@@ -277,6 +285,16 @@ def run(args):
                     if mid not in notified_claim_fail:
                         notify_claimable(ev_title, side, payout, auto=True)
                         notified_claim_fail.add(mid)
+                continue
+
+            # (1.5) Markt steht unter Green-up-Verwaltung (bb_GreenUpHedges) ->
+            #       NICHT verkaufen, sonst reisst das eine offene/gefüllte Hedge-
+            #       Gegenwette auseinander (nackte Position). Claim oben bleibt
+            #       ausdrücklich erlaubt — Einlösen gefährdet den Lock nicht.
+            if mid in green_up_markets:
+                if mid not in green_up_logged:
+                    log.info(f"{ev_title} [{side}] {mid}: unter Green-up-Verwaltung — Verkauf pausiert.")
+                    green_up_logged.add(mid)
                 continue
 
             # (2) Markt geschlossen / nicht mehr handelbar -> NICHT verkaufen,

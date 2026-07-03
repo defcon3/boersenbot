@@ -18,6 +18,7 @@ den Börsenbot-Webstack. Alle Services laufen als User `veit`, WorkingDir
 | Unit | Typ | Was |
 |------|-----|-----|
 | `boersenbot_autopilot.service` | simple/Loop | Jupiter-Positionsüberwachung + Auto-Claim |
+| `boersenbot_green_up.service` | simple/Loop | Hedge-Daemon für explizit benannte Positionen (`bb_GreenUpHedges`); Autopilot überspringt deren Verkauf |
 | `boersenbot_football_odds.service` | simple/Loop | minütliche Polymarket-Quoten → `bb_FootballOdds_1min` |
 | `boersenbot_football_backfill.service` | simple/Loop | Endstände → `bb_FootballMatches` |
 | `boersenbot_tennis_paper.timer` | **Timer** (30 min) | Pre-Match-Snapshot ATP/WTA → `bb_TennisPaperBets` |
