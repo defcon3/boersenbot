@@ -1,0 +1,111 @@
+city,model,n,bias,sigma
+Wellington,gfs_seamless,700,-1.089,1.106
+Wellington,icon_seamless,698,-0.561,1.172
+Wellington,ukmo_seamless,525,-0.427,1.257
+Wellington,jma_seamless,700,-1.522,1.255
+Wellington,ecmwf_ifs025,700,-1.138,1.064
+Tokyo,gfs_seamless,700,-0.172,1.314
+Tokyo,icon_seamless,698,-0.042,1.304
+Tokyo,ukmo_seamless,524,0.193,1.522
+Tokyo,jma_seamless,700,-0.943,1.285
+Tokyo,ecmwf_ifs025,700,-0.262,1.522
+Seoul,gfs_seamless,700,-2.667,3.074
+Seoul,icon_seamless,698,-0.930,1.627
+Seoul,ukmo_seamless,524,-2.190,2.868
+Seoul,jma_seamless,700,-2.268,3.030
+Seoul,ecmwf_ifs025,700,-1.062,1.246
+Shanghai,gfs_seamless,700,-0.822,1.344
+Shanghai,icon_seamless,698,-1.307,1.366
+Shanghai,ukmo_seamless,525,-0.875,1.482
+Shanghai,jma_seamless,700,-2.486,2.178
+Shanghai,ecmwf_ifs025,700,-1.093,1.280
+Beijing,gfs_seamless,700,-0.136,2.278
+Beijing,icon_seamless,698,-0.932,1.558
+Beijing,ukmo_seamless,525,-1.126,1.905
+Beijing,jma_seamless,700,-0.515,2.135
+Beijing,ecmwf_ifs025,700,-1.048,1.706
+Kuala Lumpur,gfs_seamless,700,-1.495,1.762
+Kuala Lumpur,icon_seamless,698,-0.141,1.436
+Kuala Lumpur,ukmo_seamless,525,-0.485,1.616
+Kuala Lumpur,jma_seamless,700,-3.456,1.536
+Kuala Lumpur,ecmwf_ifs025,700,-0.872,1.659
+Shenzhen,gfs_seamless,700,1.392,1.466
+Shenzhen,icon_seamless,698,-0.951,1.361
+Shenzhen,ukmo_seamless,525,0.095,1.472
+Shenzhen,jma_seamless,700,-0.937,1.395
+Shenzhen,ecmwf_ifs025,700,-0.783,1.314
+Chengdu,gfs_seamless,700,-1.022,2.107
+Chengdu,icon_seamless,698,-0.960,1.704
+Chengdu,ukmo_seamless,525,-0.527,1.889
+Chengdu,jma_seamless,700,-1.305,2.278
+Chengdu,ecmwf_ifs025,700,-0.612,1.791
+Karachi,gfs_seamless,700,-0.881,1.452
+Karachi,icon_seamless,698,-0.306,1.373
+Karachi,ukmo_seamless,525,0.504,1.995
+Karachi,jma_seamless,700,-1.150,1.552
+Karachi,ecmwf_ifs025,700,0.337,1.537
+Jeddah,gfs_seamless,700,-1.462,1.323
+Jeddah,icon_seamless,698,-2.759,3.077
+Jeddah,ukmo_seamless,524,-0.491,1.940
+Jeddah,jma_seamless,700,-5.896,2.347
+Jeddah,ecmwf_ifs025,700,0.606,1.501
+Ankara,gfs_seamless,700,-0.472,1.382
+Ankara,icon_seamless,700,-0.634,1.108
+Ankara,ukmo_seamless,524,-1.105,1.750
+Ankara,jma_seamless,700,-0.748,1.567
+Ankara,ecmwf_ifs025,700,-0.606,1.337
+Helsinki,gfs_seamless,700,-0.167,1.501
+Helsinki,icon_seamless,700,-0.570,1.094
+Helsinki,ukmo_seamless,524,-0.601,1.299
+Helsinki,jma_seamless,700,-0.541,1.348
+Helsinki,ecmwf_ifs025,700,-0.801,1.419
+London,gfs_seamless,700,-0.035,1.357
+London,icon_seamless,700,-0.038,1.081
+London,ukmo_seamless,683,0.173,1.297
+London,jma_seamless,700,-1.030,1.540
+London,ecmwf_ifs025,700,-0.308,1.213
+Paris,gfs_seamless,700,0.074,1.594
+Paris,icon_seamless,700,0.004,1.138
+Paris,ukmo_seamless,683,0.097,1.206
+Paris,jma_seamless,700,-1.229,1.636
+Paris,ecmwf_ifs025,700,-0.716,1.257
+Madrid,gfs_seamless,700,-0.451,1.236
+Madrid,icon_seamless,700,-0.518,1.123
+Madrid,ukmo_seamless,526,-1.107,1.792
+Madrid,jma_seamless,700,-1.292,1.524
+Madrid,ecmwf_ifs025,700,-0.503,1.229
+Milan,gfs_seamless,700,-1.152,1.516
+Milan,icon_seamless,700,-0.173,1.269
+Milan,ukmo_seamless,683,-0.327,1.542
+Milan,jma_seamless,700,-1.615,1.741
+Milan,ecmwf_ifs025,700,-0.917,1.433
+Munich,gfs_seamless,700,-0.657,2.309
+Munich,icon_seamless,700,-0.370,1.369
+Munich,ukmo_seamless,526,-0.759,1.948
+Munich,jma_seamless,700,-1.089,2.181
+Munich,ecmwf_ifs025,700,-0.422,1.874
+Amsterdam,gfs_seamless,700,0.257,1.321
+Amsterdam,icon_seamless,700,-0.082,1.011
+Amsterdam,ukmo_seamless,683,-0.008,1.089
+Amsterdam,jma_seamless,700,-1.304,1.759
+Amsterdam,ecmwf_ifs025,700,-0.695,1.082
+Warsaw,gfs_seamless,700,0.137,1.626
+Warsaw,icon_seamless,700,-0.425,1.160
+Warsaw,ukmo_seamless,526,-0.616,1.623
+Warsaw,jma_seamless,700,-1.053,1.746
+Warsaw,ecmwf_ifs025,700,-0.587,1.319
+Cape Town,gfs_seamless,677,0.591,1.626
+Cape Town,icon_seamless,675,-0.109,1.415
+Cape Town,ukmo_seamless,509,0.227,1.788
+Cape Town,jma_seamless,677,-1.908,1.616
+Cape Town,ecmwf_ifs025,677,-0.342,1.507
+Mexico City,gfs_seamless,700,0.364,1.345
+Mexico City,icon_seamless,697,-0.451,1.269
+Mexico City,ukmo_seamless,525,-0.135,1.634
+Mexico City,jma_seamless,700,-1.289,1.276
+Mexico City,ecmwf_ifs025,700,0.347,1.375
+Buenos Aires,gfs_seamless,700,0.056,2.217
+Buenos Aires,icon_seamless,697,-0.942,1.467
+Buenos Aires,ukmo_seamless,525,-0.626,1.681
+Buenos Aires,jma_seamless,700,-1.514,1.892
+Buenos Aires,ecmwf_ifs025,700,-0.882,1.535
