@@ -152,7 +152,26 @@ def handle_watching(owner, kp, row, dry):
     n_held = float(pos.get("contractsDecimal") or 0)
     held_is_yes = bool(pos.get("isYes"))
     hedge_is_yes = not held_is_yes
-    title = pos.get("marketMetadata", {}).get("title", "?")
+    mm = pos.get("marketMetadata", {}) or {}
+    title = mm.get("title", "?")
+
+    # Tradability-Check (wie autopilot.py) -- FEHLTE bisher: ohne ihn versucht
+    # build_order() staendig eine neue Order in einem bereits geschlossenen Markt
+    # zu bauen (z. B. Match vorbei, Settling-Limbo) und schlaegt mit einem
+    # kryptischen API-Fehler fehl ("missing Polymarket token id"), statt sauber
+    # aufzugeben. Entdeckt 2026-07-03 (Quito-Doppel Casanova/Sakamoto).
+    close_time = int(mm.get("closeTime", 0) or 0)
+    tradable = mm.get("status") == "open" and (close_time == 0 or time.time() < close_time)
+    if not tradable:
+        note = f"Markt nicht mehr handelbar (status={mm.get('status')}) -- Hedge nicht platzierbar"
+        green_up_state.update_hedge(mid, status="cancelled", note=note)
+        log.warning(f"⏹️ {mid} ({title}): {note}. Leg 1 bleibt unberuehrt, Claim laeuft normal.")
+        notify(f"⏹️ Green-up: Markt geschlossen ({title})",
+              f"{title} ({mid})\nDer Markt wurde geschlossen (status={mm.get('status')}), bevor die "
+              f"Hedge-Order platziert werden konnte -- vermutlich ist das Match vorbei.\n"
+              f"Deine ursprüngliche Position ist unberührt; der Autopilot claimt automatisch, "
+              f"sobald das Ergebnis feststeht.")
+        return
 
     r = compute_hedge(avg, n_held, row["profit_target"])
     if not r["ok"]:
