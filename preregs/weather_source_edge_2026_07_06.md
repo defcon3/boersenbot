@@ -37,6 +37,30 @@ je −2,2…−2,7 °C, ICON/ECMWF deutlich besser) und Jeddah (JMA −5,9 °C, 
 Extremhitze). Städte-Set: 21 von 22 Jupiter-Wetter-Markt-Städten (Hong Kong bleibt
 unauflösbar, wie schon beim Latenz-Logger).
 
+**Zusatzbefund — Ensemble-Mittel (H2, PARALLEL zu H1, ersetzt NICHT die
+Einzelquellen-Strategie):** Der Nutzer will bewusst bei einer Einzelquelle
+(ICON) bleiben — das Ensemble-Mittel aller 5 Modelle läuft nur als **zusätzlicher,
+paralleler Track**, nicht als Ersatz. Ergebnis (nur Tage, an denen alle 5 Modelle
+vorliegen, n≈12.100): Ensemble-Mittel σ=1,21 °C / MAE=1,15 °C — konsistenter als
+jedes Einzelmodell inkl. ICON (σ=1,39 °C). Am deutlichsten bei **Mexico City**
+(07.07.-Snapshot): Modelle wichen an diesem Tag 2,8 °C auseinander (ICON/UKMO
+warm ~25,7 °C, GFS/JMA kühl ~23–24 °C, Markt lag näher an GFS/ECMWF) — auf
+Höhenlagen-Kesselstädten wie Mexico City ist Einzelmodell-Vertrauen fragiler
+als sonst. **H2 läuft separat mit identischer Methodik (eigene Kalibrierungs-
+spalte `model=ensemble_mean` in der CSV), eigenes Gate, KEINE Vermischung mit
+H1 in der Entscheidung.**
+
+**Bereits informell geprüft (Session 2026-07-06, kein Pre-Reg-Gate, nur Disziplin-
+Notiz):** "Lay die 2 äußersten Buckets mit Marktpreis ≥10 %"-Variante an einem
+Tages-Schnappschuss (10 Städte) zeigte KEIN konsistentes Vorzeichen (Diff
+Markt−Modell schwankte −19 bis +19 Punkte, Mittel nur +2,3 Punkte bei n=20) —
+sieht nach gut kalibriertem Markt aus, aber Einzeltag/zu klein für ein Urteil.
+Die absoluten Rand-Buckets (Marktpreis <1 %) liegen zudem an einer
+Mindestpreis-/Tick-Grenze (mehrere unterschiedlich weit entfernte Buckets
+kleben auf demselben Preis, z. B. Madrid 44/45/46°C+ alle exakt bei 0,002) —
+dort ist vermutlich strukturell nichts abschöpfbar. Beides fließt NICHT in die
+Gates ein, ist nur Kontext für die Forward-Phase.
+
 ## Hypothese
 
 **H1 (zu konfirmieren):** Eine Handelsregel, die ICONs Day-Ahead-Forecast
@@ -58,6 +82,13 @@ von ~0,1–0,3 °C MAE (ICON vs. ECMWF) ist klein gegen σ≈1,1–1,5 °C — d
 pro Bucket dürfte gering sein. Realistischer Kandidat für einen echten Edge:
 Städte mit besonders großer ICON-Überlegenheit (Seoul, ggf. weitere Ausreißer-
 Städte), NICHT das gepoolte Mittel.
+
+**H2 (parallel, sekundär, ICON bleibt primär):** Dieselbe Handelsregel, aber
+`μ/σ` aus dem Ensemble-Mittel (`model=ensemble_mean` in der Kalibrierungs-CSV)
+statt ICON. Erwartung: H2 evtl. leicht überlegen an Tagen/Städten mit hoher
+Modell-Uneinigkeit (Mexico-City-Typ), aber NICHT als Ersatz für H1 gedacht —
+der Nutzer bleibt bewusst bei der Einzelquellen-Strategie, H2 ist ein
+zusätzlicher Beobachtungs-Track.
 
 ## Daten & Methodik für das Forward-Fenster
 
@@ -83,6 +114,10 @@ Fensterlänge bewusst länger als bei Crypto (15-Min-Takt vs. 1 Wert/Tag/Stadt
 → viel geringere Datendichte).
 
 ## Gates
+
+Gates gelten **getrennt** für H1 (ICON, primär/entscheidend) und H2
+(Ensemble-Mittel, parallel/informativ) — H2 kann H1 NICHT ersetzen oder dessen
+Urteil verändern, auch wenn H2 besser abschneidet.
 
 - **G-N (Power):** ≥ 150 Stadt-Tage MIT tatsächlich existierendem Trade
   (`P − Preis − Fee > 0` an mindestens einem Bucket). Sonst **UNDERPOWERED**.

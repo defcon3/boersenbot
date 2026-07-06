@@ -55,8 +55,9 @@ MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecm
 MODEL_LABEL = {
     "gfs_seamless": "GFS (NOAA)", "icon_seamless": "ICON (DWD)",
     "ukmo_seamless": "UKMO (UK Met Office)", "jma_seamless": "JMA (Japan)",
-    "ecmwf_ifs025": "ECMWF",
+    "ecmwf_ifs025": "ECMWF", "ensemble_mean": "Ensemble-Mittel (5 Modelle)",
 }
+ALL_SOURCES = MODELS + ["ensemble_mean"]
 
 PREVRUN = "https://previous-runs-api.open-meteo.com/v1/forecast"
 IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
@@ -98,7 +99,12 @@ def fetch_model_daily_max(icao, lat, lon, start, end, retries=4):
                 continue
             day = t[:10]
             per_model_per_day[m].setdefault(day, []).append(v)
-    return {m: {d: max(vs) for d, vs in days.items()} for m, days in per_model_per_day.items()}, tz_name
+    daily = {m: {d: max(vs) for d, vs in days.items()} for m, days in per_model_per_day.items()}
+    # Ensemble-Mittel als 6. "Quelle": gemittelt nur an Tagen, an denen ALLE 5 Modelle
+    # einen Wert liefern (fairer Vergleich, kein Bias durch Teilausfaelle einzelner Modelle).
+    all_days = set.intersection(*(set(d.keys()) for d in daily.values())) if daily else set()
+    daily["ensemble_mean"] = {d: sum(daily[m][d] for m in MODELS) / len(MODELS) for d in all_days}
+    return daily, tz_name
 
 
 def fetch_actual_daily_max(icao, start, end, tz_name):
@@ -144,7 +150,7 @@ def analyze_city(city, icao, days):
     actual_days = fetch_actual_daily_max(icao, start, end, tz_name)
 
     results = {}
-    for m in MODELS:
+    for m in ALL_SOURCES:
         diffs = []
         for day, fc in model_days.get(m, {}).items():
             act = actual_days.get(day)
@@ -173,7 +179,7 @@ def main():
 
     cities = STATIONS if not args.city else {c: STATIONS[c] for c in args.city.split(",") if c in STATIONS}
 
-    agg = {m: {"n": 0, "bias_sum": 0.0, "mae_sum": 0.0} for m in MODELS}
+    agg = {m: {"n": 0, "bias_sum": 0.0, "mae_sum": 0.0} for m in ALL_SOURCES}
     calib_rows = []
 
     for city, icao in cities.items():
@@ -181,7 +187,7 @@ def main():
         res = analyze_city(city, icao, args.days)
         if not res:
             continue
-        for m in MODELS:
+        for m in ALL_SOURCES:
             r = res.get(m)
             if not r:
                 print(f"  {MODEL_LABEL[m]:24} keine Daten")
@@ -203,7 +209,7 @@ def main():
 
     print("\n=== GESAMT (alle Staedte gepoolt) ===")
     ranked = []
-    for m in MODELS:
+    for m in ALL_SOURCES:
         n = agg[m]["n"]
         if n == 0:
             continue
