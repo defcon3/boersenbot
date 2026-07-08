@@ -41,6 +41,13 @@ MAIL_HOST, MAIL_PORT = "mail.gmx.net", 587
 MAIL_USER = MAIL_TO = "veit.luther@gmx.de"
 MAIL_PASS = "Extaler00!"
 
+# Cash-Stand der Hot-Wallet für die Mail-Fußzeile (Pubkey ist öffentlich).
+# Auszahlungen kommen in JupUSD (JuprjznT…), NICHT Standard-USDC — beide Mints checken.
+HOT_WALLET = "4XxStoKPzoiEJ6hUGEESfE54dCRo97LcCGk2UFieKjSi"
+RPC_URL = "https://solana-rpc.publicnode.com"
+JUPUSD_MINT = "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD"
+USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
@@ -60,8 +67,43 @@ logging.basicConfig(
 log = logging.getLogger("autopilot")
 
 
+def wallet_cash():
+    """Freies Guthaben der Hot-Wallet: (jupusd, usdc, sol) — None, wenn RPC hakt."""
+    def _tok(mint):
+        r = requests.post(RPC_URL, json={
+            "jsonrpc": "2.0", "id": 1, "method": "getTokenAccountsByOwner",
+            "params": [HOT_WALLET, {"mint": mint}, {"encoding": "jsonParsed"}],
+        }, timeout=15)
+        r.raise_for_status()
+        total = 0.0
+        for acc in r.json().get("result", {}).get("value", []):
+            ui = acc["account"]["data"]["parsed"]["info"]["tokenAmount"].get("uiAmount")
+            total += ui or 0.0
+        return total
+
+    try:
+        jup = _tok(JUPUSD_MINT)
+        usdc = _tok(USDC_MINT)
+        r = requests.post(RPC_URL, json={"jsonrpc": "2.0", "id": 1, "method": "getBalance",
+                                         "params": [HOT_WALLET]}, timeout=15)
+        r.raise_for_status()
+        sol = (r.json().get("result", {}).get("value") or 0) / 1e9
+        return jup, usdc, sol
+    except Exception as e:
+        log.warning(f"Cash-Stand nicht abrufbar: {e}")
+        return None
+
+
 def notify(subject: str, html: str, text: str):
-    """Schickt eine Benachrichtigungs-Mail. Fehler crashen den Bot NICHT."""
+    """Schickt eine Benachrichtigungs-Mail (mit Cash-Stand-Fußzeile). Fehler crashen den Bot NICHT."""
+    cash = wallet_cash()
+    if cash:
+        jup, usdc, sol = cash
+        cash_line = f"Cash: {jup:.2f} JupUSD + {usdc:.2f} USDC | Gas: {sol:.3f} SOL"
+        html += (f'<div style="max-width:480px;margin:8px auto 0;padding:10px 14px;'
+                 f'background:#f5f5f5;border-radius:8px;font-family:Segoe UI,Arial,sans-serif;'
+                 f'font-size:13px;color:#555;text-align:center;">💰 {cash_line}</div>')
+        text += f"\n\n{cash_line}"
     try:
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
