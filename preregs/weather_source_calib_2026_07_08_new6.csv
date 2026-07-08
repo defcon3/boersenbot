@@ -1,0 +1,37 @@
+city,model,n,bias,sigma
+Sao Paulo,gfs_seamless,700,-0.016,1.831
+Sao Paulo,icon_seamless,697,-0.447,1.621
+Sao Paulo,ukmo_seamless,527,-1.344,2.015
+Sao Paulo,jma_seamless,700,-2.512,1.846
+Sao Paulo,ecmwf_ifs025,700,-0.678,1.653
+Sao Paulo,ensemble_mean,524,-1.000,1.475
+Taipei,gfs_seamless,699,-0.140,2.394
+Taipei,icon_seamless,697,-0.823,2.409
+Taipei,ukmo_seamless,526,-0.370,2.445
+Taipei,jma_seamless,699,-1.258,2.425
+Taipei,ecmwf_ifs025,699,-0.364,2.451
+Taipei,ensemble_mean,524,-0.406,2.344
+Tel Aviv,gfs_seamless,700,-0.326,1.106
+Tel Aviv,icon_seamless,700,-0.317,0.904
+Tel Aviv,ukmo_seamless,526,-0.401,1.409
+Tel Aviv,jma_seamless,700,-0.690,1.308
+Tel Aviv,ecmwf_ifs025,700,0.403,1.434
+Tel Aviv,ensemble_mean,526,-0.271,1.015
+Toronto,gfs_seamless,700,-0.302,1.666
+Toronto,icon_seamless,697,-0.721,1.478
+Toronto,ukmo_seamless,527,-0.405,1.706
+Toronto,jma_seamless,700,-2.588,2.610
+Toronto,ecmwf_ifs025,700,-0.559,1.668
+Toronto,ensemble_mean,524,-0.910,1.319
+Wuhan,gfs_seamless,700,0.030,1.648
+Wuhan,icon_seamless,698,-0.564,1.389
+Wuhan,ukmo_seamless,527,-0.454,2.170
+Wuhan,jma_seamless,700,0.099,2.464
+Wuhan,ecmwf_ifs025,700,-0.229,1.831
+Wuhan,ensemble_mean,525,-0.226,1.529
+Panama City,gfs_seamless,695,-0.345,1.600
+Panama City,icon_seamless,692,-0.101,1.267
+Panama City,ukmo_seamless,522,-1.038,1.493
+Panama City,jma_seamless,695,-2.149,1.215
+Panama City,ecmwf_ifs025,695,-1.845,1.226
+Panama City,ensemble_mean,519,-1.104,1.097
