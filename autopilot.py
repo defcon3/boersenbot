@@ -24,6 +24,7 @@ exponentielles Backoff (respektiert Retry-After).
 
 import argparse
 import logging
+import re
 import smtplib
 import sys
 import time
@@ -43,8 +44,9 @@ MAIL_PASS = "Extaler00!"
 
 # Cash-Stand der Hot-Wallet für die Mail-Fußzeile (Pubkey ist öffentlich).
 # Auszahlungen kommen in JupUSD (JuprjznT…), NICHT Standard-USDC — beide Mints checken.
+# Mehrere RPCs (wie jupiter_sell.RPCS): publicnode hängt gelegentlich komplett.
 HOT_WALLET = "4XxStoKPzoiEJ6hUGEESfE54dCRo97LcCGk2UFieKjSi"
-RPC_URL = "https://solana-rpc.publicnode.com"
+RPC_URLS = ["https://solana-rpc.publicnode.com", "https://api.mainnet-beta.solana.com"]
 JUPUSD_MINT = "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD"
 USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
 
@@ -68,11 +70,14 @@ log = logging.getLogger("autopilot")
 
 
 def wallet_cash():
-    """Freies Guthaben der Hot-Wallet: (jupusd, usdc, sol) — None, wenn RPC hakt."""
-    def _tok(mint):
-        r = requests.post(RPC_URL, json={
+    """Freies Guthaben der Hot-Wallet: (jupusd, usdc, sol) — None, wenn kein RPC antwortet."""
+    # commitment=confirmed: confirm_tx() wartet nur bis 'confirmed' — mit dem
+    # Default 'finalized' sähe der Nachher-Stand direkt nach Claim/Verkauf noch alt aus.
+    def _tok(rpc, mint):
+        r = requests.post(rpc, json={
             "jsonrpc": "2.0", "id": 1, "method": "getTokenAccountsByOwner",
-            "params": [HOT_WALLET, {"mint": mint}, {"encoding": "jsonParsed"}],
+            "params": [HOT_WALLET, {"mint": mint},
+                       {"encoding": "jsonParsed", "commitment": "confirmed"}],
         }, timeout=15)
         r.raise_for_status()
         total = 0.0
@@ -81,29 +86,95 @@ def wallet_cash():
             total += ui or 0.0
         return total
 
-    try:
-        jup = _tok(JUPUSD_MINT)
-        usdc = _tok(USDC_MINT)
-        r = requests.post(RPC_URL, json={"jsonrpc": "2.0", "id": 1, "method": "getBalance",
-                                         "params": [HOT_WALLET]}, timeout=15)
-        r.raise_for_status()
-        sol = (r.json().get("result", {}).get("value") or 0) / 1e9
-        return jup, usdc, sol
-    except Exception as e:
-        log.warning(f"Cash-Stand nicht abrufbar: {e}")
-        return None
+    for rpc in RPC_URLS:
+        try:
+            jup = _tok(rpc, JUPUSD_MINT)
+            usdc = _tok(rpc, USDC_MINT)
+            r = requests.post(rpc, json={"jsonrpc": "2.0", "id": 1, "method": "getBalance",
+                                         "params": [HOT_WALLET, {"commitment": "confirmed"}]},
+                              timeout=15)
+            r.raise_for_status()
+            sol = (r.json().get("result", {}).get("value") or 0) / 1e9
+            return jup, usdc, sol
+        except Exception as e:
+            log.warning(f"Cash-Stand via {rpc.split('//')[1].split('/')[0]} nicht abrufbar: {e}")
+    return None
 
 
-def notify(subject: str, html: str, text: str):
-    """Schickt eine Benachrichtigungs-Mail (mit Cash-Stand-Fußzeile). Fehler crashen den Bot NICHT."""
+# Wetter-Buckets heißen nur "34°C"/"20°C or below" — die Stadt steht im Event-Titel.
+WEATHER_TITLE_RE = re.compile(r"^Highest temperature in (.+?) on .+\?$")
+
+
+def market_label(ev_title: str, title: str) -> str:
+    """Kompakte Markt-Bezeichnung für Betreff/Header: bei Wetter-Buckets
+    'Stadt Bucket' (z. B. 'Shanghai 34°C'), sonst 'Event — Markt'."""
+    ev_title, title = ev_title or "", title or ""
+    m = WEATHER_TITLE_RE.match(ev_title)
+    if m and title and title != ev_title:
+        return f"{m.group(1)} {title}"
+    if title and ev_title and title != ev_title:
+        return f"{ev_title} — {title}"
+    return ev_title or title or "?"
+
+
+def _event_line(ev_title: str, label: str) -> str:
+    """Voller Event-Titel als Zusatzzeile, wenn das Label ihn nicht schon enthält
+    (bei Wetter-Buckets steht dort das Datum)."""
+    return ev_title if ev_title and ev_title not in label else ""
+
+
+def _total(cash) -> float:
+    """Kontostand = JupUSD + USDC (SOL ist nur Gas)."""
+    jup, usdc, _ = cash
+    return jup + usdc
+
+
+def _cash_after(cash_before):
+    """Kontostand nach der Aktion. Der RPC kann der frisch bestätigten Tx ein
+    paar Slots hinterherhinken -> bei unverändertem Stand kurz nachfassen."""
     cash = wallet_cash()
+    if cash_before and cash:
+        for _ in range(3):
+            if abs(_total(cash) - _total(cash_before)) > 0.005:
+                break
+            time.sleep(5)
+            cash = wallet_cash() or cash
+    return cash
+
+
+def _cash_footer(cash_before, cash):
+    """(html, text) der Kontostand-Fußzeile; mit cash_before als Vorher/Nachher."""
     if cash:
         jup, usdc, sol = cash
-        cash_line = f"Cash: {jup:.2f} JupUSD + {usdc:.2f} USDC | Gas: {sol:.3f} SOL"
+        detail = f"{jup:.2f} JupUSD + {usdc:.2f} USDC | Gas: {sol:.3f} SOL"
+        if cash_before:
+            delta = _total(cash) - _total(cash_before)
+            dcol = "#2e7d32" if delta >= 0 else "#c62828"
+            html = (f'💰 Kontostand: <b>{_total(cash_before):.2f} $</b> &rarr; '
+                    f'<b>{_total(cash):.2f} $</b> '
+                    f'(<span style="color:{dcol};font-weight:700;">{delta:+.2f} $</span>)'
+                    f'<br><span style="font-size:11px;">{detail}</span>')
+            text = (f"Kontostand vorher : {_total(cash_before):.2f} $\n"
+                    f"Kontostand nachher: {_total(cash):.2f} $ ({delta:+.2f} $)\n"
+                    f"({detail})")
+            return html, text
+        return f"💰 Cash: {detail}", f"Cash: {detail}"
+    if cash_before:
+        t = f"Kontostand vorher: {_total(cash_before):.2f} $ — aktueller Stand nicht abrufbar"
+        return f"💰 {t}", t
+    return "", ""
+
+
+def notify(subject: str, html: str, text: str, cash_before=None):
+    """Schickt eine Benachrichtigungs-Mail mit Kontostand-Fußzeile. cash_before
+    (wallet_cash()-Tupel von VOR der Aktion) -> Fußzeile zeigt Vorher/Nachher
+    + Delta statt nur den aktuellen Stand. Fehler crashen den Bot NICHT."""
+    fhtml, ftext = _cash_footer(cash_before, _cash_after(cash_before))
+    if fhtml:
         html += (f'<div style="max-width:480px;margin:8px auto 0;padding:10px 14px;'
                  f'background:#f5f5f5;border-radius:8px;font-family:Segoe UI,Arial,sans-serif;'
-                 f'font-size:13px;color:#555;text-align:center;">💰 {cash_line}</div>')
-        text += f"\n\n{cash_line}"
+                 f'font-size:13px;color:#555;text-align:center;">{fhtml}</div>')
+        text += f"\n\n{ftext}"
     try:
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
@@ -120,11 +191,15 @@ def notify(subject: str, html: str, text: str):
         log.warning(f"Mail-Versand fehlgeschlagen: {e}")
 
 
-def notify_sale(title, side, avg, sellp, pnl, contracts, sig):
+def notify_sale(ev_title, title, side, avg, sellp, pnl, contracts, sig, cash_before=None):
+    label = market_label(ev_title, title)
+    ev_line = _event_line(ev_title, label)
     erloes = contracts * sellp
     win = pnl > 0
     color = "#2e7d32" if pnl >= 0 else "#c62828"
     link = f"https://solscan.io/tx/{sig}" if sig else "#"
+    event_html = (f'<div style="font-size:12px;color:#888;margin-bottom:6px;">{ev_line}</div>'
+                  if ev_line else "")
     praise_html = (
         '<div style="margin-top:16px;padding:14px;background:#e8f5e9;border-radius:8px;'
         'text-align:center;font-size:18px;font-weight:800;color:#2e7d32;">'
@@ -134,10 +209,10 @@ def notify_sale(title, side, avg, sellp, pnl, contracts, sig):
 <div style="font-family:Segoe UI,Arial,sans-serif;max-width:480px;margin:auto;border-radius:12px;overflow:hidden;border:1px solid #eee;">
   <div style="background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;text-align:center;color:#fff;">
     <div style="font-size:20px;font-weight:800;">✅ Position verkauft</div>
-    <div style="font-size:14px;opacity:.9;">{title} &middot; {side}</div>
+    <div style="font-size:14px;opacity:.9;">{label} &middot; {side}</div>
   </div>
   <div style="padding:20px;background:#fff;color:#333;font-size:15px;line-height:1.8;">
-    Einstieg: <b>{avg:.3f}</b> USDC<br>
+    {event_html}Einstieg: <b>{avg:.3f}</b> USDC<br>
     Verkauf: <b>{sellp:.3f}</b> USDC<br>
     Kontrakte: <b>{contracts:.2f}</b> &rarr; Erlös ~<b>{erloes:.2f}</b> USDC<br>
     <span style="font-size:22px;font-weight:800;color:{color};">{pnl:+.1f}%</span>
@@ -145,25 +220,30 @@ def notify_sale(title, side, avg, sellp, pnl, contracts, sig):
     <div style="margin-top:14px;"><a href="{link}" style="color:#667eea;font-size:12px;">🔗 Transaktion (Solscan)</a></div>
   </div>
 </div>"""
-    text = (f"Position verkauft: {title} [{side}]\n"
-            f"Einstieg {avg:.3f} -> Verkauf {sellp:.3f} USDC | {pnl:+.1f}%\n"
+    text = (f"Position verkauft: {label} [{side}]\n"
+            + (f"Event: {ev_line}\n" if ev_line else "")
+            + f"Einstieg {avg:.3f} -> Verkauf {sellp:.3f} USDC | {pnl:+.1f}%\n"
             f"Kontrakte {contracts:.2f}, Erloes ~{erloes:.2f} USDC\n"
             f"Tx: {link}")
     if win:
         text += "\n\nDu bist der Geilste ueberhaupt."
-    notify(f"✅ Jupiter Bot: {title} verkauft ({pnl:+.1f}%)", html, text)
+    notify(f"✅ Jupiter Bot: {label} verkauft ({pnl:+.1f}%)", html, text, cash_before)
 
 
-def notify_fail(title, reason):
+def notify_fail(ev_title, title, reason):
+    label = market_label(ev_title, title)
     html = (f'<div style="font-family:Arial;color:#c62828;">'
-            f'<b>⚠️ Verkauf fehlgeschlagen:</b> {title}<br>Grund: {reason}<br>'
+            f'<b>⚠️ Verkauf fehlgeschlagen:</b> {label}<br>Grund: {reason}<br>'
             f'Der Bot versucht es weiter. Ggf. manuell prüfen.</div>')
-    notify(f"⚠️ Jupiter Bot: Verkauf fehlgeschlagen ({title})",
-           html, f"Verkauf fehlgeschlagen: {title}\nGrund: {reason}\nBot versucht weiter.")
+    notify(f"⚠️ Jupiter Bot: Verkauf fehlgeschlagen ({label})",
+           html, f"Verkauf fehlgeschlagen: {label}\nGrund: {reason}\nBot versucht weiter.")
 
 
-def notify_claimable(title, side, payout, auto):
+def notify_claimable(ev_title, title, side, payout, auto):
     """Markt aufgelöst & GEWONNEN -> Auszahlung abholbar."""
+    label = market_label(ev_title, title)
+    ev_line = _event_line(ev_title, label)
+    event_html = f'<span style="font-size:12px;color:#888;">{ev_line}</span><br>' if ev_line else ""
     aktion = ("Der Bot versucht jetzt automatisch zu claimen."
               if auto else
               "Auto-Claim ist noch nicht aktiviert — bitte manuell in Jupiter claimen "
@@ -172,31 +252,37 @@ def notify_claimable(title, side, payout, auto):
             f'<div style="background:#2e7d32;color:#fff;padding:18px;text-align:center;'
             f'border-radius:10px 10px 0 0;font-size:18px;font-weight:800;">🏆 Gewonnen — abholbar!</div>'
             f'<div style="padding:18px;background:#fff;color:#333;font-size:15px;line-height:1.7;">'
-            f'{title} [{side}]<br>Auszahlung: <b>{payout:.2f}</b> USDC<br><br>{aktion}</div></div>')
-    notify(f"🏆 Jupiter Bot: {title} gewonnen ({payout:.2f} USDC abholbar)",
-           html, f"GEWONNEN: {title} [{side}] — {payout:.2f} USDC abholbar.\n{aktion}")
+            f'{label} [{side}]<br>{event_html}Auszahlung: <b>{payout:.2f}</b> USDC<br><br>{aktion}</div></div>')
+    notify(f"🏆 Jupiter Bot: {label} gewonnen ({payout:.2f} USDC abholbar)",
+           html, (f"GEWONNEN: {label} [{side}] — {payout:.2f} USDC abholbar.\n"
+                  + (f"Event: {ev_line}\n" if ev_line else "") + aktion))
 
 
-def notify_claimed(title, side, payout, sig):
+def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
     """Auszahlung erfolgreich eingelöst (on-chain bestätigt)."""
+    label = market_label(ev_title, title)
+    ev_line = _event_line(ev_title, label)
+    event_html = (f'<div style="font-size:12px;color:#888;margin-bottom:6px;">{ev_line}</div>'
+                  if ev_line else "")
     link = f"https://solscan.io/tx/{sig}" if sig else "#"
     html = f"""\
 <div style="font-family:Segoe UI,Arial,sans-serif;max-width:480px;margin:auto;border-radius:12px;overflow:hidden;border:1px solid #eee;">
   <div style="background:linear-gradient(135deg,#2e7d32,#43a047);padding:20px;text-align:center;color:#fff;">
     <div style="font-size:20px;font-weight:800;">🏆 Gewinn eingelöst</div>
-    <div style="font-size:14px;opacity:.9;">{title} &middot; {side}</div>
+    <div style="font-size:14px;opacity:.9;">{label} &middot; {side}</div>
   </div>
   <div style="padding:20px;background:#fff;color:#333;font-size:15px;line-height:1.8;">
-    Auszahlung: <span style="font-size:22px;font-weight:800;color:#2e7d32;">+{payout:.2f} USDC</span><br>
+    {event_html}Auszahlung: <span style="font-size:22px;font-weight:800;color:#2e7d32;">+{payout:.2f} USDC</span><br>
     <div style="margin-top:16px;padding:14px;background:#e8f5e9;border-radius:8px;text-align:center;font-size:18px;font-weight:800;color:#2e7d32;">
       🎉 Du bist der Geilste überhaupt.</div>
     <div style="margin-top:14px;"><a href="{link}" style="color:#667eea;font-size:12px;">🔗 Transaktion (Solscan)</a></div>
   </div>
 </div>"""
-    text = (f"Gewinn eingeloest: {title} [{side}]\n"
-            f"Auszahlung +{payout:.2f} USDC (on-chain bestaetigt)\n"
+    text = (f"Gewinn eingeloest: {label} [{side}]\n"
+            + (f"Event: {ev_line}\n" if ev_line else "")
+            + f"Auszahlung +{payout:.2f} USDC (on-chain bestaetigt)\n"
             f"Tx: {link}\n\nDu bist der Geilste ueberhaupt.")
-    notify(f"🏆 Jupiter Bot: {title} eingelöst (+{payout:.2f} USDC)", html, text)
+    notify(f"🏆 Jupiter Bot: {label} eingelöst (+{payout:.2f} USDC)", html, text, cash_before)
 
 
 class RateLimited(Exception):
@@ -312,20 +398,21 @@ def run(args):
                     if mid not in notified_claimable:
                         log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC "
                                     f"— DRY-RUN: würde jetzt claimen.")
-                        notify_claimable(ev_title, side, payout, auto=True)
+                        notify_claimable(ev_title, title, side, payout, auto=True)
                         notified_claimable.add(mid)
                     continue
                 log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC — claime autonom…")
+                cash_before = wallet_cash()  # Vorher-Stand für die Mail-Fußzeile
                 res = claim_position(owner, p["pubkey"], kp, send=True)
                 if res.get("ok"):
                     claimed_markets.add(mid)
                     log.info(f"✅ Eingelöst: {ev_title}  sig={res.get('signature')}  status={res.get('status')}")
                     if not res.get("already"):
-                        notify_claimed(ev_title, side, payout, res.get("signature"))
+                        notify_claimed(ev_title, title, side, payout, res.get("signature"), cash_before)
                 else:
                     log.error(f"❌ Claim fehlgeschlagen für {ev_title}: {res.get('reason')} — Retry nächster Poll.")
                     if mid not in notified_claim_fail:
-                        notify_claimable(ev_title, side, payout, auto=True)
+                        notify_claimable(ev_title, title, side, payout, auto=True)
                         notified_claim_fail.add(mid)
                 continue
 
@@ -388,15 +475,17 @@ def run(args):
                 if args.dry:
                     log.info("DRY-RUN: würde jetzt verkaufen (nichts gesendet).")
                 else:
+                    cash_before = wallet_cash()  # Vorher-Stand für die Mail-Fußzeile
                     res = sell_position(owner, mid, kp, send=True)
                     if res.get("ok"):
                         log.info(f"✅ Verkauft: {title}  sig={res.get('signature')}  status={res.get('status')}")
                         sold_markets.add(mid)
-                        notify_sale(title, side, avg, sellp, pnl, contracts, res.get("signature"))
+                        notify_sale(ev_title, title, side, avg, sellp, pnl, contracts,
+                                    res.get("signature"), cash_before)
                     else:
                         log.error(f"❌ Verkauf fehlgeschlagen für {title}: {res.get('reason')} — Retry nächster Poll.")
                         if mid not in notified_fail:
-                            notify_fail(title, res.get("reason"))
+                            notify_fail(ev_title, title, res.get("reason"))
                             notified_fail.add(mid)
 
         # Kadenz an Zeit-bis-Marktschluss koppeln: schnell pollen NUR, wenn ein Markt
