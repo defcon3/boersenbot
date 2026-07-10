@@ -5,11 +5,12 @@
 Schwester zu weather_outlier_screen.py, aber fuer Tagestiefstand statt Tageshoch.
 Methodik identisch zu weather_outlier_screen.py.
 
-ACHTUNG (Stand 09.07.2026): Bias/Sigma aus preregs/weather_source_calib_*.csv sind
-aus TAGESHOCH-Fehlern kalibriert und werden hier unvalidiert auf das Tagestief
-angewandt. Nachtminima haben andere Fehlercharakteristik (Ausstrahlung, Nebel,
-Inversionen) -> Kandidaten nur mit extra Sicherheitsabstand handeln, bis eine
-eigene Min-Kalibrierung (weather_source_compare.py auf Tagesminima) existiert.
+Seit 10.07.2026 mit EIGENER Min-Kalibrierung (weather_source_compare.py --var min,
+700d Lead-24h auf Tagesminima -> preregs/weather_source_calib_min_*.csv). Die
+zuvor benutzte Tageshoch-Kalibrierung lag auf Minima nachweislich daneben
+(Shanghai: High-Korrektur hebt an, Min-Wahrheit ist bias +0,34 -> ~1,5C Fehler
+in mu; Beinahe-Fehltrade "Lowest 24C" am 10.07.). Staedte ohne Min-Kalibrierung
+werden automatisch geskippt -- bei Bedarf nachkalibrieren.
 
 Aufruf:
   python weather_outlier_screen_low.py                  # Zieltag = morgen (UTC)
@@ -35,7 +36,7 @@ for _s in (sys.stdout, sys.stderr):
 
 API = "https://api.jup.ag/prediction/v1"
 OM = "https://api.open-meteo.com/v1/forecast"
-CALIB_GLOB = r"preregs/weather_source_calib_*.csv"
+CALIB_GLOB = r"preregs/weather_source_calib_min_*.csv"
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]
 SHORT = {"gfs_seamless": "GFS", "icon_seamless": "ICON", "ukmo_seamless": "UKMO",

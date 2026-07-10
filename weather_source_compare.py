@@ -23,6 +23,14 @@ Staedte + Stations-ICAOs wiederverwendet aus weather_latency_logger.py
 Aufruf:
   python weather_source_compare.py --days 20
   python weather_source_compare.py --days 20 --city Wellington,London
+  python weather_source_compare.py --var min --days 700 --city Shanghai,Seoul,London,Paris \
+      --calib-csv preregs/weather_source_calib_min_YYYY_MM_DD.csv
+
+--var min kalibriert das TAGESTIEF statt des Tageshochs (fuer die "Lowest
+temperature"-Maerkte / weather_outlier_screen_low.py). Noetig geworden am
+10.07.2026: die High-Kalibrierung lag auf Shanghai-Minima ~3-4C zu warm
+(Beinahe-Fehltrade "Lowest 24C" -- Ist-Minimum lag exakt im Bucket, waehrend
+die high-basierte Rechnung 0,1 % Risiko behauptete).
 """
 
 import argparse
@@ -65,8 +73,9 @@ IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
 _airports = airportsdata.load("ICAO")
 
 
-def fetch_model_daily_max(icao, lat, lon, start, end, retries=4):
-    """Pro Modell: taegliches Hoch aus den previous_day1-Stundenwerten (lokale Zeit).
+def fetch_model_daily_extreme(icao, lat, lon, start, end, agg, retries=4):
+    """Pro Modell: taegliches Extrem (agg = max fuer Tageshoch, min fuer Tagestief)
+    aus den previous_day1-Stundenwerten (lokale Zeit).
     Gibt zusaetzlich die von Open-Meteo aufgeloeste IANA-Zeitzone zurueck, damit der
     METAR-Abgleich dieselben Tagesgrenzen verwendet (sonst Fehlausrichtung bei Staedten
     fern von UTC, z. B. Seoul +9h -- entdeckt 2026-07-06 an Seoul/JMA-UKMO-Ausreissern).
@@ -99,7 +108,7 @@ def fetch_model_daily_max(icao, lat, lon, start, end, retries=4):
                 continue
             day = t[:10]
             per_model_per_day[m].setdefault(day, []).append(v)
-    daily = {m: {d: max(vs) for d, vs in days.items()} for m, days in per_model_per_day.items()}
+    daily = {m: {d: agg(vs) for d, vs in days.items()} for m, days in per_model_per_day.items()}
     # Ensemble-Mittel als 6. "Quelle": gemittelt nur an Tagen, an denen ALLE 5 Modelle
     # einen Wert liefern (fairer Vergleich, kein Bias durch Teilausfaelle einzelner Modelle).
     all_days = set.intersection(*(set(d.keys()) for d in daily.values())) if daily else set()
@@ -107,8 +116,8 @@ def fetch_model_daily_max(icao, lat, lon, start, end, retries=4):
     return daily, tz_name
 
 
-def fetch_actual_daily_max(icao, start, end, tz_name):
-    """Echtes Tageshoch aus IEM-METAR-Archiv, in DERSELBEN lokalen Zeitzone wie die
+def fetch_actual_daily_extreme(icao, start, end, tz_name, agg):
+    """Echtes Tagesextrem (agg wie oben) aus IEM-METAR-Archiv, in DERSELBEN lokalen Zeitzone wie die
     Modell-Tagesgrenzen (tz_name von Open-Meteo) -- sonst Fehlausrichtung bei Staedten
     fern von UTC (z. B. Seoul +9h -- Ursache der -4C-Ausreisser vor diesem Fix)."""
     r = requests.get(IEM, params={
@@ -132,11 +141,11 @@ def fetch_actual_daily_max(icao, start, end, tz_name):
             t = float(tmpc)
         except ValueError:
             continue
-        daily_max[day] = max(daily_max.get(day, t), t)
+        daily_max[day] = agg(daily_max.get(day, t), t)
     return daily_max
 
 
-def analyze_city(city, icao, days):
+def analyze_city(city, icao, days, agg):
     station = _airports.get(icao)
     if not station:
         print(f"{city} ({icao}): Station nicht in airportsdata gefunden -- uebersprungen.")
@@ -146,8 +155,8 @@ def analyze_city(city, icao, days):
     end = datetime.now(timezone.utc).date() - timedelta(days=1)
     start = end - timedelta(days=days)
 
-    model_days, tz_name = fetch_model_daily_max(icao, lat, lon, start.isoformat(), end.isoformat())
-    actual_days = fetch_actual_daily_max(icao, start, end, tz_name)
+    model_days, tz_name = fetch_model_daily_extreme(icao, lat, lon, start.isoformat(), end.isoformat(), agg)
+    actual_days = fetch_actual_daily_extreme(icao, start, end, tz_name, agg)
 
     results = {}
     for m in ALL_SOURCES:
@@ -175,7 +184,11 @@ def main():
     ap.add_argument("--calib-csv", default=None,
                     help="Pfad: schreibt Stadt,Modell,n,bias,sigma je Stadt/Modell (Kalibrierungs-"
                          "Grundlage fuer eine Wahrscheinlichkeits-Pre-Reg, z.B. preregs/)")
+    ap.add_argument("--var", choices=["max", "min"], default="max",
+                    help="max = Tageshoch (default), min = Tagestief (fuer Lowest-Maerkte)")
     args = ap.parse_args()
+    agg_fn = {"max": max, "min": min}[args.var]
+    print(f"Zielgroesse: Tages{'hoch' if args.var == 'max' else 'tief'} (previous_day1, Lead 24h)")
 
     cities = STATIONS if not args.city else {c: STATIONS[c] for c in args.city.split(",") if c in STATIONS}
 
@@ -184,7 +197,7 @@ def main():
 
     for city, icao in cities.items():
         print(f"\n=== {city} ({icao}) ===")
-        res = analyze_city(city, icao, args.days)
+        res = analyze_city(city, icao, args.days, agg_fn)
         if not res:
             continue
         for m in ALL_SOURCES:

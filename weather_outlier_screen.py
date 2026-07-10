@@ -108,6 +108,8 @@ def main():
 
     calib = {}
     for path in sorted(glob.glob(CALIB_GLOB)):
+        if "_min_" in path:  # Tagestief-Kalibrierungen gehoeren zu weather_outlier_screen_low.py
+            continue
         with open(path, encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 calib[(row["city"], row["model"])] = (float(row["bias"]), float(row["sigma"]))
