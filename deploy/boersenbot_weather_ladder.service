@@ -1,0 +1,12 @@
+[Unit]
+Description=Weather Ladder Snapshot (Jupiter-Preisleitern -> Centron bb_WeatherLadders + METAR-Settle-Backfill)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/weather_ladder_logger.py
+StandardOutput=append:/home/veit/boersenbot/logs/weather_ladder.log
+StandardError=append:/home/veit/boersenbot/logs/weather_ladder.log

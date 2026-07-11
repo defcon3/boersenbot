@@ -1,0 +1,11 @@
+[Unit]
+Description=Weather Ladder Snapshot taeglich 12:30 UTC (Lay-Klassen-Forward-Messung, Entscheid 11.07.2026)
+
+[Timer]
+# 12:30 UTC: nach dem Listing der Folgetags-Maerkte, vor den Settlement-Naechten
+# (vgl. Screening-/Registrierungs-Fenster der Wetter-Pre-Regs). Verpasste Laeufe nachholen.
+OnCalendar=*-*-* 12:30:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target
