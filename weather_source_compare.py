@@ -25,6 +25,12 @@ Aufruf:
   python weather_source_compare.py --days 20 --city Wellington,London
   python weather_source_compare.py --var min --days 700 --city Shanghai,Seoul,London,Paris \
       --calib-csv preregs/weather_source_calib_min_YYYY_MM_DD.csv
+  python weather_source_compare.py --var min --days 700 --city London --lead 2
+
+--lead N kalibriert previous_dayN statt previous_day1 (Lead N*24h). Noetig
+geworden am 11.07.2026: "Lowest London July 13" wurde ~31h vor dem Tief
+gehandelt; der 48h-Check (lead 2) zeigte London-Min sigma 0,79->0,90 (700d)
+bzw. 0,59->0,72 (40d) -- moderat, Trade blieb tragfaehig.
 
 --var min kalibriert das TAGESTIEF statt des Tageshochs (fuer die "Lowest
 temperature"-Maerkte / weather_outlier_screen_low.py). Noetig geworden am
@@ -73,9 +79,9 @@ IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
 _airports = airportsdata.load("ICAO")
 
 
-def fetch_model_daily_extreme(icao, lat, lon, start, end, agg, retries=4):
+def fetch_model_daily_extreme(icao, lat, lon, start, end, agg, retries=4, lead=1):
     """Pro Modell: taegliches Extrem (agg = max fuer Tageshoch, min fuer Tagestief)
-    aus den previous_day1-Stundenwerten (lokale Zeit).
+    aus den previous_day{lead}-Stundenwerten (lokale Zeit), Lead = lead*24h.
     Gibt zusaetzlich die von Open-Meteo aufgeloeste IANA-Zeitzone zurueck, damit der
     METAR-Abgleich dieselben Tagesgrenzen verwendet (sonst Fehlausrichtung bei Staedten
     fern von UTC, z. B. Seoul +9h -- entdeckt 2026-07-06 an Seoul/JMA-UKMO-Ausreissern).
@@ -87,7 +93,7 @@ def fetch_model_daily_extreme(icao, lat, lon, start, end, agg, retries=4):
         r = requests.get(PREVRUN, params={
             "latitude": lat, "longitude": lon,
             "start_date": start, "end_date": end,
-            "hourly": "temperature_2m_previous_day1",
+            "hourly": f"temperature_2m_previous_day{lead}",
             "models": ",".join(MODELS),
             "timezone": "auto",
         }, timeout=30)
@@ -101,7 +107,7 @@ def fetch_model_daily_extreme(icao, lat, lon, start, end, agg, retries=4):
     tz_name = j.get("timezone", "UTC")
     per_model_per_day = {m: {} for m in MODELS}
     for m in MODELS:
-        key = f"temperature_2m_previous_day1_{m}"
+        key = f"temperature_2m_previous_day{lead}_{m}"
         vals = hourly.get(key, [])
         for t, v in zip(times, vals):
             if v is None:
@@ -145,7 +151,7 @@ def fetch_actual_daily_extreme(icao, start, end, tz_name, agg):
     return daily_max
 
 
-def analyze_city(city, icao, days, agg):
+def analyze_city(city, icao, days, agg, lead=1):
     station = _airports.get(icao)
     if not station:
         print(f"{city} ({icao}): Station nicht in airportsdata gefunden -- uebersprungen.")
@@ -155,7 +161,7 @@ def analyze_city(city, icao, days, agg):
     end = datetime.now(timezone.utc).date() - timedelta(days=1)
     start = end - timedelta(days=days)
 
-    model_days, tz_name = fetch_model_daily_extreme(icao, lat, lon, start.isoformat(), end.isoformat(), agg)
+    model_days, tz_name = fetch_model_daily_extreme(icao, lat, lon, start.isoformat(), end.isoformat(), agg, lead=lead)
     actual_days = fetch_actual_daily_extreme(icao, start, end, tz_name, agg)
 
     results = {}
@@ -186,9 +192,13 @@ def main():
                          "Grundlage fuer eine Wahrscheinlichkeits-Pre-Reg, z.B. preregs/)")
     ap.add_argument("--var", choices=["max", "min"], default="max",
                     help="max = Tageshoch (default), min = Tagestief (fuer Lowest-Maerkte)")
+    ap.add_argument("--lead", type=int, default=1, choices=range(1, 8), metavar="N",
+                    help="previous_dayN = Lead N*24h (default 1; 2 fuer Maerkte, die >24h "
+                         "vor dem Extremum gehandelt werden)")
     args = ap.parse_args()
     agg_fn = {"max": max, "min": min}[args.var]
-    print(f"Zielgroesse: Tages{'hoch' if args.var == 'max' else 'tief'} (previous_day1, Lead 24h)")
+    print(f"Zielgroesse: Tages{'hoch' if args.var == 'max' else 'tief'} "
+          f"(previous_day{args.lead}, Lead {args.lead * 24}h)")
 
     cities = STATIONS if not args.city else {c: STATIONS[c] for c in args.city.split(",") if c in STATIONS}
 
@@ -197,7 +207,7 @@ def main():
 
     for city, icao in cities.items():
         print(f"\n=== {city} ({icao}) ===")
-        res = analyze_city(city, icao, args.days, agg_fn)
+        res = analyze_city(city, icao, args.days, agg_fn, lead=args.lead)
         if not res:
             continue
         for m in ALL_SOURCES:

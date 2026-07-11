@@ -16,6 +16,12 @@ im Repo). Methodik:
 Lektion 08.07. ("Cape Town zu knapp"): 1 Grad neben dem Favoriten ist keine Marge;
 die Gewinner-Struktur ist grosser Grad-Abstand + Modell-Einigkeit, nicht nur Preis.
 
+Lektion 11.07. ("Shanghai 28C Regentag"): Die Kalibrierung ist ein Allwetter-
+Durchschnitt. Sehen die Modelle fuer den Zieltag nennenswert Regen/Sturm, VOR dem
+Setzen weather_wet_conditional.py --city X laufen lassen und P gegen den Nass-
+Split halten (Shanghai: kalte Flanke an >=9mm-Tagen 4-6x fetter, Kandidat trotz
+bestandener Doppel-Kalibrierung verworfen).
+
 Aufruf:
   python weather_outlier_screen.py                  # Zieltag = morgen (UTC)
   python weather_outlier_screen.py --date 2026-07-10
