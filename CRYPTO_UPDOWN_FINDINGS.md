@@ -85,13 +85,27 @@ Nutzerfrage: „Wie oft in Folge kam dieselbe Richtung?" — plus die Edge-Frage
   Momentum-Regel („nach Up → Up kaufen") als Pre-Reg einfrieren und im Forward-Fenster
   03.–10.07. konfirmieren (Logger läuft bis dahin) — Erwartung ehrlicherweise negativ.
 
+## Ergebnis 6 — Momentum-Forward-Konfirmation (Pre-Reg 03.07., ausgewertet 11.07.): RED
+
+Die „saubere Resttür" aus Ergebnis 5 ist zu. Eingefrorenes Fenster 03.–10.07.
+(`preregs/crypto_momentum_forward_2026_07_03.md`, Commit 50890386),
+`python eval_crypto_momentum.py`: **N=2.403 Trades / 642 Fenster-Cluster (G-N PASS),
+win 0,472, netto −161,71 $/K, ROI −12,5 %, Cluster-t −4,80 → G-Primär FAIL → RED.**
+Selbst brutto (Fee 0) negativ (−7,1 %, t −2,58) — die Explorations-Welle war im
+Forward vollständig verschwunden: Fortsetzungsrate 0,472 [Wilson 0,452–0,492],
+deckungsgleich mit dem 60-Tage-Binance-Anker (0,474–0,490). Nur der 08.07. als
+einziger Tag positiv (+4,81 $/K, t +0,39); alle Assets negativ außer btc (+2,2 %,
+t +0,24, N=105 — Discovery-Lag-Restgröße, Rauschen). Die Negativ-Erwartung des
+Registrierenden (−5…−10 %) traf ein. Keine Post-hoc-Schnitte mehr auf diesen Daten.
+
 ## Fazit & Konsequenz
 
 **These falsifiziert — keine Paper-/Live-Stufe.** Alle drei vorab notierten Einwände
 bestätigt; zusätzlich kleiner Longshot-Bias, der die Underdog-Seite weiter verschlechtert
-und auf der Favoriten-Seite den Spread nicht überlebt. Empfehlung: VPS-Logger
-`boersenbot_crypto_updown` kann abgeschaltet werden (Entscheidung Betreiber); ohne
-neue, konkrete These ist Weitersammeln Datenhortung. Nicht weiter verfolgt (mangels
+und auf der Favoriten-Seite den Spread nicht überlebt. Auch die vorregistrierte
+Momentum-Restthese ist forward-falsifiziert (Ergebnis 6). VPS-Logger
+`boersenbot_crypto_updown` **abgeschaltet am 11.07.2026** (Beschluss 02.07., Daten
+bleiben in `bb_CryptoUpDown15m` reproduzierbar). Nicht weiter verfolgt (mangels
 handelbarer Basis): Vorab-Klassifikation choppy vs. früh entschieden.
 
 Reproduktion: `python crypto_updown_backtest.py` (Voll-Report),

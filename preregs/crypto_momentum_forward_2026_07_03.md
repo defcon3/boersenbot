@@ -116,6 +116,28 @@ nach Up→Up +3,3 %, nach Down→Down −6,1 %. Konsistent mit der Streak-Analys
 
 ---
 
-## ERGEBNIS (auszufüllen nach 2026-07-10)
+## ERGEBNIS (ausgewertet 2026-07-11): RED
 
-*offen*
+**Gelaufen 2026-07-11 ~13:15 UTC** (`python eval_crypto_momentum.py`, Default =
+eingefrorenes Fenster):
+
+- Events im Fenster: 3.346 (03.07. 00:00 → 09.07. 23:45), verwertbare Trades
+  **N = 2.403** in **642 Fenster-Clustern** → **G-N PASS**.
+- Primär netto: win 0,472, Ø-Ask 0,508, PnL **−161,71 $/K**, **ROI −12,5 %**,
+  **Cluster-t −4,80** → mean < 0 → **G-Primär FAIL**.
+- **ERGEBNIS: RED — Momentum-Regel nicht konfirmiert, Kapitel zu.**
+
+Sekundär (deskriptiv): brutto (Fee 0) −7,1 % (t −2,58) — auch ohne Gebühren tot.
+k≥2 −10,4 %, k≥3 −7,4 %; nach Up→Up −11,4 %, nach Down→Down −13,5 %; je Asset
+bnb −18,3 %, doge −14,2 %, eth −12,8 %, sol −7,0 %, btc +2,2 % (t +0,24, N=105 —
+Discovery-Lag-Restgröße, Rauschen). Fortsetzungsrate 0,472 [Wilson 0,452–0,492] —
+deckungsgleich mit dem 60-Tage-Binance-Anker (0,474–0,490). Kalibrierung
+won − Start-Mid −0,023 (t −1,64). Bester Tag 08.07. (+4,81 $/K, t +0,39), alle
+übrigen sechs Tage negativ.
+
+Die Erwartung des Registrierenden (negativ, ~−5…−10 % ROI) ist eingetreten, real
+leicht schlechter. Die Explorations-„Kante" (30.06.–02.07.) war eine
+Momentum-Welle (Nichtstationarität); der Markt ist auf Serien-Ebene kalibriert.
+Gemäß Entscheidungsregel: **Kapitel Crypto-Up/Down endgültig geschlossen**, keine
+Post-hoc-Schnitte auf diesen Daten; Logger `boersenbot_crypto_updown` am 11.07.
+abgeschaltet (`systemctl disable --now`), Daten bleiben in `bb_CryptoUpDown15m`.
