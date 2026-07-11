@@ -56,3 +56,33 @@ Kalendertags 12.07. je Station (IEM/aviationweather-METAR). Fenster getroffen
 → Papier-Payout 5/Ask, sonst −5 $. Zusätzlich Markt-Settlement notieren.
 Urteilsregel unverändert (kumulierter Paper-PnL + Trefferquote vs gepoolte
 BE-P über ~2 Wochen).
+
+---
+
+## Addendum (11.07. ~14:15 UTC, VOR der Settlement-Nacht): NO-Seite miterfassen
+
+Anlass: Tag 1 endete vorläufig 0/4 — alle vier Ist-Minima exakt 1 °C neben dem
+Pick Richtung Markt-Favorit. Die Spiegel-Frage „wäre das systematische LAYEN
+(NO) der Flanken-Fenster profitabel?" (Longshot-Bias-These; dritte Hypothese
+neben „Modell hat recht → YES" und „Markt korrekt → beides ≈ −Gebühr") ist auf
+denselben Forward-Daten messbar, wurde bisher aber nicht erfasst — Tag 1 hat
+keine NO-Preise notiert, die Entry-Preise der Spiegelseite sind dort nicht
+mehr rekonstruierbar.
+
+NO-Ask-Snapshot ALLER Fenster aus demselben Screen-Lauf wie die YES-Preise
+oben (11.07. 12:55 UTC — identischer Zeitstempel, keine Outcome-Kontamination):
+
+| Fenster | YES | NO | Fenster | YES | NO |
+|---|---|---|---|---|---|
+| Paris ≤21 °C | 0,42 | 0,670 | Seoul 23 °C | 0,15 | 0,970 |
+| Paris 22 °C | 0,45 | 0,640 | Seoul 24 °C | 0,41 | 0,920 |
+| Paris 23 °C | 0,16 | 0,850 | Seoul 25 °C | 0,66 | 0,680 |
+| Paris 24 °C | 0,08 | 0,930 | Seoul 26 °C | 0,07 | 0,950 |
+
+**Spiegel-Buch (ex ante definiert):** NO fiktiv 5 $ auf jedes Fenster mit
+YES-Ask ≤ 0,20, das nicht Markt-Favorit ist — heute: Paris 23, Paris 24,
+Seoul 23, Seoul 26. Ab Tag 3 gehören YES- und NO-Ask aller Fenster fest zur
+täglichen Registrierung. Auswertung am Serienende dreifach: (a) YES-Picks
+(registrierte These), (b) Spiegel-Lay-Buch, (c) Kalibrierungs-Check
+realisierte Trefferquote vs markt-implizite P über alle Fenster. Die
+registrierten Picks und die Urteilsregel von oben bleiben unverändert.
