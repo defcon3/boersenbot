@@ -256,7 +256,7 @@ def main():
             print(f"   {x['title']:>15}  YES {x['buyYes']:.2f}  NO {x['buyNo']:.3f}  P_ens {p_e*100:5.1f}%  {x['status']}{mark}{inc}")
 
     print(f"\n(Stand {datetime.now(timezone.utc).strftime('%d.%m. %H:%M UTC')}; "
-          f"P aus Normal-Annahme, Kalibrierung 700d Lead-24h — ACHTUNG: Tageshoch-Kalibrierung auf Tief angewandt)")
+          f"P aus Normal-Annahme, Min-Kalibrierung 700d Lead-24h)")
 
 
 if __name__ == "__main__":
