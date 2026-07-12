@@ -46,3 +46,17 @@ gleiche Registrierung ~2 Wochen (N≈30–60 Fenster); These lebt, wenn kumulier
 Paper-PnL > 0 UND Trefferquote > gepoolte Break-even-P. Stirbt sie, ist das der
 Beleg „Markt-Sigma korrekt, Kalibrier-Sigma zu breit" — dann Flanken-YES endgültig
 verwerfen und ggf. empirische Fehler-Quantile statt Normal-Annahme prüfen.
+
+## ERGEBNIS Tag 1 (final, nachgetragen 12.07. — IEM-METAR, lokaler Tag komplett)
+
+| # | Stadt | Pick | Ist-Min | Treffer | Paper-PnL |
+|---|---|---|---|---|---|
+| 1 | Paris (LFPB) | 20 °C | **21 °C** (05:00) | ✗ | −5 $ |
+| 2 | London (EGLC) | 17 °C | **18 °C** (04:20) | ✗ | −5 $ |
+| 3 | Shanghai (ZSPD) | 28 °C | **27 °C** (04:30) | ✗ | −5 $ |
+| 4 | Seoul (RKSI) | 25 °C | **24 °C** (05:30) | ✗ | −5 $ |
+
+**0/4, −20 $ Paper.** Auffällig: alle vier Ist-Minima lagen exakt 1 °C neben dem
+Pick — jeweils in Richtung Markt-Favorit. Ein Punkt für die Gegenhypothese
+(„Markt-Sigma korrekt, Kalibrier-Sigma zu breit"); Serie läuft weiter, Urteil
+erst am Serienende. Serienstand nach Tag 1: 0/4, −20 $.

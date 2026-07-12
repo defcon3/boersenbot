@@ -86,3 +86,23 @@ täglichen Registrierung. Auswertung am Serienende dreifach: (a) YES-Picks
 (registrierte These), (b) Spiegel-Lay-Buch, (c) Kalibrierungs-Check
 realisierte Trefferquote vs markt-implizite P über alle Fenster. Die
 registrierten Picks und die Urteilsregel von oben bleiben unverändert.
+
+## ERGEBNIS Tag 2 (nachgetragen 12.07. ~18:30 UTC — aviationweather-METAR)
+
+Ist-Minima lokaler Tag 12.07.: **Seoul (RKSI) 25 °C** (03:00, Tag komplett) —
+**Paris (LFPB via LFPG-Lauf) 21 °C** (05:35; faktisch final, am Abend 34 °C,
+formales Tagesende 24:00 lokal steht noch aus).
+
+- **YES-Pick:** Seoul 26 °C @0,07 → Ist 25 °C, **✗ verloren, −5 $**. Wieder das
+  Tag-1-Muster: 1 °C daneben Richtung Markt-Favorit (Fav war 25 °C).
+  **Serienstand: 0/5, −25 $ Paper.**
+- **Spiegel-Lay-Buch (Addendum): 4/4 gewonnen, +1,68 $** — Paris 23 NO @0,850
+  (+0,88), Paris 24 NO @0,930 (+0,38), Seoul 23 NO @0,970 (+0,15), Seoul 26 NO
+  @0,950 (+0,26).
+- **Beobachtung außerhalb der Serie:** Paris „21 °C or below" @0,42 → Ist 21 °C,
+  **hätte getroffen** (+6,90 $ fiktiv) — ausgerechnet die Median-Shift-Wette,
+  nicht die Flanken-These.
+
+Zwischenbild nach 2 Tagen: Flanken-YES 0/5, Flanken-LAY 4/4 — konsistent mit
+der Longshot-Bias-/Gegenhypothese. Kein Urteil vor Serienende (N klein).
+Markt-Settlement der Buckets bei nächster Gelegenheit gegenprüfen.
