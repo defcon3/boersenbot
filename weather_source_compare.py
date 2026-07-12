@@ -63,6 +63,8 @@ STATIONS = {
     "London": "EGLC", "Paris": "LFPB", "Madrid": "LEMD", "Milan": "LIMC",
     "Munich": "EDDM", "Amsterdam": "EHAM", "Warsaw": "EPWA", "Cape Town": "FACT",
     "Mexico City": "MMMX", "Buenos Aires": "SAEZ",
+    "Sao Paulo": "SBGR", "Taipei": "RCSS", "Tel Aviv": "LLBG",
+    "Toronto": "CYYZ", "Wuhan": "ZHHH", "Panama City": "MPMG",
 }
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]
@@ -131,7 +133,10 @@ def fetch_actual_daily_extreme(icao, start, end, tz_name, agg):
         "year1": start.year, "month1": start.month, "day1": start.day,
         "year2": end.year, "month2": end.month, "day2": end.day,
         "tz": tz_name, "format": "onlycomma", "latlon": "no", "elev": "no",
-        "missing": "M", "trace": "T", "direct": "no", "report_type": 3,
+        "missing": "M", "trace": "T", "direct": "no",
+        # 3+4 = Routine-METARs + SPECI-Zwischenmeldungen; nur 3 verpasst Extrema
+        # zwischen den vollen Stunden (Fix 12.07., analog weather_ladder_logger).
+        "report_type": [3, 4],
     }, timeout=30)
     r.raise_for_status()
     daily_max = {}

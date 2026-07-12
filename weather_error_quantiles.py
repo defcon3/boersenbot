@@ -112,7 +112,9 @@ def fetch_city_both(icao, days):
         "year1": start.year, "month1": start.month, "day1": start.day,
         "year2": end.year, "month2": end.month, "day2": end.day,
         "tz": tz_name, "format": "onlycomma", "latlon": "no", "elev": "no",
-        "missing": "M", "trace": "T", "direct": "no", "report_type": 3,
+        "missing": "M", "trace": "T", "direct": "no",
+        # 3+4 = Routine + SPECI (Fix 12.07., analog weather_source_compare/ladder_logger)
+        "report_type": [3, 4],
     }, timeout=120)
     r.raise_for_status()
     act = {}
