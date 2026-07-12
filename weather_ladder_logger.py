@@ -287,7 +287,11 @@ def settle(conn):
                         "year1": target.year, "month1": target.month, "day1": target.day,
                         "year2": target.year, "month2": target.month, "day2": target.day,
                         "tz": tz_name, "format": "onlycomma", "latlon": "no", "elev": "no",
-                        "missing": "M", "trace": "T", "direct": "no", "report_type": 3,
+                        "missing": "M", "trace": "T", "direct": "no",
+                        # 3 = stuendliche Routine-METARs, 4 = SPECI-Zwischenmeldungen.
+                        # Nur 3 verpasst Extrema zwischen den vollen Stunden (Seoul-Min
+                        # 11.07.: 25 statt 24 — WU/volles METAR sagen 24).
+                        "report_type": [3, 4],
                     }, timeout=60)
                     if r.status_code == 429:
                         time.sleep(10 * (attempt + 1))
