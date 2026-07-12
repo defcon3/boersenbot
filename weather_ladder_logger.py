@@ -15,6 +15,9 @@ Eine Zeile je (Snapshot, Zieltag, var, Stadt, Fenster). mu_ens/sigma_ens aus der
 Staedte ohne Station/Kalibrierung werden trotzdem geloggt (mu NULL — Preise sind
 auch ohne Modell wertvoll). Settle: IEM-METAR-Extrem des lokalen Kalendertags,
 half-up gerundet, in ALLE Zeilen des Zieltags (settle_k, settle_result je Fenster).
+Zusaetzlich wu_settle_k: dasselbe Extrem aus der Wunderground-API (api.weather.com,
+oeffentlicher Web-Key) — das ist die Quelle, auf die Polymarket tatsaechlich
+settelt; Abweichung METAR vs WU wird beim Backfill gemeldet (BA-20°-Fall).
 
 Aufruf (Default: Snapshot + Settle-Backfill, fuer den taeglichen Timer):
   python weather_ladder_logger.py
@@ -52,6 +55,8 @@ DB_CONFIG = {
 API = "https://api.jup.ag/prediction/v1"
 OM = "https://api.open-meteo.com/v1/forecast"
 IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
+WU = "https://api.weather.com/v1/location/{loc}/observations/historical.json"
+WU_KEY = "e1f10a1e78da46f5b10a1e78da96f525"  # oeffentlicher Web-Key der wunderground.com-Seite
 CALIB_GLOB = "preregs/weather_source_calib_*.csv"
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]
@@ -227,14 +232,41 @@ def snapshot(conn):
     print(f"Snapshot: {len(rows)} Fenster-Zeilen ({n_cities} Stadt/var/Zieltag-Leitern) eingefuegt.")
 
 
+def wu_extreme(icao, var, target):
+    """Tagesextrem laut Wunderground (Polymarket-Settlement-Quelle) fuer den
+    lokalen Kalendertag. None wenn nicht abrufbar/zu duenn."""
+    st = AP.get(icao)
+    country = (st or {}).get("country")
+    if not country:
+        return None
+    try:
+        r = S.get(WU.format(loc=f"{icao}:9:{country}"), params={
+            "apiKey": WU_KEY, "units": "m", "startDate": target.strftime("%Y%m%d"),
+        }, timeout=30)
+        r.raise_for_status()
+        obs = r.json().get("observations", [])
+    except Exception as ex:
+        print(f"    WU-Fehler {icao} {target}: {ex}")
+        return None
+    temps = [o["temp"] for o in obs if o.get("temp") is not None]
+    if len(temps) < 12:
+        return None
+    return half_up(min(temps) if var == "min" else max(temps))
+
+
 def settle(conn):
-    """METAR-Ist fuer vergangene Zieltage nachtragen (lokaler Kalendertag komplett)."""
+    """METAR-Ist (+ Wunderground-Ist) fuer vergangene Zieltage nachtragen
+    (lokaler Kalendertag komplett)."""
     cur = conn.cursor()
-    cur.execute("SELECT DISTINCT target_date, var, city, icao FROM bb_WeatherLadders "
-                "WHERE settle_k IS NULL AND icao IS NOT NULL")
+    cur.execute("IF COL_LENGTH('bb_WeatherLadders', 'wu_settle_k') IS NULL "
+                "ALTER TABLE bb_WeatherLadders ADD wu_settle_k INT NULL")
+    conn.commit()
+    cur.execute("SELECT target_date, var, city, icao, MAX(settle_k) FROM bb_WeatherLadders "
+                "WHERE (settle_k IS NULL OR wu_settle_k IS NULL) AND icao IS NOT NULL "
+                "GROUP BY target_date, var, city, icao")
     todo = cur.fetchall()
     n_done = 0
-    for target, var, city, icao in todo:
+    for target, var, city, icao, have_k in todo:
         if isinstance(target, datetime):
             target = target.date()
         st = AP.get(icao)
@@ -245,36 +277,53 @@ def settle(conn):
         if datetime.now(timezone.utc) < datetime(target.year, target.month, target.day,
                                                  tzinfo=timezone.utc) + timedelta(days=1, hours=12):
             continue
-        try:
-            r = S.get(IEM, params={
-                "station": icao, "data": "tmpc",
-                "year1": target.year, "month1": target.month, "day1": target.day,
-                "year2": target.year, "month2": target.month, "day2": target.day,
-                "tz": tz_name, "format": "onlycomma", "latlon": "no", "elev": "no",
-                "missing": "M", "trace": "T", "direct": "no", "report_type": 3,
-            }, timeout=60)
-            r.raise_for_status()
-        except Exception as ex:
-            print(f"    IEM-Fehler {icao} {target}: {ex}")
-            continue
-        temps = []
-        for line in r.text.splitlines()[1:]:
-            parts = line.split(",")
-            if len(parts) < 3 or parts[2] == "M":
+        settle_k = have_k
+        if settle_k is None:     # METAR nur holen, wenn noch kein settle_k steht
+            r = None
+            for attempt in range(3):
+                try:
+                    r = S.get(IEM, params={
+                        "station": icao, "data": "tmpc",
+                        "year1": target.year, "month1": target.month, "day1": target.day,
+                        "year2": target.year, "month2": target.month, "day2": target.day,
+                        "tz": tz_name, "format": "onlycomma", "latlon": "no", "elev": "no",
+                        "missing": "M", "trace": "T", "direct": "no", "report_type": 3,
+                    }, timeout=60)
+                    if r.status_code == 429:
+                        time.sleep(10 * (attempt + 1))
+                        r = None
+                        continue
+                    r.raise_for_status()
+                    break
+                except Exception as ex:
+                    print(f"    IEM-Fehler {icao} {target}: {ex}")
+                    r = None
+                    break
+            if r is None:
                 continue
-            try:
-                temps.append(float(parts[2]))
-            except ValueError:
+            temps = []
+            for line in r.text.splitlines()[1:]:
+                parts = line.split(",")
+                if len(parts) < 3 or parts[2] == "M":
+                    continue
+                try:
+                    temps.append(float(parts[2]))
+                except ValueError:
+                    continue
+            if len(temps) < 12:  # zu wenige Obs -> lieber offen lassen
                 continue
-        if len(temps) < 12:      # zu wenige Obs -> lieber offen lassen
-            continue
-        settle_k = half_up(min(temps) if var == "min" else max(temps))
+            settle_k = half_up(min(temps) if var == "min" else max(temps))
+        wu_k = wu_extreme(icao, var, target)
+        if wu_k is not None and wu_k != settle_k:
+            print(f"    !! SETTLE-MISMATCH {city} {var} {target}: METAR {settle_k} vs Wunderground {wu_k} "
+                  f"(Polymarket settelt auf WU)")
         cur.execute(
-            "UPDATE bb_WeatherLadders SET settle_k=%s, "
+            "UPDATE bb_WeatherLadders SET settle_k=%s, wu_settle_k=%s, "
             "settle_result=CASE WHEN (kind='eq' AND k=%s) OR (kind='le' AND %s<=k) "
             "OR (kind='ge' AND %s>=k) THEN 1 ELSE 0 END "
-            "WHERE target_date=%s AND var=%s AND city=%s AND settle_k IS NULL",
-            (settle_k, settle_k, settle_k, settle_k, target, var, city))
+            "WHERE target_date=%s AND var=%s AND city=%s "
+            "AND (settle_k IS NULL OR wu_settle_k IS NULL)",
+            (settle_k, wu_k, settle_k, settle_k, settle_k, target, var, city))
         n_done += 1
         time.sleep(0.5)
     conn.commit()
@@ -303,8 +352,12 @@ def create_table(conn):
         offset_fav INT NULL,
         market_fav_k INT NULL,
         settle_k INT NULL,
+        wu_settle_k INT NULL,
         settle_result BIT NULL
     )""")
+    cur.execute("""
+    IF COL_LENGTH('bb_WeatherLadders', 'wu_settle_k') IS NULL
+    ALTER TABLE bb_WeatherLadders ADD wu_settle_k INT NULL""")
     cur.execute("""
     IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name='ix_bb_WeatherLadders_target')
     CREATE INDEX ix_bb_WeatherLadders_target ON bb_WeatherLadders (target_date, var, city)""")
