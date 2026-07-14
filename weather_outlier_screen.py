@@ -22,6 +22,23 @@ Setzen weather_wet_conditional.py --city X laufen lassen und P gegen den Nass-
 Split halten (Shanghai: kalte Flanke an >=9mm-Tagen 4-6x fetter, Kandidat trotz
 bestandener Doppel-Kalibrierung verworfen).
 
+Lektion 14.07. ("Beijing 33C" — der erste echte Verlierer, siehe
+preregs/weather_lay_postmortem_2026_07_14_beijing.md): Der Lay wurde von einem
+JMA-Lauf getragen, der 3,6°C ueber den anderen vier Modellen lag — und am Ende
+4,1°C danebenlag. Das arithmetische Ensemble-Mittel hat gegen so etwas keine
+Abwehr; die daraus abgeleiteten 5,6 % waren ein Artefakt. Ohne den Ausreisser und
+mit der Sommer- statt der Ganzjahres-Kalibrierung: P 20,3 % vs BE 21,0 % = kein
+Trade. Daraus vier Aenderungen, alle unten als Konstanten:
+  1. Ausreisser-robustes Ensemble (OUTLIER_DEG) — gewertet wird die
+     PESSIMISTISCHERE von voller und bereinigter Sicht.
+  2. Harter Spannen-Veto (MAX_SPREAD) — ein Ensemble mit >3°C Streuung ist als
+     Handelsgrundlage wertlos, egal wie die gemittelte Zahl aussieht.
+  3. Doppel-Kalibrierung im Code statt im Kopf: 700d (Ganzjahr) UND 40d (Sommer)
+     muessen bestehen. Fuer Beijing dreht der ENS-Bias das Vorzeichen
+     (700d -0,88 / 40d +0,02) — die 700d-Sicht schiebt Buckets UNTER dem
+     Forecast kuenstlich weit weg.
+  4. EV-Marge statt "P < BE" (MIN_EV) — ein Pass mit +0,7pp ist kein Trade.
+
 Aufruf:
   python weather_outlier_screen.py                  # Zieltag = morgen (UTC)
   python weather_outlier_screen.py --date 2026-07-10
@@ -47,7 +64,11 @@ for _s in (sys.stdout, sys.stderr):
 
 API = "https://api.jup.ag/prediction/v1"
 OM = "https://api.open-meteo.com/v1/forecast"
-CALIB_GLOB = r"preregs/weather_source_calib_*.csv"
+# Zwei Kalibrier-Familien, beide Lead-24h. Die 40d-Sicht ist die Sommer-Sicht und
+# weicht teils drastisch ab (Beijing-ENS-Bias 700d -0,884 vs 40d +0,017; Seoul -3,08).
+# Erzeugt mit: weather_source_compare.py --days N --calib-csv <pfad>
+CALIB_GLOB = r"preregs/weather_source_calib_*.csv"      # 700d, Ganzjahr
+CALIB40_GLOB = r"preregs/weather_source_calib40d_*.csv"  # 40d, Sommer
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]
 SHORT = {"gfs_seamless": "GFS", "icon_seamless": "ICON", "ukmo_seamless": "UKMO",
@@ -68,8 +89,12 @@ STATIONS = {
 }
 
 MIN_DIST = 2.0     # Grad Abstand Bucket <-> korrigierter Ensemble-Forecast
-MAX_PMODEL = 0.10  # kein Modell darf dem Bucket mehr geben
+MAX_PMODEL = 0.10  # kein Modell darf dem Bucket mehr geben (ueber BEIDE Kalibrierungen)
 MIN_YES = 0.025    # Bucket muss am Markt noch nennenswert gepreist sein (Rendite)
+# --- Konsequenzen aus dem Beijing-33-Verlust (14.07.), siehe Modulkopf ---
+MAX_SPREAD = 3.0   # Modellspanne (roh, max-min) in Grad -> darueber kein Kandidat
+OUTLIER_DEG = 2.0  # Modell > X Grad vom Median der UEBRIGEN = Ausreisser, fliegt aus dem Mittel
+MIN_EV = 0.05      # Mindest-EV-Marge (BE - P) auf der pessimistischsten Sicht
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
@@ -100,6 +125,73 @@ def dist_deg(kind, k, mu):
     return abs(k - mu)
 
 
+def median(vs):
+    s = sorted(vs)
+    n = len(s)
+    return s[n // 2] if n % 2 else 0.5 * (s[n // 2 - 1] + s[n // 2])
+
+
+def robust_mean(raw):
+    """(bereinigtes Mittel, verworfene Modelle) — ein Modell gilt als Ausreisser,
+    wenn es > OUTLIER_DEG vom Median ALLER Modelle abweicht.
+
+    Median ueber alle (nicht Leave-one-out): bei 5 Modellen hat der Leave-one-out-
+    Median 4 Werte, faellt also in die Luecke zwischen den mittleren beiden — bei
+    breit gestreuten Staedten (Chengdu 14.07.: 32,9 / 34,5 / 37,2 / 38,4 / 38,6)
+    flaggt das 4 von 5 Modellen als Ausreisser und das "bereinigte" Mittel ist ein
+    einzelnes Modell. Der Median ueber alle kann nicht so degenerieren.
+
+    Lehre 14.07.: Der Beijing-33-Lay wurde von einem JMA-Lauf getragen, der 3,6°C
+    ueber den anderen vier lag und am Ende 4,1°C danebenlag. Das arithmetische
+    Mittel hat keine Abwehr dagegen — es hat den Ausreisser sogar unsichtbar
+    gemacht, sodass der Spannen-Filter, der am selben Tag Wuhan und Milan
+    aussortierte, bei Beijing gar nicht erst ansprang.
+
+    ACHTUNG: Die ENS-Kalibrierung (bias/sigma) ist am 5-Modell-Mittel gemessen.
+    Auf das bereinigte Mittel angewandt ist sie eine Naeherung — deshalb wird sie
+    NIE allein benutzt, sondern immer nur als zusaetzliche, pessimistischere
+    Sicht neben dem vollen Mittel (siehe views() in main)."""
+    med = median(list(raw.values()))
+    drop = {m: v for m, v in raw.items() if abs(v - med) > OUTLIER_DEG}
+    keep = {m: v for m, v in raw.items() if m not in drop}
+    if not keep:  # kann bei Median-ueber-alle nicht passieren, aber sicher ist sicher
+        return sum(raw.values()) / len(raw), {}
+    return sum(keep.values()) / len(keep), drop
+
+
+def load_calib(pattern, exclude=()):
+    """city,model -> (bias, sigma) aus allen passenden CSVs (spaetere ueberschreiben).
+    exclude: Pfad-Teilstrings, die uebersprungen werden — '_min_' sind die Tagestief-
+    Kalibrierungen (gehoeren zu weather_outlier_screen_low.py), 'calib40' ist die
+    Sommer-Familie, die die 700d-Basis nicht ueberschreiben darf."""
+    calib = {}
+    for path in sorted(glob.glob(pattern)):
+        if any(x in path for x in exclude):
+            continue
+        with open(path, encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                calib[(row["city"], row["model"])] = (float(row["bias"]), float(row["sigma"]))
+    return calib
+
+
+def reject_reasons(r):
+    """Warum ist dieser Bucket kein Kandidat? (leer = er ist einer)"""
+    why = []
+    if not r["has40"]:
+        why.append("keine 40d-Kalibrierung -> Doppel-Check unmoeglich")
+    if r["spread"] > MAX_SPREAD:
+        why.append(f"SPANNE {r['spread']:.1f}°>{MAX_SPREAD}")
+    if r["dist"] < MIN_DIST:
+        why.append(f"dist {r['dist']:.1f}°<{MIN_DIST}")
+    if r["p_max"] > MAX_PMODEL:
+        why.append(f"P_max {r['p_max']:.0%} ({r['p_max_src']})")
+    if r["ev"] < MIN_EV:
+        why.append(f"EV {r['ev']*100:+.1f}pp<{MIN_EV*100:.0f}pp")
+    if r["buyYes"] < MIN_YES:
+        why.append(f"YES {r['buyYes']:.3f} zu duenn")
+    return why
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None, help="Zieltag YYYY-MM-DD (default: morgen UTC)")
@@ -112,15 +204,22 @@ def main():
     title_day = f"{MONTHS[target.month - 1]} {target.day}"
     title_re = re.compile(rf"^Highest temperature in (.+) on {re.escape(title_day)}\?")
 
-    calib = {}
-    for path in sorted(glob.glob(CALIB_GLOB)):
-        if "_min_" in path:  # Tagestief-Kalibrierungen gehoeren zu weather_outlier_screen_low.py
-            continue
-        with open(path, encoding="utf-8") as f:
-            for row in csv.DictReader(f):
-                calib[(row["city"], row["model"])] = (float(row["bias"]), float(row["sigma"]))
+    calib = load_calib(CALIB_GLOB, exclude=("_min_", "calib40"))
+    calib40 = load_calib(CALIB40_GLOB, exclude=("_min_",))
     if not calib:
         sys.exit(f"Keine Kalibrierung unter {CALIB_GLOB} gefunden (im Repo-Root ausfuehren).")
+    if not calib40:
+        sys.exit(f"Keine 40d-Sommer-Kalibrierung unter {CALIB40_GLOB} gefunden. Erzeugen mit:\n"
+                 f"  python weather_source_compare.py --days 40 "
+                 f"--calib-csv preregs/weather_source_calib40d_YYYY_MM_DD.csv\n"
+                 f"(Seit dem Beijing-33-Verlust vom 14.07. ist die Doppel-Kalibrierung Pflicht, "
+                 f"keine Kopfsache mehr — siehe Modulkopf.)")
+
+    lead_days = (target - datetime.now(timezone.utc).date()).days
+    if lead_days > 1:
+        print(f"\n!! ACHTUNG: Zieltag ist {lead_days} Tage weg — die Kalibrierung hier ist Lead-24h.")
+        print("   Vor dem Setzen mit 'weather_source_compare.py --lead 2' nachrechnen")
+        print("   (Madrid-Lehre 13.07.: 3 von 4 formalen Screen-Passes waren nach Lead-2 -EV).\n")
 
     # ---------------- 1) Jupiter: Events des Zieltags ----------------
     print(f"Ziel: 'Highest temperature in ... on {title_day}?' ({target_day})")
@@ -210,75 +309,109 @@ def main():
         if len(have) < 3:
             print(f"  {city}: nur {len(have)} Modelle -> skip")
             continue
-        mu = {m: raw[m] - calib[(city, m)][0] for m in have if (city, m) in calib}
-        ens_raw = sum(raw[m] for m in have) / len(have)
-        b_e, s_e = calib[(city, "ensemble_mean")]
-        mu_ens, sig_ens = ens_raw - b_e, s_e
+        raw = {m: raw[m] for m in have}
+        ens_raw = sum(raw.values()) / len(raw)
+        ens_raw_rob, dropped = robust_mean(raw)
+        spread = max(raw.values()) - min(raw.values())
+        has40 = (city, "ensemble_mean") in calib40
+
+        # Bis zu vier Sichten: {volles Mittel, ausreisser-bereinigt} x {700d, 40d}.
+        # Gewertet wird IMMER die pessimistischste (hoechstes P, kleinster Abstand) —
+        # so ist es egal, ob der Ausreisser warm oder kalt war.
+        views = []
+        for cname, cal in (("700d", calib), ("40d", calib40)):
+            if (city, "ensemble_mean") not in cal:
+                continue
+            b, s = cal[(city, "ensemble_mean")]
+            views.append((cname, ens_raw - b, s))
+            if dropped:
+                views.append((f"{cname}/rob", ens_raw_rob - b, s))
 
         open_mks = [x for x in mks if x["status"] == "open"]
         fav = max(open_mks, key=lambda x: x["buyYes"]) if open_mks else None
-        city_info[city] = {"mu": mu, "mu_ens": mu_ens, "sig_ens": sig_ens,
+        city_info[city] = {"raw": raw, "views": views, "dropped": dropped, "spread": spread,
                            "fav": fav, "mks": mks, "icao": icao}
 
         for x in open_mks:
+            # P je Einzelmodell ueber BEIDE Kalibrierungen -> die schlechteste zaehlt.
+            # (Beijing 32° am 16.07.: ECMWF 9,2 % unter 700d, aber 15,8 % unter 40d.)
             probs = {}
-            for m, mm in mu.items():
-                probs[m] = bucket_prob(x["kind"], x["k"], mm, calib[(city, m)][1])
-            probs["ensemble_mean"] = bucket_prob(x["kind"], x["k"], mu_ens, sig_ens)
-            pmax_m = max(probs, key=probs.get)
-            d = dist_deg(x["kind"], x["k"], mu_ens)
+            for cal in (calib, calib40):
+                for m in raw:
+                    if (city, m) not in cal:
+                        continue
+                    b, s = cal[(city, m)]
+                    probs[m] = max(probs.get(m, 0.0),
+                                   bucket_prob(x["kind"], x["k"], raw[m] - b, s))
+            pmax_m = max(probs, key=probs.get) if probs else None
+
+            pv = [(bucket_prob(x["kind"], x["k"], mu, s), lbl, s) for lbl, mu, s in views]
+            p_use, p_src, sig_use = max(pv)
+            d = min(dist_deg(x["kind"], x["k"], mu) for _, mu, _ in views)
+            be = 1.0 - x["buyNo"]
+
             rows.append({
                 "city": city, **x,
-                "p_ens": probs["ensemble_mean"], "p_max": probs[pmax_m], "p_max_src": SHORT[pmax_m],
-                "dist": d, "dist_sig": d / sig_ens if sig_ens else 0.0,
+                "p_ens": p_use, "p_src": p_src,
+                "p_max": probs[pmax_m] if pmax_m else 1.0,
+                "p_max_src": SHORT[pmax_m] if pmax_m else "?",
+                "dist": d, "dist_sig": d / sig_use if sig_use else 0.0,
+                "spread": spread, "has40": has40, "be": be, "ev": be - p_use,
             })
         time.sleep(0.5)
 
     # ---------------- 3) Ranking ----------------
-    print("\n" + "=" * 100)
-    print(f"KANDIDATEN-FILTER: dist>={MIN_DIST}°C, alle Modelle P<={MAX_PMODEL:.0%}, buyYes>={MIN_YES:.0%}, NO kaufbar")
-    print("=" * 100)
-    cand = [r for r in rows
-            if r["dist"] >= MIN_DIST and r["p_max"] <= MAX_PMODEL
-            and r["buyYes"] >= MIN_YES and 0 < r["buyNo"] < 1]
-    cand.sort(key=lambda r: (1 - r["buyNo"]) / r["buyNo"], reverse=True)
+    print("\n" + "=" * 112)
+    print(f"KANDIDATEN-FILTER: dist>={MIN_DIST}°C | Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} "
+          f"(700d UND 40d) | EV>={MIN_EV*100:.0f}pp | buyYes>={MIN_YES:.0%}")
+    print(f"P_pess = hoechstes P ueber alle Sichten (voll/bereinigt x 700d/40d); EV = BE - P_pess")
+    print("=" * 112)
+    cand = [r for r in rows if not reject_reasons(r) and 0 < r["buyNo"] < 1]
+    cand.sort(key=lambda r: r["ev"], reverse=True)
 
-    hdr = f"{'Stadt':13} {'Bucket':>15} {'YES':>5} {'NO':>6} {'Rend%':>6} {'P_ens':>6} {'P_max':>10} {'dist':>6} {'d/σ':>5}  Markt-ID"
+    hdr = (f"{'Stadt':13} {'Bucket':>15} {'YES':>5} {'NO':>6} {'Rend%':>6} {'BE':>5} "
+           f"{'P_pess':>15} {'EV':>8} {'P_max':>11} {'Span':>6} {'dist':>6}  Markt-ID")
     print(hdr)
     print("-" * len(hdr))
     for r in cand[:18]:
         rend = (1 - r["buyNo"]) / r["buyNo"] * 100
         print(f"{r['city']:13} {r['title']:>15} {r['buyYes']:5.2f} {r['buyNo']:6.3f} {rend:6.1f} "
-              f"{r['p_ens']*100:5.1f}% {r['p_max']*100:5.1f}%/{r['p_max_src']:4} {r['dist']:5.1f}° {r['dist_sig']:5.1f}  {r['marketId']}")
+              f"{r['be']*100:4.1f}% {r['p_ens']*100:6.1f}%/{r['p_src']:<7} {r['ev']*100:+6.1f}pp "
+              f"{r['p_max']*100:5.1f}%/{r['p_max_src']:5} {r['spread']:5.1f}° {r['dist']:5.1f}°  {r['marketId']}")
+    if not cand:
+        print("(keiner — das ist das haeufige Ergebnis, kein Fehler)")
 
-    near = [r for r in rows if r not in cand and r["buyYes"] >= 0.06 and r["p_ens"] <= 0.10
-            and 0 < r["buyNo"] < 1 and r["dist"] >= 1.0]
-    near.sort(key=lambda r: r["buyYes"], reverse=True)
+    cand_ids = {r["marketId"] for r in cand}
+    near = [r for r in rows if r["marketId"] not in cand_ids and r["buyYes"] >= 0.06
+            and 0 < r["buyNo"] < 1 and r["dist"] >= 1.0 and r["ev"] > -0.15]
+    near.sort(key=lambda r: r["ev"], reverse=True)
     if near:
-        print("\nKNAPP VERFEHLT (Info, kein Kandidat):")
-        for r in near[:8]:
-            why = []
-            if r["dist"] < MIN_DIST:
-                why.append(f"dist {r['dist']:.1f}°<{MIN_DIST}")
-            if r["p_max"] > MAX_PMODEL:
-                why.append(f"P_max {r['p_max']:.0%} ({r['p_max_src']})")
-            print(f"  {r['city']:13} {r['title']:>15} YES {r['buyYes']:.2f} NO {r['buyNo']:.3f} -> {', '.join(why)}")
+        print("\nVERWORFEN (Info — genau hier stand am 13.07. der Beijing-33-Verlierer):")
+        for r in near[:10]:
+            rend = (1 - r["buyNo"]) / r["buyNo"] * 100
+            print(f"  {r['city']:13} {r['title']:>15} NO {r['buyNo']:.3f} ({rend:5.1f} %) "
+                  f"EV {r['ev']*100:+6.1f}pp -> {', '.join(reject_reasons(r))}")
 
     # ---------------- 4) Kompakt-Leitern ----------------
     for city in sorted(city_info):
         ci = city_info[city]
-        mu_s = "  ".join(f"{SHORT[m]} {v:.1f}" for m, v in ci["mu"].items())
-        print(f"\n--- {city} ({ci['icao']})  korr. Forecasts: {mu_s} | ENS {ci['mu_ens']:.1f}±{ci['sig_ens']:.1f} ---")
+        raw_s = "  ".join(f"{SHORT[m]} {v:.1f}{'*' if m in ci['dropped'] else ''}"
+                          for m, v in ci["raw"].items())
+        flag = "  (* = Ausreisser, aus dem bereinigten Mittel entfernt)" if ci["dropped"] else ""
+        veto = "  << SPANNEN-VETO" if ci["spread"] > MAX_SPREAD else ""
+        print(f"\n--- {city} ({ci['icao']})  roh: {raw_s}  | Spanne {ci['spread']:.1f}°{veto}{flag} ---")
+        print("    korr. Sichten: " + "   ".join(f"{lbl} {mu:.1f}±{s:.1f}" for lbl, mu, s in ci["views"]))
         for x in ci["mks"]:
             if x["buyYes"] < 0.02 and not (ci["fav"] and x["marketId"] == ci["fav"]["marketId"]):
                 continue
-            p_e = bucket_prob(x["kind"], x["k"], ci["mu_ens"], ci["sig_ens"])
+            p_e = max(bucket_prob(x["kind"], x["k"], mu, s) for _, mu, s in ci["views"])
             mark = " <FAV" if ci["fav"] and x["marketId"] == ci["fav"]["marketId"] else ""
-            inc = " *" if any(r["city"] == city and r["marketId"] == x["marketId"] for r in cand) else ""
-            print(f"   {x['title']:>15}  YES {x['buyYes']:.2f}  NO {x['buyNo']:.3f}  P_ens {p_e*100:5.1f}%  {x['status']}{mark}{inc}")
+            inc = " *" if x["marketId"] in cand_ids else ""
+            print(f"   {x['title']:>15}  YES {x['buyYes']:.2f}  NO {x['buyNo']:.3f}  "
+                  f"P_pess {p_e*100:5.1f}%  {x['status']}{mark}{inc}")
 
-    print(f"\n(Stand {datetime.now(timezone.utc).strftime('%d.%m. %H:%M UTC')}; "
-          f"P aus Normal-Annahme, Kalibrierung 700d Lead-24h)")
+    print(f"\n(Stand {datetime.now(timezone.utc).strftime('%d.%m. %H:%M UTC')}; P aus Normal-Annahme, "
+          f"Doppel-Kalibrierung 700d + 40d, Lead-24h. Bei Zieltag >24h: --lead 2 nachrechnen.)")
 
 
 if __name__ == "__main__":

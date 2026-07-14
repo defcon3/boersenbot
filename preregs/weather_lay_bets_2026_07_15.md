@@ -57,9 +57,28 @@ Sprungtag. Modelle treffen den heutigen Ist-Tag exakt (~32).
 - **Lows:** London-Min 14/15/16 Rendite ≤2,1 % (Spread frisst alles), Paris-Min
   ECMWF/UKMO-Vetos.
 
-## Settlement (15./16.07.)
+## Ausgang: vom Autopiloten geschlossen (nachgetragen 14.07.)
 
-Ist = LEMD-Hoch lokaler Kalendertag 15.07. (22:00 UTC 14.07. – 22:00 UTC
-15.07.); Wahrheit = Wunderground, METAR Fallback. Verlustfenster nur Ist-Hoch
-34,5–35,49. Resolution frühestens 16.07., Autopilot claimt. Ergebnis hier
-nachtragen — auch als Datenpunkt für die Frage „Kalibrierung vs Markt-Zentrum".
+**Nicht gehalten.** Der Autopilot-Take-Profit verkaufte schon am 13.07. 16:40 UTC
+— gut 3 h nach dem Einstieg — zu **0,91** (Einstieg 0,8047), Netto-Erlös 6,47 $
+→ **+0,64 $ realisiert** (+11 % netto). Die Position existiert nicht mehr; das
+Settlement am 15./16.07. entscheidet nur noch über die Methodik-Frage, nicht über
+Geld.
+
+**Der Verkauf war mark-to-market richtig:** der 35er-NO steht am 14.07. bei 0,83,
+also unter dem Verkaufspreis. Der Madrid-Forecast ist seit dem Einstieg um 0,8 °
+abgekühlt (korr. ENS 37,2 → 36,4), und **ICON gibt dem 35er-Bucket jetzt 32 %**
+(roh 34,7 — kalter Ausreißer; die anderen vier liegen bei 35,6–36,2). Beim
+Einstieg lagen *alle* Modelle unter BE, das gilt nicht mehr. Der Trade wäre heute
+kein Kandidat.
+
+**Trotzdem am 16.07. das Ist nachtragen** — als zweiter Datenpunkt zur Frage, ob
+die Kalibrierung oder das Markt-Zentrum recht hat, und als Gegenprobe zum
+Beijing-Post-Mortem (`weather_lay_postmortem_2026_07_14_beijing.md`): dort war
+das Ist-Hoch 1,7 ° unter dem korrigierten ENS, und *alle* Modelle waren zu warm.
+Verlustfenster hier: Ist-Hoch 34,5–35,49 an LEMD, lokaler Kalendertag 15.07.
+
+**Einordnung des TP:** Er kappt die Edge bei +10 %, wo das Modell +24,3 %
+behauptet — bei richtigem Modell kostet er also Rendite. Hier hat er, wie beim
+Beijing-Trade, gegen ein Modell versichert, das sich als schwächer erwies als
+gedacht. Beide Male dieselbe Mechanik, beide Male vor dem Settlement raus.

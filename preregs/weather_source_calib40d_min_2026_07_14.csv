@@ -1,0 +1,169 @@
+city,model,n,bias,sigma
+Wellington,gfs_seamless,40,0.175,1.238
+Wellington,icon_seamless,40,0.302,0.743
+Wellington,ukmo_seamless,40,-2.243,1.840
+Wellington,jma_seamless,40,1.482,1.295
+Wellington,ecmwf_ifs025,40,0.178,0.828
+Wellington,ensemble_mean,40,-0.021,0.754
+Tokyo,gfs_seamless,40,0.220,0.843
+Tokyo,icon_seamless,40,0.115,0.707
+Tokyo,ukmo_seamless,40,-0.010,0.863
+Tokyo,jma_seamless,40,-0.377,0.916
+Tokyo,ecmwf_ifs025,40,-0.927,0.953
+Tokyo,ensemble_mean,40,-0.196,0.642
+Seoul,gfs_seamless,40,-0.832,1.069
+Seoul,icon_seamless,40,0.335,0.730
+Seoul,ukmo_seamless,40,1.040,0.928
+Seoul,jma_seamless,40,-0.305,1.375
+Seoul,ecmwf_ifs025,40,-0.380,0.910
+Seoul,ensemble_mean,40,-0.028,0.743
+Shanghai,gfs_seamless,40,-0.838,0.807
+Shanghai,icon_seamless,40,0.080,0.889
+Shanghai,ukmo_seamless,40,0.075,0.808
+Shanghai,jma_seamless,40,0.487,1.202
+Shanghai,ecmwf_ifs025,40,-0.028,0.935
+Shanghai,ensemble_mean,40,-0.045,0.784
+Beijing,gfs_seamless,40,1.935,1.732
+Beijing,icon_seamless,40,1.573,1.193
+Beijing,ukmo_seamless,40,1.403,1.282
+Beijing,jma_seamless,40,3.743,2.258
+Beijing,ecmwf_ifs025,40,1.162,1.497
+Beijing,ensemble_mean,40,1.963,1.332
+Kuala Lumpur,gfs_seamless,40,-1.697,1.239
+Kuala Lumpur,icon_seamless,40,-0.600,1.166
+Kuala Lumpur,ukmo_seamless,40,-0.063,1.278
+Kuala Lumpur,jma_seamless,40,2.362,1.090
+Kuala Lumpur,ecmwf_ifs025,40,-1.833,1.000
+Kuala Lumpur,ensemble_mean,40,-0.366,1.085
+Shenzhen,gfs_seamless,40,-0.077,1.283
+Shenzhen,icon_seamless,40,0.370,1.146
+Shenzhen,ukmo_seamless,40,0.522,1.102
+Shenzhen,jma_seamless,40,0.990,1.111
+Shenzhen,ecmwf_ifs025,40,-0.220,1.167
+Shenzhen,ensemble_mean,40,0.317,1.053
+Chengdu,gfs_seamless,40,-0.965,1.560
+Chengdu,icon_seamless,40,0.007,1.262
+Chengdu,ukmo_seamless,40,0.875,1.465
+Chengdu,jma_seamless,40,0.365,1.813
+Chengdu,ecmwf_ifs025,40,-0.047,1.386
+Chengdu,ensemble_mean,40,0.047,1.195
+Karachi,gfs_seamless,40,-0.740,0.597
+Karachi,icon_seamless,40,-0.630,0.575
+Karachi,ukmo_seamless,40,-1.340,0.543
+Karachi,jma_seamless,40,-0.555,0.600
+Karachi,ecmwf_ifs025,40,-1.297,0.600
+Karachi,ensemble_mean,40,-0.912,0.528
+Jeddah,gfs_seamless,40,-2.498,0.766
+Jeddah,icon_seamless,40,0.165,0.823
+Jeddah,ukmo_seamless,40,-1.397,0.734
+Jeddah,jma_seamless,40,0.295,0.799
+Jeddah,ecmwf_ifs025,40,-1.097,0.874
+Jeddah,ensemble_mean,40,-0.906,0.634
+Ankara,gfs_seamless,40,1.845,1.526
+Ankara,icon_seamless,40,-0.403,1.010
+Ankara,ukmo_seamless,40,-1.167,1.472
+Ankara,jma_seamless,40,5.625,1.645
+Ankara,ecmwf_ifs025,40,0.992,1.177
+Ankara,ensemble_mean,40,1.379,1.112
+Helsinki,gfs_seamless,40,-0.590,1.430
+Helsinki,icon_seamless,40,1.090,1.369
+Helsinki,ukmo_seamless,40,1.417,1.348
+Helsinki,jma_seamless,40,1.120,1.265
+Helsinki,ecmwf_ifs025,40,0.907,1.330
+Helsinki,ensemble_mean,40,0.789,1.178
+London,gfs_seamless,40,-0.667,0.785
+London,icon_seamless,40,0.250,0.695
+London,ukmo_seamless,40,0.453,0.725
+London,jma_seamless,40,0.237,1.067
+London,ecmwf_ifs025,40,-0.120,0.679
+London,ensemble_mean,40,0.031,0.525
+Paris,gfs_seamless,40,-0.887,1.257
+Paris,icon_seamless,40,0.992,1.357
+Paris,ukmo_seamless,40,1.835,1.480
+Paris,jma_seamless,40,1.155,1.029
+Paris,ecmwf_ifs025,40,0.300,1.189
+Paris,ensemble_mean,40,0.679,1.035
+Madrid,gfs_seamless,40,1.928,1.689
+Madrid,icon_seamless,40,0.580,1.550
+Madrid,ukmo_seamless,40,-0.515,1.695
+Madrid,jma_seamless,40,1.965,1.607
+Madrid,ecmwf_ifs025,40,1.290,1.545
+Madrid,ensemble_mean,40,1.050,1.368
+Milan,gfs_seamless,40,-0.675,1.714
+Milan,icon_seamless,40,1.318,1.766
+Milan,ukmo_seamless,40,2.620,1.272
+Milan,jma_seamless,40,0.755,1.566
+Milan,ecmwf_ifs025,40,1.300,1.728
+Milan,ensemble_mean,40,1.064,1.348
+Munich,gfs_seamless,40,0.440,1.762
+Munich,icon_seamless,40,0.610,1.476
+Munich,ukmo_seamless,40,1.032,1.590
+Munich,jma_seamless,40,3.220,1.659
+Munich,ecmwf_ifs025,40,2.263,1.927
+Munich,ensemble_mean,40,1.513,1.423
+Amsterdam,gfs_seamless,40,-0.057,1.086
+Amsterdam,icon_seamless,40,0.668,1.073
+Amsterdam,ukmo_seamless,40,1.445,1.154
+Amsterdam,jma_seamless,40,0.482,1.441
+Amsterdam,ecmwf_ifs025,40,-0.005,0.997
+Amsterdam,ensemble_mean,40,0.506,0.983
+Warsaw,gfs_seamless,40,0.645,1.859
+Warsaw,icon_seamless,40,1.222,1.297
+Warsaw,ukmo_seamless,40,1.947,1.919
+Warsaw,jma_seamless,40,1.770,1.398
+Warsaw,ecmwf_ifs025,40,1.182,1.468
+Warsaw,ensemble_mean,40,1.353,1.335
+Cape Town,gfs_seamless,40,1.958,1.745
+Cape Town,icon_seamless,40,0.218,1.599
+Cape Town,ukmo_seamless,40,1.252,1.412
+Cape Town,jma_seamless,40,2.752,1.890
+Cape Town,ecmwf_ifs025,40,0.733,1.609
+Cape Town,ensemble_mean,40,1.383,1.225
+Mexico City,gfs_seamless,40,1.745,1.095
+Mexico City,icon_seamless,40,0.590,1.187
+Mexico City,ukmo_seamless,40,0.772,1.005
+Mexico City,jma_seamless,40,-0.643,1.085
+Mexico City,ecmwf_ifs025,40,-0.425,0.896
+Mexico City,ensemble_mean,40,0.408,0.883
+Buenos Aires,gfs_seamless,40,2.093,2.467
+Buenos Aires,icon_seamless,40,0.475,1.929
+Buenos Aires,ukmo_seamless,40,2.548,2.468
+Buenos Aires,jma_seamless,40,2.070,2.506
+Buenos Aires,ecmwf_ifs025,40,1.315,2.097
+Buenos Aires,ensemble_mean,40,1.700,2.178
+Sao Paulo,gfs_seamless,40,1.290,1.763
+Sao Paulo,icon_seamless,40,0.355,1.221
+Sao Paulo,ukmo_seamless,40,-0.522,1.017
+Sao Paulo,jma_seamless,40,0.568,1.829
+Sao Paulo,ecmwf_ifs025,40,0.180,1.104
+Sao Paulo,ensemble_mean,40,0.374,1.144
+Taipei,gfs_seamless,40,0.090,0.844
+Taipei,icon_seamless,40,0.663,0.913
+Taipei,ukmo_seamless,40,0.465,0.831
+Taipei,jma_seamless,40,-0.440,1.169
+Taipei,ecmwf_ifs025,40,-0.700,1.095
+Taipei,ensemble_mean,40,0.016,0.808
+Tel Aviv,gfs_seamless,40,-0.610,0.833
+Tel Aviv,icon_seamless,40,-1.595,0.876
+Tel Aviv,ukmo_seamless,40,-0.073,0.547
+Tel Aviv,jma_seamless,40,-1.097,0.906
+Tel Aviv,ecmwf_ifs025,40,-1.443,1.156
+Tel Aviv,ensemble_mean,40,-0.963,0.600
+Toronto,gfs_seamless,40,-1.323,1.046
+Toronto,icon_seamless,40,0.398,1.167
+Toronto,ukmo_seamless,40,1.098,1.415
+Toronto,jma_seamless,40,-0.002,1.639
+Toronto,ecmwf_ifs025,40,-0.590,1.097
+Toronto,ensemble_mean,40,-0.084,0.915
+Wuhan,gfs_seamless,40,-1.025,1.196
+Wuhan,icon_seamless,40,-0.165,0.946
+Wuhan,ukmo_seamless,40,-0.523,1.292
+Wuhan,jma_seamless,40,0.600,1.094
+Wuhan,ecmwf_ifs025,40,-0.528,1.194
+Wuhan,ensemble_mean,40,-0.328,0.892
+Panama City,gfs_seamless,40,-1.468,0.791
+Panama City,icon_seamless,40,0.463,0.801
+Panama City,ukmo_seamless,40,0.087,0.738
+Panama City,jma_seamless,40,0.455,0.800
+Panama City,ecmwf_ifs025,40,-0.177,0.846
+Panama City,ensemble_mean,40,-0.128,0.724
