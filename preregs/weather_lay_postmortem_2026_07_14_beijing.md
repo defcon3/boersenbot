@@ -135,6 +135,45 @@ Die oben beschriebenen Regeln lehnen diesen Kandidaten ab — sie wurden formuli
 **bevor** das Settlement des 14.07. bekannt war, und fangen den bekannten
 Verlierer rückwirkend. Der Trade wurde nicht gesetzt.
 
+## 8. Nachtrag: der Spannen-Veto ist empirisch gedeckt (nicht nur plausibel)
+
+Der Veto (Modellspanne > 3 ° → kein Kandidat) war zunächst nur eine Intuition und
+kostet Kandidaten — am 16.07. fielen 10 von 15 Städten darunter. Faire Gegenfrage:
+filtert er echtes Risiko weg oder nur Rendite? Gemessen mit
+`weather_spread_conditional.py` (700 d, 10 Städte, n = 5.587 Stadt-Tage, echter
+24-h-Lead, bias-bereinigt je Stadt):
+
+| Modellspanne | n | MAE | Sigma | P(\|Fehler\| > 1,5 °) | P(\|Fehler\| > 2,5 °) |
+|---|---|---|---|---|---|
+| 0–1,5 ° | 1164 | 0,76 ° | 1,06 ° | 11,9 % | **2,5 %** |
+| 1,5–3,0 ° | 2335 | 0,98 ° | 1,32 ° | 20,6 % | **5,1 %** |
+| 3,0–5,0 ° | 1347 | 1,25 ° | 1,71 ° | 32,6 % | **11,4 %** |
+| > 5,0 ° | 741 | 1,43 ° | 1,77 ° | 39,1 % | **16,9 %** |
+
+Monoton in beide Richtungen. An der Veto-Schwelle 3,0 °: MAE 0,90 → 1,32 °
+(**1,46×**), Tail-Risiko P(\|err\| > 2,5 °) 4,2 % → 13,3 % (**3,15×**). Betroffen
+sind 37 % aller Tage.
+
+**Das ist der Beijing-Mechanismus in einer Zahl.** Die Kalibrierung benutzt ein
+FESTES Sigma je Stadt (ZBAA-ENS: 1,447). Real ist Sigma an ruhigen Tagen ~1,06
+und an zerklüfteten Tagen ~1,77. Die Normal-Annahme unterschätzt das Risiko also
+systematisch genau dort, wo die hohen Renditen liegen — denn ein Bucket ist ja
+gerade deshalb teuer gepreist, weil die Modelle streiten. Der Beijing-33-Lay lief
+an einem 3,6-°-Tag: dort ist P(Fehler > 2,5 °) empirisch ~13 %, nicht die ~4 %,
+die das Durchschnitts-Sigma impliziert.
+
+**Konsequenz für die „48h-Zerklüftungs"-These:** Bei 24 h Vorlauf liegen 10 von
+15 Städten unter der Schwelle, bei 48 h nur noch 5 von 15. Die 48h-Leitern sind
+nicht zerklüftet, weil der Markt schläft, sondern weil die Modelle sich uneinig
+sind — und diese Uneinigkeit ist mit 3× Tail-Risiko korrekt bepreist. Die These
+„zweistellige Renditen 2 Tage voraus = Edge" ist damit falsifiziert.
+
+**Offener Ausbaupfad (nicht gebaut):** Statt eines harten Vetos ein
+**spannen-konditioniertes Sigma** (Sigma als Funktion der Tagesspanne statt
+Konstante). Das würde die 37 % vetoierten Tage wieder handelbar machen — aber mit
+ehrlichen, breiteren Wahrscheinlichkeiten statt mit einer zu engen Glocke. Erst
+dann wäre entscheidbar, ob dort nach korrekter Bepreisung noch Edge übrig ist.
+
 ---
 
 **Datenquellen:** Ist = Wunderground (`api.weather.com`, Polymarket-Settlement-
