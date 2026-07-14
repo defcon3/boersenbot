@@ -231,8 +231,70 @@ repariert einen verzogenen Mittelwert.
    *ruhigen* Sommertagen ist das feste Sigma **1,7–2,3× zu breit**. Der Screen
    rechnet dort also zu hohe P und **lässt sichere Lays liegen**. Das ist die
    eigentliche Ausbeute dieser Studie: nicht mehr Risiko zulassen, sondern die
-   ruhige Zone schärfer bepreisen. Einbau steht aus (bewusst nicht im selben
-   Zug geschoben — es lockert die EV-Schranke und gehört separat verifiziert).
+   ruhige Zone schärfer bepreisen. **Eingebaut** — siehe unten.
 3. **G5 (Forward) bleibt wie registriert:** Ob der Markt Zerklüftung falsch
    bepreist, ist weiterhin unbeantwortet und braucht `bb_WeatherLadders`-Daten
    (N ≥ 40 zerklüftete Buckets mit Settlement).
+
+---
+
+# EINBAU (14.07., nach der Auswertung)
+
+`sigma(s)` steckt jetzt in beiden Screens (`ens_sigma()` in
+`weather_outlier_screen.py`). Drei Dinge, die beim Bauen erst auffielen:
+
+**1. Die Steigung ist saisonabhängig — also darf sie keine Code-Konstante sein.**
+Gemessen: Sommer **0,107**, Winter **0,177**, Ganzjahr **0,140**. Hätte man dem
+40d-Sommer-Fenster die Ganzjahres-Steigung aufgezwungen, käme Sigma auf ruhigen
+Sommertagen ~5 % **zu eng** heraus — also in die gefährliche Richtung.
+Konsequenz: `weather_source_compare.py` fittet `b` **je Kalibrierfenster neu**
+(gemeinsam über alle Städte, `a` je Stadt) und schreibt beide in die CSV. Der
+Screen liest sie von dort. Die tatsächlich gefitteten Werte:
+
+| Fenster | b |
+|---|---|
+| Tageshoch, 700 d (Ganzjahr) | 0,140 |
+| Tageshoch, 40 d (Sommer) | **0,099** |
+| Tagestief, 700 d | 0,082 |
+| Tagestief, 40 d | 0,074 |
+
+Das Tagestief hat also eine **halb so große** Spannen-Sensitivität wie das
+Tageshoch. Eine hartkodierte 0,147 wäre für den Low-Screen fast doppelt falsch
+gewesen.
+
+**2. Beide Sichten mussten umgestellt werden, nicht nur eine.** Der Screen nimmt
+das pessimistischste P über 700d *und* 40d. Hätte nur eine Sicht `sigma(s)`
+bekommen, hätte die andere mit ihrem breiten Fest-Sigma weiter dominiert und die
+Änderung wäre wirkungslos geblieben.
+
+**3. Einzelmodelle behalten ihr festes Sigma.** `sigma(s)` gilt nur für die
+ENS-Sicht. Die Einzelmodell-Schranke (`MAX_PMODEL`) bleibt unangetastet — sie ist
+der Wächter gegen genau die dissentierende Stimme, die den Beijing-Trade gekippt
+hat.
+
+## Wirkung (Leitern 15./16.07.)
+
+Auf ruhigen Tagen steigt die EV-Marge deutlich — σ wird bei 1,5 ° Spanne um
+11–21 % enger, und weil P in den Flanken stark auf σ reagiert, schlägt das durch:
+
+| Bucket | Spanne | EV vorher | EV mit sigma(s) |
+|---|---|---|---|
+| Tel Aviv 31° (16.07.) | 1,8 ° | +16,9 pp | **+21,3 pp** |
+| Madrid 34° (16.07.) | 1,4 ° | +5,4 pp | **+12,3 pp** |
+| Madrid 35° (15.07.) | 1,5 ° | +5,3 pp | **+7,3 pp** |
+| Wuhan 38° (15.07.) | 1,4 ° | +3,6 pp | **+5,8 pp** |
+
+**Trotzdem null Kandidaten** an beiden Tagen: Alle scheitern jetzt an `MIN_DIST`
+(1,4–1,9 ° < 2,0 °) und am Einzelmodell-Veto — durchgehend **ICON** (32–41 %).
+Diese Schranken wurden bewusst **nicht** angefasst; sie zu lockern, um Kandidaten
+zu erzeugen, wäre genau der Fehler, um den es in diesem Kapitel geht. Der Nutzen
+von `sigma(s)` ist kumulativ und zeigt sich an Tagen, an denen die Modelle einig
+sind *und* der Markt trotzdem Restangst preist.
+
+## Regressionsschutz
+
+`weather_screen_selftest.py` friert die Forecasts ein, die beim Beijing-33-Trade
+live waren, und verlangt, dass der Screen sie ablehnt. Läuft nach dem Einbau grün
+(EV jetzt +0,1 pp statt +0,7 pp — noch klarer abgelehnt). Der Test ist bewusst
+kein Unit-Test der Einzelfunktionen, sondern des **Urteils**: „Hätten wir den
+Trade heute noch gemacht?"

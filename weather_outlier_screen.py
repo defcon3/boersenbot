@@ -39,6 +39,22 @@ Trade. Daraus vier Aenderungen, alle unten als Konstanten:
      Forecast kuenstlich weit weg.
   4. EV-Marge statt "P < BE" (MIN_EV) — ein Pass mit +0,7pp ist kein Trade.
 
+Nachtrag 14.07. (Pre-Reg preregs/weather_spread_sigma_2026_07_14.md, ausgewertet):
+Das feste Sigma je Stadt ist ein Mittel ueber ALLE Spannen — und damit auf RUHIGEN
+Tagen viel zu breit (Sommer-OOS: sagt 3,3 %, liefert 1,4 %; Faktor 0,43). Der Screen
+rechnete dort also zu hohe P und liess sichere Lays liegen. Das Ensemble-Sigma ist
+jetzt spannen-konditioniert: sigma(s) = a_city + b*s (siehe ens_sigma()). a und b
+stehen in der Kalibrier-CSV, NICHT als Konstante im Code — die Steigung ist
+saisonabhaengig (Sommer 0,107 / Winter 0,177 / Ganzjahr 0,140), das 40d-Sommer-
+Fenster muss also seine eigene benutzen duerfen.
+
+Was dabei ausdruecklich NICHT passiert ist: den Spannen-Veto durch sigma(s) zu
+ersetzen. G4 der Pre-Reg zeigte, dass das ALLE vetoierten Buckets wieder geoeffnet
+haette — inklusive Beijing 32° mit der Signatur des Verlierers. Die Modellspanne ist
+eben nicht nur ein Breiten-Signal, sondern vor allem eines fuer ein korrumpiertes mu
+(ein Ausreisser zieht das Mittel). Kein Sigma repariert einen verzogenen Mittelwert.
+sigma(s) wirkt daher nur INNERHALB der nicht-vetoierten, ruhigen Zone.
+
 Aufruf:
   python weather_outlier_screen.py                  # Zieltag = morgen (UTC)
   python weather_outlier_screen.py --date 2026-07-10
@@ -95,6 +111,7 @@ MIN_YES = 0.025    # Bucket muss am Markt noch nennenswert gepreist sein (Rendit
 MAX_SPREAD = 3.0   # Modellspanne (roh, max-min) in Grad -> darueber kein Kandidat
 OUTLIER_DEG = 2.0  # Modell > X Grad vom Median der UEBRIGEN = Ausreisser, fliegt aus dem Mittel
 MIN_EV = 0.05      # Mindest-EV-Marge (BE - P) auf der pessimistischsten Sicht
+SIGMA_FLOOR = 0.3  # untere Schranke fuer sigma(s); a und b kommen aus der Kalibrier-CSV
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
@@ -160,7 +177,9 @@ def robust_mean(raw):
 
 
 def load_calib(pattern, exclude=()):
-    """city,model -> (bias, sigma) aus allen passenden CSVs (spaetere ueberschreiben).
+    """city,model -> (bias, sigma, a, b) aus allen passenden CSVs (spaetere ueberschreiben).
+    a/b beschreiben sigma(s) = a + b*Spanne und stehen nur in den ensemble_mean-Zeilen;
+    fehlen sie (aeltere CSVs), faellt ens_sigma() auf das feste sigma zurueck.
     exclude: Pfad-Teilstrings, die uebersprungen werden — '_min_' sind die Tagestief-
     Kalibrierungen (gehoeren zu weather_outlier_screen_low.py), 'calib40' ist die
     Sommer-Familie, die die 700d-Basis nicht ueberschreiben darf."""
@@ -170,8 +189,35 @@ def load_calib(pattern, exclude=()):
             continue
         with open(path, encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                calib[(row["city"], row["model"])] = (float(row["bias"]), float(row["sigma"]))
+                av, bv = (row.get("a") or "").strip(), (row.get("b") or "").strip()
+                calib[(row["city"], row["model"])] = (
+                    float(row["bias"]), float(row["sigma"]),
+                    float(av) if av else None, float(bv) if bv else None)
     return calib
+
+
+def ens_sigma(cal, city, spread):
+    """Sigma des Ensembles — spannen-konditioniert, wenn die Kalibrierung a und b
+    mitbringt, sonst das alte feste Sigma.
+
+    WOFUER (Pre-Reg weather_spread_sigma_2026_07_14.md): Das feste Sigma ist ein
+    Mittel ueber ALLE Spannen und deshalb auf RUHIGEN Tagen viel zu breit — im
+    Sommer-OOS sagt es 3,3 % und liefert 1,4 % (Faktor 0,43). Der Screen rechnet
+    dort also zu hohe P und laesst sichere Lays liegen. sigma(s) repariert genau das.
+
+    WOFUER NICHT: um zerklueftete Tage handelbar zu machen. Die bleiben durch
+    MAX_SPREAD gesperrt. G4 der Pre-Reg zeigte, dass sigma(s) ALLE vetoierten
+    Buckets wieder geoeffnet haette — inklusive des Beijing-Verlierers. Die Spanne
+    ist eben nicht nur ein Breiten-, sondern vor allem ein mu-Korruptions-Signal,
+    und kein Sigma repariert einen verzogenen Mittelwert.
+
+    b kommt aus der CSV, nicht aus einer Konstante: Die Steigung ist saisonabhaengig
+    (Sommer 0,107 / Winter 0,177 / Ganzjahr 0,140), also muss die 40d-Sommer-Sicht
+    ihre eigene benutzen duerfen."""
+    _, sig_fix, a, b = cal[(city, "ensemble_mean")]
+    if a is None or b is None:
+        return sig_fix
+    return max(a + b * spread, SIGMA_FLOOR)
 
 
 def reject_reasons(r):
@@ -322,7 +368,8 @@ def main():
         for cname, cal in (("700d", calib), ("40d", calib40)):
             if (city, "ensemble_mean") not in cal:
                 continue
-            b, s = cal[(city, "ensemble_mean")]
+            b = cal[(city, "ensemble_mean")][0]
+            s = ens_sigma(cal, city, spread)   # spannen-konditioniert (ruhige Tage schaerfer)
             views.append((cname, ens_raw - b, s))
             if dropped:
                 views.append((f"{cname}/rob", ens_raw_rob - b, s))
@@ -340,7 +387,7 @@ def main():
                 for m in raw:
                     if (city, m) not in cal:
                         continue
-                    b, s = cal[(city, m)]
+                    b, s = cal[(city, m)][:2]   # Einzelmodelle behalten ihr festes Sigma
                     probs[m] = max(probs.get(m, 0.0),
                                    bucket_prob(x["kind"], x["k"], raw[m] - b, s))
             pmax_m = max(probs, key=probs.get) if probs else None

@@ -35,7 +35,7 @@ import requests
 
 from weather_outlier_screen import (MIN_DIST, MAX_PMODEL, MIN_YES, MAX_SPREAD, MIN_EV,
                                     bucket_prob, dist_deg, robust_mean, load_calib,
-                                    reject_reasons)
+                                    reject_reasons, ens_sigma)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -192,7 +192,8 @@ def main():
         for cname, cal in (("700d", calib), ("40d", calib40)):
             if (city, "ensemble_mean") not in cal:
                 continue
-            b, s = cal[(city, "ensemble_mean")]
+            b = cal[(city, "ensemble_mean")][0]
+            s = ens_sigma(cal, city, spread)   # spannen-konditioniert (ruhige Tage schaerfer)
             views.append((cname, ens_raw - b, s))
             if dropped:
                 views.append((f"{cname}/rob", ens_raw_rob - b, s))
@@ -208,7 +209,7 @@ def main():
                 for m in raw:
                     if (city, m) not in cal:
                         continue
-                    b, s = cal[(city, m)]
+                    b, s = cal[(city, m)][:2]   # Einzelmodelle behalten ihr festes Sigma
                     probs[m] = max(probs.get(m, 0.0),
                                    bucket_prob(x["kind"], x["k"], raw[m] - b, s))
             pmax_m = max(probs, key=probs.get) if probs else None
