@@ -1,5 +1,5 @@
 [Unit]
-Description=Jupiter Prediction Autopilot (Lay-the-Draw Take-Profit +10%)
+Description=Jupiter Prediction Autopilot (Take-Profit +10%, Wetter ausgenommen; Auto-Claim fuer alles)
 After=network-online.target
 Wants=network-online.target
 

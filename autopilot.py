@@ -10,12 +10,23 @@ jede automatisch, sobald ihr Verkaufspreis +PROFIT über dem eigenen Einstieg
 - Variante A: verkauft beim ersten Erreichen von +PROFIT zum Marktpreis.
 - KEIN Stop-Loss (bewusst): fällt kein Tor, läuft die Position bis Spielende.
 
+WICHTIG (14.07.2026): Für WETTER-Lays ist der Take-Profit ABGESCHALTET
+(--no-tp-category, Default "weather"). Gemessen an 138 Lays
+(preregs/weather_tp_vs_hold_2026_07_14.md) kostet er dort 6,6pp gegenüber Halten.
+Der Grund ist strukturell: Ein steigender NO-Preis IST das Signal, dass der Lay
+gewinnt — der TP kann per Konstruktion nur auf GEWINNERN auslösen. 62 von 62
+Auslösungen wären Gewinner geworden (im Schnitt um 14,7pp gekappt), NULL
+Rettungen; die Verlierer lief er ungeschützt voll. Bei In-Play-Scalps (Tennis)
+bleibt er sinnvoll — dort IST die Edge eine Preisbewegung, kein Settlement.
+Der Auto-Claim ist ausdrücklich NICHT betroffen.
+
 Für den VPS gedacht (systemd, läuft 24/7, auch bei ausgeschaltetem PC).
 
 Aufruf:
-  python autopilot.py            # ECHT (verkauft autonom)
+  python autopilot.py            # ECHT (verkauft autonom; Wetter ausgenommen)
   python autopilot.py --dry      # Dry-Run (loggt, verkauft nicht)
   python autopilot.py --profit 0.10 --interval 20 --idle-interval 90
+  python autopilot.py --no-tp-category ''   # alter Zustand: TP fuer ALLES
 
 Rate-Limit (429) der öffentlichen Jupiter-API: adaptives Polling — bei OFFENER
 Position schnell (--interval), sonst langsam (--idle-interval); bei 429
@@ -310,6 +321,20 @@ def get_open_positions(owner: str) -> list[dict]:
     return out
 
 
+def tp_blocked_category(p: dict, blocked: set[str]) -> str | None:
+    """Kategorie/Tag der Position, wenn sie vom Take-Profit AUSGENOMMEN ist — sonst None.
+
+    Prüft category UND tags: Jupiter füllt nicht immer beides zuverlässig, und ein
+    stiller Feldwechsel würde den Filter sonst lautlos deaktivieren."""
+    if not blocked:
+        return None
+    em = p.get("eventMetadata", {}) or {}
+    cats = {str(em.get("category") or "").lower()}
+    cats |= {str(t).lower() for t in (em.get("tags") or [])}
+    hit = cats & blocked
+    return sorted(hit)[0] if hit else None
+
+
 def is_imminent(p: dict, now: float, near_seconds: float) -> bool:
     """True, wenn der Markt OFFEN ist und bald schließt (laufendes Spiel) → schnell
     pollen. Eine langlaufende Position (z. B. Politik-Markt mit closeTime in Monaten)
@@ -328,12 +353,22 @@ def run(args):
     kp = load_keypair()
     owner = str(kp.pubkey())
 
+    no_tp_cats = {c.strip().lower() for c in (args.no_tp_category or "").split(",") if c.strip()}
+    no_tp_logged: set[str] = set()
+
     log.info("=" * 68)
     log.info(f"AUTOPILOT  |  {'DRY-RUN' if args.dry else 'LIVE (verkauft autonom)'}")
     log.info(f"Wallet {owner}")
     log.info(f"Take-Profit: +{args.profit*100:.0f}%  |  Poll: {args.interval}s nah / "
              f"{args.far_interval}s fern / {args.idle_interval}s idle  "
              f"(nah = <{args.near_hours:g}h vor Schluss)  |  kein Stop-Loss")
+    if no_tp_cats:
+        log.info(f"Take-Profit AUS für Kategorie(n): {', '.join(sorted(no_tp_cats))} "
+                 f"— läuft dort bis Settlement, Claim bleibt aktiv "
+                 f"(Befund 14.07.: TP kostet bei Wetter-Lays 6,6pp)")
+    else:
+        log.warning("Take-Profit für ALLE Kategorien aktiv — auch für Wetter-Lays, "
+                    "wo er nachweislich 6,6pp kostet (--no-tp-category leer gesetzt).")
     log.info("=" * 68)
 
     MAX_BACKOFF = 300  # s
@@ -424,6 +459,26 @@ def run(args):
                 if mid not in green_up_logged:
                     log.info(f"{ev_title} [{side}] {mid}: unter Green-up-Verwaltung — Verkauf pausiert.")
                     green_up_logged.add(mid)
+                continue
+
+            # (1.6) Take-Profit für diese Kategorie abgeschaltet -> NICHT verkaufen,
+            #       bis zum Settlement laufen lassen. Claim oben bleibt ausdrücklich
+            #       erlaubt — der holt die Gewinne ab.
+            #
+            #       Belegt am 14.07. (preregs/weather_tp_vs_hold_2026_07_14.md, 138 Lays):
+            #       Bei Wetter-Lays kostet der +10-%-TP 6,6pp gegenüber Halten. Der Grund
+            #       ist strukturell — ein steigender NO-Preis IST das Signal, dass der Lay
+            #       gewinnt, also kann der TP per Konstruktion nur auf GEWINNERN auslösen:
+            #       62 von 62 Auslösungen wären Gewinner geworden (im Schnitt um 14,7pp
+            #       gekappt), NULL Rettungen. Die 47 Verlierer im Sample lief er
+            #       ungeschützt voll. Unsere Edge realisiert sich erst beim Settlement.
+            #       (Der Beijing-33-Lay, den der TP rettete, war 1 von ~64 — Glück.)
+            blocked_cat = tp_blocked_category(p, no_tp_cats)
+            if blocked_cat:
+                if mid not in no_tp_logged:
+                    log.info(f"{ev_title} [{side}] {mid}: Kategorie '{blocked_cat}' — Take-Profit "
+                             f"AUS, läuft bis Settlement (Claim bleibt aktiv).")
+                    no_tp_logged.add(mid)
                 continue
 
             # (2) Markt geschlossen / nicht mehr handelbar -> NICHT verkaufen,
@@ -539,6 +594,12 @@ def main():
     ap = argparse.ArgumentParser(description="Autonomer Take-Profit-Exit (Jupiter Prediction)")
     ap.add_argument("--profit", type=float, default=0.10,
                     help="Take-Profit-Schwelle, jetzt NETTO nach Fee+Slippage (default 0.10 = 10%%)")
+    ap.add_argument("--no-tp-category", default="weather",
+                    help="Kommagetrennte Kategorien/Tags, fuer die KEIN Take-Profit gefahren "
+                         "wird — die Position laeuft bis zum Settlement, der Auto-Claim bleibt "
+                         "aktiv. Default 'weather': dort ist der TP belegt EV-negativ "
+                         "(-6,6pp, preregs/weather_tp_vs_hold_2026_07_14.md). "
+                         "--no-tp-category '' schaltet den Filter ab (alter Zustand).")
     ap.add_argument("--fee-rate", type=float, default=0.07,
                     help="Fee-Schätzrate für Netto-Check: Fee ~ rate*Stück*min(p,1-p) (default 0.07)")
     ap.add_argument("--no-net-check", dest="net_check", action="store_false",
