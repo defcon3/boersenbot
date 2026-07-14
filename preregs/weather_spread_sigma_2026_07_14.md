@@ -117,3 +117,122 @@ werden bestehen (der Effekt ist groß und monoton). **G3 ist offen** — ich hal
 es für gut möglich, dass die Fehler an zerklüfteten Tagen nicht nur breiter,
 sondern auch schief sind (Frontdurchgänge, Regen-Timing), und dass die
 Normal-Annahme dort auch mit korrektem Sigma nicht trägt. In dem Fall gewinnt H0.
+
+---
+
+# ERGEBNIS (gerechnet 2026-07-14, `weather_spread_sigma_fit.py` + `_diag.py`)
+
+**Datenbasis:** 15.371 Stadt-Tage, 28 Städte, 700 d. Split wie registriert:
+IS bis 2025-12-05 (n = 10.046), OOS ab 2025-12-05 (n = 5.325).
+
+## Kurzfassung: H ist gespalten — der Messteil hält, der operative Kern ist FALSIFIZIERT
+
+Sigma hängt tatsächlich stark von der Spanne ab, und `sigma(s)` macht das Modell
+messbar ehrlicher. **Aber der Zweck der Übung — den harten Veto durch korrekte
+Preise zu ersetzen — scheitert.** `sigma(s)` verbreitert die Glocke; der Schaden
+der Zerklüftung sitzt jedoch im **Mittelwert**, nicht in der Breite. Ein
+symmetrisch verbreitertes Sigma um ein µ, das ein Ausreißer verzogen hat,
+schützt nicht.
+
+## G1 (IS): BESTANDEN
+
+Empirisches Sigma über die Spannen-Bins, monoton:
+
+| Spanne | n | Sigma |
+|---|---|---|
+| 0–1,5 ° | 1.748 | 0,934 ° |
+| 1,5–3 ° | 4.304 | 1,109 ° |
+| 3–5 ° | 2.888 | 1,459 ° |
+| > 5 ° | 1.106 | 1,726 ° |
+
+MLE: **`sigma_city(s) = a_city + 0,147 · s`**, Block-Bootstrap-SE 0,007 →
+**t = 21,4** (verlangt: t > 4). a_city: min 0,51 / median 0,71 / max 1,71.
+
+## G2 (OOS): BESTANDEN
+
+Log-Loss der Bucket-Wahrscheinlichkeiten: Status quo **1,6826** → sigma(s)+Normal
+**1,6547** → sigma(s)+empirische z **1,6441**. Das neue Modell ist besser.
+
+## G3 wie vorregistriert: BESTANDEN — aber das Gate war UNTAUGLICH
+
+Alle drei Modelle bestehen, **einschließlich des Status quo** — den wir aus dem
+Beijing-Verlust als fehlkalibriert kennen. Ursache: Das Gate mittelt über die
+gesamte Lay-Zone (P ≤ 10 %) und wird von den vielen Buckets mit P ≈ 0 dominiert
+(mittlere vorhergesagte P nur ~1,3 %). **Das ist ein Design-Fehler dieser Pre-Reg,
+kein Erfolg.** Er wird hier als solcher protokolliert, nicht stillschweigend durch
+ein besseres Gate ersetzt.
+
+**Bin-weise Reliability (EXPLORATIV, nachträglich — kein Gate-Pass):** Erst der
+vorab deklarierte **Sommer-Schnitt** legt den echten Defekt frei:
+
+| Modell | Bin | Regime | vorherg. | realisiert | Faktor |
+|---|---|---|---|---|---|
+| **Status quo** | 2–5 % | **zerklüftet** | 3,38 % | **5,15 %** | **1,52×** |
+| Status quo | 2–5 % | ruhig | 3,31 % | 1,41 % | 0,43× |
+| Status quo | 5–10 % | ruhig | 7,36 % | 4,41 % | 0,60× |
+| sigma(s)+emp. z | 5–10 % | zerklüftet | 7,26 % | 7,38 % | 1,02× |
+| sigma(s)+emp. z | 5–10 % | ruhig | 7,20 % | 6,95 % | 0,97× |
+| sigma(s)+emp. z | 10–20 % | zerklüftet | 14,95 % | 15,00 % | 1,00× |
+
+Der Status quo ist im Sommer **zweifach falsch**: auf zerklüfteten Tagen
+**überkonfident** (1,52× — genau Zone und Regime des Beijing-Trades) und auf
+ruhigen Tagen **viel zu breit** (0,43–0,60×). Das feste Sigma ist eben ein
+Mittelwert. `sigma(s)` + empirische z-Quantile repariert beide Seiten.
+
+## G4 (deskriptiv): das Killer-Ergebnis
+
+Auf die vom Spannen-Veto blockierten Buckets des 16.07. angewandt:
+
+| Bucket | Spanne | sigma heute | sigma(s) | P heute | P mit sigma(s) | BE | EV neu | |
+|---|---|---|---|---|---|---|---|---|
+| Tokyo 33° | 6,2 ° | 1,05 | 1,59 | 5,7 % | 10,7 % | 22,0 % | +11,3 pp | käme durch |
+| Tokyo 32° | 6,2 ° | 1,05 | 1,59 | 0,6 % | 4,0 % | 13,0 % | +9,0 pp | käme durch |
+| Milan 32° | 8,0 ° | 0,73 | 1,91 | 6,2 % | 14,6 % | 22,0 % | +7,4 pp | käme durch |
+| **Beijing 32°** | 5,2 ° | 1,43 | 1,69 | 11,1 % | 12,1 % | 18,0 % | **+5,9 pp** | **käme durch** |
+| Jeddah 36° | 8,2 ° | 1,31 | 1,73 | 3,2 % | 6,2 % | 26,0 % | +19,8 pp | käme durch |
+
+**Alle fünf.** Inklusive Beijing 32° — dem Bucket mit exakt der Signatur des
+Verlierers (JMA roh 38,4 gegen 33,2–34,5 der anderen vier). Hätte man den Veto
+durch `sigma(s)` ersetzt, hätte man genau die Trades wieder geöffnet, die Geld
+gekostet haben.
+
+## Gegencheck (explorativ): Hätte sigma(s) den Beijing-33-Verlust verhindert?
+
+**Nein.** Beijings Spanne war 3,6 °, sein Median liegt bei 2,8 ° — sigma steigt
+dadurch nur von 1,32 auf 1,45. P(33er) geht von 4,5 % auf 5,6 %; bei BE 21 %
+bleibt der Lay in **allen vier** Varianten (volles/robustes ENS × festes/neues
+Sigma) klar +EV. Was den Trade wirklich kippte, war das **µ**: Ausreißer raus
+(−0,6 °) und Sommer- statt Ganzjahres-Bias (−0,9 °) → P 20,3 %.
+
+**Rangfolge der Fehlerquellen beim Verlust-Trade:**
+1. Bias-Vorzeichenwechsel 700d → 40d (0,9 ° in µ)
+2. JMA-Ausreißer im Ensemble-Mittel (0,6 ° in µ)
+3. Sigma (praktisch irrelevant: 1,32 → 1,45)
+
+## Verdikt
+
+**H0 gewinnt — aber aus einem anderen Grund als vermutet.** Die Vorab-Erwartung
+lautete: „die Fehler an zerklüfteten Tagen sind womöglich schief, dann trägt die
+Normal-Annahme auch mit korrektem Sigma nicht." Falsch geraten: Die Fehler sind
+mit `sigma(s)` sogar sehr gut kalibriert (1,00–1,02× in den relevanten Bins). Der
+wahre Grund ist ein anderer: **Die Spanne ist nicht (nur) ein Breiten-Signal,
+sondern vor allem ein Warnsignal für ein korrumpiertes µ.** Kein Sigma der Welt
+repariert einen verzogenen Mittelwert.
+
+## Konsequenzen
+
+1. **Der harte Spannen-Veto BLEIBT.** Er wird *nicht* durch `sigma(s)` ersetzt.
+   Das ist eine bewusste **Abweichung von der in §7 vorregistrierten Aktion** —
+   die war unter der Annahme formuliert, ein bestandenes G3 mache zerklüftete
+   Tage handelbar. G4 zeigt, dass das nicht stimmt. Einer schlecht entworfenen
+   Regel blind in einen Verlust zu folgen wäre absurd; die Abweichung wird hier
+   offen protokolliert statt kaschiert.
+2. **`sigma(s)` ist trotzdem wertvoll — aber für die andere Richtung.** Auf
+   *ruhigen* Sommertagen ist das feste Sigma **1,7–2,3× zu breit**. Der Screen
+   rechnet dort also zu hohe P und **lässt sichere Lays liegen**. Das ist die
+   eigentliche Ausbeute dieser Studie: nicht mehr Risiko zulassen, sondern die
+   ruhige Zone schärfer bepreisen. Einbau steht aus (bewusst nicht im selben
+   Zug geschoben — es lockert die EV-Schranke und gehört separat verifiziert).
+3. **G5 (Forward) bleibt wie registriert:** Ob der Markt Zerklüftung falsch
+   bepreist, ist weiterhin unbeantwortet und braucht `bb_WeatherLadders`-Daten
+   (N ≥ 40 zerklüftete Buckets mit Settlement).
