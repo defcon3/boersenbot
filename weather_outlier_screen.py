@@ -55,6 +55,27 @@ eben nicht nur ein Breiten-Signal, sondern vor allem eines fuer ein korrumpierte
 (ein Ausreisser zieht das Mittel). Kein Sigma repariert einen verzogenen Mittelwert.
 sigma(s) wirkt daher nur INNERHALB der nicht-vetoierten, ruhigen Zone.
 
+Nachtrag 16.07. (Wetterfrosch-Doktrin, nach dem BA-Brett vom 15.07. in mehreren
+Runden vom Betreiber geschaerft): Der Screen ist ein WETTERFROSCH, kein Markt-
+Beobachter. Er bildet aus den Quellen eine eigene, KONSISTENTE Aussage zum
+Endergebnis (korrigiertes Ensemble; ein stabiler eigener Fehler — "immer 1
+drueber oder 1,3" — waere ok, denn er ist kalibrierbar; Konsistenz zaehlt).
+Ausgewaehlt wird allein relativ zu DIESER Aussage: Sicherheit = Abstand zur
+eigenen Prognose, Ranking = P_pess aufsteigend ("lieber weniger Profit als
+Kipp-Risiko", Spatz in der Hand). Der Markt liefert nur noch den PREIS
+(Profitschwelle MIN_YES) — er ist KEIN Auswahlkriterium: wer den Favoriten
+anschaut, hat bereits den Markt und die anderen Teilnehmer im Blick. Deshalb
+entfiel am 16.07. das Beijing-Gate Nr. 4 (MIN_EV — Markt-relativ); die
+markt-blinden Qualitaets-Gates (Spanne, dist, P_max, Doppel-Kalibrierung)
+bleiben, denn sie sichern die Konsistenz der eigenen Aussage. "Setze 3 ist
+setze 3": die 3 sichersten ueber der Profitschwelle — geben die Quellen weniger
+als 3 konsistente Kandidaten her, wird das explizit gemeldet (Betreiber
+entscheidet), nicht still gelockert und nicht still reduziert. Beleg BA 15.07.:
+Der 23er lag 1,6° von der EIGENEN Prognose (21,4°) — das war der Fehler, nicht
+die Fav-Naehe an sich; die P der drei Lays stieg ueber Nacht 14->30 / 2,7->14 /
+0,2->3,2 %, exakt skalierend mit der Naehe zur Prognose. Das EV-Ranking hatte
+genau diesen Bucket nach oben gestellt.
+
 Aufruf:
   python weather_outlier_screen.py                  # Zieltag = morgen (UTC)
   python weather_outlier_screen.py --date 2026-07-10
@@ -110,7 +131,9 @@ MIN_YES = 0.025    # Bucket muss am Markt noch nennenswert gepreist sein (Rendit
 # --- Konsequenzen aus dem Beijing-33-Verlust (14.07.), siehe Modulkopf ---
 MAX_SPREAD = 3.0   # Modellspanne (roh, max-min) in Grad -> darueber kein Kandidat
 OUTLIER_DEG = 2.0  # Modell > X Grad vom Median der UEBRIGEN = Ausreisser, fliegt aus dem Mittel
-MIN_EV = 0.05      # Mindest-EV-Marge (BE - P) auf der pessimistischsten Sicht
+# MIN_EV (Beijing-Gate Nr. 4, 0.05) entfiel am 16.07.: EV ist Markt-relativ und
+# damit kein Auswahlkriterium mehr (Wetterfrosch-Doktrin, s. Nachtrag oben);
+# EV wird weiter angezeigt, entschieden wird markt-blind + Profitschwelle MIN_YES.
 SIGMA_FLOOR = 0.3  # untere Schranke fuer sigma(s); a und b kommen aus der Kalibrier-CSV
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
@@ -231,10 +254,8 @@ def reject_reasons(r):
         why.append(f"dist {r['dist']:.1f}°<{MIN_DIST}")
     if r["p_max"] > MAX_PMODEL:
         why.append(f"P_max {r['p_max']:.0%} ({r['p_max_src']})")
-    if r["ev"] < MIN_EV:
-        why.append(f"EV {r['ev']*100:+.1f}pp<{MIN_EV*100:.0f}pp")
     if r["buyYes"] < MIN_YES:
-        why.append(f"YES {r['buyYes']:.3f} zu duenn")
+        why.append(f"YES {r['buyYes']:.3f} unter Profitschwelle")
     return why
 
 
@@ -409,12 +430,16 @@ def main():
 
     # ---------------- 3) Ranking ----------------
     print("\n" + "=" * 112)
-    print(f"KANDIDATEN-FILTER: dist>={MIN_DIST}°C | Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} "
-          f"(700d UND 40d) | EV>={MIN_EV*100:.0f}pp | buyYes>={MIN_YES:.0%}")
-    print(f"P_pess = hoechstes P ueber alle Sichten (voll/bereinigt x 700d/40d); EV = BE - P_pess")
+    print(f"KANDIDATEN-FILTER (markt-blind bis auf die Profitschwelle): dist>={MIN_DIST}°C | "
+          f"Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} (700d UND 40d) | buyYes>={MIN_YES:.0%}")
+    print(f"P_pess = hoechstes P ueber alle Sichten (voll/bereinigt x 700d/40d); EV = BE - P_pess (nur Anzeige); "
+          f"Ranking: P_pess aufsteigend (Wetterfrosch-Doktrin 16.07. — Abstand zur eigenen Prognose, Fav ignoriert)")
     print("=" * 112)
     cand = [r for r in rows if not reject_reasons(r) and 0 < r["buyNo"] < 1]
-    cand.sort(key=lambda r: r["ev"], reverse=True)
+    # Wetterfrosch-Doktrin 16.07.: sicherste zuerst (P_pess aufsteigend), Tie-Break
+    # groesster Abstand zur eigenen Prognose — beides markt-blind. Die alte
+    # EV-Sortierung stellte genau die Zentrums-Naehe nach oben (BA-23er-Lehre).
+    cand.sort(key=lambda r: (r["p_ens"], -r["dist_sig"]))
 
     hdr = (f"{'Stadt':13} {'Bucket':>15} {'YES':>5} {'NO':>6} {'Rend%':>6} {'BE':>5} "
            f"{'P_pess':>15} {'EV':>8} {'P_max':>11} {'Span':>6} {'dist':>6}  Markt-ID")
@@ -436,8 +461,13 @@ def main():
         print("\nVERWORFEN (Info — genau hier stand am 13.07. der Beijing-33-Verlierer):")
         for r in near[:10]:
             rend = (1 - r["buyNo"]) / r["buyNo"] * 100
+            # BE/P (Spatz-Vorlage 16.07.): wie viel Vielfache des Modell-Risikos der
+            # Markt zahlt — reine Vorlage-Info fuer den Einzelfall-Entscheid des
+            # Betreibers (15.07.: 25er 10x = Spatz, 24er 1,9x = grenzwertig).
+            ratio = r["be"] / r["p_ens"] if r["p_ens"] > 1e-9 else float("inf")
+            ratio_s = f"{ratio:4.1f}x" if ratio < 100 else ">99x"
             print(f"  {r['city']:13} {r['title']:>15} NO {r['buyNo']:.3f} ({rend:5.1f} %) "
-                  f"EV {r['ev']*100:+6.1f}pp -> {', '.join(reject_reasons(r))}")
+                  f"EV {r['ev']*100:+6.1f}pp BE/P {ratio_s} -> {', '.join(reject_reasons(r))}")
 
     # ---------------- 4) Kompakt-Leitern ----------------
     for city in sorted(city_info):
