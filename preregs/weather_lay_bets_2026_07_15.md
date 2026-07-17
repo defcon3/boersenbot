@@ -82,3 +82,27 @@ Verlustfenster hier: Ist-Hoch 34,5–35,49 an LEMD, lokaler Kalendertag 15.07.
 behauptet — bei richtigem Modell kostet er also Rendite. Hier hat er, wie beim
 Beijing-Trade, gegen ein Modell versichert, das sich als schwächer erwies als
 gedacht. Beide Male dieselbe Mechanik, beide Male vor dem Settlement raus.
+
+## Settlement-Nachtrag (17.07., LEMD-Ist 15.07.)
+
+**Ist-Hoch LEMD 15.07.: 36 °C** — WU-Settlement-Reihe (`LEMD:9:ES`) Max 36 °C
+(Peak 16:30–19:30 lokal), METAR (IEM) 36,0 °C → identisch, Madrid bleibt
+settlement-konsistent. Verlustfenster 34,5–35,49 verfehlt → **der Lay hätte
+GEWONNEN** (+1,40 $). Der TP-Verkauf @0,91 realisierte +0,64 $ → **TP kostete
+0,76 $** — konsistent mit der TP-vs-Hold-Rechnung (e1d8d5f2), die zur
+Abschaltung führte (b08788ed).
+
+**Methodik-Befund (der eigentliche Zweck des Nachtrags):**
+1. **Zentrumsstreit: der Markt hat gewonnen.** Markt-Fav 36° = Ist exakt;
+   unser Kalibrier-Zentrum sagte beim Einstieg 37,2 (korr. ENS), am 14.07.
+   noch 36,4. Das Ist lag 1,2° UNTER dem korrigierten ENS des Einstiegs.
+2. **Warm-Bias-Muster gegen Beijing gehalten:** Beijing 14.07. Ist 1,7° unter
+   korr. ENS (alle Modelle zu warm), Madrid 15.07. 1,2° unter korr. ENS —
+   gleiche Richtung. ABER Buenos Aires 16.07. brach das Muster: Ist 24 °C lag
+   ~1,6–1,8° ÜBER den korrigierten Sichten (alle Modelle zu kalt, präfrontale
+   Warmlage). Also kein einseitig systematischer Warm-Bias, sondern **großer
+   µ-Fehler in Übergangslagen, Vorzeichen lagebedingt** — genau das, was
+   Spannen-Veto/dist-Gate abfangen sollen (σ repariert es nicht).
+3. Der Trade selbst (Lay des Fav−1-Buckets) war trotz falschen Zentrums
+   richtig — die Prämie trug den Zentrumsfehler. Lehre unverändert: Lays
+   brauchen Abstand, keine Zentrums-Präzision.
