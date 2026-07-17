@@ -76,6 +76,23 @@ die Fav-Naehe an sich; die P der drei Lays stieg ueber Nacht 14->30 / 2,7->14 /
 0,2->3,2 %, exakt skalierend mit der Naehe zur Prognose. Das EV-Ranking hatte
 genau diesen Bucket nach oben gestellt.
 
+Nachtrag 17.07. (Backlog Prio 0+1, preregs/weather_calib_prio01_2026_07_17.md):
+  1. DEBIAS-VOR-MITTELUNG (build_views): jedes Modell wird erst um seinen eigenen
+     Kalibrier-Bias korrigiert, dann gemittelt — statt rohes Mittel minus
+     ENS-Bias. Behebt die gemessene Inkonsistenz bei Modell-Ausfall (bis +0,98°,
+     Jeddah ohne JMA; UKMO fehlt an ~150/700 Kalibriertagen) und macht die
+     robuste Sicht ehrlich (sie bekam vorher den vollen ENS-Bias).
+  2. sigma(s) auch fuer die EINZELMODELL-Vetos (model_sigma) — die Kalibrier-CSVs
+     tragen a/b seit 17.07. je Quelle, nicht nur fuer ensemble_mean.
+  3. LEAD-AUTOWAHL: bei Zieltag >24h laedt der Screen die Lead-N-Kalibrierfamilie
+     (weather_source_calib_leadN_*) oder bricht mit Anleitung ab (--force-lead1
+     als markierter Notbehelf). Vorher nur eine Warnung — die 17.07.-Lays wurden
+     am 15.07. faktisch mit Lead-24h-P gescreent.
+  4. Shenzhen wird gegen die WU-SETTLEMENT-Reihe kalibriert (--actuals wu,
+     eigene CSV ..._shenzhen_wu.csv): WU speist ZGSZ nicht aus den METAR
+     (4/15 Tage identisch, Diffs ±2°) — die METAR-Kalibrierung mass dort das
+     falsche Ziel, reale Verlust-P war ~3x hoeher als die Screen-P.
+
 Aufruf:
   python weather_outlier_screen.py                  # Zieltag = morgen (UTC)
   python weather_outlier_screen.py --date 2026-07-10
@@ -219,6 +236,59 @@ def load_calib(pattern, exclude=()):
     return calib
 
 
+def model_sigma(cal, city, m, spread):
+    """Sigma einer Quelle (Einzelmodell ODER ensemble_mean) — spannen-konditioniert
+    (sigma(s) = a + b*Spanne), sobald die Kalibrier-CSV a/b fuer diese Zeile fuehrt.
+    Seit 17.07. schreibt weather_source_compare.py a/b fuer ALLE Quellen (Backlog
+    Prio 1): das feste Modell-Sigma war auf ruhigen Tagen zu breit — dieselbe
+    Physik wie beim ENS (Pre-Reg weather_spread_sigma_2026_07_14.md). Aeltere
+    CSVs ohne Modell-a/b fallen automatisch aufs feste Sigma zurueck."""
+    _, sig_fix, a, b = cal[(city, m)]
+    if a is None or b is None:
+        return sig_fix
+    return max(a + b * spread, SIGMA_FLOOR)
+
+
+def build_views(city, raw, calib, calib40, spread, dropped):
+    """Bis zu vier korrigierte Ensemble-Sichten: {voll, robust} x {700d, 40d}.
+
+    DEBIAS-VOR-MITTELUNG (17.07., Backlog Prio 1): jedes Modell wird erst um
+    seinen EIGENEN Kalibrier-Bias korrigiert, DANN wird gemittelt. Vorher wurde
+    das rohe Mittel um den ENS-Bias korrigiert — das bricht, sobald die live
+    verfuegbare Modellmenge nicht die Kalibrier-Menge ist:
+      (a) Modell-Ausfall: UKMO fehlt an ~150/700 Kalibriertagen; der Screen
+          rechnete ab 3 Modellen trotzdem mit der 5er-ENS-Korrektur — gemessene
+          Verschiebung des Mittels bis +0,98° (Jeddah ohne JMA).
+      (b) Ausreisser-Drop: die robuste Sicht bekam den vollen ENS-Bias, obwohl
+          z. B. ein JMA mit Riesen-Bias gerade rausgeflogen war (der Code nannte
+          es selbst 'Naeherung').
+    Bei voller Modellmenge verschiebt der Umbau nur um eine kleine Konstante
+    (der ENS-Bias ist auf der Alle-5-Schnittmenge gemessen, die Modell-Biases
+    je Modell-Tagesmenge) — das Verhalten aendert sich dort kaum.
+
+    Bewusst NICHT geaendert: die Drop-MENGE kommt weiterhin aus robust_mean auf
+    ROHWERTEN (Ausreisser/Spanne signalisieren korrumpiertes mu — Schutz-Gate-
+    Semantik unveraendert, Beijing-Lehre); Modelle OHNE Kalibrier-Zeile fliegen
+    aus dem debiasten Mittel (statt unkorrigiert mitzumitteln); sigma bleibt das
+    ENS-sigma(s) der Familie (auf der robusten Sicht eine Naeherung, wie zuvor).
+
+    Rueckgabe: [(label, mu, sigma), ...] — leer, wenn keine Familie >=3
+    kalibrierte Modelle hat."""
+    views = []
+    for cname, cal in (("700d", calib), ("40d", calib40)):
+        if (city, "ensemble_mean") not in cal:
+            continue
+        deb = {m: raw[m] - cal[(city, m)][0] for m in raw if (city, m) in cal}
+        if len(deb) < 3:
+            continue
+        s = ens_sigma(cal, city, spread)
+        views.append((cname, sum(deb.values()) / len(deb), s))
+        keep = [m for m in deb if m not in dropped]
+        if dropped and keep:
+            views.append((f"{cname}/rob", sum(deb[m] for m in keep) / len(keep), s))
+    return views
+
+
 def ens_sigma(cal, city, spread):
     """Sigma des Ensembles — spannen-konditioniert, wenn die Kalibrierung a und b
     mitbringt, sonst das alte feste Sigma.
@@ -237,10 +307,7 @@ def ens_sigma(cal, city, spread):
     b kommt aus der CSV, nicht aus einer Konstante: Die Steigung ist saisonabhaengig
     (Sommer 0,107 / Winter 0,177 / Ganzjahr 0,140), also muss die 40d-Sommer-Sicht
     ihre eigene benutzen duerfen."""
-    _, sig_fix, a, b = cal[(city, "ensemble_mean")]
-    if a is None or b is None:
-        return sig_fix
-    return max(a + b * spread, SIGMA_FLOOR)
+    return model_sigma(cal, city, "ensemble_mean", spread)
 
 
 def reject_reasons(r):
@@ -262,6 +329,9 @@ def reject_reasons(r):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None, help="Zieltag YYYY-MM-DD (default: morgen UTC)")
+    ap.add_argument("--force-lead1", action="store_true",
+                    help="bei Zieltag >24h trotzdem mit der Lead-24h-Kalibrierung rechnen "
+                         "(nur zur Orientierung — nie darauf setzen, Madrid-Lehre 13.07.)")
     args = ap.parse_args()
     if args.date:
         target = datetime.strptime(args.date, "%Y-%m-%d").date()
@@ -271,22 +341,47 @@ def main():
     title_day = f"{MONTHS[target.month - 1]} {target.day}"
     title_re = re.compile(rf"^Highest temperature in (.+) on {re.escape(title_day)}\?")
 
-    calib = load_calib(CALIB_GLOB, exclude=("_min_", "calib40"))
-    calib40 = load_calib(CALIB40_GLOB, exclude=("_min_",))
-    if not calib:
-        sys.exit(f"Keine Kalibrierung unter {CALIB_GLOB} gefunden (im Repo-Root ausfuehren).")
-    if not calib40:
-        sys.exit(f"Keine 40d-Sommer-Kalibrierung unter {CALIB40_GLOB} gefunden. Erzeugen mit:\n"
-                 f"  python weather_source_compare.py --days 40 "
-                 f"--calib-csv preregs/weather_source_calib40d_YYYY_MM_DD.csv\n"
-                 f"(Seit dem Beijing-33-Verlust vom 14.07. ist die Doppel-Kalibrierung Pflicht, "
-                 f"keine Kopfsache mehr — siehe Modulkopf.)")
-
-    lead_days = (target - datetime.now(timezone.utc).date()).days
-    if lead_days > 1:
-        print(f"\n!! ACHTUNG: Zieltag ist {lead_days} Tage weg — die Kalibrierung hier ist Lead-24h.")
-        print("   Vor dem Setzen mit 'weather_source_compare.py --lead 2' nachrechnen")
-        print("   (Madrid-Lehre 13.07.: 3 von 4 formalen Screen-Passes waren nach Lead-2 -EV).\n")
+    # Lead-Autowahl (17.07., Backlog Prio 1): bei Zieltag >24h laedt der Screen die
+    # passende Lead-N-Kalibrierfamilie (weather_source_calib_leadN_*) statt nur zu
+    # warnen — die 17.07.-Lays wurden am 15.07. noch mit Lead-24h-P gescreent.
+    # Madrid-Lehre 13.07.: 3 von 4 formalen Screen-Passes waren nach Lead-2 -EV.
+    lead_days = max(1, (target - datetime.now(timezone.utc).date()).days)
+    use_lead = 1 if args.force_lead1 else lead_days
+    if use_lead > 1:
+        cg = CALIB_GLOB.replace("weather_source_calib_", f"weather_source_calib_lead{use_lead}_")
+        cg40 = CALIB40_GLOB.replace("weather_source_calib40d_", f"weather_source_calib40d_lead{use_lead}_")
+        # Lead-N-Dateien tragen "_lead" im Namen und sind hier explizit gewollt.
+        calib = load_calib(cg, exclude=("_min_", "calib40"))
+        calib40 = load_calib(cg40, exclude=("_min_",))
+        if not calib or not calib40:
+            sys.exit(f"Zieltag ist {lead_days} Tage weg, aber keine Lead-{use_lead}-Kalibrierung "
+                     f"gefunden ({cg} / {cg40}). Erzeugen mit:\n"
+                     f"  python weather_source_compare.py --days 700 --lead {use_lead} "
+                     f"--calib-csv preregs/weather_source_calib_lead{use_lead}_YYYY_MM_DD.csv\n"
+                     f"  python weather_source_compare.py --days 40 --lead {use_lead} "
+                     f"--calib-csv preregs/weather_source_calib40d_lead{use_lead}_YYYY_MM_DD.csv\n"
+                     f"(Notbehelf --force-lead1: rechnet mit Lead-24h — nur Orientierung, "
+                     f"nie darauf setzen. Madrid-Lehre 13.07.)")
+        print(f"Lead-{use_lead}-Kalibrierung geladen ({len({c for c, _ in calib})} Staedte 700d, "
+              f"{len({c for c, _ in calib40})} Staedte 40d).")
+    else:
+        # "_lead"-Exclude: der Basis-Glob matcht auch weather_source_calib_leadN_* —
+        # die Lead-N-Familien duerfen die Lead-24h-Basis nicht ueberschreiben.
+        calib = load_calib(CALIB_GLOB, exclude=("_min_", "calib40", "_lead"))
+        calib40 = load_calib(CALIB40_GLOB, exclude=("_min_", "_lead"))
+        if not calib:
+            sys.exit(f"Keine Kalibrierung unter {CALIB_GLOB} gefunden (im Repo-Root ausfuehren).")
+        if not calib40:
+            sys.exit(f"Keine 40d-Sommer-Kalibrierung unter {CALIB40_GLOB} gefunden. Erzeugen mit:\n"
+                     f"  python weather_source_compare.py --days 40 "
+                     f"--calib-csv preregs/weather_source_calib40d_YYYY_MM_DD.csv\n"
+                     f"(Seit dem Beijing-33-Verlust vom 14.07. ist die Doppel-Kalibrierung Pflicht, "
+                     f"keine Kopfsache mehr — siehe Modulkopf.)")
+        if lead_days > 1:
+            print(f"\n!! ACHTUNG (--force-lead1): Zieltag ist {lead_days} Tage weg, gerechnet wird "
+                  f"mit der Lead-24h-Kalibrierung.")
+            print("   Nur zur Orientierung — vor dem Setzen die Lead-Familie erzeugen "
+                  "(Madrid-Lehre 13.07.: 3 von 4 formalen Screen-Passes waren nach Lead-2 -EV).\n")
 
     # ---------------- 1) Jupiter: Events des Zieltags ----------------
     print(f"Ziel: 'Highest temperature in ... on {title_day}?' ({target_day})")
@@ -377,23 +472,18 @@ def main():
             print(f"  {city}: nur {len(have)} Modelle -> skip")
             continue
         raw = {m: raw[m] for m in have}
-        ens_raw = sum(raw.values()) / len(raw)
-        ens_raw_rob, dropped = robust_mean(raw)
+        _, dropped = robust_mean(raw)   # Drop-Menge (auf Rohwerten, s. build_views)
         spread = max(raw.values()) - min(raw.values())
         has40 = (city, "ensemble_mean") in calib40
 
-        # Bis zu vier Sichten: {volles Mittel, ausreisser-bereinigt} x {700d, 40d}.
+        # Bis zu vier Sichten: {volles Mittel, ausreisser-bereinigt} x {700d, 40d},
+        # jedes Modell einzeln debiast VOR der Mittelung (17.07., s. build_views).
         # Gewertet wird IMMER die pessimistischste (hoechstes P, kleinster Abstand) —
         # so ist es egal, ob der Ausreisser warm oder kalt war.
-        views = []
-        for cname, cal in (("700d", calib), ("40d", calib40)):
-            if (city, "ensemble_mean") not in cal:
-                continue
-            b = cal[(city, "ensemble_mean")][0]
-            s = ens_sigma(cal, city, spread)   # spannen-konditioniert (ruhige Tage schaerfer)
-            views.append((cname, ens_raw - b, s))
-            if dropped:
-                views.append((f"{cname}/rob", ens_raw_rob - b, s))
+        views = build_views(city, raw, calib, calib40, spread, dropped)
+        if not views:
+            print(f"  {city}: <3 kalibrierte Modelle in jeder Familie -> skip")
+            continue
 
         open_mks = [x for x in mks if x["status"] == "open"]
         fav = max(open_mks, key=lambda x: x["buyYes"]) if open_mks else None
@@ -403,12 +493,15 @@ def main():
         for x in open_mks:
             # P je Einzelmodell ueber BEIDE Kalibrierungen -> die schlechteste zaehlt.
             # (Beijing 32° am 16.07.: ECMWF 9,2 % unter 700d, aber 15,8 % unter 40d.)
+            # Seit 17.07. mit sigma(s) auch fuer Einzelmodelle (model_sigma) —
+            # das feste Sigma war auf ruhigen Tagen zu breit (Backlog Prio 1).
             probs = {}
             for cal in (calib, calib40):
                 for m in raw:
                     if (city, m) not in cal:
                         continue
-                    b, s = cal[(city, m)][:2]   # Einzelmodelle behalten ihr festes Sigma
+                    b = cal[(city, m)][0]
+                    s = model_sigma(cal, city, m, spread)
                     probs[m] = max(probs.get(m, 0.0),
                                    bucket_prob(x["kind"], x["k"], raw[m] - b, s))
             pmax_m = max(probs, key=probs.get) if probs else None
@@ -488,7 +581,8 @@ def main():
                   f"P_pess {p_e*100:5.1f}%  {x['status']}{mark}{inc}")
 
     print(f"\n(Stand {datetime.now(timezone.utc).strftime('%d.%m. %H:%M UTC')}; P aus Normal-Annahme, "
-          f"Doppel-Kalibrierung 700d + 40d, Lead-24h. Bei Zieltag >24h: --lead 2 nachrechnen.)")
+          f"Doppel-Kalibrierung 700d + 40d, Lead-{use_lead * 24}h, Debias-vor-Mittelung, "
+          f"sigma(s) fuer ENS + Einzelmodelle.)")
 
 
 if __name__ == "__main__":

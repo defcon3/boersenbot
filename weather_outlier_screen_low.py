@@ -17,8 +17,10 @@ IMPORTIERT statt kopiert. Der Beijing-33-Verlust
 (preregs/weather_lay_postmortem_2026_07_14_beijing.md) entstand an einer nicht-
 ausreisser-robusten Ensemble-Mittelung, die BEIDE Screens hatten — ein Fix, der
 nur in einer Kopie landet, ist kein Fix. Damit gelten hier automatisch:
-Ausreisser-Bereinigung, Spannen-Veto, Doppel-Kalibrierung (700d + 40d) und die
-EV-Mindestmarge.
+Ausreisser-Bereinigung, Spannen-Veto, Doppel-Kalibrierung (700d + 40d); seit
+16.07. die Wetterfrosch-Doktrin (markt-blind, P_pess-Ranking, MIN_EV entfiel)
+und seit 17.07. Debias-vor-Mittelung + sigma(s) fuer Einzelmodelle + Lead-
+Autowahl (build_views/model_sigma aus dem High-Screen).
 
 Aufruf:
   python weather_outlier_screen_low.py                  # Zieltag = morgen (UTC)
@@ -33,9 +35,9 @@ from datetime import datetime, timedelta, timezone
 import airportsdata
 import requests
 
-from weather_outlier_screen import (MIN_DIST, MAX_PMODEL, MIN_YES, MAX_SPREAD, MIN_EV,
+from weather_outlier_screen import (MIN_DIST, MAX_PMODEL, MIN_YES, MAX_SPREAD,
                                     bucket_prob, dist_deg, robust_mean, load_calib,
-                                    reject_reasons, ens_sigma)
+                                    reject_reasons, ens_sigma, model_sigma, build_views)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -73,6 +75,9 @@ S.headers["User-Agent"] = "Mozilla/5.0"
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None, help="Zieltag YYYY-MM-DD (default: morgen UTC)")
+    ap.add_argument("--force-lead1", action="store_true",
+                    help="bei Zieltag >24h trotzdem mit der Lead-24h-Kalibrierung rechnen "
+                         "(nur zur Orientierung — nie darauf setzen, Madrid-Lehre 13.07.)")
     args = ap.parse_args()
     if args.date:
         target = datetime.strptime(args.date, "%Y-%m-%d").date()
@@ -82,19 +87,35 @@ def main():
     title_day = f"{MONTHS[target.month - 1]} {target.day}"
     title_re = re.compile(rf"^Lowest temperature in (.+) on {re.escape(title_day)}\?")
 
-    calib = load_calib(CALIB_GLOB, exclude=("calib40",))
-    calib40 = load_calib(CALIB40_GLOB)
-    if not calib:
-        sys.exit(f"Keine Kalibrierung unter {CALIB_GLOB} gefunden (im Repo-Root ausfuehren).")
-    if not calib40:
-        sys.exit(f"Keine 40d-Sommer-Kalibrierung unter {CALIB40_GLOB} gefunden. Erzeugen mit:\n"
-                 f"  python weather_source_compare.py --var min --days 40 "
-                 f"--calib-csv preregs/weather_source_calib40d_min_YYYY_MM_DD.csv")
-
-    lead_days = (target - datetime.now(timezone.utc).date()).days
-    if lead_days > 1:
-        print(f"\n!! ACHTUNG: Zieltag ist {lead_days} Tage weg — Kalibrierung hier ist Lead-24h.")
-        print("   Vor dem Setzen mit 'weather_source_compare.py --var min --lead 2' nachrechnen.\n")
+    # Lead-Autowahl analog weather_outlier_screen.py (17.07., Backlog Prio 1).
+    lead_days = max(1, (target - datetime.now(timezone.utc).date()).days)
+    use_lead = 1 if args.force_lead1 else lead_days
+    if use_lead > 1:
+        cg = CALIB_GLOB.replace("weather_source_calib_min_", f"weather_source_calib_min_lead{use_lead}_")
+        cg40 = CALIB40_GLOB.replace("weather_source_calib40d_min_", f"weather_source_calib40d_min_lead{use_lead}_")
+        calib = load_calib(cg, exclude=("calib40",))
+        calib40 = load_calib(cg40)
+        if not calib or not calib40:
+            sys.exit(f"Zieltag ist {lead_days} Tage weg, aber keine Min-Lead-{use_lead}-Kalibrierung "
+                     f"gefunden ({cg} / {cg40}). Erzeugen mit:\n"
+                     f"  python weather_source_compare.py --var min --days 700 --lead {use_lead} "
+                     f"--calib-csv preregs/weather_source_calib_min_lead{use_lead}_YYYY_MM_DD.csv\n"
+                     f"  python weather_source_compare.py --var min --days 40 --lead {use_lead} "
+                     f"--calib-csv preregs/weather_source_calib40d_min_lead{use_lead}_YYYY_MM_DD.csv\n"
+                     f"(Notbehelf --force-lead1: nur Orientierung, nie darauf setzen.)")
+        print(f"Min-Lead-{use_lead}-Kalibrierung geladen.")
+    else:
+        calib = load_calib(CALIB_GLOB, exclude=("calib40", "_lead"))
+        calib40 = load_calib(CALIB40_GLOB, exclude=("_lead",))
+        if not calib:
+            sys.exit(f"Keine Kalibrierung unter {CALIB_GLOB} gefunden (im Repo-Root ausfuehren).")
+        if not calib40:
+            sys.exit(f"Keine 40d-Sommer-Kalibrierung unter {CALIB40_GLOB} gefunden. Erzeugen mit:\n"
+                     f"  python weather_source_compare.py --var min --days 40 "
+                     f"--calib-csv preregs/weather_source_calib40d_min_YYYY_MM_DD.csv")
+        if lead_days > 1:
+            print(f"\n!! ACHTUNG (--force-lead1): Zieltag ist {lead_days} Tage weg, gerechnet wird "
+                  f"mit der Lead-24h-Kalibrierung — nur Orientierung, nie darauf setzen.\n")
 
     print(f"Ziel: 'Lowest temperature in ... on {title_day}?' ({target_day})")
     print("Lade Jupiter-Wetter-Events ...", flush=True)
@@ -183,20 +204,15 @@ def main():
             print(f"  {city}: nur {len(have)} Modelle -> skip")
             continue
         raw = {m: raw[m] for m in have}
-        ens_raw = sum(raw.values()) / len(raw)
-        ens_raw_rob, dropped = robust_mean(raw)
+        _, dropped = robust_mean(raw)   # Drop-Menge (auf Rohwerten, s. build_views)
         spread = max(raw.values()) - min(raw.values())
         has40 = (city, "ensemble_mean") in calib40
 
-        views = []
-        for cname, cal in (("700d", calib), ("40d", calib40)):
-            if (city, "ensemble_mean") not in cal:
-                continue
-            b = cal[(city, "ensemble_mean")][0]
-            s = ens_sigma(cal, city, spread)   # spannen-konditioniert (ruhige Tage schaerfer)
-            views.append((cname, ens_raw - b, s))
-            if dropped:
-                views.append((f"{cname}/rob", ens_raw_rob - b, s))
+        # Debias-vor-Mittelung (17.07.), identische Logik wie im High-Screen.
+        views = build_views(city, raw, calib, calib40, spread, dropped)
+        if not views:
+            print(f"  {city}: <3 kalibrierte Modelle in jeder Familie -> skip")
+            continue
 
         open_mks = [x for x in mks if x["status"] == "open"]
         fav = max(open_mks, key=lambda x: x["buyYes"]) if open_mks else None
@@ -209,7 +225,8 @@ def main():
                 for m in raw:
                     if (city, m) not in cal:
                         continue
-                    b, s = cal[(city, m)][:2]   # Einzelmodelle behalten ihr festes Sigma
+                    b = cal[(city, m)][0]
+                    s = model_sigma(cal, city, m, spread)  # sigma(s) seit 17.07.
                     probs[m] = max(probs.get(m, 0.0),
                                    bucket_prob(x["kind"], x["k"], raw[m] - b, s))
             pmax_m = max(probs, key=probs.get) if probs else None
@@ -230,11 +247,12 @@ def main():
         time.sleep(0.5)
 
     print("\n" + "=" * 112)
-    print(f"KANDIDATEN-FILTER: dist>={MIN_DIST}°C | Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} "
-          f"(700d UND 40d) | EV>={MIN_EV*100:.0f}pp | buyYes>={MIN_YES:.0%}")
+    print(f"KANDIDATEN-FILTER (markt-blind bis auf die Profitschwelle): dist>={MIN_DIST}°C | "
+          f"Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} (700d UND 40d) | buyYes>={MIN_YES:.0%}")
     print("=" * 112)
     cand = [r for r in rows if not reject_reasons(r) and 0 < r["buyNo"] < 1]
-    cand.sort(key=lambda r: r["ev"], reverse=True)
+    # Wetterfrosch-Doktrin 16.07. (wie High-Screen): sicherste zuerst, markt-blind.
+    cand.sort(key=lambda r: (r["p_ens"], -r["dist_sig"]))
 
     hdr = (f"{'Stadt':13} {'Bucket':>15} {'YES':>5} {'NO':>6} {'Rend%':>6} {'BE':>5} "
            f"{'P_pess':>15} {'EV':>8} {'P_max':>11} {'Span':>6} {'dist':>6}  Markt-ID")
@@ -277,7 +295,8 @@ def main():
                   f"P_pess {p_e*100:5.1f}%  {x['status']}{mark}{inc}")
 
     print(f"\n(Stand {datetime.now(timezone.utc).strftime('%d.%m. %H:%M UTC')}; P aus Normal-Annahme, "
-          f"Min-Doppel-Kalibrierung 700d + 40d, Lead-24h. Bei Zieltag >24h: --lead 2 nachrechnen.)")
+          f"Min-Doppel-Kalibrierung 700d + 40d, Lead-{use_lead * 24}h, Debias-vor-Mittelung, "
+          f"sigma(s) fuer ENS + Einzelmodelle.)")
 
 
 if __name__ == "__main__":

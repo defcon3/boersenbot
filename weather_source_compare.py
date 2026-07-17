@@ -37,13 +37,35 @@ temperature"-Maerkte / weather_outlier_screen_low.py). Noetig geworden am
 10.07.2026: die High-Kalibrierung lag auf Shanghai-Minima ~3-4C zu warm
 (Beinahe-Fehltrade "Lowest 24C" -- Ist-Minimum lag exakt im Bucket, waehrend
 die high-basierte Rechnung 0,1 % Risiko behauptete).
+
+--actuals wu misst gegen die WUNDERGROUND-Tagesreihe (ganze °C) statt METAR.
+Noetig geworden am 16./17.07.2026 (Prio 0 des Optimierungs-Backlogs): Polymarket
+settlet auf wunderground.com, und fuer Shenzhen/ZGSZ speist WU die Seite NICHT
+aus den METAR (nur 4/15 Tage identisch, Diffs bis ±2°, sigma_eff ≈ 1,7 statt
+1,0) — die METAR-Kalibrierung misst dort also das falsche Ziel. Fuer die
+anderen 27 Staedte ist WU = gerundetes METAR (Scan 16.07.), dort bleibt METAR
+die feinere (ungerundete) Basis. Beispiel:
+  python weather_source_compare.py --city Shenzhen --days 700 --actuals wu \
+      --fix-b-from preregs/weather_source_calib_2026_07_17.csv \
+      --calib-csv preregs/weather_source_calib_2026_07_17_shenzhen_wu.csv
+
+--fix-b-from CSV: uebernimmt die sigma(s)-Steigung b je Quelle aus einer
+Referenz-CSV und fittet nur noch a je Stadt. Noetig fuer Einzelstadt-Laeufe
+(der b-Fit braucht >=3 Staedte desselben Fensters, b ist fensterweit gemeinsam).
+
+Seit 17.07. schreibt --calib-csv a/b fuer ALLE Quellen (nicht nur ensemble_mean):
+die Screens nutzen sigma(s) seitdem auch fuer die Einzelmodell-Vetos (Backlog
+Prio 1 — festes Modell-Sigma war auf ruhigen Tagen zu breit, dieselbe Physik
+wie beim ENS, Pre-Reg weather_spread_sigma_2026_07_14.md).
 """
 
 import argparse
+import csv as _csv
 import math
 import sys
 import time
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 import airportsdata
 import numpy as np
@@ -80,6 +102,8 @@ ALL_SOURCES = MODELS + ["ensemble_mean"]
 
 PREVRUN = "https://previous-runs-api.open-meteo.com/v1/forecast"
 IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
+WU = "https://api.weather.com/v1/location/{icao}:9:{cc}/observations/historical.json"
+WU_KEY = "e1f10a1e78da46f5b10a1e78da96f525"  # oeffentlicher Web-Key der wunderground.com-Seite
 
 _airports = airportsdata.load("ICAO")
 
@@ -159,6 +183,43 @@ def fetch_actual_daily_extreme(icao, start, end, tz_name, agg):
     return daily_max
 
 
+def fetch_actual_daily_extreme_wu(icao, cc, start, end, tz_name, agg):
+    """Tagesextrem aus der WUNDERGROUND-Reihe (= Polymarket-Settlement-Quelle),
+    Werte sind ganze °C — also exakt die Groesse, auf die der Markt settlet.
+    31-Tage-Chunks (API-Limit), Tagesgrenzen in derselben lokalen Zeitzone wie
+    die Modell-Tagesgrenzen (tz_name von Open-Meteo, IANA -> zoneinfo)."""
+    tz = ZoneInfo(tz_name)
+    daily = {}
+    cur = start
+    while cur <= end:
+        chunk_end = min(cur + timedelta(days=30), end)
+        for attempt in range(4):
+            try:
+                r = requests.get(WU.format(icao=icao, cc=cc), params={
+                    "apiKey": WU_KEY, "units": "m",
+                    "startDate": cur.strftime("%Y%m%d"),
+                    "endDate": chunk_end.strftime("%Y%m%d"),
+                }, timeout=30)
+                if r.status_code == 429:
+                    time.sleep(5 * (attempt + 1))
+                    continue
+                r.raise_for_status()
+                for o in r.json().get("observations") or []:
+                    t, v = o.get("valid_time_gmt"), o.get("temp")
+                    if t is None or v is None:
+                        continue
+                    day = datetime.fromtimestamp(t, tz).strftime("%Y-%m-%d")
+                    daily[day] = agg(daily.get(day, v), v)
+                break
+            except requests.RequestException:
+                if attempt == 3:
+                    raise
+                time.sleep(3 * (attempt + 1))
+        cur = chunk_end + timedelta(days=1)
+        time.sleep(1.0)  # freundlich zur WU-API (~24 Chunks bei 700d)
+    return daily
+
+
 # Sigma ist nicht konstant, sondern haengt von der Tagesspanne der 5 Modelle ab:
 #   sigma_city(s) = a_city + b * s
 # Belegt in preregs/weather_spread_sigma_2026_07_14.md (15.371 Stadt-Tage, 28
@@ -174,9 +235,11 @@ def fetch_actual_daily_extreme(icao, start, end, tz_name, agg):
 SIGMA_FLOOR = 0.3
 
 
-def _fit_sigma_model(pairs_by_city, floor=SIGMA_FLOOR):
+def _fit_sigma_model(pairs_by_city, floor=SIGMA_FLOOR, fix_b=None):
     """MLE fuer sigma = a_city + b*spread (Gauss, zentrierte Residuen).
     b gemeinsam ueber alle Staedte dieses Fensters, a je Stadt.
+    fix_b: b nicht fitten, sondern uebernehmen (Einzelstadt-Laeufe, --fix-b-from)
+    — dann reicht 1 Stadt, sonst braucht der b-Fit >=3.
     Rueckgabe: (b, {city: a})."""
     cities = sorted(pairs_by_city)
     R = {c: np.array([p[0] for p in pairs_by_city[c]]) for c in cities}
@@ -190,6 +253,9 @@ def _fit_sigma_model(pairs_by_city, floor=SIGMA_FLOOR):
             return float(np.sum(np.log(sig) + r ** 2 / (2.0 * sig ** 2)))
         return float(minimize_scalar(nll, bounds=(0.01, 6.0), method="bounded").x)
 
+    if fix_b is not None:
+        return fix_b, {c: a_for(c, fix_b) for c in cities}
+
     def nll_b(b):
         tot = 0.0
         for c in cities:
@@ -201,7 +267,19 @@ def _fit_sigma_model(pairs_by_city, floor=SIGMA_FLOOR):
     return b, {c: a_for(c, b) for c in cities}
 
 
-def analyze_city(city, icao, days, agg, lead=1):
+def load_fix_b(path):
+    """sigma(s)-Steigung b je Quelle aus einer Referenz-Kalibrier-CSV (erste
+    gefuellte b-Zelle je model gewinnt — b ist je Fenster x Quelle konstant)."""
+    out = {}
+    with open(path, encoding="utf-8") as f:
+        for row in _csv.DictReader(f):
+            bv = (row.get("b") or "").strip()
+            if bv and row["model"] not in out:
+                out[row["model"]] = float(bv)
+    return out
+
+
+def analyze_city(city, icao, days, agg, lead=1, actuals="metar"):
     station = _airports.get(icao)
     if not station:
         print(f"{city} ({icao}): Station nicht in airportsdata gefunden -- uebersprungen.")
@@ -212,7 +290,10 @@ def analyze_city(city, icao, days, agg, lead=1):
     start = end - timedelta(days=days)
 
     model_days, tz_name = fetch_model_daily_extreme(icao, lat, lon, start.isoformat(), end.isoformat(), agg, lead=lead)
-    actual_days = fetch_actual_daily_extreme(icao, start, end, tz_name, agg)
+    if actuals == "wu":
+        actual_days = fetch_actual_daily_extreme_wu(icao, station["country"], start, end, tz_name, agg)
+    else:
+        actual_days = fetch_actual_daily_extreme(icao, start, end, tz_name, agg)
 
     # Tagesspanne der 5 Modelle -- nur an Tagen, an denen ALLE fuenf liefern
     # (dieselbe Menge, auf der auch das Ensemble-Mittel gebildet wird).
@@ -258,21 +339,31 @@ def main():
     ap.add_argument("--lead", type=int, default=1, choices=range(1, 8), metavar="N",
                     help="previous_dayN = Lead N*24h (default 1; 2 fuer Maerkte, die >24h "
                          "vor dem Extremum gehandelt werden)")
+    ap.add_argument("--actuals", choices=["metar", "wu"], default="metar",
+                    help="Ist-Quelle: metar (IEM, fein) oder wu (Wunderground-Settlement-"
+                         "Reihe, ganze °C — fuer Staedte, deren WU-Seite nicht aus den "
+                         "METAR gespeist wird, z. B. Shenzhen)")
+    ap.add_argument("--fix-b-from", default=None, metavar="CSV",
+                    help="sigma(s)-Steigung b je Quelle aus dieser Referenz-CSV uebernehmen "
+                         "statt fitten (Pflicht bei <3 Staedten, z. B. Shenzhen-only)")
     args = ap.parse_args()
     agg_fn = {"max": max, "min": min}[args.var]
     print(f"Zielgroesse: Tages{'hoch' if args.var == 'max' else 'tief'} "
-          f"(previous_day{args.lead}, Lead {args.lead * 24}h)")
+          f"(previous_day{args.lead}, Lead {args.lead * 24}h, Ist = {args.actuals.upper()})")
 
     cities = STATIONS if not args.city else {c: STATIONS[c] for c in args.city.split(",") if c in STATIONS}
 
     agg = {m: {"n": 0, "bias_sum": 0.0, "mae_sum": 0.0} for m in ALL_SOURCES}
     calib_rows = []
-    ens_pairs = {}   # city -> [(zentriertes Residuum, Tagesspanne), ...] fuer den sigma(s)-Fit
+    # quelle -> city -> [(zentriertes Residuum, Tagesspanne), ...] fuer die sigma(s)-Fits.
+    # Seit 17.07. fuer ALLE Quellen (Backlog Prio 1): auch die Einzelmodell-Vetos der
+    # Screens rechnen mit sigma(s) statt festem Sigma — dieselbe Physik wie beim ENS.
+    src_pairs = {m: {} for m in ALL_SOURCES}
 
     for city, icao in cities.items():
         print(f"\n=== {city} ({icao}) ===")
         try:
-            res = analyze_city(city, icao, args.days, agg_fn, lead=args.lead)
+            res = analyze_city(city, icao, args.days, agg_fn, lead=args.lead, actuals=args.actuals)
         except Exception as ex:
             # Netzabbruch bei EINER Stadt darf nicht den ganzen Lauf killen (14.07.:
             # ConnectionReset bei Munich hat eine 28-Staedte-Kalibrierung verworfen).
@@ -291,33 +382,42 @@ def main():
             agg[m]["bias_sum"] += r["bias"] * r["n"]
             agg[m]["mae_sum"] += r["mae"] * r["n"]
             calib_rows.append((city, m, r["n"], r["bias"], r["sigma"]))
-        ens_pairs[city] = res["ensemble_mean"]["pairs"] if "ensemble_mean" in res else []
+            if r.get("pairs"):
+                src_pairs[m][city] = r["pairs"]
         time.sleep(1)  # freundlich zu den freien APIs
 
-    # sigma(s) = a_city + b*s -- b gemeinsam ueber alle Staedte DIESES Fensters
-    # gefittet (saisonabhaengig, siehe Kopf), a je Stadt. Nur fuer das Ensemble:
-    # die Screens benutzen sigma(s) ausschliesslich fuer die ENS-Sicht, die
-    # Einzelmodelle behalten ihr festes Sigma als Veto-Grundlage.
-    usable = {c: p for c, p in ens_pairs.items() if len(p) >= 25}
-    b_slope, a_city = (None, {})
-    if len(usable) >= 3:
-        b_slope, a_city = _fit_sigma_model(usable)
-        print(f"\n=== sigma(s) = a_city + b*Spanne ===")
-        print(f"  b (gemeinsam, aus diesem Fenster gefittet) = {b_slope:+.3f}")
-        print(f"  a_city: min {min(a_city.values()):.2f}  median "
-              f"{sorted(a_city.values())[len(a_city)//2]:.2f}  max {max(a_city.values()):.2f}")
-    else:
-        print("\n  (zu wenige Staedte mit Spannen-Daten -> kein sigma(s); "
-              "Verbraucher fallen auf das feste Sigma zurueck)")
+    # sigma(s) = a_city + b*s je QUELLE -- b gemeinsam ueber alle Staedte DIESES
+    # Fensters gefittet (saisonabhaengig, siehe Kopf), a je Stadt. Bei --fix-b-from
+    # wird b je Quelle aus der Referenz-CSV uebernommen (Einzelstadt-Laeufe).
+    fix_b = load_fix_b(args.fix_b_from) if args.fix_b_from else {}
+    if fix_b:
+        print(f"\nb je Quelle uebernommen aus {args.fix_b_from}: "
+              + ", ".join(f"{MODEL_LABEL.get(m, m).split(' ')[0]} {v:+.4f}" for m, v in sorted(fix_b.items())))
+    sigma_fits = {}   # quelle -> (b, {city: a})
+    print(f"\n=== sigma(s) = a_city + b*Spanne (je Quelle) ===")
+    for src in ALL_SOURCES:
+        usable = {c: p for c, p in src_pairs[src].items() if len(p) >= 25}
+        fb = fix_b.get(src)
+        if not usable or (fb is None and len(usable) < 3):
+            print(f"  {MODEL_LABEL[src]:24} zu wenig Daten -> kein sigma(s) "
+                  f"(Verbraucher nutzen das feste Sigma)")
+            continue
+        b_slope, a_city = _fit_sigma_model(usable, fix_b=fb)
+        sigma_fits[src] = (b_slope, a_city)
+        av = sorted(a_city.values())
+        print(f"  {MODEL_LABEL[src]:24} b={b_slope:+.3f}{' (fix)' if fb is not None else ''}  "
+              f"a: min {av[0]:.2f} / median {av[len(av)//2]:.2f} / max {av[-1]:.2f}")
 
     if args.calib_csv:
         with open(args.calib_csv, "w", encoding="utf-8") as f:
-            # a/b: sigma(s) = a + b*Spanne (nur ensemble_mean). Leer -> Verbraucher
-            # faellt auf die Spalte sigma (fest) zurueck.
+            # a/b: sigma(s) = a + b*Spanne, seit 17.07. je QUELLE (vorher nur
+            # ensemble_mean). Leer -> Verbraucher faellt auf die Spalte sigma
+            # (fest) zurueck — aeltere CSVs bleiben damit gueltig.
             f.write("city,model,n,bias,sigma,a,b\n")
             for city, m, n, bias, sigma in calib_rows:
-                a = a_city.get(city) if m == "ensemble_mean" else None
-                bb = b_slope if a is not None else None
+                fit = sigma_fits.get(m)
+                a = fit[1].get(city) if fit else None
+                bb = fit[0] if (fit and a is not None) else None
                 f.write(f"{city},{m},{n},{bias:.3f},{sigma:.3f},"
                         f"{'' if a is None else format(a, '.3f')},"
                         f"{'' if bb is None else format(bb, '.4f')}\n")

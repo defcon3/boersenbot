@@ -89,6 +89,12 @@ def half_up(x):
 def load_calib():
     calib = {"max": {}, "min": {}}
     for path in sorted(glob.glob(CALIB_GLOB)):
+        # Nur die 700d-Lead-24h-Basis: calib40d-Sommerfenster und _leadN_-Familien
+        # matchen denselben Glob, duerfen die Basis aber nicht ueberschreiben
+        # (bisher schuetzte nur die zufaellige Sortierreihenfolge; seit es
+        # _leadN_-Dateien gibt, wuerden die NACH den Datums-Dateien sortieren).
+        if "calib40" in path or "_lead" in path:
+            continue
         var = "min" if "_min_" in path else "max"
         with open(path, encoding="utf-8") as f:
             for row in csv.DictReader(f):

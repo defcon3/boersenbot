@@ -9,14 +9,18 @@ preregs/weather_lay_postmortem_2026_07_14_beijing.md
 Dieser Test friert die Forecasts ein, die damals live waren (aus dem Previous-Runs-
 Archiv, echter 24h-Lead), und verlangt, dass der Screen sie ABLEHNT. Er ist absichtlich
 kein Unit-Test der Einzelfunktionen, sondern des Urteils: "haetten wir den Trade
-heute noch gemacht?"
+heute noch gemacht?" Die View-Konstruktion kommt seit 17.07. aus build_views
+(Debias-vor-Mittelung) — der Test benutzt sie IMPORTIERT, damit er immer die
+echte Screen-Logik beurteilt, nicht eine Kopie. Zusaetzlich ein Fake-Kalibrier-
+Fall fuer die Debias-Konsistenz bei Modell-Ausfall/Drop (Backlog Prio 1).
 
 Aufruf:  python weather_screen_selftest.py     (Exit 0 = alle Faelle korrekt beurteilt)
 """
 import sys
 
 from weather_outlier_screen import (robust_mean, bucket_prob, dist_deg, reject_reasons,
-                                    ens_sigma, load_calib, CALIB_GLOB, CALIB40_GLOB, SHORT)
+                                    model_sigma, build_views, load_calib,
+                                    CALIB_GLOB, CALIB40_GLOB, SHORT)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -40,27 +44,18 @@ FAELLE = [
 
 def urteil(city, raw_named, k, no_px, yes_px):
     raw = {M[n]: v for n, v in raw_named.items()}
-    calib = load_calib(CALIB_GLOB, exclude=("_min_", "calib40"))
-    calib40 = load_calib(CALIB40_GLOB, exclude=("_min_",))
-    ens = sum(raw.values()) / len(raw)
-    rob, dropped = robust_mean(raw)
+    calib = load_calib(CALIB_GLOB, exclude=("_min_", "calib40", "_lead"))
+    calib40 = load_calib(CALIB40_GLOB, exclude=("_min_", "_lead"))
+    _, dropped = robust_mean(raw)
     spread = max(raw.values()) - min(raw.values())
-
-    views = []
-    for cname, cal in (("700d", calib), ("40d", calib40)):
-        if (city, "ensemble_mean") not in cal:
-            continue
-        b = cal[(city, "ensemble_mean")][0]
-        s = ens_sigma(cal, city, spread)
-        views.append((cname, ens - b, s))
-        if dropped:
-            views.append((f"{cname}/rob", rob - b, s))
+    views = build_views(city, raw, calib, calib40, spread, dropped)
 
     probs = {}
     for cal in (calib, calib40):
         for m in raw:
             if (city, m) in cal:
-                b, s = cal[(city, m)][:2]
+                b = cal[(city, m)][0]
+                s = model_sigma(cal, city, m, spread)
                 probs[m] = max(probs.get(m, 0.0), bucket_prob("eq", k, raw[m] - b, s))
     pm = max(probs, key=probs.get)
     p_use, p_src, _ = max((bucket_prob("eq", k, mu, s), lbl, s) for lbl, mu, s in views)
@@ -89,8 +84,37 @@ for name, city, raw_named, k, no_px, yes_px, soll in FAELLE:
         print(f"  Gruende: {', '.join(why)}")
     print()
 
+# --- Debias-Konsistenz (17.07., Backlog Prio 1): Fake-Kalibrierung, Wahrheit 30,0 —
+# jedes Modell zeigt exakt seinen eigenen Bias. Das korrigierte Mittel muss in ALLEN
+# Sichten (voll / Modell-Ausfall / Ausreisser-Drop) exakt 30,0 bleiben. Die alte
+# Logik (rohes Mittel − ENS-Bias) lag bei Ausfall/Drop daneben (hier −0,25/−0,25;
+# real gemessen bis +0,98°, Jeddah ohne JMA).
+FAKE = {("Testcity", "ensemble_mean"): (0.25, 1.0, None, None),
+        ("Testcity", "gfs_seamless"): (1.0, 1.0, None, None),
+        ("Testcity", "icon_seamless"): (0.0, 1.0, None, None),
+        ("Testcity", "ukmo_seamless"): (0.5, 1.0, None, None),
+        ("Testcity", "jma_seamless"): (-0.5, 1.0, None, None)}
+RAW_VOLL = {"gfs_seamless": 31.0, "icon_seamless": 30.0, "ukmo_seamless": 30.5,
+            "jma_seamless": 29.5}
+print("=" * 86)
+print("Debias-Konsistenz (Fake-Kalibrierung, Wahrheit 30,0)")
+print("=" * 86)
+for name, raw_t, dropped_t in [
+        ("volle Modellmenge", RAW_VOLL, {}),
+        ("Modell-Ausfall (GFS fehlt)", {m: v for m, v in RAW_VOLL.items() if m != "gfs_seamless"}, {}),
+        ("Ausreisser-Drop (GFS geflaggt)", RAW_VOLL, {"gfs_seamless": 31.0})]:
+    spread_t = max(raw_t.values()) - min(raw_t.values())
+    vs = build_views("Testcity", raw_t, FAKE, {}, spread_t, dropped_t)
+    schlecht = [(lbl, mu) for lbl, mu, _ in vs if abs(mu - 30.0) > 1e-9]
+    ok = vs and not schlecht
+    fehler += not ok
+    zeig = "  ".join(f"{lbl}={mu:.2f}" for lbl, mu, _ in vs) or "(keine Views!)"
+    print(f"  {name:32} {zeig}  ->  {'OK' if ok else 'FEHLGESCHLAGEN !!!'}")
+print()
+
 print("=" * 86)
 if fehler:
     print(f"{fehler} Fall/Faelle NICHT korrekt beurteilt — die Filter greifen nicht mehr!")
     sys.exit(1)
-print("Alle Faelle korrekt beurteilt. Der bekannte Verlierer wird abgelehnt.")
+print("Alle Faelle korrekt beurteilt. Der bekannte Verlierer wird abgelehnt; "
+      "Debias-vor-Mittelung ist ausfall-konsistent.")
