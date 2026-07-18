@@ -60,7 +60,11 @@ kosten, nie freischalten); Ersetzungs-Fragen separat.
 **Konsequenz bei ROT:** σ(s) bleibt, Logger wird abgeschaltet, Befund
 committet.
 
-**Offen (Betreiber-Entscheid):** Logger auf dem VPS als täglicher
-systemd-Timer, oder manuell/lokal im Rahmen des täglichen Screen-Workflows?
-(Ohne täglichen Lauf reißt die Forward-Reihe — der Wert der Sammlung hängt
-an der Disziplin.)
+**✅ Entschieden 18.07. (Betreiber): VPS-Timer.** `boersenbot_eps_logger.timer`
+(täglich 07:00 UTC, Persistent=true) + oneshot-Service, deployt + verifiziert
+(Probelauf idempotent „0 neue Zeilen" auf dem Tag-1-Bestand; nächster Lauf
+19.07. 07:00 UTC). **Die führende Log-Reihe liegt damit auf dem VPS** —
+lokal NICHT mehr laufen lassen (zwei divergierende Reihen); vor der
+Auswertung `preregs/weather_eps_log.csv` per scp holen und committen.
+Tag 1 (18.07., 12:51Z) wurde als Startbestand auf den VPS kopiert; ab Tag 2
+ist der Lauf-Zeitpunkt konstant 07:00 UTC.

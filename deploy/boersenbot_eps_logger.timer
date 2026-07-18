@@ -1,0 +1,14 @@
+[Unit]
+Description=EPS-Logger taeglich 07:00 UTC (Pre-Reg weather_eps_sigma_prereg_2026_07_18.md)
+
+[Timer]
+# 07:00 UTC = uebliche Screen-Zeit; der KONSTANTE Zeitpunkt haelt die
+# Lead-Struktur der Forward-Reihe vergleichbar (Tag 1 lief einmalig 12:51Z;
+# run_utc steht je Zeile, die Auswertung kann Tag 1 gesondert behandeln).
+# Persistent=true holt verpasste Laeufe nach — der Logger ist idempotent
+# je (run_day, city, model, target_day), Doppellaeufe sind harmlos.
+OnCalendar=*-*-* 07:00:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=EPS-Member-Forward-Logger (Backlog Prio 4: 28 Staedte x 51+40+31 Member, Tagesmax des morgigen lokalen Tages -> preregs/weather_eps_log.csv)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/weather_eps_logger.py
+StandardOutput=append:/home/veit/boersenbot/logs/eps_logger.log
+StandardError=append:/home/veit/boersenbot/logs/eps_logger.log

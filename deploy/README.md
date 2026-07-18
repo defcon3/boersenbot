@@ -23,6 +23,8 @@ den Börsenbot-Webstack. Alle Services laufen als User `veit`, WorkingDir
 | `boersenbot_football_backfill.service` | simple/Loop | Endstände → `bb_FootballMatches` |
 | `boersenbot_tennis_paper.timer` | **Timer** (30 min) | Pre-Match-Snapshot ATP/WTA → `bb_TennisPaperBets` |
 | `boersenbot_tennis_settle.timer` | **Timer** (alle 6h) | Sieger nachtragen (Jupiter-Events fallen nach ~1–2 Tagen raus) |
+| `boersenbot_weather_ladder.timer` | **Timer** (täglich 12:30 UTC) | Jupiter-Preisleitern → `bb_WeatherLadders` + METAR-Settle-Backfill |
+| `boersenbot_eps_logger.timer` | **Timer** (täglich 07:00 UTC) | EPS-Member-Tagesmaxima (28 Städte × 122 Member) → `preregs/weather_eps_log.csv`; **führende Reihe liegt auf dem VPS** — vor der Auswertung per scp holen + committen (Pre-Reg `preregs/weather_eps_sigma_prereg_2026_07_18.md`) |
 
 **Tennis-Timer aktivieren** (oneshot-Service + Timer, beide hochladen):
 ```bash
