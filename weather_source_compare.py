@@ -53,6 +53,15 @@ die feinere (ungerundete) Basis. Beispiel:
 Referenz-CSV und fittet nur noch a je Stadt. Noetig fuer Einzelstadt-Laeufe
 (der b-Fit braucht >=3 Staedte desselben Fensters, b ist fensterweit gemeinsam).
 
+--dump-residuals CSV[.gz] + --models ext (18.07.2026, Backlog Prio 2/3/5):
+schreibt die (Forecast, Ist)-Paare je Stadt x Modell x Tag raus, statt sie zu
+bias/sigma zu verdichten — Datenbasis fuer Saison-Harmonik (Prio 2) und
+Gewichtungs-Fits (Prio 5); ext nimmt GEM/MeteoFrance/CMA in den Lauf (Prio 3).
+Gates dazu VOR der Auswertung fixiert: preregs/weather_calib_prio235_prereg_
+2026_07_18.md. Beispiel (beruehrt keine Live-Kalibrier-CSVs):
+  python weather_source_compare.py --days 700 --models ext \
+      --dump-residuals preregs/weather_residuals_lead1_2026_07_18.csv.gz
+
 Seit 17.07. schreibt --calib-csv a/b fuer ALLE Quellen (nicht nur ensemble_mean):
 die Screens nutzen sigma(s) seitdem auch fuer die Einzelmodell-Vetos (Backlog
 Prio 1 — festes Modell-Sigma war auf ruhigen Tagen zu breit, dieselbe Physik
@@ -61,6 +70,7 @@ wie beim ENS, Pre-Reg weather_spread_sigma_2026_07_14.md).
 
 import argparse
 import csv as _csv
+import gzip
 import math
 import sys
 import time
@@ -93,10 +103,17 @@ STATIONS = {
 }
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]
+# Backlog Prio 3 (18.07.): die Previous-Runs-API liefert previous_dayN auch fuer
+# diese drei (API-Ping 16.07.; kma_seamless dagegen leer). Aktiv nur mit
+# --models ext — Live-Kalibrierung und Screens bleiben bis zum Mess-Befund
+# (preregs/weather_calib_prio235_prereg_2026_07_18.md) auf den 5 Basismodellen.
+EXT_MODELS = ["gem_seamless", "meteofrance_seamless", "cma_grapes_global"]
 MODEL_LABEL = {
     "gfs_seamless": "GFS (NOAA)", "icon_seamless": "ICON (DWD)",
     "ukmo_seamless": "UKMO (UK Met Office)", "jma_seamless": "JMA (Japan)",
     "ecmwf_ifs025": "ECMWF", "ensemble_mean": "Ensemble-Mittel (5 Modelle)",
+    "gem_seamless": "GEM (Kanada)", "meteofrance_seamless": "MeteoFrance",
+    "cma_grapes_global": "CMA (China)",
 }
 ALL_SOURCES = MODELS + ["ensemble_mean"]
 
@@ -125,7 +142,7 @@ def fetch_model_daily_extreme(icao, lat, lon, start, end, agg, retries=4, lead=1
             "hourly": f"temperature_2m_previous_day{lead}",
             "models": ",".join(MODELS),
             "timezone": "auto",
-        }, timeout=30)
+        }, timeout=60)  # 60 statt 30: mit --models ext ~134k Zellen/Antwort
         r.raise_for_status()
         j = r.json()
         hourly = j.get("hourly", {})
@@ -279,7 +296,7 @@ def load_fix_b(path):
     return out
 
 
-def analyze_city(city, icao, days, agg, lead=1, actuals="metar"):
+def analyze_city(city, icao, days, agg, lead=1, actuals="metar", collect=None):
     station = _airports.get(icao)
     if not station:
         print(f"{city} ({icao}): Station nicht in airportsdata gefunden -- uebersprungen.")
@@ -302,6 +319,17 @@ def analyze_city(city, icao, days, agg, lead=1, actuals="metar"):
         vals = [model_days[m][day] for m in MODELS if day in model_days.get(m, {})]
         if len(vals) == len(MODELS):
             spread_by_day[day] = max(vals) - min(vals)
+
+    # Residuen-Zeitreihen (Backlog Prio 2/5, 18.07.): die Verdichtung zu
+    # bias/sigma warf die (Forecast, Ist)-Paare bisher weg — Saison-Harmonik
+    # und Gewichtungs-Fits brauchen die Tages-Ebene. Nur Einzelmodelle:
+    # jedes Ensemble laesst sich in der Auswertung daraus rekonstruieren.
+    if collect is not None:
+        for m in MODELS:
+            for day, fc in sorted(model_days.get(m, {}).items()):
+                act = actual_days.get(day)
+                if act is not None:
+                    collect.append((city, m, day, fc, act))
 
     results = {}
     for m in ALL_SOURCES:
@@ -346,7 +374,21 @@ def main():
     ap.add_argument("--fix-b-from", default=None, metavar="CSV",
                     help="sigma(s)-Steigung b je Quelle aus dieser Referenz-CSV uebernehmen "
                          "statt fitten (Pflicht bei <3 Staedten, z. B. Shenzhen-only)")
+    ap.add_argument("--models", choices=["base", "ext"], default="base",
+                    help="base = die 5 Live-Modelle; ext = +GEM/MeteoFrance/CMA "
+                         "(Backlog Prio 3 — nur fuer Mess-Laeufe, die Screens "
+                         "bleiben bis zum Befund auf den 5ern)")
+    ap.add_argument("--dump-residuals", default=None, metavar="CSV[.gz]",
+                    help="Residuen-Zeitreihen (city,model,date,forecast,actual) je Tag "
+                         "schreiben statt sie zu bias/sigma zu verdichten und wegzuwerfen "
+                         "(Basis fuer Saison-Harmonik + Gewichtung, Backlog Prio 2/5). "
+                         "Endung .gz = gzip.")
     args = ap.parse_args()
+    global MODELS, ALL_SOURCES
+    if args.models == "ext":
+        MODELS = MODELS + EXT_MODELS
+        ALL_SOURCES = MODELS + ["ensemble_mean"]
+        MODEL_LABEL["ensemble_mean"] = f"Ensemble-Mittel ({len(MODELS)} Modelle)"
     agg_fn = {"max": max, "min": min}[args.var]
     print(f"Zielgroesse: Tages{'hoch' if args.var == 'max' else 'tief'} "
           f"(previous_day{args.lead}, Lead {args.lead * 24}h, Ist = {args.actuals.upper()})")
@@ -359,11 +401,13 @@ def main():
     # Seit 17.07. fuer ALLE Quellen (Backlog Prio 1): auch die Einzelmodell-Vetos der
     # Screens rechnen mit sigma(s) statt festem Sigma — dieselbe Physik wie beim ENS.
     src_pairs = {m: {} for m in ALL_SOURCES}
+    dump_rows = [] if args.dump_residuals else None
 
     for city, icao in cities.items():
         print(f"\n=== {city} ({icao}) ===")
         try:
-            res = analyze_city(city, icao, args.days, agg_fn, lead=args.lead, actuals=args.actuals)
+            res = analyze_city(city, icao, args.days, agg_fn, lead=args.lead,
+                               actuals=args.actuals, collect=dump_rows)
         except Exception as ex:
             # Netzabbruch bei EINER Stadt darf nicht den ganzen Lauf killen (14.07.:
             # ConnectionReset bei Munich hat eine 28-Staedte-Kalibrierung verworfen).
@@ -385,6 +429,14 @@ def main():
             if r.get("pairs"):
                 src_pairs[m][city] = r["pairs"]
         time.sleep(1)  # freundlich zu den freien APIs
+
+    if dump_rows is not None:
+        opener = gzip.open if args.dump_residuals.endswith(".gz") else open
+        with opener(args.dump_residuals, "wt", encoding="utf-8") as f:
+            f.write("city,model,date,forecast,actual\n")
+            for c, m, d, fc, act in dump_rows:
+                f.write(f"{c},{m},{d},{fc:.2f},{act:.2f}\n")
+        print(f"\nResiduen-Dump geschrieben: {args.dump_residuals} ({len(dump_rows)} Zeilen)")
 
     # sigma(s) = a_city + b*s je QUELLE -- b gemeinsam ueber alle Staedte DIESES
     # Fensters gefittet (saisonabhaengig, siehe Kopf), a je Stadt. Bei --fix-b-from
