@@ -45,8 +45,13 @@ from pathlib import Path
 
 import requests
 
+from datetime import date
+
 from jupiter_sell import load_keypair, sell_position, claim_position, API
 import green_up_state
+# Wetter-Anreicherung der Settlement-Mails (Ist-Wert laut WU = Settlement-Quelle);
+# STATIONS/TITLE_RE/wu_extreme aus dem Ladder-Logger = identische Definitionen.
+from weather_ladder_logger import STATIONS, TITLE_RE, title_target_date, wu_extreme
 
 # Mail-Benachrichtigung (GMX, hardcoded wie im Projekt üblich)
 MAIL_HOST, MAIL_PORT = "mail.gmx.net", 587
@@ -58,6 +63,11 @@ MAIL_PASS = "Extaler00!"
 # Mehrere RPCs (wie jupiter_sell.RPCS): publicnode hängt gelegentlich komplett.
 HOT_WALLET = "4XxStoKPzoiEJ6hUGEESfE54dCRo97LcCGk2UFieKjSi"
 RPC_URLS = ["https://solana-rpc.publicnode.com", "https://api.mainnet-beta.solana.com"]
+
+# v2-History (fuer die Verlust-Erkennung — verlorene Maerkte werden nie claimable)
+PM_API = "https://prediction-market-api.jup.ag/api"
+LOST_WATERMARK_FILE = Path("autopilot_lost_watermark.txt")
+LOST_SCAN_INTERVAL = 600  # s
 JUPUSD_MINT = "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD"
 USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
 
@@ -276,6 +286,9 @@ def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
     event_html = (f'<div style="font-size:12px;color:#888;margin-bottom:6px;">{ev_line}</div>'
                   if ev_line else "")
     link = f"https://solscan.io/tx/{sig}" if sig else "#"
+    wline = weather_actual_line(ev_title, title)
+    weather_html = (f'<div style="margin-top:10px;padding:10px;background:#e3f2fd;'
+                    f'border-radius:8px;font-size:13px;">🌡️ {wline}</div>' if wline else "")
     html = f"""\
 <div style="font-family:Segoe UI,Arial,sans-serif;max-width:480px;margin:auto;border-radius:12px;overflow:hidden;border:1px solid #eee;">
   <div style="background:linear-gradient(135deg,#2e7d32,#43a047);padding:20px;text-align:center;color:#fff;">
@@ -283,7 +296,8 @@ def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
     <div style="font-size:14px;opacity:.9;">{label} &middot; {side}</div>
   </div>
   <div style="padding:20px;background:#fff;color:#333;font-size:15px;line-height:1.8;">
-    {event_html}Auszahlung: <span style="font-size:22px;font-weight:800;color:#2e7d32;">+{payout:.2f} USDC</span><br>
+    {event_html}Auszahlung: <span style="font-size:22px;font-weight:800;color:#2e7d32;">+{payout:.2f} USDC</span>
+    {weather_html}<br>
     <div style="margin-top:16px;padding:14px;background:#e8f5e9;border-radius:8px;text-align:center;font-size:18px;font-weight:800;color:#2e7d32;">
       🎉 Du bist der Geilste überhaupt.</div>
     <div style="margin-top:14px;"><a href="{link}" style="color:#667eea;font-size:12px;">🔗 Transaktion (Solscan)</a></div>
@@ -292,8 +306,110 @@ def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
     text = (f"Gewinn eingeloest: {label} [{side}]\n"
             + (f"Event: {ev_line}\n" if ev_line else "")
             + f"Auszahlung +{payout:.2f} USDC (on-chain bestaetigt)\n"
-            f"Tx: {link}\n\nDu bist der Geilste ueberhaupt.")
+            + (f"{wline}\n" if wline else "")
+            + f"Tx: {link}\n\nDu bist der Geilste ueberhaupt.")
     notify(f"🏆 Jupiter Bot: {label} eingelöst (+{payout:.2f} USDC)", html, text, cash_before)
+
+
+def weather_actual_line(ev_title, own_title):
+    """Fuer Wetter-Maerkte: Ist-Wert laut Wunderground (= Settlement-Quelle) plus
+    Abstand zum eigenen Bucket ('wie viel Luft war noch') — sonst None.
+    Nutzer-Wunsch 19.07.: Settlement-Mails so ausfuehrlich wie moeglich."""
+    try:
+        m = TITLE_RE.match(ev_title or "")
+        if not m:
+            return None
+        var = "max" if m.group(1) == "Highest" else "min"
+        city = m.group(2)
+        icao = STATIONS.get(city)
+        target = title_target_date(m.group(3), m.group(4), date.today())
+        if not (icao and target):
+            return None
+        actual = wu_extreme(icao, var, target)
+        if actual is None:
+            return None
+        line = f"Ist laut Wunderground ({city}, {target:%d.%m.}): {round(actual):.0f} °C"
+        km = re.search(r"(-?\d+)", own_title or "")
+        if km:
+            diff = abs(round(actual) - int(km.group(1)))
+            line += (" — dein Bucket exakt getroffen" if diff == 0
+                     else f" — {diff}° neben deinem Bucket")
+        return line
+    except Exception as e:
+        log.debug(f"weather_actual_line: {e}")
+        return None
+
+
+def notify_lost(ev_title, title, side, stake, closed_ts):
+    """Markt aufgeloest & VERLOREN -> Negativ-Mail (Nutzer-Wunsch 19.07.:
+    auch Verluste melden, nicht nur Claims)."""
+    label = market_label(ev_title, title)
+    ev_line = _event_line(ev_title, label)
+    wline = weather_actual_line(ev_title, title)
+    event_html = (f'<div style="font-size:12px;color:#888;margin-bottom:6px;">{ev_line}</div>'
+                  if ev_line else "")
+    weather_html = (f'<div style="margin-top:10px;padding:10px;background:#fff3e0;'
+                    f'border-radius:8px;font-size:13px;">🌡️ {wline}</div>' if wline else "")
+    when = time.strftime("%d.%m. %H:%M UTC", time.gmtime(closed_ts)) if closed_ts else "?"
+    html = f"""\
+<div style="font-family:Segoe UI,Arial,sans-serif;max-width:480px;margin:auto;border-radius:12px;overflow:hidden;border:1px solid #eee;">
+  <div style="background:linear-gradient(135deg,#b71c1c,#e53935);padding:20px;text-align:center;color:#fff;">
+    <div style="font-size:20px;font-weight:800;">💥 Position verloren</div>
+    <div style="font-size:14px;opacity:.9;">{label} &middot; {side}</div>
+  </div>
+  <div style="padding:20px;background:#fff;color:#333;font-size:15px;line-height:1.8;">
+    {event_html}Einsatz weg: <span style="font-size:22px;font-weight:800;color:#c62828;">−{stake:.2f} USDC</span><br>
+    <span style="font-size:12px;color:#888;">aufgelöst {when}</span>
+    {weather_html}
+  </div>
+</div>"""
+    text = (f"VERLOREN: {label} [{side}]\n"
+            + (f"Event: {ev_line}\n" if ev_line else "")
+            + f"Einsatz weg: -{stake:.2f} USDC, aufgeloest {when}\n"
+            + (f"{wline}\n" if wline else ""))
+    notify(f"💥 Jupiter Bot: {label} verloren (−{stake:.2f} USDC)", html, text)
+
+
+def check_lost_positions(owner):
+    """History-Scan: neue status='lost'-Eintraege -> einmalige Negativ-Mail.
+    Watermark (Unix-s, Datei) ueberlebt Neustarts; Erst-Start mailt nichts nach."""
+    try:
+        wm = float(LOST_WATERMARK_FILE.read_text().strip())
+    except Exception:
+        LOST_WATERMARK_FILE.write_text(str(time.time()))
+        log.info("Lost-Scan: Watermark initialisiert (alte Verluste werden nicht nachgemailt).")
+        return
+    try:
+        # end=25: an aktiven Tagen (19.07.: 12 neue Eintraege) rutschen aeltere
+        # Settlements schnell nach hinten — 25 deckt bei 10-min-Scans locker ab.
+        r = requests.get(f"{PM_API}/v2/history",
+                         params={"ownerPubkey": owner, "start": 0, "end": 25}, timeout=12)
+        if r.status_code == 429:
+            return
+        r.raise_for_status()
+        rows = r.json().get("data", [])
+    except Exception as e:
+        log.warning(f"Lost-Scan: History nicht abrufbar ({e})")
+        return
+    new_wm = wm
+    for row in rows:
+        closed = row.get("closedAt") or 0
+        if row.get("status") != "lost" or closed <= wm:
+            continue
+        mm = row.get("marketMetadata") or {}
+        em = row.get("eventMetadata") or {}
+        title = mm.get("title", "?")
+        ev_title = em.get("title", "") or title
+        side = "YES" if row.get("isYes") else "NO"
+        try:
+            stake = abs(int(row.get("realizedPnlUsd") or 0)) / 1e6
+        except (TypeError, ValueError):
+            stake = 0.0
+        log.warning(f"💥 VERLOREN {ev_title} [{side}]: -{stake:.2f} USDC — Negativ-Mail.")
+        notify_lost(ev_title, title, side, stake, closed)
+        new_wm = max(new_wm, closed)
+    if new_wm > wm:
+        LOST_WATERMARK_FILE.write_text(str(new_wm))
 
 
 class RateLimited(Exception):
@@ -383,6 +499,7 @@ def run(args):
     green_up_logged: set[str] = set()
     green_up_markets: set[str] = set()
     last_green_up_refresh = 0.0
+    last_lost_scan = 0.0
     while True:
         polls += 1
         try:
@@ -401,6 +518,14 @@ def run(args):
             log.warning(f"Positions-Abruf fehlgeschlagen ({fails}): {e} — warte {wait:.0f}s")
             time.sleep(wait)
             continue
+
+        # Verlust-Erkennung (Nutzer-Wunsch 19.07.): alle 10 min die History nach
+        # neuen 'lost'-Settlements scannen — verlorene Maerkte werden nie claimable
+        # und wuerden sonst KEINE Mail ausloesen. Läuft bewusst auch bei leerem
+        # Positionsbuch (der letzte Verlust räumt das Buch ja gerade leer).
+        if time.time() - last_lost_scan >= LOST_SCAN_INTERVAL:
+            last_lost_scan = time.time()
+            check_lost_positions(owner)
 
         # Adaptiv: keine offene Position -> langsam pollen (schont Rate-Limit);
         # sobald eine Position läuft -> schnell pollen (Exit nicht verpassen).
