@@ -386,27 +386,35 @@ def main():
     # ---------------- 1) Jupiter: Events des Zieltags ----------------
     print(f"Ziel: 'Highest temperature in ... on {title_day}?' ({target_day})")
     print("Lade Jupiter-Wetter-Events ...", flush=True)
-    events = []
-    for s in range(0, 120, 10):
-        page = None
-        for attempt in range(4):
-            r = S.get(f"{API}/events", params={"category": "weather", "start": s, "end": s + 10}, timeout=30)
-            if r.status_code == 429 or r.status_code >= 500:
-                wait = 6 * (attempt + 1)
-                print(f"  {r.status_code} bei page {s}, warte {wait}s ...", flush=True)
-                time.sleep(wait)
-                continue
-            r.raise_for_status()
-            page = r.json().get("data", [])
-            break
-        if page is None:
-            print(f"  page {s}: aufgegeben (429)")
-            break
-        events += page
-        if len(page) < 10:
-            break
-        time.sleep(1.5)
-    print(f"  {len(events)} Events geladen.")
+    # Jupiter verteilt die Temperatur-Bretter auf ZWEI Kategorien (Fund 19.07.:
+    # London/NYC/Hong Kong liefen unter "climate & science" und fehlten dem
+    # Screen komplett) -> beide laden, Dedupe per eventId.
+    events, seen_ev = [], set()
+    for cat in ("weather", "climate & science"):
+        for s in range(0, 120, 10):
+            page = None
+            for attempt in range(4):
+                r = S.get(f"{API}/events", params={"category": cat, "start": s, "end": s + 10}, timeout=30)
+                if r.status_code == 429 or r.status_code >= 500:
+                    wait = 6 * (attempt + 1)
+                    print(f"  {r.status_code} bei page {s} ({cat}), warte {wait}s ...", flush=True)
+                    time.sleep(wait)
+                    continue
+                r.raise_for_status()
+                page = r.json().get("data", [])
+                break
+            if page is None:
+                print(f"  page {s} ({cat}): aufgegeben (429/5xx)")
+                break
+            for e in page:
+                eid = e.get("eventId")
+                if eid not in seen_ev:
+                    seen_ev.add(eid)
+                    events.append(e)
+            if len(page) < 10:
+                break
+            time.sleep(1.5)
+    print(f"  {len(events)} Events geladen (weather + climate & science).")
 
     targets = {}
     for e in events:
