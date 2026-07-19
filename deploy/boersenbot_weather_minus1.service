@@ -1,0 +1,12 @@
+[Unit]
+Description=Weather -1-Klasse Auto-Lay (3 konservativste, 5 USD/Lay) — Pre-Reg weather_minus1_live_2026_07_20
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/weather_minus1_autobuy.py
+StandardOutput=append:/home/veit/boersenbot/logs/weather_minus1.log
+StandardError=append:/home/veit/boersenbot/logs/weather_minus1.log

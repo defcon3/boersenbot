@@ -107,15 +107,17 @@ def fetch_events():
     for s in range(0, 200, 10):
         page = None
         for attempt in range(4):
+            # 5xx wie 429 retrien: die Events-API wirft transiente 500er
+            # (killte den Timer-Lauf 19.07. 12:30 UTC gleich auf Seite 0)
             r = S.get(f"{API}/events", params={"category": "weather", "start": s, "end": s + 10}, timeout=30)
-            if r.status_code == 429:
+            if r.status_code == 429 or r.status_code >= 500:
                 time.sleep(6 * (attempt + 1))
                 continue
             r.raise_for_status()
             page = r.json().get("data", [])
             break
         if page is None:
-            print(f"  Jupiter page {s}: aufgegeben (429)")
+            print(f"  Jupiter page {s}: aufgegeben (429/5xx)")
             break
         events += page
         if len(page) < 10:

@@ -1,0 +1,14 @@
+[Unit]
+Description=Weather -1-Autobuy taeglich 12:45 UTC (direkt nach dem 12:30-Ladder-Snapshot)
+
+[Timer]
+# 12:45 UTC = direkt nach dem Ladder-Snapshot -> identische Datenbasis wie die
+# Klasse-B-Messung (Vortags-Snapshots 12:30 UTC).
+# BEWUSST KEIN Persistent: ein verpasster Lauf wird NICHT nachgeholt — ein Kauf
+# zu anderer Uhrzeit waere ein anderes Lead als vermessen (Madrid-Lehre 13.07.);
+# das 12:30-14:30-Fenster-Guard im Skript schuetzt zusaetzlich.
+OnCalendar=*-*-* 12:45:00 UTC
+Persistent=false
+
+[Install]
+WantedBy=timers.target

@@ -391,9 +391,9 @@ def main():
         page = None
         for attempt in range(4):
             r = S.get(f"{API}/events", params={"category": "weather", "start": s, "end": s + 10}, timeout=30)
-            if r.status_code == 429:
+            if r.status_code == 429 or r.status_code >= 500:
                 wait = 6 * (attempt + 1)
-                print(f"  429 bei page {s}, warte {wait}s ...", flush=True)
+                print(f"  {r.status_code} bei page {s}, warte {wait}s ...", flush=True)
                 time.sleep(wait)
                 continue
             r.raise_for_status()
