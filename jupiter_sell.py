@@ -103,10 +103,13 @@ def build_close_tx(position_pubkey: str, owner: str) -> tuple[str, dict]:
 def build_claim_tx(position_pubkey: str, owner: str) -> tuple[str, dict]:
     """POST /positions/{pubkey}/claim -> (base64-Tx, txMeta). Baut nur, sendet NICHT.
 
-    Verifiziert 2026-06-23 an echter claimbarer Position (Portugal POLY-1897228):
-    Anders als der Verkauf (DELETE, Jupiter vorsigniert Relayer-Slot 1) erfordert
-    die Claim-Tx NUR die Owner-Signatur (num_required_signatures=1, Owner = Slot 0).
-    Der Owner zahlt das Gas selbst -> Hot-Wallet braucht etwas SOL.
+    FORMATWECHSEL 2026-07-20: Jupiter liefert die Claim-Tx nicht mehr mit einem
+    einzigen Owner-Slot, sondern mit num_required_signatures=2 — Slot 0 ist ein
+    Jupiter-Relayer als Feepayer und kommt UNSIGNIERT. Wir koennen sie deshalb
+    nicht mehr selbst per RPC senden (das ergab „Tx nicht voll signiert: 1/2");
+    nur der Owner-Slot wird lokal gefuellt, den Rest macht POST /execute — genau
+    wie im Kaufpfad (jupiter_buy.py). Der Relayer zahlt jetzt auch das Gas.
+    Alter Stand (bis 2026-06-23, Portugal POLY-1897228): 1 Slot, Owner sendet selbst.
     """
     r = requests.post(
         f"{API}/positions/{position_pubkey}/claim",
@@ -117,6 +120,34 @@ def build_claim_tx(position_pubkey: str, owner: str) -> tuple[str, dict]:
     r.raise_for_status()
     j = r.json()
     return j["transaction"], j.get("txMeta", {})
+
+
+def sign_owner_slot(tx_b64: str, keypair: Keypair) -> str:
+    """Fuellt NUR den Owner-Slot und gibt die Tx base64-kodiert zurueck.
+
+    Gegenstueck zu sign_close_tx: Tx, die Jupiter serverseitig fertigsigniert
+    (Kauf via /orders, Claim seit 2026-07-20), sind hier absichtlich 1/2 —
+    die Vollstaendigkeitspruefung waere hier also falsch. Der Relayer-Slot
+    wird von POST /execute gefuellt.
+    """
+    tx = VersionedTransaction.from_bytes(base64.b64decode(tx_b64))
+    msg = tx.message
+    sigs = list(tx.signatures)
+    my_index = list(msg.account_keys).index(keypair.pubkey())
+    sigs[my_index] = keypair.sign_message(to_bytes_versioned(msg))
+    signed = VersionedTransaction.populate(msg, sigs)
+    if sum(1 for s in signed.signatures if bytes(s) != ZERO64) < 1:
+        raise RuntimeError("Owner-Slot nicht signiert")
+    return base64.b64encode(bytes(signed)).decode()
+
+
+def execute_order(signed_b64: str, owner: str) -> dict:
+    """POST /execute -> Antwort-Dict (status, signature, ...). Jupiter relayed on-chain."""
+    r = requests.post(f"{API}/execute", headers={"Content-Type": "application/json"},
+                      json={"signedTransaction": signed_b64, "ownerPubkey": owner}, timeout=30)
+    if r.status_code >= 400:
+        raise RuntimeError(f"/execute HTTP {r.status_code}: {r.text[:400]}")
+    return r.json()
 
 
 def sign_close_tx(tx_b64: str, keypair: Keypair) -> VersionedTransaction:
@@ -266,11 +297,11 @@ def claim_position(owner: str, position_pubkey: str, keypair: Keypair,
     payout = int(pos.get("payoutUsd", 0)) / 1e6
     log.info(f"Claim {position_pubkey[:10]}…  payout={payout:.4f} USDC")
 
-    # Dry-Run: nur bauen + signieren
+    # Dry-Run: nur bauen + Owner-Slot signieren (Relayer-Slot bleibt bewusst leer)
     if not send:
         tx_b64, meta = build_claim_tx(position_pubkey, owner)
-        sign_close_tx(tx_b64, keypair)  # generisch: füllt unseren Slot, prüft Vollständigkeit
-        log.info(f"Claim-Tx gebaut + signiert (blockhash {meta.get('blockhash','?')[:10]}…). DRY-RUN: nicht gesendet.")
+        sign_owner_slot(tx_b64, keypair)
+        log.info(f"Claim-Tx gebaut + Owner-Slot signiert (blockhash {meta.get('blockhash','?')[:10]}…). DRY-RUN: nicht gesendet.")
         return {"ok": True, "dry": True, "position": pos}
 
     last_err, last_sig = None, None
@@ -285,22 +316,22 @@ def claim_position(owner: str, position_pubkey: str, keypair: Keypair,
             return {"ok": True, "dry": False, "signature": last_sig,
                     "status": "claimed", "position": pos}
 
-        rpc = RPCS[(attempt - 1) % len(RPCS)]
         try:
             tx_b64, meta = build_claim_tx(position_pubkey, owner)  # frischer Blockhash
-            signed = sign_close_tx(tx_b64, keypair)
-            sig = send_tx(signed, rpc=rpc)
+            signed_b64 = sign_owner_slot(tx_b64, keypair)
+            res = execute_order(signed_b64, owner)  # Jupiter relayed, kein eigenes RPC
+            sig = res.get("signature")
             last_sig = sig
-            log.info(f"Claim-Versuch {attempt}/{attempts} via {rpc.split('//')[1].split('/')[0]}: "
-                     f"gesendet {sig}")
-            log.info(f"  Explorer: https://solscan.io/tx/{sig}")
-            ok, status = confirm_tx(sig, rpc=rpc)
-            if ok:
-                log.info(f"✅ Claim bestätigt ({status}).")
+            status = str(res.get("status", ""))
+            log.info(f"Claim-Versuch {attempt}/{attempts} via /execute: status={status} sig={sig}")
+            if sig:
+                log.info(f"  Explorer: https://solscan.io/tx/{sig}")
+            if status.lower() == "success":
+                log.info("✅ Claim bestätigt (execute: Success).")
                 return {"ok": True, "dry": False, "signature": sig,
                         "status": status, "position": pos}
-            last_err = status
-            log.warning(f"Claim-Versuch {attempt} nicht bestätigt: {status}")
+            last_err = f"execute status={status or res}"
+            log.warning(f"Claim-Versuch {attempt} nicht bestätigt: {last_err}")
         except Exception as e:
             last_err = str(e)
             log.warning(f"Claim-Versuch {attempt} Fehler: {e}")

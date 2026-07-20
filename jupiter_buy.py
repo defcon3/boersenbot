@@ -28,7 +28,7 @@ from solders.transaction import VersionedTransaction
 from solders.message import to_bytes_versioned
 
 sys.path.insert(0, ".")
-from jupiter_sell import load_keypair, API  # gleiche Basis + Key-Lader wiederverwenden
+from jupiter_sell import load_keypair, API, sign_owner_slot, execute_order  # gemeinsame Basis
 
 JUPUSD = "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD"
 ZERO64 = bytes(64)
@@ -60,30 +60,6 @@ def build_order(owner, market_id, is_yes, deposit_usd, max_price_usd, skip_signi
         raise RuntimeError(f"build /orders HTTP {r.status_code}: {r.text[:300]}")
     j = r.json()
     return j["transaction"], j.get("txMeta", {}), j
-
-
-def sign_owner_slot(tx_b64, keypair):
-    """Fuellt NUR den Owner-Slot (Slot 0). Relayer-Slot bleibt leer -> /execute fuellt ihn."""
-    tx = VersionedTransaction.from_bytes(base64.b64decode(tx_b64))
-    msg = tx.message
-    keys = list(msg.account_keys)
-    sigs = list(tx.signatures)
-    my_index = keys.index(keypair.pubkey())
-    sigs[my_index] = keypair.sign_message(to_bytes_versioned(msg))
-    signed = VersionedTransaction.populate(msg, sigs)
-    filled = sum(1 for s in signed.signatures if bytes(s) != ZERO64)
-    if filled < 1:
-        raise RuntimeError("Owner-Slot nicht signiert")
-    return base64.b64encode(bytes(signed)).decode()
-
-
-def execute_order(signed_b64, owner):
-    """POST /execute -> Antwort-Dict (status, signature, ...)."""
-    r = requests.post(f"{API}/execute", headers={"Content-Type": "application/json"},
-                      json={"signedTransaction": signed_b64, "ownerPubkey": owner}, timeout=30)
-    if r.status_code >= 400:
-        raise RuntimeError(f"/execute HTTP {r.status_code}: {r.text[:400]}")
-    return r.json()
 
 
 def place(owner, market_id, is_yes, deposit_usd, max_price_usd, keypair, send=False):
