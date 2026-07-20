@@ -1,5 +1,5 @@
 [Unit]
-Description=Weather -1-Klasse Auto-Lay (3 konservativste, 5 USD/Lay) — Pre-Reg weather_minus1_live_2026_07_20
+Description=Weather -1-Klasse Auto-Lay (6 konservativste, 5 USD/Lay) — Pre-Reg weather_minus1_live_2026_07_20
 After=network-online.target
 Wants=network-online.target
 

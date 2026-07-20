@@ -49,7 +49,8 @@ LOG_CSV = Path("preregs/weather_minus1_live_log.csv")
 LOG_FIELDS = ["run_utc", "target_date", "city", "k", "mu_ens", "buy_no_snap",
               "buy_no_live", "decision", "usd", "contracts", "avg_price", "signature"]
 MAX_NO = 0.97           # Mindestrendite ~3 % (Tick-Size der Maerkte: ganze Cents)
-CAP_DEFAULT = 3         # die 3 konservativsten (Nutzer-Entscheid 19.07.)
+CAP_DEFAULT = 6         # die N konservativsten (Nutzer-Entscheid 20.07.: 3 -> 6;
+                        #   Cap-Wechsel gilt ab Zieltag 22.07., Review 27.07. beachten)
 USD_DEFAULT = 5.0       # Jupiter-Minimum
 
 
@@ -112,6 +113,72 @@ def verify_fill(owner, mid, tries=3):
             if p.get("marketId") == mid and str(p.get("contracts", "0")) not in ("0", ""):
                 return p.get("contractsDecimal"), int(p.get("avgPriceUsd", 0)) / 1e6
     return None, None
+
+
+def final_fills(owner, mids):
+    """Fills der gekauften Maerkte final abfragen (marketId -> (contracts, avg, kosten)).
+
+    verify_fill() im Kaufloop wartet nur ~15 s und lief deshalb an drei Tagen in
+    Folge in 'sent_unverified', obwohl alle Kaeufe echt gefuellt waren — Jupiter
+    materialisiert die Position traege. Hier, am Ende des Laufs, sind laengst
+    Minuten vergangen, die Zahlen stimmen also fuer die Mail."""
+    out = {}
+    try:
+        j = get_json(f"{JUP_API}/positions", {"ownerPubkey": owner})
+        for p in j.get("data", []):
+            if p.get("marketId") in mids:
+                out[p["marketId"]] = (float(p.get("contractsDecimal") or 0),
+                                      int(p.get("avgPriceUsd", 0)) / 1e6,
+                                      int(p.get("totalCostUsd", 0)) / 1e6)
+    except Exception as e:
+        print(f"  (Fill-Nachfrage fuer die Mail fehlgeschlagen: {e})")
+    return out
+
+
+def send_summary_mail(run_utc, target, cap, n_cands, bought, failed):
+    """Mail nach dem Lauf: was wurde gesetzt. Fehler brechen den Lauf NICHT ab."""
+    try:
+        from autopilot import notify
+    except Exception as e:
+        print(f"  (Mail-Import fehlgeschlagen: {e})")
+        return
+    if bought:
+        rows = "".join(
+            f'<tr><td style="padding:7px 10px;border-bottom:1px solid #eee;">'
+            f'<b>{c}</b> {k}°C NO</td>'
+            f'<td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right;">'
+            f'{ct:.2f} @ {av:.3f}</td>'
+            f'<td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right;">'
+            f'{ko:.2f} $</td></tr>'
+            for c, k, ct, av, ko in bought)
+        einsatz = sum(b[4] for b in bought)
+        gewinn = sum(b[2] - b[4] for b in bought)
+        rendite = f" (+{gewinn / einsatz * 100:.1f} %)" if einsatz else ""
+        kopf = f"🤖 −1-Autobuy: {len(bought)} Lay{'s' if len(bought) != 1 else ''} gesetzt"
+        body = (f'<table style="width:100%;border-collapse:collapse;font-size:14px;">{rows}</table>'
+                f'<br>Einsatz <b>{einsatz:.2f} $</b> · bei vollem Durchlauf '
+                f'<b>+{gewinn:.2f} $</b>{rendite} · Settlement am {target}.')
+        text = ("".join(f"  {c} {k}°C NO — {ct:.2f} Kontr. @ {av:.3f} = {ko:.2f} $\n"
+                        for c, k, ct, av, ko in bought)
+                + f"\nEinsatz {einsatz:.2f} $ | bei vollem Durchlauf +{gewinn:.2f} $"
+                  f"{rendite} | Settlement am {target}.")
+    else:
+        kopf = "🤖 −1-Autobuy: nichts gesetzt"
+        body = ("Es wurde <b>kein</b> Markt gekauft — kein Kandidat hat die Kriterien "
+                "erfuellt oder alle waren schon im Bestand.")
+        text = "Es wurde KEIN Markt gekauft (kein Kandidat qualifiziert / schon im Bestand)."
+    fehl = (f'<br><br><span style="color:#b71c1c;">Fehlgeschlagen: {", ".join(failed)}</span>'
+            if failed else "")
+    html = (f'<div style="font-family:Segoe UI,Arial;max-width:520px;margin:auto;">'
+            f'<div style="background:#1565c0;color:#fff;padding:18px;text-align:center;'
+            f'border-radius:10px 10px 0 0;font-size:18px;font-weight:800;">{kopf}</div>'
+            f'<div style="padding:18px;background:#fff;color:#333;font-size:15px;line-height:1.6;">'
+            f'Lauf <b>{run_utc} UTC</b> · Zieltag <b>{target}</b> · '
+            f'{n_cands} Kandidaten handelbar, Cap {cap}.<br><br>{body}{fehl}</div></div>')
+    notify(f"{kopf} — Zieltag {target}", html,
+           f"−1-AUTOBUY {run_utc} UTC | Zieltag {target}\n"
+           f"{n_cands} Kandidaten handelbar, Cap {cap}.\n\n{text}"
+           + (f"\nFehlgeschlagen: {', '.join(failed)}" if failed else ""))
 
 
 def append_log(rows):
@@ -193,6 +260,7 @@ def main():
     print(f"{len(tradeable)} handelbar, {len(picks)} werden gesetzt ({picks_txt})")
 
     n_ok = 0
+    gekauft, fehlgeschlagen = [], []   # fuer die Abschluss-Mail
     for no_live, c, base in picks:
         # Tick-Size 1 Cent: Limit = naechster ganzer Cent ueber dem Ask (Fill-Puffer)
         limit = min(round((int(no_live * 100) + 1) / 100, 2), MAX_NO)
@@ -214,7 +282,9 @@ def main():
             continue
         if not result.get("ok"):
             log_rows.append({**base, "decision": "fail_send", "usd": args.usd})
+            fehlgeschlagen.append(f"{c['city']} {c['k']}°C")
             continue
+        gekauft.append(c)
         sig = (result.get("resp") or {}).get("signature", "")
         contracts, avg = verify_fill(owner, c["market_id"])
         decision = "bought" if contracts else "sent_unverified"
@@ -226,6 +296,14 @@ def main():
 
     append_log(log_rows)
     print(f"\nFertig: {n_ok} Kaeufe bestaetigt, {len(log_rows)} Zeilen geloggt -> {LOG_CSV}")
+
+    if not args.dry_run and (gekauft or fehlgeschlagen):
+        fills = final_fills(owner, {c["market_id"] for c in gekauft})
+        bought = []
+        for c in gekauft:
+            ct, av, ko = fills.get(c["market_id"], (0.0, 0.0, args.usd))
+            bought.append((c["city"], c["k"], ct, av, ko))
+        send_summary_mail(run_utc, target, args.cap, len(tradeable), bought, fehlgeschlagen)
     return 0
 
 
