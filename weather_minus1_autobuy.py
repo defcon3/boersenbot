@@ -284,25 +284,35 @@ def main():
             log_rows.append({**base, "decision": "fail_send", "usd": args.usd})
             fehlgeschlagen.append(f"{c['city']} {c['k']}°C")
             continue
-        gekauft.append(c)
         sig = (result.get("resp") or {}).get("signature", "")
         contracts, avg = verify_fill(owner, c["market_id"])
         decision = "bought" if contracts else "sent_unverified"
         n_ok += 1 if contracts else 0
-        log_rows.append({**base, "decision": decision, "usd": args.usd,
-                         "contracts": contracts or "", "avg_price": avg or "",
-                         "signature": sig})
+        row = {**base, "decision": decision, "usd": args.usd,
+               "contracts": contracts or "", "avg_price": avg or "", "signature": sig}
+        log_rows.append(row)
+        gekauft.append((c, row))   # Zeile mitfuehren -> unten mit finalem Fill patchen
         print(f"  -> {decision}: {contracts} Kontr. @ {avg}")
+
+    # Fills final abfragen, BEVOR das CSV geschrieben wird: verify_fill() oben wartet
+    # nur ~15 s und meldet echte Kaeufe faelschlich als 'sent_unverified' mit leeren
+    # Zahlen — die Auswertung filtert aber auf 'bought' und haette sie uebersehen.
+    bought = []
+    if not args.dry_run and gekauft:
+        fills = final_fills(owner, {c["market_id"] for c, _ in gekauft})
+        for c, row in gekauft:
+            ct, av, ko = fills.get(c["market_id"], (0.0, 0.0, args.usd))
+            if ct and row["decision"] == "sent_unverified":
+                row.update(decision="bought", contracts=ct, avg_price=f"{av:.4f}")
+                n_ok += 1
+                print(f"  nachgetragen: {c['city']} {c['k']}° -> bought "
+                      f"{ct} Kontr. @ {av:.4f}")
+            bought.append((c["city"], c["k"], ct, av, ko))
 
     append_log(log_rows)
     print(f"\nFertig: {n_ok} Kaeufe bestaetigt, {len(log_rows)} Zeilen geloggt -> {LOG_CSV}")
 
-    if not args.dry_run and (gekauft or fehlgeschlagen):
-        fills = final_fills(owner, {c["market_id"] for c in gekauft})
-        bought = []
-        for c in gekauft:
-            ct, av, ko = fills.get(c["market_id"], (0.0, 0.0, args.usd))
-            bought.append((c["city"], c["k"], ct, av, ko))
+    if not args.dry_run and (bought or fehlgeschlagen):
         send_summary_mail(run_utc, target, args.cap, len(tradeable), bought, fehlgeschlagen)
     return 0
 
