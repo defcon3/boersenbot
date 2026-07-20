@@ -279,6 +279,31 @@ def notify_claimable(ev_title, title, side, payout, auto):
                   + (f"Event: {ev_line}\n" if ev_line else "") + aktion))
 
 
+def notify_claim_gaveup(ev_title, title, side, payout, tries, reason):
+    """Claim nach --claim-max-fails Zyklen aufgegeben -> Handarbeit nötig.
+
+    Bewusst dringlicher als notify_claimable: hier holt der Bot das Geld NICHT
+    mehr, es bleibt bis zum manuellen Claim liegen."""
+    label = market_label(ev_title, title)
+    ev_line = _event_line(ev_title, label)
+    event_html = f'<span style="font-size:12px;color:#888;">{ev_line}</span><br>' if ev_line else ""
+    html = (f'<div style="font-family:Segoe UI,Arial;max-width:480px;margin:auto;">'
+            f'<div style="background:#b71c1c;color:#fff;padding:18px;text-align:center;'
+            f'border-radius:10px 10px 0 0;font-size:18px;font-weight:800;">⛔ Claim aufgegeben</div>'
+            f'<div style="padding:18px;background:#fff;color:#333;font-size:15px;line-height:1.7;">'
+            f'{label} [{side}]<br>{event_html}'
+            f'Auszahlung: <b>{payout:.2f}</b> USDC — <b>liegt noch bei Jupiter.</b><br><br>'
+            f'Der Bot hat den Claim nach <b>{tries}</b> Zyklen eingestellt und versucht ihn '
+            f'NICHT mehr. Letzter Fehler:<br><code style="font-size:12px;">{reason}</code><br><br>'
+            f'Bitte manuell in Jupiter claimen. Die übrigen Positionen überwacht der Bot normal weiter.'
+            f'</div></div>')
+    notify(f"⛔ Jupiter Bot: Claim {label} aufgegeben ({payout:.2f} USDC offen)",
+           html, (f"CLAIM AUFGEGEBEN: {label} [{side}] — {payout:.2f} USDC liegen noch bei Jupiter.\n"
+                  + (f"Event: {ev_line}\n" if ev_line else "")
+                  + f"Nach {tries} Zyklen eingestellt. Letzter Fehler: {reason}\n"
+                  + "Bitte manuell claimen."))
+
+
 def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
     """Auszahlung erfolgreich eingelöst (on-chain bestätigt)."""
     label = market_label(ev_title, title)
@@ -495,6 +520,8 @@ def run(args):
     notified_fail: set[str] = set()
     notified_claimable: set[str] = set()
     notified_claim_fail: set[str] = set()
+    claim_fails: dict[str, int] = {}   # marketId -> fehlgeschlagene Claim-Zyklen
+    claim_gaveup: set[str] = set()     # Claim aufgegeben (Cap erreicht) -> nicht mehr versuchen
     closed_logged: set[str] = set()
     green_up_logged: set[str] = set()
     green_up_markets: set[str] = set()
@@ -551,7 +578,14 @@ def run(args):
 
             # (1) Markt aufgelöst & GEWONNEN -> Auszahlung autonom einlösen (Claim).
             #     Claim-Endpoint verifiziert 2026-06-23; signierender Call in
-            #     jupiter_sell.claim_position() (nur Owner-Signatur nötig).
+            #     jupiter_sell.claim_position(). Fehlversuche sind GEDECKELT
+            #     (--claim-max-fails): ein dauerhaft kaputter Claim (z. B. der
+            #     Jupiter-Formatwechsel vom 20.07.) hat sonst 7258× retried und
+            #     dabei den ganzen Positions-Loop lahmgelegt, während systemd
+            #     weiter 'active' meldete. Nach dem Cap: Mail + überspringen,
+            #     der Rest der Positionen läuft normal weiter.
+            if p.get("claimable") and mid in claim_gaveup:
+                continue
             if p.get("claimable"):
                 payout = int(p.get("payoutUsd", 0)) / 1e6
                 if args.dry:
@@ -566,14 +600,25 @@ def run(args):
                 res = claim_position(owner, p["pubkey"], kp, send=True)
                 if res.get("ok"):
                     claimed_markets.add(mid)
+                    claim_fails.pop(mid, None)
                     log.info(f"✅ Eingelöst: {ev_title}  sig={res.get('signature')}  status={res.get('status')}")
                     if not res.get("already"):
                         notify_claimed(ev_title, title, side, payout, res.get("signature"), cash_before)
                 else:
-                    log.error(f"❌ Claim fehlgeschlagen für {ev_title}: {res.get('reason')} — Retry nächster Poll.")
-                    if mid not in notified_claim_fail:
-                        notify_claimable(ev_title, title, side, payout, auto=True)
-                        notified_claim_fail.add(mid)
+                    n = claim_fails.get(mid, 0) + 1
+                    claim_fails[mid] = n
+                    if args.claim_max_fails > 0 and n >= args.claim_max_fails:
+                        claim_gaveup.add(mid)
+                        log.error(f"⛔ Claim für {ev_title} nach {n} Zyklen AUFGEGEBEN "
+                                  f"({res.get('reason')}) — bitte manuell claimen. "
+                                  f"Loop läuft für die übrigen Positionen normal weiter.")
+                        notify_claim_gaveup(ev_title, title, side, payout, n, res.get("reason"))
+                    else:
+                        log.error(f"❌ Claim fehlgeschlagen für {ev_title} ({n}/{args.claim_max_fails}): "
+                                  f"{res.get('reason')} — Retry nächster Poll.")
+                        if mid not in notified_claim_fail:
+                            notify_claimable(ev_title, title, side, payout, auto=True)
+                            notified_claim_fail.add(mid)
                 continue
 
             # (1.5) Markt steht unter Green-up-Verwaltung (bb_GreenUpHedges) ->
@@ -738,6 +783,9 @@ def main():
                     help="Poll-Intervall bei offener, aber NICHT bald schließender Position (default 180)")
     ap.add_argument("--near-hours", type=float, default=3.0,
                     help="Markt gilt als 'nah' (schnell pollen), wenn closeTime < near-hours entfernt (default 3)")
+    ap.add_argument("--claim-max-fails", type=int, default=5,
+                    help="Nach so vielen fehlgeschlagenen Claim-Zyklen je Markt aufgeben "
+                         "(Mail + überspringen) statt endlos zu retryen. 0 = unbegrenzt (alt).")
     ap.add_argument("--dry", action="store_true", help="Dry-Run: loggt, verkauft NICHT")
     run(ap.parse_args())
 
