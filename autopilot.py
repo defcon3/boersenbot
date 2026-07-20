@@ -304,8 +304,12 @@ def notify_claim_gaveup(ev_title, title, side, payout, tries, reason):
                   + "Bitte manuell claimen."))
 
 
-def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
-    """Auszahlung erfolgreich eingelöst (on-chain bestätigt)."""
+def notify_claimed(ev_title, title, side, payout, sig, cash_before=None, avg=None):
+    """Auszahlung erfolgreich eingelöst (on-chain bestätigt).
+    avg = Einstandspreis der Position (avgPriceUsd in USDC); daraus ergibt sich
+    der Gewinn in Prozent: jeder Kontrakt zahlt 1 USDC aus, gekostet hat er avg,
+    also Rendite = (1 - avg)/avg."""
+    pct = ((1.0 - avg) / avg * 100.0) if (avg and avg > 0) else None
     label = market_label(ev_title, title)
     ev_line = _event_line(ev_title, label)
     event_html = (f'<div style="font-size:12px;color:#888;margin-bottom:6px;">{ev_line}</div>'
@@ -322,6 +326,7 @@ def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
   </div>
   <div style="padding:20px;background:#fff;color:#333;font-size:15px;line-height:1.8;">
     {event_html}Auszahlung: <span style="font-size:22px;font-weight:800;color:#2e7d32;">+{payout:.2f} USDC</span>
+    {(f'<div style="margin-top:6px;font-size:14px;color:#2e7d32;font-weight:700;">Gewinn: +{pct:.1f}% (Einstand {avg:.3f} USDC/Kontrakt)</div>') if pct is not None else ''}
     {weather_html}<br>
     <div style="margin-top:16px;padding:14px;background:#e8f5e9;border-radius:8px;text-align:center;font-size:18px;font-weight:800;color:#2e7d32;">
       🎉 Du bist der Geilste überhaupt.</div>
@@ -331,6 +336,7 @@ def notify_claimed(ev_title, title, side, payout, sig, cash_before=None):
     text = (f"Gewinn eingeloest: {label} [{side}]\n"
             + (f"Event: {ev_line}\n" if ev_line else "")
             + f"Auszahlung +{payout:.2f} USDC (on-chain bestaetigt)\n"
+            + (f"Gewinn +{pct:.1f}% (Einstand {avg:.3f} USDC/Kontrakt)\n" if pct is not None else "")
             + (f"{wline}\n" if wline else "")
             + f"Tx: {link}\n\nDu bist der Geilste ueberhaupt.")
     notify(f"🏆 Jupiter Bot: {label} eingelöst (+{payout:.2f} USDC)", html, text, cash_before)
@@ -588,6 +594,7 @@ def run(args):
                 continue
             if p.get("claimable"):
                 payout = int(p.get("payoutUsd", 0)) / 1e6
+                avg_in = int(p.get("avgPriceUsd") or 0) / 1e6  # Einstand für Gewinn-%
                 if args.dry:
                     if mid not in notified_claimable:
                         log.warning(f"🏆 CLAIMBAR {ev_title} [{side}] {mid}: payout {payout:.2f} USDC "
@@ -603,7 +610,7 @@ def run(args):
                     claim_fails.pop(mid, None)
                     log.info(f"✅ Eingelöst: {ev_title}  sig={res.get('signature')}  status={res.get('status')}")
                     if not res.get("already"):
-                        notify_claimed(ev_title, title, side, payout, res.get("signature"), cash_before)
+                        notify_claimed(ev_title, title, side, payout, res.get("signature"), cash_before, avg=avg_in)
                 else:
                     n = claim_fails.get(mid, 0) + 1
                     claim_fails[mid] = n
