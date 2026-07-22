@@ -12,8 +12,13 @@ Regel (täglich, VPS-Timer 12:45 UTC, direkt nach dem 12:30-Ladder-Snapshot):
   2. Live-Preis-Recheck je Markt; handelbar wenn open und buyNo <= 0.975
      (Mindestrendite 2,5 %). Märkte mit bestehender Position werden
      übersprungen (Idempotenz + keine Kollision mit manuellen Wetten).
-  3. Auswahl: die 3 KONSERVATIVSTEN (höchster Live-NO-Preis) — Nutzer-Entscheid
-     19.07., bewusste Abweichung vom klassenreinen "alle"-Test.
+  3. Auswahl (konservativste zuerst = höchster Live-NO-Preis): die ersten
+     QUAL_AFTER (=3) bedingungslos, jeder WEITERE bis Cap (=6) nur, wenn
+     Live-NO >= QUAL_MIN (=0,85). Gestuftes Güte-Gate (Nutzer-Entscheid
+     22.07.): der Cap begrenzt die ZAHL, das Gate die GÜTE — ohne es stopfte
+     der reine Cap 6 auch renditegetriebene Grenzfälle rein (22.07. war der
+     6. Pick Cape Town 14° @0,71, Bucket-Chance 29 %). Basis-Entscheid
+     19./20.07.: bewusste Abweichung vom klassenreinen "alle"-Test.
   4. Kauf 5 $ NO je Markt (Jupiter-Minimum), Limit = Live-Ask + 0,005
      (Cap 0.975). Max 2 Sendeversuche, KEIN Nachrücker bei Fehlschlag.
   5. Halten bis Settlement — kein TP (TP-Lehre 14.07.), Claims macht der
@@ -51,6 +56,9 @@ LOG_FIELDS = ["run_utc", "target_date", "city", "k", "mu_ens", "buy_no_snap",
 MAX_NO = 0.97           # Mindestrendite ~3 % (Tick-Size der Maerkte: ganze Cents)
 CAP_DEFAULT = 6         # die N konservativsten (Nutzer-Entscheid 20.07.: 3 -> 6;
                         #   Cap-Wechsel gilt ab Zieltag 22.07., Review 27.07. beachten)
+QUAL_AFTER = 3          # die ersten N Picks bedingungslos (bis Cap) ...
+QUAL_MIN = 0.85         # ... jeder Pick DARUEBER nur, wenn Live-NO >= dieser
+                        #   Schwelle (gestuftes Guete-Gate, Nutzer-Entscheid 22.07.)
 USD_DEFAULT = 5.0       # Jupiter-Minimum
 
 
@@ -205,6 +213,10 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="alles ausser /execute")
     ap.add_argument("--target", help="Zieltag YYYY-MM-DD (Default: morgen UTC)")
     ap.add_argument("--cap", type=int, default=CAP_DEFAULT)
+    ap.add_argument("--qual-after", type=int, default=QUAL_AFTER,
+                    help="die ersten N Picks bedingungslos, danach greift das Guete-Gate")
+    ap.add_argument("--qual-min", type=float, default=QUAL_MIN,
+                    help="Mindest-Live-NO fuer Picks jenseits von --qual-after")
     ap.add_argument("--usd", type=float, default=USD_DEFAULT)
     ap.add_argument("--force-window", action="store_true",
                     help="Zeitfenster-Guard uebergehen (nur fuer Tests)")
@@ -254,10 +266,21 @@ def main():
         time.sleep(0.4)
 
     tradeable.sort(key=lambda x: -x[0])  # konservativste = hoechster NO-Preis
-    picks, rest = tradeable[:args.cap], tradeable[args.cap:]
-    log_rows += [{**b, "decision": "skip_cap"} for _, _, b in rest]
+    # Gestuftes Guete-Gate (Nutzer-Entscheid 22.07.): die ersten --qual-after
+    # Picks bedingungslos (bis Cap), jeder WEITERE nur, wenn er konservativ genug
+    # ist (Live-NO >= --qual-min). Da absteigend sortiert, faellt ab dem ersten
+    # Grenzfall alles Folgende ebenfalls unter die Schwelle -> skip_quality.
+    picks = []
+    for no_live, c, base in tradeable:
+        if len(picks) >= args.cap:
+            log_rows.append({**base, "decision": "skip_cap"})
+        elif len(picks) < args.qual_after or no_live >= args.qual_min:
+            picks.append((no_live, c, base))
+        else:
+            log_rows.append({**base, "decision": "skip_quality"})
     picks_txt = ", ".join(f"{c['city']} {c['k']}° NO@{no:.3f}" for no, c, _ in picks) or "—"
-    print(f"{len(tradeable)} handelbar, {len(picks)} werden gesetzt ({picks_txt})")
+    print(f"{len(tradeable)} handelbar, {len(picks)} werden gesetzt "
+          f"(Gate: erste {args.qual_after} frei, dann NO>={args.qual_min}): {picks_txt}")
 
     n_ok = 0
     gekauft, fehlgeschlagen = [], []   # fuer die Abschluss-Mail
