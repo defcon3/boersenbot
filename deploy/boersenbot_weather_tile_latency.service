@@ -1,0 +1,17 @@
+[Unit]
+Description=Weather Kachel-vs-Tabelle-Latency Logger (WU tile vs history table vs METAR -> Centron bb_WeatherTileLatency)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/weather_tile_latency_logger.py --loop --interval 120
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/weather_tile_latency.log
+StandardError=append:/home/veit/boersenbot/logs/weather_tile_latency.log
+
+[Install]
+WantedBy=multi-user.target
