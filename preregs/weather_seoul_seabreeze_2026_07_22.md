@@ -54,5 +54,28 @@ Nicht die Nachbarn sind der Edge, sondern **RKSIs Windrichtung selbst**:
   Lay der Markt-Favoriten-/oberen Buckets.
 - **G4** Genügend West-Signal-Tage/Monat für Handelbarkeit.
 
-**Status:** Meteorologie bestätigt. Markt-Test = nächster Schritt
-(`weather_seoul_seabreeze_market.py`, WIP). Kein Echtgeld bis Gates grün.
+## Markt-Test — ERGEBNIS: FAIL (G1 nicht erfüllt)
+
+`weather_seoul_seabreeze_market.py` gegen echte Jupiter-Preise in
+`bb_WeatherLatency` (Seoul, Logger-Historie 01.–22.07.2026, N=16 Tage).
+Metrik: Markt-Favorit-Bucket um lokal 14 h − realisierter Settlement-Bucket,
+aufgeteilt nach RKSI-Nachmittags-Windregime.
+
+| Regime | n | mkt−real | Deutung |
+|---|---|---|---|
+| WEST (Seebrise) | 8 | **−0,12** | Markt **nicht** zu heiß |
+| OST (Landluft) | 3 | −1,33 | Markt zu *kalt* (RKSI heizte nach) |
+| N/S | 4 | −0,25 | ~neutral |
+
+**G1 fällt.** Der Deckel ist meteorologisch real, aber der Markt preist ihn
+bereits am frühen Nachmittag ein: in den Daten gilt `fav_1400 ≈ obs_1400` an
+fast allen Tagen — der dünne Markt läuft um 14 h nicht mehr auf Forecast,
+sondern trackt das **live gemessene Stationshoch**. Kein Forecast-vs-Realität-
+Spalt zum Lay-en. Einziger Latenz-Rest: an Ostwind-Tagen kommt das Ist 1–2
+Buckets *über* dem 14-h-Favoriten (RKSI heizt nach) — das ist die *Upside*-
+Richtung, nicht die These, und n=3.
+
+**Fazit:** Kette richtig gedacht (Küstendelle → Windregime → Deckel), aber am
+Ende kein Marktfehler — konsistent mit „Markt scharf". Kapitel geschlossen.
+Kein Echtgeld. Caveat: kleines N (Logger erst seit 01.07.); falls der Wetter-
+Scalp reaktiviert wird, mit >1 Sommer Logger-Historie erneut prüfbar.
