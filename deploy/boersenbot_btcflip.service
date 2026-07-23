@@ -1,0 +1,17 @@
+[Unit]
+Description=BTC Up/Down Digital-Option Logger (Jupiter/Polymarket -> Centron bb_BtcFlip)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/btc_flip_logger.py --loop --interval 15
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/btcflip.log
+StandardError=append:/home/veit/boersenbot/logs/btcflip.log
+
+[Install]
+WantedBy=multi-user.target
