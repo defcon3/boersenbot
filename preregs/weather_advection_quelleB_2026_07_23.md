@@ -82,3 +82,33 @@ Städte. Physik-erwartbar: Sommer-Max einstrahlungsdominiert, Erwärmung synchro
 Damit sind beide Edge-Quellen des Intraday-Nowcast-Scalps tot: Quelle A
 (Ratchet, 6 Städte, 44e6e486/1d6e500c) + Quelle B (Advektion, EU4). **Prio-1-These
 Intraday-Nowcast-Scalp begraben.**
+
+## NACHTRAG G0′ (2026-07-23) — dichter PWS-Ring Madrid, bestes Instrument — FAIL
+
+Nutzer-Beobachtung: um LEMD liegen viele WU-PWS mit großem Temperatur-Spread in
+verschiedenen Richtungen. Idee: die 4-Airport-Sparsity war zu grob; ein dichter,
+feiner (5-min) Ring erlaubt den ECHTEN 2D-Advektionsoperator statt „eine Luv-Station".
+`weather_advection_g0b.py`: 7 PWS (IGETAF33/IMAJAD13/IMADRI651/IALCOB23/IDAGAN15/
+IALGET16/IRIVAS74) via WU-PWS-History-API (Web-Key), ~5-min, LEMD im Ring-Zentrum
+(Peilungen 60–356°, gute Richtungsabdeckung). Jede Station **trailing** entrendet
+(kausal, killt Wärmeinsel+Sensor-Bias = 2D-ΔT), Ebenen-Fit ∇r über den Ring,
+**A′(t) = −V·∇r [°C/h]** mit LEMD-METAR-Wind. Kausaler Prognosetest:
+`T_L(t+τ)−T_L(t) ~ 1 + [T_L(t)−T_L(t−τ)] + A′(t)`, Tag-Jackknife-Cluster-t.
+
+| τ [min] | n | Tage | β(A′) | Jack-t | r(A′,künftig) | r(A′,vergangen) |
+|---|---|---|---|---|---|---|
+| 30 | 412 | 20 | −0.127 | −0.85 | −0.011 | +0.283 |
+| **60** | 412 | 20 | **−0.500** | **−1.47** | **+0.030** | **+0.341** |
+| 90 | 412 | 20 | −0.534 | −0.98 | +0.051 | +0.277 |
+
+**KEIN LEAD, robust über alle Horizonte.** β durchweg negativ (falsches Vorzeichen)
++ insignifikant. **Placebo ist der Killer:** A′ korreliert mit der KÜNFTIGEN
+LEMD-Änderung ≈0 (+0.03), aber mit der VERGANGENEN +0.28..+0.34 — das Signal blickt
+zurück, nicht vor (koinzident-bis-nachlaufend). A′ ist dabei nicht null (±0.5 °C/h,
+Median |A′| 0.17): es gibt echte Advektions-Tendenz, sie **führt LEMD nur nicht**.
+Auf 15–25 km im Sommer ist die Erwärmung regional synchron — bis eine Anomalie im
+Ring-Gradienten sichtbar ist, sitzt sie schon auf LEMD.
+
+**Quelle B jetzt mit dem BESTMÖGLICHEN Instrument endgültig falsifiziert** (dichter
+5-min-Ring, echter −V·∇T-Operator, gute Geometrie, 412 Obs, 3 Horizonte). Kein
+offener Advektions-Faden mehr.
