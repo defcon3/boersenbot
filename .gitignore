@@ -76,3 +76,6 @@ spy_30min_sip_2016_2026.pkl
 tennis_elo_atp.csv
 tennis_elo_wta.csv
 g3_spread_sigma_cache.pkl
+
+# Trade-Tape-Cache (reproduzierbar via weather_mm_spread_test.py)
+.mm_tape_cache/
