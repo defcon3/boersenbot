@@ -70,6 +70,10 @@ STATIONS = {
     "Mexico City": "MMMX", "Buenos Aires": "SAEZ",
     "Sao Paulo": "SBGR", "Taipei": "RCSS", "Tel Aviv": "LLBG",
     "Toronto": "CYYZ", "Wuhan": "ZHHH", "Panama City": "MPMG",
+    # Moskau (25.07.): UUWW Vnukovo. Settlement laeuft hier ueber NOAA
+    # (weather.gov/wrh/timeseries?site=UUWW), nicht ueber Wunderground —
+    # fuer wu_settle_k/settle_k entsprechend mit Vorsicht behandeln.
+    "Moscow": "UUWW",
 }
 
 MONTHS = {m: i + 1 for i, m in enumerate(

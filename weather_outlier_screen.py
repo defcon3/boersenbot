@@ -140,6 +140,10 @@ STATIONS = {
     "Mexico City": "MMMX", "Buenos Aires": "SAEZ",
     "Sao Paulo": "SBGR", "Taipei": "RCSS", "Tel Aviv": "LLBG",
     "Toronto": "CYYZ", "Wuhan": "ZHHH", "Panama City": "MPMG",
+    # Moskau (25.07.): UUWW Vnukovo, laut Polymarket-Beschreibung. ACHTUNG —
+    # dieser Markt settelt ueber NOAA (weather.gov/wrh/timeseries?site=UUWW),
+    # nicht ueber Wunderground wie die uebrigen Staedte.
+    "Moscow": "UUWW",
 }
 
 MIN_DIST = 2.0     # Grad Abstand Bucket <-> korrigierter Ensemble-Forecast

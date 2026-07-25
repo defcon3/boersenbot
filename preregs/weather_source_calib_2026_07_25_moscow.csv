@@ -1,0 +1,7 @@
+city,model,n,bias,sigma,a,b
+Moscow,gfs_seamless,700,-0.636,1.897,,
+Moscow,icon_seamless,700,-0.492,1.313,,
+Moscow,ukmo_seamless,534,-0.738,1.860,,
+Moscow,jma_seamless,700,-0.670,1.719,,
+Moscow,ecmwf_ifs025,700,-0.486,1.461,,
+Moscow,ensemble_mean,534,-0.601,1.322,,

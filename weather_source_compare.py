@@ -100,6 +100,12 @@ STATIONS = {
     "Mexico City": "MMMX", "Buenos Aires": "SAEZ",
     "Sao Paulo": "SBGR", "Taipei": "RCSS", "Tel Aviv": "LLBG",
     "Toronto": "CYYZ", "Wuhan": "ZHHH", "Panama City": "MPMG",
+    # Moskau nachgeruestet 25.07.: die Aufloesungsstation steht in der
+    # Polymarket-Beschreibung ("highest temperature recorded by NOAA at the
+    # Vnukovo International Airport"), Quelle weather.gov/wrh/timeseries?site=UUWW.
+    # Die automatische Erkennung im Screen greift hier nicht, weil sie eine
+    # Wunderground-URL erwartet — dieser Markt settelt ueber NOAA.
+    "Moscow": "UUWW",
 }
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]
