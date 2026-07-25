@@ -114,9 +114,20 @@ def live_market(mid):
 
 
 def verify_fill(owner, mid, tries=3):
+    """Fill-Zwischenstand im Kaufloop — rein kosmetisch, darf NIE werfen.
+
+    Am 25.07. lief /positions nach dem vierten Kauf in ein 429; get_json() gab
+    danach auf und die Exception riss den ganzen Lauf mit, NACHDEM alle vier
+    Kaeufe schon abgesendet waren — also ohne CSV-Zeile und ohne Mail. Die
+    echten Zahlen holt ohnehin final_fills() am Ende des Laufs nach, ein
+    Fehlschlag hier kostet nur die Zwischenausgabe."""
     for _ in range(tries):
         time.sleep(5)
-        j = get_json(f"{JUP_API}/positions", {"ownerPubkey": owner})
+        try:
+            j = get_json(f"{JUP_API}/positions", {"ownerPubkey": owner})
+        except Exception as e:
+            print(f"  (Fill-Zwischencheck fehlgeschlagen, egal: {e})")
+            return None, None
         for p in j.get("data", []):
             if p.get("marketId") == mid and str(p.get("contracts", "0")) not in ("0", ""):
                 return p.get("contractsDecimal"), int(p.get("avgPriceUsd", 0)) / 1e6
