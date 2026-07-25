@@ -238,6 +238,69 @@ def messung_b(m1):
             print(f"      {d}  " + " | ".join(teile))
 
 
+def messung_c(df, m1):
+    """Guete je Stadt: Rest-Bias NACH der 700d-Kalibrierung + Verlustrate.
+
+    mu_ens ist in weather_ladder_logger.forecast_mu bereits bias-korrigiert
+    (ens_raw - bias aus preregs/weather_source_calib_*.csv, 700 Tage). Was hier
+    gemessen wird, ist also der REST, den diese Korrektur nicht erfasst - kein
+    neuer Bias-Edge (der gilt seit 01.07. als widerlegt, der Markt preist den
+    Stationsversatz selbst ein), sondern Qualitaetskontrolle der laufenden
+    Kalibrierung.
+
+    Rundung: settle_k ist ganzzahlig, mu_ens nicht. Der Rundungsschritt steuert
+    rund 0,29 K reines Rauschen zur Streuung bei (gleichverteilt +-0,5 K), auf
+    den Bias wirkt er sich nicht aus. Die Spalte sd* weist die um diesen Anteil
+    bereinigte Streuung aus."""
+    print("\n" + "=" * 78)
+    print("C) GUETE JE STADT  (Rest-Bias nach der 700d-Kalibrierung)")
+    print("=" * 78)
+    d = df.copy()
+    d["err"] = d["settle_k"] - d["mu_ens"]
+
+    verl = {}
+    if not m1.empty:
+        v = m1.copy()
+        v["verlust"] = v["settle_k"] == v["k"]
+        for stadt, grp in v.groupby("city"):
+            verl[stadt] = (int(grp["verlust"].sum()), len(grp))
+
+    zeilen = []
+    for stadt, grp in d.groupby("city"):
+        n = len(grp)
+        if n < 5:
+            continue
+        bias, sd = float(grp["err"].mean()), float(grp["err"].std())
+        t = bias / (sd / np.sqrt(n)) if sd > 0 else 0.0
+        sd_rein = np.sqrt(max(sd ** 2 - 0.29 ** 2, 0.0))
+        vl, vn = verl.get(stadt, (0, 0))
+        zeilen.append((abs(t), stadt, n, bias, sd, sd_rein, t, vl, vn))
+
+    if not zeilen:
+        print("Keine Stadt mit mindestens 5 Zieltagen.")
+        return
+    zeilen.sort(reverse=True)
+    print(f"{len(zeilen)} Staedte mit >= 5 Zieltagen, sortiert nach Auffaelligkeit "
+          f"des Rest-Bias.\n")
+    print(f"   {'Stadt':<15}{'n':>3} {'Bias':>7} {'sd':>6} {'sd*':>6} {'t':>7}   "
+          f"{'-1-Verluste':>12}")
+    print("   " + "-" * 62)
+    for _, stadt, n, bias, sd, sd_rein, t, vl, vn in zeilen:
+        quote = f"{vl}/{vn}" if vn else "-"
+        rate = f" ({vl / vn * 100:3.0f} %)" if vn else ""
+        mark = "  <<" if abs(t) > 4 else ""
+        print(f"   {stadt:<15}{n:>3} {bias:+7.2f} {sd:6.2f} {sd_rein:6.2f} {t:+7.2f}   "
+              f"{quote:>7}{rate}{mark}")
+
+    print(f"\n   Bias = mittlerer Rest (tatsaechliches Max minus korrigierte Prognose), K")
+    print(f"   sd   = Streuung, sd* = ohne den Rundungsanteil von 0,29 K")
+    print(f"   t    = Bias gemessen an seinem eigenen Standardfehler")
+    print(f"\n   Bei {len(zeilen)} gleichzeitig geprueften Staedten und nur 5-13 Tagen je")
+    print(f"   Stadt braucht es grob |t| > 4 ('<<'), damit ein Rest-Bias nicht blosser")
+    print(f"   Zufall ist. Alles darunter ist Rauschen und darf NICHT nachkalibriert")
+    print(f"   werden - das waere Overfitting auf zwei Sommerwochen.")
+
+
 def main():
     cn = pymssql.connect(**DB_CONFIG)
     try:
@@ -249,6 +312,7 @@ def main():
         return 1
     messung_a(df)
     messung_b(m1)
+    messung_c(df, m1)
     print("\n" + "-" * 78)
     print("13 Zieltage, IN-SAMPLE, explorativ. '<<' markiert zwei Verlierer derselben "
           "Region\nam selben Tag - genau das Muster, um das es beim Klumpen geht.")
