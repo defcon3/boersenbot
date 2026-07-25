@@ -12,6 +12,10 @@ Regel (täglich, VPS-Timer 12:45 UTC, direkt nach dem 12:30-Ladder-Snapshot):
   2. Live-Preis-Recheck je Markt; handelbar wenn open und buyNo <= 0.975
      (Mindestrendite 2,5 %). Märkte mit bestehender Position werden
      übersprungen (Idempotenz + keine Kollision mit manuellen Wetten).
+  2b. Spannen-Veto (25.07.): rohe Modellspanne der 5 Modelle > MAX_SPREAD
+     (3 °C) → kein Kauf. Schwelle und Abfrage kommen per Import aus
+     weather_outlier_screen, damit es nur einen Codepfad gibt. Ist die
+     Prognose gar nicht abrufbar, wird ebenfalls nicht gekauft.
   3. Auswahl (konservativste zuerst = höchster Live-NO-Preis): die ersten
      QUAL_AFTER (=3) bedingungslos, jeder WEITERE bis Cap (=6) nur, wenn
      Live-NO >= QUAL_MIN (=0,85). Gestuftes Güte-Gate (Nutzer-Entscheid
@@ -42,6 +46,9 @@ import requests
 from jupiter_buy import place
 from jupiter_sell import API as JUP_API, load_keypair
 from weather_ladder_logger import DB_CONFIG
+# Spannen-Veto aus dem Screen IMPORTIERT, nicht kopiert (Kopier-Lehre aus dem
+# Beijing-33-Verlust 14.07.: ein Fix, der nur in einer Kopie landet, ist keiner).
+from weather_outlier_screen import MAX_SPREAD, fetch_raw_models, model_spread
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -273,7 +280,22 @@ def main():
         elif no_live > MAX_NO:
             log_rows.append({**base, "decision": "skip_price"})
         else:
-            tradeable.append((no_live, c, base))
+            # Spannen-Veto (25.07.): Der Screen lehnt eine Stadt ab, sobald die
+            # rohe Modellspanne MAX_SPREAD reisst — ein Ensemble mit >3 Grad
+            # Streuung traegt kein mu. Der Autobuy kannte dieses Gate bisher
+            # nicht und kaufte allein nach Preis. Aufgefallen beim Nachruesten
+            # von Moskau, das mit 4,3 Grad Spanne ins Buch kam.
+            raw, grund = fetch_raw_models(c["city"], target, "max")
+            if raw is None:
+                # Ohne Prognose keine Qualitaetspruefung -> NICHT kaufen. Faellt
+                # Open-Meteo ganz aus, setzt der Bot an dem Tag nichts; das ist
+                # der harmlosere Ausfall gegenueber ungeprueften Lays.
+                log_rows.append({**base, "decision": f"skip_noforecast_{grund}"})
+            elif model_spread(raw) > MAX_SPREAD:
+                log_rows.append({**base,
+                                 "decision": f"skip_spread_{model_spread(raw):.1f}"})
+            else:
+                tradeable.append((no_live, c, base))
         time.sleep(0.4)
 
     tradeable.sort(key=lambda x: -x[0])  # konservativste = hoechster NO-Preis

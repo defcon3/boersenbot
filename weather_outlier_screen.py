@@ -314,6 +314,60 @@ def ens_sigma(cal, city, spread):
     return model_sigma(cal, city, "ensemble_mean", spread)
 
 
+_AP_CACHE = None
+
+
+def airports():
+    """airportsdata einmal laden (der Aufruf kostet spuerbar)."""
+    global _AP_CACHE
+    if _AP_CACHE is None:
+        _AP_CACHE = airportsdata.load("ICAO")
+    return _AP_CACHE
+
+
+def fetch_raw_models(city, target_day, var="max", session=None):
+    """Rohe Tagesextrema der 5 Modelle fuer eine Stadt -> (raw|None, grund|None).
+
+    Aus main() herausgeloest, damit ANDERE Verbraucher (weather_minus1_autobuy)
+    dieselbe Abfrage benutzen koennen, statt sie zu kopieren. Die Kopier-Lehre
+    steht im Modulkopf des Low-Screens: der Beijing-33-Verlust entstand an einer
+    Mittelung, die in zwei Kopien lebte, und ein Fix in nur einer ist kein Fix.
+
+    target_day: 'YYYY-MM-DD' in LOKALER Zeit der Station (timezone=auto).
+    """
+    AP = airports()
+    icao = STATIONS.get(city)
+    if not icao or icao not in AP:
+        return None, "keine Station"
+    lat, lon = AP[icao]["lat"], AP[icao]["lon"]
+    try:
+        r = (session or S).get(OM, params={
+            "latitude": lat, "longitude": lon, "hourly": "temperature_2m",
+            "models": ",".join(MODELS), "timezone": "auto", "forecast_days": 5,
+        }, timeout=30)
+        r.raise_for_status()
+        j = r.json()
+    except Exception as ex:
+        return None, f"Open-Meteo-Fehler {ex}"
+    hh = j.get("hourly", {})
+    times = hh.get("time", [])
+    agg = max if var == "max" else min
+    raw = {}
+    for mdl in MODELS:
+        vals = hh.get(f"temperature_2m_{mdl}", [])
+        raw[mdl] = agg((v for t, v in zip(times, vals)
+                        if v is not None and t.startswith(target_day)), default=None)
+    have = [m for m in MODELS if raw[m] is not None]
+    if len(have) < 3:
+        return None, f"nur {len(have)} Modelle"
+    return {m: raw[m] for m in have}, None
+
+
+def model_spread(raw):
+    """Rohe Modellspanne (max-min) in Grad — Basis des Spannen-Vetos."""
+    return max(raw.values()) - min(raw.values())
+
+
 def reject_reasons(r):
     """Warum ist dieser Bucket kein Kandidat? (leer = er ist einer)"""
     why = []
@@ -449,7 +503,7 @@ def main():
     print(f"  Staedte in °C: {sorted(targets)}")
 
     # ---------------- 2) Forecasts (5 Modelle) ----------------
-    AP = airportsdata.load("ICAO")
+    AP = airports()
     rows = []
     city_info = {}
     for city, mks in sorted(targets.items()):
@@ -460,32 +514,12 @@ def main():
         if (city, "ensemble_mean") not in calib:
             print(f"  {city}: keine Kalibrierung -> skip (weather_source_compare.py --calib-csv nachziehen)")
             continue
-        lat, lon = AP[icao]["lat"], AP[icao]["lon"]
-        try:
-            r = S.get(OM, params={
-                "latitude": lat, "longitude": lon, "hourly": "temperature_2m",
-                "models": ",".join(MODELS), "timezone": "auto", "forecast_days": 5,
-            }, timeout=30)
-            r.raise_for_status()
-            j = r.json()
-        except Exception as ex:
-            print(f"  {city}: Open-Meteo-Fehler {ex} -> skip")
+        raw, grund = fetch_raw_models(city, target_day, "max")
+        if raw is None:
+            print(f"  {city}: {grund} -> skip")
             continue
-        hh = j.get("hourly", {})
-        times = hh.get("time", [])
-        raw = {}
-        for mdl in MODELS:
-            vals = hh.get(f"temperature_2m_{mdl}", [])
-            mx = max((v for t, v in zip(times, vals)
-                      if v is not None and t.startswith(target_day)), default=None)
-            raw[mdl] = mx
-        have = [m for m in MODELS if raw[m] is not None]
-        if len(have) < 3:
-            print(f"  {city}: nur {len(have)} Modelle -> skip")
-            continue
-        raw = {m: raw[m] for m in have}
         _, dropped = robust_mean(raw)   # Drop-Menge (auf Rohwerten, s. build_views)
-        spread = max(raw.values()) - min(raw.values())
+        spread = model_spread(raw)
         has40 = (city, "ensemble_mean") in calib40
 
         # Bis zu vier Sichten: {volles Mittel, ausreisser-bereinigt} x {700d, 40d},
