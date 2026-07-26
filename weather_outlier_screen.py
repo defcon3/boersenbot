@@ -109,7 +109,7 @@ from datetime import datetime, timedelta, timezone
 
 import airportsdata
 
-from weather_stations import station_info
+from weather_stations import bucket_grenzen, favorit_k, station_info
 import requests
 
 for _s in (sys.stdout, sys.stderr):
@@ -181,22 +181,27 @@ def ncdf(x):
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
 
 
-def bucket_prob(kind, k, mu, sigma):
-    """P(gerundetes Tageshoch faellt in Bucket). eq: [k-0.5,k+0.5), le: <k+0.5, ge: >=k-0.5"""
+def bucket_prob(kind, k, mu, sigma, city=""):
+    """P(Tageshoch faellt in Bucket). Grenzen aus weather_stations.bucket_grenzen:
+    normal [k-0.5, k+0.5), fuer BUCKET_FLOOR-Staedte (Hong Kong) [k, k+1)."""
+    lo, hi = bucket_grenzen(k, city)
     if kind == "le":
-        return ncdf((k + 0.5 - mu) / sigma)
+        return ncdf((hi - mu) / sigma)
     if kind == "ge":
-        return 1.0 - ncdf((k - 0.5 - mu) / sigma)
-    return ncdf((k + 0.5 - mu) / sigma) - ncdf((k - 0.5 - mu) / sigma)
+        return 1.0 - ncdf((lo - mu) / sigma)
+    return ncdf((hi - mu) / sigma) - ncdf((lo - mu) / sigma)
 
 
-def dist_deg(kind, k, mu):
+def dist_deg(kind, k, mu, city=""):
     """Sicherheitsabstand in Grad zwischen Verlust-Grenze des Buckets und mu."""
+    lo, hi = bucket_grenzen(k, city)
     if kind == "le":
-        return mu - (k + 0.5)
+        return mu - hi
     if kind == "ge":
-        return (k - 0.5) - mu
-    return abs(k - mu)
+        return lo - mu
+    # eq: Abstand zur naeheren Bucketgrenze waere zu streng — gemeint ist der
+    # Abstand zur Bucket-MITTE, die bei floor-Staedten auf k+0,5 liegt.
+    return abs((lo + hi) / 2.0 - mu)
 
 
 def median(vs):
@@ -562,12 +567,12 @@ def main():
                     b = cal[(city, m)][0]
                     s = model_sigma(cal, city, m, spread)
                     probs[m] = max(probs.get(m, 0.0),
-                                   bucket_prob(x["kind"], x["k"], raw[m] - b, s))
+                                   bucket_prob(x["kind"], x["k"], raw[m] - b, s, city))
             pmax_m = max(probs, key=probs.get) if probs else None
 
-            pv = [(bucket_prob(x["kind"], x["k"], mu, s), lbl, s) for lbl, mu, s in views]
+            pv = [(bucket_prob(x["kind"], x["k"], mu, s, city), lbl, s) for lbl, mu, s in views]
             p_use, p_src, sig_use = max(pv)
-            d = min(dist_deg(x["kind"], x["k"], mu) for _, mu, _ in views)
+            d = min(dist_deg(x["kind"], x["k"], mu, city) for _, mu, _ in views)
             be = 1.0 - x["buyNo"]
 
             rows.append({
@@ -633,7 +638,7 @@ def main():
         for x in ci["mks"]:
             if x["buyYes"] < 0.02 and not (ci["fav"] and x["marketId"] == ci["fav"]["marketId"]):
                 continue
-            p_e = max(bucket_prob(x["kind"], x["k"], mu, s) for _, mu, s in ci["views"])
+            p_e = max(bucket_prob(x["kind"], x["k"], mu, s, city) for _, mu, s in ci["views"])
             mark = " <FAV" if ci["fav"] and x["marketId"] == ci["fav"]["marketId"] else ""
             inc = " *" if x["marketId"] in cand_ids else ""
             print(f"   {x['title']:>15}  YES {x['buyYes']:.2f}  NO {x['buyNo']:.3f}  "

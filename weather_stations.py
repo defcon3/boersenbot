@@ -16,6 +16,8 @@ numpy/scipy mit; der Ladder-Logger laeuft auf dem VPS im Timer und soll dafuer
 nicht den Kalibrierer importieren muessen.
 """
 
+import math
+
 import airportsdata
 
 _AP_CACHE = None
@@ -60,19 +62,40 @@ NO_WUNDERGROUND = {"HKO"}
 # Also gilt hier FLOOR: "28C" meint [28,0 .. 28,9]. Belege u. a. 12.07. max 33,8
 # -> Markt 33 (nicht 34), 18.07. max 30,5 -> Markt 30, 15.07. min 25,7 -> Markt 25.
 #
-# Die Sperre bleibt trotzdem, bis der Code das umsetzt — betroffen sind ZWEI
-# Stellen, nicht nur eine: (a) der Favorit k0 = half_up(mu) im Ladder-Logger und
-# (b) die Bucket-Wahrscheinlichkeit ncdf((k+0,5-mu)/s) - ncdf((k-0,5-mu)/s) in den
-# Screens und in weather_error_quantiles.offsets_for(), deren Grenzen fuer
-# floor-Staedte auf [k, k+1] wandern muessen. Ohne (b) laege jede Bucket-Chance
-# ein halbes Sigma daneben. Geplant als Stadt-Eigenschaft BUCKET_FLOOR hier im
-# Modul; danach Hong Kong hier austragen.
-MU_PENDING = {"Hong Kong"}
+# Umgesetzt am 26.07. ueber BUCKET_FLOOR (siehe unten) — die Sperre ist damit
+# leer. Sie bleibt als Mechanismus stehen: die naechste Stadt mit fremder
+# Bucket-Definition gehoert hier hinein, BEVOR sie ein mu bekommt.
+MU_PENDING = set()
+
+# Staedte, deren Bucket-Titel das Intervall [k, k+1) meint statt des
+# half_up-gerundeten [k-0,5, k+0,5). Siehe MU_PENDING-Kommentar oben fuer den
+# Beleg (11:0 an 18 gesettelten HK-Brettern).
+BUCKET_FLOOR = {"Hong Kong"}
 
 
 def mu_erlaubt(city):
     """Darf fuer diese Stadt ein mu_ens/offset_fav berechnet werden?"""
     return city not in MU_PENDING
+
+
+def favorit_k(mu, city=""):
+    """Bucket-Index, in dem mu liegt — der Modell-Favorit k0.
+
+    Standard ist half_up: "28C" meint [27,5 .. 28,5), der Favorit ist also die
+    kaufmaennisch gerundete Zahl. Fuer BUCKET_FLOOR-Staedte meint "28C" dagegen
+    [28,0 .. 28,9], der Favorit ist die ABGESCHNITTENE Zahl."""
+    if city in BUCKET_FLOOR:
+        return math.floor(mu)
+    return math.floor(mu + 0.5)
+
+
+def bucket_grenzen(k, city=""):
+    """(untere, obere) Grenze des Buckets k in Grad — die Integrationsgrenzen
+    jeder Bucket-Wahrscheinlichkeit. Wer hier die falschen Grenzen nimmt, liegt
+    um ein halbes Grad daneben, bei sigma ~1 also um ein halbes Sigma."""
+    if city in BUCKET_FLOOR:
+        return float(k), float(k) + 1.0
+    return k - 0.5, k + 0.5
 
 
 def airports():

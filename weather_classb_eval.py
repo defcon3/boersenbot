@@ -117,7 +117,7 @@ def part_a(cities, workers=2, var="max"):
         # fetch_city_both liefert (ens_min, ens_max, act) — je nach
         # Zielvariable die passende ENS-Reihe waehlen.
         ens_min, ens_max, act = fetch_city_both(icao, 700)
-        r = offsets_for(ens_min if var == "min" else ens_max, act, var)
+        r = offsets_for(ens_min if var == "min" else ens_max, act, var, city)
         if not r:
             return city, None
         offs, sigma, _model_p, n = r

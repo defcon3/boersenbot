@@ -39,8 +39,8 @@ import airportsdata
 import pymssql
 import requests
 
-from weather_stations import (has_metar, has_wunderground, mu_erlaubt,
-                              station_info)
+from weather_stations import (favorit_k, has_metar, has_wunderground,
+                              mu_erlaubt, station_info)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -275,7 +275,10 @@ def snapshot(conn):
                              if icao and calib_city else (None, None))
             time.sleep(0.4)
         mu_ens, sig_ens = mu_cache[key]
-        k0 = half_up(mu_ens) if mu_ens is not None else None
+        # favorit_k statt half_up: fuer BUCKET_FLOOR-Staedte (Hong Kong) meint
+        # der Bucket-Titel [k, k+1) statt [k-0,5, k+0,5) — half_up ergaebe dort
+        # einen um 1 verschobenen Favoriten und damit ein falsches offset_fav.
+        k0 = favorit_k(mu_ens, city) if mu_ens is not None else None
         eq_open = [x for x in mks if x["kind"] == "eq" and x["status"] == "open" and x["buyYes"] > 0]
         market_fav_k = max(eq_open, key=lambda x: x["buyYes"])["k"] if eq_open else None
         for x in mks:

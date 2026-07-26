@@ -51,6 +51,7 @@ from datetime import datetime, timedelta, timezone
 import requests
 
 from weather_source_compare import MODELS, PREVRUN, IEM, _airports, STATIONS
+from weather_stations import bucket_grenzen, favorit_k
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -132,7 +133,14 @@ def fetch_city_both(icao, days):
     return ens_min, ens_max, act
 
 
-def offsets_for(ens, act, which):
+def offsets_for(ens, act, which, city=""):
+    """Klassenverteilung (Ist-Bucket minus Modell-Favorit) ueber die Historie.
+
+    city steuert die BUCKET-GEOMETRIE: Standard ist half_up ("28C" = [27,5; 28,5)),
+    fuer BUCKET_FLOOR-Staedte wie Hong Kong meint "28C" dagegen [28,0; 28,9].
+    Betroffen sind hier DREI Stellen — der Favorit k0, der Bucket des IST-Werts
+    und die Integrationsgrenzen der Modellwahrscheinlichkeit. Wer nur k0 umstellt,
+    bekommt eine Klassenverteilung, die gegen sich selbst verschoben ist."""
     pairs = [(ens[d], act[d][0] if which == "min" else act[d][1])
              for d in sorted(set(ens) & set(act))]
     n = len(pairs)
@@ -145,10 +153,11 @@ def offsets_for(ens, act, which):
     offs, model_p = [], {}
     for i, (fc, a) in enumerate(pairs):
         mu = fc - (s - diffs[i]) / (n - 1)
-        k0 = half_up(mu)
-        offs.append(half_up(a) - k0)
+        k0 = favorit_k(mu, city)
+        offs.append(favorit_k(a, city) - k0)
         for jj in range(-3, 4):
-            p = ncdf((k0 + jj + 0.5 - mu) / sigma) - ncdf((k0 + jj - 0.5 - mu) / sigma)
+            lo, hi = bucket_grenzen(k0 + jj, city)
+            p = ncdf((hi - mu) / sigma) - ncdf((lo - mu) / sigma)
             model_p[jj] = model_p.get(jj, 0.0) + p
     return offs, sigma, {k: v / n for k, v in model_p.items()}, n
 
@@ -183,7 +192,8 @@ def main():
         data[city] = fetch_city_both(icao, args.days)
         time.sleep(1)
         ens_min, ens_max, act = data[city]
-        res = offsets_for(ens_min if args.var == "min" else ens_max, act, args.var)
+        res = offsets_for(ens_min if args.var == "min" else ens_max, act,
+                          args.var, city)
         if not res:
             print(f"{city:12s} zu wenig Daten")
             continue
