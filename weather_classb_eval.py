@@ -41,21 +41,28 @@ B_JSON = "classb_market_side.json"
 CLASSES = [-2, -1, 1, 2]
 
 
+def art(basis, var):
+    """Artefakt-Name je Variable. 'max' behaelt die historischen Dateinamen, damit
+    die Ergebnisse der Pre-Reg vom 18.07. unveraendert gueltig bleiben; 'min'
+    bekommt ein Suffix, sonst ueberschreibt ein Min-Lauf den Max-Cache."""
+    return basis if var == "max" else basis.replace(".json", "_min.json")
+
+
 def cost_of(no):
     return no + FEE * min(no, 1.0 - no)
 
 
-def part_b():
+def part_b(var="max"):
     conn = pymssql.connect(**DB_CONFIG)
     cur = conn.cursor(as_dict=True)
     cur.execute("""
         SELECT city, k, buy_no, offset_fav, settle_result, target_date, snapshot_utc
         FROM bb_WeatherLadders
-        WHERE var='max' AND kind='eq' AND mu_ens IS NOT NULL
+        WHERE var=%s AND kind='eq' AND mu_ens IS NOT NULL
           AND buy_no IS NOT NULL AND buy_no > 0 AND buy_no < 1
           AND status='open' AND offset_fav IS NOT NULL
           AND CAST(snapshot_utc AS date) < target_date
-    """)
+    """, (var,))
     rows = cur.fetchall()
     conn.close()
     best = {}
@@ -81,9 +88,9 @@ def part_b():
         "price": {str(k): v for k, v in price.items()},
         "fwd": {str(k): v for k, v in fwd.items()},
     }
-    json.dump(out, open(B_JSON, "w"))
+    json.dump(out, open(art(B_JSON, var), "w"))
     print(f"[b] {len(rows)} Zeilen, {len(best)} Fenster (Vortags-Snapshot), "
-          f"{len(out['cities'])} Staedte -> {B_JSON}")
+          f"{len(out['cities'])} Staedte -> {art(B_JSON, var)}")
     for cls in CLASSES:
         p = price.get(cls, [])
         f = fwd.get(cls, [])
@@ -93,9 +100,9 @@ def part_b():
     return out
 
 
-def part_a(cities, workers=2):
+def part_a(cities, workers=2, var="max"):
     try:
-        res = json.load(open(A_JSON))
+        res = json.load(open(art(A_JSON, var)))
         print(f"[a] merge: {len(res)} Staedte bereits vorhanden")
     except Exception:
         res = {}
@@ -107,8 +114,10 @@ def part_a(cities, workers=2):
 
     def one(city, icao):
         time.sleep(2)  # IEM-Schonung (429-Lehre vom Erstlauf mit 3 Workern)
-        _, ens_max, act = fetch_city_both(icao, 700)
-        r = offsets_for(ens_max, act, "max")
+        # fetch_city_both liefert (ens_min, ens_max, act) — je nach
+        # Zielvariable die passende ENS-Reihe waehlen.
+        ens_min, ens_max, act = fetch_city_both(icao, 700)
+        r = offsets_for(ens_min if var == "min" else ens_max, act, var)
         if not r:
             return city, None
         offs, sigma, _model_p, n = r
@@ -127,14 +136,14 @@ def part_a(cities, workers=2):
                     print(f"[a] {city}: zu wenig Daten", flush=True)
             except Exception as ex_:
                 print(f"[a] {city}: FEHLER {ex_}", flush=True)
-    json.dump(res, open(A_JSON, "w"))
-    print(f"[a] {len(res)}/{len(todo)} Staedte -> {A_JSON}")
+    json.dump(res, open(art(A_JSON, var), "w"))
+    print(f"[a] {len(res)}/{len(todo)} Staedte -> {art(A_JSON, var)}")
     return res
 
 
-def part_c():
-    A = json.load(open(A_JSON))
-    B = json.load(open(B_JSON))
+def part_c(var="max"):
+    A = json.load(open(art(A_JSON, var)))
+    B = json.load(open(art(B_JSON, var)))
     pooled = []
     for city, d in A.items():
         pooled += [(city, o) for o in d["offs"]]
@@ -208,17 +217,19 @@ def main():
     ap.add_argument("--cities", default=None,
                     help="Kommaliste fuer Teil a (Default: Staedte aus Teil-b-JSON)")
     ap.add_argument("--workers", type=int, default=2, help="parallele Fetches in Teil a")
+    ap.add_argument("--var", choices=["max", "min"], default="max",
+                    help="Tageshoch (max, Pre-Reg 18.07.) oder Tagestief (min, in der Pre-Reg ausgeklammert: 'Min-Bretter existieren kaum')")
     args = ap.parse_args()
     if args.part in ("b", "all"):
-        part_b()
+        part_b(args.var)
     if args.part in ("a", "all"):
         if args.cities:
             cities = [c.strip() for c in args.cities.split(",")]
         else:
-            cities = json.load(open(B_JSON))["cities"]
-        part_a(cities, workers=args.workers)
+            cities = json.load(open(art(B_JSON, args.var)))["cities"]
+        part_a(cities, workers=args.workers, var=args.var)
     if args.part in ("c", "all"):
-        part_c()
+        part_c(args.var)
 
 
 if __name__ == "__main__":
