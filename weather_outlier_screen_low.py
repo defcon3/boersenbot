@@ -63,6 +63,17 @@ STATIONS = {
     "Mexico City": "MMMX", "Buenos Aires": "SAEZ",
     "Sao Paulo": "SBGR", "Taipei": "RCSS", "Tel Aviv": "LLBG",
     "Toronto": "CYYZ", "Wuhan": "ZHHH", "Panama City": "MPMG",
+    # Moskau (25.07.) hier NACHGETRAGEN am 26.07.: der urspruengliche Commit
+    # erwischte nur drei der vier STATIONS-Maps, diese blieb zurueck.
+    # Settlement ueber NOAA (weather.gov/wrh/timeseries?site=UUWW).
+    "Moscow": "UUWW",
+    # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
+    # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
+    # the LaGuardia Airport Station", Quelle wunderground.com/history/daily/us/
+    # ny/new-york-city/KLGA. ACHTUNG: Die NYC-Bretter laufen in FAHRENHEIT mit
+    # 2-Grad-Buckets ("70-71F"); der Ladder-Logger verwirft sie deshalb weiter
+    # (celsius-Pruefung), die Kalibrierung hier ist einheitenunabhaengig.
+    "NYC": "KLGA",
 }
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",

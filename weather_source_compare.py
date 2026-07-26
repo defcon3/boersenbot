@@ -106,6 +106,13 @@ STATIONS = {
     # Die automatische Erkennung im Screen greift hier nicht, weil sie eine
     # Wunderground-URL erwartet — dieser Markt settelt ueber NOAA.
     "Moscow": "UUWW",
+    # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
+    # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
+    # the LaGuardia Airport Station", Quelle wunderground.com/history/daily/us/
+    # ny/new-york-city/KLGA. ACHTUNG: Die NYC-Bretter laufen in FAHRENHEIT mit
+    # 2-Grad-Buckets ("70-71F"); der Ladder-Logger verwirft sie deshalb weiter
+    # (celsius-Pruefung), die Kalibrierung hier ist einheitenunabhaengig.
+    "NYC": "KLGA",
 }
 
 MODELS = ["gfs_seamless", "icon_seamless", "ukmo_seamless", "jma_seamless", "ecmwf_ifs025"]

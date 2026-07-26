@@ -1,0 +1,7 @@
+city,model,n,bias,sigma,a,b
+NYC,gfs_seamless,40,-2.305,1.693,,
+NYC,icon_seamless,40,-0.280,1.523,,
+NYC,ukmo_seamless,40,0.490,1.358,,
+NYC,jma_seamless,40,-0.228,1.120,,
+NYC,ecmwf_ifs025,40,-0.788,1.551,,
+NYC,ensemble_mean,40,-0.622,1.255,,
