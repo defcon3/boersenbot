@@ -40,11 +40,14 @@ Aufruf:
 import argparse
 import csv
 import sys
+import time
 from collections import defaultdict
 
 import pymssql
 
 from weather_ladder_logger import DB_CONFIG
+from weather_source_compare import MODELS, fetch_model_daily_extreme
+from weather_stations import station_info
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -104,6 +107,38 @@ def lade_kandidaten(von):
     return best
 
 
+def modellspannen(posten, staedte_map):
+    """Rohe Modellspanne (max-min der 5 Modelle) je (Stadt, Zieltag) nachrechnen.
+
+    bb_WeatherLadders fuehrt die Spanne NICHT mit, das Spannen-Veto ist deshalb
+    aus dem Log allein nicht bewertbar (offener Punkt aus Commit eb2dbeff). Die
+    previous_day1-Reihe liefert genau den Forecast-Stand, den der Screen am
+    Vortag gesehen haette — ein Fetch je Stadt fuer das ganze Fenster statt einer
+    je Kandidat.
+    """
+    tage = sorted({p["target"] for p in posten})
+    start, end = tage[0], tage[-1]
+    out = {}
+    for city in sorted({p["city"] for p in posten}):
+        icao = staedte_map.get(city)
+        st = station_info(icao) if icao else None
+        if not st:
+            continue
+        try:
+            daily, _tz = fetch_model_daily_extreme(icao, st["lat"], st["lon"],
+                                                   start, end, max)
+        except Exception as ex:
+            print(f"   ({city}: Modellabruf fehlgeschlagen — {ex})")
+            continue
+        for tag in tage:
+            werte = [daily[m][tag] for m in MODELS
+                     if m in daily and tag in daily[m]]
+            if len(werte) == len(MODELS):
+                out[(city, tag)] = max(werte) - min(werte)
+        time.sleep(0.5)
+    return out
+
+
 def block(titel, posten):
     if not posten:
         print(f"\n{titel}: keine")
@@ -128,6 +163,11 @@ def main():
                     help="frueheste target_date (default: Autobuy-Start 20.07.)")
     ap.add_argument("--log", default="preregs/weather_minus1_live_log.csv",
                     help="Autobuy-Log fuer die Filter-Aufschluesselung")
+    ap.add_argument("--spread", action="store_true",
+                    help="Modellspanne je Kandidat nachrechnen und das Spannen-Veto "
+                         "rueckwirkend bewerten (langsam: 1 Fetch je Stadt)")
+    ap.add_argument("--max-spread", type=float, default=3.0,
+                    help="Veto-Schwelle, die geprueft werden soll (default 3.0 = MAX_SPREAD)")
     args = ap.parse_args()
 
     ent = lade_entscheidungen(args.log)
@@ -182,6 +222,32 @@ def main():
     for tag, ps in sorted(per_tag.items()):
         g = sum(x["pnl"] for x in ps)
         print(f"      {tag}  {len(ps):3d} Lays  {g:+7.2f} $")
+
+    if args.spread:
+        from weather_ladder_logger import STATIONS as LADDER_STATIONS
+        print("\n   Spannen-Veto rueckwirkend (Modellspanne nachgerechnet):")
+        sp = modellspannen(posten, LADDER_STATIONS)
+        mit = [p for p in posten if (p["city"], p["target"]) in sp]
+        if not mit:
+            print("      keine Spannen rekonstruierbar")
+        else:
+            print(f"      {len(mit)}/{len(posten)} Kandidaten mit rekonstruierter Spanne")
+            durch = [p for p in mit if sp[(p["city"], p["target"])] <= args.max_spread]
+            veto = [p for p in mit if sp[(p["city"], p["target"])] > args.max_spread]
+            for lab, grp in ((f"Spanne <= {args.max_spread:.1f} (durchgelassen)", durch),
+                             (f"Spanne >  {args.max_spread:.1f} (Veto lehnt ab)", veto)):
+                if not grp:
+                    continue
+                g = sum(x["pnl"] for x in grp)
+                e = USD * len(grp)
+                gew = sum(1 for x in grp if x["pnl"] > 0)
+                print(f"      {lab:<36} {len(grp):3d} Lays  {g:+7.2f} $  "
+                      f"({g / e * 100:+6.2f} %)  {gew}/{len(grp)} gewonnen "
+                      f"({gew / len(grp) * 100:.0f} %)")
+            if veto:
+                g = sum(x["pnl"] for x in veto)
+                print(f"      -> Das Veto haette {g:+.2f} $ "
+                      f"{'vermieden — SPART' if g < 0 else 'entgehen lassen — KOSTET'}")
 
     if alle:
         print(f"\n{'=' * 78}")
