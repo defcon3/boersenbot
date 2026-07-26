@@ -211,22 +211,32 @@ def clob_quote(token):
 
 def market_outcome(market_id, up_token):
     """Resolution des Fensters. Bevorzugt Markt-Resolution (Chainlink), sonst None.
-    Rueckgabe (outcome_up 1/0/None, src)."""
-    # Jupiter/PM-Markt erneut abfragen — nach Schluss traegt 'result' den Ausgang.
+    Rueckgabe (outcome_up 1/0/None, src).
+
+    ACHTUNG, zweimal reingefallen (30.06. beim 15m-Logger, 23.-26.07. hier): das
+    'result'-Feld liefert KLEINGESCHRIEBEN 'yes'/'no' (yes = Up gewann), und der
+    Vergleich ist case-sensitiv. Ohne Normalisierung greift der Zweig nie und der
+    pricing-Fallback uebernimmt — der aber liest in der Phase direkt nach Schluss
+    DEGENERIERTE Preise (beide Seiten 1.0, spaeter beide 0.0) und macht daraus
+    stumm 'Up'. Ergebnis war eine Up-Rate von 153/157 auf einem Muenzwurf.
+    Deshalb: casefold-Vergleich, und der Fallback verlangt jetzt zwei Preise, die
+    sich klar unterscheiden."""
     for mid_try in (f"{market_id}-0", market_id):
         d = get_json(f"https://prediction-market-api.jup.ag/api/v1/markets/{mid_try}")
         if not d:
             continue
-        res = d.get("result")
-        if res in ("Up", "up", "YES", "Yes"):
+        res = str(d.get("result") or "").strip().casefold()
+        if res in ("up", "yes"):
             return 1, "market"
-        if res in ("Down", "down", "NO", "No"):
+        if res in ("down", "no"):
             return 0, "market"
-        # manche geben ergebnis ueber pricing (aufgeloest -> 1.0/0.0)
+        # Fallback nur bei EINDEUTIGER Preisstellung (Gewinner ~1, Verlierer ~0).
+        # Degeneriert (1.0/1.0 oder 0.0/0.0) -> kein Ergebnis, spaeter erneut versuchen.
         pr = d.get("pricing") or {}
         by = (pr.get("buyYesPriceUsd") or 0) / 1e6
-        if d.get("status") in ("resolved", "closed") and by:
-            return (1 if by >= 0.5 else 0), "market"
+        bn = (pr.get("buyNoPriceUsd") or 0) / 1e6
+        if d.get("status") in ("resolved", "closed") and abs(by - bn) >= 0.5:
+            return (1 if by > bn else 0), "market"
     return None, None
 
 
@@ -258,6 +268,39 @@ def backfill(conn, now_ts):
                      (oc, src, mid))
         conn.commit()
         log.info(f"  backfill {mid}: outcome_up={oc} ({src})")
+
+
+def repair_outcomes(conn, limit=1000, dry=False):
+    """Prueft BEREITS gesetzte outcome_up gegen die Markt-Resolution und korrigiert.
+
+    Noetig nach dem casefold-Bug (siehe market_outcome): zwischen dem 23. und
+    26.07. hat der pricing-Fallback fast alles als 'Up' eingetragen. 'result'
+    bleibt ueber /markets/{id}-0 dauerhaft abrufbar, die Zeilen sind also
+    rueckwirkend heilbar."""
+    cur = conn.cursor(as_dict=True)
+    cur.execute("""SELECT DISTINCT market_id, outcome_up FROM bb_BtcFlip
+                   WHERE outcome_up IS NOT NULL""")
+    todo = cur.fetchall()[:limit]
+    geprueft = korrigiert = unklar = 0
+    for r in todo:
+        mid, alt = r["market_id"], r["outcome_up"]
+        neu, src = market_outcome(mid, None)
+        geprueft += 1
+        if neu is None:
+            unklar += 1
+            continue
+        if neu != alt:
+            korrigiert += 1
+            log.info(f"  repair {mid}: {alt} -> {neu}")
+            if not dry:
+                cur2 = conn.cursor()
+                cur2.execute("UPDATE bb_BtcFlip SET outcome_up=%s, outcome_src=%s "
+                             "WHERE market_id=%s", (neu, src, mid))
+                conn.commit()
+        time.sleep(0.15)  # freundlich zur API
+    log.info(f"repair fertig: {geprueft} geprueft, {korrigiert} korrigiert, "
+             f"{unklar} ohne Resolution{' (DRY)' if dry else ''}")
+    return korrigiert
 
 
 def row_count(conn):
@@ -305,18 +348,31 @@ def main():
     ap.add_argument("--once", action="store_true")
     ap.add_argument("--loop", action="store_true")
     ap.add_argument("--interval", type=int, default=DEFAULT_INTERVAL)
+    ap.add_argument("--repair", action="store_true",
+                    help="bereits gesetzte outcome_up gegen die Markt-Resolution "
+                         "pruefen und korrigieren (nach dem casefold-Bug), dann Ende")
     args = ap.parse_args()
 
     if pymssql is None and not args.dry:
         log.error("pymssql fehlt"); return 1
     conn = None
-    if not args.dry:
+    # --repair liest immer aus der DB; --dry unterdrueckt dort nur das UPDATE.
+    if not args.dry or args.repair:
+        if pymssql is None:
+            log.error("pymssql fehlt"); return 1
         conn = pymssql.connect(**DB_CONFIG)
         cur = conn.cursor()
         for stmt in DDL.strip().split(";\n"):
             if stmt.strip():
                 cur.execute(stmt)
         conn.commit()
+
+    if args.repair:
+        if conn is None:
+            log.error("--repair braucht die DB"); return 1
+        repair_outcomes(conn, dry=args.dry)
+        conn.close()
+        return 0
 
     strike_cache = {}
     def tick():
