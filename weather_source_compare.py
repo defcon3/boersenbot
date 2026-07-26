@@ -82,6 +82,8 @@ import numpy as np
 import requests
 from scipy.optimize import minimize_scalar
 
+from weather_stations import SPECIAL_STATIONS, station_info
+
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
@@ -153,11 +155,8 @@ WU_KEY = "e1f10a1e78da46f5b10a1e78da96f525"  # oeffentlicher Web-Key der wunderg
 # Kalibrierung ideal.
 HKO_API = "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php"
 HKO_DATATYPE = {"max": "CLMMAXT", "min": "CLMMINT"}
-# HKO ist kein Flughafen und steht nicht in airportsdata -> Koordinaten explizit.
-SPECIAL_STATIONS = {
-    "HKO": {"name": "Hong Kong Observatory", "country": "HK",
-            "lat": 22.3019, "lon": 114.1740},
-}
+# Sonderstationen (HKO) kommen aus weather_stations — EINE Quelle, damit ein
+# Nachtrag nicht wieder nur in einer von vier Kopien landet.
 _hko_cache = {}
 
 
@@ -367,7 +366,7 @@ def load_fix_b(path):
 
 def analyze_city(city, icao, days, agg, lead=1, actuals="metar", collect=None,
                  end_date=None):
-    station = _airports.get(icao) or SPECIAL_STATIONS.get(icao)
+    station = station_info(icao)
     if not station:
         print(f"{city} ({icao}): Station nicht in airportsdata gefunden -- uebersprungen.")
         return None

@@ -39,6 +39,9 @@ import airportsdata
 import pymssql
 import requests
 
+from weather_stations import (has_metar, has_wunderground, mu_erlaubt,
+                              station_info)
+
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
@@ -74,6 +77,11 @@ STATIONS = {
     # (weather.gov/wrh/timeseries?site=UUWW), nicht ueber Wunderground —
     # fuer wu_settle_k/settle_k entsprechend mit Vorsicht behandeln.
     "Moscow": "UUWW",
+    # Hong Kong nachgeruestet 26.07.: Pseudo-Station "HKO" (weather_stations.
+    # SPECIAL_STATIONS). Die Stadt settelt auf die HKO-Klimareihe und hat WEDER
+    # METAR NOCH eine Wunderground-Seite — settle_k/wu_settle_k bleiben hier
+    # zwangslaeufig leer, die Preis- und mu-Zeilen sind trotzdem wertvoll.
+    "Hong Kong": "HKO",
     # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
     # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
     # the LaGuardia Airport Station", Quelle wunderground.com/history/daily/us/
@@ -174,7 +182,7 @@ def title_target_date(month_name, day, today):
 def forecast_mu(icao, var, target_day, calib_city):
     """roh-ENS des Zieltags (lokale Zeit) aus 5-Modell-Forecast -> mu/sigma via
     Kalibrierung. None wenn <3 Modelle oder keine ENS-Kalibrierung."""
-    st = AP.get(icao)
+    st = station_info(icao)     # deckt auch Sonderstationen wie HKO ab
     if not st:
         return None, None
     try:
@@ -256,8 +264,15 @@ def snapshot(conn):
         icao = STATIONS.get(city)
         key = (city, var, target)
         if key not in mu_cache:
-            calib_city = calib[var].get((city, "ensemble_mean")) if icao else None
-            mu_cache[key] = forecast_mu(icao, var, target, calib_city) if icao else (None, None)
+            # mu_erlaubt(): Staedte mit ungeklaerter Bucket-Semantik bekommen
+            # bewusst KEIN mu — sonst entstuende ein offset_fav, auf das der
+            # -1-Autobuy handelt, obwohl der Favorit um ein Grad danebenliegen
+            # kann (Hong Kong, siehe weather_stations.MU_PENDING). Preiszeilen
+            # werden weiter geloggt.
+            calib_city = (calib[var].get((city, "ensemble_mean"))
+                          if icao and mu_erlaubt(city) else None)
+            mu_cache[key] = (forecast_mu(icao, var, target, calib_city)
+                             if icao and calib_city else (None, None))
             time.sleep(0.4)
         mu_ens, sig_ens = mu_cache[key]
         k0 = half_up(mu_ens) if mu_ens is not None else None
@@ -285,7 +300,9 @@ def snapshot(conn):
 def wu_extreme(icao, var, target):
     """Tagesextrem laut Wunderground (Polymarket-Settlement-Quelle) fuer den
     lokalen Kalendertag. None wenn nicht abrufbar/zu duenn."""
-    st = AP.get(icao)
+    if not has_wunderground(icao):
+        return None          # z. B. HKO — Wunderground fuehrt diese Station nicht
+    st = station_info(icao)
     country = (st or {}).get("country")
     if not country:
         return None
@@ -319,9 +336,16 @@ def settle(conn):
     for target, var, city, icao, have_k in todo:
         if isinstance(target, datetime):
             target = target.date()
-        st = AP.get(icao)
+        st = station_info(icao)
         tz_name = st.get("tz") if st else None
         if not tz_name:
+            continue
+        if not has_metar(icao):
+            # HKO: kein METAR und keine WU-Seite. Die Settlement-Reihe der HKO
+            # hinkt einen Monat hinterher (weather_source_compare.
+            # fetch_actual_daily_extreme_hko) und taugt nicht fuer den taeglichen
+            # Backfill — settle_k bleibt hier leer, statt jeden Lauf erneut
+            # vergeblich IEM und Wunderground abzufragen.
             continue
         # lokaler Tag muss vorbei sein: konservativ erst ab Folgetag 12:00 UTC settlen
         if datetime.now(timezone.utc) < datetime(target.year, target.month, target.day,

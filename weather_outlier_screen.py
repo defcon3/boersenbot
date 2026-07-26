@@ -108,6 +108,8 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import airportsdata
+
+from weather_stations import station_info
 import requests
 
 for _s in (sys.stdout, sys.stderr):
@@ -144,6 +146,10 @@ STATIONS = {
     # dieser Markt settelt ueber NOAA (weather.gov/wrh/timeseries?site=UUWW),
     # nicht ueber Wunderground wie die uebrigen Staedte.
     "Moscow": "UUWW",
+    # Hong Kong nachgeruestet 26.07.: Pseudo-Station "HKO" (weather_stations.
+    # SPECIAL_STATIONS). Settelt auf die HKO-Klimareihe, NICHT auf METAR/
+    # Wunderground — Settle-Pfade muessen die Station ueberspringen.
+    "Hong Kong": "HKO",
     # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
     # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
     # the LaGuardia Airport Station", Quelle wunderground.com/history/daily/us/
@@ -342,11 +348,11 @@ def fetch_raw_models(city, target_day, var="max", session=None):
 
     target_day: 'YYYY-MM-DD' in LOKALER Zeit der Station (timezone=auto).
     """
-    AP = airports()
     icao = STATIONS.get(city)
-    if not icao or icao not in AP:
+    st = station_info(icao)          # deckt auch Sonderstationen wie HKO ab
+    if not st:
         return None, "keine Station"
-    lat, lon = AP[icao]["lat"], AP[icao]["lon"]
+    lat, lon = st["lat"], st["lon"]
     try:
         r = (session or S).get(OM, params={
             "latitude": lat, "longitude": lon, "hourly": "temperature_2m",

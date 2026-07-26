@@ -33,6 +33,8 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import airportsdata
+
+from weather_stations import station_info
 import requests
 
 from weather_outlier_screen import (MIN_DIST, MAX_PMODEL, MIN_YES, MAX_SPREAD,
@@ -67,6 +69,10 @@ STATIONS = {
     # erwischte nur drei der vier STATIONS-Maps, diese blieb zurueck.
     # Settlement ueber NOAA (weather.gov/wrh/timeseries?site=UUWW).
     "Moscow": "UUWW",
+    # Hong Kong nachgeruestet 26.07.: Pseudo-Station "HKO" (weather_stations.
+    # SPECIAL_STATIONS). Settelt auf die HKO-Klimareihe, NICHT auf METAR/
+    # Wunderground — Settle-Pfade muessen die Station ueberspringen.
+    "Hong Kong": "HKO",
     # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
     # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
     # the LaGuardia Airport Station", Quelle wunderground.com/history/daily/us/
@@ -180,18 +186,18 @@ def main():
             targets[city] = sorted(mks, key=lambda x: x["k"])
     print(f"  Staedte in °C: {sorted(targets)}")
 
-    AP = airportsdata.load("ICAO")
     rows = []
     city_info = {}
     for city, mks in sorted(targets.items()):
         icao = STATIONS.get(city)
-        if not icao or icao not in AP:
+        st_info = station_info(icao)     # deckt auch Sonderstationen wie HKO ab
+        if not st_info:
             print(f"  {city}: keine Station -> skip")
             continue
         if (city, "ensemble_mean") not in calib:
             print(f"  {city}: keine Kalibrierung -> skip")
             continue
-        lat, lon = AP[icao]["lat"], AP[icao]["lon"]
+        lat, lon = st_info["lat"], st_info["lon"]
         try:
             r = S.get(OM, params={
                 "latitude": lat, "longitude": lon, "hourly": "temperature_2m",
