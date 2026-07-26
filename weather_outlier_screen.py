@@ -526,7 +526,11 @@ def main():
     city_info = {}
     for city, mks in sorted(targets.items()):
         icao = STATIONS.get(city)
-        if not icao or icao not in AP:
+        # station_info statt "icao in AP": sonst faellt jede Sonderstation durch,
+        # die nicht in airportsdata steht (HKO/Hong Kong) — genau der Grund, aus
+        # dem Hong Kong hier bis zum 26.07. uebersprungen wurde, OBWOHL Eintrag
+        # und Kalibrierung laengst vorlagen.
+        if not station_info(icao):
             print(f"  {city}: keine Station -> skip (ggf. via Polymarket-Beschreibung aufloesen + kalibrieren)")
             continue
         if (city, "ensemble_mean") not in calib:
