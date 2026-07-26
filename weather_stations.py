@@ -49,11 +49,24 @@ NO_WUNDERGROUND = {"HKO"}
 # Hong Kong (26.07.): Die HKO misst auf EINE Dezimalstelle (32.3), und die
 # Marktregel spricht vom "temperature range that CONTAINS" den Wert. Bei allen
 # anderen Staedten liefert die Quelle ganze Grad, und "28C" meint half_up-
-# gerundet [27,5 .. 28,5). Hier waere "28C" eher [28,0 .. 29,0) — ein halbes Grad
-# Versatz. Konkret gerechnet fuer den 27.07.: mu = 29,61 ergibt half_up 30, aber
-# floor 29. Zwei verschiedene Favoriten, also offset_fav um 1 verschoben und der
-# Autobuy laegt den falschen Bucket. Klaeren an einem gesettelten HK-Brett
-# (Bucket-Titel gegen den HKO-Ist-Wert), danach hier austragen.
+# gerundet [27,5 .. 28,5).
+#
+# GEMESSEN am 26.07. an 18 gesettelten HK-Brettern (Juli 2026, max und min
+# gemischt; Markt-result gegen den HKO-Ist-Wert aus dem tagesaktuellen Daily
+# Extract, hko.gov.hk/cis/dailyExtract/dailyExtract_YYYYMM.xml — liefert JSON):
+#
+#     floor 11 | half_up 0 | nicht unterscheidbar 7 | Widerspruch 0
+#
+# Also gilt hier FLOOR: "28C" meint [28,0 .. 28,9]. Belege u. a. 12.07. max 33,8
+# -> Markt 33 (nicht 34), 18.07. max 30,5 -> Markt 30, 15.07. min 25,7 -> Markt 25.
+#
+# Die Sperre bleibt trotzdem, bis der Code das umsetzt — betroffen sind ZWEI
+# Stellen, nicht nur eine: (a) der Favorit k0 = half_up(mu) im Ladder-Logger und
+# (b) die Bucket-Wahrscheinlichkeit ncdf((k+0,5-mu)/s) - ncdf((k-0,5-mu)/s) in den
+# Screens und in weather_error_quantiles.offsets_for(), deren Grenzen fuer
+# floor-Staedte auf [k, k+1] wandern muessen. Ohne (b) laege jede Bucket-Chance
+# ein halbes Sigma daneben. Geplant als Stadt-Eigenschaft BUCKET_FLOOR hier im
+# Modul; danach Hong Kong hier austragen.
 MU_PENDING = {"Hong Kong"}
 
 
