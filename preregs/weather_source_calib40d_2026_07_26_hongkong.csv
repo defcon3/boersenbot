@@ -1,0 +1,7 @@
+city,model,n,bias,sigma,a,b
+Hong Kong,gfs_seamless,41,-1.788,1.458,,
+Hong Kong,icon_seamless,41,-1.556,0.929,,
+Hong Kong,ukmo_seamless,32,-0.928,0.985,,
+Hong Kong,jma_seamless,41,-1.124,1.186,,
+Hong Kong,ecmwf_ifs025,41,-1.639,1.095,,
+Hong Kong,ensemble_mean,32,-1.306,0.958,,

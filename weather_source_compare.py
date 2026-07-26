@@ -106,6 +106,12 @@ STATIONS = {
     # Die automatische Erkennung im Screen greift hier nicht, weil sie eine
     # Wunderground-URL erwartet — dieser Markt settelt ueber NOAA.
     "Moscow": "UUWW",
+    # Hong Kong nachgeruestet 26.07.: Pseudo-Station "HKO" (siehe SPECIAL_STATIONS)
+    # — die Stadt settelt auf die Hong-Kong-Observatory-Klimareihe, NICHT auf
+    # METAR/Wunderground. VHHH waere kein Ersatz: gemessen ueber 700 Tage liegt
+    # es an 68 % der Tage in einem anderen ganzen Grad als HKO (MAE 0,92 C).
+    # Nur mit --actuals hko kalibrieren.
+    "Hong Kong": "HKO",
     # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
     # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
     # the LaGuardia Airport Station", Quelle wunderground.com/history/daily/us/
@@ -134,6 +140,56 @@ PREVRUN = "https://previous-runs-api.open-meteo.com/v1/forecast"
 IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
 WU = "https://api.weather.com/v1/location/{icao}:9:{cc}/observations/historical.json"
 WU_KEY = "e1f10a1e78da46f5b10a1e78da96f525"  # oeffentlicher Web-Key der wunderground.com-Seite
+
+# --- Hong Kong Observatory ----------------------------------------------------
+# Die HK-Bretter settlen WEDER ueber Wunderground NOCH ueber METAR, sondern auf
+# die HKO-Klimareihe ("Absolute Daily Max (deg. C)", weather.gov.hk/en/cis/
+# climat.htm) — und zwar auf EINE Dezimalstelle genau statt auf ganze Grad.
+# VHHH (Chek Lap Kok) waere kein Ersatz: Inselflughafen gegen Stadtstation in
+# Tsim Sha Tsui, rund 25 km auseinander.
+# Die Open-Data-Reihe liefert fertige TAGESEXTREMA (nicht Stundenwerte) ueber die
+# volle Historie ab 1884 — dafuer mit Monatsverzug: der laufende Monat fehlt,
+# fuer Settlement des aktuellen Tages ist sie also unbrauchbar, fuer die
+# Kalibrierung ideal.
+HKO_API = "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php"
+HKO_DATATYPE = {"max": "CLMMAXT", "min": "CLMMINT"}
+# HKO ist kein Flughafen und steht nicht in airportsdata -> Koordinaten explizit.
+SPECIAL_STATIONS = {
+    "HKO": {"name": "Hong Kong Observatory", "country": "HK",
+            "lat": 22.3019, "lon": 114.1740},
+}
+_hko_cache = {}
+
+
+def fetch_actual_daily_extreme_hko(var):
+    """Tagesextrem-Reihe der Hong Kong Observatory -> {'YYYY-MM-DD': float}.
+
+    Anders als METAR/WU sind das bereits fertige Tageswerte, es wird also nichts
+    aggregiert. Ein Abruf ohne year/month liefert die komplette Historie
+    (49k+ Zeilen ab 1884), deshalb wird sie je Variable einmal gecacht.
+    Spalten: Jahr,Monat,Tag,Wert,Status — Status 'C' = vollstaendig, '#' =
+    unvollstaendig, '***' = fehlt. Nur 'C' wird uebernommen: ein unvollstaendiger
+    Tag kann das echte Extremum verfehlt haben und wuerde den Bias verzerren."""
+    if var in _hko_cache:
+        return _hko_cache[var]
+    r = requests.get(HKO_API, params={"dataType": HKO_DATATYPE[var], "lang": "en",
+                                      "rformat": "csv", "station": "HKO"}, timeout=90)
+    r.raise_for_status()
+    out = {}
+    for line in r.text.splitlines():
+        parts = [c.strip().strip('"') for c in line.split(",")]
+        if len(parts) < 5 or not parts[0].isdigit():
+            continue
+        y, m, d, val, status = parts[0], parts[1], parts[2], parts[3], parts[4]
+        if status != "C":
+            continue
+        try:
+            out[f"{int(y):04d}-{int(m):02d}-{int(d):02d}"] = float(val)
+        except ValueError:
+            continue
+    _hko_cache[var] = out
+    return out
+# ------------------------------------------------------------------------------
 
 _airports = airportsdata.load("ICAO")
 
@@ -309,18 +365,24 @@ def load_fix_b(path):
     return out
 
 
-def analyze_city(city, icao, days, agg, lead=1, actuals="metar", collect=None):
-    station = _airports.get(icao)
+def analyze_city(city, icao, days, agg, lead=1, actuals="metar", collect=None,
+                 end_date=None):
+    station = _airports.get(icao) or SPECIAL_STATIONS.get(icao)
     if not station:
         print(f"{city} ({icao}): Station nicht in airportsdata gefunden -- uebersprungen.")
         return None
     lat, lon = station["lat"], station["lon"]
 
-    end = datetime.now(timezone.utc).date() - timedelta(days=1)
+    end = end_date or (datetime.now(timezone.utc).date() - timedelta(days=1))
     start = end - timedelta(days=days)
 
     model_days, tz_name = fetch_model_daily_extreme(icao, lat, lon, start.isoformat(), end.isoformat(), agg, lead=lead)
-    if actuals == "wu":
+    if actuals == "hko":
+        # Fertige Tagesextrema, kein Aggregieren; auf das Fenster beschneiden.
+        alle = fetch_actual_daily_extreme_hko("min" if agg is min else "max")
+        lo, hi = start.isoformat(), end.isoformat()
+        actual_days = {d: v for d, v in alle.items() if lo <= d <= hi}
+    elif actuals == "wu":
         actual_days = fetch_actual_daily_extreme_wu(icao, station["country"], start, end, tz_name, agg)
     else:
         actual_days = fetch_actual_daily_extreme(icao, start, end, tz_name, agg)
@@ -380,10 +442,16 @@ def main():
     ap.add_argument("--lead", type=int, default=1, choices=range(1, 8), metavar="N",
                     help="previous_dayN = Lead N*24h (default 1; 2 fuer Maerkte, die >24h "
                          "vor dem Extremum gehandelt werden)")
-    ap.add_argument("--actuals", choices=["metar", "wu"], default="metar",
+    ap.add_argument("--actuals", choices=["metar", "wu", "hko"], default="metar",
                     help="Ist-Quelle: metar (IEM, fein) oder wu (Wunderground-Settlement-"
                          "Reihe, ganze °C — fuer Staedte, deren WU-Seite nicht aus den "
-                         "METAR gespeist wird, z. B. Shenzhen)")
+                         "METAR gespeist wird, z. B. Shenzhen) oder hko (Hong Kong "
+                         "Observatory, die Settlement-Quelle der HK-Bretter — fertige "
+                         "Tagesextrema auf 0,1 C, Historie ab 1884, Monatsverzug)")
+    ap.add_argument("--end-date", default=None, metavar="YYYY-MM-DD",
+                    help="Fenster-Ende (default: gestern). Noetig fuer Ist-Quellen mit "
+                         "Verzug — die HKO-Reihe endet am letzten abgeschlossenen "
+                         "Monat, ein Fenster bis gestern traefe dort ins Leere")
     ap.add_argument("--fix-b-from", default=None, metavar="CSV",
                     help="sigma(s)-Steigung b je Quelle aus dieser Referenz-CSV uebernehmen "
                          "statt fitten (Pflicht bei <3 Staedten, z. B. Shenzhen-only)")
@@ -403,6 +471,8 @@ def main():
         ALL_SOURCES = MODELS + ["ensemble_mean"]
         MODEL_LABEL["ensemble_mean"] = f"Ensemble-Mittel ({len(MODELS)} Modelle)"
     agg_fn = {"max": max, "min": min}[args.var]
+    end_date = (datetime.strptime(args.end_date, "%Y-%m-%d").date()
+                if args.end_date else None)
     print(f"Zielgroesse: Tages{'hoch' if args.var == 'max' else 'tief'} "
           f"(previous_day{args.lead}, Lead {args.lead * 24}h, Ist = {args.actuals.upper()})")
 
@@ -420,7 +490,8 @@ def main():
         print(f"\n=== {city} ({icao}) ===")
         try:
             res = analyze_city(city, icao, args.days, agg_fn, lead=args.lead,
-                               actuals=args.actuals, collect=dump_rows)
+                               actuals=args.actuals, collect=dump_rows,
+                               end_date=end_date)
         except Exception as ex:
             # Netzabbruch bei EINER Stadt darf nicht den ganzen Lauf killen (14.07.:
             # ConnectionReset bei Munich hat eine 28-Staedte-Kalibrierung verworfen).
