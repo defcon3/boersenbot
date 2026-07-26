@@ -106,28 +106,49 @@ def load_calib():
     return calib
 
 
+MIN_EVENTS = 40         # Plausibilitaets-Untergrenze: reale Laeufe holen 92-114
+
+
 def fetch_events():
+    """Alle Weather-Events paginieren.
+
+    Rueckgabe (events, vollstaendig). 'vollstaendig' ist False, sobald eine Seite
+    endgueltig scheiterte — der Aufrufer darf aus einem solchen Torso KEINEN
+    Snapshot schreiben (siehe snapshot()).
+
+    Am 26.07. 12:30 UTC gab die Pagination nach Seite 1 auf (429/5xx) und lieferte
+    10 statt ~110 Events. Der Torso wurde als vollwertiger Snapshot geschrieben,
+    der -1-Autobuy fand darin folgerichtig null Kandidaten und setzte an dem Tag
+    nichts — ohne dass irgendwo ein Fehler sichtbar wurde. Deshalb hier mehr
+    Versuche mit laengerem Backoff UND ein ehrliches Vollstaendigkeits-Signal."""
     events = []
     for s in range(0, 200, 10):
         page = None
-        for attempt in range(4):
+        for attempt in range(6):
             # 5xx wie 429 retrien: die Events-API wirft transiente 500er
             # (killte den Timer-Lauf 19.07. 12:30 UTC gleich auf Seite 0)
-            r = S.get(f"{API}/events", params={"category": "weather", "start": s, "end": s + 10}, timeout=30)
+            try:
+                r = S.get(f"{API}/events",
+                          params={"category": "weather", "start": s, "end": s + 10},
+                          timeout=30)
+            except requests.RequestException as ex:
+                print(f"  Jupiter page {s}: Netzfehler {ex} (Versuch {attempt + 1}/6)")
+                time.sleep(8 * (attempt + 1))
+                continue
             if r.status_code == 429 or r.status_code >= 500:
-                time.sleep(6 * (attempt + 1))
+                time.sleep(8 * (attempt + 1))
                 continue
             r.raise_for_status()
             page = r.json().get("data", [])
             break
         if page is None:
-            print(f"  Jupiter page {s}: aufgegeben (429/5xx)")
-            break
+            print(f"  Jupiter page {s}: aufgegeben (429/5xx) — Sammlung UNVOLLSTAENDIG")
+            return events, False
         events += page
         if len(page) < 10:
             break
         time.sleep(1.5)
-    return events
+    return events, True
 
 
 def title_target_date(month_name, day, today):
@@ -180,8 +201,18 @@ def snapshot(conn):
     now = datetime.now(timezone.utc)
     today = now.date()
     calib = load_calib()
-    events = fetch_events()
+    events, vollstaendig = fetch_events()
     print(f"{len(events)} Weather-Events geladen ({now.strftime('%Y-%m-%d %H:%M UTC')})")
+    # Lieber GAR KEIN Snapshot als ein unvollstaendiger: ein Torso sieht in der
+    # Tabelle aus wie ein echter Marktstand, verfaelscht jede spaetere Auswertung
+    # ("wie viele Kandidaten gab es an dem Tag?") und laesst den Autobuy still
+    # leer ausgehen. Fehlt der Snapshot dagegen ganz, wirft der Autobuy seinen
+    # harten Fehler ("Kein Ladder-Snapshot von heute") — der Ausfall wird sichtbar.
+    if not vollstaendig or len(events) < MIN_EVENTS:
+        raise RuntimeError(
+            f"Snapshot VERWEIGERT: nur {len(events)} Events "
+            f"(vollstaendig={vollstaendig}, Mindestzahl {MIN_EVENTS}). "
+            f"Kein Teil-Snapshot geschrieben — Jupiter-API pruefen und Lauf wiederholen.")
 
     mu_cache = {}
     rows = []
@@ -391,12 +422,24 @@ def main():
     if args.create_table:
         create_table(conn)
         return
+    # Der Settle-Backfill haengt nicht am Snapshot und ist auch dann wertvoll,
+    # wenn die Events-API gerade streikt -> Snapshot-Fehler wird gemerkt, nicht
+    # durchgereicht. Exit-Code != 0 am Ende, damit systemd den Lauf als
+    # fehlgeschlagen fuehrt statt ihn still als Erfolg zu verbuchen.
+    snapshot_fehler = None
     if not args.settle_only:
-        snapshot(conn)
+        try:
+            snapshot(conn)
+        except Exception as ex:
+            snapshot_fehler = ex
+            print(f"!! {ex}", file=sys.stderr)
     if not args.snapshot_only:
         settle(conn)
     conn.close()
+    if snapshot_fehler is not None:
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
