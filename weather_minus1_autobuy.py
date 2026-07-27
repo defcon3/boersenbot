@@ -380,6 +380,24 @@ def main():
         base["buy_no_live"] = round(no_live, 3)
         if status != "open" or no_live <= 0:
             log_rows.append({**base, "decision": "skip_closed"})
+            time.sleep(0.4)
+            continue
+
+        # REIHENFOLGE: Spannen-Veto VOR dem Preisband, obwohl es teurer ist (ein
+        # Modellabruf je Stadt). Grund ist das V1-Schattenbuch: nur wenn fuer
+        # JEDEN Kandidaten feststeht, ob die Spanne haelt, laesst sich aus dem
+        # Log rekonstruieren, was V1 gekauft haette — V1 kannte das Preisband
+        # nicht und haette auch ueber 0,90 zugegriffen. Stuende das Band vorher,
+        # blieben genau jene Kandidaten ungeprueft und der Vergleich haette
+        # Loecher. (Spannen-Veto 25.07.: >3 K Streuung im Ensemble traegt kein mu.)
+        raw, grund = fetch_raw_models(c["city"], target, "max")
+        if raw is None:
+            # Ohne Prognose keine Qualitaetspruefung -> NICHT kaufen. Faellt
+            # Open-Meteo ganz aus, setzt der Bot an dem Tag nichts; das ist
+            # der harmlosere Ausfall gegenueber ungeprueften Lays.
+            log_rows.append({**base, "decision": f"skip_noforecast_{grund}"})
+        elif model_spread(raw) > MAX_SPREAD:
+            log_rows.append({**base, "decision": f"skip_spread_{model_spread(raw):.1f}"})
         elif no_live >= args.band_hi:
             # Zu teuer eingekauft: der Markt haelt den Bucket fuer so
             # unwahrscheinlich, dass kaum Rendite bleibt (+2,05 % gemessen).
@@ -391,23 +409,8 @@ def main():
         elif abstand < args.abstand_min:
             log_rows.append({**base, "decision": f"skip_abstand_{abstand:.2f}"})
         else:
-            # Spannen-Veto (25.07.): Der Screen lehnt eine Stadt ab, sobald die
-            # rohe Modellspanne MAX_SPREAD reisst — ein Ensemble mit >3 Grad
-            # Streuung traegt kein mu. Der Autobuy kannte dieses Gate bisher
-            # nicht und kaufte allein nach Preis. Aufgefallen beim Nachruesten
-            # von Moskau, das mit 4,3 Grad Spanne ins Buch kam.
-            raw, grund = fetch_raw_models(c["city"], target, "max")
-            if raw is None:
-                # Ohne Prognose keine Qualitaetspruefung -> NICHT kaufen. Faellt
-                # Open-Meteo ganz aus, setzt der Bot an dem Tag nichts; das ist
-                # der harmlosere Ausfall gegenueber ungeprueften Lays.
-                log_rows.append({**base, "decision": f"skip_noforecast_{grund}"})
-            elif model_spread(raw) > MAX_SPREAD:
-                log_rows.append({**base,
-                                 "decision": f"skip_spread_{model_spread(raw):.1f}"})
-            else:
-                c["event_id"] = event_id      # fuer den Jupiter-Link in der Mail
-                tradeable.append((abstand, no_live, c, base))
+            c["event_id"] = event_id      # fuer den Jupiter-Link in der Mail
+            tradeable.append((abstand, no_live, c, base))
         time.sleep(0.4)
 
     # Rangfolge = eigene Prognose, nicht Preis: wer am weitesten ueber der

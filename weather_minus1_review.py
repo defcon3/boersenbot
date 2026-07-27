@@ -59,11 +59,19 @@ for _s in (sys.stdout, sys.stderr):
 OWNER = "4XxStoKPzoiEJ6hUGEESfE54dCRo97LcCGk2UFieKjSi"
 KAUF = ("bought", "sent_unverified")
 
+# KORREKTUR 27.07. abends: R3 begann NICHT am 23.07. Das Guete-Gate (b4c066f)
+# wurde am 22.07. erst NACH dem 12:45-Lauf deployt — der Kauf fuer Zieltag 23.07.
+# lief also noch ungefiltert. Beleg im Log: an dem Tag gingen Helsinki 0,83,
+# Ankara 0,81 und Cape Town 0,71 als Rang 4-6 durch, die das Gate alle
+# abgelehnt haette. Ab Zieltag 24.07. steht dort sauber skip_quality.
+# Der Trockentest vom 22.07. ("haette 3 statt 6 gesetzt") lief gegen genau diese
+# Kandidatenliste — er beschrieb die Zukunft, nicht den gefahrenen Lauf.
 REGIMES = [
     ("R1  Cap 3",                      "2026-07-21", "2026-07-21"),
-    ("R2  Cap 6, ungefiltert",         "2026-07-22", "2026-07-22"),
-    ("R3  Cap 6 + Guete-Gate 0,85",    "2026-07-23", "2026-07-26"),
-    ("R4  + Spannen-Veto",             "2026-07-27", "2026-12-31"),
+    ("R2  Cap 6, ungefiltert",         "2026-07-22", "2026-07-23"),
+    ("R3  Cap 6 + Guete-Gate 0,85",    "2026-07-24", "2026-07-26"),
+    ("R4  + Spannen-Veto",             "2026-07-27", "2026-07-27"),
+    ("R5  V2 Preisband 0,70-0,90",     "2026-07-28", "2026-12-31"),
 ]
 
 
