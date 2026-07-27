@@ -168,9 +168,12 @@ def owned_market_ids(owner):
 
 
 def live_market(mid):
+    """(status, buyNo, eventId). Die eventId ist die Bretts-ID fuer den UI-Link —
+    jup.ag/prediction/<eventId> zeigt die ganze Leiter der Stadt, die
+    marketId-Variante loest dort nicht sauber auf."""
     m = get_json(f"{PM_API}/v1/markets/{mid}")
     pr = m.get("pricing") or {}
-    return m.get("status"), (pr.get("buyNoPriceUsd") or 0) / 1e6
+    return m.get("status"), (pr.get("buyNoPriceUsd") or 0) / 1e6, m.get("eventId")
 
 
 def verify_fill(owner, mid, tries=3):
@@ -203,7 +206,11 @@ def final_fills(owner, mids):
     Minuten vergangen, die Zahlen stimmen also fuer die Mail."""
     out = {}
     try:
-        j = get_json(f"{JUP_API}/positions", {"ownerPubkey": owner})
+        # Grosszuegig retrien: am 27.07. lief genau dieser Aufruf in ein 429 und
+        # die Mail zeigte daraufhin "0.00 @ 0.000" statt der Quoten. Kurz warten,
+        # dann bis zu 6 Versuche — der Lauf hat es nicht eilig.
+        time.sleep(5)
+        j = get_json(f"{JUP_API}/positions", {"ownerPubkey": owner}, tries=6)
         for p in j.get("data", []):
             if p.get("marketId") in mids:
                 out[p["marketId"]] = (float(p.get("contractsDecimal") or 0),
@@ -222,25 +229,49 @@ def send_summary_mail(run_utc, target, cap, n_cands, bought, failed):
         print(f"  (Mail-Import fehlgeschlagen: {e})")
         return
     if bought:
-        rows = "".join(
-            f'<tr><td style="padding:7px 10px;border-bottom:1px solid #eee;">'
-            f'<b>{c}</b> {k}°C NO</td>'
-            f'<td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right;">'
-            f'{ct:.2f} @ {av:.3f}</td>'
-            f'<td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right;">'
-            f'{ko:.2f} $</td></tr>'
-            for c, k, ct, av, ko in bought)
-        einsatz = sum(b[4] for b in bought)
-        gewinn = sum(b[2] - b[4] for b in bought)
+        zeilen = []
+        for b in bought:
+            link = (f"https://jup.ag/prediction/{b['event_id']}"
+                    if b.get("event_id") else None)
+            # Quote = Preis je Kontrakt. Der Lay gewinnt (1 − Quote) je Kontrakt,
+            # deshalb steht die Gegenwahrscheinlichkeit gleich daneben: sie ist
+            # das, wogegen die eigene Prognose zu pruefen ist.
+            quote = f"{b['av']:.3f}{'≈' if b['geschaetzt'] else ''}"
+            impl = f"{(1 - b['av']) * 100:.0f} %" if b["av"] else "—"
+            stadt = (f'<a href="{link}" style="color:#1565c0;text-decoration:none;">'
+                     f'<b>{b["city"]}</b> {b["k"]}°C NO ↗</a>' if link
+                     else f'<b>{b["city"]}</b> {b["k"]}°C NO')
+            zeilen.append(
+                f'<tr><td style="padding:7px 10px;border-bottom:1px solid #eee;">{stadt}'
+                f'<br><span style="color:#888;font-size:12px;">Bucket-Chance laut Markt '
+                f'{impl}</span></td>'
+                f'<td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right;'
+                f'white-space:nowrap;">{b["ct"]:.2f} @ <b>{quote}</b></td>'
+                f'<td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right;">'
+                f'{b["ko"]:.2f} $</td></tr>')
+        rows = "".join(zeilen)
+        einsatz = sum(b["ko"] for b in bought)
+        gewinn = sum(b["ct"] - b["ko"] for b in bought)
         rendite = f" (+{gewinn / einsatz * 100:.1f} %)" if einsatz else ""
+        unsicher = any(b["geschaetzt"] for b in bought)
+        hinweis = ('<br><span style="color:#888;font-size:12px;">≈ = Fill war noch '
+                   'nicht abrufbar, Quote ist der Ask zum Kaufzeitpunkt.</span>'
+                   if unsicher else "")
         kopf = f"🤖 −1-Autobuy: {len(bought)} Lay{'s' if len(bought) != 1 else ''} gesetzt"
         body = (f'<table style="width:100%;border-collapse:collapse;font-size:14px;">{rows}</table>'
                 f'<br>Einsatz <b>{einsatz:.2f} $</b> · bei vollem Durchlauf '
-                f'<b>+{gewinn:.2f} $</b>{rendite} · Settlement am {target}.')
-        text = ("".join(f"  {c} {k}°C NO — {ct:.2f} Kontr. @ {av:.3f} = {ko:.2f} $\n"
-                        for c, k, ct, av, ko in bought)
-                + f"\nEinsatz {einsatz:.2f} $ | bei vollem Durchlauf +{gewinn:.2f} $"
-                  f"{rendite} | Settlement am {target}.")
+                f'<b>+{gewinn:.2f} $</b>{rendite} · Settlement am {target}.{hinweis}')
+        text = ("".join(
+            f"  {b['city']} {b['k']}°C NO — {b['ct']:.2f} Kontr. @ "
+            f"{b['av']:.3f}{'~' if b['geschaetzt'] else ''} = {b['ko']:.2f} $"
+            f"  (Markt: {(1 - b['av']) * 100:.0f} % Bucket-Chance)\n"
+            + (f"      https://jup.ag/prediction/{b['event_id']}\n"
+               if b.get("event_id") else "")
+            for b in bought)
+            + f"\nEinsatz {einsatz:.2f} $ | bei vollem Durchlauf +{gewinn:.2f} $"
+              f"{rendite} | Settlement am {target}."
+            + ("\n(~ = Fill noch nicht abrufbar, Quote ist der Ask zum Kaufzeitpunkt.)"
+               if unsicher else ""))
     else:
         kopf = "🤖 −1-Autobuy: nichts gesetzt"
         body = ("Es wurde <b>kein</b> Markt gekauft — kein Kandidat hat die Kriterien "
@@ -253,10 +284,10 @@ def send_summary_mail(run_utc, target, cap, n_cands, bought, failed):
             f'border-radius:10px 10px 0 0;font-size:18px;font-weight:800;">{kopf}</div>'
             f'<div style="padding:18px;background:#fff;color:#333;font-size:15px;line-height:1.6;">'
             f'Lauf <b>{run_utc} UTC</b> · Zieltag <b>{target}</b> · '
-            f'{n_cands} Kandidaten handelbar, Cap {cap}.<br><br>{body}{fehl}</div></div>')
+            f'{n_cands} Kandidaten im Preisband, Cap {cap}.<br><br>{body}{fehl}</div></div>')
     notify(f"{kopf} — Zieltag {target}", html,
            f"−1-AUTOBUY {run_utc} UTC | Zieltag {target}\n"
-           f"{n_cands} Kandidaten handelbar, Cap {cap}.\n\n{text}"
+           f"{n_cands} Kandidaten im Preisband, Cap {cap}.\n\n{text}"
            + (f"\nFehlgeschlagen: {', '.join(failed)}" if failed else ""))
 
 
@@ -342,7 +373,7 @@ def main():
             log_rows.append({**base, "buy_no_live": "", "decision": "skip_no_mu"})
             continue
         try:
-            status, no_live = live_market(c["market_id"])
+            status, no_live, event_id = live_market(c["market_id"])
         except RuntimeError as e:
             log_rows.append({**base, "buy_no_live": "", "decision": f"skip_api_{e}"})
             continue
@@ -375,6 +406,7 @@ def main():
                 log_rows.append({**base,
                                  "decision": f"skip_spread_{model_spread(raw):.1f}"})
             else:
+                c["event_id"] = event_id      # fuer den Jupiter-Link in der Mail
                 tradeable.append((abstand, no_live, c, base))
         time.sleep(0.4)
 
@@ -470,13 +502,22 @@ def main():
     if not args.dry_run and gekauft:
         fills = final_fills(owner, {c["market_id"] for c, _ in gekauft})
         for c, row in gekauft:
-            ct, av, ko = fills.get(c["market_id"], (0.0, 0.0, args.usd))
+            ct, av, ko = fills.get(c["market_id"], (0.0, 0.0, 0.0))
             if ct and row["decision"] == "sent_unverified":
                 row.update(decision="bought", contracts=ct, avg_price=f"{av:.4f}")
                 n_ok += 1
                 print(f"  nachgetragen: {c['city']} {c['k']}° -> bought "
                       f"{ct} Kontr. @ {av:.4f}")
-            bought.append((c["city"], c["k"], ct, av, ko))
+            # Ist der Fill trotz Retry nicht abrufbar, NICHT mit Nullen mailen:
+            # der Kauf lief zum Limit, der Ask ist die beste bekannte Naeherung.
+            # Als Schaetzung kenntlich gemacht — das CSV bleibt davon unberuehrt.
+            geschaetzt = not ct
+            if geschaetzt:
+                ask = float(row.get("buy_no_live") or 0) or None
+                if ask:
+                    av, ct, ko = ask, args.usd / ask, args.usd
+            bought.append(dict(city=c["city"], k=c["k"], ct=ct, av=av, ko=ko,
+                               event_id=c.get("event_id"), geschaetzt=geschaetzt))
 
     append_log(log_rows)
     print(f"\nFertig: {n_ok} Kaeufe bestaetigt, {len(log_rows)} Zeilen geloggt -> {LOG_CSV}")
