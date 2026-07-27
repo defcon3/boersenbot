@@ -88,7 +88,7 @@ def p_bucket(mu, sigma, k, city):
     return phi(ob) - phi(ub)
 
 
-def lade_kandidaten(von):
+def lade_kandidaten(von, var="max"):
     """Alle -1-Fenster mit Vortags-Snapshot, mu/sigma und bekanntem Ausgang.
 
     Deduplizierung ueber den SPAETESTEN Vortags-Snapshot je (Zieltag, Stadt, k) —
@@ -100,13 +100,13 @@ def lade_kandidaten(von):
         SELECT city, k, buy_no, target_date, settle_result, snapshot_utc,
                mu_ens, sigma_ens
         FROM bb_WeatherLadders
-        WHERE var='max' AND kind='eq' AND offset_fav=-1 AND status='open'
+        WHERE var=%s AND kind='eq' AND offset_fav=-1 AND status='open'
           AND buy_no IS NOT NULL AND buy_no > 0 AND buy_no < 1
           AND settle_result IS NOT NULL
           AND mu_ens IS NOT NULL AND sigma_ens IS NOT NULL
           AND CAST(snapshot_utc AS date) < target_date
           AND target_date >= %s
-    """, (von,))
+    """, (var, von))
     rows = cur.fetchall()
     conn.close()
 
@@ -176,18 +176,20 @@ def zeile(titel, posten, basis_roi=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--von", default="2026-07-20", help="fruehester Zieltag")
+    ap.add_argument("--var", default="max", choices=("max", "min"),
+                    help="max = Tageshoechst-, min = Tagestiefsttemperatur")
     ap.add_argument("--schwellen", default="-10,-5,0,2,5,8,10",
                     help="Rand-Schwellen in Prozentpunkten, kommasepariert")
     a = ap.parse_args()
 
-    posten = lade_kandidaten(a.von)
+    posten = lade_kandidaten(a.von, a.var)
     if not posten:
         print("Keine Kandidaten mit mu/sigma und Settlement gefunden.")
         return
 
     tage = sorted({p["tag"] for p in posten})
     basis = kennzahlen(posten)
-    print(f"Schattenbuch der -1-Klasse ab {a.von}: {basis['n']} Kandidaten, "
+    print(f"Schattenbuch der -1-Klasse [{a.var}] ab {a.von}: {basis['n']} Kandidaten, "
           f"{len(tage)} Zieltage ({tage[0]} .. {tage[-1]})")
     print(f"P_modell aus mu_ens/sigma_ens (700d-Lead-24h-Ensemble) — eine Sicht, "
           f"nicht das P_pess-Maximum des Screens.\n")
