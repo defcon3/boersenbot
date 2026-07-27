@@ -77,6 +77,11 @@ tennis_elo_atp.csv
 tennis_elo_wta.csv
 g3_spread_sigma_cache.pkl
 
+# Klasse-B-Auswertung, Minimum-Variante (reproduzierbar via
+# weather_classb_eval.py --var min; die max-Dateien bleiben als Beleg getrackt)
+classb_700d_offsets_min.json
+classb_market_side_min.json
+
 # Trade-Tape-Cache (reproduzierbar via weather_mm_spread_test.py)
 .mm_tape_cache/
 .wu_intraday_cache/
