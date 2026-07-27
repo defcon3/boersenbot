@@ -5,29 +5,65 @@ weather_minus1_autobuy.py — Autonomer Live-Test der −1-Lay-Klasse.
 Pre-Reg: preregs/weather_minus1_live_2026_07_20.md (Klasse-B-Basis: −1-Klasse
 +3,35 % netto, t 7,9 — preregs/weather_classb_lay_2026_07_18.md).
 
+=== VERSION 2 (27.07.2026) — PREISBAND STATT PREIS-RANKING ===
+
+V1 (Tag `autobuy-v1`) nahm "die konservativsten zuerst", also die höchsten
+NO-Preise. Die Messung über 116 Kandidaten / 7 Zieltage
+(`weather_minus1_ppess_filter.py`) zeigt, dass genau das das ertragsschwächste
+Ende ist:
+
+    NO 0,95-1,00   +2,05 %   <- V1 kaufte hier
+    NO 0,85-0,90  +14,01 %
+    NO 0,75-0,85   +9,85 %
+    NO 0,70-0,75  +16,83 %
+    NO unter 0,70 -17,64 %   <- Klippe, dort ist der Markt fair
+
+Der Edge der −1-Klasse ist NICHT "sichere Wetten sammeln", sondern die
+systematische Fehlbepreisung des Marktes im Bereich 10–30 % eingepreiste
+Bucket-Chance (er sagt 25,7 %, eingetreten sind 9,1 %). Über NO 0,90 zahlt er
+zu wenig dafür, unter 0,70 liegt er richtig.
+
+WICHTIG zur Doktrin: Das Band ist KEIN "dem Markt folgen". Der Bucket kommt
+weiter allein aus unserem mu (k = Modell-Favorit − 1); der Preis sagt nur, wo
+der Markt am weitesten danebenliegt. Die Rangfolge INNERHALB des Bandes läuft
+deshalb über den Temperaturabstand — die eigene Prognose entscheidet, wer
+zuerst drankommt, der Preis nur, wer überhaupt in Frage kommt.
+
+Der Betreiber hat den vorgeschlagenen Forward-Test bewusst übersprungen; V2
+geht ohne Pre-Reg live. Deklarierte Abweichung von der Projektmethodik.
+Vorbehalt, der damit offen bleibt: 7 Tage, in-sample, ~10 Varianten probiert.
+
 Regel (täglich, VPS-Timer 12:45 UTC, direkt nach dem 12:30-Ladder-Snapshot):
   1. Kandidaten = heutiger bb_WeatherLadders-Snapshot mit var='max', kind='eq',
      offset_fav=-1, status='open', target_date=morgen (Lead 1, identische
      µ-Definition wie die Klasse-B-Messung).
-  2. Live-Preis-Recheck je Markt; handelbar wenn open und buyNo <= 0.975
-     (Mindestrendite 2,5 %). Märkte mit bestehender Position werden
-     übersprungen (Idempotenz + keine Kollision mit manuellen Wetten).
+  2. Live-Preis-Recheck je Markt; handelbar nur im BAND
+     BAND_LO (0,70) <= buyNo < BAND_HI (0,90). Märkte mit bestehender Position
+     werden übersprungen (Idempotenz + keine Kollision mit manuellen Wetten).
   2b. Spannen-Veto (25.07.): rohe Modellspanne der 5 Modelle > MAX_SPREAD
      (3 °C) → kein Kauf. Schwelle und Abfrage kommen per Import aus
      weather_outlier_screen, damit es nur einen Codepfad gibt. Ist die
      Prognose gar nicht abrufbar, wird ebenfalls nicht gekauft.
-  3. Auswahl (konservativste zuerst = höchster Live-NO-Preis): die ersten
-     QUAL_AFTER (=3) bedingungslos, jeder WEITERE bis Cap (=6) nur, wenn
-     Live-NO >= QUAL_MIN (=0,85). Gestuftes Güte-Gate (Nutzer-Entscheid
-     22.07.): der Cap begrenzt die ZAHL, das Gate die GÜTE — ohne es stopfte
-     der reine Cap 6 auch renditegetriebene Grenzfälle rein (22.07. war der
-     6. Pick Cape Town 14° @0,71, Bucket-Chance 29 %). Basis-Entscheid
-     19./20.07.: bewusste Abweichung vom klassenreinen "alle"-Test.
-  4. Kauf 5 $ NO je Markt (Jupiter-Minimum), Limit = Live-Ask + 0,005
-     (Cap 0.975). Max 2 Sendeversuche, KEIN Nachrücker bei Fehlschlag.
-  5. Halten bis Settlement — kein TP (TP-Lehre 14.07.), Claims macht der
+  3. Rangfolge = TEMPERATURABSTAND absteigend: mu minus Oberkante des gelayten
+     Buckets, also wie weit die eigene Prognose über der Bucket-Grenze sitzt
+     (konstruktionsbedingt in [0,1) K). Gemessen trennt er die Ausgänge
+     (Gewinner +0,48 K, Verlierer +0,38 K; Filter >= 0,50 K senkt die
+     Verliererquote von 20,7 auf 12,2 %). Er hebt den ROI nicht — er begrenzt
+     den Verlustschwanz, und darauf kommt es an, weil unter der Woche niemand
+     eingreift. Warschau 21 (28.07.) hatte 0,37 K.
+  4. Cap 8 (V1: 6). Das Band liefert im Mittel 7,4 Kandidaten/Tag (4..10) —
+     der Cap greift also selten. Er ist eine OBERGRENZE, kein Ziel: gibt das
+     Band nur vier her, werden vier gesetzt und NICHT mit schwächeren
+     aufgefüllt. Kein Güte-Gate mehr (V1: erste 3 frei, dann NO >= 0,85) —
+     seine Schwelle drängte in genau die Ecke, die kaum etwas trägt.
+  5. Guthaben-Check VOR dem Kaufloop: reicht das freie JupUSD nicht für alle
+     Picks, wird die Liste gekürzt statt in fail_send zu laufen (am 27.07.
+     rutschte Mexico City still durch, weil der Bot blind sendete).
+  6. Kauf 5 $ NO je Markt (Jupiter-Minimum), Limit = Live-Ask + 0,005.
+     Max 2 Sendeversuche, KEIN Nachrücker bei Fehlschlag.
+  7. Halten bis Settlement — kein TP (TP-Lehre 14.07.), Claims macht der
      bestehende VPS-Autopilot.
-  6. Log: preregs/weather_minus1_live_log.csv (führende Datei auf dem VPS).
+  8. Log: preregs/weather_minus1_live_log.csv (führende Datei auf dem VPS).
 
 Guards: Zeitfenster 12:30–14:30 UTC (kein Nachhol-Lauf zu anderem Lead),
 Tages-Idempotenz übers Log, harter Fehler wenn heute kein Ladder-Snapshot da.
@@ -46,6 +82,10 @@ import requests
 from jupiter_buy import place
 from jupiter_sell import API as JUP_API, load_keypair
 from weather_ladder_logger import DB_CONFIG
+# Bucket-Grenzen NICHT nachbauen: half_up fuer die meisten Staedte, [k, k+1) fuer
+# die BUCKET_FLOOR-Staedte (Hong Kong). Wer hier danebengreift, verschiebt den
+# Temperaturabstand um ein halbes Grad.
+from weather_stations import bucket_grenzen
 # Spannen-Veto aus dem Screen IMPORTIERT, nicht kopiert (Kopier-Lehre aus dem
 # Beijing-33-Verlust 14.07.: ein Fix, der nur in einer Kopie landet, ist keiner).
 from weather_outlier_screen import MAX_SPREAD, fetch_raw_models, model_spread
@@ -58,15 +98,28 @@ for _s in (sys.stdout, sys.stderr):
 
 PM_API = "https://prediction-market-api.jup.ag/api"
 LOG_CSV = Path("preregs/weather_minus1_live_log.csv")
+# "abstand" haengt bewusst am ENDE: die bestehenden Zeilen auf dem VPS haben 12
+# Felder. Eine Spalte in der Mitte wuerde beim Lesen alles dahinter verschieben —
+# angehaengt liefert DictReader fuer Altzeilen schlicht None.
 LOG_FIELDS = ["run_utc", "target_date", "city", "k", "mu_ens", "buy_no_snap",
-              "buy_no_live", "decision", "usd", "contracts", "avg_price", "signature"]
-MAX_NO = 0.97           # Mindestrendite ~3 % (Tick-Size der Maerkte: ganze Cents)
-CAP_DEFAULT = 6         # die N konservativsten (Nutzer-Entscheid 20.07.: 3 -> 6;
-                        #   Cap-Wechsel gilt ab Zieltag 22.07., Review 27.07. beachten)
-QUAL_AFTER = 3          # die ersten N Picks bedingungslos (bis Cap) ...
-QUAL_MIN = 0.85         # ... jeder Pick DARUEBER nur, wenn Live-NO >= dieser
-                        #   Schwelle (gestuftes Guete-Gate, Nutzer-Entscheid 22.07.)
+              "buy_no_live", "decision", "usd", "contracts", "avg_price",
+              "signature", "abstand"]
+# Preisband statt Preis-Ranking (V2, 27.07.). Halboffen [LO, HI): oberhalb zahlt
+# der Markt zu wenig fuer das Risiko (+2 % im Band 0,95-1,00), unterhalb ist er
+# fair und es kippt (-17,6 %). Belegt in weather_minus1_ppess_filter.py.
+BAND_LO = 0.70
+BAND_HI = 0.90
+CAP_DEFAULT = 8         # OBERGRENZE, kein Ziel — das Band liefert im Mittel 7,4
+                        #   Kandidaten/Tag; nie mit schwaecheren auffuellen.
+ABSTAND_MIN = 0.0       # optionales Veto auf den Temperaturabstand (--abstand-min).
+                        #   Default aus: das Band traegt den Ertrag, der Abstand
+                        #   sortiert nur. Wer den Verlustschwanz enger will,
+                        #   setzt 0.50 (Verliererquote 20,7 % -> 12,2 %).
 USD_DEFAULT = 5.0       # Jupiter-Minimum
+CASH_PUFFER = 1.02      # Fee kommt zum Einsatz dazu (0,07*n*min(p,1-p))
+LIMIT_CAP = 0.97        # harter Deckel fuer den Limitpreis (Tick = ganze Cents).
+                        #   Bindend ist BAND_HI; das hier faengt nur den Fall ab,
+                        #   dass Ask+1ct ueber eine sinnvolle Rendite hinausliefe.
 
 
 def get_json(url, params=None, tries=4):
@@ -230,11 +283,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="alles ausser /execute")
     ap.add_argument("--target", help="Zieltag YYYY-MM-DD (Default: morgen UTC)")
-    ap.add_argument("--cap", type=int, default=CAP_DEFAULT)
-    ap.add_argument("--qual-after", type=int, default=QUAL_AFTER,
-                    help="die ersten N Picks bedingungslos, danach greift das Guete-Gate")
-    ap.add_argument("--qual-min", type=float, default=QUAL_MIN,
-                    help="Mindest-Live-NO fuer Picks jenseits von --qual-after")
+    ap.add_argument("--cap", type=int, default=CAP_DEFAULT,
+                    help="Obergrenze der Lays pro Lauf (wird NIE aufgefuellt)")
+    ap.add_argument("--band-lo", type=float, default=BAND_LO,
+                    help="untere Bandgrenze des Live-NO (darunter ist der Markt fair)")
+    ap.add_argument("--band-hi", type=float, default=BAND_HI,
+                    help="obere Bandgrenze des Live-NO (darueber zahlt er zu wenig)")
+    ap.add_argument("--abstand-min", type=float, default=ABSTAND_MIN,
+                    help="Mindest-Temperaturabstand mu ueber Bucket-Oberkante in K "
+                         "(0.50 senkt die Verliererquote auf ~12 %%)")
     ap.add_argument("--usd", type=float, default=USD_DEFAULT)
     ap.add_argument("--force-window", action="store_true",
                     help="Zeitfenster-Guard uebergehen (nur fuer Tests)")
@@ -243,7 +300,9 @@ def main():
     now = datetime.now(timezone.utc)
     target = args.target or (now + timedelta(days=1)).strftime("%Y-%m-%d")
     run_utc = now.strftime("%Y-%m-%d %H:%M")
-    print(f"=== −1-Autobuy {run_utc} UTC | Zieltag {target} | cap {args.cap} | "
+    print(f"=== −1-Autobuy V2 {run_utc} UTC | Zieltag {target} | "
+          f"Band [{args.band_lo:.2f}, {args.band_hi:.2f}) | cap {args.cap} | "
+          f"abstand >= {args.abstand_min:.2f} K | {args.usd:.0f} $/Lay | "
           f"{'DRY-RUN' if args.dry_run else 'ECHT'} ===")
 
     if not args.force_window and not (12 * 60 + 30 <= now.hour * 60 + now.minute <= 14 * 60 + 30):
@@ -262,12 +321,25 @@ def main():
 
     log_rows, tradeable = [], []
     for c in cands:
+        # Temperaturabstand: wie weit sitzt die eigene Prognose ueber der
+        # Oberkante des gelayten Buckets? Bei offset_fav=-1 liegt mu immer im
+        # Bucket darueber, der Wert also in [0,1) K. Klein = mu klebt an der
+        # Kante = gefaehrlich.
+        abstand = None
+        if c["mu_ens"] is not None:
+            abstand = c["mu_ens"] - bucket_grenzen(c["k"], c["city"])[1]
         base = {"run_utc": run_utc, "target_date": target, "city": c["city"], "k": c["k"],
                 "mu_ens": round(c["mu_ens"], 2) if c["mu_ens"] is not None else "",
-                "buy_no_snap": c["buy_no"], "usd": "", "contracts": "", "avg_price": "",
-                "signature": ""}
+                "buy_no_snap": c["buy_no"],
+                "abstand": round(abstand, 2) if abstand is not None else "",
+                "usd": "", "contracts": "", "avg_price": "", "signature": ""}
         if c["market_id"] in owned:
             log_rows.append({**base, "buy_no_live": "", "decision": "skip_position"})
+            continue
+        if abstand is None:
+            # Ohne mu kein Abstand — und ohne Abstand keine Rangfolge. Kann nur
+            # auftreten, wenn der Logger die Stadt ohne mu geschrieben hat.
+            log_rows.append({**base, "buy_no_live": "", "decision": "skip_no_mu"})
             continue
         try:
             status, no_live = live_market(c["market_id"])
@@ -277,8 +349,16 @@ def main():
         base["buy_no_live"] = round(no_live, 3)
         if status != "open" or no_live <= 0:
             log_rows.append({**base, "decision": "skip_closed"})
-        elif no_live > MAX_NO:
-            log_rows.append({**base, "decision": "skip_price"})
+        elif no_live >= args.band_hi:
+            # Zu teuer eingekauft: der Markt haelt den Bucket fuer so
+            # unwahrscheinlich, dass kaum Rendite bleibt (+2,05 % gemessen).
+            log_rows.append({**base, "decision": f"skip_band_teuer_{no_live:.2f}"})
+        elif no_live < args.band_lo:
+            # Unterhalb des Bandes ist der Markt fair kalibriert — dort verliert
+            # die Klasse Geld (-17,64 % gemessen), egal was die Prognose sagt.
+            log_rows.append({**base, "decision": f"skip_band_billig_{no_live:.2f}"})
+        elif abstand < args.abstand_min:
+            log_rows.append({**base, "decision": f"skip_abstand_{abstand:.2f}"})
         else:
             # Spannen-Veto (25.07.): Der Screen lehnt eine Stadt ab, sobald die
             # rohe Modellspanne MAX_SPREAD reisst — ein Ensemble mit >3 Grad
@@ -295,44 +375,77 @@ def main():
                 log_rows.append({**base,
                                  "decision": f"skip_spread_{model_spread(raw):.1f}"})
             else:
-                tradeable.append((no_live, c, base))
+                tradeable.append((abstand, no_live, c, base))
         time.sleep(0.4)
 
-    tradeable.sort(key=lambda x: -x[0])  # konservativste = hoechster NO-Preis
-    # Gestuftes Guete-Gate (Nutzer-Entscheid 22.07.): die ersten --qual-after
-    # Picks bedingungslos (bis Cap), jeder WEITERE nur, wenn er konservativ genug
-    # ist (Live-NO >= --qual-min). Da absteigend sortiert, faellt ab dem ersten
-    # Grenzfall alles Folgende ebenfalls unter die Schwelle -> skip_quality.
+    # Rangfolge = eigene Prognose, nicht Preis: wer am weitesten ueber der
+    # Bucket-Kante sitzt, kommt zuerst. Der Preis hat seine Arbeit schon getan
+    # (Band-Filter oben) und darf hier nicht noch einmal mitreden — sonst waere
+    # es wieder das V1-Muster "der Markt bestimmt die Auswahl".
+    tradeable.sort(key=lambda x: -x[0])
     picks = []
-    for no_live, c, base in tradeable:
+    for abstand, no_live, c, base in tradeable:
+        # Cap ist eine Obergrenze, KEIN Ziel — es wird nie aufgefuellt, weil
+        # ausserhalb des Bandes gar nichts mehr in dieser Liste steht.
         if len(picks) >= args.cap:
             log_rows.append({**base, "decision": "skip_cap"})
-        elif len(picks) < args.qual_after or no_live >= args.qual_min:
-            picks.append((no_live, c, base))
         else:
-            log_rows.append({**base, "decision": "skip_quality"})
-    picks_txt = ", ".join(f"{c['city']} {c['k']}° NO@{no:.3f}" for no, c, _ in picks) or "—"
-    print(f"{len(tradeable)} handelbar, {len(picks)} werden gesetzt "
-          f"(Gate: erste {args.qual_after} frei, dann NO>={args.qual_min}): {picks_txt}")
+            picks.append((abstand, no_live, c, base))
+
+    # Guthaben-Check VOR dem Senden: am 27.07. lief Mexico City in fail_send,
+    # weil der Bot blind sendete. Lieber weniger Lays als stille Luecken in der
+    # Messreihe — eine gekuerzte Liste ist dokumentiert, ein Sendefehler nicht.
+    if picks and not args.dry_run:
+        cash = None
+        try:
+            from autopilot import wallet_cash
+            r = wallet_cash()
+            cash = r[0] if r else None
+        except Exception as e:
+            print(f"  (Guthaben nicht abrufbar, fahre ungeprueft fort: {e})")
+        if cash is not None:
+            passt = int(cash / (args.usd * CASH_PUFFER))
+            print(f"Guthaben {cash:.2f} JupUSD — reicht fuer {passt} Lays a {args.usd} $.")
+            if passt < len(picks):
+                for abstand, no_live, c, base in picks[passt:]:
+                    log_rows.append({**base, "decision": f"skip_cash_{cash:.2f}"})
+                picks = picks[:passt]
+
+    picks_txt = ", ".join(f"{c['city']} {c['k']}° NO@{no:.3f} d{a:+.2f}"
+                          for a, no, c, _ in picks) or "—"
+    print(f"{len(tradeable)} im Band [{args.band_lo:.2f}, {args.band_hi:.2f}), "
+          f"{len(picks)} werden gesetzt (Rang nach Temperaturabstand): {picks_txt}")
 
     n_ok = 0
     gekauft, fehlgeschlagen = [], []   # fuer die Abschluss-Mail
-    for no_live, c, base in picks:
+    for i, (abstand, no_live, c, base) in enumerate(picks):
+        # Atempause zwischen den Kaeufen. Am 27.07. lief der DRITTE Kauf (Mexico
+        # City) in zwei 429er und fiel aus — der Bot feuerte /execute ohne Pause
+        # hintereinander. Mit Cap 8 statt 6 waere das oefter passiert.
+        if i:
+            time.sleep(4)
         # Tick-Size 1 Cent: Limit = naechster ganzer Cent ueber dem Ask (Fill-Puffer)
-        limit = min(round((int(no_live * 100) + 1) / 100, 2), MAX_NO)
+        limit = min(round((int(no_live * 100) + 1) / 100, 2), LIMIT_CAP)
         print(f"\nKauf {c['city']} {c['k']}°C NO {args.usd}$ @ limit {limit} ({c['market_id']}):")
         result = {"ok": False}
-        for attempt in (1, 2):
+        # Drei Versuche mit wachsender Pause. 10 s reichten gegen das Rate-Limit
+        # nicht: Versuch 2 kam am 27.07. sofort wieder als 429 zurueck.
+        for attempt, pause in ((1, 15), (2, 45), (3, 0)):
             try:
                 result = place(owner, c["market_id"], False, args.usd, limit, kp,
                                send=not args.dry_run)
             except Exception as e:
-                print(f"  Versuch {attempt} Exception: {e}")
+                txt = str(e)
+                print(f"  Versuch {attempt} Exception: {txt}")
                 result = {"ok": False}
+                # 429 heisst "zu schnell", nicht "geht nicht" — laenger warten.
+                if "429" in txt and pause:
+                    pause = max(pause, 30)
             if result.get("ok"):
                 break
-            if attempt == 1:
-                time.sleep(10)
+            if pause:
+                print(f"  ... {pause} s warten, dann neuer Versuch")
+                time.sleep(pause)
         if args.dry_run:
             log_rows.append({**base, "decision": "dry_run", "usd": args.usd})
             continue
