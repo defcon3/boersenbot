@@ -169,6 +169,24 @@ OUTLIER_DEG = 2.0  # Modell > X Grad vom Median der UEBRIGEN = Ausreisser, flieg
 # damit kein Auswahlkriterium mehr (Wetterfrosch-Doktrin, s. Nachtrag oben);
 # EV wird weiter angezeigt, entschieden wird markt-blind + Profitschwelle MIN_YES.
 SIGMA_FLOOR = 0.3  # untere Schranke fuer sigma(s); a und b kommen aus der Kalibrier-CSV
+# --- Einigkeits-Gate (28.07.) ---
+# Die Doppel-Kalibrierungs-Regel war bis hierhin nur zur Haelfte im Code: beide
+# Sichten MUESSEN bestehen (seit 14.07.), aber wie weit ihre mu auseinanderliegen,
+# war kein Kriterium. Genau daran wurden Seoul 23 (12.07.) und Hong Kong min
+# (26.07.) von Hand aussortiert — Kopfsache, also irgendwann vergessen.
+# Die Wetterfrosch-Doktrin begruendet es: eine Stadt ohne konsistente eigene
+# Aussage ist nicht prognostizierbar, also nicht handelbar.
+#
+# GEMESSEN (weather_calib_divergence_eval.py, 28.07., 27 Staedte x ~10 gesettelte
+# Zieltage): Staedte mit D >= 0,7 treffen den Ist-Bucket in 22 % der Faelle,
+# Staedte darunter in 39 % (|e| 1,04 vs 0,76). Der Zusammenhang ueber alle
+# Staedte ist da, aber nicht stark: r = +0,36, t = 1,94.
+# EHRLICH DAZU: vier Schwellen (0,3/0,5/0,7/1,0) angesehen, alle zeigen dieselbe
+# Richtung; 0,7 hat den groessten Kontrast. Die Zahl ist damit nicht
+# out-of-sample belegt, sondern eine Doktrin-Umsetzung mit stuetzender Messung.
+# Kosten: 24 % der bisherigen -1-Kandidatentage (Beijing, Jeddah, Munich, Seoul,
+# Taipei, Tel Aviv).
+MAX_DIVERGENZ = 0.7  # |bias_700d - bias_40d| des Ensembles in K -> darueber kein Kandidat
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
@@ -311,6 +329,22 @@ def build_views(city, raw, calib, calib40, spread, dropped):
     return views
 
 
+def divergenz(calib, calib40, city):
+    """|mu_700d - mu_40d| dieser Stadt in K — die Uneinigkeit der beiden Sichten.
+
+    mu = roh_ens - bias, und roh_ens ist fuer beide Sichten dasselbe. Die
+    Differenz der mu ist damit exakt die Differenz der ENS-Biases; die Forecasts
+    muessen dafuer nicht angefasst werden.
+
+    None, wenn eine der beiden Kalibrierungen fehlt — dann greift ohnehin schon
+    das aeltere has40-Gate."""
+    a = calib.get((city, "ensemble_mean"))
+    b = calib40.get((city, "ensemble_mean"))
+    if not a or not b:
+        return None
+    return abs(a[0] - b[0])
+
+
 def ens_sigma(cal, city, spread):
     """Sigma des Ensembles — spannen-konditioniert, wenn die Kalibrierung a und b
     mitbringt, sonst das alte feste Sigma.
@@ -391,6 +425,11 @@ def reject_reasons(r):
     why = []
     if not r["has40"]:
         why.append("keine 40d-Kalibrierung -> Doppel-Check unmoeglich")
+    # Einigkeits-Gate: nicht ob beide Sichten existieren, sondern ob sie dasselbe
+    # sagen. .get() statt [] — aeltere Aufrufer ohne das Feld sollen nicht brechen.
+    if (r.get("divergenz") or 0.0) > MAX_DIVERGENZ:
+        why.append(f"KALIBRIERUNGEN UNEINIG {r['divergenz']:.2f}K>{MAX_DIVERGENZ} "
+                   f"(700d vs 40d) -> Stadt nicht prognostizierbar")
     if r["spread"] > MAX_SPREAD:
         why.append(f"SPANNE {r['spread']:.1f}°>{MAX_SPREAD}")
     if r["dist"] < MIN_DIST:
@@ -586,13 +625,15 @@ def main():
                 "p_max_src": SHORT[pmax_m] if pmax_m else "?",
                 "dist": d, "dist_sig": d / sig_use if sig_use else 0.0,
                 "spread": spread, "has40": has40, "be": be, "ev": be - p_use,
+                "divergenz": divergenz(calib, calib40, city),
             })
         time.sleep(0.5)
 
     # ---------------- 3) Ranking ----------------
     print("\n" + "=" * 112)
     print(f"KANDIDATEN-FILTER (markt-blind bis auf die Profitschwelle): dist>={MIN_DIST}°C | "
-          f"Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} (700d UND 40d) | buyYes>={MIN_YES:.0%}")
+          f"Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} (700d UND 40d) | buyYes>={MIN_YES:.0%} | "
+          f"700d/40d uneinig<={MAX_DIVERGENZ}K")
     print(f"P_pess = hoechstes P ueber alle Sichten (voll/bereinigt x 700d/40d); EV = BE - P_pess (nur Anzeige); "
           f"Ranking: P_pess aufsteigend (Wetterfrosch-Doktrin 16.07. — Abstand zur eigenen Prognose, Fav ignoriert)")
     print("=" * 112)

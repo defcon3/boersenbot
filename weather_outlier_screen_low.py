@@ -38,7 +38,8 @@ from weather_stations import station_info
 import requests
 
 from weather_outlier_screen import (MIN_DIST, MAX_PMODEL, MIN_YES, MAX_SPREAD,
-                                    bucket_prob, dist_deg, robust_mean, load_calib,
+                                    MAX_DIVERGENZ, bucket_prob, dist_deg, divergenz,
+                                    robust_mean, load_calib,
                                     reject_reasons, ens_sigma, model_sigma, build_views)
 
 for _s in (sys.stdout, sys.stderr):
@@ -266,12 +267,14 @@ def main():
                 "p_max_src": SHORT[pmax_m] if pmax_m else "?",
                 "dist": d, "dist_sig": d / sig_use if sig_use else 0.0,
                 "spread": spread, "has40": has40, "be": be, "ev": be - p_use,
+                "divergenz": divergenz(calib, calib40, city),
             })
         time.sleep(0.5)
 
     print("\n" + "=" * 112)
     print(f"KANDIDATEN-FILTER (markt-blind bis auf die Profitschwelle): dist>={MIN_DIST}°C | "
-          f"Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} (700d UND 40d) | buyYes>={MIN_YES:.0%}")
+          f"Modellspanne<={MAX_SPREAD}°C | jedes Modell P<={MAX_PMODEL:.0%} (700d UND 40d) | buyYes>={MIN_YES:.0%} | "
+          f"700d/40d uneinig<={MAX_DIVERGENZ}K")
     print("=" * 112)
     cand = [r for r in rows if not reject_reasons(r) and 0 < r["buyNo"] < 1]
     # Wetterfrosch-Doktrin 16.07. (wie High-Screen): sicherste zuerst, markt-blind.
