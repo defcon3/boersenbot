@@ -145,49 +145,23 @@ WU_KEY = "e1f10a1e78da46f5b10a1e78da96f525"  # oeffentlicher Web-Key der wunderg
 
 # --- Hong Kong Observatory ----------------------------------------------------
 # Die HK-Bretter settlen WEDER ueber Wunderground NOCH ueber METAR, sondern auf
-# die HKO-Klimareihe ("Absolute Daily Max (deg. C)", weather.gov.hk/en/cis/
-# climat.htm) — und zwar auf EINE Dezimalstelle genau statt auf ganze Grad.
-# VHHH (Chek Lap Kok) waere kein Ersatz: Inselflughafen gegen Stadtstation in
-# Tsim Sha Tsui, rund 25 km auseinander.
-# Die Open-Data-Reihe liefert fertige TAGESEXTREMA (nicht Stundenwerte) ueber die
-# volle Historie ab 1884 — dafuer mit Monatsverzug: der laufende Monat fehlt,
-# fuer Settlement des aktuellen Tages ist sie also unbrauchbar, fuer die
-# Kalibrierung ideal.
-HKO_API = "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php"
-HKO_DATATYPE = {"max": "CLMMAXT", "min": "CLMMINT"}
-# Sonderstationen (HKO) kommen aus weather_stations — EINE Quelle, damit ein
-# Nachtrag nicht wieder nur in einer von vier Kopien landet.
-_hko_cache = {}
-
-
-def fetch_actual_daily_extreme_hko(var):
-    """Tagesextrem-Reihe der Hong Kong Observatory -> {'YYYY-MM-DD': float}.
-
-    Anders als METAR/WU sind das bereits fertige Tageswerte, es wird also nichts
-    aggregiert. Ein Abruf ohne year/month liefert die komplette Historie
-    (49k+ Zeilen ab 1884), deshalb wird sie je Variable einmal gecacht.
-    Spalten: Jahr,Monat,Tag,Wert,Status — Status 'C' = vollstaendig, '#' =
-    unvollstaendig, '***' = fehlt. Nur 'C' wird uebernommen: ein unvollstaendiger
-    Tag kann das echte Extremum verfehlt haben und wuerde den Bias verzerren."""
-    if var in _hko_cache:
-        return _hko_cache[var]
-    r = requests.get(HKO_API, params={"dataType": HKO_DATATYPE[var], "lang": "en",
-                                      "rformat": "csv", "station": "HKO"}, timeout=90)
-    r.raise_for_status()
-    out = {}
-    for line in r.text.splitlines():
-        parts = [c.strip().strip('"') for c in line.split(",")]
-        if len(parts) < 5 or not parts[0].isdigit():
-            continue
-        y, m, d, val, status = parts[0], parts[1], parts[2], parts[3], parts[4]
-        if status != "C":
-            continue
-        try:
-            out[f"{int(y):04d}-{int(m):02d}-{int(d):02d}"] = float(val)
-        except ValueError:
-            continue
-    _hko_cache[var] = out
-    return out
+# die HKO ("Absolute Daily Max (deg. C)", weather.gov.hk/en/cis/climat.htm) —
+# und zwar auf EINE Dezimalstelle genau statt auf ganze Grad. VHHH (Chek Lap Kok)
+# waere kein Ersatz: Inselflughafen gegen Stadtstation in Tsim Sha Tsui, rund
+# 25 km auseinander.
+#
+# Die Abruf-Logik liegt in weather_hko — EINE Quelle, weil der Ladder-Logger sie
+# fuer seinen Settle-Backfill genauso braucht und dafuer nicht numpy/scipy ueber
+# dieses Modul mitziehen darf.
+#
+# Seit 28.07. liefert fetch_actual_daily_extreme_hko die GEMERGTE Reihe:
+# Klimareihe ab 1884 (Monatsverzug) plus die letzten Monate aus dem
+# tagesaktuellen Daily Extract. Vorher endete jede HK-Kalibrierung zwangslaeufig
+# am letzten abgeschlossenen Monat und brauchte ein --end-date als Kruecke; die
+# 40d-Fenster lagen dadurch bis zu vier Wochen in der Vergangenheit. In der
+# Ueberlappung stimmen beide Quellen exakt ueberein (0 Widersprueche ueber 49.489
+# Tage, geprueft 28.07.).
+from weather_hko import actual_daily_extremes as fetch_actual_daily_extreme_hko  # noqa: E402
 # ------------------------------------------------------------------------------
 
 _airports = airportsdata.load("ICAO")
@@ -446,11 +420,12 @@ def main():
                          "Reihe, ganze °C — fuer Staedte, deren WU-Seite nicht aus den "
                          "METAR gespeist wird, z. B. Shenzhen) oder hko (Hong Kong "
                          "Observatory, die Settlement-Quelle der HK-Bretter — fertige "
-                         "Tagesextrema auf 0,1 C, Historie ab 1884, Monatsverzug)")
+                         "Tagesextrema auf 0,1 C, Historie ab 1884, seit 28.07. bis "
+                         "gestern reichend)")
     ap.add_argument("--end-date", default=None, metavar="YYYY-MM-DD",
-                    help="Fenster-Ende (default: gestern). Noetig fuer Ist-Quellen mit "
-                         "Verzug — die HKO-Reihe endet am letzten abgeschlossenen "
-                         "Monat, ein Fenster bis gestern traefe dort ins Leere")
+                    help="Fenster-Ende (default: gestern). Fuer HKO seit 28.07. NICHT "
+                         "mehr noetig: weather_hko legt den tagesaktuellen Daily Extract "
+                         "ueber die Klimareihe, das Fenster reicht wieder bis gestern")
     ap.add_argument("--fix-b-from", default=None, metavar="CSV",
                     help="sigma(s)-Steigung b je Quelle aus dieser Referenz-CSV uebernehmen "
                          "statt fitten (Pflicht bei <3 Staedten, z. B. Shenzhen-only)")

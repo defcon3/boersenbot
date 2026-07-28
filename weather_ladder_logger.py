@@ -14,7 +14,10 @@ Eine Zeile je (Snapshot, Zieltag, var, Stadt, Fenster). mu_ens/sigma_ens aus der
 700d-Kalibrierung (max: weather_source_calib_*.csv ohne _min_, min: _min_-CSV);
 Staedte ohne Station/Kalibrierung werden trotzdem geloggt (mu NULL — Preise sind
 auch ohne Modell wertvoll). Settle: IEM-METAR-Extrem des lokalen Kalendertags,
-half-up gerundet, in ALLE Zeilen des Zieltags (settle_k, settle_result je Fenster).
+in ALLE Zeilen des Zieltags (settle_k, settle_result je Fenster). Der Bucket
+kommt aus settle_bucket() — half-up ueberall, FLOOR fuer Hong Kong. Hong Kong
+settelt ausserdem nicht ueber METAR, sondern ueber den tagesaktuellen
+HKO-Daily-Extract (weather_hko).
 Zusaetzlich wu_settle_k: dasselbe Extrem aus der Wunderground-API (api.weather.com,
 oeffentlicher Web-Key) — das ist die Quelle, auf die Polymarket tatsaechlich
 settelt; Abweichung METAR vs WU wird beim Backfill gemeldet (BA-20°-Fall).
@@ -39,6 +42,7 @@ import airportsdata
 import pymssql
 import requests
 
+from weather_hko import daily_extreme as hko_daily_extreme
 from weather_stations import (favorit_k, has_metar, has_wunderground,
                               mu_erlaubt, station_info)
 
@@ -78,9 +82,10 @@ STATIONS = {
     # fuer wu_settle_k/settle_k entsprechend mit Vorsicht behandeln.
     "Moscow": "UUWW",
     # Hong Kong nachgeruestet 26.07.: Pseudo-Station "HKO" (weather_stations.
-    # SPECIAL_STATIONS). Die Stadt settelt auf die HKO-Klimareihe und hat WEDER
-    # METAR NOCH eine Wunderground-Seite — settle_k/wu_settle_k bleiben hier
-    # zwangslaeufig leer, die Preis- und mu-Zeilen sind trotzdem wertvoll.
+    # SPECIAL_STATIONS). Die Stadt hat WEDER METAR NOCH eine Wunderground-Seite;
+    # wu_settle_k bleibt hier deshalb dauerhaft leer. settle_k kommt seit 28.07.
+    # aus dem tagesaktuellen HKO-Daily-Extract (weather_hko) — und in
+    # FLOOR-Buckets, siehe settle_bucket().
     "Hong Kong": "HKO",
     # NYC nachgeruestet 26.07.: Settlement-Station laut Marktregel ist
     # LaGuardia (KLGA), NICHT Central Park — "the lowest temperature recorded at
@@ -103,6 +108,16 @@ AP = airportsdata.load("ICAO")
 
 def half_up(x):
     return math.floor(x + 0.5)
+
+
+def settle_bucket(wert, city):
+    """Ist-Temperatur -> Bucket-Index, in dem sie settelt.
+
+    Geht bewusst ueber weather_stations.favorit_k statt ueber half_up: fuer
+    BUCKET_FLOOR-Staedte (Hong Kong) meint der Bucket-Titel [k, k+1), 33,8 C
+    settelt dort also auf 33 und nicht auf 34. Fuer alle anderen Staedte ist das
+    identisch zu half_up."""
+    return favorit_k(wert, city)
 
 
 def load_calib():
@@ -300,7 +315,7 @@ def snapshot(conn):
     print(f"Snapshot: {len(rows)} Fenster-Zeilen ({n_cities} Stadt/var/Zieltag-Leitern) eingefuegt.")
 
 
-def wu_extreme(icao, var, target):
+def wu_extreme(icao, var, target, city=""):
     """Tagesextrem laut Wunderground (Polymarket-Settlement-Quelle) fuer den
     lokalen Kalendertag. None wenn nicht abrufbar/zu duenn."""
     if not has_wunderground(icao):
@@ -321,7 +336,7 @@ def wu_extreme(icao, var, target):
     temps = [o["temp"] for o in obs if o.get("temp") is not None]
     if len(temps) < 12:
         return None
-    return half_up(min(temps) if var == "min" else max(temps))
+    return settle_bucket(min(temps) if var == "min" else max(temps), city)
 
 
 def settle(conn):
@@ -339,21 +354,48 @@ def settle(conn):
     for target, var, city, icao, have_k in todo:
         if isinstance(target, datetime):
             target = target.date()
+        # icao ist CHAR(4) — die Pseudo-Station "HKO" kommt als "HKO " zurueck.
+        # Ohne strip() findet station_info() sie nicht, tz_name bleibt leer und
+        # Hong Kong faellt still durch das "keine Station -> skip" (bis 28.07.
+        # genau so passiert: 1.243 HK-Zeilen, kein einziger settle_k).
+        icao = (icao or "").strip()
         st = station_info(icao)
         tz_name = st.get("tz") if st else None
         if not tz_name:
-            continue
-        if not has_metar(icao):
-            # HKO: kein METAR und keine WU-Seite. Die Settlement-Reihe der HKO
-            # hinkt einen Monat hinterher (weather_source_compare.
-            # fetch_actual_daily_extreme_hko) und taugt nicht fuer den taeglichen
-            # Backfill — settle_k bleibt hier leer, statt jeden Lauf erneut
-            # vergeblich IEM und Wunderground abzufragen.
             continue
         # lokaler Tag muss vorbei sein: konservativ erst ab Folgetag 12:00 UTC settlen
         if datetime.now(timezone.utc) < datetime(target.year, target.month, target.day,
                                                  tzinfo=timezone.utc) + timedelta(days=1, hours=12):
             continue
+        if not has_metar(icao):
+            # HKO: kein METAR, keine WU-Seite — dafuer die eigene Reihe, auf die
+            # die Bretter tatsaechlich aufloesen. Der TAGESAKTUELLE Daily Extract
+            # (weather_hko) kennt den gestrigen Tag; nur die Klimareihe hinkt einen
+            # Monat hinterher. Bis 28.07. blieb settle_k hier deshalb dauerhaft
+            # leer, HK fehlte also in jeder Forward-Auswertung.
+            if icao != "HKO" or have_k is not None:
+                # have_k gesetzt = schon gesettelt. Die SELECT-Bedingung oben
+                # holt HK-Tage sonst jeden Lauf erneut, weil wu_settle_k hier
+                # zwangslaeufig NULL bleibt (keine Wunderground-Seite).
+                continue
+            wert = hko_daily_extreme(target, var)
+            if wert is None:
+                # Noch nicht publiziert. Offen lassen und morgen erneut fragen —
+                # die Marktregel sagt ausdruecklich, das Brett koenne bis dahin
+                # nicht aufloesen.
+                continue
+            # floor statt half_up: 33,8 settelt in Hong Kong auf 33.
+            settle_k = settle_bucket(wert, city)
+            cur.execute(
+                "UPDATE bb_WeatherLadders SET settle_k=%s, "
+                "settle_result=CASE WHEN (kind='eq' AND k=%s) OR (kind='le' AND %s<=k) "
+                "OR (kind='ge' AND %s>=k) THEN 1 ELSE 0 END "
+                "WHERE target_date=%s AND var=%s AND city=%s AND settle_k IS NULL",
+                (settle_k, settle_k, settle_k, settle_k, target, var, city))
+            print(f"    HKO {city} {var} {target}: {wert:.1f} C -> Bucket {settle_k}")
+            n_done += 1
+            continue
+
         settle_k = have_k
         if settle_k is None:     # METAR nur holen, wenn noch kein settle_k steht
             r = None
@@ -393,8 +435,8 @@ def settle(conn):
                     continue
             if len(temps) < 12:  # zu wenige Obs -> lieber offen lassen
                 continue
-            settle_k = half_up(min(temps) if var == "min" else max(temps))
-        wu_k = wu_extreme(icao, var, target)
+            settle_k = settle_bucket(min(temps) if var == "min" else max(temps), city)
+        wu_k = wu_extreme(icao, var, target, city)
         if wu_k is not None and wu_k != settle_k:
             print(f"    !! SETTLE-MISMATCH {city} {var} {target}: METAR {settle_k} vs Wunderground {wu_k} "
                   f"(Polymarket settelt auf WU)")
