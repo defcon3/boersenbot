@@ -86,3 +86,7 @@ classb_market_side_min.json
 .mm_tape_cache/
 .wu_intraday_cache/
 .pm_price_cache/
+
+# Trade-Tape- und WU-Cache der Vorwissens-Auswertung
+# (reproduzierbar via weather_foreknowledge_eval.py)
+.foreknowledge_cache/
