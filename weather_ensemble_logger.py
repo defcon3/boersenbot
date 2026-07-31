@@ -37,6 +37,22 @@ auf ein `lead_h`-Band filtern**, sonst vergleicht es 16-h- mit 38-h-Prognosen.
 
 Idempotent: eine (Stadt, Zieltag)-Kombination wird nie doppelt geschrieben.
 ~31 Aufrufe je Lauf und Endpoint, weit innerhalb der freien Open-Meteo-Stufe.
+
+## WO DIE WAHRHEIT LIEGT (seit 31.07.2026)
+
+Der Cron laeuft auf dem **VPS** (144.91.98.234, taeglich 21:30 Europe/Berlin —
+die Serverzeit ist NICHT UTC). Damit ist
+`/home/veit/boersenbot/weather_ensemble_log.csv` die **einzige** wachsende
+Fassung.
+
+**Diesen Logger NICHT lokal laufen lassen.** Die lokale CSV im Repo ist ein
+Standbild vom 31.07. mit den ersten 31 Zeilen. Laeuft er hier weiter, entstehen
+zwei Reihen mit denselben (Stadt, Zieltag)-Schluesseln, aber verschiedenen
+Laufzeitpunkten — die Idempotenzpruefung greift ueber Dateigrenzen hinweg
+nicht. Vor der Auswertung die VPS-Fassung holen:
+
+    scp -i ~/.ssh/boersenbot_key \
+        veit@144.91.98.234:/home/veit/boersenbot/weather_ensemble_log.csv .
 """
 import argparse
 import csv
