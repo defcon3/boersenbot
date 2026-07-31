@@ -90,3 +90,7 @@ classb_market_side_min.json
 # Trade-Tape- und WU-Cache der Vorwissens-Auswertung
 # (reproduzierbar via weather_foreknowledge_eval.py)
 .foreknowledge_cache/
+
+# Forward-/Messdaten-Caches (aus den jeweiligen *.py regenerierbar)
+g3_cell_selection_cache.pkl
+g3_ens_mu_cache.pkl
