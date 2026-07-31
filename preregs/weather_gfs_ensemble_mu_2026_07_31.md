@@ -160,6 +160,46 @@ als wir selbst (28.07., p < 0,01). H1 verbessert einen Schätzer, dessen
 *Punktgebrauch* bereits falsifiziert ist — der Nutzen kann nur über die
 Bucket-Wahrscheinlichkeiten in der Lay-Zone kommen, nie über den Favoriten.
 
+---
+
+# NACHTRAG 31.07.2026 (noch am Tag der Registrierung): rückwirkend NICHT ausführbar
+
+Beim Implementieren von `weather_gfs_ensemble_mu_eval.py` stellte sich heraus:
+**Für Ensemble-Läufe existiert kein Archiv.** Damit ist H1 rückwirkend nicht
+prüfbar — die Pre-Reg bleibt gültig, ihr Datenpfad nicht.
+
+| Weg | Ergebnis |
+|---|---|
+| `ensemble-api` + `previous_day1` (+ `start_date` oder `past_days`) | 30 korrekt benannte Member-Spalten, **alle Werte `None`** |
+| `historical-forecast-api/v1/ensemble` | **Not Found** |
+| `previous-runs-api/v1/ensemble` | **Not Found** |
+| `ensemble-api` + `temperature_2m` + `start_date` | nur die letzten ~3 Tage |
+| `historical-forecast-api/v1/forecast` (Punktmodelle) | funktioniert — das ist die Quelle unserer fünf Modelle |
+
+**Warum die Sondierung das nicht gefangen hat:** Die API akzeptiert
+`previous_day1` auf dem Ensemble-Endpoint anstandslos, antwortet mit HTTP 200
+und liefert die vollständige Spaltenstruktur — nur eben ohne Werte. Geprüft
+worden war die *Erreichbarkeit* der Felder, nicht ihre *Befüllung*. Das ist die
+Lehre für die nächste Machbarkeitsprüfung: **Feldnamen zählen ist keine
+Datenprüfung. Immer einen konkreten Wert anfassen.**
+
+## Konsequenz: Forward-Test statt Backtest
+
+Die Gates G1–G5 bleiben **unverändert gültig** — sie werden nur später erfüllt.
+Nötig ist ein täglicher Logger, der je Stadt die Lead-1-Ensemble-Prognose
+festhält (~31 Aufrufe/Tag, weit innerhalb der freien Stufe). Nach ~60–90 Tagen
+ist die Auswertung rechenbar; `weather_gfs_ensemble_mu_eval.py` ist fertig und
+braucht dann nur den anderen Datenpfad.
+
+Zwei Punkte, die dabei anders liegen als geplant:
+1. **Der Forward-Test läuft in den Herbst.** Das ist kein Sommer-Befund mehr —
+   inhaltlich sogar besser (breitere Regimeabdeckung), verlangt aber, dass der
+   Bias mitwandert und die Sommer-Steigung `SIGMA_B = 0,107` **nicht** blind
+   weiterbenutzt wird.
+2. **Der Test wird dadurch die sauberste Vorregistrierung des Repos:** Gates und
+   Auswertungscode stehen fest und committet, **bevor** die erste Beobachtung
+   überhaupt existiert. Kein Backtest kann das bieten.
+
 ## Abbruchregel
 
 Reißt **G1**, ist die These falsifiziert und wird **nicht** umparametrisiert —
