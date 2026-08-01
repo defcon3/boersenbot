@@ -7,6 +7,57 @@ Neueste oben. Erledigtes nach unten in „## Erledigt / verworfen" oder löschen
 
 ## Offen
 
+### Latenz-Test: sitzt der Markt auf den METAR-Spiegeln oder ist er schneller?
+**Hinzugefügt:** 2026-08-01 · **Status:** offen — **der Test selbst kostet nichts
+und entscheidet alles Weitere**
+
+**Anlass:** metar.ws (`app.metar.ws/docs`) verkauft METAR- und D-ATIS-Push über
+WebSocket: Starter 49 €/Mon (2 Verbindungen, 10 Kanäle, 7-Tage-Test), Pro
+199 €/Mon. Die Latenz-Sonde vom 31.07. wurde genau dafür gebaut — die
+kostenlose Basislinie liefern, gegen die sich ein bezahlter Dienst beweisen muss.
+
+**Was am 01.08. bereits geprüft ist:**
+- Der **freie Sandbox-Tarif liefert keine Live-Daten.** Einziger abonnierbarer
+  Kanal ist `sandbox.demo`, `metar.obs.*` antwortet `permission_denied`.
+  Gratis ist das Protokoll, nicht die Daten.
+- **D-ATIS gibt es kostenlos ohne Auth** über `atis.info/api/<ICAO>` — aber der
+  Spiegel hängt **8–11 min** hinter der Beobachtung (gemessen: KMIA 8,2 /
+  KSEA 8,3 / KLGA 10,8 / KBOS 7,7 min, alle Datensätze unter 1 min alt). Damit
+  ist er **nicht** schneller als NOAA (KLGA rund 7 min laut Sonde). Die Daten
+  sind frei, die Geschwindigkeit ist es nicht — genau die verkauft der Dienst.
+- **Stationsabdeckung passt exakt:** die sechs in der Doku genannten Kanäle sind
+  unsere Settlement-Stationen (eglc, lfpb, eddm, rjtt, zbaa, klga), inklusive
+  der unüblichen Wahlen London City statt Heathrow und Le Bourget statt CDG.
+- **Lücken:** Hongkong hat gar kein METAR (Pseudo-Station HKO), Moskau settelt
+  über NOAA, und 10 Kanäle bei Starter stehen gegen 28 Städte.
+- Die `T`-Gruppe mit 0,1 °C fehlte bei KSEA und KBOS im Stichprobentext. Genau
+  diese Feinstufe ist unser gemessener Bucket-Kipp-Prädiktor — vor jedem
+  Verlass darauf prüfen, ob das systematisch ist oder Zufall der Meldung.
+
+**DER TEST:** Polymarket-Trade-Tape gegen die Beobachtungszeit der
+Settlement-Station. Häufen sich die Preissprünge bei **obs+7 min**, sitzt der
+Markt auf den METAR-Spiegeln und eine Ein-Minuten-Quelle läge echt vorne.
+Häufen sie sich bei **obs+1 min**, hat jemand den schnellen Feed längst — dann
+kauft man sich den letzten Platz und die Sache ist erledigt. Vor dem Lauf Gates
+fixieren; Maschinerie steht in `weather_foreknowledge_eval.py` (Beobachtungszeit
+gegen Preisbewegung ist dort schon gebaut) plus die freie Polymarket-Data-API.
+
+**Reihenfolge danach, nur bei positivem Ergebnis:** Client gegen die Sandbox
+bauen (die Doku sagt zu, dass die Nutzlast formgleich ist, der Parser also
+unverändert in Produktion läuft) → die 7 Trial-Tage als **reine Messzeit** in
+die laufende Sonde hängen, nicht als Bauzeit → dann die 49-€-Entscheidung mit
+einer echten Minutenzahl statt einer Werbezahl.
+
+**Größenordnung im Blick behalten:** 49 €/Monat gegen ein Buch mit +10,16 $
+realisiertem Gewinn in drei Wochen, dessen Ausführung ab 250 $/Wette wegbricht.
+Der D-ATIS-Zweig deckt zudem nur 12 US-Drehkreuze ab, während unser US-Strang
+überwiegend Gate-ROT ist — übrig sind Miami und Seattle.
+
+**Verweise:** `weather_source_latency_probe.py` (läuft seit 31.07. auf dem VPS),
+`weather_foreknowledge_eval.py`, `POLYMARKET_DATA_API.md`.
+
+---
+
 ### Wächter für −1-Lays: vorregistrierter Ausstieg ab 16:20/17:20 Ortszeit
 **Hinzugefügt:** 2026-08-01 · **Status:** gemessen, nicht gebaut — **Vorbedingung
 für Breite, kein Zusatz zum heutigen Bot**
