@@ -129,6 +129,24 @@ Ortszeit noch in **87 %** der Fälle (13:20 91 %, 15:20 76 %, 16:20 41 %,
 fürs Rausgehen**.
 
 **Konkrete nächste Schritte:**
+0. **Basisrate breit neu rechnen — Vorarbeit, ohne die die Pre-Reg auf Sand
+   steht.** Die 16:20-Regel hängt heute an 125 Stadt-Tagen aus fünf
+   europäischen Städten in einem Sommer. Kostenloser Ersatz gefunden und am
+   01.08. live geprüft: **NCEI ISD global-hourly, ganz ohne Token**
+
+   ```
+   https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-hourly
+       &stations=<ISD-ID>&startDate=…&endDate=…&format=json&dataTypes=TMP
+   ```
+
+   Liefert einzelne METAR-Meldungen statt Tagesaggregate (`FM-15` = METAR,
+   `FM-12` = SYNOP; `TMP:"+0300,5"` = 30,0 °C mit Qualitätsflag). Verifiziert
+   an KMIA und EGLL. Damit lässt sich dieselbe Basisrate über Jahre, alle
+   28 Städte, alle Jahreszeiten und beide Halbkugeln rechnen. Archivverzug
+   Wochen bis Monate (Juli 2024 da, Juli 2026 noch nicht) — für Basisraten
+   irrelevant, für Live/Settlement unbrauchbar. Einzige Vorarbeit: Zuordnung
+   unserer 28 ICAO-Codes auf ISD-IDs (USAF+WBAN aneinandergehängt, z. B.
+   Heathrow `03772099999`); NCEI veröffentlicht dafür `isd-history.csv`.
 1. Pre-Reg schreiben, Parameter **vor** dem Lauf fixieren: Prüfstunde (16:20
    oder 17:20 Ortszeit), Signal-Definition, Kandidatenmenge, Mindestpreis für
    den Ausstieg (unter dem sich der Verkauf wegen Reibung nicht mehr lohnt).
@@ -142,7 +160,21 @@ fürs Rausgehen**.
 **Vorbehalte:** 13 Tage, nur Hochsommer, in-sample. Die 16:20-Basisrate stammt
 aus 5 nordhemisphärischen Sommerstädten (Helsinki, München, Paris, Madrid,
 London) — auf Südhalbkugel-Winter oder Städte, deren Maximum nachts liegt, ist
-sie nicht übertragbar; dort separat messen.
+sie nicht übertragbar. **Das ist ab Schritt 0 kein Vorbehalt mehr, sondern eine
+Messaufgabe:** der Buenos-Aires-Fall vom 01.08. (19 °C-Lay, Ortszeit 02:42,
+laufendes Hoch bereits 19) ist genau die Konstellation, für die uns die Zahl
+fehlt.
+
+**Geprüft und verworfen (01.08.):** NOAA **CDO v2**
+(`ncei.noaa.gov/cdo-web/api/v2`, freier Token, 5 Anfragen/s und 10.000/Tag) ist
+für diese Aufgabe das falsche Werkzeug. GHCND liefert nur **Tages**-Aggregate,
+also keine Intraday-Kurve und damit keine Timing-Basisrate; als
+Kalibrierungstiefe nützt es nichts, weil der bindende Engpass das
+Prognose-Archiv ist (`previous_day1` reicht bis ~08/2024), nicht die Ist-Reihe;
+und als Settlement-Quelle ist es riskant, weil GHCNDs Tages-TMAX über den
+klimatologischen Tag der Station läuft und nicht zwingend der Marktdefinition
+„all times on this day" entspricht. Der brauchbare Endpunkt ist der
+Schwesterdienst ISD aus Schritt 0.
 
 **Verweise:** `weather_lay_guardrail_eval.py` (Stufe 1 wetterseitig,
 `--stage2` mit Polymarket-Preisen), `preregs/weather_lay_guardrail_2026_07_24.md`,

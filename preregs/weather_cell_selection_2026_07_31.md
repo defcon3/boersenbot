@@ -133,3 +133,46 @@ handelbare Zelleneigenschaft, und es wird **nicht** auf andere Kennzahlen
 nur **G4** an der Breiten-Bedingung, lautet der Befund „Filter hebt den ROI,
 kostet aber zu viel Buch" — und der Filter wird als **Gewichtung** statt als
 Sperre weiterverfolgt, in einer eigenen Pre-Reg.
+
+---
+
+## Nachtrag 2026-08-01 — Notiz, **KEIN Gate, keine Hypothese**
+
+Nachträglich angehängt, **nach** dem Schreiben der Vorregistrierung oben und
+ohne jede Auswertung. Die Gates, Hypothesen und die Vorab-Erwartung bleiben
+unverändert; nichts hier darf zur Erfüllung eines Gates herangezogen werden.
+Festgehalten wird nur ein Kandidat, der beim Prüfen einer Adresse auffiel und
+methodisch hierher gehört.
+
+**MET Norway über Open-Meteo (`open-meteo.com/en/docs/metno-api`)** ist ein
+**Ein-Stadt-Modell** und damit per Konstruktion ein Zellen-Effekt — genau die
+Größe, die diese Pre-Reg untersucht. Am 01.08. geprüft:
+
+- **Prognose-Historie vorhanden:** `models=metno_seamless` mit
+  `temperature_2m_previous_day1` liefert (stündliche Variable; die tägliche
+  `temperature_2m_max_previous_day1` existiert **nicht**). Gegenprobe mit
+  `icon_seamless` identisch. Das Modell ist also kalibrierbar — die Bedingung,
+  an der neue Quellen hier sonst scheitern.
+- **Abdeckung nur Skandinavien.** Verifiziert: Helsinki liefert Daten, London
+  und Mexiko-Stadt antworten mit `latitude: nan, longitude: nan`. Von den
+  Städten in `STATIONS` ist **genau eine** abgedeckt.
+- **Produktklasse:** MET Nordic, 1 km, aus dem 2,5-km-MetCoOp-Ensemble mit
+  ECMWF-Initialisierung, nachbearbeitet gegen Messungen und Radar, stündliche
+  Aktualisierung. Unsere fünf Punktmodelle laufen auf 9–25 km.
+
+**Wenn das je getestet wird, dann in einer eigenen Pre-Reg** mit eigenen Gates
+(Vergleich metno gegen das 5-Modell-Mittel für die Zelle Helsinki × Maximum,
+auf demselben 40d/700d-Verfahren, walk-forward). `weather_source_compare.py`
+hat `--models` und die Bias/σ-Maschinerie bereits; der Aufwand ist ein
+Parameter, nicht ein Projekt.
+
+**Zwei Warnungen dazu, damit sie nicht verlorengehen:**
+
+1. Die Doku bewirbt „updates every hour" und Radar-Nachbearbeitung. Das ist
+   **kein** Anlass, den Intraday-Nowcast wieder aufzumachen — Ratchet und
+   Advektion sind beide gemessen gescheitert. Zulässig ist ausschließlich ein
+   besseres **Tages-µ** für die eine Zelle.
+2. Eine Stadt von 28 sind 3,5 % des Buches. Der Prio-3-Test hat bereits
+   gezeigt, dass drei zusätzliche **globale** Modelle die gepoolte Kennzahl
+   nicht bewegen (+1,5 % gegen Gate 3 %); ein Ein-Stadt-Modell kann sie
+   erst recht nicht bewegen. Der Nutzen wäre zellenlokal oder gar keiner.
