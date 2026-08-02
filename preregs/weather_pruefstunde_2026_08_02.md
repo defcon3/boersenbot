@@ -266,3 +266,88 @@ anderen Signaldefinition gesucht.
 
 **In keinem Ausgang wird der Wächter eingeschaltet.** Dafür bräuchte es zuerst
 eine Entscheidung für Breite, und die ist gefallen — dagegen.
+
+---
+
+# ERGEBNIS — G3 gerissen, und zwar an einem Fehler in G3 (02.08.2026)
+
+Gerechnet mit `weather_pruefstunde_eval.py` unmittelbar nach der
+Vorregistrierung (Commit `ca74a88`). ISD, Sommer 2024 und 2025, **26 von 27
+Städten** mit ≥ 60 Tagen je Sommer (Jeddah liefert keine verwertbaren Tage).
+
+## Die abgeleiteten Prüfstunden
+
+| Ortszeit | Städte | Berliner Zeit |
+|---|---|---|
+| **14:20** | Tokyo, Taipei, Shanghai, Tel Aviv, Wellington, Panama City | 07:20–21:20 |
+| **15:20** | Seoul, São Paulo, Cape Town | 08:20–20:20 |
+| **16:20** | Beijing, Kuala Lumpur, Wuhan, Mexico City | 00:20–10:20 |
+| **17:20** | Amsterdam, Ankara, Chengdu, Helsinki, London, Milan, Moscow, München, Toronto, Warschau, Buenos Aires | 11:20–23:20 |
+| **18:20** | Paris | 18:20 |
+| **19:20** | Madrid | 19:20 |
+
+## G1 und G2 — beide belegt, G2 sehr deutlich
+
+- **G1 Relevanz: BELEGT.** 22 von 26 Städten (85 %) weichen um ≥ 1 Stunde von
+  16:20 ab. Die starre Regel passt für vier Städte.
+- **G2 Stabilität: BELEGT, 26 von 26 (100 %).** Zwischen zwei Sommern stimmt
+  jede einzelne Prüfstunde auf ≤ 1 Stunde. Die erwartete Schwäche bei Küsten-
+  und Monsunstädten tritt **nicht** ein — Seoul, Taipei und Kuala Lumpur liefern
+  in beiden Sommern identische Stunden.
+
+## G3 — gerissen, aber die Diagnose der Pre-Reg ist falsch
+
+| Stadt | Prüfstunde | verlangt |
+|---|---|---|
+| London | 17:20 | ok |
+| Paris | 18:20 | ok |
+| **Madrid** | **19:20** | **Abweichung** |
+
+Die Abbruchregel greift wörtlich: **es wird kein anderes q gesucht.**
+
+Ihre Begründung — „dann ist q falsch übertragen" — ist jedoch **nicht** die
+Ursache. Der Fehler steckt in G3 selbst: **die 12 % der Erstmessung waren ein
+Durchschnitt über fünf Städte** (Helsinki, München, Paris, Madrid, London),
+nicht Madrids eigene Restwahrscheinlichkeit. Ein Aggregat wurde als
+Einzelstadt-Größe verwendet und dann als Erwartung an jede Einzelstadt gestellt.
+
+**Und das war aus bekannten Zahlen vermeidbar.** Madrids 71,3 % um 16:20 standen
+in der Offenlegung dieser Pre-Reg. Wer sie liest, sieht sofort, dass die Rate
+nicht binnen einer Stunde von 71 % auf 12 % fallen kann — Madrids Prüfstunde
+*muss* später als 18:20 liegen. Die Kontrolle, die die Regel prüfen sollte, war
+mit den eigenen offengelegten Daten unvereinbar.
+
+Gemessen bestätigt sich das: Madrid 71,4 % um 16:20, Paris 45,5 %, London 17,9 %
+— drei Städte, drei völlig verschiedene Kurven. Genau das ist der Befund, der
+diese Pre-Reg ausgelöst hat, und G3 hat ihn für die drei Städte verboten, an
+denen er zuerst sichtbar wurde.
+
+## Was das für den Status bedeutet
+
+**Die Ableitungsregel gilt nach eigener Vorregistrierung als gescheitert.** Die
+Tabelle oben ist damit **gemessen, aber nicht belegt**, und sie wird nicht als
+Handlungsgrundlage verwendet — auch nicht „vorläufig".
+
+Das ist die zweite falsch parametrisierte Gate-Schwelle desselben Tages: bei G5
+der Ursachen-Pre-Reg kam sie aus einem Median statt aus dem gehandelten
+Mittelpreis, hier aus einem Fünf-Städte-Durchschnitt statt aus der Einzelstadt.
+**Das Muster ist dasselbe — eine Aggregatzahl wird zur Schwelle für Einzelfälle
+gemacht.** Die Lehre für jede weitere Pre-Reg: **jedes Gate gegen die bereits
+offengelegten Einzelzahlen gegenrechnen, bevor es festgeschrieben wird.**
+
+**G4 wurde nicht gerechnet**, wie vorregistriert — das Skript bricht nach G3 ab,
+bevor die IEM-Reihen geholt werden. Die Trennschärfe des Wächter-Signals bleibt
+damit auf der europäischen Messung vom 24.07. stehen.
+
+## Was nicht geprüft und bewusst offen ist
+
+- **Ob die Regel mit einem korrekt formulierten Konsistenz-Gate bestünde**, ist
+  offen und wird hier nicht nachgeschoben. G1 und G2 sprechen dafür, aber das
+  entscheidet eine eigene Vorregistrierung, nicht eine Umdeutung dieser.
+- **Jeddah fehlt** (keine verwertbaren ISD-Tage) und ist damit eine der sieben
+  divergenten Städte ohne Prüfstunde.
+- **Die Berliner Zeiten sind unbrauchbar für manuelles Handeln**, wo sie in die
+  Nacht fallen: Mexico City 00:20, Buenos Aires 22:20, Toronto 23:20, Tokyo
+  07:20. Designfalle 1 ist damit bestätigt, aber nicht gelöst.
+- **Der Sommer bleibt der Sommer.** Zwei Jahre, Juni bis August; für jede andere
+  Jahreszeit ist keine dieser Stunden belegt.
