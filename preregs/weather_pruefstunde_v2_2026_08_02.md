@@ -140,3 +140,92 @@ abgelehnt worden; ohne sie schadet er dem engen Buch.
 **Und diese Pre-Reg bekommt keinen dritten Anlauf.** Reißt sie, ist das Thema
 Prüfstunde abgeschlossen — mit der Tabelle als Ergebnis und ohne Anspruch auf
 mehr.
+
+---
+
+# ERGEBNIS — G1 und G2 belegt (02.08.2026)
+
+Gerechnet mit `weather_pruefstunde_v2_eval.py` unmittelbar nach der
+Vorregistrierung (Commit `2578575`). 22 der 26 Städte haben eine geänderte
+Prüfstunde; darauf entfallen **246 der 322 Kandidaten**, IEM-Abdeckung 94 %.
+
+## G1 — Trennschärfe
+
+| Prüfung | Signale | Verlierer bei Signal | **Lift** |
+|---|---|---|---|
+| starr 16:20 | 69 | 78,3 % | **+75,2 pp** |
+| **stadtspezifisch** | 56 | **92,9 %** | **+88,9 pp** |
+
+**Differenz +13,7 pp, BELEGT.** Die Zahl der Signale sinkt von 69 auf 56 und
+bleibt damit weit über der geforderten Hälfte. Ein Lift von 88,9 pp bei einer
+Trefferquote von 92,9 % heißt: ohne Signal verlieren nur rund 4 % der Lays.
+
+**G2 bestanden:** ohne Madrid — die stärkste Einzelstadt — bleibt die Differenz
+bei **+8,4 pp**, das Vorzeichen dreht nicht.
+
+## Die Reproduktionsprobe (diagnostisch)
+
+| Stunde | ISD 2024/25 | WU Juli 2026 |
+|---|---|---|
+| 13:20 | 84,2 % | 91 % |
+| 14:20 | 71,1 % | 87 % |
+| 15:20 | 54,1 % | 76 % |
+| 16:20 | 33,1 % | 41 % |
+| **17:20** | **14,4 %** | **12 %** |
+
+Bei 17:20 — der Stunde, aus der q stammt — stimmen beide Quellen fast überein.
+Die früheren Stunden weichen stärker ab, ISD zeigt durchweg frühere Maxima.
+**Ein Teil davon ist kein Jahreseffekt, sondern ein Stationsunterschied:** das
+ISD-Skript nutzt für London **EGLC** und für Paris **LFPB**, die Erstmessung
+EGLL und LFPG. Für London ist EGLC die settlement-relevante Station — die neue
+Messung steht also auf der richtigen, die alte auf der falschen.
+
+## Was an der Vorab-Erwartung falsch war
+
+Beide Erwartungen waren zu pessimistisch. G1 wurde nicht „knapp bestanden oder
+gerissen", sondern klar belegt; die Reproduktionsprobe landete bei 14,4 % statt
+der erwarteten 15–25 %. **Wäre sie als Gate mit dem in Gegenrechnung 2
+erwogenen Intervall geführt worden, hätte sie bestanden.** Die Vorsicht war
+richtig, aber sie war nicht nötig — was nichts daran ändert, dass sie richtig
+war: eine Kontrolle, die Jahre, Quellen *und* Stationen mischt, darf eine Regel
+nicht erledigen können.
+
+## Was das NICHT bedeutet — die Verwertung bleibt tot
+
+Ein Signal mit 92,9 % Trefferquote sieht nach einem Ausstiegssignal aus. **Es ist
+keines.** Am 01.08. wurde der konditionale Ausstieg vorregistriert gemessen und
+in **allen sieben Fassungen** falsifiziert — darunter Variante B, die exakt eine
+Prüfung zur Ortsstunde 16:20 ist: eingepreist 0,396, realisiert 0,421, t = −0,51.
+Der Markt preist die Erholungschance korrekt bis leicht zu pessimistisch, und ein
+gekappter Gewinner kostet mehr (~0,60 je Kontrakt), als eine gerettete Position
+bringt (~0,40). → [[weather-conditional-exit-falsified]], [[weather-no-manual-exits]]
+
+**Trennschärfe ist nicht Verwertbarkeit.** Das ist derselbe Befund wie bei der
+−1-Klasse am selben Tag: ein Signal kann die Wahrheit gut vorhersagen und
+trotzdem nichts wert sein, wenn der Markt sie ebenso gut vorhersagt.
+
+## Status
+
+Die Prüfstundentabelle ist damit **belegt** — als das, was sie ist: eine
+stabile, stadtspezifische Antwort auf die Frage „ab wann ist das Tageshoch
+entschieden". Verwendbar für die manuelle Regel „nicht vor der Prüfstunde
+aufstocken", die den Helsinki-Fall vom 24.07. ausgelöst hat.
+
+**Nicht verwendbar als Ausstiegssignal**, und der Wächter bleibt auf Eis.
+
+## Was nicht geprüft und bewusst offen ist
+
+- **Der 01.08.-Ausstiegstest lief mit starrer 16:20-Stunde.** Ob er mit
+  stadtspezifischer Stunde anders ausginge, ist nicht gemessen. Das ist die
+  einzige Tür, die dieser Befund öffnen würde — und sie ist doppelt zu:
+  [[weather-conditional-exit-falsified]] sagt „nicht wieder aufmachen", und die
+  Abbruchregel dieser Pre-Reg sagt „kein dritter Anlauf". **Sie wird hier nicht
+  aufgestoßen.**
+- **56 Signal-Fälle tragen kein t.** G1 war als Richtungsentscheidung
+  formuliert, und mehr ist es auch geworden.
+- **Drei Prüfstunden fallen in die Berliner Nacht** (Buenos Aires 22:20, Toronto
+  23:20, Wellington 04:20) und sind manuell unbrauchbar. Tokyo liegt mit 07:20
+  am Rand.
+- **Jeddah hat keine Prüfstunde** (keine verwertbaren ISD-Tage) und ist zugleich
+  eine der divergenten Städte aus [[weather-anker-divergenz-forwardtest]].
+- **Der Sommer bleibt der Sommer.** Zwei Jahre, Juni bis August.
