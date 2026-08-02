@@ -292,3 +292,163 @@ Schattenbuch. Ein einzelner gewonnener Chengdu-Tag ändert daran nichts.
 Für die laufenden Fäden gilt unverändert: **H4 des Preisband-Tests (Spannen-Veto)
 bleibt Forward ab 03.08.**, und der Ensemble-µ-Forward-Test wird vor Oktober
 nicht angefasst.
+
+---
+
+# ERGEBNIS — die Leiter ist fair bepreist (02.08.2026)
+
+Gerechnet mit `weather_minus1_ursache_eval.py` unmittelbar nach der
+Vorregistrierung (Commit `0ec4682`), ohne Parameteränderung. Lead 1, 325
+Stadt-Tage, 21 Zieltage (12.07.–01.08.), 30 Städte. **G0 bestanden**, und zwar
+deutlich: `settle_result` widerspricht `settle_k` in **0 von 2.925** Fällen.
+
+## Die Verteilung des realisierten Offsets
+
+| Offset | P_ist | P_modell | P_markt | Break-even (Fee 0,07) |
+|---|---|---|---|---|
+| −3 | 1,8 % | 2,6 % | 2,5 % | 1,9 % |
+| **−2** | **5,8 %** | 9,3 % | 8,6 % | **7,3 %** |
+| **−1** | **23,7 %** | 22,5 % | 25,1 % | **22,6 %** |
+| 0 | 32,6 % | 30,5 % | 32,3 % | 29,3 % |
+| **+1** | **24,6 %** | 22,0 % | 22,5 % | **20,2 %** |
+| +2 | 7,1 % | 8,9 % | 9,4 % | 8,1 % |
+| +3 | 2,8 % | 2,5 % | 2,6 % | 2,0 % |
+
+## G1, G2, G3 — die Diagnose lautet H3
+
+- **G1 Anker: NICHT belegt.** E[*d*] = **+0,035** Bucket, t = +0,57. Die
+  Vorzeichen der beiden Hälften widersprechen sich ohnehin (−0,135 / +0,190).
+  Unsere Bucket-Achse ist **im Mittel nicht verschoben**.
+- **G2 Breite: NICHT belegt.** P_ist(−1) 23,7 % gegen P_modell(−1) 22,5 % —
+  **+1,3 pp** bei t = +0,73, verlangt waren 4 pp und t > 2,0. `sigma_ens` ist
+  nicht nennenswert zu klein; über die ganze Leiter liegt das Modell sogar eher
+  zu breit (−2: 9,3 % modelliert gegen 5,8 % real).
+- **G3 Fairness: BELEGT.** P_ist(−1) 23,7 % gegen P_markt(−1) 25,1 % —
+  **−1,4 pp**, innerhalb der geforderten 3 pp, bei gerissenem G1 und G2.
+
+**Damit ist die Frage beantwortet, und die Antwort ist die unbequeme:** Die
+−1-Klasse verliert nicht, weil etwas kaputt ist. Sie verliert, weil sie zu
+23,9 % trifft, während der Break-even bei 22,6 % liegt. **1,3 Prozentpunkte** —
+das ist der ganze Abstand zwischen „strukturell verlierende Grundgesamtheit" und
+„fair". Der ROI von **−3,85 %** über 322 Lays ist genau das, was daraus folgt.
+
+## G4 Symmetrie — es ist nicht der Anker
+
+| Klasse | n | Ø NO | Treffer | Break-even | ROI |
+|---|---|---|---|---|---|
+| −1 | 322 | 0,758 | 23,9 % | 22,6 % | **−3,85 %** |
+| +1 | 310 | 0,783 | 25,8 % | 20,2 % | **−8,35 %** |
+
+P_ist(−1) − P_ist(+1) = −0,3 pp, t = −0,08. **Beide Nachbarklassen verlieren, die
+obere sogar stärker.** Eine Verschiebung des Ankers hätte genau das Gegenteil
+erzeugt. Die Entscheidungstabelle liest das als Bestätigung von H3.
+
+## Der Fund, für den es kein Gate gab
+
+Die Achse stimmt **im Mittel** — und ist **je Stadt** massiv verschoben:
+
+**sd = 0,699 Bucket über 28 Städte. Beijing −1,09, Taipei +1,45.**
+
+Ein ganzer Bucket Verschiebung ist die Größenordnung, in der die Lay-Auswahl
+komplett danebengreift. Im Mittelwert über alle Städte hebt sich das auf, und
+genau deshalb zeigt G1 nichts. Das war in der Vorab-Erwartung als Möglichkeit
+benannt („die Achse könnte im Mittel stimmen und je Stadt verschoben sein — das
+würde bei E[*d*] ≈ 0 unentdeckt bleiben") und deshalb ohne Gate ausgewiesen. Es
+ist der stärkste Einzelbefund dieser Messung und **hat keinen Beleg-Status**:
+28 Städte mit im Mittel 11 Tagen tragen kein t. Er gehört in eine eigene
+Vorregistrierung, nicht in eine Codeänderung.
+
+## G5 — die −2-Klasse, und ein Fehler in meinem eigenen Gate
+
+| Menge | n | Ø NO | Treffer | Break-even | ROI (0,07) | ROI (0,04) |
+|---|---|---|---|---|---|---|
+| volle −2-Menge | 316 | 0,922 | **5,7 %** | **7,3 %** | **+2,00 %** | +2,29 % |
+| davon Preisband 0,70–0,90 | 74 | — | 17,6 % | — | −0,93 % | — |
+
+Beide Hälften positiv (+1,30 % / +2,80 %), ohne Shenzhen +2,16 %.
+
+**G5 gilt trotzdem als GERISSEN**, weil die vorregistrierte Bedingung
+„P_ist(−2) < 3,7 %" nicht erfüllt ist. Diese Schwelle war jedoch **falsch
+parametrisiert**: die 3,7 % wurden aus dem *Median*preis 0,960 abgeleitet, der
+tatsächlich gehandelte Mittelpreis liegt bei **0,922**, und dort steht der
+Break-even bei **7,3 %**. Zwei der drei Bedingungen (ROI > 0, beide Hälften
+gleich) sind erfüllt, die dritte misst dieselbe Sache mit der falschen
+Preisannahme.
+
+**Das wird hier nicht zurechtgebogen.** Ein Gate, das man nach Sicht der Daten
+umdeutet, ist kein Gate. Der Befund gilt als **unbelegt** und ist der Anlass für
+eine eigene Vorregistrierung — mit Break-even positionsweise aus dem echten
+Preis, nicht aus einem Median, und mit Forward-Fenster. Die Lehre für die nächste
+Pre-Reg: **Schwellen nie aus einer Lagekennzahl ableiten, wenn die zugrunde
+liegende Verteilung schief ist.**
+
+**Post hoc, ausdrücklich kein Gate:** die 74 Kandidaten im Preisband verlieren
+(17,6 % Treffer), die teuren tragen. Rechnerisch bleiben für die restlichen 242
+etwa +2,9 % ROI bei rund 1 % Trefferquote gegen 4 % bepreiste. Das ist das Muster
+eines **Longshot-Bias** — der Markt bezahlt den unwahrscheinlichen Ausgang zu
+teuer, also verdient dessen Lay. Es ist zugleich die **Umkehrung der
+−1-Doktrin**: dort liegt der Ertrag im Band 0,70–0,90, hier bei NO ≈ 0,96.
+Designfalle 3 hat sich damit bestätigt — wer die −2-Klasse im Preisband testet,
+misst das Gegenteil ihrer Ökonomie.
+
+**Ökonomisch ist der Befund klein und teuer:** +2,00 % auf 5 $ sind 0,10 $ je
+Position, bei ~15 Kandidaten je Zieltag und zwei überlappenden Tagen also rund
+150 $ gebundenes Kapital gegen zuletzt ~93 $ frei. Dazu kommt die Frage, ob bei
+NO 0,96 überhaupt zu diesem Preis gefüllt wird ([[weather-screen-price-vs-book]]).
+
+## H6 — der Markt-Favorit ist der bessere Anker
+
+| | Anker trifft | Bucket unter dem Anker trifft |
+|---|---|---|
+| eigener Ensemble-Favorit | 32,6 % | **23,7 %** |
+| Markt-Favorit | **46,8 %** | **19,7 %** |
+
+Der Favoriten-Befund vom 28.07. (33,2 % gegen 47,4 %) reproduziert sich auf einer
+anderen Stichprobe fast punktgenau. Neu ist die zweite Spalte: **unter dem
+Markt-Anker trifft der −1-Bucket nur 19,7 %** — das liegt **unter** dem
+Break-even von 22,6 %, während unsere eigenen 23,7 % darüber liegen. Kein Gate,
+keine Codeänderung; aber von allem, was hier gemessen wurde, zeigt das am
+klarsten in eine Richtung.
+
+## Kontrollläufe
+
+- **Ohne Shenzhen** (319 Stadt-Tage): jede Gate-Entscheidung identisch, alle
+  Kennzahlen innerhalb weniger Zehntel. Die Sorge aus Designfalle 1 war
+  berechtigt, der Effekt ist folgenlos.
+- **Lead 2 nicht auswertbar:** 249 Stadt-Tage gegen die vorregistrierte
+  Mindestgröße von 250. Die Abbruchregel greift wörtlich; die Schwelle wird
+  **nicht** um einen Stadt-Tag gesenkt, um die Probe doch noch zu bekommen. Für
+  die nächste Pre-Reg: Mindestgrößen für Nebenproben getrennt vom Hauptlauf
+  festlegen.
+
+## Was das heißt
+
+**Es gibt kein Leck zu stopfen.** Die −1-Klasse ist keine defekte
+Grundgesamtheit, sondern eine fair bepreiste. Der Ertrag des Buchs stammt damit
+**ausschließlich aus Selektion** — Preisband, Spannen-Veto, P_pess — und nicht
+aus der Klasse. Das war als unbequeme Lesart vorab benannt und ist jetzt
+gemessen.
+
+Daraus folgt unmittelbar die Bestätigung der Skalierungs-Absage vom Vormittag:
+**mehr Kandidaten verdünnen den Edge, sie vermehren ihn nicht.** Wer die
+Grundgesamtheit vergrößert, kauft sich in eine Menge mit ROI −3,85 % ein.
+
+**Aus dieser Messung folgt keine Änderung am laufenden Autobuy**, wie
+vorregistriert.
+
+## Was nicht geprüft und bewusst offen ist
+
+- **Die Verschiebung je Stadt ist der nächste Faden**, aber sie ist hier nur
+  gesehen, nicht belegt. Ob Beijing und Taipei ein Kalibrierungsproblem, ein
+  Stationsproblem oder Rauschen aus elf Tagen sind, entscheidet diese Messung
+  nicht.
+- **Warum das Modell die Ränder zu breit schätzt** (−2: 9,3 % modelliert gegen
+  5,8 % real, +2: 8,9 % gegen 7,1 %), ist nicht untersucht. Es ist die
+  Spiegelseite des Longshot-Befunds und könnte dieselbe Ursache haben.
+- **Der Zeitraum bleibt ein Sommerfenster.** 21 Zieltage, zwei Hälften à elf —
+  die Robustheitsprobe ist schwach, und keine Aussage hier ist gegen eine andere
+  Jahreszeit geprüft.
+- **H6 misst Anker gegen Anker, nicht Strategie gegen Strategie.** Ob ein am
+  Markt-Favoriten ausgerichtetes Buch nach Gebühr und Slippage verdient, ist
+  damit nicht gezeigt — nur, dass die Trefferquote auf der richtigen Seite des
+  Break-even läge.
