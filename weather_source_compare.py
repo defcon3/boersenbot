@@ -39,15 +39,22 @@ temperature"-Maerkte / weather_outlier_screen_low.py). Noetig geworden am
 die high-basierte Rechnung 0,1 % Risiko behauptete).
 
 --actuals wu misst gegen die WUNDERGROUND-Tagesreihe (ganze °C) statt METAR.
-Noetig geworden am 16./17.07.2026 (Prio 0 des Optimierungs-Backlogs): Polymarket
-settlet auf wunderground.com, und fuer Shenzhen/ZGSZ speist WU die Seite NICHT
-aus den METAR (nur 4/15 Tage identisch, Diffs bis ±2°, sigma_eff ≈ 1,7 statt
-1,0) — die METAR-Kalibrierung misst dort also das falsche Ziel. Fuer die
-anderen 27 Staedte ist WU = gerundetes METAR (Scan 16.07.), dort bleibt METAR
-die feinere (ungerundete) Basis. Beispiel:
-  python weather_source_compare.py --city Shenzhen --days 700 --actuals wu \
-      --fix-b-from preregs/weather_source_calib_2026_07_17.csv \
-      --calib-csv preregs/weather_source_calib_2026_07_17_shenzhen_wu.csv
+Eingefuehrt am 16./17.07.2026 fuer Shenzhen (Prio 0 des Optimierungs-Backlogs),
+weil WU dort nur an 4/15 Tagen mit dem METAR uebereinstimmte und Polymarket
+laut Markttext auf wunderground.com settlet.
+
+**Fuer Shenzhen am 02.08.2026 zurueckgenommen.** Die Abweichung kam nicht daher,
+dass WU die ZGSZ-Seite anders speist, sondern daher, dass der Locator ZGSZ:9:CN
+eine voellig andere Station liefert: "Lau Fau Shan" (obs_id 45035) in Hong Kong,
+rund 25 km entfernt. Die damals erzeugten Sonder-CSVs kalibrierten gegen diese
+Station und blaehten sigma um rund 37 % auf. Sie sind entfernt, ZGSZ steht in
+NO_WUNDERGROUND, und dieser Code bricht jetzt ab, wenn WU eine fremde Station
+liefert (siehe wu_station_passt). Fuer alle 28 uebrigen Staedte ist WU =
+gerundetes METAR, dort bleibt METAR die feinere, ungerundete Basis.
+
+--actuals wu bleibt fuer kuenftige Faelle nutzbar, in denen eine Stadt
+nachweislich auf eine WU-Reihe settlet, die vom METAR abweicht — dann aber erst
+nach Gegenprobe, dass der Locator die richtige Station trifft.
 
 --fix-b-from CSV: uebernimmt die sigma(s)-Steigung b je Quelle aus einer
 Referenz-CSV und fittet nur noch a je Stadt. Noetig fuer Einzelstadt-Laeufe

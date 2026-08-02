@@ -9,9 +9,12 @@ Ablauf je Familie:
   1. ein Lauf ueber ALLE Staedte  -> b aus voller Basis, a je Stadt
   2. fehlende Staedte (Rate-Limit-Ausfaelle) einzeln nach, mit --fix-b-from
      auf den Hauptlauf, damit b identisch bleibt
-  3. Shenzhen zusaetzlich gegen die WU-Settlement-Reihe (--actuals wu) in eine
-     eigene _shenzhen_wu-CSV; der Screen laedt sie nach der Haupt-CSV und
-     ueberschreibt damit die METAR-Zeilen (Befund 17.07.)
+  (Schritt 3 ENTFALLEN seit 02.08.2026: Shenzhen wurde bis dahin zusaetzlich
+   gegen die WU-Reihe kalibriert und ueberschrieb damit die METAR-Zeilen. Der
+   Locator ZGSZ:9:CN liefert aber gar nicht Shenzhen, sondern "Lau Fau Shan" in
+   Hong Kong — die Sonder-CSVs kalibrierten also gegen eine andere Stadt. ZGSZ
+   steht jetzt in NO_WUNDERGROUND, fuer Shenzhen entscheidet METAR wie ueberall
+   sonst. Siehe weather_stations.wu_station_passt.)
 
 Laeuft sequenziell mit Pausen — parallele Laeufe treiben Open-Meteo ins
 Rate-Limit (genau so entstanden die Luecken am 20.07.).
@@ -129,18 +132,10 @@ def main():
                        + (f", FEHLT: {', '.join(fehlt_final)}" if fehlt_final else "")
                        + (f", ohne sigma(s): {', '.join(ohne_ab)}" if ohne_ab else ""))
 
-        # 3. Shenzhen gegen die WU-Settlement-Reihe
-        time.sleep(PAUSE)
-        log(f"  Shenzhen (WU-Settlement) -> {wu_ziel.name}")
-        ok, out = run(["--days", str(tage), "--lead", "2", "--city", "Shenzhen",
-                       "--actuals", "wu", "--calib-csv", str(wu_ziel),
-                       "--fix-b-from", str(ziel)])
-        if ok and wu_ziel.exists():
-            log("    ok")
-            bericht.append(f"{tage}d Shenzhen-WU: ok")
-        else:
-            log(f"    FEHLGESCHLAGEN: {out.strip()[-300:]}")
-            bericht.append(f"{tage}d Shenzhen-WU: FEHLGESCHLAGEN")
+        # Schritt 3 (Shenzhen gegen die WU-Reihe) ist am 02.08.2026 entfallen —
+        # er kalibrierte gegen Lau Fau Shan in Hong Kong. Begruendung im
+        # Modul-Docstring. wu_ziel bleibt in FAMILIES stehen, damit alte
+        # Aufrufe/Pfade nachvollziehbar bleiben, wird aber nicht mehr erzeugt.
 
     log("=== BERICHT ===")
     for b in bericht:

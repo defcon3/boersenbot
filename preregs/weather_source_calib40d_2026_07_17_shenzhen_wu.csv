@@ -1,7 +1,0 @@
-city,model,n,bias,sigma,a,b
-Shenzhen,gfs_seamless,41,0.839,2.109,1.547,0.1550
-Shenzhen,icon_seamless,41,-0.615,1.528,1.287,0.0852
-Shenzhen,ukmo_seamless,41,0.654,1.375,1.012,0.1236
-Shenzhen,jma_seamless,41,-0.561,1.851,1.454,0.1478
-Shenzhen,ecmwf_ifs025,41,-0.954,1.696,1.352,0.1333
-Shenzhen,ensemble_mean,41,-0.127,1.446,1.194,0.0894

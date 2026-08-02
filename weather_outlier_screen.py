@@ -88,10 +88,16 @@ Nachtrag 17.07. (Backlog Prio 0+1, preregs/weather_calib_prio01_2026_07_17.md):
      (weather_source_calib_leadN_*) oder bricht mit Anleitung ab (--force-lead1
      als markierter Notbehelf). Vorher nur eine Warnung — die 17.07.-Lays wurden
      am 15.07. faktisch mit Lead-24h-P gescreent.
-  4. Shenzhen wird gegen die WU-SETTLEMENT-Reihe kalibriert (--actuals wu,
-     eigene CSV ..._shenzhen_wu.csv): WU speist ZGSZ nicht aus den METAR
-     (4/15 Tage identisch, Diffs ±2°) — die METAR-Kalibrierung mass dort das
-     falsche Ziel, reale Verlust-P war ~3x hoeher als die Screen-P.
+  4. ZURUECKGENOMMEN am 02.08.2026. Von 17.07. bis dahin wurde Shenzhen gegen
+     die "WU-Settlement-Reihe" kalibriert (--actuals wu, eigene ueberschreibende
+     CSV ..._shenzhen_wu.csv), weil WU dort nur an 4/15 Tagen mit dem METAR
+     uebereinstimmte. Der Grund fuer die Abweichung war ein anderer als gedacht:
+     der Locator ZGSZ:9:CN liefert gar nicht Shenzhen Bao'an, sondern die
+     Station "Lau Fau Shan" (obs_id 45035) rund 25 km entfernt in Hong Kong. Die
+     Sonder-CSVs kalibrierten also gegen eine andere Stadt und blaehten sigma um
+     rund 37 % auf (ensemble_mean 1,49 statt 1,08). Sie sind entfernt; Shenzhen
+     laeuft wie alle anderen Staedte auf METAR. Beleg: der Markt loeste an allen
+     fuenf uneinigen Stadt-Tagen nach METAR auf, nie nach WU.
 
 Aufruf:
   python weather_outlier_screen.py                  # Zieltag = morgen (UTC)
