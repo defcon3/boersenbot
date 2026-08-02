@@ -82,6 +82,48 @@ wichtigere:**
    Ersatz für Abwesenheit, sondern **der Schutz vor der Anwesenheit** — die
    Entscheidung gehört an eine feste Regel, nicht an den Nachmittag.
 
+**✅ SCHRITT 0 ERLEDIGT (02.08.2026, `weather_daily_max_timing_isd.py`) — die
+Basisrate ist breit gemessen, und sie kippt die Prüfstunde.**
+
+4.375 Stadt-Tage, 26 Städte, zwei Sommer (2024/2025), NCEI ISD `global-hourly`,
+tokenfrei. „Das Tageshoch kommt um Ortsstunde T noch":
+
+| Ortszeit | global neu | bisher (5 EU-Städte) |
+|---|---|---|
+| 13:20 | **62,0 %** | 91 % |
+| 14:20 | **44,5 %** | 87 % |
+| 15:20 | **26,8 %** | 76 % |
+| 16:20 | **13,1 %** | 41 % |
+| 17:20 | **4,5 %** | 12 % |
+
+**Die alte Messung war nicht falsch, sondern nicht übertragbar.** Auf
+London/Paris/Madrid reproduziert sie sich fast punktgenau (92/83/70/45 gegen
+91/87/76/41). Der Fehler war, eine europäische Kurve global anzuwenden.
+
+Die Spreizung bei 16:20 ist der eigentliche Befund:
+
+    Madrid 71,3 | Paris 41,8 | Ankara 26,5 | Milan 26,2 | Munich 22,7
+    Chengdu 20,5 | Amsterdam 19,1 | London 15,7 | Helsinki 13,9 | Toronto 13,8
+    Moscow 13,4 | Buenos Aires 12,3 | Warsaw 12,1 | Wuhan 5,4 | Beijing 5,2
+    Kuala Lumpur 4,7 | Wellington 4,2 | Panama City 2,0 | Mexico City 1,9
+    Seoul 1,8 | Shanghai 1,1 | Cape Town / Sao Paulo / Tel Aviv / Tokyo /
+    Taipei je 0,6
+
+Europa steht geschlossen oben, Asien und Amerika unten. In Taipei ist das Hoch
+um 16:20 in 99,4 % der Fälle durch — dort feuert eine 16:20-Prüfstunde rund vier
+Stunden zu spät. **Eine globale Prüfstunde ist damit nicht haltbar.** Für den
+Wächter ist das kein Rückschlag, sondern eine Verbesserung: in den meisten
+Städten kann er deutlich früher zuschlagen, als die alte Zahl nahelegte.
+
+*Lücke:* Jeddah hat in ISD keine Tage mit durchgehender Nachmittagsabdeckung —
+26 von 27 Stationen verwertbar.
+
+**Nächster Schritt für den Wächter:** Prüfstunde **je Stadt** aus dieser Reihe
+ableiten (z. B. die Stunde, ab der die Rate unter eine feste Schwelle fällt),
+das Ganze **vorregistriert** — nicht die Schwelle solange verschieben, bis der
+Backtest gefällt. Die Trennschärfe-Messung vom 24.07. (67 % gegen 2 % Basisrate)
+ist damit ebenfalls neu zu rechnen: sie stand auf derselben europäischen Basis.
+
 **Stand der Messung (24.07.2026, `weather_lay_guardrail_eval.py`,
 `preregs/weather_lay_guardrail_2026_07_24.md`, Lead 1, 13 Zieltage 11.–23.07.,
 in-sample):**
@@ -124,7 +166,10 @@ Alle drei waren Handentscheidungen, keine Bot-Regel. Der Mexiko-Ausstieg fiel
 auf **13:57 Ortszeit** — verkauft wurde in einen Rückgang 25→24, 89 Minuten
 später kam die 26. Basisrate zu diesem Zeitpunkt: das Tageshoch kommt um 14:20
 Ortszeit noch in **87 %** der Fälle (13:20 91 %, 15:20 76 %, 16:20 41 %,
-17:20 12 %; 125 Stadt-Tage). Dazu Reibung: Fill 0,451 gegen Screen 0,50
+17:20 12 %; 125 Stadt-Tage). ⚠️ **Diese Zahlen sind europäisch — siehe den
+ISD-Befund unten. Für Mexico City gilt eine völlig andere Kurve.** Der Ausstieg
+war trotzdem falsch, aber die zitierte Rechtfertigung war geborgt.
+Dazu Reibung: Fill 0,451 gegen Screen 0,50
 (~10 % Slippage) plus 0,13 $ Verkaufsgebühr = **8,8 % des Einsatzes allein
 fürs Rausgehen**.
 
