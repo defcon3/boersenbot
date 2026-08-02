@@ -176,3 +176,100 @@ Parameter, nicht ein Projekt.
    gezeigt, dass drei zusätzliche **globale** Modelle die gepoolte Kennzahl
    nicht bewegen (+1,5 % gegen Gate 3 %); ein Ein-Stadt-Modell kann sie
    erst recht nicht bewegen. Der Nutzen wäre zellenlokal oder gar keiner.
+
+---
+
+# ERGEBNIS — die Rangliste hält glänzend, das Geld folgt ihr nicht (02.08.2026)
+
+Gerechnet mit `weather_cell_selection_eval.py`, **60 Zellen** mit ≥ 120 Tagen in
+beiden Fenstern, zwei volle Jahreszyklen wie vorregistriert.
+
+## G1, G2, G5 — grün, und G2 weit über Erwartung
+
+- **G1 IS-Struktur: GRÜN.** Beste Zelle Panama City min (MAE 0,535 K),
+  schlechteste Buenos Aires min (1,805 K) — **Faktor 3,38**, Permutationstest
+  **p = 0,0005**.
+- **G2 OOS-Stabilität: GRÜN, ρ = +0,893 (p = 9·10⁻²²).** Gefordert war ρ > 0,5,
+  meine Vorab-Erwartung lautete 0,3–0,6 und „reicht möglicherweise nicht".
+  **Deutlich unterschätzt.** Die Genauigkeitsrangfolge eines Jahres sagt die des
+  nächsten fast punktgenau voraus: Panama City min und London min bleiben Rang 0
+  und 1, Buenos Aires min bleibt Rang 59.
+- **G5 Robustheit: GRÜN.** Ohne die beste Zelle ρ = +0,887; getrennt nach Metrik
+  ρ = +0,906 (min) und +0,862 (max).
+
+**Prognosegenauigkeit ist damit eine hochstabile Eigenschaft einer Zelle — keine
+Rauschgröße.** Das ist der klarste Einzelbefund dieser Messreihe.
+
+## G3 — rot, und in die überraschende Richtung
+
+| Terzil | Bin 2–5 % | Bin 5–10 % |
+|---|---|---|
+| **bestes** | 3,33 % vorhergesagt / **2,48 %** real (0,75×) | 7,29 % / **5,08 %** (0,70×) |
+| mittleres | 3,33 % / 2,44 % (0,73×) | 7,29 % / 4,96 % (0,68×) |
+| **schlechtestes** | 3,34 % / 2,66 % (0,80×) ✓ | 7,33 % / **6,67 %** (0,91×) ✓ |
+
+Nicht die ungenauen Zellen sind schlecht kalibriert, sondern die **genauen**: Dort
+tritt das Ereignis **seltener** ein als das Modell sagt — es ist also **zu
+pessimistisch**. Ausgerechnet das schlechteste Terzil liegt im geforderten Band.
+
+**Das ist kein Ausreißer, sondern ein Muster.** Am selben Tag ergab die
+Ursachen-Messung dasselbe von der anderen Seite: das Modell schätzt die Ränder zu
+breit (P_modell(−2) = 9,3 % gegen 5,8 % real).
+**Zwei unabhängige Messungen sagen: unser σ ist zu groß.** Praktische Folge — der
+P_pess-Filter verwirft Kandidaten, die sicherer sind als das Modell glaubt.
+
+## G4 — rot, und wirtschaftlich hohl
+
+| Buch | n | ROI |
+|---|---|---|
+| voll | 165.469 | +9,63 % |
+| bestes Terzil | 43.461 | **+9,78 %** |
+
+**Der Vorteil beträgt +0,15 pp, der Signalanteil 26,3 % statt der geforderten
+40 %.** Der Filter kostet also drei Viertel des Buchs und liefert dafür nichts,
+was sich von null unterscheiden ließe — zumal G4 laut Code-Hinweis mit einem
+**festen Lay-Preis von 0,90** rechnet, weil historische Marktpreise über zwei
+Jahre fehlen. Er misst damit Kalibrierungsqualität bei fairer Bepreisung, nicht
+Marktertrag; die Abweichung war vorab deklariert.
+
+**Härtetest** (deskriptiv): München max liegt im schlechtesten Terzil — der
+Filter hätte den −9,44-$-Verlust gesperrt. Beijing max liegt im **mittleren**,
+wäre also durchgerutscht.
+
+## Was daraus folgt — und wo ich von der Abbruchregel abweiche
+
+Die Abbruchregel sieht für „nur G4 reißt an der Breite" vor, den Filter **als
+Gewichtung statt als Sperre** in einer eigenen Pre-Reg weiterzuverfolgen. Formal
+greift sie: ROI(Terzil) > ROI(voll) ist mit 9,78 > 9,63 erfüllt.
+
+**Ihre Voraussetzung ist es wirtschaftlich nicht.** Sie unterstellt, der Filter
+*hebe* den ROI — bei +0,15 pp auf einem Testaufbau mit fixiertem Preis ist das
+Rauschen. Eine Gewichtungs-Pre-Reg auf dieser Grundlage würde eine Größe
+optimieren, die keinen messbaren Ertrag trägt. **Empfehlung: keine Folge-Pre-Reg.**
+Die Entscheidung gehört dem Betreiber; sie wird hier nicht stillschweigend
+getroffen, sondern offen benannt.
+
+## Die Antwort auf die Regionalspezialisten-Frage
+
+Die drei untersuchten Wallets sind je Region spezialisiert — die Vermutung war,
+dass Konzentration den Ertrag hebt. **Über Prognosegenauigkeit lässt sich das
+nicht erklären.** Man kann die Zellen nach Genauigkeit sortieren, die Rangfolge
+hält über Jahre (ρ = 0,89), und trotzdem bringt die Konzentration auf das beste
+Drittel praktisch nichts (+0,15 pp) bei drei Vierteln weniger Buch.
+
+Wenn Spezialisierung bei jenen Wallets funktioniert, dann **aus anderen Gründen**
+— Zeitzone, Aufmerksamkeit, Liquidität, Handelsfrequenz (die Asien-Wallet dreht
+83 % ihres Volumens). Nicht, weil ihre Städte besser prognostizierbar wären.
+
+## Was nicht geprüft und bewusst offen ist
+
+- **G4 hat nie echte Marktpreise gesehen.** Ob ein Zellenfilter *mit* realen
+  Preisen mehr bringt, ist damit nicht ausgeschlossen — nur nicht belegt. Für die
+  drei Wochen, für die Preise vorliegen, wäre die Stichprobe je Zelle zu dünn.
+- **Der Bin 10–20 % war in allen drei Terzilen leer.** Die Kalibrierungsaussage
+  steht damit nur auf den beiden unteren Bins.
+- **Warum σ zu groß ist**, bleibt offen. Zwei Messungen zeigen es jetzt
+  unabhängig; die Ursache ist keine davon nachgegangen.
+- **Zellen ≠ Regionen.** Diese Messung sortiert nach Genauigkeit, nicht nach
+  Erdteil. Ob eine *regionale* Konzentration etwas anderes leistet als eine
+  genauigkeitsbasierte, ist nicht geprüft.
