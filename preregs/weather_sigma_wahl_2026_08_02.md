@@ -187,3 +187,86 @@ die Screens sind live, und ein anderes σ verändert sofort, welche Kandidaten s
 zeigen.
 
 **Am Autobuy ändert sich in keinem Ausgang etwas.** Er verwendet σ nicht.
+
+---
+
+# ERGEBNIS — B gewinnt deutlich, G3 reißt knapp (02.08.2026)
+
+Gerechnet mit `weather_sigma_wahl_eval.py` unmittelbar nach der
+Vorregistrierung (Commit `621edc9`). **60 Zellen**, OOS-Fenster 08/2025–07/2026.
+
+## G1 und G2 — belegt
+
+| Variante | Bin 2–5 % | Bin 5–10 % | Bin 10–20 % (kein Gate) | **Abstand zu 1,0** |
+|---|---|---|---|---|
+| **A** Ganzjahr | 0,77× | 0,79× | 0,89× | **0,221** |
+| **B** gleitend 40d | **0,92×** | **0,92×** | 0,96× | **0,081** |
+| **C** a+b·Spanne | 0,89× | 0,91× | 0,92× | 0,099 |
+
+**Gewinner ist B**, Abstand 0,081 gegen 0,221 — der Kalibrierungsfehler wird
+**um fast zwei Drittel kleiner**. G2 verlangte einen Vorsprung von 0,10, gemessen
+sind **+0,139**. Alle drei Varianten liegen übrigens im Band; A ist nicht kaputt,
+nur deutlich schlechter kalibriert.
+
+## G4 — der eigentlich starke Befund
+
+| | vorhergesagt | realisiert | Abweichung |
+|---|---|---|---|
+| **A** | 30,67 % | 35,48 % | **+4,8 pp** |
+| **B** | 34,14 % | 35,48 % | **+1,3 pp** |
+
+**B repariert das Zentrum mit.** Die Sorge aus Designfalle 3 — ein kleineres σ
+könnte Masse ins Zentrum schieben, bis es kippt — tritt nicht ein: A unterschätzt
+den Favoriten um 4,8 pp, B nur noch um 1,3. Das ist konsistent mit der Diagnose
+„zu breite Verteilung" und schließt die Alternative „falsche Verteilungsform"
+weiter aus.
+
+## G3 — gerissen, 67 % gegen geforderte 70 %
+
+B ist in **40 von 60 auswertbaren Zellen** einzeln besser kalibriert als A. Das
+liegt deutlich über Zufall (50 %), aber unter der vorregistrierten Schwelle.
+**Damit folgt kein Vorschlag zur Umstellung.**
+
+**Die Abbruchregel deckt diesen Fall nicht ab** — sie regelt „G1 reißt für beide"
+und „nur G2 reißt", aber nicht „nur G3 reißt". Das ist ein Mangel dieser Pre-Reg.
+Er wird **nicht** dadurch geheilt, dass die Regel nachträglich um den
+eingetretenen Fall ergänzt wird: G1–G4 waren gemeinsam die Bedingung für einen
+Vorschlag, und sie sind nicht gemeinsam erfüllt.
+
+## Was an der Vorab-Erwartung falsch war — zweimal
+
+**Erstens: „C gewinnt, B schießt über."** Tatsächlich gewinnt **B**, und B
+schießt nicht über (0,92, nicht die vorhergesagten ~0,43). **Die Überschlagsrechnung
+aus Gegenrechnung 2 war falsch aufgesetzt:** sie verglich σ(700d) = 1,282 gegen
+σ(40d-Sommer) = 1,072 aus den Kalibrier-CSVs. Getestet wurde aber A als
+IS-Jahres-σ gegen B als *gleitendes* 40-Tage-σ der Residuen — zwei andere
+Größen. Der Fehler war, eine Zahl aus einer anderen Rechenweise in die
+Erwartung zu übernehmen, ohne die Definitionen abzugleichen.
+
+**Zweitens: „G2 ist gefährdet."** Der Vorsprung ist mit 0,139 klar über der
+Schwelle.
+
+**Richtig lag die Erwartung nur beim Kriterium selbst:** dass „Abstand zu 1,0"
+und nicht „kleiner ist besser" das richtige Maß ist, bleibt gültig — es hat
+verhindert, dass ein überschießendes σ als Sieger gälte. Dass es diesmal keines
+gab, macht die Vorsicht nicht falsch.
+
+## Nebenbefund
+
+**B schlägt C** (0,081 gegen 0,099): Die **zeitliche** Anpassung an die
+jahreszeitliche Streuung trägt mehr als die **tägliche** an die Modellspanne.
+Beide sind A weit überlegen. Das ist kein Gate und wurde nicht vorregistriert —
+aber es ordnet die beiden Mechanismen, falls die Frage wiederkommt.
+
+## Was nicht geprüft und bewusst offen ist
+
+- **Ob eine zellenweise Wahl trägt** (B dort, wo B besser ist, sonst A). Das wäre
+  die naheliegende Antwort auf ein gerissenes G3 — und genau deshalb **nicht**
+  hier zu entscheiden: sie wäre eine neue These mit eigener Überanpassungsgefahr.
+- **Warum B in 20 Zellen schlechter ist**, ist nicht untersucht. Ein 40-Tage-Fenster
+  ist kurz; in Zellen mit ohnehin kleiner Streuung könnte es zu unruhig sein.
+- **Die Screens bleiben unverändert.** Sie sind live, und ohne vollständig
+  bestandene Gates wird an ihnen nichts gedreht.
+- **Zwei Jahreszyklen bleiben zwei Jahreszyklen**, und die Ist-Werte sind
+  ganzzahlig geführt — für Hong Kong mit floor-Buckets eine bekannte
+  Ungenauigkeit in genau einer Stadt.
