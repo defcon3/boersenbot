@@ -320,6 +320,66 @@ damit rechnen, dass die Korrektur beim ersten Nachführen kleiner ausfällt.
 **Keine Stadt fällt weg, in keinem Ausgang.** Das ist gesetzt und wird von diesem
 Test nicht berührt.
 
+---
+
+# FENSTER R — Bezifferung, kein Beleg (02.08.2026)
+
+Gerechnet mit `weather_anker_divergenz_eval.py --fenster R` unmittelbar nach der
+Vorregistrierung (Commit `2e2fc36`). 323 Kandidaten, 21 Zieltage, 30 Städte.
+**Kein Gate. Zwei der drei Städte in der kritischen Gruppe waren vorab bekannt.**
+
+## Die Gruppen
+
+| Gruppe | n | Städte | Treffer | Break-even | ROI | d̄ |
+|---|---|---|---|---|---|---|
+| **D < −0,7** (µ zu warm) | 38 | 3 | **50,0 %** | 40,2 % | **−26,17 %** | −0,97 |
+| \|D\| ≤ 0,7 | 246 | 24 | 22,8 % | 22,4 % | −1,25 % | −0,03 |
+| **D > +0,7** (µ zu kalt) | 39 | 3 | **5,1 %** | 6,6 % | **+2,18 %** | +1,21 |
+
+Stetig (H1): gewichtete Korrelation D gegen Trefferquote **r = −0,498, t = −2,93**
+über 28 Städte. Gruppenabstand +24,91 pp, Tagesmittel +32,23 pp, t = +2,01.
+
+**Die Gegenprobe ist bestanden:** die Gruppe D > +0,7 läuft **nicht** schlechter,
+sondern als einzige positiv. Damit misst D nicht „unsichere Stadt", sondern die
+gerichtete Verschiebung — die einseitige These überlebt ihre schärfste Kontrolle.
+
+**H4:** sd der Stadt-Verschiebung 0,690 → **0,434** nach Abzug von D. D erklärt
+rund 60 % der Varianz, nicht alles.
+
+## Die Verwertung (H5)
+
+| | Treffer | Break-even | ROI |
+|---|---|---|---|
+| heute (77 Stadt-Tage) | 27,3 % | 23,2 % | −11,81 % |
+| korrigiert (78) | 23,1 % | 21,6 % | −4,03 % |
+
+**+7,78 pp, aber t = +0,56.** Die Zerlegung zeigt exakt das vorhergesagte
+Nullsummen-Muster:
+
+- **D < −0,7:** −26,17 % → −6,92 % (**+19,24 pp**, t = +0,94) — die Korrektur hilft
+- **D > +0,7:** +2,18 % → −1,13 % (−3,31 pp, t = −0,36) — sie schadet
+
+Die Vorab-Erwartung trifft damit in beiden Punkten: Fenster R sieht überzeugend
+aus und belegt nichts, und die Korrektur nimmt auf der einen Seite, was sie auf
+der anderen gibt.
+
+## Warum das trotz der Zahlen kein Beleg ist
+
+1. **Drei Städte je Randgruppe.** Die Einheit dieses Tests ist die Stadt, nicht
+   die Position. 38 Positionen aus drei Städten sind drei Beobachtungen mit
+   Nachkommastellen.
+2. **Zwei der drei waren bekannt** (Beijing, Taipei) und vorzeichenkonform. Genau
+   davor warnt Designfalle 1.
+3. **Der t-Wert von G2 (+2,01) ist über Tagesmittel gerechnet** und behandelt die
+   Städte damit als unabhängige Ziehungen, die sie nicht sind.
+4. **Die Break-even-Spalte verrät den Preisunterschied:** die kritische Gruppe
+   handelt bei NO ≈ 0,60, liegt also überwiegend **außerhalb** des Preisbands
+   0,70–0,90. Die −26,17 % beschreiben die breite Kandidatenmenge, nicht das
+   Kaufuniversum des Bots — dort sind es 11 von 147 Kandidaten (Beijing 7,
+   Jeddah 4).
+
+**Der Beleg bleibt Fenster F ab 03.08.** Bis dahin ändert sich nichts.
+
 Unberührt laufen weiter: Fenster D des Preisband-Tests (Spannen-Veto, ab 03.08.),
 der Rand-Longshot-Forward-Test (Zwischenschau ~18.08.) und der
 Ensemble-µ-Forward-Test (frühestens Oktober).
