@@ -40,7 +40,13 @@ SPECIAL_STATIONS = {
 # Stationen ohne METAR/Wunderground-Ist. Settle-Pfade muessen sie ueberspringen,
 # statt an einem leeren Abruf haengenzubleiben.
 NO_METAR = {"HKO"}
-NO_WUNDERGROUND = {"HKO"}
+# HKO: Wunderground fuehrt die Station nicht.
+# ZGSZ: Wunderground fuehrt sie zwar, liefert unter dem Locator ZGSZ:9:CN aber die
+#   Beobachtungen von "Lau Fau Shan" (obs_id 45035) — einer HKO-Station rund 25 km
+#   entfernt in Hong Kong. Befund 02.08.2026; an vier Stadt-Tagen wich unsere
+#   WU-Referenz dadurch vom Markt ab, der jedes Mal dem METAR der echten Station
+#   folgte. Fuer Shenzhen entscheidet deshalb METAR, nicht WU.
+NO_WUNDERGROUND = {"HKO", "ZGSZ"}
 
 # Staedte, deren BUCKET-SEMANTIK noch nicht geklaert ist: Kalibrierung liegt vor,
 # aber es steht nicht fest, welches Intervall ein Bucket-Titel meint. Fuer diese
@@ -96,6 +102,30 @@ def bucket_grenzen(k, city=""):
     if city in BUCKET_FLOOR:
         return float(k), float(k) + 1.0
     return k - 0.5, k + 0.5
+
+
+def wu_station_passt(obs, icao):
+    """Liefert die Wunderground-Antwort wirklich die ANGEFRAGTE Station?
+
+    Gefunden am 02.08.2026: unter dem Locator `ZGSZ:9:CN` gibt api.weather.com die
+    Beobachtungen von "Lau Fau Shan" zurueck (obs_id 45035) — eine HKO-Station
+    rund 25 km entfernt auf der Hongkonger Seite der Deep Bay, nicht Shenzhen
+    Bao'an. Vier der fuenf Stadt-Tage, an denen unsere WU-Referenz vom
+    Markt-Settlement abwich, gehen darauf zurueck; der Markt folgte dort jedes Mal
+    dem METAR der echten Station.
+
+    Geprueft ueber alle 30 Stationen im Ladder-Bestand: 28 liefern korrekt, nur
+    Shenzhen nicht (Hong Kong laeuft ohnehin ueber die HKO-Reihe). Die Regel
+    obs_id == ICAO ist damit empirisch tragfaehig.
+
+    WER DIESE PRUEFUNG UEBERSPRINGT, misst stillschweigend eine andere Stadt.
+    Das betrifft nicht nur das Settlement, sondern auch jede Kalibrierung mit
+    `--actuals wu`.
+    """
+    if not obs or not icao:
+        return False
+    kennung = str(obs.get("obs_id") or obs.get("key") or "").strip().upper()
+    return kennung == str(icao).strip().upper()
 
 
 def airports():

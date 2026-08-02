@@ -44,7 +44,7 @@ import requests
 
 from weather_hko import daily_extreme as hko_daily_extreme
 from weather_stations import (favorit_k, has_metar, has_wunderground,
-                              mu_erlaubt, station_info)
+                              mu_erlaubt, station_info, wu_station_passt)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -333,6 +333,14 @@ def wu_extreme(icao, var, target, city=""):
     except Exception as ex:
         print(f"    WU-Fehler {icao} {target}: {ex}")
         return None
+    # Liefert WU ueberhaupt die angefragte Station? Fuer ZGSZ kommt "Lau Fau Shan"
+    # zurueck, eine Station in Hong Kong — wer das nicht prueft, settlet Shenzhen
+    # gegen eine andere Stadt (Befund 02.08.2026, s. weather_stations).
+    if obs and not wu_station_passt(obs[0], icao):
+        fremd = obs[0].get("obs_name") or obs[0].get("obs_id") or "?"
+        print(f"    WU liefert fuer {icao} die fremde Station '{fremd}' "
+              f"— wu_settle_k bleibt leer, METAR entscheidet")
+        return None
     temps = [o["temp"] for o in obs if o.get("temp") is not None]
     if len(temps) < 12:
         return None
@@ -366,6 +374,12 @@ def settle(conn):
         # lokaler Tag muss vorbei sein: konservativ erst ab Folgetag 12:00 UTC settlen
         if datetime.now(timezone.utc) < datetime(target.year, target.month, target.day,
                                                  tzinfo=timezone.utc) + timedelta(days=1, hours=12):
+            continue
+        if have_k is not None and not has_wunderground(icao):
+            # Schon per METAR gesettelt, und WU ist fuer diese Station unbrauchbar
+            # (ZGSZ liefert eine fremde Station, HKO fuehrt WU nicht). Ohne dieses
+            # Skip holt die SELECT-Bedingung oben — wu_settle_k IS NULL — genau
+            # diese Stadt/Zieltage in JEDEM Lauf erneut.
             continue
         if not has_metar(icao):
             # HKO: kein METAR, keine WU-Seite — dafuer die eigene Reihe, auf die
@@ -438,8 +452,11 @@ def settle(conn):
             settle_k = settle_bucket(min(temps) if var == "min" else max(temps), city)
         wu_k = wu_extreme(icao, var, target, city)
         if wu_k is not None and wu_k != settle_k:
+            # Bis 02.08.2026 stand hier "(Polymarket settelt auf WU)". Das ist
+            # gemessen falsch: an allen fuenf Stadt-Tagen, an denen beide Quellen
+            # uneins waren, folgte die Markt-Aufloesung dem METAR — nie WU.
             print(f"    !! SETTLE-MISMATCH {city} {var} {target}: METAR {settle_k} vs Wunderground {wu_k} "
-                  f"(Polymarket settelt auf WU)")
+                  f"(der Markt folgte bisher jedes Mal dem METAR)")
         cur.execute(
             "UPDATE bb_WeatherLadders SET settle_k=%s, wu_settle_k=%s, "
             "settle_result=CASE WHEN (kind='eq' AND k=%s) OR (kind='le' AND %s<=k) "

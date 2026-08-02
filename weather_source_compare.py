@@ -82,7 +82,7 @@ import numpy as np
 import requests
 from scipy.optimize import minimize_scalar
 
-from weather_stations import SPECIAL_STATIONS, station_info
+from weather_stations import SPECIAL_STATIONS, station_info, wu_station_passt
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -263,7 +263,18 @@ def fetch_actual_daily_extreme_wu(icao, cc, start, end, tz_name, agg):
                     time.sleep(5 * (attempt + 1))
                     continue
                 r.raise_for_status()
-                for o in r.json().get("observations") or []:
+                beobachtungen = r.json().get("observations") or []
+                # Harter Abbruch statt stiller Fehlkalibrierung: unter ZGSZ:9:CN
+                # liefert WU die Station "Lau Fau Shan" aus Hong Kong. Eine
+                # Kalibrierung gegen die falsche Stadt ist schlimmer als keine.
+                if beobachtungen and not wu_station_passt(beobachtungen[0], icao):
+                    fremd = (beobachtungen[0].get("obs_name")
+                             or beobachtungen[0].get("obs_id") or "?")
+                    raise RuntimeError(
+                        f"WU liefert fuer {icao} die fremde Station '{fremd}'. "
+                        f"--actuals wu ist hier unbrauchbar; mit --actuals metar "
+                        f"kalibrieren (der Markt folgt dort ohnehin dem METAR).")
+                for o in beobachtungen:
                     t, v = o.get("valid_time_gmt"), o.get("temp")
                     if t is None or v is None:
                         continue
