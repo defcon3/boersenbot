@@ -262,3 +262,118 @@ wiederholt.
 
 Für **H4** gibt es keinen retrospektiven Lauf. Wer das Spannen-Veto vor
 Abschluss von Fenster D anfasst, tut es ohne Beleg.
+
+---
+
+# ERGEBNIS — G1 gerissen, es wird nicht geweitet (02.08.2026)
+
+Gerechnet mit `weather_band_breite_eval.py` am 02.08.2026, unmittelbar nach der
+Vorregistrierung (Commit `c921421`), ohne jede Parameteränderung.
+
+Fenster A: 421 Rohzeilen → 225 entduplizierte Positionen → 94 im Band, 9 Zieltage.
+
+## G1 — gerissen an der absoluten Bedingung
+
+| Menge | n | PnL | ROI | Verliererquote |
+|---|---|---|---|---|
+| Preisband 0,70–0,90 | 94 | −8,16 $ | **−1,74 %** | 19,1 % |
+| alle −1-Kandidaten | 225 | −111,75 $ | **−9,93 %** | 24,9 % |
+
+Vorteil **+8,20 pp**, Tagesmittel +11,52 pp, **t = +1,80** über 9 Tage.
+
+Die *relative* Bedingung ist erfüllt (≥ 8 pp) und die t-Schwelle auch (> 1,5).
+Gerissen ist **ROI > 0**. Genau dieser Fall war beim Formulieren des Gates
+benannt: *„Ein Band-ROI knapp über null bei einem Gesamt-ROI von deutlich unter
+null wäre formal ein ‚Vorteil', aber ökonomisch wertlos."* Hier liegt er sogar
+darunter. Das Band ist auf Daten, die es nicht gebaut haben, **Schadensbegrenzung
+statt Ertrag**.
+
+Die Vorab-Erwartung — „G1 dürfte reißen, wegen der 19,1 %" — trifft, und zwar aus
+exakt dem genannten Grund: 19,1 % Verliererquote liegen im Bereich der
+Break-even-Schwelle, und der mittlere Fill-Preis reichte nicht, um sie zu tragen.
+
+## G2, G3, H3, G5
+
+- **G2 gerissen**, folgt aus G1: ohne den besten Zieltag −2,11 %, ohne die
+  stärkste Stadt (München) −3,63 %. Die Kennzahl „Anteil des besten Tages" ist
+  bei negativem Gesamteffekt nicht sinnvoll definiert (sie kommt als −20,0 %
+  heraus) — ein Mangel des Eval-Codes, der hier folgenlos bleibt, weil G1 die
+  Abbruchregel schon ausgelöst hat.
+- **G3: Rang NICHT belegt.** Median-Schnitt bei +0,43 K: nah an der Kante
+  −7,55 % (12/47 Verlierer), weit von der Kante +4,08 % (6/47). Unterschied
+  +11,63 pp, aber **t = +0,71**. Damit ist die 8-pp-Bedingung erfüllt, die
+  t-Bedingung (> 2,0) nicht.
+  **Der Punktschätzer zeigt hier in die vom Bot unterstellte Richtung** — in
+  Fenster C zeigte er in die Gegenrichtung. Zwei Fenster, zwei Vorzeichen, kein
+  t: das ist Rauschen. Der Rang bleibt unbelegt, aber er ist damit auch nicht
+  widerlegt; er wird nicht angefasst.
+- **H3: +3,29 pp, t = +0,39.** Breit (62 Lays, −1,59 %) gegen eng (25 Lays,
+  −4,88 %) — kein Unterschied, der etwas trägt.
+- **G5:** Median 10 Kandidaten je Zieltag, Maximum 18. Bei 5 $ und zwei
+  überlappenden Tagen wären 100 $ gebunden, in der Spitze 180 $ — gegen zuletzt
+  rund 93 $ freies Guthaben. Die breite Menge wäre **ohnehin nicht finanzierbar**
+  gewesen.
+
+## Der Befund, der wichtiger ist als das Gate
+
+Diagnostisch nachgerechnet (vier Teilfenster, **post hoc, kein Gate**):
+
+| Teilfenster | Band | Verlierer | alle −1-Kandidaten | Verlierer |
+|---|---|---|---|---|
+| 10.–13.07. | +10,29 % | 10,0 % | −15,81 % | 26,3 % |
+| **14.–19.07.** | **−4,99 %** | **21,6 %** | −7,94 % | 24,4 % |
+| 20.–26.07. | +8,77 % | 11,3 % | −6,31 % | 21,8 % |
+| 27.07.–01.08. | +18,07 % | 5,4 % | −11,63 % | 24,8 % |
+
+**Die −1-Klasse verliert als Ganzes, durchgehend** — in allen vier Teilfenstern,
+zwischen −6,31 % und −15,81 %, über 525 entduplizierte Kandidaten. Der Bot
+handelt eine strukturell verlierende Grundgesamtheit und rettet sich über einen
+Filter, dessen Ertrag zwischen −4,99 % und +18,07 % schwankt. Das erklärt die
+dünne Marge der Live-Serie (+2,51 % am 01.08., +0,66 % am 02.08.) besser als
+jede Einzelposition.
+
+Der *relative* Vorteil des Bandes ist dagegen in allen vier Teilfenstern positiv
+(+26,10 / +2,95 / +15,09 / +29,71 pp). Das Band **sortiert** zuverlässig; ob es
+**verdient**, hängt am Umfeld.
+
+**Eine Vermutung ist dabei widerlegt worden.** Beim ersten Blick auf das
+G1-Ergebnis lag nahe, Fenster A sei durch die Screen-Verbesserungen vom 14.07.
+(Doppel-Kalibrierung im Code erzwungen) und 17.07. (Debias-vor-Mittelung,
+WU-Kalibrierung) verzerrt. Das Gegenteil ist der Fall: *vor* diesen Änderungen
+war das Band mit +10,29 % gut, das einzige negative Teilfenster liegt *danach*.
+Die Erklärung ist damit erledigt und wird nicht weiterverfolgt.
+
+## Was das heißt — die Abbruchregel greift
+
+**Es wird nicht geweitet.** Nicht auf ein anderes Preisband ausgewichen, nicht
+nach einem Fenster gesucht, in dem es doch trägt, keine Schwellensuche am
+Abstand. Der Autobuy bleibt exakt wie er ist: Preisband 0,70–0,90, Rang nach
+Temperaturabstand, Spannen-Veto, Cap 8, 5 $.
+
+**V2 ist damit nicht falsifiziert, aber sein Fundament ist schwächer als
+angenommen.** Die Live-Auswahl schlägt die Grundgesamtheit deutlich (+3,76 %
+gegen −9,93 %); was nicht belegt ist, ist die Behauptung, das Preisband allein
+liefere einen verlässlich positiven Ertrag.
+
+**H4 (Spannen-Veto) bleibt offen und ausschließlich Forward.** Fenster D beginnt
+unverändert am 03.08.; G4 verlangt mindestens 20 Zieltage.
+
+## Was nicht geprüft und bewusst offen ist
+
+- **Warum die −1-Klasse als Ganzes verliert, ist nicht gemessen.** Der Verdacht
+  liegt bei der Bucket-Wahl über `mu_ens` (Fehlerquelle 2 der Studie vom 14.07.,
+  0,6 K in µ), nicht beim Preis. Das ist eine eigene These und braucht eine
+  eigene Vorregistrierung — hier wurde sie weder getestet noch gestreift.
+- **Neun Zieltage tragen kein t-Argument.** G1 wäre auch bei ROI > 0 mit t = 1,80
+  ein schwacher Beleg gewesen. Der Test taugt als Falsifikation, nicht als
+  Bestätigung — dieselbe Asymmetrie wie beim konditionalen Ausstieg.
+- **Das enge Buch in H3 ist ohne Spannen-Veto nachgebildet**, weil die
+  Modellspanne erst ab dem 20.07. existiert. Es ist damit eher zu gut als zu
+  schlecht dargestellt.
+- **Die Bandgrenzen wurden nicht auf ±0,01 verschoben**, obwohl die Pre-Reg das
+  als Stabilitätsprobe vorsah (`--grenzen`). Bei gerissenem G1 hätte die Probe
+  nur zeigen können, ob das Minus etwas größer oder kleiner wird; sie wurde
+  bewusst unterlassen, um nicht doch noch nach einer Grenze zu suchen, bei der
+  es trägt.
+- **Fenster A endet am 19.07.** Ob die −1-Klasse vor dem 10.07. anders aussah,
+  ist nicht erhoben — der Ladder-Logger reicht nicht weiter zurück.
