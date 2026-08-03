@@ -115,7 +115,8 @@ from datetime import datetime, timedelta, timezone
 
 import airportsdata
 
-from weather_stations import bucket_grenzen, favorit_k, station_info
+from weather_stations import (bucket_grenzen, canonical_city, favorit_k,
+                              station_info)
 import requests
 
 for _s in (sys.stdout, sys.stderr):
@@ -393,7 +394,12 @@ def fetch_raw_models(city, target_day, var="max", session=None):
 
     target_day: 'YYYY-MM-DD' in LOKALER Zeit der Station (timezone=auto).
     """
-    icao = STATIONS.get(city)
+    # canonical_city auch hier: der Autobuy reicht den Stadtnamen aus der DB
+    # herein, und Altzeilen aus der Zeit vor einer Umbenennung tragen noch den
+    # Marktnamen. Ohne die Aufloesung faellt der Kandidat mit "keine Station" aus
+    # der Spannen-Pruefung — stillschweigend, weil das auch der normale Weg fuer
+    # stationslose Staedte ist.
+    icao = STATIONS.get(canonical_city(city))
     st = station_info(icao)          # deckt auch Sonderstationen wie HKO ab
     if not st:
         return None, "keine Station"
@@ -543,7 +549,7 @@ def main():
         m = title_re.match(t)
         if not m:
             continue
-        city = m.group(1)
+        city = canonical_city(m.group(1))     # umbenannte Bretter, siehe CITY_ALIASES
         mks, celsius = [], True
         for mk in e.get("markets", []):
             ti = mk.get("title", "")

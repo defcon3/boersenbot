@@ -43,8 +43,9 @@ import pymssql
 import requests
 
 from weather_hko import daily_extreme as hko_daily_extreme
-from weather_stations import (favorit_k, has_metar, has_wunderground,
-                              mu_erlaubt, station_info, wu_station_passt)
+from weather_stations import (canonical_city, favorit_k, has_metar,
+                              has_wunderground, mu_erlaubt, station_info,
+                              wu_station_passt)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -252,7 +253,10 @@ def snapshot(conn):
         if not m:
             continue
         var = "max" if m.group(1) == "Highest" else "min"
-        city = m.group(2)
+        # canonical_city vor allem anderen: der Name geht so in die DB, in den
+        # STATIONS-Lookup UND in den Kalibrierungs-Schluessel. Umbenannte Bretter
+        # (Seoul 01.08.) fielen sonst still aus Modell und Settlement heraus.
+        city = canonical_city(m.group(2))
         target = title_target_date(m.group(3), m.group(4), today)
         if not target:
             continue
@@ -313,6 +317,14 @@ def snapshot(conn):
     conn.commit()
     n_cities = len({(r[3], r[2], r[1]) for r in rows})
     print(f"Snapshot: {len(rows)} Fenster-Zeilen ({n_cities} Stadt/var/Zieltag-Leitern) eingefuegt.")
+    # Ohne Station gibt es kein mu_ens, kein offset_fav und kein Settlement — die
+    # Preiszeilen laufen trotzdem durch. Genau daran blieb die Seoul-Umbenennung
+    # drei Tage unbemerkt (Befund 03.08.2026). Eine neue Stadt in dieser Zeile
+    # heisst: entweder Alias nachtragen (CITY_ALIASES) oder Station aufloesen.
+    ohne_station = sorted({r[3] for r in rows if not r[4]})
+    if ohne_station:
+        print(f"  OHNE STATION ({len(ohne_station)}) — kein Modell, kein Settlement: "
+              f"{', '.join(ohne_station)}")
 
 
 def wu_extreme(icao, var, target, city=""):

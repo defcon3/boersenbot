@@ -34,7 +34,7 @@ from datetime import datetime, timedelta, timezone
 
 import airportsdata
 
-from weather_stations import station_info
+from weather_stations import canonical_city, station_info
 import requests
 
 from weather_outlier_screen import (MIN_DIST, MAX_PMODEL, MIN_YES, MAX_SPREAD,
@@ -165,7 +165,7 @@ def main():
         m = title_re.match(t)
         if not m:
             continue
-        city = m.group(1)
+        city = canonical_city(m.group(1))     # umbenannte Bretter, siehe CITY_ALIASES
         mks, celsius = [], True
         for mk in e.get("markets", []):
             ti = mk.get("title", "")

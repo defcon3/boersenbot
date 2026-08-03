@@ -79,6 +79,35 @@ MU_PENDING = set()
 BUCKET_FLOOR = {"Hong Kong"}
 
 
+# Brettnamen, die Jupiter fuer eine BEREITS BEKANNTE Stadt vergeben hat. Der
+# Schluessel ist der Markttitel, der Wert unser kanonischer Name — also der, unter
+# dem Station, Kalibrierung und die gesamte bb_WeatherLadders-Historie liegen.
+#
+# Warum das noetig ist (Befund 03.08.2026): Am 01.08. benannte Jupiter das
+# Seoul-Brett in "Seoul (Incheon)" um. Kein STATIONS-Eintrag traf mehr, damit war
+# icao NULL — und ohne icao gibt es kein mu_ens, ohne mu_ens kein offset_fav
+# (der -1-Autobuy sah Seoul drei Tage lang nicht) und keinen Settle-Lauf
+# (weather_ladder_logger.settle filtert auf `icao IS NOT NULL`). Der Ausfall war
+# in keinem Log sichtbar: die Preiszeilen liefen weiter durch.
+#
+# Die Aufloesung ersetzt den Namen VOR dem Schreiben. Sonst zerfiele die Historie
+# einer Stadt in zwei Staedte, und jede Auswertung, die nach `city` gruppiert,
+# haette Seoul zweimal mit je halbierter Fallzahl. Der Markt bleibt ueber
+# market_id eindeutig identifizierbar, der Titel geht also nicht verloren.
+CITY_ALIASES = {
+    "Seoul (Incheon)": "Seoul",     # ab 01.08.2026, Station bleibt RKSI
+}
+
+
+def canonical_city(name):
+    """Markttitel-Stadtname -> unser kanonischer Stadtname.
+
+    UEBERALL anwenden, wo ein Stadtname aus einem Jupiter-Titel kommt, und zwar
+    direkt nach dem Parsen — nicht erst vor dem STATIONS-Lookup. Sonst landet der
+    Marktname trotzdem in der DB und spaltet die Historie."""
+    return CITY_ALIASES.get(name, name)
+
+
 def mu_erlaubt(city):
     """Darf fuer diese Stadt ein mu_ens/offset_fav berechnet werden?"""
     return city not in MU_PENDING
