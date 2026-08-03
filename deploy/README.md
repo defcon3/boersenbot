@@ -61,6 +61,60 @@ scp -i ~/.ssh/boersenbot_key app.py veit@144.91.98.234:/home/veit/boersenbot/
 ssh -i ~/.ssh/boersenbot_key veit@144.91.98.234 "sudo systemctl restart boersenbot_dashboard"
 ```
 
+## Backup VPS → NAS → Infomaniak (seit 03.08.2026)
+
+Contabo verkauft Backups nur im Premium-Vertrag — stattdessen sichert das
+Synology-NAS den VPS selbst. **Das NAS zieht**, weil es im LAN steht und der VPS
+nicht hineinreicht.
+
+```
+VPS /home/veit  --rsync/ssh (pull)-->  NAS ~/contabo_backup/home/
+                                        └─ CloudSync-Session 10 --> Infomaniak kDrive
+                                           (WebDAV, upload-only, /DiskStation_backup/home)
+```
+
+| Wann | Wo | Was |
+|------|-----|-----|
+| 03:40 täglich | VPS-Crontab (`veit`) | `deploy/collect_system_config.sh` → sammelt systemd-Units, nginx-Config, Crontab, dpkg-Liste, pip-freeze nach `/home/veit/_backup_meta/` (alles, was **außerhalb** von `/home/veit` liegt und der Pull sonst nicht sähe) |
+| 04:00 täglich | NAS `/etc/crontab` (`benutzername`) | `deploy/nas_contabo_backup.sh` → `rsync`-Pull von ganz `/home/veit` |
+
+**Semantik: additiv, kein `--delete`.** Was auf dem VPS gelöscht wird, bleibt auf
+NAS und in der Cloud liegen. Umfang: komplettes `/home/veit` inkl. `venv/` und
+`data/` (~9,5 GB, 61 k Dateien); ausgenommen nur der gunicorn-Socket.
+
+**Zugang:** eigener Key `~/.ssh/vps_backup` auf dem NAS. Auf dem VPS ist er in
+`authorized_keys` gebunden an
+`restrict,command="/usr/bin/rrsync -ro /home/veit"` → **nur Lesen, keine Shell**.
+Ein Login-Versuch bringt `SSH_ORIGINAL_COMMAND does not run rsync`. Deshalb kann
+der NAS-Job den Collector auch nicht selbst anstoßen — daher der eigene
+VPS-Cron um 03:40.
+
+```bash
+# Status prüfen (vom PC aus, NAS-SSH: Passwort, SFTP ist aus → base64-Pipe)
+ssh benutzername@192.168.178.32 \
+  'cat ~/contabo_backup/LAST_SUCCESS.txt; tail -20 ~/boersenbot/contabo_backup.log'
+# Lauf von Hand
+ssh benutzername@192.168.178.32 '~/boersenbot/nas_contabo_backup.sh'
+```
+
+**Synology-Fallen:** `/etc/crontab` braucht **Tabs** als Trenner (Leerzeichen →
+Zeile wird stillschweigend ignoriert); Neustart per
+`sudo /usr/syno/bin/synosystemctl restart crond` (`synosystemctl` liegt nicht im
+PATH). `flock` verhindert Überlappung — der Erstlauf dauerte ~1 h bei ~3 MB/s
+(CPU des DS215j ist die Bremse), die täglichen Deltas sind klein.
+
+**Wiederherstellung** (neuer VPS): `~/contabo_backup/home/` vom NAS auf den neuen
+Server schieben (`rsync -av`, diesmal als Push vom NAS aus — der Key darf nur
+lesen), dann aus `_backup_meta/` die Units nach `/etc/systemd/system/`, die
+nginx-Configs nach `/etc/nginx/` und `cron/crontab_veit.txt` per `crontab -`
+zurückspielen. `venv/` liegt zwar im Backup, ist aber pfadgebunden — bei
+abweichendem Zielpfad neu bauen aus `system/pip_freeze_*.txt`.
+Let's-Encrypt-Zertifikate sind **nicht** im Backup (root-only) → Certbot neu.
+
+**Bewusst in Kauf genommen:** Das Backup enthält `/home/veit/.ssh`, `config.py`
+und `.fred_key` — Secrets landen damit auch bei Infomaniak. Passt zur
+Hardcoding-Entscheidung unten, ist aber der Preis für „alles 1:1".
+
 ## ⚠️ Secrets
 
 `setup_dashboard.sh` enthält Centron-DB-Zugangsdaten im Klartext. Dieselben
