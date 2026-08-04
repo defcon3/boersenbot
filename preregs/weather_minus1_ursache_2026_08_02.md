@@ -419,7 +419,7 @@ klarsten in eine Richtung.
   Mindestgröße von 250. Die Abbruchregel greift wörtlich; die Schwelle wird
   **nicht** um einen Stadt-Tag gesenkt, um die Probe doch noch zu bekommen. Für
   die nächste Pre-Reg: Mindestgrößen für Nebenproben getrennt vom Hauptlauf
-  festlegen.
+  festlegen. — **Nachgeholt am 04.08.2026, siehe unten.**
 
 ## Was das heißt
 
@@ -452,3 +452,103 @@ vorregistriert.
   Markt-Favoriten ausgerichtetes Buch nach Gebühr und Slippage verdient, ist
   damit nicht gezeigt — nur, dass die Trefferquote auf der richtigen Seite des
   Break-even läge.
+
+---
+
+# NACHTRAG — die Lead-2-Robustheitsprobe (04.08.2026)
+
+Am 02.08. an 249 gegen 250 Stadt-Tage gescheitert und deshalb ausgelassen. Mit
+den inzwischen gesettelten Zieltagen 02.08. und 03.08. stehen **278 Stadt-Tage**
+über 22 Zieltage und 25 Städte — **G0 bestanden**, 0 von 2.502 Widersprüchen.
+Kein Gate wurde gesenkt; die Probe wurde nachgeholt, nicht nachgebessert.
+
+## Zwei Korrekturen am Messaufbau, beide vor dem ersten Blick
+
+**1. Lead 2 ist eine andere Stichprobe von Städten, nicht nur ein anderer
+Vorlauf.** Lead 1 hat 30 Städte, Lead 2 nur 25 — Bretter, die erst am Vortag
+aufmachen, fehlen systematisch. Da die Achsenverschiebung **je Stadt** sitzt
+(sd = 0,699 Bucket, siehe oben), hätte ein Vergleich 30 gegen 25 einen Teil des
+Unterschieds aus der Städteauswahl statt aus dem Vorlauf gezogen. Die Probe läuft
+deshalb **gepaart** auf den 277 Stadt-Tagen, die in beiden Leads vorliegen
+(`--gepaart-mit-lead`). Der ungepaarte Lead-2-Lauf steht daneben und weicht in
+keiner Gate-Entscheidung ab.
+
+**2. Die zweite Hälfte wächst mit.** Die vorregistrierte Trennung 11.–21.07. /
+22.07.–01.08. hätte die zwei neuen Zieltage aus der Vorzeichenprobe fallen
+lassen. Die **Grenze** bleibt unangetastet, nur das offene Ende reicht jetzt bis
+zum Fensterende. Auf dem alten Fenster ist das identisch zum Lauf vom 02.08.
+
+**Reproduktionsprobe:** `--bis 2026-08-01` liefert **jede Zahl des 02.08.
+unverändert** — 325 Stadt-Tage, E[*d*] +0,035, sd 0,699, ROI −3,85 % / −8,35 %,
+−2-Klasse +2,00 %. Die Änderungen am Eval sind wirkungsfrei.
+
+## Das Ergebnis: die Diagnose hält
+
+Gepaart, 277 identische Stadt-Tage:
+
+| | Lead 1 | Lead 2 |
+|---|---|---|
+| E[*d*] | +0,072 (t 1,05) | +0,175 (t 2,33) |
+| **G1 Anker** | nicht belegt | **nicht belegt** |
+| P_ist(−1) / P_modell(−1) | 23,1 % / 22,4 % | 22,7 % / 21,9 % |
+| **G2 Breite** | nicht belegt (+1,3 pp, t 0,68) | **nicht belegt** (+2,1 pp, t 1,01) |
+| P_ist(−1) − P_markt(−1) | −1,7 pp | −1,2 pp |
+| **G3 Fairness** | belegt | **belegt** |
+| ROI −1 / +1 | −3,24 % / −4,93 % | −3,57 % / −4,73 % |
+| Anker trifft / Markt-Anker | 34,3 % / 47,3 % | 31,4 % / 44,4 % |
+
+**H3 — fair bepreist — reproduziert sich bei doppeltem Vorlauf.** Alle drei
+Gates entscheiden gleich, und zwar nicht knapp: G1 verlangt 0,25 Bucket und sieht
+0,175, G2 verlangt 4 pp und sieht 2,1.
+
+## Was die Probe zusätzlich zeigt
+
+**Die Vorab-Erwartung „längerer Vorlauf verbreitert die Verteilung" trifft zu,
+aber asymmetrisch.** Auf identischer Menge steigt sd(*d*) von **1,329 auf 1,429**
+Bucket, der Anteil |*d*| ≥ 2 von **20,2 % auf 23,8 %**. Der Zuwachs sitzt fast
+vollständig im **warmen** Rand: +2 wächst von 7,9 % auf 11,2 %, während −2 von
+4,7 % auf 4,7 % steht. Das Modell rechnet an beiden Rändern mit ~9 % — es ist
+unten weiterhin zu breit und wird oben zu **eng**. Das ist ein zweiter,
+unabhängiger Zugang zu [[weather-sigma-zu-gross]] und spricht dagegen, σ
+pauschal zu skalieren: die Fehlkalibrierung hat ein Vorzeichen.
+
+**Der Anker wandert mit dem Vorlauf nach oben** (E[*d*] +0,072 → +0,175, t 2,33).
+Die t-Bedingung von G1 wäre bei Lead 2 erfüllt, die Effektgröße nicht — und die
+Hälften widersprechen sich (−0,116 / +0,377). **Das ist kein Lead-Effekt:** der
+Vorzeichenwechsel zwischen den Hälften steht bei *beiden* Leads (Lead 1:
+−0,198 / +0,259). Ende Juli wurde es wärmer, als wir prognostiziert haben, und
+der längere Vorlauf verstärkt nur, was ohnehin da ist.
+
+**H6 hängt nicht am Vorlauf.** Der Markt-Anker trifft bei beiden Leads rund
+13 pp häufiger, und der Bucket darunter trifft 18,8 % / 19,5 % gegen unsere
+23,1 % / 22,7 % — beide Male unter dem Break-even, während wir darüber liegen.
+Der laufende Markt-Anker-Forward-Test wird dadurch gestützt, nicht ersetzt.
+
+**Die Stadt-Verschiebung ist der Größe nach stabil, den Namen nach nicht ganz.**
+sd je Stadt 0,728 (Lead 1) und 0,734 (Lead 2) gegen 0,699 im Hauptlauf. Die
+Ränder wechseln aber: Beijing −1,09 fällt aus der Lead-2-Menge, Tel Aviv steht in
+allen drei Läufen kalt (−1,06 bis −1,12), warm ist mal Taipei (+1,42), mal
+München (+1,50). Konsistent ist **Tel Aviv**, passend zu
+[[weather-stadt-verschiebung-telaviv]].
+
+## Was nicht geprüft und bewusst offen ist
+
+- **G5 bleibt gerissen**, auch bei Lead 2: P_ist(−2) = 4,7 % gegen die
+  vorregistrierte 3,7-%-Schwelle. Dass der ROI mit +4,66 % höher liegt als bei
+  Lead 1 (+3,68 %), ändert daran nichts — die Schwelle war falsch
+  parametrisiert, und ein Gate, das man nach Sicht der Daten umdeutet, ist kein
+  Gate. Die Klasse läuft forward, siehe [[weather-rand-longshot-forwardtest]].
+- **Der +11,41 % ROI der −2-Klasse im Preisband 0,70–0,90** bei Lead 2 steht
+  gegen −0,93 % im Hauptlauf. 81 Lays, post hoc, kein Gate — das ist Rauschen in
+  einer Teilmenge, die laut Designfalle 3 ohnehin das Gegenteil der
+  Klassen-Ökonomie misst. **Nicht** als Befund lesen.
+- **Ein Stadt-Tag Differenz** zwischen den beiden gepaarten Läufen (277 gegen
+  278 ungepaart) ist nicht nachverfolgt; er ändert keine Kennzahl in der zweiten
+  Nachkommastelle.
+- **Die Probe teilt das Sommerfenster des Hauptlaufs.** Ein längerer Vorlauf ist
+  keine unabhängige Stichprobe — dieselben Zieltage, dieselbe Großwetterlage,
+  nur eine frühere Prognose. Sie kann die Diagnose stützen, nicht bestätigen.
+- **Lead 0 ist weiterhin ungerechnet** und war nie vorgesehen.
+
+**Aus dieser Probe folgt keine Änderung am laufenden Autobuy** — wie
+vorregistriert, und wie durch die Umsetzungssperre bis 02.09. ohnehin gedeckt.

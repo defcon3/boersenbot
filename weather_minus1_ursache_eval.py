@@ -64,6 +64,18 @@ HAELFTEN = (("2026-07-11", "2026-07-21"), ("2026-07-22", "2026-08-01"))
 OFFSETS = (-3, -2, -1, 0, 1, 2, 3)
 
 
+def haelften(saetze):
+    """Die vorregistrierte Trennung 11.-21.07. / ab 22.07. — die zweite Haelfte
+    reicht bis zum Ende des tatsaechlichen Fensters.
+
+    Am 02.08. endete der Bestand am 01.08.; dann ist das identisch zu HAELFTEN.
+    Kommen spaeter Zieltage dazu (Lead-2-Nachholung), duerfen sie nicht aus der
+    Vorzeichenprobe herausfallen — die vorregistrierte GRENZE bleibt unangetastet,
+    nur das offene Ende waechst mit."""
+    ende = max(s["tag"] for s in saetze) if saetze else HAELFTEN[1][1]
+    return (HAELFTEN[0], (HAELFTEN[1][0], max(ende, HAELFTEN[1][1])))
+
+
 def phi(x):
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
 
@@ -103,9 +115,16 @@ def ein_stichproben_t(werte):
     return m / (sd / math.sqrt(len(xs))), len(xs), m
 
 
-def lade(lead, ohne):
+def lade(lead, ohne, bis=None, nur=None):
     """Ein Datensatz je Stadt-Tag: Anker, Settlement, Leiter aus dem neuesten
-    Snapshot des gewuenschten Leads."""
+    Snapshot des gewuenschten Leads.
+
+    `bis`  begrenzt das Zieltagsfenster (Reproduktion eines aelteren Laufs).
+    `nur`  beschraenkt auf eine Menge von (Zieltag, Stadt)-Schluesseln — dafuer,
+           Lead 1 und Lead 2 GEPAART auf denselben Stadt-Tagen zu rechnen. Ohne
+           das vergleicht man 30 Staedte gegen 25, und weil die Achsen-
+           verschiebung je Stadt sitzt (sd = 0,699 Bucket), waere ein Teil des
+           Unterschieds reine Staedteauswahl statt Vorlauf."""
     conn = pymssql.connect(**DB_CONFIG)
     cur = conn.cursor(as_dict=True)
     cur.execute(
@@ -132,6 +151,10 @@ def lade(lead, ohne):
         if lead_of(r) != lead or r["snapshot_utc"] != neueste.get(key):
             continue
         if r["city"] in ohne:
+            continue
+        if bis is not None and key[0] > bis:
+            continue
+        if nur is not None and key not in nur:
             continue
         d = je.setdefault(key, {"tag": key[0], "city": key[1], "k0": None,
                                 "mu": None, "sigma": None, "settle_k": None,
@@ -219,19 +242,31 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lead", type=int, default=1)
     ap.add_argument("--ohne", nargs="*", default=[], metavar="STADT")
+    ap.add_argument("--bis", default=None, metavar="YYYY-MM-DD",
+                    help="Zieltagsfenster begrenzen (Reproduktion aelterer Laeufe)")
+    ap.add_argument("--gepaart-mit-lead", type=int, default=None, dest="gepaart",
+                    help="nur Stadt-Tage, die auch in diesem Lead vorliegen")
     a = ap.parse_args()
     ohne = set(a.ohne)
 
-    saetze = lade(a.lead, ohne)
+    nur = None
+    if a.gepaart is not None:
+        nur = {(s["tag"], s["city"]) for s in lade(a.gepaart, ohne, bis=a.bis)}
+
+    saetze = lade(a.lead, ohne, bis=a.bis, nur=nur)
     tage = sorted({s["tag"] for s in saetze})
     staedte = sorted({s["city"] for s in saetze})
+    hlf = haelften(saetze)
 
     print("=" * 78)
     print(f"URSACHE DER -1-KLASSE   Lead {a.lead}"
+          + (f"   gepaart mit Lead {a.gepaart}" if a.gepaart is not None else "")
+          + (f"   bis {a.bis}" if a.bis else "")
           + (f"   ohne {', '.join(sorted(ohne))}" if ohne else ""))
     print("=" * 78)
     print(f"Stadt-Tage {len(saetze)} | Zieltage {len(tage)} ({tage[0]} .. {tage[-1]}) "
           f"| Staedte {len(staedte)}")
+    print(f"Haelften: {hlf[0][0]} .. {hlf[0][1]}  /  {hlf[1][0]} .. {hlf[1][1]}")
 
     # ---------------------------------------------------------------- G0
     wid = ges = 0
@@ -270,7 +305,7 @@ def main():
     t1, n1, m1 = ein_stichproben_t(list(d_tage.values()))
     print(f"  E[d] = {m1:+.3f} Bucket   (t = {t1:+.2f} ueber {n1} Zieltage)")
     vorz = []
-    for von, bis in HAELFTEN:
+    for von, bis in hlf:
         h = [s for s in saetze if von <= s["tag"] <= bis]
         if h:
             mh = statistics.mean(statistics.mean([x["d"] for x in g])
@@ -281,6 +316,13 @@ def main():
     g1 = abs(m1) >= 0.25 and abs(t1) > 2.0 and gleich
     print(f"  Verlangt: |E[d]| >= 0,25 UND |t| > 2,0 UND gleiches Vorzeichen "
           f"in beiden Haelften  ->  {'BELEGT' if g1 else 'NICHT BELEGT'}")
+
+    # Die Streuung von d selbst — die Groesse, an der sich die Erwartung
+    # "laengerer Vorlauf verbreitert die Verteilung" ueberhaupt erst pruefen
+    # laesst. Kein Gate, aber ohne sie ist die Lead-2-Probe nicht lesbar.
+    alle_d = [s["d"] for s in saetze]
+    print(f"  Streuung des Offsets selbst: sd(d) = {statistics.pstdev(alle_d):.3f} "
+          f"Bucket   |d| >= 2: {100*sum(1 for x in alle_d if abs(x) >= 2)/len(alle_d):.1f} %")
 
     print("  Diagnostisch (kein Gate) — Verschiebung je Stadt:")
     je_stadt = defaultdict(list)
@@ -303,7 +345,7 @@ def main():
     print(f"  P_ist(-1) {100*z_minus1['ist']:.1f} %  gegen  P_modell(-1) "
           f"{100*z_minus1['modell']:.1f} %   ->  {100*m2:+.1f} pp  (t = {t2:+.2f})")
     h_ok = []
-    for von, bis in HAELFTEN:
+    for von, bis in hlf:
         h = [s for s in saetze if von <= s["tag"] <= bis]
         if h:
             zh = block_wahrscheinlichkeiten(h)
@@ -348,7 +390,7 @@ def main():
         print(f"    ROI Fee 0,07 {e2['roi']:+.2f} %   |   Fee 0,04 "
               f"{e2_alt['roi']:+.2f} %")
         roi_h = []
-        for von, bis in HAELFTEN:
+        for von, bis in hlf:
             h = [s for s in saetze if von <= s["tag"] <= bis]
             eh = klassen_oekonomie(h, -2, FEE_HAUPT) if h else None
             if eh:
