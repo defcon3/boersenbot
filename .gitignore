@@ -43,6 +43,7 @@ screenshot_ui.py
 today_signal.json
 hyg_today_signal.json
 .last_report_state.json
+.watchdog_state.json
 *.bak
 
 # Overnight/Intraday + G3-PIT: reproduzierbar via die *.py
