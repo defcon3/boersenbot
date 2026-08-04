@@ -1,0 +1,25 @@
+[Unit]
+# Basislinie fuer preregs/weather_market_clock_2026_08_04.md (Leg 1):
+# Beobachtungszeit -> Erstsichtung je freier Quelle (WU-Tabelle / NOAA / IEM).
+# Zuvor lief die Sonde nur einmalig mit --hours und ist am 01.08. still
+# ausgelaufen — deshalb jetzt als Dienst. Die Sonde belegt ihr seen-Set beim
+# Start aus der CSV vor und verwirft Beobachtungen, die schon vor Prozessstart
+# gueltig waren; ohne das wuerde jeder Restart erfundene Latenzen einspeisen.
+Description=Weather Source-Latency Probe (obs -> Erstsichtung WU/NOAA/IEM -> weather_source_latency.csv)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+# -u: ohne ungepuffertes stdout bleibt das Log minutenlang leer, und genau seine
+# Frische ist die Probe darauf, ob der Loop noch lebt (systemctl active reicht nicht).
+ExecStart=/home/veit/boersenbot/venv/bin/python -u /home/veit/boersenbot/weather_source_latency_probe.py --hours 0 --interval 30
+Restart=always
+RestartSec=30
+StandardOutput=append:/home/veit/boersenbot/logs/weather_source_latency.log
+StandardError=append:/home/veit/boersenbot/logs/weather_source_latency.log
+
+[Install]
+WantedBy=multi-user.target

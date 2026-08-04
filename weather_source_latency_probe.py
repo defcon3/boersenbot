@@ -130,7 +130,8 @@ def poll_iem(network, want):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--hours", type=float, default=12.0)
+    ap.add_argument("--hours", type=float, default=12.0,
+                    help="0 = endlos (Dauerbetrieb als Dienst)")
     ap.add_argument("--interval", type=int, default=30, help="Sekunden zwischen Runden")
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
@@ -141,12 +142,33 @@ def main():
     if new_file:
         w.writeheader()
 
+    # --- Neustart-Falle (04.08.2026) ---------------------------------------
+    # Als Dienst mit Restart=always startet der Prozess irgendwann neu. Ohne
+    # Vorsorge waere das erste Polling nach dem Neustart voller "Erstsichtungen"
+    # von Beobachtungen, die laengst standen — mit entsprechend riesigem lag_s.
+    # Genau der Median dieser Spalte ist die Messgroesse, also zwei Schutze:
+    #   1. bereits geschriebene Schluessel aus der CSV zuruecklesen
+    #   2. WARMUP: eine Beobachtung, die schon vor Prozessstart gueltig war,
+    #      kann von uns nicht "zuerst gesehen" worden sein -> ueberspringen.
+    # (2) kostet die erste halbe Stunde nach jedem Start und ist der Preis
+    # dafuer, dass keine erfundene Latenz in die Reihe kommt.
     seen = set()          # (station, source, valid_utc) — nur Erstsichtungen zaehlen
-    ende = now() + dt.timedelta(hours=args.hours)
-    print(f"Messung bis {ende:%H:%M}Z, Intervall {args.interval}s, "
-          f"{len(STATIONS)} Stationen -> {args.out}")
+    if not new_file:
+        try:
+            with open(args.out, encoding="utf-8", newline="") as old:
+                for r in csv.DictReader(old):
+                    seen.add((r["station"], r["source"], r["valid_utc"]))
+        except Exception as ex:
+            print(f"WARNUNG: CSV nicht lesbar ({ex}) — starte ohne Vorbelegung")
+    start = now()
+    print(f"{len(seen)} bekannte Sichtungen vorbelegt; Warmup laeuft "
+          f"(Beobachtungen aelter als {start:%H:%M}Z werden verworfen)")
+
+    ende = None if args.hours <= 0 else start + dt.timedelta(hours=args.hours)
+    print(f"Messung {'endlos' if ende is None else f'bis {ende:%H:%M}Z'}, "
+          f"Intervall {args.interval}s, {len(STATIONS)} Stationen -> {args.out}")
     runde = 0
-    while now() < ende:
+    while ende is None or now() < ende:
         runde += 1
         t0 = now()
         noaa = poll_noaa(list(STATIONS))
@@ -157,10 +179,12 @@ def main():
                 if not val or val[0] is None:
                     continue
                 valid, temp = val
-                key = (icao, src, valid.isoformat())
+                key = (icao, src, valid.strftime("%Y-%m-%dT%H:%M:%SZ"))
                 if key in seen:
                     continue
                 seen.add(key)
+                if valid < start:        # Warmup, s. Kommentar in main()
+                    continue
                 seen_utc = now()
                 w.writerow({"seen_utc": seen_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
                             "station": icao, "source": src,

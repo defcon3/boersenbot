@@ -61,7 +61,23 @@ realisiertem Gewinn in drei Wochen, dessen Ausführung ab 250 $/Wette wegbricht.
 Der D-ATIS-Zweig deckt zudem nur 12 US-Drehkreuze ab, während unser US-Strang
 überwiegend Gate-ROT ist — übrig sind Miami und Seattle.
 
-**Verweise:** `weather_source_latency_probe.py` (läuft seit 31.07. auf dem VPS),
+**✅ VORREGISTRIERT 04.08.2026:** `preregs/weather_market_clock_2026_08_04.md`
+— Gates G1–G4 plus vorregistrierte Handlungsregel. **Kein Ausgang führt zu
+einem Kauf:** entweder ist der schnelle Feed längst im Markt (Frage zu), oder
+es gibt einen freien Vorlauf — dann über **NOAA**, und die Folge ist ein
+Paper-Vergleich am Autobuy-*Einstieg*, nicht ein Abo.
+
+**⚠️ KORREKTUR 04.08.2026 — die Sonde läuft NICHT.** Der Satz „läuft seit
+31.07. auf dem VPS" war falsch: keine systemd-Unit für
+`weather_source_latency_probe.py`, `ps` findet keinen Prozess, VPS-CSV
+byte-identisch zur lokalen (md5 `1d079914…`, letzte Zeile `2026-08-01T07:58:40Z`).
+Sie lief einmal mit `--hours` und ist ausgelaufen — *`systemctl active` ≠ Loop
+lebt*. Die Latenz-Basislinie ruht damit auf **11 Stunden**; sie zeigt bereits,
+dass die **settelnde** WU-Tabelle mit Median 9,0 min die **langsamste** Quelle
+ist (NOAA 3,8 / IEM 4,7), aber das ist Indikation, kein Befund. **Nächster
+Schritt: Sonde als Dauerläufer aufsetzen, ≥ 7 Tage.**
+
+**Verweise:** `weather_source_latency_probe.py`,
 `weather_foreknowledge_eval.py`, `POLYMARKET_DATA_API.md`.
 
 ---
