@@ -16,6 +16,14 @@ WebSocket: Starter 49 €/Mon (2 Verbindungen, 10 Kanäle, 7-Tage-Test), Pro
 199 €/Mon. Die Latenz-Sonde vom 31.07. wurde genau dafür gebaut — die
 kostenlose Basislinie liefern, gegen die sich ein bezahlter Dienst beweisen muss.
 
+**⚠️ Abgrenzung (04.08.2026):** Der Anbieter hat einen **zweiten** Kanal
+gestartet — Tages-Max/Min aus dem Modelllauf per WebSocket („weather model
+alerts", Sandbox frei: GFS 0.25°/ICON Global/ICON-EU). Dieser **Modell**-Zweig
+ist geprüft und geschlossen, siehe „Fremdquelle für Modell-Tageswerte" unter
+Erledigt. Der hier beschriebene **METAR-Beobachtungs**-Zweig ist davon
+unberührt und bleibt offen: die Sandbox liefert weiterhin keine Live-Obs
+(`metar.obs.*` → `permission_denied`), und der Test unten kostet nichts.
+
 **Was am 01.08. bereits geprüft ist:**
 - Der **freie Sandbox-Tarif liefert keine Live-Daten.** Einziger abonnierbarer
   Kanal ist `sandbox.demo`, `metar.obs.*` antwortet `permission_denied`.
@@ -228,6 +236,54 @@ Schwesterdienst ISD aus Schritt 0.
 ---
 
 ## Erledigt / verworfen
+
+### Fremdquelle für Modell-Tageswerte (metar.ws „model alerts") + ICON-Quellen-Edge als Anker-Frage
+**Hinzugefügt:** 2026-08-04 · **Status:** ✅ GESCHLOSSEN 2026-08-04 — **kein
+Qualitätsgewinn, kein Abo, kein Sandbox-Client**. Messung:
+`weather_icon_source_bound.py` (10 Städte, Lead d+1, 60 Tage, Open-Meteo).
+
+**Anlass:** Werbemail des Anbieters — Tages-Max/Min direkt aus dem Modelllauf
+per WebSocket auf die Flughafenstation, „kein GRIB parsen mehr". Sandbox frei
+(GFS 0.25°, ICON Global, ICON-EU), Starter/Pro 49/199 € mit ICON-D2, HRRR, AROME.
+
+**Warum das für uns nichts ändert — vier Befunde:**
+1. **Die Sandbox-Modelle sind eine echte Teilmenge unserer fünf.**
+   `weather_outlier_screen.py:136` fährt GFS/ICON/**UKMO/JMA/ECMWF**; die drei
+   angebotenen sind drin, die drei fehlenden sind genau die, die das Ensemble
+   breit machen. Wir parsen zudem kein GRIB, sondern holen fertige Tageswerte.
+2. **Auch die Bezahl-Modelle sind frei.** Gegen Open-Meteo geprüft (EDDM):
+   `icon_d2` → 200, `meteofrance_arome_france_hd` → 200, `gfs_hrrr` → korrekt
+   „No data" (US-only). Stärker noch: **`icon_seamless` IST ICON-D2**, wo D2
+   existiert (Munich/Paris/London/Milan bis auf die Nachkommastelle identisch)
+   — das hochauflösende Modell der 49-€-Stufe fahren wir bei Lead 24 h längst.
+3. **Stationsbezug ist kein Zugewinn** — wir extrahieren bereits auf die
+   Stationskoordinate (`station_info(icao)`, Zeile 402–406), nicht auf den
+   Stadtmittelpunkt.
+4. **Der Spielraum der ganzen Frage ist zu klein.** Median-Spanne der
+   ICON-Varianten am selben Punkt **0,35 K**. Der größere Hebel wäre die
+   Extraktions*stelle* (Punkt um 5–28 km verschoben: Median max|Diff| **1,0 K**,
+   Madrid 2,1 K) — **aber der ist fast reine Konstante je Stadt**
+   (60-Tage-sd im Median **0,32 K** bei mittleren Versätzen bis 1,28 K/Milan),
+   und Konstanten entfernt `bias_700d`/`bias_40d` per Konstruktion.
+
+**Schluss:** Nach Abzug dessen, was die Kalibrierung ohnehin holt, bleiben aus
+Quellen- **und** Extraktionswahl zusammen ~0,3 K zustandsabhängige
+Variabilität — gegen einen Anker-Restfehler von 0,79 Bucket. Selbst die
+perfekte Wahl erklärt den Restfehler nicht. Damit ist die alte offene These
+„ICON-Quellen-Edge" **als Anker-/Qualitätsfrage** miterledigt: sie braucht den
+Anbieter nicht, weil der volle Spielraum unter der Kalibrierung liegt.
+
+**Ehrlich zur Reichweite:** Modell gegen Modell, nicht gegen Settlement — eine
+**Schranke, kein Gate**. Sie sagt „hier ist nicht genug Spielraum, als dass es
+sich zu messen lohnte", nicht „Quelle X ist schlechter als Y". Umgekehrt gilt:
+öffnete jemand denselben Faden erneut, müsste er zuerst diese Schranke kippen.
+
+**NICHT mitgeschlossen:** (a) der METAR-**Beobachtungs**-Latenztest oben (anderes
+Produkt, weiter offen); (b) `preregs/weather_source_edge_2026_07_06.md` — das ist
+eine *Handels*hypothese (ICON gegen **Marktpreis**), deren Gates nie gefahren
+wurden; diese Messung entscheidet sie nicht.
+
+**Verweise:** `weather_icon_source_bound.py`, `weather_outlier_screen.py`.
 
 ### VRP-Sleeve mit Hybrid-Risk-System kombinieren
 **Status:** ✅ ERLEDIGT 2026-06-23 — **GREEN (qualifiziert)**. `vrp_hybrid_combo.py`:

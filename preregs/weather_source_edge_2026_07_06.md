@@ -1,7 +1,13 @@
 # Pre-Reg: Wetter-Quellen-Edge (ICON-Modell vs. Jupiter-Marktpreis) — 2026-07-06
 
-**Status:** vorregistriert VOR dem Forward-Fenster. Wiedereinstieg in das
-Wetter-Kapitel nach der falsifizierten statischen Open-Meteo-Bias-These
+**Status:** ⛔ **ZURÜCKGEZOGEN am 2026-08-04 — überholt, NICHT falsifiziert.**
+Das Forward-Fenster wurde nie gestartet, der Logger `weather_edge_paper_logger.py`
+nie geschrieben; kein Gate unten ist gefahren worden. Diese Pre-Reg ist damit
+**kein RED** und darf auch nicht als solches zitiert werden — sie ist ein
+Vorhaben, das die Entwicklung überholt hat. Begründung unten unter „ERGEBNIS".
+
+*Ursprünglicher Status:* vorregistriert VOR dem Forward-Fenster. Wiedereinstieg
+in das Wetter-Kapitel nach der falsifizierten statischen Open-Meteo-Bias-These
 (Session 2026-07-01, `weather-forecast-bias-study`) — diesmal Quellenvergleich
 statt Einzelquelle-Korrektur.
 
@@ -163,6 +169,41 @@ committen.
 
 ---
 
-## ERGEBNIS (auszufüllen nach Fensterende)
+## ERGEBNIS — kein Ergebnis: ZURÜCKGEZOGEN 2026-08-04
 
-*offen — Logger-Start noch nicht erfolgt*
+**Das Fenster wurde nie eröffnet.** `weather_edge_paper_logger.py` und
+`eval_weather_source_edge.py` sind nie entstanden, es existiert kein Stadt-Tag
+mit Paper-PnL. G-N, G-Primär und G-Sekundär sind **ungefahren**. H1 und H2 sind
+damit weder bestätigt noch widerlegt — sie sind unbeantwortet.
+
+**Warum trotzdem zurückgezogen und nicht nachgeholt — zwei Gründe:**
+
+**1. Die Doktrin der Pre-Reg gilt nicht mehr.** Ihr Kern ist die bewusste
+Einzelquellen-Strategie („der Nutzer bleibt bewusst bei ICON", H2 nur als
+paralleler Beobachtungs-Track). Das Live-System ist längst das Gegenteil:
+`weather_outlier_screen.py` fährt fünf Modelle mit Ausreißer-Verwerfung,
+Doppel-Kalibrierung (700d + 40d), Einigkeits-Gate `MAX_DIVERGENZ` und seit
+04.08. stadt-konditionaler Gewichtung. Ein Test von „ICON allein gegen den
+Markt" würde eine Fassung prüfen, die wir nicht mehr handeln.
+
+**2. Die Anker-Hälfte der Frage ist inzwischen beantwortet — negativ.**
+`weather_icon_source_bound.py` (04.08.) misst die **Schranke** der Quellen- und
+Extraktionswahl: ICON-Varianten am selben Stationspunkt liegen im Median 0,35 K
+auseinander (und `icon_seamless` *ist* ICON-D2, wo D2 existiert); die
+Extraktionsstelle bewegt zwar bis 2,1 K, ist aber fast reine Konstante je Stadt
+(60-Tage-sd im Median 0,32 K) — und Konstanten entfernt die Bias-Kalibrierung
+per Konstruktion. Nach Abzug bleiben ~0,3 K gegen einen Anker-Restfehler von
+0,79 Bucket. Die Prämisse dieser Pre-Reg — „ICON ist die beste Quelle, also
+lohnt es, ICON gegen den Markt zu stellen" — trägt keinen Edge in der
+Größenordnung, die sie unterstellt.
+
+**Was ausdrücklich offen bleibt:** die *Handels*frage „schlägt unsere
+kalibrierte Bucket-Verteilung den Marktpreis netto" ist damit **nicht**
+entschieden — sie wird heute nur anders gestellt (markt-blinde
+Wetterfrosch-Doktrin, Lay statt Back, `weather_minus1_autobuy.py`) und anders
+gemessen. Der Backtest-Teil oben (5 Modelle, 21 Städte, ~700 Tage,
+`preregs/weather_source_calib_2026_07_06.csv`) bleibt gültig und ist weiter im
+Einsatz — zurückgezogen ist das Forward-Vorhaben, nicht die Kalibrierung.
+
+**Verweise:** `weather_icon_source_bound.py`, `weather_outlier_screen.py`,
+`BACKLOG.md` (Eintrag „Fremdquelle für Modell-Tageswerte").
