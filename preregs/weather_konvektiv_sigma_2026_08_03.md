@@ -136,3 +136,117 @@ Baustelle, statt eine zu eröffnen.
   einigen Minuten mit vielen API-Calls; die Netzabbruch-Toleranz des Skripts
   (Stadt überspringen) darf **nicht** dazu führen, dass IS und OOS
   unterschiedliche Städtemengen haben — vor der Auswertung abgleichen.
+
+---
+
+# ERGEBNIS (gefahren 2026-08-04, `weather_konvektiv_sigma_eval.py`)
+
+**G1 ROT · G2 ROT · G3 GRÜN · G4 ROT · G5 ROT — FAIL.**
+
+Datenlage besser als erhofft: die Previous-Runs-API lieferte **alle** 700 Tage
+für **alle 29** Städte, 20.300 Stadttage, davon 19,3 % konvektiv. Die vorab
+benannte Sorge, IS und OOS könnten unterschiedliche Städtemengen haben, ist
+gegenstandslos — es fehlt keine Stadt und kein Tag. Nach dem Join mit dem
+Residuen-Dump bleiben 16.272 Stadttage (10.963 IS / 5.309 OOS), der
+Konvektionsanteil ist in beiden Fenstern praktisch gleich (19,1 % / 19,5 %).
+
+## G1 — ROT. Der Effekt existiert, ist aber ein Drittel der geforderten Größe
+
+r = **1,053** gegen geforderte 1,15.
+
+| Spannen-Terzil | n konv | n klar | sd konv | sd klar | r |
+|---|---|---|---|---|---|
+| < 1,90 K | 658 | 2.940 | 1,014 | 0,980 | 1,035 |
+| < 3,20 K | 734 | 2.908 | 1,059 | 0,971 | 1,090 |
+| darüber | 703 | 3.020 | 1,047 | 1,015 | 1,031 |
+
+Die Richtung stimmt in allen drei Terzilen — konvektive Tage streuen wirklich
+etwas breiter. Aber die Größe liegt bei 3–9 %, und die Pre-Reg hatte 15 %
+verlangt mit der Begründung „darunter lohnt keine zweite Stellschraube". Das
+Urteil steht damit unabhängig von jeder Signifikanzfrage.
+
+## G2 — ROT. Im OOS bleibt fast nichts, und das dritte Terzil dreht
+
+r = **1,029** gegen geforderte 1,10. Im obersten Spannen-Terzil kippt das
+Verhältnis auf **0,984** — dort streuen konvektive Tage sogar knapp *enger* als
+klare. Die Datenlage trägt: 1.035 konvektive OOS-Tage, 294–387 je Terzil, also
+weit über der Mindestgröße. Die vorab benannte Sorge, das OOS-Fenster liege
+außerhalb der Konvektionssaison, hat sich nicht bestätigt.
+
+## G3 — GRÜN, aber die Referenz ist kollabiert und das Gate deshalb wertlos
+
+| Variante | sd konv | sd klar | Σ\|sd−1\| | Deckung konv | Deckung klar |
+|---|---|---|---|---|---|
+| heutiges σ | 1,092 | 1,060 | 0,153 | 78,1 % | 80,5 % |
+| globaler Faktor | 1,092 | 1,060 | 0,153 | 78,1 % | 80,5 % |
+| konditional | 1,049 | 1,071 | 0,120 | 79,6 % | 79,8 % |
+
+Die konditionale Fassung schlägt beide Referenzen — aber **die beiden Referenzen
+sind identisch**. Der globale Faktor kommt aus dem IS, und weil σ(s) dort per
+MLE gefittet ist, gilt dort sd(z) = 1,000 exakt; der flache Faktor ist damit
+1,000 und ändert nichts. Die Pre-Reg hatte (b) als „die eigentliche Hürde"
+bezeichnet, weil „σ ohnehin zu groß ist und ein flacher Faktor einen Teil des
+Gewinns umsonst holt". Diese Annahme trifft auf ein **sauber IS-gefittetes** σ
+nicht zu — sie beschreibt die ausgelieferten Kalibrier-CSVs, nicht die Form
+σ(s). G3 hat also nicht gemessen, was es messen sollte, und trägt nichts zum
+Urteil bei.
+
+## G4 — ROT, und hier stirbt die ökonomische Begründung
+
+| | Wert |
+|---|---|
+| klare Stadttage OOS | 4.274 |
+| handelbare Zellen heute | 22.073 |
+| konditional | 22.146 (**+0,3 %**, verlangt +10 %) |
+| davon neu geöffnet | 76 |
+| davon getroffen | 7 = 9,2 % (Break-even 22,6 %) |
+
+Der Grund ist simpel: der konditionale Faktor für klare Tage ist **0,990** — σ
+schrumpft um ein Prozent. Damit kippen 76 von 22.073 Zellen über die
+0,10-Schwelle. Die neu geöffneten Zellen sind *sauber* (9,2 % gegen 22,6 %
+Break-even), es sind nur viel zu wenige, um irgendetwas zu bewegen. Der ganze
+Zweck der Pre-Reg — „an klaren Tagen darf σ kleiner sein, dort werden zusätzliche
+Zellen handelbar" — scheitert nicht an der Richtung, sondern an der Größe.
+
+## G5 — ROT, und das ist der Befund, auf den es ankommt
+
+Leave-one-city-out ist unauffällig: das Vorzeichen hält in **28 von 29** Städten
+(97 %, verlangt 80 %). Das Ergebnis hängt an keiner Stadt.
+
+Die **Saison-Paarung** dagegen fällt in sich zusammen:
+
+    248 Stadt-Monat-Paare · sd(konv) − sd(klar) = +0,016 · t = +0,63
+    129/248 positiv = 52 %
+
+Ein Münzwurf. Und genau diese Paarung hatte die Pre-Reg als **Bedingung** dafür
+benannt, „dass G1 überhaupt etwas bedeutet". Hält man Stadt und Monat fest,
+verschwindet der Effekt vollständig — die 5 %, die G1 misst, sind Jahresgang:
+konvektive Tage sind Sommertage, und der Sommer hat ein anderes σ.
+
+## Antwort auf die Frage der Pre-Reg
+
+**Die Modellspanne enthält die Konvektionsinformation bereits.** Das System ist
+an diesen Tagen richtig gebaut, und der auslösende 16,7-%-Nebenbefund (n = 30)
+war ein Kleinserien-Artefakt, wie im Schwächen-Abschnitt vorab vermutet. Das
+schließt eine Baustelle, statt eine zu eröffnen — was die Pre-Reg ausdrücklich
+als verwertbares Ergebnis vorgesehen hatte.
+
+Auch die Konsequenz war vorab geregelt und gilt: an σ wird nichts gedreht.
+
+## Ein Nebenbefund, der einen offenen Faden berührt — ungeprüft
+
+OOS steht **sd(z) = 1,067**, also σ etwas zu **klein** — die entgegengesetzte
+Richtung zu [[weather-sigma-zu-gross]] (02.08.: genaueste Zellen 0,70–0,75×,
+Ränder 9,3 % modelliert gegen 5,8 % real).
+
+Das ist **kein Widerspruch und keine Korrektur**, sondern eine offene Frage: die
+beiden Messungen sind nicht dieselbe Größe. Hier steht das zweite Moment über
+alle Tage, dort die Masse in bestimmten Wahrscheinlichkeitsbändern. Beides
+zugleich ist möglich, wenn die Fehlerverteilung nicht gaußisch ist — mehr Masse
+im Zentrum UND in den Rändern, weniger auf den Schultern. Der zweite Unterschied
+ist die Quelle: hier ist σ(s) per MLE auf dem IS-Fenster gefittet, dort kamen a
+und b aus den ausgelieferten Kalibrier-CSVs.
+
+**Zu prüfen wäre also, ob „σ ist zu groß" eine Aussage über die FORM σ(s) ist
+oder nur über die ausgelieferten CSV-Koeffizienten.** Das ist eine eigene
+Messung und eine eigene Pre-Reg, nicht Teil dieser hier.
