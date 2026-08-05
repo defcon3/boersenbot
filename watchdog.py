@@ -19,6 +19,21 @@ Daraus die zwei Regeln, nach denen dieser Waechter gebaut ist:
    FAIL->OK — nie eine dritte. Ein Waechter, der stuendlich dieselbe Stoerung
    meldet, wird nach zwei Tagen weggefiltert und ist dann so nutzlos wie keiner.
 
+## Nachtrag 05.08.2026 — der erste Ausfall, der durchrutschte
+
+Die Centron-DB lief an ihr hartes 400-MB-Limit. Folge: `weather_ladder` konnte
+nicht mehr schreiben, starb mit Exit 1, der Autobuy fand keinen Snapshot und
+setzte **an dem Tag keinen einzigen Lay** — und dieser Waechter schwieg, weil
+Timer-Units bewusst nicht in `UNITS` stehen. Beides ist jetzt abgedeckt:
+
+3. **Bei Timer-Units ist `inactive` richtig, `Result=exit-code` nie.** Statt
+   `is-active` wird das Ergebnis des *letzten* Laufs geprueft (`check_timer_units`).
+4. **Eine volle DB ist ein Ausfall, kein Kapazitaetsthema.** Die Datei hat
+   `max_size = 400 MB` ohne Autogrowth; oben angekommen schlaegt jedes INSERT
+   fehl. Der Alarm kommt bei 85 %, was bei ~2 MB/Tag rund vier Wochen Vorlauf
+   laesst. Diese Pruefung faellt weg, sobald Postgres auf Contabo laeuft
+   (BUNDESLIGA_MIGRATION_PLAN.md, P3) — die Exit-Code-Pruefung bleibt.
+
 ## Schwellen
 
 Gemessen im Normalbetrieb am 04.08. (Alter der Dateien in Minuten): die drei
@@ -77,7 +92,19 @@ UNITS = [
     "boersenbot_dashboard", "boersenbot_analysis", "boersenbot_optionen",
     "boersenbot_streaming", "boersenbot_autopilot", "boersenbot_btcflip",
     "boersenbot_green_up", "boersenbot_source_latency",
-    "boersenbot_weather_latency", "boersenbot_weather_tile_latency",
+    "boersenbot_weather_tile_latency",
+]
+# boersenbot_weather_latency am 05.08.2026 abgeschaltet (Faden beantwortet,
+# Tabelle bb_WeatherLatency archiviert + gedroppt, weil die Centron-DB an ihrem
+# 400-MB-Limit stand). Nicht mehr ueberwachen, sonst meldet der Waechter ewig.
+
+# Timer-gesteuerte Units: hier zaehlt nicht `is-active` (zwischen zwei Laeufen
+# ist `inactive` der Normalfall), sondern wie der LETZTE Lauf ausgegangen ist.
+# Gemessen am 05.08. im Normalbetrieb: Result=success, ExecMainStatus=0.
+TIMER_UNITS = [
+    "boersenbot_weather_ladder",   # Preisleitern -> bb_WeatherLadders
+    "boersenbot_weather_minus1",   # der Autobuy; haengt am Ladder-Snapshot
+    "boersenbot_eps_logger",
 ]
 
 # (Name, Pfad relativ zu BASE, maximales Alter in Minuten)
@@ -85,11 +112,11 @@ UNITS = [
 FRESH = [
     ("loop source-latency", "logs/weather_source_latency.log",  60),
     ("daten source-latency", "weather_source_latency.csv",     180),
-    ("loop weather-latency", "logs/weather_latency.log",        60),
     ("loop tile-latency",   "logs/weather_tile_latency.log",    60),
 ]
 
 DISK_MAX_PCT = 90
+DB_MAX_PCT = 85  # der DB-Datei, nicht der Platte — s. Nachtrag im Kopf
 
 
 def check_urls():
@@ -113,6 +140,34 @@ def check_units():
             out[f"dienst {u}"] = (s == "active", s or "unbekannt")
         except Exception as ex:
             out[f"dienst {u}"] = (False, f"{type(ex).__name__}")
+    return out
+
+
+def check_timer_units():
+    """Wie ist der letzte Lauf ausgegangen? (Regel 3, s. Kopf)
+
+    `Result` deckt auch die Faelle ab, in denen der Prozess gar nicht erst
+    hochkam (timeout, start-limit-hit); `ExecMainStatus` faengt zusaetzlich den
+    Fall, dass systemd die Unit als erfolgreich verbucht, das Skript aber einen
+    Fehlercode zurueckgab.
+    """
+    out = {}
+    for u in TIMER_UNITS:
+        try:
+            werte = {}
+            for prop in ("Result", "ExecMainStatus", "ExecMainExitTimestamp"):
+                r = subprocess.run(
+                    ["systemctl", "show", f"{u}.service", "-p", prop, "--value"],
+                    capture_output=True, text=True, timeout=20)
+                werte[prop] = r.stdout.strip()
+            ok = werte["Result"] == "success" and werte["ExecMainStatus"] in ("0", "")
+            wann = werte["ExecMainExitTimestamp"] or "nie gelaufen"
+            info = (f"letzter Lauf {wann}" if ok else
+                    f"Result={werte['Result']}, Exit={werte['ExecMainStatus']}, "
+                    f"letzter Lauf {wann}")
+            out[f"timer {u}"] = (ok, info)
+        except Exception as ex:
+            out[f"timer {u}"] = (False, f"{type(ex).__name__}")
     return out
 
 
@@ -140,6 +195,12 @@ def check_disk():
 
 
 def check_db():
+    """Erreichbarkeit UND Fuellstand (Regel 4, s. Kopf).
+
+    `size` ist die aktuelle Dateigroesse, `max_size` die harte Obergrenze —
+    ohne Autogrowth sind beide gleich, und dann ist `SpaceUsed` der einzige
+    Wert, der den drohenden Stillstand ueberhaupt anzeigt.
+    """
     try:
         import pymssql
         c = pymssql.connect(server="158.181.48.77", database="dbdata",
@@ -148,10 +209,24 @@ def check_db():
         cur = c.cursor()
         cur.execute("SELECT 1")
         cur.fetchone()
+        out = {"datenbank": (True, "erreichbar")}
+        try:
+            cur.execute("""
+                SELECT size / 128.0,
+                       CAST(FILEPROPERTY(name, 'SpaceUsed') / 128.0 AS DECIMAL(18,1))
+                FROM sys.database_files WHERE type_desc = 'ROWS'""")
+            groesse, belegt = (float(x) for x in cur.fetchone())
+            pct = 100.0 * belegt / groesse if groesse else 0.0
+            out["db-fuellstand"] = (
+                pct < DB_MAX_PCT,
+                f"{belegt:.0f} von {groesse:.0f} MB = {pct:.0f}% (max {DB_MAX_PCT}%)")
+        except Exception as ex:
+            out["db-fuellstand"] = (False, f"{type(ex).__name__}: {str(ex)[:60]}")
         c.close()
-        return {"datenbank": (True, "erreichbar")}
+        return out
     except Exception as ex:
-        return {"datenbank": (False, f"{type(ex).__name__}: {str(ex)[:70]}")}
+        return {"datenbank": (False, f"{type(ex).__name__}: {str(ex)[:70]}"),
+                "db-fuellstand": (False, "DB nicht erreichbar")}
 
 
 def send_mail(subject, body):
@@ -179,7 +254,8 @@ def main():
     a = ap.parse_args()
 
     res = {}
-    for f in (check_urls, check_units, check_freshness, check_disk, check_db):
+    for f in (check_urls, check_units, check_timer_units, check_freshness,
+              check_disk, check_db):
         res.update(f())
 
     try:
