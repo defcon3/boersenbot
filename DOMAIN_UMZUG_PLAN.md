@@ -1,6 +1,6 @@
 # Domain-Umzug weg von Centron / internet1 — Action-Plan
 
-**Stand:** 05.08.2026
+**Stand:** 06.08.2026 (Phase 0 geschlossen, Centron hat geantwortet)
 **Anlass:** Centron (13 €/Monat) soll perspektivisch fallen
 (s. `BUNDESLIGA_MIGRATION_PLAN.md`). Vorher muss geklärt sein, was mit den
 Domains passiert.
@@ -55,11 +55,49 @@ bzw. auf der Rechnung.
 
 ---
 
-## Phase 0 — Klären, bevor irgendetwas angefasst wird
+## Phase 0 — GESCHLOSSEN 06.08.2026 durch Centrons Antwort
 
 **Erledigt 05.08.2026:** Beide Domains sind laut Kundenpanel bei Centron
 hinterlegt. Eine **Kündigungsfrist ist im Panel nicht erkennbar** — das heißt
 nicht, dass es keine gibt.
+
+### Antwort Centron, 06.08.2026 08:18 (Ticket #10963053, Billing/Head of Finance)
+
+Drei Aussagen, wörtlich sinngemäß:
+
+1. **„Die AuthCodes können Sie selbst im Kundencenter unter Network → Domains
+   erstellen."** ⇒ Der AuthInfo-Blocker aus Phase 1 ist weg, **ohne Wartezeit**.
+2. **„Das Paket Economy v2 können Sie immer zum 12. des Monats kündigen."**
+   Weg dorthin: Billing → ganz unten der Vertrag → *Kündigung anfragen*, danach
+   kommt eine Kündigungsbestätigung.
+3. **„Die Domains haben eine jährliche Vertragslaufzeit und haben sich am 17.07.
+   wieder um ein Jahr verlängert."**
+
+**Was das für den Plan heißt:**
+
+- **Die kritische Zahl des Plans ist erledigt.** Die AGB-Staffel „12 Monate ⇒
+  3 Monate Frist" gilt für das Hosting-Paket **nicht** — es ist monatlich zum
+  12. kündbar. Damit entfällt jeder Fristendruck, und die Frage
+  Verbraucher- vs. Geschäftskundenvertrag (§ 312k) muss nicht mehr geklärt
+  werden. Sie wurde auch nicht beantwortet — braucht es nicht mehr.
+- **Die Domains sind KEINE Inklusivleistung**, sondern ein **eigener
+  Jahresvertrag** — damit ist der zweite offene Punkt aus Phase 0 beantwortet.
+  Laufzeit jetzt **17.07.2026 → 17.07.2027**.
+- **Der Transfer kostet rund 11 bezahlte Monate.** Ein KK ist jederzeit möglich
+  (DENIC bindet den Providerwechsel nicht an die Laufzeit beim abgebenden
+  Registrar), das bereits gezahlte Domainjahr wird aber üblicherweise **nicht
+  erstattet**, und INWX berechnet ab Transfer ein neues Jahr.
+  **Trotzdem jetzt transferieren:** es geht um ~12 € gegen das Risiko einer
+  Domain von 2014. Die Alternative — bis Juli 2027 warten und erst dann
+  wechseln — ist genau die Reihenfolge, die dieser Plan ablehnt, und sie würde
+  die Kündigung des Hostings elf Monate blockieren.
+- **Was weiter unbeantwortet ist:** ob die Domainverträge bei Kündigung des
+  Hosting-Pakets mitsterben. Muss nicht geklärt werden, solange die Domains
+  **vor** der Kündigung weg sind — genau das ist die Reihenfolge des Plans.
+
+⚠️ **AuthInfo nicht auf Vorrat ziehen.** Der DENIC-AuthInfo1 ist **30 Tage
+gültig**. Erst ziehen, wenn die INWX-Zonen stehen und der KK-Antrag direkt
+danach gestellt wird.
 
 ### Was die AGB sagen (centron.de/agb, Abschnitt 6d)
 
@@ -92,12 +130,17 @@ nur **Vermittler**, nicht Registry. Der Wegzug ist damit ein normaler
 Providerwechsel; zu AuthInfo/KK und zur Domain-Löschung bei Vertragsende sagen
 die AGB **nichts** — deshalb schriftlich anfragen (s. Phase 1).
 
-- [ ] **Vertragsende + Frist schriftlich** bei `info@centron.de` erfragen.
-      In derselben Mail gleich die AuthInfo-Codes anfordern (Phase 1) — das ist
-      **keine** Kündigung und löst keine Frist aus.
-- [ ] Prüfen, ob die Domains **Inklusivleistung** des Hosting-Pakets sind. Falls
-      ja: ein Wegzug der Domains senkt den Preis nicht — er entkoppelt nur das
-      Risiko. Das ist trotzdem richtig so.
+- [x] **Vertragsende + Frist schriftlich erfragen** — **raus am 05.08.2026,
+      22:29**, von `veit.luther@gmx.de`, erfasst als **Ticket #10963053**,
+      Kundennummer 326773. Fragt in einem Zug: (1) Laufzeit/Ende/Frist,
+      (2) Verbraucher- oder Geschäftskundenvertrag samt § 312k-Schaltfläche,
+      (3) AuthInfo-Codes für beide Domains. Ausdrücklich **keine** Kündigung.
+      ~~Erbetene Antwort bis 20.08.2026 ⇒ Wiedervorlage.~~ **Antwort kam schon
+      am 06.08.2026 08:18** — Wiedervorlage entfällt, s. Abschnitt oben.
+- [x] Prüfen, ob die Domains **Inklusivleistung** des Hosting-Pakets sind.
+      **Beantwortet 06.08.: nein** — eigener Jahresvertrag, verlängert bis
+      17.07.2027. Ein Wegzug der Domains senkt den Paketpreis also nicht; er
+      entkoppelt das Risiko. Das ist trotzdem richtig so.
 
 ---
 
@@ -122,9 +165,21 @@ Weil sie keine Historie und keinen laufenden Betrieb hat, ist sie der
 gefahrlose Probelauf für das neue Panel — **vor** dem Transfer der echten
 Domains. Geht dabei etwas schief, ist nichts verloren.
 
-- [ ] `kreativkommo.de` bei INWX **registrieren** (Neuregistrierung, kein Transfer).
+- [x] `kreativkommo.de` bei INWX **registriert** — 05.08.2026, 22:45:30.
+      DENIC-Status `active`, delegiert an `ns.inwx.de`, `ns2.inwx.de`,
+      `ns3.inwx.eu`. **Offen:** `@` und `www` stehen noch auf der
+      INWX-Parkseite `185.181.104.242` (RIPE: `INTERNETWORX-INFRA-2`) und
+      müssen auf 144.91.98.234 **geändert** werden — die vorhandenen Records
+      bearbeiten, keine neuen anlegen. Danach nginx-vhost + certbot auf dem VPS.
 - [ ] **Nicht bei Centron registrieren** — sonst liegen drei statt zwei Domains
       in dem Vertrag, der weg soll.
+
+> **60-Tage-Sperre beachten:** Eine frisch registrierte oder gerade
+> transferierte Domain ist **60 Tage lang nicht transferierbar** (Registry-
+> Standard, gilt bei jedem Anbieter). `kreativkommo.de` muss deshalb **sofort
+> beim Zielregistrar** entstehen — wird sie „schnell mal woanders" registriert,
+> ist sie zwei Monate festgenagelt. Für `veitluther.de` und
+> `frau-von-allerliebst.de` ist das unkritisch (seit 2014 unverändert).
 - [ ] Im INWX-DNS testweise einen A-Record auf 144.91.98.234 setzen und die
       Auflösung prüfen. Damit ist das Panel erprobt, bevor es ernst wird.
 - [ ] Offen: wofür `kreativkommo.de` verwendet wird und ob sie dauerhaft auf den
@@ -132,14 +187,15 @@ Domains. Geht dabei etwas schief, ist nichts verloren.
 
 ### 1b — die beiden echten Domains nachziehen
 
-- [ ] **TTLs bei Centron senken** auf 300 s, mindestens 24 h vor dem Umzug.
-      Falls die Oberfläche das nicht hergibt: überspringen, die Zonen sind so
-      klein, dass ein längerer Übergang verkraftbar ist.
+- [x] ~~TTLs senken~~ — **entfällt.** Das Centron-Panel zeigt TTL **1800 s**
+      (30 min), das ist niedrig genug. Schlimmstenfalls dauert die Umstellung
+      eine halbe Stunde.
 - [ ] **Zonen bei INWX vorab anlegen** — die vier A-Records aus der Tabelle
       oben, `stats.*` bewusst weglassen. Noch nicht aktivieren.
-- [ ] **AuthInfo-Code** für beide Domains bei Centron anfordern (zusammen mit
-      der Fristanfrage aus Phase 0). Muss herausgegeben werden; bei `.de`
-      üblicherweise sofort im Panel.
+- [ ] **AuthInfo-Code** für beide Domains **selbst erzeugen**: Centron-
+      Kundencenter → **Network → Domains** (so die Auskunft vom 06.08.). Kein
+      Ticket, keine Wartezeit. **Erst unmittelbar vor dem KK-Antrag ziehen** —
+      der Code ist 30 Tage gültig.
 - [ ] **KK-Antrag** bei INWX stellen — als *Providerwechsel*, nicht als
       Neuregistrierung. Zuerst `frau-von-allerliebst.de`, dann bei Erfolg
       `veitluther.de` — so hängt nie der Live-Betrieb an einem ungeprüften Schritt.
@@ -156,6 +212,62 @@ Domains. Geht dabei etwas schief, ist nichts verloren.
 die Domains kosten. Ab hier ist der Rest reine Terminplanung.
 
 ---
+
+## Umzugs-Karte — alles, was beim neuen Registrar eingetippt wird
+
+Zum Abarbeiten während des Umzugs. Nichts hiervon muss noch irgendwo
+nachgeschlagen werden.
+
+### Zone `veitluther.de` (LIVE — panel-bestätigt 05.08.2026)
+
+```
+@      A   144.91.98.234   TTL 1800
+www    A   144.91.98.234   TTL 1800
+```
+`stats` **nicht** übernehmen. Kein MX, kein TXT, kein CAA, kein SRV.
+
+### Zone `frau-von-allerliebst.de` (panel-bestätigt 05.08.2026)
+
+```
+@      A   158.181.48.160  TTL 1800     <- Centron-IIS, bis Phase 2 fertig ist
+www    A   158.181.48.160  TTL 1800
+```
+`stats` **nicht** übernehmen. Nach der ASPX-Migration beide auf 144.91.98.234.
+
+### Zone `kreativkommo.de` (neu)
+
+Noch offen, wofür sie steht. Für den Testlauf genügt ein A-Record auf
+144.91.98.234 — dann muss aber auch nginx davon wissen (s. u.).
+
+### Was der Registrar sonst abfragt
+
+| Feld | Wert |
+|---|---|
+| Domaininhaber (Halter) | eigene Adressdaten — müssen zustellbar sein, DENIC prüft |
+| Admin-C | dieselbe Person; bei `.de` mit Wohnsitz in DE unproblematisch |
+| AuthInfo | selbst zu erzeugen: Centron-Kundencenter → Network → Domains (30 Tage gültig) |
+| Nameserver | die von INWX vorgegebenen; NICHT `ns*.internet1.de` eintragen |
+
+### Nach dem Umzug auf dem VPS
+
+```bash
+ssh -i ~/.ssh/boersenbot_key veit@144.91.98.234
+sudo certbot renew --dry-run          # muss durchlaufen
+```
+Erst wenn eine Domain **neu** auf den VPS zeigt, kommt ein `server_name` in
+nginx dazu plus `sudo certbot --nginx -d <domain> -d www.<domain>`.
+Aktuell kennt nginx nur `veitluther.de www.veitluther.de`.
+
+### Prüfbefehle (nach jedem Schritt)
+
+```powershell
+Resolve-DnsName veitluther.de -Type NS -Server 8.8.8.8   # neue NS da?
+Resolve-DnsName veitluther.de -Type A  -Server 8.8.8.8   # 144.91.98.234?
+```
+```bash
+curl -sI https://veitluther.de | head -1
+curl -sI https://frau-von-allerliebst.de/bundesliga/ | head -1
+```
 
 ## Phase 2 — Inhalte von Centron holen
 
@@ -182,15 +294,24 @@ ist gefahrlos.
 
 ## Phase 3 — Kündigen
 
+**Weg und Termin stehen seit 06.08. fest:** Kundencenter → **Billing** → ganz
+unten der Vertrag → **„Kündigung anfragen"**. Kündbar **immer zum 12. des
+Monats**, danach kommt eine Kündigungsbestätigung. Kein Fristendruck, keine
+drei Monate — die AGB-Staffel greift für dieses Paket nicht.
+
 - [ ] Erst wenn Phase 1 **und** 2 verifiziert sind: Centron kündigen.
 - [ ] In der Kündigung ausdrücklich vermerken, dass die Domains **bereits
       transferiert** sind und keine Domain-Löschung beauftragt wird.
+- [ ] **Kündigungsbestätigung abwarten und ablegen** — sie ist der einzige
+      Beleg; das Panel zeigt keine Frist an.
 - [ ] Nach Vertragsende noch einmal beide Domains prüfen (NS, A, HTTPS).
 
-**Notausgang**, falls die Frist doch knapp wird und ein Transfer nicht mehr
-rechtzeitig durchgeht: bei der DENIC den Status **TRANSIT** setzen lassen. Die
-Domain läuft dann direkt bei der DENIC weiter, statt gelöscht zu werden. Das ist
-eine Rettungsleine, kein Plan.
+**Notausgang**, falls ein Transfer wider Erwarten nicht rechtzeitig durchgeht:
+bei der DENIC den Status **TRANSIT** setzen lassen. Die Domain läuft dann direkt
+bei der DENIC weiter, statt gelöscht zu werden. Das ist eine Rettungsleine, kein
+Plan — und nach der Auskunft vom 06.08. sehr unwahrscheinlich nötig, weil die
+Kündigung monatlich terminierbar ist und damit dem Transfer folgen kann statt
+ihn zu treiben.
 
 ---
 
