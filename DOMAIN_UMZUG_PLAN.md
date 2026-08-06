@@ -21,23 +21,56 @@ beschlossen** (Betreiber, 06.08.) — sie ist aber **Schritt 8, nicht Schritt 1.
 
 | # | Wo | Was |
 |---|---|---|
-| 1 | **INWX** | `kreativkommo.de` → DNS: `@` und `www` von `185.181.104.242` **auf 144.91.98.234 ändern** (bestehende Records bearbeiten). Panel-Testlauf. |
-| 2 | **INWX** | Zonen für beide echten Domains **anlegen**, nichts transferieren. Records s. Umzugs-Karte unten, `stats.*` weglassen. |
-| 3 | **Centron** | Kundencenter → **Network → Domains** → AuthCodes erzeugen. Erst jetzt — 30 Tage gültig. |
-| 4 | **INWX** | KK-Antrag als *Providerwechsel*. **`frau-von-allerliebst.de` zuerst**, danach `veitluther.de`. |
+| ~~1~~ | **INWX** | ~~`kreativkommo.de` → DNS: `@` und `www` auf 144.91.98.234 ändern. Panel-Testlauf.~~ **ERLEDIGT 06.08.2026, verifiziert.** |
+| 2 | **INWX** | ~~Zonen vorab anlegen~~ — **geht nicht, korrigiert 06.08.2026.** Stattdessen: Transferformular öffnen und prüfen, ob **fremde Nameserver** eintragbar sind. |
+| 3 | **Centron** | Kundencenter → **Network → Domains** → AuthCodes erzeugen. Erst jetzt — 30 Tage gültig. **Für `frau-von-allerliebst.de` erledigt 06.08.**, für `veitluther.de` offen. |
+| 4 | **INWX** | KK-Antrag als *Providerwechsel*, **mit den alten NS** `ns*.internet1.de`. **`frau-von-allerliebst.de` ERLEDIGT 06.08.**, `veitluther.de` offen. Direkt danach Nameservereintrag anlegen + NS umstellen. |
 | 5 | **INWX/VPS** | Verifizieren: NS, A-Record, HTTPS, `certbot renew --dry-run`. |
+
+### Durchlauf `frau-von-allerliebst.de` — 06.08.2026, komplett und ohne Ausfall
+
+Der Testlauf hat funktioniert; das ist die Blaupause für `veitluther.de`.
+
+| Zeit | Was |
+|---|---|
+| 20:37 | AuthInfo bei Centron selbst erzeugt (Kundencenter, Modal *Create AuthInfo*) |
+| ~20:45 | INWX-Warenkorb: Transfer **4,65 € inkl. 1 Jahr**, Auth-Code unter *Zusätzliche Angaben*, NS-Reiter auf **„Aktuelle Nameserver nicht verändern"** gelassen |
+| 20:47 | DENIC `last changed` springt ⇒ **KK vollzogen, in ~10 Minuten** |
+| ~20:51 | INWX *Nameserver → Domain hinzufügen*: NS-Set INWX, **Webserver 158.181.48.160**, Mail Server **leer** |
+| ~20:55 | Zone autoritativ geprüft: `@`/`www` → 158.181.48.160, kein MX, SOA 2026080600 |
+| ~21:02 | *Domainliste → Update → Nameserver*: die drei `internet1`-Einträge **überschrieben** durch `ns.inwx.de / ns2.inwx.de / ns3.inwx.eu`, 0,00 € |
+| ~21:10 | Delegation öffentlich umgestellt (~5 min nach Auftrag) |
+| **Endstand** | NS = INWX, A = 158.181.48.160, `http://…/bundesliga/` **HTTP 200, 186.366 Bytes, Microsoft-IIS/10.0** |
+
+**Drei Erkenntnisse, die den Plan tragen:**
+
+1. **Die Checkbox „Aktuelle Nameserver nicht verändern" ist der ganze Trick.** Sie ist Default, und mit ihr ist der Registrarwechsel für die DNS-Auflösung ein reines No-op. Das Ausfallfenster, das der Plan fürchtete, gibt es nicht.
+2. **Centron schaltet die Zone nach dem Wegzug NICHT ab** — gemessen: die Seite lief in der ganzen Zwischenphase weiter. Das war die offene Risikofrage; sie ist beantwortet. Der Zeitdruck zwischen Transfer und NS-Umstellung entfällt damit.
+3. **Beide Zonen dürfen parallel laufen**, solange sie identisch antworten. Genau deshalb ist die Umstellung nahtlos, egal welchen NS ein Resolver gerade befragt.
+
+**Merkposten für `veitluther.de`:** identischer Ablauf, aber im Feld *Webserver* die **Contabo-IP 144.91.98.234**. Danach `sudo certbot renew --dry-run` auf dem VPS (HTTP-01, sollte unberührt sein).
 | — | | **Ab hier können die Domains nicht mehr verloren gehen.** |
 | 6 | **VPS** | Bundesliga-ASPX → Flask (18 Seiten, rein lesend, Parallelbetrieb). |
 | 7 | **VPS** | `dbdata` → PostgreSQL, **inkl. der 16 `bb_`-Tabellen**. Nebeneffekt: das 400-MB-Hartlimit fällt weg. |
 | 8 | **Centron** | Billing → Vertrag ganz unten → **„Kündigung anfragen"**. Monatlich zum 12. Vermerk: Domains bereits transferiert, **keine** Domain-Löschung. Bestätigung ablegen. |
 
-**Blocker Stand 06.08.2026:** Bei INWX ist **kein Login möglich** — Störung auf
-deren Seite, nicht auf unserer. Damit hängen die Schritte 1 und 2. Kein
-Zeitdruck dadurch: Schritt 3 darf ohnehin erst danach kommen (30-Tage-Frist des
-AuthCodes), und die Kündigung ist monatlich terminierbar. **Wiedervorlage: Login
-erneut versuchen.** Falls die Störung anhält, ist das ein Argument, den
-Registrar noch einmal zu prüfen — aber erst, wenn sie mehr als ein paar Tage
-dauert; eine einmalige Panel-Störung ist kein Auswahlkriterium.
+**Blocker aufgelöst 06.08.2026:** Der INWX-Login geht wieder — die Störung war
+vorübergehend und damit kein Auswahlkriterium gegen den Registrar. Schritte 1
+und 2 sind frei. **Empfehlung: 1–4 in einer Sitzung fahren**, weil der AuthCode
+aus Schritt 3 nur 30 Tage gilt und direkt in den KK-Antrag laufen soll.
+
+DNS-Stand nach Schritt 1 (gemessen 06.08.2026, autoritativ über `ns.inwx.de`
+**und** über 8.8.8.8):
+
+| Name | A | Bedeutung |
+|---|---|---|
+| `kreativkommo.de` / `www` | **144.91.98.234** | Schritt 1 erledigt, Parkseite weg |
+| `veitluther.de` | 144.91.98.234 | Contabo, NS weiter `ns*.internet1.de` |
+| `frau-von-allerliebst.de` | 158.181.48.160 | Centron-IIS |
+
+`http://kreativkommo.de` liefert **HTTP 200 von `nginx/1.24.0 (Ubuntu)`** — der
+VPS antwortet über den Default-vhost, weil `server_name` die Domain noch nicht
+kennt. Erwartet und unkritisch.
 
 ---
 
@@ -203,10 +236,12 @@ Domains. Geht dabei etwas schief, ist nichts verloren.
 
 - [x] `kreativkommo.de` bei INWX **registriert** — 05.08.2026, 22:45:30.
       DENIC-Status `active`, delegiert an `ns.inwx.de`, `ns2.inwx.de`,
-      `ns3.inwx.eu`. **Offen:** `@` und `www` stehen noch auf der
-      INWX-Parkseite `185.181.104.242` (RIPE: `INTERNETWORX-INFRA-2`) und
-      müssen auf 144.91.98.234 **geändert** werden — die vorhandenen Records
-      bearbeiten, keine neuen anlegen. Danach nginx-vhost + certbot auf dem VPS.
+      `ns3.inwx.eu`.
+- [x] `@` und `www` von der INWX-Parkseite `185.181.104.242` auf **144.91.98.234
+      geändert** — 06.08.2026. Verifiziert autoritativ (`ns.inwx.de`) und über
+      8.8.8.8; `http://kreativkommo.de` → HTTP 200 vom nginx des VPS.
+      **Das Panel ist damit erprobt.** nginx-vhost + certbot erst, wenn
+      feststeht, dass die Domain dauerhaft dorthin zeigt.
 - [ ] **Nicht bei Centron registrieren** — sonst liegen drei statt zwei Domains
       in dem Vertrag, der weg soll.
 
@@ -216,8 +251,8 @@ Domains. Geht dabei etwas schief, ist nichts verloren.
 > beim Zielregistrar** entstehen — wird sie „schnell mal woanders" registriert,
 > ist sie zwei Monate festgenagelt. Für `veitluther.de` und
 > `frau-von-allerliebst.de` ist das unkritisch (seit 2014 unverändert).
-- [ ] Im INWX-DNS testweise einen A-Record auf 144.91.98.234 setzen und die
-      Auflösung prüfen. Damit ist das Panel erprobt, bevor es ernst wird.
+- [x] ~~Im INWX-DNS testweise einen A-Record setzen und die Auflösung prüfen.~~
+      **Erledigt 06.08.2026**, s. oben.
 - [ ] Offen: wofür `kreativkommo.de` verwendet wird und ob sie dauerhaft auf den
       VPS zeigt (dann nginx-`server_name` + eigenes Zertifikat nötig).
 
@@ -226,8 +261,43 @@ Domains. Geht dabei etwas schief, ist nichts verloren.
 - [x] ~~TTLs senken~~ — **entfällt.** Das Centron-Panel zeigt TTL **1800 s**
       (30 min), das ist niedrig genug. Schlimmstenfalls dauert die Umstellung
       eine halbe Stunde.
-- [ ] **Zonen bei INWX vorab anlegen** — die vier A-Records aus der Tabelle
-      oben, `stats.*` bewusst weglassen. Noch nicht aktivieren.
+- [x] ~~**Zonen bei INWX vorab anlegen.**~~ **VERWORFEN 06.08.2026 — INWX lässt
+      das nicht zu.** Panel-Text unter *Nameserver*: „Die Nutzung externer
+      Domains in unserem Nameserver ist **nicht gestattet**." Solange die
+      Domains bei Centron liegen, kann kein Nameservereintrag für sie
+      existieren. (INWX nennt eine Zone **„Nameservereintrag"**, Typ `MASTER`,
+      angelegt über *Domain hinzufügen* — das Wort „Zone" kommt im Panel nicht
+      vor.)
+
+      **Daraus folgt die korrigierte Reihenfolge — der DNS-Umzug passiert NACH
+      dem Registrarwechsel, nicht davor:**
+
+      1. KK-Antrag **mit den bisherigen NS** `ns.internet1.de`, `ns2`, `ns3`
+         stellen. Der Transfer wechselt dann nur den Registrar; die Auflösung
+         läuft unverändert über Centron. Gäbe man die INWX-NS an, zeigte die
+         Domain nach dem Transfer auf einen frischen Eintrag mit **Parkseite**
+         ⇒ `veitluther.de` wäre offline. Nebeneffekt: DENIC prüft die
+         angegebenen NS vorab — die alten bestehen den Check garantiert.
+      2. **Sofort nach dem Transfer** Nameservereintrag anlegen (jetzt ist die
+         Domain intern, also erlaubt) und die zwei A-Records eintragen.
+      3. Gegen `ns.inwx.de` verifizieren — der Master antwortet, auch solange
+         die Delegation noch auf Centron zeigt.
+      4. Erst dann NS auf `ns.inwx.de / ns2.inwx.de / ns3.inwx.eu` umstellen.
+         Jederzeit zurückdrehbar.
+
+      Schritt 1 und 4 **dicht** hintereinander: Centron könnte die Zone
+      abschalten, sobald die Domain nicht mehr bei ihnen registriert ist.
+      Genau deshalb bleibt `frau-von-allerliebst.de` der Erstkandidat.
+- [x] ~~Offen: ob INWX fremde Nameserver im KK-Auftrag zulässt.~~
+      **GEKLÄRT 06.08.2026 im Formular — ja, und komfortabler als gedacht.**
+      Der Warenkorb-Reiter **Nameserver** bietet die Checkbox **„Aktuelle
+      Nameserver nicht verändern"**, und sie ist **standardmäßig gesetzt**.
+      Damit ist kein Ausfallfenster nötig und die alten NS müssen nicht einmal
+      abgetippt werden. **Häkchen stehen lassen.**
+      Weitere Formularbefunde: Transferpreis **4,65 € inkl. 1 Jahr** (statt der
+      angesetzten ~6 €); der **Treuhandservice (2,98 €) ist nicht anzuhaken**
+      — er gilt für Domainkäufe zwischen Parteien; der Auth-Code kommt in den
+      Reiter *Zusätzliche Angaben*.
 - [ ] **AuthInfo-Code** für beide Domains **selbst erzeugen**: Centron-
       Kundencenter → **Network → Domains** (so die Auskunft vom 06.08.). Kein
       Ticket, keine Wartezeit. **Erst unmittelbar vor dem KK-Antrag ziehen** —
