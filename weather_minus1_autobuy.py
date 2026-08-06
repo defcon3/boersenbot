@@ -33,13 +33,39 @@ Der Betreiber hat den vorgeschlagenen Forward-Test bewusst übersprungen; V2
 geht ohne Pre-Reg live. Deklarierte Abweichung von der Projektmethodik.
 Vorbehalt, der damit offen bleibt: 7 Tage, in-sample, ~10 Varianten probiert.
 
+=== NACHTRAG 06.08.2026 — DER BEFUND OBEN IST OOS GEFALLEN ===
+
+Die Staffel darüber war in-sample. Auf den neun Zieltagen 29.07.–06.08., die
+es am 27.07. noch nicht gab, sieht sie so aus (weather_preisband_oos.py, alle
+110 Kandidaten, Settlement aus Jupiters Markt-`result`):
+
+    NO 0,70-0,75  -54,61 %   <- in-sample war +16,83 %, Vorzeichen gedreht
+    NO 0,85-0,90   -0,79 %   <- in-sample war +14,01 %
+    NO 0,95-1,00   -1,12 %
+    Band 0,70-0,90 gesamt: -7,57 % gegen +13,71 % in-sample, t -0,66 (war +4,75)
+
+Entscheidend ist nicht der ROI, sondern der Abstand zwischen Trefferquote und
+Break-even: er liegt in fünf von sieben Bändern innerhalb ±1,6 pp. **Der Markt
+ist über die ganze Preisskala fair bepreist** — es gibt keinen Preisband-Edge,
+weder oben noch unten. Das ist dieselbe Aussage wie am 02.08. für die
+−1-Klasse; der Ertrag kann nur aus der Selektion kommen, nicht aus dem Preis.
+
+Was daraus folgt und was NICHT: Die Begründung für V2 trägt nicht mehr. Daraus
+folgt aber kein Beleg für V1 — die reale V2-Ära (−15,22 $ über 29 Positionen
+gegen +14,91 $ in der V1-Woche) hängt an wenigen Tagen, t −0,65. Die Anhebung
+von BAND_LO auf 0,75 ist eine Entscheidung unter Unsicherheit, kein Ergebnis.
+Belege: weather_preisband_oos.py, weather_autobuy_v1_gegenrechnung.py,
+weather_konto_seit_v2.py.
+
 Regel (täglich, VPS-Timer 12:45 UTC, direkt nach dem 12:30-Ladder-Snapshot):
   1. Kandidaten = heutiger bb_WeatherLadders-Snapshot mit var='max', kind='eq',
      offset_fav=-1, status='open', target_date=morgen (Lead 1, identische
      µ-Definition wie die Klasse-B-Messung).
   2. Live-Preis-Recheck je Markt; handelbar nur im BAND
-     BAND_LO (0,70) <= buyNo < BAND_HI (0,90). Märkte mit bestehender Position
-     werden übersprungen (Idempotenz + keine Kollision mit manuellen Wetten).
+     BAND_LO (0,75 seit 06.08., davor 0,70) <= buyNo < BAND_HI (0,90). Märkte
+     mit bestehender Position werden übersprungen (Idempotenz + keine Kollision
+     mit manuellen Wetten). Zur Anhebung siehe den Kommentar an BAND_LO —
+     sie ist eine Entscheidung des Betreibers auf unbelegter Datenlage.
   2b. Spannen-Veto (25.07.): rohe Modellspanne der 5 Modelle > MAX_SPREAD
      (3 °C) → kein Kauf. Schwelle und Abfrage kommen per Import aus
      weather_outlier_screen, damit es nur einen Codepfad gibt. Ist die
@@ -107,7 +133,29 @@ LOG_FIELDS = ["run_utc", "target_date", "city", "k", "mu_ens", "buy_no_snap",
 # Preisband statt Preis-Ranking (V2, 27.07.). Halboffen [LO, HI): oberhalb zahlt
 # der Markt zu wenig fuer das Risiko (+2 % im Band 0,95-1,00), unterhalb ist er
 # fair und es kippt (-17,6 %). Belegt in weather_minus1_ppess_filter.py.
-BAND_LO = 0.70
+# 06.08.2026: BAND_LO von 0,70 auf 0,75 angehoben. Anweisung des Betreibers,
+# nach der ersten OOS-Messung des Bandbefunds (weather_preisband_oos.py, 103
+# Kandidaten, Zieltage 29.07.-06.08. — Daten, die es am 27.07. noch nicht gab).
+#
+#   Schwelle    n   Treffer   Break-even   Delta      ROI       t
+#     0,70     71    87,3 %     89,2 %    -1,8 pp   -3,47 %   -0,77
+#     0,75     65    92,3 %     90,8 %    +1,5 pp   +1,25 %   +0,33
+#     0,80     57    94,7 %     92,8 %    +2,0 pp   +1,98 %   +0,60
+#
+# ⚠️ NICHT BELEGT. t = 0,33 an der gewaehlten Schwelle, und die Tabelle stammt
+# aus denselben Daten, die die Frage ausgeloest haben — also in-sample. Sechs
+# Schwellen geprueft, Bonferroni verlangte t >= 2,64. Fuer t = 2,0 braeuchte es
+# rund 633 Lays (~5 Monate). Die Schwelle 0,80 saehe besser aus, haengt aber
+# komplett an EINEM Band (0,80-0,85, 7 von 7 Treffern; bei fairer Bepreisung
+# passiert das in 24,3 % der Faelle rein zufaellig) — ohne dieses Band faellt
+# sie von +1,98 % auf -0,66 %. Deshalb 0,75 und nicht 0,80.
+#
+# Zwei unabhaengige Gruende sprechen dafuer, dass die RICHTUNG stimmt: das
+# Delta dreht bei 0,75 ins Positive, und die Gebuehr faellt monoton mit dem
+# Preis (erwartete Fee je Lay: 1,96 % bei NO 0,72 gegen 0,52 % bei 0,93) — bei
+# einem fair bepreisten Markt ist sie der einzige Term, der nicht ausmittelt.
+# Beleg ist das nicht. Vorherige Fassung: git show <dieser Commit>^.
+BAND_LO = 0.75
 BAND_HI = 0.90
 CAP_DEFAULT = 8         # OBERGRENZE, kein Ziel — das Band liefert im Mittel 7,4
                         #   Kandidaten/Tag; nie mit schwaecheren auffuellen.
