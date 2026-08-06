@@ -420,7 +420,9 @@ def main():
     cands = load_candidates(target)
     owned = owned_market_ids(owner)
 
-    log_rows, tradeable = [], []
+    # fallback_pool: Kandidaten, die das Spannen-Veto bestanden haben, aber an
+    # Preisband oder Abstand scheiterten. Nur daraus zieht der Fallback unten.
+    log_rows, tradeable, fallback_pool = [], [], []
     for c in cands:
         # Temperaturabstand: wie weit sitzt die eigene Prognose ueber der
         # Oberkante des gelayten Buckets? Bei offset_fav=-1 liegt mu immer im
@@ -472,12 +474,18 @@ def main():
             # Zu teuer eingekauft: der Markt haelt den Bucket fuer so
             # unwahrscheinlich, dass kaum Rendite bleibt (+2,05 % gemessen).
             log_rows.append({**base, "decision": f"skip_band_teuer_{no_live:.2f}"})
+            c["event_id"] = event_id
+            fallback_pool.append((abstand, no_live, c, base))
         elif no_live < args.band_lo:
             # Unterhalb des Bandes ist der Markt fair kalibriert — dort verliert
             # die Klasse Geld (-17,64 % gemessen), egal was die Prognose sagt.
             log_rows.append({**base, "decision": f"skip_band_billig_{no_live:.2f}"})
+            c["event_id"] = event_id
+            fallback_pool.append((abstand, no_live, c, base))
         elif abstand < args.abstand_min:
             log_rows.append({**base, "decision": f"skip_abstand_{abstand:.2f}"})
+            c["event_id"] = event_id
+            fallback_pool.append((abstand, no_live, c, base))
         else:
             c["event_id"] = event_id      # fuer den Jupiter-Link in der Mail
             tradeable.append((abstand, no_live, c, base))
@@ -496,6 +504,47 @@ def main():
             log_rows.append({**base, "decision": "skip_cap"})
         else:
             picks.append((abstand, no_live, c, base))
+
+    # --- FALLBACK: jeden Tag mindestens eine Wette (06.08.2026) ---
+    # Auflage des Betreibers: "ich will wie auch bei V1 jeden Tag mindestens
+    # eine Wette platziert haben", ausdruecklich auch auf V1-Art ("du kannst
+    # auch auf V1 zurueckgreifen, waere mir egal").
+    #
+    # Greift NUR, wenn die regulaere Regel null Kandidaten liefert. Gemessen an
+    # den Zieltagen 29.07.-06.08. war das 1 von 9 Tagen (plus der 07.08.), also
+    # der Ausnahmefall — die beiden neuen Filter sind weniger restriktiv als
+    # befuerchtet.
+    #
+    # Auswahl = V1-Regel: hoechster Live-NO bis LIMIT_CAP. Das ist bewusst die
+    # ALTE Logik, nicht eine aufgeweichte neue. Was der Fallback NICHT lockert:
+    # das Spannen-Veto. Wenn die fuenf Modelle sich um mehr als MAX_SPREAD
+    # uneinig sind, traegt das mu nichts, und daran aendert ein Preis nichts —
+    # solche Kandidaten stehen gar nicht erst im Pool.
+    #
+    # Im Log als "fallback" gekennzeichnet, damit sich spaeter getrennt
+    # auswerten laesst, ob diese Lays anders laufen als die regulaeren. Ohne die
+    # Kennzeichnung waere die Forward-Reihe vermischt und wertlos.
+    # WIE MAN FALLBACK-LAYS SPAETER ERKENNT: NICHT ueber eine eigene `decision`.
+    # Der Doppellauf-Schutz (bought_today) und saemtliche Evals filtern auf
+    # decision == "bought"/"sent_unverified"; ein "fallback_bought" wuerde von
+    # allen uebersehen. Ein Fallback-Lay ist stattdessen eindeutig daran zu
+    # erkennen, dass er die regulaeren Filter VERLETZT — also
+    #     buy_no_live ausserhalb [BAND_LO, BAND_HI)  ODER  abstand < ABSTAND_MIN
+    # Beides steht ohnehin in jeder Logzeile. Die Trennung ist damit
+    # rekonstruierbar, ohne das CSV-Format oder bestehende Filter anzufassen.
+    if not picks and fallback_pool:
+        fallback_pool.sort(key=lambda x: -x[1])          # hoechster NO zuerst (V1)
+        for abstand, no_live, c, base in fallback_pool:
+            if no_live <= LIMIT_CAP:
+                picks.append((abstand, no_live, c, base))
+                # Die vorher geschriebene skip-Zeile entfernen, sonst steht der
+                # Kandidat zweimal im Log und jede Zaehlung ist um eins daneben.
+                log_rows[:] = [z for z in log_rows
+                               if not (z["city"] == c["city"] and z["k"] == c["k"]
+                                       and str(z["decision"]).startswith("skip_"))]
+                print(f"FALLBACK: keine regulaeren Kandidaten — V1-Regel greift: "
+                      f"{c['city']} {c['k']}° NO@{no_live:.3f} d{abstand:+.2f}")
+                break
 
     # Guthaben-Check VOR dem Senden: am 27.07. lief Mexico City in fail_send,
     # weil der Bot blind sendete. Lieber weniger Lays als stille Luecken in der
