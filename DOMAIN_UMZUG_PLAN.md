@@ -5,6 +5,42 @@
 (s. `BUNDESLIGA_MIGRATION_PLAN.md`). Vorher muss geklärt sein, was mit den
 Domains passiert.
 
+---
+
+## Die Abarbeitungsreihenfolge — festgeschrieben 06.08.2026
+
+Acht Schritte, jeder mit dem Ort, an dem er passiert. **Die Kündigung ist
+beschlossen** (Betreiber, 06.08.) — sie ist aber **Schritt 8, nicht Schritt 1.**
+
+> ⚠️ **Warum die Kündigung ganz hinten steht:** Das Paket Economy v2 enthält
+> laut `BUNDESLIGA_MIGRATION_PLAN.md` **beides** — die ASPX-Seite (158.181.48.160)
+> **und** die MSSQL `dbdata` (158.181.48.77). In `dbdata` liegen die **16
+> `bb_`-Tabellen des Börsenbots**. Eine Kündigung vor Phase 2 nimmt damit nicht
+> nur die Bundesliga-Seite mit, sondern die Datenbank, an der der **laufende
+> Wetter-Handel** hängt (`bb_WeatherLadders`, Ladder-Logger, Autobuy, Settlement).
+
+| # | Wo | Was |
+|---|---|---|
+| 1 | **INWX** | `kreativkommo.de` → DNS: `@` und `www` von `185.181.104.242` **auf 144.91.98.234 ändern** (bestehende Records bearbeiten). Panel-Testlauf. |
+| 2 | **INWX** | Zonen für beide echten Domains **anlegen**, nichts transferieren. Records s. Umzugs-Karte unten, `stats.*` weglassen. |
+| 3 | **Centron** | Kundencenter → **Network → Domains** → AuthCodes erzeugen. Erst jetzt — 30 Tage gültig. |
+| 4 | **INWX** | KK-Antrag als *Providerwechsel*. **`frau-von-allerliebst.de` zuerst**, danach `veitluther.de`. |
+| 5 | **INWX/VPS** | Verifizieren: NS, A-Record, HTTPS, `certbot renew --dry-run`. |
+| — | | **Ab hier können die Domains nicht mehr verloren gehen.** |
+| 6 | **VPS** | Bundesliga-ASPX → Flask (18 Seiten, rein lesend, Parallelbetrieb). |
+| 7 | **VPS** | `dbdata` → PostgreSQL, **inkl. der 16 `bb_`-Tabellen**. Nebeneffekt: das 400-MB-Hartlimit fällt weg. |
+| 8 | **Centron** | Billing → Vertrag ganz unten → **„Kündigung anfragen"**. Monatlich zum 12. Vermerk: Domains bereits transferiert, **keine** Domain-Löschung. Bestätigung ablegen. |
+
+**Blocker Stand 06.08.2026:** Bei INWX ist **kein Login möglich** — Störung auf
+deren Seite, nicht auf unserer. Damit hängen die Schritte 1 und 2. Kein
+Zeitdruck dadurch: Schritt 3 darf ohnehin erst danach kommen (30-Tage-Frist des
+AuthCodes), und die Kündigung ist monatlich terminierbar. **Wiedervorlage: Login
+erneut versuchen.** Falls die Störung anhält, ist das ein Argument, den
+Registrar noch einmal zu prüfen — aber erst, wenn sie mehr als ein paar Tage
+dauert; eine einmalige Panel-Störung ist kein Auswahlkriterium.
+
+---
+
 **Kernbefund:** `veitluther.de` hängt an Centrons Nameservern, obwohl die Seite
 auf dem Contabo-VPS läuft. Eine Kündigung bei Centron nimmt die DNS-Zone mit —
 die Seite wäre offline, obwohl der VPS unverändert weiterläuft. Und falls die
