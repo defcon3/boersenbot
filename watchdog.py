@@ -105,6 +105,11 @@ TIMER_UNITS = [
     "boersenbot_weather_ladder",   # Preisleitern -> bb_WeatherLadders
     "boersenbot_weather_minus1",   # der Autobuy; haengt am Ladder-Snapshot
     "boersenbot_eps_logger",
+    # WU-Eigenprognose (12:20 UTC, seit 06.08.2026) -> bb_WeatherWuForecast.
+    # Reine Messreihe, greift in nichts ein — aber ein stiller Ausfall ueber
+    # Wochen macht das Fenster wertlos, und genau das ist am 03.08. mit Seoul
+    # passiert. Deshalb von Anfang an ueberwacht.
+    "boersenbot_wu_forecast",
 ]
 
 # (Name, Pfad relativ zu BASE, maximales Alter in Minuten)
@@ -113,6 +118,10 @@ FRESH = [
     ("loop source-latency", "logs/weather_source_latency.log",  60),
     ("daten source-latency", "weather_source_latency.csv",     180),
     ("loop tile-latency",   "logs/weather_tile_latency.log",    60),
+    # Taeglicher Timer: 25 h Toleranz, damit ein einzelner verspaeteter Lauf
+    # (Persistent=true holt nach) nicht sofort meldet, ein ausgefallener Tag
+    # aber schon.
+    ("lauf wu-forecast",    "logs/weather_wu_forecast.log",    1500),
 ]
 
 DISK_MAX_PCT = 90

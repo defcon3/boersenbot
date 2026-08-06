@@ -1,0 +1,13 @@
+[Unit]
+Description=WU-Eigenprognose taeglich 12:20 UTC (Fremdquellen-Test ab 06.08.2026)
+
+[Timer]
+# 12:20 UTC, also zehn Minuten VOR dem Ladder-Snapshot (12:30). So gehoeren
+# WU-Prognose und Marktpreis desselben Tages zusammen und lassen sich spaeter
+# ueber (target_date, city) sauber joinen. Verpasste Laeufe nachholen — ein
+# stiller Ausfall ueber Wochen macht das Fenster wertlos.
+OnCalendar=*-*-* 12:20:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target

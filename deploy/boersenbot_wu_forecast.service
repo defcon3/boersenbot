@@ -1,0 +1,12 @@
+[Unit]
+Description=Wunderground-Eigenprognose (Lead 1+2) -> Centron bb_WeatherWuForecast
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=veit
+WorkingDirectory=/home/veit/boersenbot
+ExecStart=/home/veit/boersenbot/venv/bin/python /home/veit/boersenbot/weather_wu_forecast_logger.py
+StandardOutput=append:/home/veit/boersenbot/logs/weather_wu_forecast.log
+StandardError=append:/home/veit/boersenbot/logs/weather_wu_forecast.log
