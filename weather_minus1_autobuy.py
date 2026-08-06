@@ -70,13 +70,16 @@ Regel (täglich, VPS-Timer 12:45 UTC, direkt nach dem 12:30-Ladder-Snapshot):
      (3 °C) → kein Kauf. Schwelle und Abfrage kommen per Import aus
      weather_outlier_screen, damit es nur einen Codepfad gibt. Ist die
      Prognose gar nicht abrufbar, wird ebenfalls nicht gekauft.
-  3. Rangfolge = TEMPERATURABSTAND absteigend: mu minus Oberkante des gelayten
-     Buckets, also wie weit die eigene Prognose über der Bucket-Grenze sitzt
-     (konstruktionsbedingt in [0,1) K). Gemessen trennt er die Ausgänge
-     (Gewinner +0,48 K, Verlierer +0,38 K; Filter >= 0,50 K senkt die
-     Verliererquote von 20,7 auf 12,2 %). Er hebt den ROI nicht — er begrenzt
-     den Verlustschwanz, und darauf kommt es an, weil unter der Woche niemand
-     eingreift. Warschau 21 (28.07.) hatte 0,37 K.
+  3. TEMPERATURABSTAND: mu minus Oberkante des gelayten Buckets, also wie weit
+     die eigene Prognose über der Bucket-Grenze sitzt (konstruktionsbedingt in
+     [0,1) K). Dient doppelt:
+     (a) als VETO — seit 06.08.2026 ist ABSTAND_MIN = 0,50 K scharf, s. dort.
+         Vorher aus; die V2-Ära war damit der OOS-Test der Schwelle.
+     (b) als RANGFOLGE innerhalb der verbleibenden Kandidaten, absteigend.
+     Gemessen trennt er die Ausgänge (Gewinner +0,48 K, Verlierer +0,38 K).
+     Er hebt den ROI nicht — er begrenzt den Verlustschwanz, und darauf kommt
+     es an, weil unter der Woche niemand eingreift. Warschau 21 (28.07.) hatte
+     0,37 K, Wellington 12 (07.08.) hatte 0,33 K.
   4. Cap 8 (V1: 6). Das Band liefert im Mittel 7,4 Kandidaten/Tag (4..10) —
      der Cap greift also selten. Er ist eine OBERGRENZE, kein Ziel: gibt das
      Band nur vier her, werden vier gesetzt und NICHT mit schwächeren
@@ -159,10 +162,29 @@ BAND_LO = 0.75
 BAND_HI = 0.90
 CAP_DEFAULT = 8         # OBERGRENZE, kein Ziel — das Band liefert im Mittel 7,4
                         #   Kandidaten/Tag; nie mit schwaecheren auffuellen.
-ABSTAND_MIN = 0.0       # optionales Veto auf den Temperaturabstand (--abstand-min).
-                        #   Default aus: das Band traegt den Ertrag, der Abstand
-                        #   sortiert nur. Wer den Verlustschwanz enger will,
-                        #   setzt 0.50 (Verliererquote 20,7 % -> 12,2 %).
+# 06.08.2026 SCHARF GESCHALTET (vorher 0.0, also aus). Anweisung des Betreibers.
+#
+# Die Schwelle 0,50 K stammt vom 27.07.2026 (weather_minus1_ppess_filter.py,
+# Schattenbuch: Verliererquote 20,7 % -> 12,2 %) und wurde damals bewusst NICHT
+# aktiviert. Damit ist die gesamte V2-Aera ab Zieltag 29.07. ein echter
+# Out-of-Sample-Test dieser Schwelle — und sie haelt:
+#
+#   Abstand < 0,50 K : 10 Positionen, -17,34 $   (5 Totalverluste)
+#   Abstand >= 0,50 K: 19 Positionen,  +2,12 $   (4 Verlierer von 19)
+#   Verliererquote 50 % unterhalb gegen 21 % oberhalb der Schwelle.
+#
+# Der GESAMTE V2-Verlust steckt in den zehn Positionen unterhalb. Mit Filter
+# stuende das Konto bei -16,02 $ statt bei -33,36 $.
+#
+# ⚠️ WIE ER WIRKT, ehrlich: Er trennt Gewinner und Verlierer NICHT sauber — die
+# Abstaende ueberlappen (Verlierer 0,01..0,47 K, Gewinner 0,11..0,42 K). Er
+# wirkt ueber die ASYMMETRIE: ein Verlust kostet die vollen ~4,83 $, ein Gewinn
+# bringt nur 1,00..1,85 $. Wer bei halb-halber Trennung die teure Seite
+# mitnimmt, gewinnt trotzdem.
+# ⚠️ Und er macht den Bot NICHT profitabel: die verbleibenden 19 Positionen
+# liegen bei +2,12 $ mit t = +0,25. Das ist Schadensbegrenzung, kein Edge.
+# Preis: rund ein Drittel weniger Lays (19 statt 29 in der V2-Aera).
+ABSTAND_MIN = 0.50      # Veto auf den Temperaturabstand (--abstand-min 0 schaltet aus)
 USD_DEFAULT = 5.0       # Jupiter-Minimum
 CASH_PUFFER = 1.02      # Fee kommt zum Einsatz dazu (0,07*n*min(p,1-p))
 LIMIT_CAP = 0.97        # harter Deckel fuer den Limitpreis (Tick = ganze Cents).
