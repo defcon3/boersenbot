@@ -1,6 +1,6 @@
 # Domain-Umzug weg von Centron / internet1 — Action-Plan
 
-**Stand:** 06.08.2026 (Phase 0 geschlossen, Centron hat geantwortet)
+**Stand:** 07.08.2026 — **Phase 1 abgeschlossen, beide Domains liegen bei INWX**
 **Anlass:** Centron (13 €/Monat) soll perspektivisch fallen
 (s. `BUNDESLIGA_MIGRATION_PLAN.md`). Vorher muss geklärt sein, was mit den
 Domains passiert.
@@ -23,9 +23,9 @@ beschlossen** (Betreiber, 06.08.) — sie ist aber **Schritt 8, nicht Schritt 1.
 |---|---|---|
 | ~~1~~ | **INWX** | ~~`kreativkommo.de` → DNS: `@` und `www` auf 144.91.98.234 ändern. Panel-Testlauf.~~ **ERLEDIGT 06.08.2026, verifiziert.** |
 | 2 | **INWX** | ~~Zonen vorab anlegen~~ — **geht nicht, korrigiert 06.08.2026.** Stattdessen: Transferformular öffnen und prüfen, ob **fremde Nameserver** eintragbar sind. |
-| 3 | **Centron** | Kundencenter → **Network → Domains** → AuthCodes erzeugen. Erst jetzt — 30 Tage gültig. **Für `frau-von-allerliebst.de` erledigt 06.08.**, für `veitluther.de` offen. |
-| 4 | **INWX** | KK-Antrag als *Providerwechsel*, **mit den alten NS** `ns*.internet1.de`. **`frau-von-allerliebst.de` ERLEDIGT 06.08.**, `veitluther.de` offen. Direkt danach Nameservereintrag anlegen + NS umstellen. |
-| 5 | **INWX/VPS** | Verifizieren: NS, A-Record, HTTPS, `certbot renew --dry-run`. |
+| ~~3~~ | **Centron** | ~~Kundencenter → **Network → Domains** → AuthCodes erzeugen.~~ **BEIDE ERLEDIGT** — `frau-von-allerliebst.de` 06.08., `veitluther.de` 07.08. |
+| ~~4~~ | **INWX** | ~~KK-Antrag als *Providerwechsel*, **mit den alten NS**.~~ **BEIDE ERLEDIGT** — 06.08. bzw. 07.08., jeweils inkl. Nameservereintrag + NS-Umstellung. |
+| ~~5~~ | **INWX/VPS** | ~~Verifizieren: NS, A-Record, HTTPS, `certbot renew --dry-run`.~~ **ERLEDIGT 07.08.**, s. Durchlauf unten. |
 
 ### Durchlauf `frau-von-allerliebst.de` — 06.08.2026, komplett und ohne Ausfall
 
@@ -49,6 +49,46 @@ Der Testlauf hat funktioniert; das ist die Blaupause für `veitluther.de`.
 3. **Beide Zonen dürfen parallel laufen**, solange sie identisch antworten. Genau deshalb ist die Umstellung nahtlos, egal welchen NS ein Resolver gerade befragt.
 
 **Merkposten für `veitluther.de`:** identischer Ablauf, aber im Feld *Webserver* die **Contabo-IP 144.91.98.234**. Danach `sudo certbot renew --dry-run` auf dem VPS (HTTP-01, sollte unberührt sein).
+
+### Durchlauf `veitluther.de` — 07.08.2026, ebenfalls ohne Ausfall
+
+Die Live-Domain. Ablauf wie geplant, **23 Minuten**, `https://veitluther.de`
+lieferte über den gesamten Vorgang durchgehend **HTTP 200**.
+
+| Zeit | Was |
+|---|---|
+| ~18:55 | AuthInfo bei Centron erzeugt (Network → Domains → *Create AuthInfo*), 16 Zeichen |
+| ~19:00 | INWX-Warenkorb: Transfer **4,65 € inkl. 1 Jahr**, Code unter *Zusätzliche Angaben*, NS-Checkbox unberührt. Billing-Kontakt musste wie am Vortag von Hand gewählt werden |
+| **19:02:02** | DENIC `last changed` springt von **18.07.2014** ⇒ **KK vollzogen — in Sekunden**, nicht in 10 Minuten wie tags zuvor |
+| 19:08 | zweites DENIC-Event (Nachbearbeitung des Transfers, **keine** NS-Änderung) |
+| ~19:10 | *Nameserver → Domain hinzufügen*: NS-Set INWX, **Webserver 144.91.98.234**, Mail leer |
+| ~19:12 | Zone gegen `ns.inwx.de` geprüft und mit `ns.internet1.de` verglichen: **identisch** (`@`/`www` → 144.91.98.234, kein MX/TXT), SOA-Serial 2026080700 |
+| 19:20 | *Domainliste → Update → Nameserver*: die drei `internet1`-Felder überschrieben, **0,00 €**, Bestellung ausgeführt |
+| **19:25:02** | Delegation bei der DENIC auf `ns.inwx.de / ns2.inwx.de / ns3.inwx.eu` |
+| 19:29 | `sudo certbot renew --dry-run` auf dem VPS: **„all simulated renewals succeeded"** |
+| **Endstand** | Registrar + DNS bei INWX, Auslaufdatum **07.08.2027**, Transfer Lock gesperrt (60-Tage-Standard), Seite durchgehend 200 |
+
+**Vier Panel-Erkenntnisse, die am Vortag noch nicht sichtbar waren:**
+
+1. **INWX hat ZWEI Nameserver-Bildschirme, und sie sind leicht zu verwechseln:**
+   - *Nameserver → Nameservereinträge* ist die **Zone** — „was antworte ich, **wenn** man mich fragt".
+   - *Domains → Domainliste → Update* ist die **Delegation bei der DENIC** — „**wen** soll die Welt überhaupt fragen".
+
+   Nur der zweite Ort erzeugt ein DENIC-Event. Wer die Zone anlegt und dann
+   aufhört, hat den Umzug **nicht** gemacht.
+2. **Im Warenkorb sind die Reiter zunächst Deko** — die Eingabefelder erscheinen
+   erst nach einem Klick auf **„Bearbeiten"** oben rechts in der Positionszeile.
+   Ohne den Klick sieht man die Nameserver-Felder gar nicht.
+3. **INWX legt beim Anlegen der Zone zusätzlich einen Wildcard `* A` an**, den
+   Centron nicht hatte. Harmlos und sogar praktisch: `stats.veitluther.de` zeigt
+   danach auf den Contabo statt ins Leere.
+4. **Der dritte Nameserver endet auf `.eu`** (`ns3.inwx.eu`), die ersten beiden
+   auf `.de`. Die einzige Tippfalle des Formulars.
+
+**Prüfmarker, der beide Durchläufe getragen hat:** der DENIC-RDAP-Zeitstempel
+`last changed`. Er ist von außen der einzige Beleg dafür, dass ein Auftrag bei
+der Registry tatsächlich angekommen ist — steht er still, ist nichts abgeschickt
+worden, egal was das Panel anzeigt.
 | — | | **Ab hier können die Domains nicht mehr verloren gehen.** |
 | 6 | **VPS** | Bundesliga-ASPX → Flask (18 Seiten, rein lesend, Parallelbetrieb). |
 | 7 | **VPS** | `dbdata` → PostgreSQL, **inkl. der 16 `bb_`-Tabellen**. Nebeneffekt: das 400-MB-Hartlimit fällt weg. |
@@ -298,24 +338,24 @@ Domains. Geht dabei etwas schief, ist nichts verloren.
       angesetzten ~6 €); der **Treuhandservice (2,98 €) ist nicht anzuhaken**
       — er gilt für Domainkäufe zwischen Parteien; der Auth-Code kommt in den
       Reiter *Zusätzliche Angaben*.
-- [ ] **AuthInfo-Code** für beide Domains **selbst erzeugen**: Centron-
-      Kundencenter → **Network → Domains** (so die Auskunft vom 06.08.). Kein
-      Ticket, keine Wartezeit. **Erst unmittelbar vor dem KK-Antrag ziehen** —
-      der Code ist 30 Tage gültig.
-- [ ] **KK-Antrag** bei INWX stellen — als *Providerwechsel*, nicht als
-      Neuregistrierung. Zuerst `frau-von-allerliebst.de`, dann bei Erfolg
-      `veitluther.de` — so hängt nie der Live-Betrieb an einem ungeprüften Schritt.
-- [ ] **Nach dem Transfer verifizieren:**
-      `Resolve-DnsName veitluther.de -Type NS -Server 8.8.8.8` zeigt die neuen NS,
-      und die A-Records beider Domains stimmen noch.
-      Danach: `https://veitluther.de` und `https://frau-von-allerliebst.de/bundesliga/`
-      im Browser prüfen.
-- [ ] **Certbot-Renewal einmal trocken testen:**
-      `sudo certbot renew --dry-run` auf dem VPS. Muss durchlaufen, sonst
-      stirbt das Zertifikat still am 12.10.
+- [x] **AuthInfo-Code** für beide Domains **selbst erzeugen**: Centron-
+      Kundencenter → **Network → Domains**. **Beide gezogen** (06.08. / 07.08.),
+      jeweils unmittelbar vor dem KK-Antrag.
+- [x] **KK-Antrag** bei INWX als *Providerwechsel*. **Beide vollzogen** —
+      `frau-von-allerliebst.de` 06.08., `veitluther.de` 07.08. Die Reihenfolge
+      hat sich bewährt: der Live-Betrieb hing nie an einem ungeprüften Schritt.
+- [x] **Nach dem Transfer verifiziert** (07.08.): Delegation bei der DENIC auf
+      `ns.inwx.de / ns2.inwx.de / ns3.inwx.eu`, `@` und `www` weiter
+      144.91.98.234, `https://veitluther.de` **HTTP 200** — durchgehend, ohne
+      eine Sekunde Ausfall.
+- [x] **Certbot-Renewal trocken getestet** — 07.08., *„Congratulations, all
+      simulated renewals succeeded"* für `veitluther.de` + `www`. Das Zertifikat
+      (gültig bis 12.10.) ist vom Providerwechsel unberührt, weil HTTP-01 nur am
+      A-Record hängt.
 
-**Ergebnis dieser Phase:** Die Kündigung bei Centron kann danach niemanden mehr
-die Domains kosten. Ab hier ist der Rest reine Terminplanung.
+**Ergebnis dieser Phase — erreicht am 07.08.2026:** Beide Domains liegen bei
+INWX, Registrar **und** DNS. Eine Kündigung bei Centron kann jetzt weder die
+Zone noch die Domains mitnehmen. Ab hier ist der Rest reine Terminplanung.
 
 ---
 
