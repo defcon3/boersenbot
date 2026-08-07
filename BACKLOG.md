@@ -82,6 +82,45 @@ Schritt: Sonde als Dauerläufer aufsetzen, ≥ 7 Tage.**
 
 ---
 
+### Klärung warum Wellington verloren hat, anhand der Ladder von 2 Tagen
+**Hinzugefügt:** 2026-08-07 · **Status:** offen, unbewertet — **vorletzte Prio,
+Besprechung steht aus**
+
+Zwei Wellington-Lays hintereinander verloren; laut Betreiber wurde in beiden
+Fällen der gelayte Bucket **genau getroffen**. Die Leitern zum jeweiligen
+Kaufzeitpunkt (`bb_WeatherLadders`, var `max`) sind hier festgehalten, damit die
+Klärung später auf den Zahlen des Kaufmoments steht und nicht auf Erinnerung.
+
+**Zieltag 07.08., Kauf 06.08. 12:45 UTC** (Snapshot 12:30) · µ_ens 12,83 °C ·
+σ 0,94 · Markt-Fav 13 °C · gekauft NO auf **12 °C** (snap 0,74 / live 0,80,
+5,00 $, `sent_unverified`, abstand 0,33)
+
+| °C | ≤7 | 8 | 9 | 10 | 11 | **12** | 13 | 14 | 15 | 16 | ≥17 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| offset | – | −5 | −4 | −3 | −2 | **−1** | 0 | +1 | +2 | +3 | – |
+| YES | 0,001 | 0,003 | 0,004 | 0,006 | 0,020 | **0,27** | 0,59 | 0,16 | 0,020 | 0,005 | 0,001 |
+| NO | 1,00 | 1,00 | 0,999 | 0,998 | 0,990 | **0,74** | 0,42 | 0,86 | 0,99 | 0,998 | 1,00 |
+
+**Zieltag 06.08., Kauf 05.08. 15:43 UTC** (Snapshot 15:34) · µ_ens 10,97 °C ·
+σ 0,94 · Markt-Fav 11 °C · gekauft NO auf **10 °C** (snap 0,76 / live 0,76,
+5,00 $, `sent_unverified`, abstand 0,47)
+
+| °C | ≤5 | 6 | 7 | 8 | 9 | **10** | 11 | 12 | 13 | 14 | ≥15 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| offset | – | −5 | −4 | −3 | −2 | **−1** | 0 | +1 | +2 | +3 | – |
+| YES | 0,001 | 0,001 | 0,001 | 0,001 | 0,020 | **0,25** | 0,61 | 0,16 | 0,029 | 0,003 | 0,001 |
+| NO | 1,00 | 1,00 | 1,00 | 1,00 | 0,997 | **0,76** | 0,40 | 0,85 | 0,988 | 0,999 | 1,00 |
+
+Randnotiz aus derselben Abfrage, nicht verfolgt: `settle_k`/`wu_settle_k` sind
+für beide Zieltage noch `NULL` (zuletzt gesettelt 01.08. → 11, 03.08. → 16,
+05.08. → 9), und für Wellington `max` fehlen die Zieltage 02.08. und 04.08.
+komplett.
+
+**Verweise:** `bb_WeatherLadders`, `preregs/weather_minus1_live_log.csv` (VPS),
+`weather_minus1_autobuy.py`, `weather_ladder_logger.py`.
+
+---
+
 ### Wächter für −1-Lays: vorregistrierter Ausstieg ab 16:20/17:20 Ortszeit
 **Hinzugefügt:** 2026-08-01 · **Status:** gemessen, nicht gebaut — **Vorbedingung
 für Breite, kein Zusatz zum heutigen Bot**
