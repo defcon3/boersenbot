@@ -1,0 +1,11 @@
+# Zeilenenden. Entwickelt wird auf Windows, ausgeführt wird auf dem Contabo-VPS
+# — alles, was dort läuft oder eingelesen wird, muss LF behalten. Ein per scp
+# hochgeladenes Shell-Skript mit CRLF stirbt an
+#   /bin/bash^M: bad interpreter: No such file or directory
+# und der zugehörige Cron-Job fällt still aus. Angelegt 08.08.2026, nachdem der
+# P1-Commit für deploy/pg_dump_nightly.sh genau diese Warnung ausgegeben hat.
+
+*.sh        text eol=lf
+*.sql       text eol=lf
+*.service   text eol=lf
+*.timer     text eol=lf
