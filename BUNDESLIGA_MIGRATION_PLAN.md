@@ -1,6 +1,6 @@
 # Migrationsplan: Centron ablösen — ASPX → Flask, MSSQL → PostgreSQL
 
-**Angelegt:** 2026-08-04 · **Status:** Plan, nichts umgesetzt
+**Angelegt:** 2026-08-04 · **Status:** **P1 erledigt 08.08.2026**, P2–P5 offen
 **Ziel:** 24,50 €/Monat → 11,50 €/Monat, ein Host statt drei Verträge.
 
 ---
@@ -78,7 +78,66 @@ enthalten T-SQL-Eigenheiten.
 
 ## Phasen
 
-### P1 — Postgres auf Contabo, Erstladung, Abgleichschleife
+### P1 — ERLEDIGT 08.08.2026
+
+Gefahren in 40 Minuten, `veitluther.de` und der Wetter-Handel liefen durch.
+Werkzeug: `deploy/mssql_to_pg_sync.py`, `deploy/pg_views.sql`,
+`deploy/pg_dump_nightly.sh`.
+
+| | Ergebnis |
+|---|---|
+| Erstladung | **30 Tabellen, 1.874.703 Zeilen in 63 s** (`sysdiagrams` übersprungen) |
+| Abnahme | alle Tabellen zeilengleich, echte `COUNT(*)` beidseitig |
+| Views | alle 3 portiert und geprüft |
+| Dump | **51 MB in 29 s** — der Plan schätzte 100–150 MB, das war zu hoch |
+| Rücksicherung | **getestet**, in eine Wegwerf-DB zurückgespielt: 30 Tabellen, 3 Views, alle Zeilenzahlen identisch |
+| Cron | 02:45 Abgleich → 03:20 Dump → 03:40 Systemconfig → 04:00 NAS-Pull |
+
+**Vier Abweichungen vom Plan, jede mit Grund:**
+
+1. **Postgres war schon da** — PG 16 aus dem Ubuntu-Repo, `enabled`, lauscht auf
+   127.0.0.1. Kein PGDG-Repo eingebunden: ein laufendes, per `apt` gepflegtes
+   PG16 tut genau, was der Plan wollte; ein Versionssprung wäre Risiko ohne
+   Gegenwert gewesen.
+2. **Kein `pgloader`, sondern ein eigenes Skript.** pgloader hätte erst über
+   FreeTDS an MSSQL angebunden werden müssen und deckt nur die *Erstladung* ab —
+   die **Abgleichschleife**, die der Plan ohnehin verlangt, wäre ein zweites
+   Werkzeug geworden. Das Skript macht beides, in der Sprache des übrigen Stacks.
+3. **Alle Bezeichner werden kleingeschrieben.** PostgreSQL faltet unquotete
+   Namen ohnehin nach lowercase — so findet bestehender Code jede Schreibweise
+   dieselbe Tabelle. ⚠ **Das ist eine Hausaufgabe für P3:** wer Ergebniszeilen
+   als dict über den Spaltennamen liest (`row['ClosePrice']`, `as_dict=True`),
+   bekommt künftig lowercase-Schlüssel und bricht.
+4. **Fremdschlüssel bewusst weggelassen.** Bis P4 ist der Nachbau rein lesend;
+   ohne FKs bleibt jede Tabelle einzeln neu ladbar. Sie kommen dazu, wenn die
+   Schreiber umziehen. PK und die 69 Sekundärindizes sind übernommen.
+
+**Zwei Fallen, die beim Bauen aufgeschlagen sind:**
+
+- **Die Quelle steht nicht still.** Die erste Abnahme meldete
+  `bb_WeatherTileLatency` als fehlerhaft — 10 Zeilen Differenz. Es war kein
+  Datenverlust: `MIN(id)` identisch, `MAX(id)` 193.647 gegen 193.636, der
+  Tile-Logger hatte während des Kopierens weitergeschrieben. Ein blosser
+  Zahlenvergleich ist für Tabellen mit Live-Schreibern das falsche Kriterium.
+  Richtig ist: *stimmt PG mit dem überein, was dieser Lauf kopiert hat* — und
+  „Ziel hat mehr als Quelle" bleibt immer ein Fehler.
+- **`--schema` frisst die Views.** Es legt Tabellen per `DROP TABLE … CASCADE`
+  neu an, und Views hängen daran. Der nächtliche Cron läuft deshalb mit
+  **`--data`**; nach einem bewussten `--full`-Lauf müssen die Views neu
+  eingespielt werden.
+
+**Der Zeitzonen-Befund** (die einzige dialektbehaftete View): alle 13.624
+Kaggle-Zeitstempel stimmen exakt überein, ebenso Winter, Sommer und die
+Vorstell-Lücke im März. **Am Rückstelltag divergieren die Engines um eine
+Stunde**: `05.11. 01:30` ET existiert zweimal, MSSQL löst als Sommerzeit auf,
+PostgreSQL als Standardzeit. Nicht nachgebaut, weil Handelszeit 09:30–16:00 ET
+ist und die doppelte Stunde in Kursdaten nicht vorkommt — aber notiert, falls
+der 1-Min-Bestand je auf 24 h erweitert wird.
+
+**Noch offen aus P1:** Postgres ist im Watchdog nicht überwacht. Weder der
+Dienst noch die Frische des letzten Abgleichs bzw. Dumps lösen bisher Alarm aus.
+
+### P1 — der ursprüngliche Plan
 
 **Nativ per `apt` (PGDG), kein Container.** Entscheidung vom 04.08.: Docker ist
 von der Maschine herunter, damit wäre ein einzelner DB-Container der einzige
