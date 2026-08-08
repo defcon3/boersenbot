@@ -206,9 +206,22 @@ Verbotene Zeiten: **15:35/15:40 Mo–Fr** (`signal_to_orders.py`,
 
 1. Schreiber stoppen (NAS-Cron, Contabo-Timer)
 2. Letzter Abgleich MSSQL → Postgres
-3. NAS-`bundesliga` (8 Dateien) + Contabo (39) auf Postgres umstellen
-4. Schreiber starten, einen Importlauf abwarten und prüfen
-5. DNS `frau-von-allerliebst.de` → 144.91.98.234, nginx-vhost + certbot
+   (`deploy/mssql_to_pg_sync.py --data`)
+3. ⚠ **Den nächtlichen Abgleich aus der crontab nehmen** — die Zeile `45 2 * * *`
+   mit `mssql_to_pg_sync.py`. **Bevor** die Schreiber auf Postgres losgelassen
+   werden, nicht danach.
+
+   > Der Abgleich ist kein Merge, sondern ein `TRUNCATE` + Neuladen je Tabelle,
+   > und er kennt nur eine Richtung: Centron → Postgres. Ab dem Umschalttag ist
+   > Postgres Master. Ein einziger weiterer Lauf würde in der Nacht danach den
+   > gesamten Tagesbestand — Ergebnisse, Quoten, Wetter-Leitern — durch den
+   > eingefrorenen Centron-Stand ersetzen. Bemerkt wird das erst am Morgen.
+
+   Der **Dump um 03:20 bleibt** und wird ab hier wichtiger als je zuvor: er ist
+   dann die einzige Sicherung der Daten, nicht mehr nur eine Kopie der Kopie.
+4. NAS-`bundesliga` (8 Dateien) + Contabo (39) auf Postgres umstellen
+5. Schreiber starten, einen Importlauf abwarten und prüfen
+6. DNS `frau-von-allerliebst.de` → 144.91.98.234, nginx-vhost + certbot
    (Certbot läuft auf Contabo bereits)
 
 ### P5 — Nachlauf, dann kündigen
